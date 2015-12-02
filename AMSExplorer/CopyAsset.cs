@@ -81,7 +81,6 @@ namespace AMSExplorer
             {
                 return checkBoxTargetSingleAsset.Checked;
             }
-
         }
 
         public bool DeleteSourceAsset
@@ -124,6 +123,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool CloneAssetFilters
+        {
+            get
+            {
+                return checkBoxCloneAssetFilters.Checked;
+            }
+        }
+
 
         public CopyAsset(CloudMediaContext context, int numberofobjectselected, CopyAssetBoxMode mode)
         {
@@ -131,38 +138,38 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             Mode = mode;
+            string s = numberofobjectselected > 1 ? "s" : "";
 
             switch (Mode)
             {
                 case CopyAssetBoxMode.CopyAsset:
-                    buttonOk.Text = string.Format(buttonOk.Text, numberofobjectselected > 1 ? "s" : "");
-                    labelinfo.Text = string.Format(labelinfo.Text, numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
-                    checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, numberofobjectselected > 1 ? "s" : "");
+                    buttonOk.Text = string.Format(buttonOk.Text, s);
+                    labelinfo.Text = string.Format(labelinfo.Text, numberofobjectselected, s);
+                    checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, s);
                     checkBoxTargetSingleAsset.Enabled = numberofobjectselected > 1;
                     checkBoxCopyDynEnc.Checked = false;
+                    checkBoxCloneLocators.Visible = false;
+                    labelCloneLocators.Visible = false;
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
-                    labelExplanation.Text = "The channels(s) will be cloned with the same name and settings to the selected account.";
+                    labelAssetCopy.Text = "Clone Channel";
+                    labelExplanation.Text = string.Format("The channel{0} will be cloned with the same name and settings to the selected account.", s);
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
-                    labelinfo.Text = string.Format("{0} channel{1} selected", numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
-                    buttonOk.Text = this.Text = string.Format("Clone channel{0}", numberofobjectselected > 1 ? "s" : "");
+                    labelinfo.Text = string.Format("{0} channel{1} selected", numberofobjectselected, s);
+                    buttonOk.Text = this.Text = string.Format("Clone channel{0}", s);
                     panelStorageAccount.Visible = false;
                     groupBoxOptions.Visible = false;
                     break;
 
                 case CopyAssetBoxMode.CloneProgram:
-                    labelExplanation.Text = "The program(s) will be cloned to the same channel name in the selected account.";
-                    labelinfo.Text = string.Format("{0} program{1} selected", numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
-                    buttonOk.Text = this.Text = string.Format("Clone program{0}", numberofobjectselected > 1 ? "s" : "");
+                    labelAssetCopy.Text = "Clone Program";
+                    labelExplanation.Text = string.Format("The program{0} will be cloned to the same channel name in the selected account.", s);
+                    labelinfo.Text = string.Format("{0} program{1} selected", numberofobjectselected, s);
+                    buttonOk.Text = this.Text = string.Format("Clone program{0}", s);
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
-                    checkBoxCopyDynEnc.Visible = true;
-                    checkBoxRewriteURL.Visible = true;
-                    checkBoxCloneLocators.Visible = true;
-                    labelCloneLocators.Visible = true;
-                    labelCloneLocators.Visible = true;
                     checkBoxDeleteSource.Visible = false;
                     checkBoxTargetSingleAsset.Visible = false;
                     break;
@@ -180,7 +187,6 @@ namespace AMSExplorer
             labelWarning.Text = "";
             labelWarningStorage.Text = "";
 
-
             if (CredentialsList != null)
             {
                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
@@ -191,7 +197,6 @@ namespace AMSExplorer
                         {
                             listBoxAccounts.SelectedIndex = index;
                         }
-
                     }
                 }
             }
@@ -209,7 +214,6 @@ namespace AMSExplorer
             string[] temp = mystring.Split("|".ToCharArray());
             return temp.Count() > 1 ? temp[1] : string.Empty;
         }
-
 
         private void listBoxAcounts_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -256,7 +260,6 @@ namespace AMSExplorer
                     {
                         listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
                     }
-
                 }
                 catch
                 {
@@ -266,8 +269,6 @@ namespace AMSExplorer
                 {
                     this.Cursor = Cursors.Arrow;
                 }
-
-
             }
             else  // default storage selected
             {
@@ -277,7 +278,6 @@ namespace AMSExplorer
 
         private void listBoxStorage_SelectedIndexChanged(object sender, EventArgs e)
         {
-
 
 
         }

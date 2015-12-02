@@ -351,7 +351,6 @@
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemProgramAssetFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.subclipProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
@@ -582,7 +581,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -3198,7 +3197,7 @@
             this.subclipProgramsToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 330);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 352);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -3348,8 +3347,7 @@
             this.publishToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createALocatorToolStripMenuItem2,
             this.deleteAllLocatorsToolStripMenuItem1,
-            this.toolStripMenuItem25,
-            this.toolStripMenuItemProgramAssetFilterInfo});
+            this.toolStripMenuItem25});
             this.publishToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.publishToolStripMenuItem2.Name = "publishToolStripMenuItem2";
             this.publishToolStripMenuItem2.Size = new System.Drawing.Size(280, 22);
@@ -3382,14 +3380,6 @@
             this.toolStripMenuItem25.Size = new System.Drawing.Size(248, 22);
             this.toolStripMenuItem25.Text = "Create an asset filter...";
             this.toolStripMenuItem25.Click += new System.EventHandler(this.toolStripMenuItem25_Click);
-            // 
-            // toolStripMenuItemProgramAssetFilterInfo
-            // 
-            this.toolStripMenuItemProgramAssetFilterInfo.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
-            this.toolStripMenuItemProgramAssetFilterInfo.Name = "toolStripMenuItemProgramAssetFilterInfo";
-            this.toolStripMenuItemProgramAssetFilterInfo.Size = new System.Drawing.Size(248, 22);
-            this.toolStripMenuItemProgramAssetFilterInfo.Text = "Asset filter info/update...";
-            this.toolStripMenuItemProgramAssetFilterInfo.DropDownOpening += new System.EventHandler(this.toolStripMenuItemProgramAssetFilterInfo_DropDownOpening);
             // 
             // ContextMenuItemProgramCopyTheOutputURLToClipboard
             // 
@@ -5665,7 +5655,6 @@
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProgramAssetFilterInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem26;
         private System.Windows.Forms.ToolStripMenuItem azureMediaPlayerDiagnosticsCenterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cloneToolStripMenuItem;

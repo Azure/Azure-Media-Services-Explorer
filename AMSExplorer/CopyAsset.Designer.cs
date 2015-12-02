@@ -46,13 +46,15 @@
             this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxCloneAssetFilters = new System.Windows.Forms.CheckBox();
             this.labelCloneLocators = new System.Windows.Forms.Label();
             this.checkBoxCloneLocators = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyDynEnc = new System.Windows.Forms.CheckBox();
             this.checkBoxRewriteURL = new System.Windows.Forms.CheckBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelAssetCopy = new System.Windows.Forms.Label();
+            this.labelCloneFilters = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelStorageAccount.SuspendLayout();
@@ -136,7 +138,7 @@
             this.groupBox1.Controls.Add(this.listBoxAccounts);
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Controls.Add(this.labelWarning);
-            this.groupBox1.Location = new System.Drawing.Point(17, 65);
+            this.groupBox1.Location = new System.Drawing.Point(17, 91);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(515, 326);
             this.groupBox1.TabIndex = 63;
@@ -234,9 +236,10 @@
             // 
             // labelinfo
             // 
-            this.labelinfo.Location = new System.Drawing.Point(119, 16);
+            this.labelinfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelinfo.Location = new System.Drawing.Point(14, 62);
             this.labelinfo.Name = "labelinfo";
-            this.labelinfo.Size = new System.Drawing.Size(381, 20);
+            this.labelinfo.Size = new System.Drawing.Size(756, 20);
             this.labelinfo.TabIndex = 66;
             this.labelinfo.Text = "{0} asset{1} selected.";
             // 
@@ -254,40 +257,51 @@
             // 
             this.groupBoxOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxOptions.Controls.Add(this.labelCloneFilters);
+            this.groupBoxOptions.Controls.Add(this.checkBoxCloneAssetFilters);
             this.groupBoxOptions.Controls.Add(this.labelCloneLocators);
             this.groupBoxOptions.Controls.Add(this.checkBoxCloneLocators);
             this.groupBoxOptions.Controls.Add(this.checkBoxCopyDynEnc);
             this.groupBoxOptions.Controls.Add(this.checkBoxRewriteURL);
             this.groupBoxOptions.Controls.Add(this.checkBoxTargetSingleAsset);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteSource);
-            this.groupBoxOptions.Location = new System.Drawing.Point(540, 65);
+            this.groupBoxOptions.Location = new System.Drawing.Point(540, 91);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Size = new System.Drawing.Size(230, 326);
             this.groupBoxOptions.TabIndex = 68;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
             // 
+            // checkBoxCloneAssetFilters
+            // 
+            this.checkBoxCloneAssetFilters.Checked = true;
+            this.checkBoxCloneAssetFilters.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCloneAssetFilters.Location = new System.Drawing.Point(22, 195);
+            this.checkBoxCloneAssetFilters.Name = "checkBoxCloneAssetFilters";
+            this.checkBoxCloneAssetFilters.Size = new System.Drawing.Size(168, 20);
+            this.checkBoxCloneAssetFilters.TabIndex = 72;
+            this.checkBoxCloneAssetFilters.Text = "Clone asset filters";
+            this.checkBoxCloneAssetFilters.UseVisualStyleBackColor = true;
+            // 
             // labelCloneLocators
             // 
             this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelCloneLocators.Location = new System.Drawing.Point(19, 220);
+            this.labelCloneLocators.Location = new System.Drawing.Point(19, 276);
             this.labelCloneLocators.Name = "labelCloneLocators";
             this.labelCloneLocators.Size = new System.Drawing.Size(204, 37);
             this.labelCloneLocators.TabIndex = 71;
-            this.labelCloneLocators.Text = "Requires that destination account is in a different datacenter";
-            this.labelCloneLocators.Visible = false;
+            this.labelCloneLocators.Text = "Requires that destination account is in a different region";
             // 
             // checkBoxCloneLocators
             // 
             this.checkBoxCloneLocators.Checked = true;
             this.checkBoxCloneLocators.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCloneLocators.Location = new System.Drawing.Point(22, 197);
+            this.checkBoxCloneLocators.Location = new System.Drawing.Point(22, 253);
             this.checkBoxCloneLocators.Name = "checkBoxCloneLocators";
             this.checkBoxCloneLocators.Size = new System.Drawing.Size(168, 20);
             this.checkBoxCloneLocators.TabIndex = 71;
             this.checkBoxCloneLocators.Text = "Clone streaming locators";
             this.checkBoxCloneLocators.UseVisualStyleBackColor = true;
-            this.checkBoxCloneLocators.Visible = false;
             // 
             // checkBoxCopyDynEnc
             // 
@@ -317,7 +331,7 @@
             // checkBoxTargetSingleAsset
             // 
             this.checkBoxTargetSingleAsset.AutoSize = true;
-            this.checkBoxTargetSingleAsset.Location = new System.Drawing.Point(22, 57);
+            this.checkBoxTargetSingleAsset.Location = new System.Drawing.Point(22, 60);
             this.checkBoxTargetSingleAsset.Name = "checkBoxTargetSingleAsset";
             this.checkBoxTargetSingleAsset.Size = new System.Drawing.Size(113, 34);
             this.checkBoxTargetSingleAsset.TabIndex = 68;
@@ -330,21 +344,30 @@
             this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelExplanation.Location = new System.Drawing.Point(12, 39);
             this.labelExplanation.Name = "labelExplanation";
-            this.labelExplanation.Size = new System.Drawing.Size(463, 23);
+            this.labelExplanation.Size = new System.Drawing.Size(756, 23);
             this.labelExplanation.TabIndex = 70;
             this.labelExplanation.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
     "ed.";
             // 
-            // label5
+            // labelAssetCopy
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(13, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 20);
-            this.label5.TabIndex = 71;
-            this.label5.Text = "Asset Copy";
+            this.labelAssetCopy.AutoSize = true;
+            this.labelAssetCopy.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssetCopy.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelAssetCopy.Location = new System.Drawing.Point(13, 12);
+            this.labelAssetCopy.Name = "labelAssetCopy";
+            this.labelAssetCopy.Size = new System.Drawing.Size(82, 20);
+            this.labelAssetCopy.TabIndex = 71;
+            this.labelAssetCopy.Text = "Asset Copy";
+            // 
+            // labelCloneFilters
+            // 
+            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneFilters.Location = new System.Drawing.Point(19, 218);
+            this.labelCloneFilters.Name = "labelCloneFilters";
+            this.labelCloneFilters.Size = new System.Drawing.Size(204, 23);
+            this.labelCloneFilters.TabIndex = 73;
+            this.labelCloneFilters.Text = "Start and end times will be removed";
             // 
             // CopyAsset
             // 
@@ -354,7 +377,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.labelExplanation);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.labelinfo);
@@ -405,6 +428,8 @@
         private System.Windows.Forms.Label labelCloneLocators;
         private System.Windows.Forms.CheckBox checkBoxCloneLocators;
         private System.Windows.Forms.Panel panelStorageAccount;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelAssetCopy;
+        private System.Windows.Forms.CheckBox checkBoxCloneAssetFilters;
+        private System.Windows.Forms.Label labelCloneFilters;
     }
 }

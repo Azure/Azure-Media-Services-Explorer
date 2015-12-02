@@ -58,7 +58,6 @@ using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
-
     public partial class Mainform : Form
     {
 
@@ -882,11 +881,9 @@ namespace AMSExplorer
             {
                 dataGridViewIngestManifestsV.Init(_credentials, _context);
                 Debug.WriteLine("DoRefreshGridUngestManifestforsttime");
-                //dataGridViewIngestManifestsV.AnalyzeItemsInBackground();
             }
             Debug.WriteLine("DoRefreshGridUngestManifestNotforsttime");
             dataGridViewIngestManifestsV.Invoke(new Action(() => dataGridViewIngestManifestsV.RefreshIngestManifests(_context)));
-            // tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -922,7 +919,6 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
-                    //DoRefreshGridAssetV(false);
                 }
                 catch (Exception ex)
                 {
@@ -1002,7 +998,6 @@ namespace AMSExplorer
 
                     // Submit the job
                     IJob job = _context.Jobs.Create(jobname, watchfoldersettings.JobTemplate, assetlist, Properties.Settings.Default.DefaultJobPriority);
-                    //job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, watchfoldersettings.NotificationEndPoint);
 
                     try
                     {
@@ -1310,7 +1305,6 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
-                    //DoRefreshGridAssetV(false);
                 }
             }
         }
@@ -2964,7 +2958,7 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators)
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
@@ -3023,6 +3017,29 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
+
+            if (CloneAssetFilters && sourceProgram.Asset.AssetFilters.Count() > 0)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Copying filter(s) to cloned asset '{0}'", sourceProgram.Asset.Name);
+
+                    foreach (var filter in sourceProgram.Asset.AssetFilters)
+                    {
+                        // let's remove start and end time
+                        var PTR = new PresentationTimeRange(filter.PresentationTimeRange.Timescale, null, null, filter.PresentationTimeRange.PresentationWindowDuration, filter.PresentationTimeRange.LiveBackoffDuration);
+                        clonedAsset.AssetFilters.Create(filter.Name, PTR, filter.Tracks);
+                        TextBoxLogWriteLine(string.Format("Cloned filter {0} created.", filter.Name));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when copying filter(s) to the asset '{0}'.", clonedAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
             var options = new ProgramCreationOptions()
             {
                 Name = sourceProgram.Name,
@@ -3504,7 +3521,7 @@ namespace AMSExplorer
             return doc.ToString();
         }
 
-      
+
 
         /// <summary>
         /// Converts Smooth Stream to HLS.
@@ -7612,7 +7629,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly:true)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -9506,7 +9523,7 @@ namespace AMSExplorer
                 if (SelectedPrograms.Count > 0)
                 {
                     string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
-                    question += Constants.endline + Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name, locator ID, keys and delivery policies.";
+                    question += Constants.endline + Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name, locator ID, keys, delivery policies and filters.";
                     question += Constants.endline + Constants.endline + "WARNING: As the new asset will use the same locator ID, this can create issues. Notes:";
                     question += Constants.endline + "- Encoder must use incremental timestamps";
                     question += Constants.endline + "- Locator GUID are cached by the streaming endpoints for 5 minutes";
@@ -9586,6 +9603,20 @@ namespace AMSExplorer
                                         {
                                             newAsset.DeliveryPolicies.Add(delpol);
                                         }
+                                        //let's copy the filters
+                                        foreach (var filter in asset.AssetFilters)
+                                        {
+                                            try
+                                            {
+                                                newAsset.AssetFilters.Create(filter.Name, filter.PresentationTimeRange, filter.Tracks);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                TextBoxLogWriteLine("There is a problem when copying filter {0} the new asset {1}.", filter.Name, assetName, true);
+                                                TextBoxLogWriteLine(ex);
+                                            }
+                                        }
+
                                         //delete
                                         try
                                         {
@@ -10781,10 +10812,6 @@ namespace AMSExplorer
             // copy program url if only one program
             ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = single;
 
-            // edit asset filter if only one program
-            toolStripMenuItemProgramAssetFilterInfo.Enabled = single;
-
-
             // reset program
             recreateProgramToolStripMenuItem.Enabled = oneOrMore;
 
@@ -11257,7 +11284,7 @@ namespace AMSExplorer
                     foreach (IProgram program in SelectedPrograms)
                     {
                         // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators));
+                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators, form.CloneAssetFilters));
                     }
                 }
             }
@@ -11284,7 +11311,6 @@ namespace AMSExplorer
                         Task.Factory.StartNew(() => ProcessCloneChannelToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, channel));
                     }
                 }
-
             }
         }
 
@@ -11940,6 +11966,11 @@ namespace AMSExplorer
         private void toolStripMenuItem36_Click_1(object sender, EventArgs e)
         {
             DoMenuEncodeWithAMEAdvanced();
+
+        }
+
+        private void toolStripMenuItemProgramAssetFilterInfo_Click(object sender, EventArgs e)
+        {
 
         }
     }
