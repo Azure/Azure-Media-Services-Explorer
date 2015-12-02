@@ -41,6 +41,7 @@
             this.textBoxOriginDescription = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelCloneFilters = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.panel1.SuspendLayout();
@@ -73,6 +74,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.labelCloneFilters);
             this.groupBox4.Controls.Add(this.checkBoxEnableAzureCDN);
             this.groupBox4.Controls.Add(this.numericUpDownRU);
             this.groupBox4.Controls.Add(this.label2);
@@ -171,6 +175,17 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // labelCloneFilters
+            // 
+            this.labelCloneFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneFilters.Location = new System.Drawing.Point(155, 67);
+            this.labelCloneFilters.Name = "labelCloneFilters";
+            this.labelCloneFilters.Size = new System.Drawing.Size(340, 36);
+            this.labelCloneFilters.TabIndex = 74;
+            this.labelCloneFilters.Text = "It takes up to 90 mins for CDN configuration to fully propagate and ready to use";
+            // 
             // CreateStreamingEndpoint
             // 
             this.AcceptButton = this.buttonOk;
@@ -214,5 +229,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxEnableAzureCDN;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label labelCloneFilters;
     }
 }

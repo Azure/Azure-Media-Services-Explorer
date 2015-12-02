@@ -1964,8 +1964,10 @@ namespace AMSExplorer
                     { // multi files in asset
                         var AssetFiles = asset.AssetFiles.ToList();
                         var ThumbnailsAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        var XMLAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        int nonThumbnailFilesCount = AssetFiles.Count - ThumbnailsAssetFiles.Count();
 
-                        if ((ThumbnailsAssetFiles.Count() > 0) && (ThumbnailsAssetFiles.Count() >= (AssetFiles.Count - 1)))
+                        if ((ThumbnailsAssetFiles.Count() > 0) && ((nonThumbnailFilesCount == 0) || (XMLAssetFiles.Count() == 1)))
                         {
                             type = Type_Thumbnails;
                             number = ThumbnailsAssetFiles.Count();
