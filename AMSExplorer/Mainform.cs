@@ -8746,8 +8746,16 @@ namespace AMSExplorer
                     if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.None && form1.EnableDynEnc)
                     {
                         IAssetDeliveryPolicy DelPol = null;
-                        string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+
+                        var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
+                        if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
+                        {
+                            assetDeliveryProtocol = AssetDeliveryProtocol.Dash;  // only DASH
+                        }
+
+                        string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
                         ErrorCreationKey = false;
+
                         try
                         {
                             DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(

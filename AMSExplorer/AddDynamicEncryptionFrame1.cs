@@ -140,6 +140,9 @@ namespace AMSExplorer
 
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
+            panelPackaging.Visible = !radioButtonDecryptStorage.Checked;
+            checkBoxEnableDynEnc.Checked = true;
+            checkBoxEnableDynEnc.Visible = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
@@ -148,7 +151,7 @@ namespace AMSExplorer
 
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
+            groupBoxDelPolProtocols.Visible = !radioButtonNoDynEnc.Checked;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -168,7 +171,7 @@ namespace AMSExplorer
 
         private void radioButtonAESClearKey_CheckedChanged(object sender, EventArgs e)
         {
-            panelPackaging.Enabled = !radioButtonAESClearKey.Checked;
+            panelPackaging.Visible = !radioButtonAESClearKey.Checked;
         }
     }
 }

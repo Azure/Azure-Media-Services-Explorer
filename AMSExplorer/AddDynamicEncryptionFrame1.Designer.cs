@@ -204,7 +204,6 @@
             this.panelDynEnc.Controls.Add(this.checkBoxProtocolHLS);
             this.panelDynEnc.Controls.Add(this.checkBoxProtocolDASH);
             this.panelDynEnc.Controls.Add(this.checkBoxProtocolSmooth);
-            this.panelDynEnc.Controls.Add(this.label5);
             this.panelDynEnc.Location = new System.Drawing.Point(6, 47);
             this.panelDynEnc.Name = "panelDynEnc";
             this.panelDynEnc.Size = new System.Drawing.Size(633, 264);
@@ -216,12 +215,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelPackaging.Controls.Add(this.checkBoxPlayReadyPackaging);
             this.panelPackaging.Controls.Add(this.label6);
+            this.panelPackaging.Controls.Add(this.label5);
             this.panelPackaging.Controls.Add(this.checkBoxWidevinePackaging);
             this.panelPackaging.Controls.Add(this.label7);
             this.panelPackaging.Controls.Add(this.textBoxCustomAttributes);
-            this.panelPackaging.Location = new System.Drawing.Point(5, 137);
+            this.panelPackaging.Location = new System.Drawing.Point(5, 115);
             this.panelPackaging.Name = "panelPackaging";
-            this.panelPackaging.Size = new System.Drawing.Size(625, 124);
+            this.panelPackaging.Size = new System.Drawing.Size(625, 146);
             this.panelPackaging.TabIndex = 86;
             // 
             // checkBoxPlayReadyPackaging
@@ -229,7 +229,7 @@
             this.checkBoxPlayReadyPackaging.AutoSize = true;
             this.checkBoxPlayReadyPackaging.Checked = true;
             this.checkBoxPlayReadyPackaging.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayReadyPackaging.Location = new System.Drawing.Point(32, 3);
+            this.checkBoxPlayReadyPackaging.Location = new System.Drawing.Point(32, 34);
             this.checkBoxPlayReadyPackaging.Name = "checkBoxPlayReadyPackaging";
             this.checkBoxPlayReadyPackaging.Size = new System.Drawing.Size(109, 19);
             this.checkBoxPlayReadyPackaging.TabIndex = 58;
@@ -243,7 +243,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(444, 74);
+            this.label6.Location = new System.Drawing.Point(444, 105);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(156, 15);
             this.label6.TabIndex = 84;
@@ -254,7 +254,7 @@
             this.checkBoxWidevinePackaging.AutoSize = true;
             this.checkBoxWidevinePackaging.Checked = true;
             this.checkBoxWidevinePackaging.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWidevinePackaging.Location = new System.Drawing.Point(32, 88);
+            this.checkBoxWidevinePackaging.Location = new System.Drawing.Point(32, 119);
             this.checkBoxWidevinePackaging.Name = "checkBoxWidevinePackaging";
             this.checkBoxWidevinePackaging.Size = new System.Drawing.Size(220, 19);
             this.checkBoxWidevinePackaging.TabIndex = 59;
@@ -265,7 +265,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(54, 30);
+            this.label7.Location = new System.Drawing.Point(54, 61);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(108, 15);
             this.label7.TabIndex = 85;
@@ -276,7 +276,7 @@
             this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCustomAttributes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(57, 48);
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(57, 79);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
             this.textBoxCustomAttributes.Size = new System.Drawing.Size(543, 23);
             this.textBoxCustomAttributes.TabIndex = 83;
@@ -285,9 +285,9 @@
             // 
             this.label4.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 12);
+            this.label4.Location = new System.Drawing.Point(6, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(627, 18);
+            this.label4.Size = new System.Drawing.Size(621, 18);
             this.label4.TabIndex = 71;
             this.label4.Text = "Delivery protocols";
             // 
@@ -332,9 +332,9 @@
             // 
             this.label5.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(2, 116);
+            this.label5.Location = new System.Drawing.Point(4, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(628, 18);
+            this.label5.Size = new System.Drawing.Size(618, 18);
             this.label5.TabIndex = 72;
             this.label5.Text = "Packaging";
             // 
