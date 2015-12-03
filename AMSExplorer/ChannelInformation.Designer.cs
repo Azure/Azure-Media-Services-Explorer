@@ -69,6 +69,9 @@
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
             this.groupBoxEncoding = new System.Windows.Forms.GroupBox();
+            this.labelChannelMustBeStopped = new System.Windows.Forms.Label();
+            this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
+            this.tabPageEncoding = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -82,6 +85,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBoxEncoding.SuspendLayout();
+            this.tabPageEncoding.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -127,6 +131,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageChannelInfo);
             this.tabControl1.Controls.Add(this.tabPageSettings);
+            this.tabControl1.Controls.Add(this.tabPageEncoding);
             this.tabControl1.Controls.Add(this.tabPagePolicies);
             this.tabControl1.Controls.Add(this.tabPagePreview);
             this.tabControl1.Location = new System.Drawing.Point(14, 50);
@@ -148,7 +153,6 @@
             // 
             // tabPageSettings
             // 
-            this.tabPageSettings.Controls.Add(this.groupBoxEncoding);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
             this.tabPageSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
@@ -467,6 +471,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.labelChannelStoppedOrStartedSettings);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Location = new System.Drawing.Point(-2, 595);
@@ -487,15 +492,15 @@
             this.textBoxCustomPreset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCustomPreset.Enabled = false;
-            this.textBoxCustomPreset.Location = new System.Drawing.Point(159, 58);
+            this.textBoxCustomPreset.Location = new System.Drawing.Point(159, 56);
             this.textBoxCustomPreset.Name = "textBoxCustomPreset";
-            this.textBoxCustomPreset.Size = new System.Drawing.Size(219, 23);
+            this.textBoxCustomPreset.Size = new System.Drawing.Size(332, 23);
             this.textBoxCustomPreset.TabIndex = 77;
             // 
             // radioButtonCustomPreset
             // 
             this.radioButtonCustomPreset.AutoSize = true;
-            this.radioButtonCustomPreset.Location = new System.Drawing.Point(25, 59);
+            this.radioButtonCustomPreset.Location = new System.Drawing.Point(25, 57);
             this.radioButtonCustomPreset.Name = "radioButtonCustomPreset";
             this.radioButtonCustomPreset.Size = new System.Drawing.Size(128, 19);
             this.radioButtonCustomPreset.TabIndex = 79;
@@ -507,7 +512,7 @@
             // 
             this.radioButtonDefaultPreset.AutoSize = true;
             this.radioButtonDefaultPreset.Checked = true;
-            this.radioButtonDefaultPreset.Location = new System.Drawing.Point(25, 33);
+            this.radioButtonDefaultPreset.Location = new System.Drawing.Point(25, 31);
             this.radioButtonDefaultPreset.Name = "radioButtonDefaultPreset";
             this.radioButtonDefaultPreset.Size = new System.Drawing.Size(106, 19);
             this.radioButtonDefaultPreset.TabIndex = 78;
@@ -521,12 +526,43 @@
             this.groupBoxEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.textBoxCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.radioButtonDefaultPreset);
-            this.groupBoxEncoding.Location = new System.Drawing.Point(447, 339);
+            this.groupBoxEncoding.Location = new System.Drawing.Point(25, 48);
             this.groupBoxEncoding.Name = "groupBoxEncoding";
-            this.groupBoxEncoding.Size = new System.Drawing.Size(384, 117);
+            this.groupBoxEncoding.Size = new System.Drawing.Size(510, 125);
             this.groupBoxEncoding.TabIndex = 80;
             this.groupBoxEncoding.TabStop = false;
-            this.groupBoxEncoding.Text = "Encoding";
+            this.groupBoxEncoding.Text = "Encoding Preset";
+            // 
+            // labelChannelMustBeStopped
+            // 
+            this.labelChannelMustBeStopped.Location = new System.Drawing.Point(22, 16);
+            this.labelChannelMustBeStopped.Name = "labelChannelMustBeStopped";
+            this.labelChannelMustBeStopped.Size = new System.Drawing.Size(356, 19);
+            this.labelChannelMustBeStopped.TabIndex = 80;
+            this.labelChannelMustBeStopped.Text = "Channel must be stopped to change encoding settings";
+            this.labelChannelMustBeStopped.Visible = false;
+            // 
+            // labelChannelStoppedOrStartedSettings
+            // 
+            this.labelChannelStoppedOrStartedSettings.Location = new System.Drawing.Point(225, 18);
+            this.labelChannelStoppedOrStartedSettings.Name = "labelChannelStoppedOrStartedSettings";
+            this.labelChannelStoppedOrStartedSettings.Size = new System.Drawing.Size(356, 19);
+            this.labelChannelStoppedOrStartedSettings.TabIndex = 81;
+            this.labelChannelStoppedOrStartedSettings.Text = "Channel must be in stopped or running state to update settings";
+            this.labelChannelStoppedOrStartedSettings.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelChannelStoppedOrStartedSettings.Visible = false;
+            // 
+            // tabPageEncoding
+            // 
+            this.tabPageEncoding.Controls.Add(this.labelChannelMustBeStopped);
+            this.tabPageEncoding.Controls.Add(this.groupBoxEncoding);
+            this.tabPageEncoding.Location = new System.Drawing.Point(4, 24);
+            this.tabPageEncoding.Name = "tabPageEncoding";
+            this.tabPageEncoding.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEncoding.Size = new System.Drawing.Size(879, 511);
+            this.tabPageEncoding.TabIndex = 4;
+            this.tabPageEncoding.Text = "Encoding";
+            this.tabPageEncoding.UseVisualStyleBackColor = true;
             // 
             // ChannelInformation
             // 
@@ -562,6 +598,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.groupBoxEncoding.ResumeLayout(false);
             this.groupBoxEncoding.PerformLayout();
+            this.tabPageEncoding.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -608,5 +645,8 @@
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
+        private System.Windows.Forms.Label labelChannelMustBeStopped;
+        private System.Windows.Forms.Label labelChannelStoppedOrStartedSettings;
+        private System.Windows.Forms.TabPage tabPageEncoding;
     }
 }

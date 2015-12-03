@@ -527,14 +527,8 @@ namespace AMSExplorer
             errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
         }
 
-
-
-        private void comboBoxEncodingPreset_SelectedValueChanged(object sender, EventArgs e)
-        {
-            UpdateProfileGrids();
-
-        }
-
+       
+     
         private string ReturnLiveEncodingProfile()
         {
             if (EncodingType != ChannelEncodingType.None)

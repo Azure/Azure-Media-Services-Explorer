@@ -7160,7 +7160,7 @@ namespace AMSExplorer
                     channel.Description = form.GetChannelDescription;
                     channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
-                    if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null)
+                    if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
                     {
                         channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
                     }

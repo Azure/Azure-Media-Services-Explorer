@@ -48,7 +48,7 @@ namespace AMSExplorer
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
-        private string defaultEncodingPreset="";
+        private string defaultEncodingPreset = "";
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -221,9 +221,9 @@ namespace AMSExplorer
             }
 
 
-          
 
-            if (MyChannel.Encoding != null)
+            // Encoding Settings
+            if (MyChannel.EncodingType != ChannelEncodingType.None)
             {
                 // default encoding profile name
                 var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
@@ -233,7 +233,7 @@ namespace AMSExplorer
                     radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
                 }
 
-                if (MyChannel.Encoding.SystemPreset != null)
+                if (MyChannel.Encoding != null && MyChannel.Encoding.SystemPreset != null)
                 {
                     if (MyChannel.Encoding.SystemPreset == defaultEncodingPreset)
                     {
@@ -245,10 +245,15 @@ namespace AMSExplorer
                         textBoxCustomPreset.Text = MyChannel.Encoding.SystemPreset;
                     }
                 }
+                if (MyChannel.State != ChannelState.Stopped)
+                {
+                    groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
+                    labelChannelMustBeStopped.Visible = true;
+                }
             }
             else
             {
-                groupBoxEncoding.Visible = false; // no encoding channel
+                tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
             }
 
 
@@ -296,6 +301,13 @@ namespace AMSExplorer
                 }
             }
             textboxchannedesc.Text = MyChannel.Description;
+
+            // Channel is not stopped or running. We cannot update settings
+            if (MyChannel.State!= ChannelState.Stopped && MyChannel.State != ChannelState.Running) 
+            {
+                labelChannelStoppedOrStartedSettings.Visible = true;
+                buttonUpdateClose.Enabled = false;
+            }
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -337,7 +349,6 @@ namespace AMSExplorer
             if (dataGridViewInputIP.SelectedRows.Count == 1)
             {
                 InputEndpointSettingList.RemoveAt(dataGridViewInputIP.SelectedRows[0].Index);
-                buttonUpdateClose.Enabled = true;
             }
         }
 
@@ -346,7 +357,6 @@ namespace AMSExplorer
             if (dataGridViewPreviewIP.SelectedRows.Count == 1)
             {
                 PreviewEndpointSettingList.RemoveAt(dataGridViewPreviewIP.SelectedRows[0].Index);
-                buttonUpdateClose.Enabled = true;
             }
         }
 
@@ -446,6 +456,8 @@ namespace AMSExplorer
         {
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
         }
+
+
     }
 
 }
