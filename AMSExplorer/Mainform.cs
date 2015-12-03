@@ -7080,7 +7080,6 @@ namespace AMSExplorer
                     Error = true;
                     TextBoxLogWriteLine("Error with channel settings.", true);
                     TextBoxLogWriteLine(ex);
-
                 }
 
                 if (!Error)
@@ -7108,9 +7107,7 @@ namespace AMSExplorer
                 );
                         }
                     }
-
                 }
-
             }
         }
 
@@ -7162,6 +7159,11 @@ namespace AMSExplorer
 
                     channel.Description = form.GetChannelDescription;
                     channel.Input.KeyFrameInterval = form.KeyframeInterval;
+
+                    if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null)
+                    {
+                        channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+                    }
 
                     // HLS Fragment per segment
                     if (form.HLSFragPerSegment != null)

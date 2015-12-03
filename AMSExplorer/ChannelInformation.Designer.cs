@@ -65,6 +65,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
+            this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
+            this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
+            this.groupBoxEncoding = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -77,6 +81,7 @@
             this.tabPagePreview.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.groupBoxEncoding.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -143,6 +148,7 @@
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.groupBoxEncoding);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
             this.tabPageSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
@@ -476,6 +482,52 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // textBoxCustomPreset
+            // 
+            this.textBoxCustomPreset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCustomPreset.Enabled = false;
+            this.textBoxCustomPreset.Location = new System.Drawing.Point(159, 58);
+            this.textBoxCustomPreset.Name = "textBoxCustomPreset";
+            this.textBoxCustomPreset.Size = new System.Drawing.Size(219, 23);
+            this.textBoxCustomPreset.TabIndex = 77;
+            // 
+            // radioButtonCustomPreset
+            // 
+            this.radioButtonCustomPreset.AutoSize = true;
+            this.radioButtonCustomPreset.Location = new System.Drawing.Point(25, 59);
+            this.radioButtonCustomPreset.Name = "radioButtonCustomPreset";
+            this.radioButtonCustomPreset.Size = new System.Drawing.Size(128, 19);
+            this.radioButtonCustomPreset.TabIndex = 79;
+            this.radioButtonCustomPreset.Text = "Use custom preset :";
+            this.radioButtonCustomPreset.UseVisualStyleBackColor = true;
+            this.radioButtonCustomPreset.CheckedChanged += new System.EventHandler(this.radioButtonCustomPreset_CheckedChanged);
+            // 
+            // radioButtonDefaultPreset
+            // 
+            this.radioButtonDefaultPreset.AutoSize = true;
+            this.radioButtonDefaultPreset.Checked = true;
+            this.radioButtonDefaultPreset.Location = new System.Drawing.Point(25, 33);
+            this.radioButtonDefaultPreset.Name = "radioButtonDefaultPreset";
+            this.radioButtonDefaultPreset.Size = new System.Drawing.Size(106, 19);
+            this.radioButtonDefaultPreset.TabIndex = 78;
+            this.radioButtonDefaultPreset.TabStop = true;
+            this.radioButtonDefaultPreset.Tag = "Use \"{0}\" preset";
+            this.radioButtonDefaultPreset.Text = "Use \"{0}\" preset";
+            this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxEncoding
+            // 
+            this.groupBoxEncoding.Controls.Add(this.radioButtonCustomPreset);
+            this.groupBoxEncoding.Controls.Add(this.textBoxCustomPreset);
+            this.groupBoxEncoding.Controls.Add(this.radioButtonDefaultPreset);
+            this.groupBoxEncoding.Location = new System.Drawing.Point(447, 339);
+            this.groupBoxEncoding.Name = "groupBoxEncoding";
+            this.groupBoxEncoding.Size = new System.Drawing.Size(384, 117);
+            this.groupBoxEncoding.TabIndex = 80;
+            this.groupBoxEncoding.TabStop = false;
+            this.groupBoxEncoding.Text = "Encoding";
+            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -508,6 +560,8 @@
             this.tabPagePreview.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.groupBoxEncoding.ResumeLayout(false);
+            this.groupBoxEncoding.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -550,5 +604,9 @@
         private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.GroupBox groupBoxEncoding;
+        private System.Windows.Forms.RadioButton radioButtonCustomPreset;
+        private System.Windows.Forms.TextBox textBoxCustomPreset;
+        private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
     }
 }

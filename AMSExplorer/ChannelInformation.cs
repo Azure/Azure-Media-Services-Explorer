@@ -48,6 +48,7 @@ namespace AMSExplorer
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
+        private string defaultEncodingPreset="";
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -109,6 +110,15 @@ namespace AMSExplorer
             get
             {
                 return checkBoxHLSFragPerSeg.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
+            }
+        }
+
+
+        public string SystemPreset
+        {
+            get
+            {
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }
         }
 
@@ -208,6 +218,37 @@ namespace AMSExplorer
                         numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
                     }
                 }
+            }
+
+
+          
+
+            if (MyChannel.Encoding != null)
+            {
+                // default encoding profile name
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    defaultEncodingPreset = profileliveselected.Name;
+                    radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
+                }
+
+                if (MyChannel.Encoding.SystemPreset != null)
+                {
+                    if (MyChannel.Encoding.SystemPreset == defaultEncodingPreset)
+                    {
+                        radioButtonDefaultPreset.Checked = true;
+                    }
+                    else
+                    {
+                        radioButtonCustomPreset.Checked = true;
+                        textBoxCustomPreset.Text = MyChannel.Encoding.SystemPreset;
+                    }
+                }
+            }
+            else
+            {
+                groupBoxEncoding.Visible = false; // no encoding channel
             }
 
 
@@ -399,6 +440,11 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(textBoxKeyFrame, String.Empty);
             }
+        }
+
+        private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
         }
     }
 
