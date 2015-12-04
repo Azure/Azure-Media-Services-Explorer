@@ -297,6 +297,10 @@ namespace AMSExplorer
             }
             // nb jobs limits
             int nbjobs = _context.Jobs.Count();
+            if (nbjobs > triggerForLargeAccountNbJobs)
+            {
+                TextBoxLogWriteLine("This account contains a lot of jobs. Sorting is disabled."); // Warning
+            }
             if (nbjobs > (0.75 * maxNbJobs))
             {
                 TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
@@ -872,7 +876,7 @@ namespace AMSExplorer
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
 
             // job progress restore
-            dataGridViewJobsV.RestoreJobProgress();
+            //dataGridViewJobsV.RestoreJobProgress();
         }
 
         public void DoRefreshGridIngestManifestV(bool firstime)
@@ -13620,7 +13624,9 @@ namespace AMSExplorer
         static BindingList<JobEntry> _MyObservAssethisPage;
         public IEnumerable<IJob> jobs;
         //static IEnumerable<IJob> jobs;
-        static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        // static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        static Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+
         static private int _jobsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -13676,9 +13682,9 @@ namespace AMSExplorer
             this.Columns["EndTime"].Width = 150;
             this.Columns["Duration"].Width = 90;
 
-
             _initialized = true;
         }
+
 
 
         public void DisplayPage(int page)
@@ -13798,10 +13804,6 @@ namespace AMSExplorer
             else // general case
 
             {
-
-
-
-
                 // let's get all the results locally
 
                 IList<IJob> aggregateListJobs = new List<IJob>();
@@ -13941,24 +13943,39 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
             _refreshedatleastonetime = true;
 
+            RestoreJobProgress(); // display job progress of new visible jobs
+
             Debug.WriteLine("Refresh Jobs End");
 
             this.FindForm().Cursor = Cursors.Default;
         }
+
+
 
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
         public void RestoreJobProgress()  // when app is launched for example, we want to restore job progress updates
         {
             Task.Run(() =>
            {
-               IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
+               //IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
+               IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
 
-               foreach (IJob job in ActiveJobs)
+               // let's cancel monitor task of non visible jobs
+               foreach (var jobmonitored in _MyListJobsMonitored)
                {
-                   if (!_MyListJobsMonitored.Contains(job.Id))
+                   if (ActiveAndVisibleJobs.Where(j => j.Id == jobmonitored.Key).FirstOrDefault() == null)
                    {
-                       _MyListJobsMonitored.Add(job.Id);
-                       this.DoJobProgress(job);
+                       jobmonitored.Value.Cancel();
+                       _MyListJobsMonitored.Remove(jobmonitored.Key);
+                   }
+               }
+
+               // let's monitor job that are not yet monitored
+               foreach (IJob job in ActiveAndVisibleJobs)
+               {
+                   if (!_MyListJobsMonitored.ContainsKey(job.Id))
+                   {
+                       this.DoJobProgress(job); // token will be added to dictionnary in this function
                    }
 
                }
@@ -13969,6 +13986,11 @@ namespace AMSExplorer
 
         public void DoJobProgress(IJob job)
         {
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+
+            _MyListJobsMonitored.Add(job.Id, tokenSource); // to track the task and be able to cancel it later
+
             Task.Run(() =>
             {
                 try
@@ -13976,6 +13998,12 @@ namespace AMSExplorer
                     job = job.StartExecutionProgressTask(
                        j =>
                        {
+                           // Was cancellation already requested? 
+                           if (token.IsCancellationRequested == true)
+                           {
+                               return;
+                           }
+
                            // refesh context and job
 
                            _context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
@@ -14066,7 +14094,7 @@ namespace AMSExplorer
                                    _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString("G") : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
 
-                                   if (_MyListJobsMonitored.Contains(JobRefreshed.Id)) // we want to display only one time
+                                   if (_MyListJobsMonitored.ContainsKey(JobRefreshed.Id)) // we want to display only one time
                                    {
                                        _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
                                        Mainform myform = (Mainform)this.FindForm();
@@ -14098,14 +14126,15 @@ namespace AMSExplorer
                                }
                            }
                        },
-                       CancellationToken.None).Result;
+                       token).Result;
 
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
+                    //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
                 }
-            });
+            }, token);
+                       
         }
 
 
