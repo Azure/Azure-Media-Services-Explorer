@@ -1658,7 +1658,7 @@ namespace AMSExplorer
             {
                 string question = "Cancel these " + SelectedJobs.Count + " jobs ?";
                 if (SelectedJobs.Count == 1) question = "Cancel " + SelectedJobs[0].Name + " ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Job(s) cancelation", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Job(s) cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     foreach (IJob JobToCancel in SelectedJobs)
                     {
@@ -1902,7 +1902,7 @@ namespace AMSExplorer
             {
                 string question = "Delete all locators of these " + SelectedAssets.Count + " assets ?";
                 if (SelectedAssets.Count == 1) question = "Delete all the locators of " + SelectedAssets[0].Name + " ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Locators deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Locators deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     foreach (IAsset AssetToProcess in SelectedAssets)
                     {
@@ -2031,7 +2031,7 @@ namespace AMSExplorer
             if (SelectedAssets.Count > 0)
             {
                 string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Task.Run(async () =>
                     {
@@ -2060,7 +2060,7 @@ namespace AMSExplorer
 
         private void DoDeleteAllAssets()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
@@ -3117,7 +3117,7 @@ namespace AMSExplorer
             if (SelectedJobs.Count > 0)
             {
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Task.Run(async () =>
                     {
@@ -3146,7 +3146,7 @@ namespace AMSExplorer
 
         private void DoDeleteAllJobs()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
@@ -3626,7 +3626,7 @@ namespace AMSExplorer
                 string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
                 string outputassetname = Constants.NameconvInputasset + " - Packaged to Smooth";
 
-                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
 
                     // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
@@ -3926,7 +3926,7 @@ namespace AMSExplorer
             string outputassetname = Constants.NameconvInputasset + " - Multi MP4 validated";
 
 
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 Validation", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 Validation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 // Read the task configuration data into a string. 
                 string configMp4Validation = File.ReadAllText(Path.Combine(
@@ -4158,7 +4158,7 @@ namespace AMSExplorer
             string jobname = "Storage Decryption of " + Constants.NameconvInputasset;
             string taskname = "Storage Decryption of " + Constants.NameconvInputasset;
 
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Asset Decryption", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show(labeldb, "Asset Decryption", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
@@ -4811,7 +4811,7 @@ namespace AMSExplorer
             int TransferUncompleted = _MyListTransfer.Where(t => (t.State == TransferState.Processing) || (t.State == TransferState.Queued)).Count();
             if (TransferUncompleted > 0)
             {
-                if (System.Windows.Forms.MessageBox.Show("One or several transfers are in the queue or in progress and will be interrupted." + Constants.endline + "Are you sure that you want to quit the application?", "Caution: transfer(s) in progress", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                if (System.Windows.Forms.MessageBox.Show("One or several transfers are in the queue or in progress and will be interrupted." + Constants.endline + "Are you sure that you want to quit the application?", "Caution: transfer(s) in progress", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                 {
                     e.Cancel = true;
                 }
@@ -6414,7 +6414,7 @@ namespace AMSExplorer
             {
                 if (programqueryrunning.Count() > 0) // some programs are running
                 {
-                    if (MessageBox.Show("One or several programs are running. Do you want to stop the program(s) ?", "Channel stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("One or several programs are running. Do you want to stop the program(s) and then the channel(s) ?", "Channel stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         Task.Run(async () =>
                          {
@@ -6431,14 +6431,19 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    // let's stop the channels now that running programs are stopped
-                    Task.Run(async () =>
+                    string question = (channels.Count == 1) ? string.Format("Stop channel '{0}' ?", channels[0].Name) : string.Format("Stop these {0} channels ?", channels.Count);
+
+                    if (System.Windows.Forms.MessageBox.Show(question, "Channel stop", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        // let's stop the channels now that running programs are stopped
+                        Task.Run(async () =>
                          {
                              // let's stop the channels now
                              var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
                              await Task.WhenAll(tasksstop);
                          }
                     );
+                    }
                 }
             }
         }
@@ -6788,7 +6793,7 @@ namespace AMSExplorer
                 {
                     string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
 
-                    if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         Task.Run(async () =>
                             {
@@ -6993,7 +6998,7 @@ namespace AMSExplorer
             {
                 if (programqueryrunning.Count() > 0) // some programs are running
                 {
-                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) and then reset the channel(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
 
                         Task.Run(async () =>
@@ -7011,13 +7016,18 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    // let's reset the channels
-                    Task.Run(async () =>
+                    string question = (channels.Count == 1) ? string.Format("Reset channel '{0}' ?", channels[0].Name) : string.Format("Reset these {0} channels ?", channels.Count);
+
+                    if (System.Windows.Forms.MessageBox.Show(question, "Channel reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        // let's reset the channels
+                        Task.Run(async () =>
                        {
                            // let's reset the channels now that running programs are stopped
                            var tasksreset = channels.Select(c => ResetChannelAsync(c)).ToArray();
                            await Task.WhenAll(tasksreset);
                        });
+                    }
                 }
             }
         }
@@ -7378,13 +7388,18 @@ namespace AMSExplorer
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
             if (SelectedPrograms.Count > 0)
             {
-                Task.Run(async () =>
+                string question = (SelectedPrograms.Count == 1) ? string.Format("Stop program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Stop these {0} programs ?", SelectedPrograms.Count);
+
+                if (System.Windows.Forms.MessageBox.Show(question, "Program stop", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Task.Run(async () =>
                 {
                     // let's stop the programs now
                     var tasksstop = SelectedPrograms.Select(p => StopProgramASync(p)).ToArray();
                     await Task.WhenAll(tasksstop);
                 }
       );
+                }
             }
         }
 
@@ -7545,7 +7560,6 @@ namespace AMSExplorer
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            return;
             var cellprogramstatevalue = dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["State"].Index].Value;
 
             if (cellprogramstatevalue != null)
@@ -7904,7 +7918,7 @@ namespace AMSExplorer
             if (SelectedOrigins.Count > 0)
             {
                 string question = (SelectedOrigins.Count == 1) ? "Delete streaming endpoint " + SelectedOrigins[0].Name + " ?" : "Delete these " + SelectedOrigins.Count + " streaming endpoints ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Streaming endpoint(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Streaming endpoint(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Task.Run(async () =>
                     {
@@ -11669,7 +11683,7 @@ namespace AMSExplorer
             if (ims.Count > 0)
             {
                 string question = (ims.Count == 1) ? "Delete bulk container " + ims[0].Name + " ?" : "Delete these " + ims.Count + " bulk containers ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Bulk container deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "Bulk container deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     bool Error = false;
                     try
@@ -14005,12 +14019,10 @@ namespace AMSExplorer
                            }
 
                            // refesh context and job
-
                            _context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
                                                                                      /// NET TO RESTORE CONTEXT
                            IJob JobRefreshed = GetJob(j.Id);
                            int index = -1;
-
 
                            foreach (JobEntry je in _MyObservJob) // let's search for index
                            {
@@ -14134,7 +14146,7 @@ namespace AMSExplorer
                     //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
                 }
             }, token);
-                       
+
         }
 
 

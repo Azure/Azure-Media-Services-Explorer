@@ -3390,6 +3390,7 @@
             // 
             // subclipProgramsToolStripMenuItem
             // 
+            this.subclipProgramsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.subclipProgramsToolStripMenuItem.Name = "subclipProgramsToolStripMenuItem";
             this.subclipProgramsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);

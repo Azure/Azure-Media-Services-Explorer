@@ -1040,7 +1040,7 @@ namespace AMSExplorer
             {
                 string question = SelectedAssetFiles.Count == 1 ? string.Format("Delete the file '{0}' ?", SelectedAssetFiles.FirstOrDefault().Name) : string.Format("Delete these {0} files ?", SelectedAssetFiles.Count);
 
-                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     try
                     {
@@ -1427,7 +1427,7 @@ namespace AMSExplorer
                 if (TreeViewLocators.SelectedNode.Parent == null)   // user selected the locator title
                 {
 
-                    if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete this locator ?", "Locator deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete this locator ?", "Locator deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         bool Error = false;
                         try
@@ -2118,8 +2118,8 @@ namespace AMSExplorer
         {
             try
             {
-                string question = "Delete all files?";
-                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                string question = "Delete all files ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     var assetArray = myAsset.AssetFiles.ToArray();
                     for (int i = 0; i < assetArray.Length; i++)

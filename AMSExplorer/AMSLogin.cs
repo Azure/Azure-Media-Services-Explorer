@@ -303,7 +303,7 @@ namespace AMSExplorer
             {
                 if (CredentialsList.Count > 0) // There are entries. Let's ask if user want to delete them or merge
                 {
-                    if (System.Windows.Forms.MessageBox.Show("There are current entries in the list. Do you want replace them with the new ones or do a merge? Select 'Yes' to replace them, 'No' to merge them.", "Delete existing entries", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    if (System.Windows.Forms.MessageBox.Show("There are current entries in the list. Do you want replace them with the new ones or do a merge? Select 'Yes' to replace them, 'No' to merge them.", "Delete existing entries", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                     {
                         mergesentries = true;
                     }
