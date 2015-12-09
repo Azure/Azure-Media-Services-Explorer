@@ -190,6 +190,12 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeRangeSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeRangeSelection.Designer.cs">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGridViewIngestManifest.cs" />
     <Compile Include="BulkUpload.cs">
       <SubType>Form</SubType>
@@ -674,6 +680,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BulkUpload.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeRangeSelection.resx">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>

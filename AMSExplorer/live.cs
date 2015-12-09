@@ -325,7 +325,7 @@ namespace AMSExplorer
 
             // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -1;
+            bool filterday = days != -2;
             DateTime datefilter = DateTime.UtcNow;
             if (filterday)
             {
@@ -746,7 +746,7 @@ namespace AMSExplorer
 
             // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -1;
+            bool filterday = days != -2;
             DateTime datefilter = DateTime.UtcNow;
             if (filterday)
             {

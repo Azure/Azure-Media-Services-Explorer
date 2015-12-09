@@ -876,9 +876,6 @@ namespace AMSExplorer
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
-
-            // job progress restore
-            //dataGridViewJobsV.RestoreJobProgress();
         }
 
         public void DoRefreshGridIngestManifestV(bool firstime)
@@ -5421,6 +5418,25 @@ namespace AMSExplorer
         private void comboBoxFilterTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewAssetsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (dataGridViewAssetsV.TimeFilter == FilterTime.TimeRange)
+            {
+                var form = new TimeRangeSelection()
+                {
+                    TimeRange = dataGridViewAssetsV.TimeFilterTimeRange,
+                    LabelMain = "Last Modified Time Range of Assets"
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridViewAssetsV.TimeFilterTimeRange = form.TimeRange;
+                }
+                else
+                {
+                    // user cancelled timerange box TODO
+                }
+            }
+
             if (dataGridViewAssetsV.Initialized)
             {
                 DoRefreshGridAssetV(false);
@@ -5430,6 +5446,25 @@ namespace AMSExplorer
         private void comboBoxFilterJobsTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewJobsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (dataGridViewJobsV.TimeFilter == FilterTime.TimeRange)
+            {
+                var form = new TimeRangeSelection()
+                {
+                    TimeRange = dataGridViewJobsV.TimeFilterTimeRange,
+                    LabelMain = "Last Modified Time Range of Jobs"
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridViewJobsV.TimeFilterTimeRange = form.TimeRange;
+                }
+                else
+                {
+                    // user cancelled timerange box TODO
+                }
+            }
+
             if (dataGridViewJobsV.Initialized)
             {
                 DoRefreshGridJobV(false);
@@ -12293,10 +12328,11 @@ namespace AMSExplorer
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
+        public const string TimeRange = "Time Range";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
-            int days = -1;
+            int days = -2;
             if (timeFilter != null)
             {
                 switch (timeFilter)
@@ -12314,6 +12350,10 @@ namespace AMSExplorer
                         days = 365;
                         break;
 
+                    case FilterTime.TimeRange:
+                        days = -1;
+                        break;
+
                     default:
                         break;
                 }
@@ -12322,6 +12362,17 @@ namespace AMSExplorer
         }
     }
 
+    public class TimeRangeValue
+    {
+        public DateTime StartDate;
+        public DateTime? EndDate;
+
+        public TimeRangeValue(DateTime start, DateTime? end = null)
+        {
+            StartDate = start;
+            EndDate = end;
+        }
+    }
 
 
     public enum TransferState
@@ -12372,7 +12423,7 @@ namespace AMSExplorer
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetName, Text = "" };
         static private string _statefilter = "";
         static private string _timefilter = FilterTime.First50Items;
-
+        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static string _orderassets = OrderAssets.LastModifiedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
         static CloudMediaContext _context;
@@ -12467,6 +12518,17 @@ namespace AMSExplorer
             set
             {
                 _timefilter = value;
+            }
+        }
+        public TimeRangeValue TimeFilterTimeRange
+        {
+            get
+            {
+                return _timefilterTimeRange;
+            }
+            set
+            {
+                _timefilterTimeRange = value;
             }
         }
         public int DisplayedCount
@@ -12692,12 +12754,27 @@ namespace AMSExplorer
 
 
             // DAYS
+            bool filterStartDate = false;
+            bool filterEndDate = false;
+
+            DateTime dateTimeStart = DateTime.UtcNow;
+            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -1;
-            DateTime datefilter = DateTime.UtcNow;
-            if (filterday)
+            if (days > 0)
             {
-                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+                filterStartDate = true;
+                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+            else if (days == -1) // TimeRange
+            {
+                filterStartDate = true;
+                filterEndDate = true;
+                dateTimeStart = _timefilterTimeRange.StartDate;
+                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                {
+                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                }
             }
 
             IQueryable<IAsset> assetsServerQuery = null;// = context.Assets.AsQueryable(); ;
@@ -12722,7 +12799,9 @@ namespace AMSExplorer
                         assetsServerQuery = context.Assets.Where(a =>
                                 (a.Name.Contains(_searchinname.Text))
                                 &&
-                                (!filterday || a.LastModified > datefilter)
+                                (!filterStartDate || a.LastModified > dateTimeStart)
+                                &&
+                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                 );
                         /*
                         if (assetsServerQuery.Count() > 1000) // we need to paginate
@@ -12765,7 +12844,9 @@ namespace AMSExplorer
                         assetsServerQuery = context.Assets.Where(a =>
                                   (a.AlternateId.Contains(_searchinname.Text))
                                   &&
-                                  (!filterday || a.LastModified > datefilter)
+                                  (!filterStartDate || a.LastModified > dateTimeStart)
+                                  &&
+                                  (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                   );
                         break;
 
@@ -12790,7 +12871,9 @@ namespace AMSExplorer
                             assetsServerQuery = context.Assets.Where(a =>
                                                              (a.Id == Constants.AssetIdPrefix + assetguid)
                                                              &&
-                                                             (!filterday || a.LastModified > datefilter)
+                                                             (!filterStartDate || a.LastModified > dateTimeStart)
+                                                             &&
+                                                             (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                                              );
                         }
                         break;
@@ -12833,7 +12916,9 @@ namespace AMSExplorer
 
                         SwitchedToLocalQuery = true;
                         assets = assetlist.Where(a =>
-                                (!filterday || a.LastModified > datefilter)
+                                (!filterStartDate || a.LastModified > dateTimeStart)
+                                &&
+                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                 );
 
 
@@ -12861,7 +12946,9 @@ namespace AMSExplorer
                             if (myfile != null)
                             {
                                 assetsServerQuery = context.Assets.Where(a =>
-                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   (!filterStartDate || a.LastModified > dateTimeStart)
+                                                                   &&
+                                                                   (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                                                    &&
                                                                    myfile.Asset.Id == a.Id
                                                                    );
@@ -12895,7 +12982,9 @@ namespace AMSExplorer
                             if (myloc != null)
                             {
                                 assetsServerQuery = context.Assets.Where(a =>
-                                                                    (!filterday || a.LastModified > datefilter)
+                                                                    (!filterStartDate || a.LastModified > dateTimeStart)
+                                                                    &&
+                                                                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                                                     &&
                                                                     a.Id == myloc.AssetId
                                                                     );
@@ -12929,7 +13018,9 @@ namespace AMSExplorer
                             if (queryprog != null)
                             {
                                 assetsServerQuery = context.Assets.Where(a =>
-                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   (!filterStartDate || a.LastModified > dateTimeStart)
+                                                                   &&
+                                                                   (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                                                    &&
                                                                    queryprog.AssetId == a.Id
                                                                    );
@@ -12979,7 +13070,9 @@ namespace AMSExplorer
 
                         SwitchedToLocalQuery = true;
                         assets = assetlist2.Where(a =>
-                                (!filterday || a.LastModified > datefilter)
+                                (!filterStartDate || a.LastModified > dateTimeStart)
+                                &&
+                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                 );
 
                         break;
@@ -12992,7 +13085,9 @@ namespace AMSExplorer
             else // NO SEARCH
             {
                 assetsServerQuery = context.Assets.Where(a =>
-                                (!filterday || a.LastModified > datefilter)
+                                (!filterStartDate || a.LastModified > dateTimeStart)
+                                &&
+                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
                                 );
             }
 
@@ -13629,6 +13724,18 @@ namespace AMSExplorer
                 _timefilter = value;
             }
         }
+
+        public TimeRangeValue TimeFilterTimeRange
+        {
+            get
+            {
+                return _timefilterTimeRange;
+            }
+            set
+            {
+                _timefilterTimeRange = value;
+            }
+        }
         public int DisplayedCount
         {
             get
@@ -13656,10 +13763,9 @@ namespace AMSExplorer
         static private CredentialsEntry _credentials;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
-
+        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
         static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
-
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
@@ -13734,13 +13840,30 @@ namespace AMSExplorer
             IEnumerable<JobEntry> jobquery;
 
             // DAYS
+            bool filterStartDate = false;
+            bool filterEndDate = false;
+
+            DateTime dateTimeStart = DateTime.UtcNow;
+            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -1;
-            DateTime datefilter = DateTime.UtcNow;
-            if (filterday)
+
+            if (days > 0)
             {
-                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+                filterStartDate = true;
+                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
+            else if (days == -1) // TimeRange
+            {
+                filterStartDate = true;
+                filterEndDate = true;
+                dateTimeStart = _timefilterTimeRange.StartDate;
+                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                {
+                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                }
+            }
+
             IQueryable<IJob> jobsServerQuery = null;// = context.Jobs.AsQueryable();
 
             // STATE
@@ -13762,7 +13885,9 @@ namespace AMSExplorer
                         jobsServerQuery = context.Jobs.Where(j =>
                                              (j.Name.Contains(_searchinname.Text))
                                              &&
-                                             (!filterday || j.LastModified > datefilter)
+                                             (!filterStartDate || j.LastModified > dateTimeStart)
+                                              &&
+                                             (!filterEndDate || j.LastModified < dateTimeRangeEnd)
                                              &&
                                              (!filterstate || j.State == jobstate)
                                              );
@@ -13789,7 +13914,9 @@ namespace AMSExplorer
                             jobsServerQuery = context.Jobs.Where(j =>
                                                     (j.Id == Constants.JobIdPrefix + jobguid)
                                                     &&
-                                                    (!filterday || j.LastModified > datefilter)
+                                                    (!filterStartDate || j.LastModified > dateTimeStart)
+                                                     &&
+                                                    (!filterEndDate || j.LastModified < dateTimeRangeEnd)
                                                     &&
                                                     (!filterstate || j.State == jobstate)
                                                     );
@@ -13804,7 +13931,9 @@ namespace AMSExplorer
             else
             {
                 jobsServerQuery = context.Jobs.Where(j =>
-                                 (!filterday || j.LastModified > datefilter)
+                                 (!filterStartDate || j.LastModified > dateTimeStart)
+                                 &&
+                                 (!filterEndDate || j.LastModified < dateTimeRangeEnd)
                                  &&
                                  (!filterstate || j.State == jobstate)
                                 );
