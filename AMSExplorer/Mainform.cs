@@ -11082,6 +11082,7 @@ namespace AMSExplorer
             {
                 foreach (IAsset asset in form.SelectedAssets)
                 {
+                    bool Error = false;
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                     string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
@@ -11113,9 +11114,9 @@ namespace AMSExplorer
                         }
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
                         TextBoxLogWriteLine(e);
-                        return;
+                        Error = true;
                     }
-                    Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                    if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
                 }
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);
@@ -13543,6 +13544,7 @@ namespace AMSExplorer
 
     public class DataGridViewJobs : DataGridView
     {
+
         public int JobssPerPage
         {
             get
@@ -13652,6 +13654,10 @@ namespace AMSExplorer
         static private CredentialsEntry _credentials;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
+
+        private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
+        static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
+
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
@@ -13984,6 +13990,10 @@ namespace AMSExplorer
                    }
                }
 
+               // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
+               // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
+               JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
+
                // let's monitor job that are not yet monitored
                foreach (IJob job in ActiveAndVisibleJobs)
                {
@@ -13991,7 +14001,6 @@ namespace AMSExplorer
                    {
                        this.DoJobProgress(job); // token will be added to dictionnary in this function
                    }
-
                }
            });
         }
@@ -14009,7 +14018,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    job = job.StartExecutionProgressTask(
+                    job = job.StartExecutionProgressTask(JobRefreshIntervalInMilliseconds,
                        j =>
                        {
                            // Was cancellation already requested? 
