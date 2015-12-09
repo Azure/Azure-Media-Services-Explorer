@@ -297,10 +297,12 @@ namespace AMSExplorer
             }
             // nb jobs limits
             int nbjobs = _context.Jobs.Count();
+            /*
             if (nbjobs > triggerForLargeAccountNbJobs)
             {
                 TextBoxLogWriteLine("This account contains a lot of jobs. Sorting is disabled."); // Warning
             }
+            */
             if (nbjobs > (0.75 * maxNbJobs))
             {
                 TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
@@ -4200,7 +4202,7 @@ namespace AMSExplorer
             linkLabelFeedbackAMS.Links.Add(new LinkLabel.Link(0, linkLabelFeedbackAMS.Text.Length, Constants.LinkFeedbackAMS));
 
             comboBoxOrderAssets.Enabled = comboBoxStateAssets.Enabled = !largeAccount;
-            comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
+            //comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
 
 
             toolStripStatusLabelWatchFolder.Visible = false;
