@@ -8291,6 +8291,25 @@ namespace AMSExplorer
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewProgramsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+         
+            if (dataGridViewProgramsV.TimeFilter == FilterTime.TimeRange)
+            {
+                var form = new TimeRangeSelection()
+                {
+                    TimeRange = dataGridViewProgramsV.TimeFilterTimeRange,
+                    LabelMain = "Last Modified Time Range of Programs"
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridViewProgramsV.TimeFilterTimeRange = form.TimeRange;
+                }
+                else
+                {
+                    // user cancelled timerange box TODO
+                }
+            }
+
             if (dataGridViewProgramsV.Initialized)
             {
                 DoRefreshGridProgramV(false);
@@ -10940,6 +10959,25 @@ namespace AMSExplorer
         private void comboBoxFilterTimeChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewChannelsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (dataGridViewChannelsV.TimeFilter == FilterTime.TimeRange)
+            {
+                var form = new TimeRangeSelection()
+                {
+                    TimeRange = dataGridViewChannelsV.TimeFilterTimeRange,
+                    LabelMain = "Last Modified Time Range of Channels"
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridViewChannelsV.TimeFilterTimeRange = form.TimeRange;
+                }
+                else
+                {
+                    // user cancelled timerange box TODO
+                }
+            }
+
             if (dataGridViewChannelsV.Initialized)
             {
                 DoRefreshGridChannelV(false);

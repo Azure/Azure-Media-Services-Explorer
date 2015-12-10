@@ -132,6 +132,17 @@ namespace AMSExplorer
                 _timefilter = value;
             }
         }
+        public TimeRangeValue TimeFilterTimeRange
+        {
+            get
+            {
+                return _timefilterTimeRange;
+            }
+            set
+            {
+                _timefilterTimeRange = value;
+            }
+        }
         public int DisplayedCount
         {
             get
@@ -156,6 +167,7 @@ namespace AMSExplorer
         static private CredentialsEntry _credentials;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
+        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
         static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
@@ -324,12 +336,28 @@ namespace AMSExplorer
             IEnumerable<ChannelEntry> channelquery;
 
             // DAYS
+            bool filterStartDate = false;
+            bool filterEndDate = false;
+
+            DateTime dateTimeStart = DateTime.UtcNow;
+            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -2;
-            DateTime datefilter = DateTime.UtcNow;
-            if (filterday)
+
+            if (days > 0)
             {
-                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+                filterStartDate = true;
+                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+            else if (days == -1) // TimeRange
+            {
+                filterStartDate = true;
+                filterEndDate = true;
+                dateTimeStart = _timefilterTimeRange.StartDate;
+                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                {
+                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                }
             }
 
             // STATE
@@ -353,7 +381,9 @@ namespace AMSExplorer
                         channelssrv = context.Channels.Where(c =>
                                                  (c.Name.ToLower().Contains(_searchinname.Text.ToLower()))
                                                  &&
-                                                 (!filterday || c.LastModified > datefilter)
+                                                 (!filterStartDate || c.LastModified > dateTimeStart)
+                                                 &&
+                                                 (!filterEndDate || c.LastModified < dateTimeRangeEnd)
                                                  );
                         break;
 
@@ -377,7 +407,9 @@ namespace AMSExplorer
                             channelssrv = context.Channels.Where(c =>
                                                     (c.Id == Constants.ChannelIdPrefix + channelguid)
                                                     &&
-                                                    (!filterday || c.LastModified > datefilter)
+                                                    (!filterStartDate || c.LastModified > dateTimeStart)
+                                                    &&
+                                                    (!filterEndDate || c.LastModified < dateTimeRangeEnd)
                                                     );
                         }
                         break;
@@ -390,8 +422,10 @@ namespace AMSExplorer
             else
             {
                 channelssrv = context.Channels.Where(c =>
-                                                (!filterday || c.LastModified > datefilter)
-                                                );
+                                                 (!filterStartDate || c.LastModified > dateTimeStart)
+                                                 &&
+                                                 (!filterEndDate || c.LastModified < dateTimeRangeEnd)
+                                                 );
             }
 
             switch (_orderitems)
@@ -472,8 +506,8 @@ namespace AMSExplorer
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ProgramName, Text = "" };
-
         static private string _timefilter = FilterTime.LastWeek;
+        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
@@ -583,6 +617,17 @@ namespace AMSExplorer
             set
             {
                 _timefilter = value;
+            }
+        }
+        public TimeRangeValue TimeFilterTimeRange
+        {
+            get
+            {
+                return _timefilterTimeRange;
+            }
+            set
+            {
+                _timefilterTimeRange = value;
             }
         }
         public int DisplayedCount
@@ -745,12 +790,28 @@ namespace AMSExplorer
             IQueryable<IProgram> programssrv = context.Programs;
 
             // DAYS
+            bool filterStartDate = false;
+            bool filterEndDate = false;
+
+            DateTime dateTimeStart = DateTime.UtcNow;
+            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            bool filterday = days != -2;
-            DateTime datefilter = DateTime.UtcNow;
-            if (filterday)
+
+            if (days > 0)
             {
-                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+                filterStartDate = true;
+                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+            else if (days == -1) // TimeRange
+            {
+                filterStartDate = true;
+                filterEndDate = true;
+                dateTimeStart = _timefilterTimeRange.StartDate;
+                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                {
+                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                }
             }
 
             // STATE
@@ -773,8 +834,10 @@ namespace AMSExplorer
                     case SearchIn.ProgramName:
                         programssrv = context.Programs.Where(p =>
                                                 (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
+                                                  &&
+                                                 (!filterStartDate || p.LastModified > dateTimeStart)
                                                  &&
-                                                 (!filterday || p.LastModified > datefilter)
+                                                 (!filterEndDate || p.LastModified < dateTimeRangeEnd)
                                                   );
                         break;
 
@@ -809,8 +872,10 @@ namespace AMSExplorer
             else
             {
                 programssrv = context.Programs.Where(p =>
-                                                (!filterday || p.LastModified > datefilter)
-                                              );
+                                                 (!filterStartDate || p.LastModified > dateTimeStart)
+                                                 &&
+                                                 (!filterEndDate || p.LastModified < dateTimeRangeEnd)
+                                                );
 
                 if (idsList.Count == 1 && !_anyChannel)
                 {
