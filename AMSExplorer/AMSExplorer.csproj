@@ -638,6 +638,9 @@
     <Content Include="IconsPNG\face_detector.png" />
     <None Include="IconsPNG\filters.png" />
     <Content Include="IconsPNG\hyperlapse.png" />
+    <Content Include="Manifest\Manifest.ism">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
     <None Include="Resources\media-services-multiple-rules-filters.png" />

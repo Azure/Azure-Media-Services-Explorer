@@ -319,6 +319,39 @@ namespace AMSExplorer
             return myText;
         }
 
+        public static string LoadAndUpdateManifestTemplate(IAsset asset)
+        {
+
+            var mp4AssetFiles = asset.AssetFiles.ToList().
+              Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (mp4AssetFiles.Count() != 0)
+            {
+
+                // Prepare the manifest
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
+
+                XNamespace ns = "http://www.w3.org/2001/SMIL20/Language";
+
+                var bodyxml = doc.Element(ns + "smil");
+                var body2 = bodyxml.Element(ns + "body");
+
+                var switchxml = body2.Element(ns + "switch");
+
+                foreach (var file in mp4AssetFiles)
+                {
+                    switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
+                }
+                switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4AssetFiles[0].Name), new XAttribute("title", "audioname")));
+
+                return doc.Declaration.ToString() + doc.ToString();
+            }
+            else
+            {
+                return null; // no mp4 in asset
+            }
+        }
+
         public static string ReturnS(int number)
         {
             return number > 1 ? "s" : "";
@@ -720,6 +753,7 @@ namespace AMSExplorer
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathAMEStdFiles = @"\AMEStandardPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
+        public const string PathManifestFile = @"\manifest\";
         public const string PathHelpFiles = @"\HelpFiles\";
         public const string PathDefaultSlateJPG = @"\SlateJPG\";
 
@@ -2664,6 +2698,8 @@ namespace AMSExplorer
                 return XDocument.Parse(xmlstart).Element(ns + "duration").Value.ToString();
             }
         }
+
+
     }
 
     public class TaskSizeAndPrice

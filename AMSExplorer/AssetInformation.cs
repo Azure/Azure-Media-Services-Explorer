@@ -278,6 +278,19 @@ namespace AMSExplorer
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 listViewFiles.EndUpdate();
             }
+
+            // Generate manifest button
+            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+            if (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0)
+            {
+                buttonGenerateManifest.Enabled = true;
+            }
+            else
+            {
+                buttonGenerateManifest.Enabled = false;
+            }
+
             return size;
         }
 
@@ -2330,6 +2343,54 @@ namespace AMSExplorer
         {
             var editform = new EditorXMLJSON(dataname, key, false, false);
             editform.Display();
+        }
+
+        private void buttonGenerateManifest_Click(object sender, EventArgs e)
+        {
+            DoGenerateManifest();
+
+        }
+
+        private async void DoGenerateManifest()
+        {
+            string filename = "manifest.ism";
+            string tempPath = System.IO.Path.GetTempPath();
+            string filePath = Path.Combine(tempPath, filename);
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                var smil = Program.LoadAndUpdateManifestTemplate(myAsset);
+                StreamWriter outfile = new StreamWriter(filePath, false, Encoding.UTF8);
+                outfile.Write(smil);
+                outfile.Close();
+
+                progressBarUpload.Visible = true;
+                buttonClose.Enabled = false;
+
+                await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                // Refresh the asset.
+                myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+                AssetInfo.SetFileAsPrimary(myAsset, filename);
+            }
+            catch
+            {
+
+            }
+            progressBarUpload.Visible = false;
+            buttonClose.Enabled = true;
+            ListAssetFiles();
+            BuildLocatorsTree();
         }
     }
 }

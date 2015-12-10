@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+  <head>
+    <meta name="formats" content="mp4" />
+  </head>
+  <body>
+    <switch>
+    </switch>
+  </body>
+</smil>
