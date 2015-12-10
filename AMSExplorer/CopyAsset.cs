@@ -150,6 +150,7 @@ namespace AMSExplorer
                     checkBoxCopyDynEnc.Checked = false;
                     checkBoxCloneLocators.Visible = false;
                     labelCloneLocators.Visible = false;
+                    checkBoxCloneAssetFilters.Checked = false;
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
