@@ -319,11 +319,10 @@ namespace AMSExplorer
             return myText;
         }
 
-        public static string LoadAndUpdateManifestTemplate(IAsset asset)
+        public static ManifestGenerated LoadAndUpdateManifestTemplate(IAsset asset)
         {
 
-            var mp4AssetFiles = asset.AssetFiles.ToList().
-              Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var mp4AssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (mp4AssetFiles.Count() != 0)
             {
@@ -338,19 +337,75 @@ namespace AMSExplorer
 
                 var switchxml = body2.Element(ns + "switch");
 
+                // video tracks
                 foreach (var file in mp4AssetFiles)
                 {
                     switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
                 }
-                switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4AssetFiles[0].Name), new XAttribute("title", "audioname")));
 
-                return doc.Declaration.ToString() + doc.ToString();
+                // audio track
+                var mp4AudioAssetFiles = mp4AssetFiles.Where(f => f.Name.ToLower().Contains("audio") || f.Name.ToLower().Contains("aac"));
+                string mp4fileaudio = (mp4AudioAssetFiles.Count() == 1) ? mp4AudioAssetFiles.FirstOrDefault().Name : mp4AssetFiles[0].Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+
+                switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+
+                // manifest filename
+                string name = CommonPrefix(mp4AssetFiles.Select(f => f.Name).ToArray());
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = "manifest";
+                }
+                else if (name.EndsWith("_") && name.Length > 1) // i string ends with "_", let's remove it
+                {
+                    name = name.Substring(0, name.Length - 1);
+                }
+                name = name + ".ism";
+
+                return new ManifestGenerated() { Content = doc.Declaration.ToString() + doc.ToString(), FileName = name };
+
             }
             else
             {
-                return null; // no mp4 in asset
+                return new ManifestGenerated() { Content = null, FileName = string.Empty }; // no mp4 in asset
             }
         }
+
+        public class ManifestGenerated
+        {
+            public string FileName;
+            public string Content;
+
+        }
+
+        private static string CommonPrefix(string[] ss)
+        {
+            if (ss.Length == 0)
+            {
+                return "";
+            }
+
+            if (ss.Length == 1)
+            {
+                return ss[0];
+            }
+
+            int prefixLength = 0;
+
+            foreach (char c in ss[0])
+            {
+                foreach (string s in ss)
+                {
+                    if (s.Length <= prefixLength || s[prefixLength] != c)
+                    {
+                        return ss[0].Substring(0, prefixLength);
+                    }
+                }
+                prefixLength++;
+            }
+
+            return ss[0]; // all strings identical
+        }
+
 
         public static string ReturnS(int number)
         {

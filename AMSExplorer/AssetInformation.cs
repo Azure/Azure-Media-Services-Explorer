@@ -280,8 +280,8 @@ namespace AMSExplorer
             }
 
             // Generate manifest button
-            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase));
+            var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase));
             if (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0)
             {
                 buttonGenerateManifest.Enabled = true;
@@ -2261,7 +2261,7 @@ namespace AMSExplorer
 
                         StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
 
-                        outfile.Write(editform.PremiumXML);
+                        outfile.Write(editform.TextData);
                         outfile.Close();
 
                         string assetFileName = assetFileToEdit.Name;
@@ -2353,35 +2353,41 @@ namespace AMSExplorer
 
         private async void DoGenerateManifest()
         {
-            string filename = "manifest.ism";
-            string tempPath = System.IO.Path.GetTempPath();
-            string filePath = Path.Combine(tempPath, filename);
-
             try
             {
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
+                var smildata = Program.LoadAndUpdateManifestTemplate(myAsset);
+
+                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false);
+
+                if (editform.Display() == DialogResult.OK)
+                { // OK
+
+                    string tempPath = System.IO.Path.GetTempPath();
+                    string filePath = Path.Combine(tempPath, smildata.FileName);
+
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
+                    StreamWriter outfile = new StreamWriter(filePath, false, Encoding.UTF8);
+                    outfile.Write(editform.TextData);
+                    outfile.Close();
+
+                    progressBarUpload.Visible = true;
+                    buttonClose.Enabled = false;
+
+                    await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
+
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
+                    // Refresh the asset.
+                    myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+                    AssetInfo.SetFileAsPrimary(myAsset, smildata.FileName);
                 }
-
-                var smil = Program.LoadAndUpdateManifestTemplate(myAsset);
-                StreamWriter outfile = new StreamWriter(filePath, false, Encoding.UTF8);
-                outfile.Write(smil);
-                outfile.Close();
-
-                progressBarUpload.Visible = true;
-                buttonClose.Enabled = false;
-
-                await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
-
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-
-                // Refresh the asset.
-                myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
-                AssetInfo.SetFileAsPrimary(myAsset, filename);
             }
             catch
             {

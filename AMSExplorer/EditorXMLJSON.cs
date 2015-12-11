@@ -36,7 +36,7 @@ namespace AMSExplorer
         string savedConfig;
         string defaultConfig;
 
-        public string PremiumXML
+        public string TextData
         {
             get
             {
@@ -139,7 +139,7 @@ namespace AMSExplorer
 
         public string GetXML()
         {
-            return myPremiumXML.PremiumXML;
+            return myPremiumXML.TextData;
         }
     }
 }
