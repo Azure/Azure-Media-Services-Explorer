@@ -37,6 +37,41 @@ namespace AMSExplorer
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
 
+        public readonly IList<Profile> Profiles = new List<SigniantInfo> {
+            new SigniantInfo() {AzureContainerInfo="", FlightServer="", FlightRegion=""},
+        
+        /*
+
+            
+Azure Container Location
+
+Signiant Flight Server
+
+Signiant Flight Region
+
+
+East US (Virginia) us-east-az.cloud.signiant.com us-az.cloud.signiant.com 
+East US 2 (Virginia) us-east-2-az.cloud.signiant.com us-az.cloud.signiant.com 
+Central US (Iowa) us-central-az.cloud.signiant.com us-az.cloud.signiant.com 
+North Central US (Illinois) us-northcentral-az.cloud.signiant.com us-az.cloud.signiant.com 
+South Central US (Texas) us-southcentral-az.cloud.signiant.com us-az.cloud.signiant.com 
+West US (California) us-west-az.cloud.signiant.com us-az.cloud.signiant.com 
+North Europe (Ireland) eu-north-az.cloud.signiant.com eu-az.cloud.signiant.com 
+West Europe (Netherlands) eu-west-az.cloud.signiant.com eu-az.cloud.signiant.com 
+East Asia (Hong Kong) ap-east-az.cloud.signiant.com ap-az.cloud.signiant.com 
+Southeast Asia (Singapore) ap-south-az.cloud.signiant.com ap-az.cloud.signiant.com 
+Japan East (Tokyo) jp-east-az.cloud.signiant.com jp-az.cloud.signiant.com 
+Japan West (Osaka) jp-west-az.cloud.signiant.com jp-az.cloud.signiant.com 
+Brazil South (Sao Paulo State) sa-south-az.cloud.signiant.com sa-az.cloud.signiant.com 
+Australia East (New South Wales) aus-east-az.cloud.signiant.com aus-az.cloud.signiant.com 
+Australia Southeast (Victoria) aus-southeast-az.cloud.signiant.com aus-az.cloud.signiant.com 
+Central India (Pune) ind-central-az.cloud.signiant.com ind-az.cloud.signiant.com 
+South India (Chennai) ind-south-az.cloud.signiant.com ind-az.cloud.signiant.com 
+West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com 
+
+
+    */
+
         public string IngestName
         {
             get
@@ -371,5 +406,13 @@ namespace AMSExplorer
                 ReindexAssetListAndDoSomeChecks();
             }
         }
+    }
+
+    public class SigniantInfo
+    {
+        public string AzureContainerInfo { get; set; }
+        public string FlightServer { get; set; }
+        public string FlightRegion { get; set; }
+
     }
 }

@@ -8291,7 +8291,7 @@ namespace AMSExplorer
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewProgramsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
-         
+
             if (dataGridViewProgramsV.TimeFilter == FilterTime.TimeRange)
             {
                 var form = new TimeRangeSelection()
@@ -11870,8 +11870,6 @@ namespace AMSExplorer
                 try
                 {
                     manifest.EncryptFilesAsync(encryptToFolder, CancellationToken.None).Wait();
-
-                    //manifest.EncryptFiles(encryptToFolder);
                     TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", encryptToFolder);
                     Process.Start(encryptToFolder);
                 }
@@ -11887,6 +11885,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
                 TextBoxLogWriteLine("Ingest Manifest URL (Aspera) : {0}", GenerateAsperaUrl(manifest));
+                TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest,assetFiles, encryptFiles, encryptToFolder));
             }
             DoRefreshGridIngestManifestV(false);
         }
@@ -11924,6 +11923,42 @@ namespace AMSExplorer
                 storKey = _credentials.StorageKey;
             }
             return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
+        }
+
+        private static string GenerateSigniantCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder)
+        {
+            string storKey = "InsertStorageKey";
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            {
+                storKey = _credentials.StorageKey;
+            }
+            var command = string.Format(@"sigcli --apikey APIKEY --direction upload --server global-az.cloud.signiant.com --account-name {0} --access-key {1} --container {2}",
+                             im.StorageAccountName,
+                             storKey,
+                             im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1));
+
+            if (!fileencrypted)
+            {
+                foreach (var asset in assetFiles)
+                {
+                    foreach (var file in asset.AssetFiles)
+                    {
+                        command = command + " " + file;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var asset in im.IngestManifestAssets)
+                {
+                    foreach (var file in asset.IngestManifestFiles)
+                    {
+                        command = command + " " + Path.Combine(encryptedfilefolder, file.Name);
+                    }
+                }
+            }
+           
+            return command;
         }
 
         private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)
