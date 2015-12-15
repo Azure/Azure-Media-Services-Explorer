@@ -37,40 +37,28 @@ namespace AMSExplorer
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
 
-        public readonly IList<Profile> Profiles = new List<SigniantInfo> {
-            new SigniantInfo() {AzureContainerInfo="", FlightServer="", FlightRegion=""},
-        
-        /*
+        public readonly string SigniantGlobalServer = "global-az.cloud.signiant.com";
 
-            
-Azure Container Location
-
-Signiant Flight Server
-
-Signiant Flight Region
-
-
-East US (Virginia) us-east-az.cloud.signiant.com us-az.cloud.signiant.com 
-East US 2 (Virginia) us-east-2-az.cloud.signiant.com us-az.cloud.signiant.com 
-Central US (Iowa) us-central-az.cloud.signiant.com us-az.cloud.signiant.com 
-North Central US (Illinois) us-northcentral-az.cloud.signiant.com us-az.cloud.signiant.com 
-South Central US (Texas) us-southcentral-az.cloud.signiant.com us-az.cloud.signiant.com 
-West US (California) us-west-az.cloud.signiant.com us-az.cloud.signiant.com 
-North Europe (Ireland) eu-north-az.cloud.signiant.com eu-az.cloud.signiant.com 
-West Europe (Netherlands) eu-west-az.cloud.signiant.com eu-az.cloud.signiant.com 
-East Asia (Hong Kong) ap-east-az.cloud.signiant.com ap-az.cloud.signiant.com 
-Southeast Asia (Singapore) ap-south-az.cloud.signiant.com ap-az.cloud.signiant.com 
-Japan East (Tokyo) jp-east-az.cloud.signiant.com jp-az.cloud.signiant.com 
-Japan West (Osaka) jp-west-az.cloud.signiant.com jp-az.cloud.signiant.com 
-Brazil South (Sao Paulo State) sa-south-az.cloud.signiant.com sa-az.cloud.signiant.com 
-Australia East (New South Wales) aus-east-az.cloud.signiant.com aus-az.cloud.signiant.com 
-Australia Southeast (Victoria) aus-southeast-az.cloud.signiant.com aus-az.cloud.signiant.com 
-Central India (Pune) ind-central-az.cloud.signiant.com ind-az.cloud.signiant.com 
-South India (Chennai) ind-south-az.cloud.signiant.com ind-az.cloud.signiant.com 
-West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com 
-
-
-    */
+        public readonly IList<SigniantInfo> SigniantServers = new List<SigniantInfo> {
+            new SigniantInfo() {AzureContainerInfo="East US (Virginia)", FlightServer="us-east-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="East US 2 (Virginia)", FlightServer="us-east-2-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Central US (Iowa)", FlightServer="us-central-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="North Central US (Illinois)", FlightServer="us-northcentral-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="South Central US (Texas)", FlightServer="us-southcentral-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West US (California)", FlightServer="us-west-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="North Europe (Ireland)", FlightServer="eu-north-az.cloud.signiant.com", FlightRegion="eu-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West Europe (Netherlands)", FlightServer="eu-west-az.cloud.signiant.com", FlightRegion="eu-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="East Asia (Hong Kong)", FlightServer="ap-east-az.cloud.signiant.com", FlightRegion="ap-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Southeast Asia (Singapore)", FlightServer="ap-south-az.cloud.signiant.com", FlightRegion="ap-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Japan East (Tokyo)", FlightServer="jp-east-az.cloud.signiant.com", FlightRegion="jp-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Japan West (Osaka)", FlightServer="jp-west-az.cloud.signiant.com", FlightRegion="jp-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Brazil South (Sao Paulo State)", FlightServer="sa-south-az.cloud.signiant.com", FlightRegion="sa-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Australia East (New South Wales)", FlightServer="aus-east-az.cloud.signiant.com", FlightRegion="aus-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Australia Southeast (Victoria)", FlightServer="aus-southeast-az.cloud.signiant.com", FlightRegion="aus-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Central India (Pune)", FlightServer="ind-central-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="South India (Chennai)", FlightServer="ind-south-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West India (Mumbai)", FlightServer="ind-west-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"}
+        };
 
         public string IngestName
         {
@@ -126,6 +114,37 @@ West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com
             }
         }
 
+        public bool GenerateSigniant
+        {
+            get
+            {
+                return checkBoxGenerateSigniant.Checked;
+            }
+        }
+
+        public string SigniantAPIKey
+        {
+            get
+            {
+                return textBoxSigniantAPIKey.Text;
+            }
+        }
+
+        public List<string> SigniantServersSelected
+        {
+            get
+            {
+                var servers = new List<string>();
+                string regionname = (string) comboBoxSigniantServer.SelectedItem;
+                var flightentry = SigniantServers.Where(s => s.AzureContainerInfo == regionname).FirstOrDefault();
+                servers.Add(flightentry.FlightServer);
+                servers.Add(SigniantGlobalServer);
+
+                return servers;
+            }
+        }
+
+
         public BulkUpload(CloudMediaContext context)
         {
             InitializeComponent();
@@ -152,6 +171,12 @@ West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com
             dataGridAssetFiles.Columns["AssetIndex"].ReadOnly = true;
             dataGridAssetFiles.Columns["FileName"].ReadOnly = true;
             labelWarningFiles.Text = "";
+
+            foreach (var server in SigniantServers)
+            {
+                comboBoxSigniantServer.Items.Add(server.AzureContainerInfo);
+            }
+            comboBoxSigniantServer.SelectedIndex = 0;
         }
 
 
@@ -199,11 +224,11 @@ West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com
                     f.AssetName = assetname; // let's make sure all asset files from the same asset have the same asset name
                 }
                 f.AssetIndex = index;
-               
+
                 g = f.AssetGuid;
             }
 
-           
+
 
             // let's check filename duplicates
             var listfilenames = assetFiles.Select(a => Path.GetFileName(a.FileName)).Distinct().ToList();
@@ -310,7 +335,7 @@ West India (Mumbai) ind-west-az.cloud.signiant.com ind-az.cloud.signiant.com
             folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath ;
+                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath;
             }
         }
 

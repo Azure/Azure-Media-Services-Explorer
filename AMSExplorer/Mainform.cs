@@ -8601,8 +8601,12 @@ namespace AMSExplorer
                     {
                         ErrorCreationKey = false;
 
-                        if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration)
-                        // Azure will deliver the PR or WV license and user want to auto generate the key, so we can create a key with a random content key
+                        //    if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration)
+                        //// Azure will deliver the PR or WV license and user wants to auto generate the key, so we can create a key with a random content key
+
+                        if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration)
+                        
+                        // Azure will deliver the PR or WV license or user wants to auto generate the key, so we can create a key with a random content key
                         {
                             try
                             {
@@ -11795,11 +11799,9 @@ namespace AMSExplorer
             {
                 if (form.AssetFiles.Count() > 0)
                 {
-
                     // Encryption of files
                     if (form.EncryptAssetFiles)
                     {
-
                         if (!Directory.Exists(form.EncryptToFolder))
                         {
                             if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.EncryptToFolder), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -11824,7 +11826,7 @@ namespace AMSExplorer
 
                     Task.Run(async () =>
                     {
-                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder);
+                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey);
                     }
            );
 
@@ -11838,7 +11840,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder)
+        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey)
         {
             TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
             IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
@@ -11878,14 +11880,13 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when encrypting files to folder '{0}'.", encryptToFolder, true);
                     Error = true;
                 }
-
             }
 
             if (!Error)
             {
                 TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
                 TextBoxLogWriteLine("Ingest Manifest URL (Aspera) : {0}", GenerateAsperaUrl(manifest));
-                TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest,assetFiles, encryptFiles, encryptToFolder));
+                TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey));
             }
             DoRefreshGridIngestManifestV(false);
         }
@@ -11925,14 +11926,21 @@ namespace AMSExplorer
             return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
         }
 
-        private static string GenerateSigniantCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder)
+        private static string GenerateSigniantCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder, List<string> signantservers, string APIKey)
         {
             string storKey = "InsertStorageKey";
             if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
             {
                 storKey = _credentials.StorageKey;
             }
-            var command = string.Format(@"sigcli --apikey APIKEY --direction upload --server global-az.cloud.signiant.com --account-name {0} --access-key {1} --container {2}",
+            string server = signantservers[0];
+            if (signantservers.Count == 2)
+            {
+                server = server + " --server " + signantservers[1];  // secondary server
+            }
+            var command = string.Format(@"sigcli --apikey {0} --direction upload --server {1} --account-name {2} --access-key {3} --container {4}",
+                             APIKey,
+                             server,
                              im.StorageAccountName,
                              storKey,
                              im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1));
@@ -11957,7 +11965,7 @@ namespace AMSExplorer
                     }
                 }
             }
-           
+
             return command;
         }
 

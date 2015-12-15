@@ -55,6 +55,12 @@
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxSigniantAPIKey = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxGenerateSigniant = new System.Windows.Forms.CheckBox();
+            this.comboBoxSigniantServer = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,6 +73,7 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAssetFiles)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,6 +134,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 118);
             this.tabControl1.Name = "tabControl1";
@@ -350,6 +358,70 @@
             this.textBoxFolderPath.Size = new System.Drawing.Size(592, 23);
             this.textBoxFolderPath.TabIndex = 2;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBoxSigniantAPIKey);
+            this.tabPage4.Controls.Add(this.label9);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.checkBoxGenerateSigniant);
+            this.tabPage4.Controls.Add(this.comboBoxSigniantServer);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(752, 355);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Signiant";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textBoxSigniantAPIKey
+            // 
+            this.textBoxSigniantAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSigniantAPIKey.Location = new System.Drawing.Point(24, 142);
+            this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
+            this.textBoxSigniantAPIKey.Size = new System.Drawing.Size(525, 23);
+            this.textBoxSigniantAPIKey.TabIndex = 82;
+            this.textBoxSigniantAPIKey.Text = "acd15cff-981d-4104-9f39-d6fec8cb25ee";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(21, 124);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 15);
+            this.label9.TabIndex = 81;
+            this.label9.Text = "API Key :";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(21, 63);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(90, 15);
+            this.label8.TabIndex = 80;
+            this.label8.Text = "Signiant server :";
+            // 
+            // checkBoxGenerateSigniant
+            // 
+            this.checkBoxGenerateSigniant.AutoSize = true;
+            this.checkBoxGenerateSigniant.Location = new System.Drawing.Point(24, 22);
+            this.checkBoxGenerateSigniant.Name = "checkBoxGenerateSigniant";
+            this.checkBoxGenerateSigniant.Size = new System.Drawing.Size(199, 19);
+            this.checkBoxGenerateSigniant.TabIndex = 1;
+            this.checkBoxGenerateSigniant.Text = "Generate Signiant command line";
+            this.checkBoxGenerateSigniant.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxSigniantServer
+            // 
+            this.comboBoxSigniantServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSigniantServer.FormattingEnabled = true;
+            this.comboBoxSigniantServer.Location = new System.Drawing.Point(24, 81);
+            this.comboBoxSigniantServer.Name = "comboBoxSigniantServer";
+            this.comboBoxSigniantServer.Size = new System.Drawing.Size(247, 23);
+            this.comboBoxSigniantServer.TabIndex = 0;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label6);
@@ -384,7 +456,7 @@
             this.textBoxManifestName.Location = new System.Drawing.Point(16, 71);
             this.textBoxManifestName.Name = "textBoxManifestName";
             this.textBoxManifestName.Size = new System.Drawing.Size(525, 23);
-            this.textBoxManifestName.TabIndex = 83;
+            this.textBoxManifestName.TabIndex = 0;
             // 
             // comboBoxStorageIngest
             // 
@@ -433,6 +505,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAssetFiles)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -473,5 +547,11 @@
         private System.Windows.Forms.Button buttonSplitSelection;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxGenerateSigniant;
+        private System.Windows.Forms.ComboBox comboBoxSigniantServer;
+        private System.Windows.Forms.TextBox textBoxSigniantAPIKey;
+        private System.Windows.Forms.Label label9;
     }
 }
