@@ -60,6 +60,7 @@
             this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
             this.tabPageThJPG = new System.Windows.Forms.TabPage();
+            this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsJPG = new System.Windows.Forms.Panel();
             this.numericUpDownThHeightJPG = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
@@ -81,6 +82,7 @@
             this.textBoxThTimeRangeJPG = new System.Windows.Forms.TextBox();
             this.checkBoxGenThumbnailsJPG = new System.Windows.Forms.CheckBox();
             this.tabPageThPNG = new System.Windows.Forms.TabPage();
+            this.linkLabelThumbnail2 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsPNG = new System.Windows.Forms.Panel();
             this.numericUpDownThHeightPNG = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -99,6 +101,7 @@
             this.textBoxThTimeRangePNG = new System.Windows.Forms.TextBox();
             this.checkBoxGenThumbnailsPNG = new System.Windows.Forms.CheckBox();
             this.tabPageThBMP = new System.Windows.Forms.TabPage();
+            this.linkLabelThumbnail3 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsBMP = new System.Windows.Forms.Panel();
             this.numericUpDownThHeightBMP = new System.Windows.Forms.NumericUpDown();
             this.label28 = new System.Windows.Forms.Label();
@@ -119,9 +122,6 @@
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
-            this.linkLabelThumbnail2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabelThumbnail3 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -290,7 +290,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 111);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 176);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -509,6 +509,18 @@
             this.tabPageThJPG.TabIndex = 2;
             this.tabPageThJPG.Text = "Thumbnails (JPG)";
             this.tabPageThJPG.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelThumbnail1
+            // 
+            this.linkLabelThumbnail1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelThumbnail1.AutoSize = true;
+            this.linkLabelThumbnail1.Location = new System.Drawing.Point(537, 18);
+            this.linkLabelThumbnail1.Name = "linkLabelThumbnail1";
+            this.linkLabelThumbnail1.Size = new System.Drawing.Size(181, 15);
+            this.linkLabelThumbnail1.TabIndex = 113;
+            this.linkLabelThumbnail1.TabStop = true;
+            this.linkLabelThumbnail1.Text = "More information on thumbnails";
+            this.linkLabelThumbnail1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
             // 
             // panelThumbnailsJPG
             // 
@@ -766,6 +778,18 @@
             this.tabPageThPNG.Text = "Thumbnails (PNG)";
             this.tabPageThPNG.UseVisualStyleBackColor = true;
             // 
+            // linkLabelThumbnail2
+            // 
+            this.linkLabelThumbnail2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelThumbnail2.AutoSize = true;
+            this.linkLabelThumbnail2.Location = new System.Drawing.Point(537, 18);
+            this.linkLabelThumbnail2.Name = "linkLabelThumbnail2";
+            this.linkLabelThumbnail2.Size = new System.Drawing.Size(181, 15);
+            this.linkLabelThumbnail2.TabIndex = 115;
+            this.linkLabelThumbnail2.TabStop = true;
+            this.linkLabelThumbnail2.Text = "More information on thumbnails";
+            this.linkLabelThumbnail2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
+            // 
             // panelThumbnailsPNG
             // 
             this.panelThumbnailsPNG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -982,6 +1006,18 @@
             this.tabPageThBMP.TabIndex = 4;
             this.tabPageThBMP.Text = "Thumbnails (BMP)";
             this.tabPageThBMP.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelThumbnail3
+            // 
+            this.linkLabelThumbnail3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelThumbnail3.AutoSize = true;
+            this.linkLabelThumbnail3.Location = new System.Drawing.Point(537, 18);
+            this.linkLabelThumbnail3.Name = "linkLabelThumbnail3";
+            this.linkLabelThumbnail3.Size = new System.Drawing.Size(181, 15);
+            this.linkLabelThumbnail3.TabIndex = 115;
+            this.linkLabelThumbnail3.TabStop = true;
+            this.linkLabelThumbnail3.Text = "More information on thumbnails";
+            this.linkLabelThumbnail3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
             // 
             // panelThumbnailsBMP
             // 
@@ -1217,42 +1253,6 @@
             this.buttonJobOptions.TabIndex = 75;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelThumbnail1
-            // 
-            this.linkLabelThumbnail1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelThumbnail1.AutoSize = true;
-            this.linkLabelThumbnail1.Location = new System.Drawing.Point(537, 18);
-            this.linkLabelThumbnail1.Name = "linkLabelThumbnail1";
-            this.linkLabelThumbnail1.Size = new System.Drawing.Size(181, 15);
-            this.linkLabelThumbnail1.TabIndex = 113;
-            this.linkLabelThumbnail1.TabStop = true;
-            this.linkLabelThumbnail1.Text = "More information on thumbnails";
-            this.linkLabelThumbnail1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
-            // 
-            // linkLabelThumbnail2
-            // 
-            this.linkLabelThumbnail2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelThumbnail2.AutoSize = true;
-            this.linkLabelThumbnail2.Location = new System.Drawing.Point(537, 18);
-            this.linkLabelThumbnail2.Name = "linkLabelThumbnail2";
-            this.linkLabelThumbnail2.Size = new System.Drawing.Size(181, 15);
-            this.linkLabelThumbnail2.TabIndex = 115;
-            this.linkLabelThumbnail2.TabStop = true;
-            this.linkLabelThumbnail2.Text = "More information on thumbnails";
-            this.linkLabelThumbnail2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
-            // 
-            // linkLabelThumbnail3
-            // 
-            this.linkLabelThumbnail3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelThumbnail3.AutoSize = true;
-            this.linkLabelThumbnail3.Location = new System.Drawing.Point(537, 18);
-            this.linkLabelThumbnail3.Name = "linkLabelThumbnail3";
-            this.linkLabelThumbnail3.Size = new System.Drawing.Size(181, 15);
-            this.linkLabelThumbnail3.TabIndex = 115;
-            this.linkLabelThumbnail3.TabStop = true;
-            this.linkLabelThumbnail3.Text = "More information on thumbnails";
-            this.linkLabelThumbnail3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
             // 
             // EncodingAMEStandard
             // 
