@@ -68,6 +68,8 @@
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.checkBoxGenerateAzCopy = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -75,6 +77,7 @@
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -134,6 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 118);
@@ -477,6 +481,27 @@
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.checkBoxGenerateAzCopy);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(752, 355);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "AzCopy";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxGenerateAzCopy
+            // 
+            this.checkBoxGenerateAzCopy.AutoSize = true;
+            this.checkBoxGenerateAzCopy.Location = new System.Drawing.Point(29, 24);
+            this.checkBoxGenerateAzCopy.Name = "checkBoxGenerateAzCopy";
+            this.checkBoxGenerateAzCopy.Size = new System.Drawing.Size(197, 19);
+            this.checkBoxGenerateAzCopy.TabIndex = 2;
+            this.checkBoxGenerateAzCopy.Text = "Generate AzCopy command line";
+            this.checkBoxGenerateAzCopy.UseVisualStyleBackColor = true;
+            // 
             // BulkUpload
             // 
             this.AcceptButton = this.buttonOk;
@@ -507,6 +532,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -552,5 +579,7 @@
         private System.Windows.Forms.ComboBox comboBoxSigniantServer;
         private System.Windows.Forms.TextBox textBoxSigniantAPIKey;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.CheckBox checkBoxGenerateAzCopy;
     }
 }

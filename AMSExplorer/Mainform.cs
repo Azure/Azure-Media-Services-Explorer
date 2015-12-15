@@ -8605,7 +8605,7 @@ namespace AMSExplorer
                         //// Azure will deliver the PR or WV license and user wants to auto generate the key, so we can create a key with a random content key
 
                         if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration)
-                        
+
                         // Azure will deliver the PR or WV license or user wants to auto generate the key, so we can create a key with a random content key
                         {
                             try
@@ -11826,7 +11826,7 @@ namespace AMSExplorer
 
                     Task.Run(async () =>
                     {
-                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey);
+                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey);
                     }
            );
 
@@ -11840,7 +11840,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey)
+        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey)
         {
             TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
             IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
@@ -11885,8 +11885,21 @@ namespace AMSExplorer
             if (!Error)
             {
                 TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+                if (encryptFiles)
+                {
+                    TextBoxLogWriteLine("Encrypted files are in {0}", encryptToFolder);
+                }
+
                 TextBoxLogWriteLine("Ingest Manifest URL (Aspera) : {0}", GenerateAsperaUrl(manifest));
-                TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey));
+                if (GenerateSigniant)
+                {
+                    TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey));
+                }
+
+                if (GenerateAzCopy)
+                {
+                    TextBoxLogWriteLine("AzCopy Command Line : {0}", GenerateAzCopyCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder));
+                }
             }
             DoRefreshGridIngestManifestV(false);
         }
@@ -11967,6 +11980,55 @@ namespace AMSExplorer
             }
 
             return command;
+        }
+
+        private static string GenerateAzCopyCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder)
+        {
+            StringBuilder command = new StringBuilder();
+            string storKey = "InsertStorageKey";
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            {
+                storKey = _credentials.StorageKey;
+            }
+
+
+            if (!fileencrypted)
+            {
+                foreach (var asset in assetFiles)
+                {
+                    foreach (var file in asset.AssetFiles)
+                    {
+                        command.AppendLine(
+                          string.Format(@"AzCopy /Source:{0} /Dest:{1} /DestKey:{2} /Pattern:{3}",
+                          Path.GetDirectoryName(file),
+                          im.BlobStorageUriForUpload,
+                          storKey,
+                          Path.GetFileName(file)
+                          )
+                          );
+                    }
+                }
+            }
+            else
+            {
+                foreach (var asset in im.IngestManifestAssets)
+                {
+                    foreach (var file in asset.IngestManifestFiles)
+                    {
+                        command.AppendLine(
+                            string.Format(@"AzCopy /Source:{0} /Dest:{1} /DestKey:{2} /Pattern:{3}",
+                            encryptedfilefolder,
+                            im.BlobStorageUriForUpload,
+                            storKey,
+                            im.StorageAccountName,
+                            file.Name
+                            )
+                            );
+                    }
+                }
+            }
+
+            return command.ToString();
         }
 
         private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)

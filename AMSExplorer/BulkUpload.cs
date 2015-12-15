@@ -114,6 +114,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool GenerateAzCopy
+        {
+            get
+            {
+                return checkBoxGenerateAzCopy.Checked;
+            }
+        }
+
         public bool GenerateSigniant
         {
             get
