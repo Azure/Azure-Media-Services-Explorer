@@ -381,7 +381,6 @@
             this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
             this.textBoxSigniantAPIKey.Size = new System.Drawing.Size(525, 23);
             this.textBoxSigniantAPIKey.TabIndex = 82;
-            this.textBoxSigniantAPIKey.Text = "acd15cff-981d-4104-9f39-d6fec8cb25ee";
             // 
             // label9
             // 
