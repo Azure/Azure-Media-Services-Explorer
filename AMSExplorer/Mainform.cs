@@ -2752,8 +2752,8 @@ namespace AMSExplorer
                         && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISM")).Count() == 1
                         ) // only 2 files with extensions, and these files are ISMC and ISM
                     {
-                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_"));
-                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_"));
+                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_") && !af.Name.StartsWith("scte35_"));
+                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
 
                         foreach (IAssetFile sourcefolder in assetFilesLiveFolders)
                         {
@@ -2787,7 +2787,14 @@ namespace AMSExplorer
                                         IAssetFile destinationAssetFile = TargetAsset.AssetFiles.Create(file.Name);
                                         destinationCloudBlockBlob = DestinationCloudBlobContainer.GetBlockBlobReference(destinationAssetFile.Name);
 
-                                        destinationCloudBlockBlob.DeleteIfExists();
+                                        try
+                                        {
+                                            destinationCloudBlockBlob.DeleteIfExists();
+                                        }
+                                        catch
+                                        {
+                                            // exception if Blob does not exist, which is fine
+                                        }
                                         //destinationCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
                                         destinationCloudBlockBlob.StartCopy(file.GetSasUri());
 
