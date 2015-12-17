@@ -11899,21 +11899,21 @@ namespace AMSExplorer
                 if (GenerateAspera)
                 {
                     string commandline = GenerateAsperaUrl(manifest);
-                    var form = new EditorXMLJSON("Aspera Ingest URL", commandline, false, false);
+                    var form = new EditorXMLJSON("Aspera Ingest URL", commandline, false, false, false);
                     form.Display();
                 }
 
                 if (GenerateSigniant)
                 {
                     string commandline = GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey);
-                    var form = new EditorXMLJSON("Signiant Command Line", commandline, false, false);
+                    var form = new EditorXMLJSON("Signiant Command Line", commandline, false, false, false);
                     form.Display();
                 }
 
                 if (GenerateAzCopy)
                 {
                     string commandline = GenerateAzCopyCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder);
-                    var form = new EditorXMLJSON("AzCopy Command Line", commandline, false, false);
+                    var form = new EditorXMLJSON("AzCopy Command Line", commandline, false, false, false);
                     form.Display();
                 }
             }
@@ -11925,23 +11925,14 @@ namespace AMSExplorer
             DoCopyIngestURL();
         }
 
-        private void DoCopyIngestURL(bool Aspera = false)
+        private void DoCopyIngestURL()
         {
             var im = ReturnSelectedIngestManifests().FirstOrDefault();
             if (im != null)
             {
-                string myurl = string.Empty;
-                if (!Aspera)
-                {
-                    myurl = im.BlobStorageUriForUpload;
-                    TextBoxLogWriteLine("Bulk Ingest URL : {0}", myurl);
-                }
-                else
-                {
-                    myurl = GenerateAsperaUrl(im);
-                    TextBoxLogWriteLine("Bulk Ingest URL (Aspera) : {0}", myurl);
-                }
-                System.Windows.Forms.Clipboard.SetText(myurl);
+                string myurl = im.BlobStorageUriForUpload;
+                var form = new EditorXMLJSON("Bulk Ingest URL", myurl, false, false, false);
+                form.Display();
             }
         }
 
@@ -12075,10 +12066,6 @@ namespace AMSExplorer
             }
         }
 
-        private void copyAsperaURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyIngestURL(true);
-        }
 
         private void contextMenuStripIngestManifests_Opening(object sender, CancelEventArgs e)
         {
@@ -12087,7 +12074,6 @@ namespace AMSExplorer
 
             infoToolStripMenuItem.Enabled =
                 copyIngestURLToClipboardToolStripMenuItem.Enabled =
-                copyAsperaURLToolStripMenuItem.Enabled =
                 singleitem;
 
             deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
@@ -12176,7 +12162,6 @@ namespace AMSExplorer
 
             toolStripMenuItem36BulkIngestInfo.Enabled =
                toolStripMenuItem38CopyBulkURL.Enabled =
-               toolStripMenuItem39CopyBulkAspera.Enabled =
                single;
 
             toolStripMenuItem37DelBulk.Enabled = oneOrMore;

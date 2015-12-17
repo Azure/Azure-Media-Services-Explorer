@@ -44,7 +44,7 @@ namespace AMSExplorer
             }
         }
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton =true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -63,6 +63,7 @@ namespace AMSExplorer
 
             buttonInsertSample.Visible = showSamplePremium;
             labelWarningJSON.Text = string.Empty;
+            buttonFormat.Visible = DisplayFormatButton;
         }
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
