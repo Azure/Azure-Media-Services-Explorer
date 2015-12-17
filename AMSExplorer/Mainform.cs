@@ -11826,7 +11826,7 @@ namespace AMSExplorer
 
                     Task.Run(async () =>
                     {
-                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey);
+                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey, form.GenerateAspera);
                     }
            );
 
@@ -11840,7 +11840,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey)
+        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey, bool GenerateAspera)
         {
             TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
             IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
@@ -11889,16 +11889,25 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Encrypted files are in {0}", encryptToFolder);
                 }
+                if (GenerateAspera)
+                {
+                    string commandline = GenerateAsperaUrl(manifest);
+                    var form = new EditorXMLJSON("Aspera Ingest URL", commandline, false, false);
+                    form.Display();
+                }
 
-                TextBoxLogWriteLine("Ingest Manifest URL (Aspera) : {0}", GenerateAsperaUrl(manifest));
                 if (GenerateSigniant)
                 {
-                    TextBoxLogWriteLine("Signiant Command Line : {0}", GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey));
+                    string commandline = GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey);
+                    var form = new EditorXMLJSON("Signiant Command Line", commandline, false, false);
+                    form.Display();
                 }
 
                 if (GenerateAzCopy)
                 {
-                    TextBoxLogWriteLine("AzCopy Command Line : {0}", GenerateAzCopyCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder));
+                    string commandline = GenerateAzCopyCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder);
+                    var form = new EditorXMLJSON("AzCopy Command Line", commandline, false, false);
+                    form.Display();
                 }
             }
             DoRefreshGridIngestManifestV(false);

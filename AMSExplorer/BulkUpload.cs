@@ -29,6 +29,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -130,6 +131,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool GenerateAspera
+        {
+            get
+            {
+                return checkBoxGenerateAspera.Checked;
+            }
+        }
+
         public string SigniantAPIKey
         {
             get
@@ -185,6 +194,12 @@ namespace AMSExplorer
                 comboBoxSigniantServer.Items.Add(server.AzureContainerInfo);
             }
             comboBoxSigniantServer.SelectedIndex = 0;
+
+            linkLabelSigniantRequestKey.Links.Add(new LinkLabel.Link(0, linkLabelSigniantRequestKey.Text.Length, Constants.LinkSigniantFlightRequestTrialKey));
+            linklabelSigniantMarket.Links.Add(new LinkLabel.Link(0, linklabelSigniantMarket.Text.Length, Constants.LinkSigniantFlightMarketPlace));
+            linkLabelInfoAzCopy.Links.Add(new LinkLabel.Link(0, linkLabelInfoAzCopy.Text.Length, Constants.LinkMoreInfoAzCopy));
+            linkLabelAspera.Links.Add(new LinkLabel.Link(0, linkLabelAspera.Text.Length, Constants.LinkAspera));
+
         }
 
 
@@ -438,6 +453,12 @@ namespace AMSExplorer
 
                 ReindexAssetListAndDoSomeChecks();
             }
+        }
+
+        private void linklabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
         }
     }
 
