@@ -579,7 +579,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -906,7 +906,7 @@
             this.toolStripMenuItemStabilizer});
             this.mediaIntelligenceToolStripMenuItem.Name = "mediaIntelligenceToolStripMenuItem";
             this.mediaIntelligenceToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.mediaIntelligenceToolStripMenuItem.Text = "Media Insights";
+            this.mediaIntelligenceToolStripMenuItem.Text = "Video Analytics";
             // 
             // toolStripMenuItemIndexer
             // 
@@ -4265,7 +4265,7 @@
             this.toolStripSeparator41,
             this.copyIngestURLToClipboardToolStripMenuItem});
             this.contextMenuStripIngestManifests.Name = "contextMenuStripIngestManifests";
-            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(279, 148);
+            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(279, 126);
             this.contextMenuStripIngestManifests.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripIngestManifests_Opening);
             // 
             // toolStripMenuItem33Refresh
