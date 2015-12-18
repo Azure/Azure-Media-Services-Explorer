@@ -230,6 +230,25 @@ namespace AMSExplorer
             }
         }
 
+        // Return the new name of Media Reserved Unit
+        public static string ReturnMediaReservedUnitName(ReservedUnitType unitType)
+        {
+            switch (unitType)
+            {
+                case ReservedUnitType.Basic:
+                default:
+                    return "S1 (Basic)";
+
+                case ReservedUnitType.Standard:
+                    return "S2 (Standard)";
+
+                case ReservedUnitType.Premium:
+                    return "S3 (Premium)";
+
+            }
+        }
+
+
         // Detect if this JSON or XML data or other and store in private var
         public static TypeConfig AnalyseConfigurationString(string config)
         {
@@ -906,6 +925,8 @@ namespace AMSExplorer
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
+        public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
+
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";

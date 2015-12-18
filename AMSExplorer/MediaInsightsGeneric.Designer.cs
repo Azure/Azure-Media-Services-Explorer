@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class MediaInsightsGeneric
+    partial class VideoAnalyticsGeneric
     {
         /// <summary>
         /// Required designer variable.
@@ -229,7 +229,7 @@
             this.Name = "MediaIntelligenceGeneric";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
-            this.Load += new System.EventHandler(this.MediaInsightsGeneric_Load);
+            this.Load += new System.EventHandler(this.VideoAnalyticsGeneric_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);

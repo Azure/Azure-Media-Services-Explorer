@@ -28,6 +28,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 using System.IO;
+using System.Threading;
 
 namespace AMSExplorer
 {
@@ -110,7 +111,16 @@ namespace AMSExplorer
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxConfiguration.Text);
+            //Clipboard.SetText(textBoxConfiguration.Text);
+            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            MyThread.SetApartmentState(ApartmentState.STA);
+            MyThread.IsBackground = true;
+            MyThread.Start(textBoxConfiguration.Text);
+        }
+
+        public void DoCopyClipboard(object text)
+        {
+            Clipboard.SetText((string)text);
         }
 
         private void buttonFormat_Click(object sender, EventArgs e)

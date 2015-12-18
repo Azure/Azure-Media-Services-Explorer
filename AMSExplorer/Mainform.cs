@@ -89,7 +89,7 @@ namespace AMSExplorer
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
-        private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
+        private bool MediaRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
         private bool backupCheckboxAnychannel = false;
         private bool CheckboxAnychannelChangedByCode = false;
@@ -276,12 +276,12 @@ namespace AMSExplorer
             try
             {
                 if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                    TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
+                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1 (Basic).", true); // Warning
             }
             catch // can occur on test account
             {
-                EncodingRUFeatureOn = false;
-                TextBoxLogWriteLine("There is an error when accessing to the Encoding Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
+                MediaRUFeatureOn = false;
+                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
             }
 
             // nb assets limits
@@ -1949,15 +1949,24 @@ namespace AMSExplorer
         private List<IAsset> ReturnSelectedAssets()
         {
             List<IAsset> SelectedAssets = new List<IAsset>();
-            foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
+            try
             {
-                var asset = _context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
-                if (asset != null)
+                foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
                 {
-                    SelectedAssets.Add(asset);
+                    var asset = _context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                    if (asset != null)
+                    {
+                        SelectedAssets.Add(asset);
+                    }
                 }
+                SelectedAssets.Reverse();
             }
-            SelectedAssets.Reverse();
+            catch (Exception ex)
+            {
+                // connection error ?
+                TextBoxLogWriteLine(ex);
+            }
+            
             return SelectedAssets;
         }
 
@@ -3658,7 +3667,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuMediaIntelligence(string processorStr, Image processorImage)
+        private void DoMenuVideoAnalytics(string processorStr, Image processorImage)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -3673,7 +3682,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaInsightsGeneric(_context, processor, processorImage, true)
+                var form = new VideoAnalyticsGeneric(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -6246,24 +6255,38 @@ namespace AMSExplorer
             }
             tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
 
-            // Encoding Reserved Unit(s)
-            if (EncodingRUFeatureOn)
+            // Media Reserved Unit(s)
+            if (MediaRUFeatureOn)
             {
                 comboBoxEncodingRU.Items.Clear();
-                comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
-                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
+
+                foreach (var unit in Enum.GetValues(typeof(ReservedUnitType)))
+                {
+                    comboBoxEncodingRU.Items.Add(new Item(Program.ReturnMediaReservedUnitName((ReservedUnitType)unit), unit.ToString()));
+                }
+
+                // let's set the selected item
+                string currentype = _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType.ToString();
+                foreach (var it in comboBoxEncodingRU.Items)
+                {
+                    if( ((Item)it).Value == currentype)
+                    {
+                        comboBoxEncodingRU.SelectedItem = it;
+                    }
+                }
+
                 trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
                 trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
                 UpdateLabelProcessorUnits();
 
                 if (_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0)
                 {
-                    toolStripStatusLabelEncRU.Text = string.Format("No encoding RU");
+                    toolStripStatusLabelEncRU.Text = string.Format("No Media Reserved Unit");
                 }
                 else
                 {
                     string s = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits > 1 ? "s" : "";
-                    toolStripStatusLabelEncRU.Text = string.Format("{0} {1} encoding RU{2}", _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits, _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType.ToString(), s);
+                    toolStripStatusLabelEncRU.Text = string.Format("{0} {1} Media Reserved Unit{2}", _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits, Program.ReturnMediaReservedUnitName(_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType), s);
                 }
             }
 
@@ -10149,19 +10172,19 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
         }
 
-        private void buttonUpdateEncodingRU_Click(object sender, EventArgs e)
+        private void buttonUpdateMediaRU_Click(object sender, EventArgs e)
         {
-            DoUpdateEncodingRU();
+            DoUpdateMediaRU();
         }
 
-        private async void DoUpdateEncodingRU()
+        private async void DoUpdateMediaRU()
         {
             bool oktocontinue = true;
 
-            if (trackBarEncodingRU.Value == 0 && ((string)comboBoxEncodingRU.SelectedItem != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
-            // user selected 0 with a non BASIC hardware...
+            if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Value != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
+            // user selected 0 with a non S1 hardware...
             {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not Basic. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1 (Basic). Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                 {
                     oktocontinue = false;
                 }
@@ -10169,11 +10192,11 @@ namespace AMSExplorer
 
             if (oktocontinue)
             {
-                TextBoxLogWriteLine(string.Format("Updating to {0} {1} reserved unit{2}...", (int)trackBarEncodingRU.Value, (string)comboBoxEncodingRU.SelectedItem, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
+                TextBoxLogWriteLine(string.Format("Updating to {0} {1} Media Reserved Unit{2}...", (int)trackBarEncodingRU.Value, ((Item)comboBoxEncodingRU.SelectedItem).Name, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
 
                 IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
                 EncResUnit.CurrentReservedUnits = (int)trackBarEncodingRU.Value;
-                EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
+                EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), ((Item)comboBoxEncodingRU.SelectedItem).Value));
 
                 trackBarEncodingRU.Enabled = false;
                 comboBoxEncodingRU.Enabled = false;
@@ -10184,11 +10207,11 @@ namespace AMSExplorer
                     try
                     {
                         EncResUnit.Update();
-                        TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
+                        TextBoxLogWriteLine("Media Reserved Unit(s) updated.");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
+                        TextBoxLogWriteLine("Error when updating Media Reserved Unit(s).");
                         TextBoxLogWriteLine(ex);
                     }
                 }
@@ -10204,10 +10227,17 @@ namespace AMSExplorer
 
         private void RUEncodingUpdateControls()
         {
-            // If RU is set to 0, let's switch to basic
+            // If RU is set to 0, let's switch to S1 (Basic)
             if (trackBarEncodingRU.Value == 0)
             {
-                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
+                foreach (var it in comboBoxEncodingRU.Items)
+                {
+                    if (((Item)it).Value == Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic))
+                    {
+                        comboBoxEncodingRU.SelectedItem = it;
+                    }
+                }
+              //  comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
             }
         }
 
@@ -12006,7 +12036,7 @@ namespace AMSExplorer
                     foreach (var file in asset.AssetFiles)
                     {
                         command.AppendLine(
-                          string.Format(@"AzCopy /Source:{0} /Dest:{1} /DestKey:{2} /Pattern:{3}",
+                          string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
                           Path.GetDirectoryName(file),
                           im.BlobStorageUriForUpload,
                           storKey,
@@ -12023,7 +12053,7 @@ namespace AMSExplorer
                     foreach (var file in asset.IngestManifestFiles)
                     {
                         command.AppendLine(
-                            string.Format(@"AzCopy /Source:{0} /Dest:{1} /DestKey:{2} /Pattern:{3}",
+                            string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
                             encryptedfilefolder,
                             im.BlobStorageUriForUpload,
                             storKey,
@@ -12116,42 +12146,42 @@ namespace AMSExplorer
 
         private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
+            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
         }
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
         }
 
         private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
+            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
         }
 
         private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
+            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
         }
 
         private void ProcessMotionDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
         }
 
         private void ProcessStabilizertoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
+            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
         }
 
         private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
