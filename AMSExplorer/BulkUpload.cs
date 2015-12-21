@@ -152,7 +152,7 @@ namespace AMSExplorer
             get
             {
                 var servers = new List<string>();
-                string regionname = (string) comboBoxSigniantServer.SelectedItem;
+                string regionname = (string)comboBoxSigniantServer.SelectedItem;
                 var flightentry = SigniantServers.Where(s => s.AzureContainerInfo == regionname).FirstOrDefault();
                 servers.Add(flightentry.FlightServer);
                 servers.Add(SigniantGlobalServer);
@@ -193,13 +193,14 @@ namespace AMSExplorer
             {
                 comboBoxSigniantServer.Items.Add(server.AzureContainerInfo);
             }
-            comboBoxSigniantServer.SelectedIndex = 0;
+            //comboBoxSigniantServer.SelectedIndex = 0;
 
             linkLabelSigniantRequestKey.Links.Add(new LinkLabel.Link(0, linkLabelSigniantRequestKey.Text.Length, Constants.LinkSigniantFlightRequestTrialKey));
             linklabelSigniantMarket.Links.Add(new LinkLabel.Link(0, linklabelSigniantMarket.Text.Length, Constants.LinkSigniantFlightMarketPlace));
             linkLabelInfoAzCopy.Links.Add(new LinkLabel.Link(0, linkLabelInfoAzCopy.Text.Length, Constants.LinkMoreInfoAzCopy));
             linkLabelAspera.Links.Add(new LinkLabel.Link(0, linkLabelAspera.Text.Length, Constants.LinkAspera));
 
+            textBoxSigniantAPIKey.Text = Properties.Settings.Default.SigniantFlightAPIKey;
         }
 
 
@@ -459,6 +460,15 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
 
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            if (checkBoxGenerateSigniant.Checked)
+            {
+                Properties.Settings.Default.SigniantFlightAPIKey = textBoxSigniantAPIKey.Text;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 

@@ -67,6 +67,7 @@
             this.checkBoxGenerateSigniant = new System.Windows.Forms.CheckBox();
             this.comboBoxSigniantServer = new System.Windows.Forms.ComboBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.checkBoxGenerateAspera = new System.Windows.Forms.CheckBox();
             this.linkLabelAspera = new System.Windows.Forms.LinkLabel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxGenerateAspera = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -97,6 +97,7 @@
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Create Bulk Ingest";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -456,7 +457,6 @@
             // 
             // label9
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(21, 124);
             this.label9.Name = "label9";
@@ -466,7 +466,6 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(21, 63);
             this.label8.Name = "label8";
@@ -503,6 +502,16 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Aspera SOD";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxGenerateAspera
+            // 
+            this.checkBoxGenerateAspera.AutoSize = true;
+            this.checkBoxGenerateAspera.Location = new System.Drawing.Point(29, 22);
+            this.checkBoxGenerateAspera.Name = "checkBoxGenerateAspera";
+            this.checkBoxGenerateAspera.Size = new System.Drawing.Size(136, 19);
+            this.checkBoxGenerateAspera.TabIndex = 85;
+            this.checkBoxGenerateAspera.Text = "Generate Aspera URL";
+            this.checkBoxGenerateAspera.UseVisualStyleBackColor = true;
             // 
             // linkLabelAspera
             // 
@@ -571,16 +580,6 @@
             this.label7.Size = new System.Drawing.Size(53, 15);
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
-            // 
-            // checkBoxGenerateAspera
-            // 
-            this.checkBoxGenerateAspera.AutoSize = true;
-            this.checkBoxGenerateAspera.Location = new System.Drawing.Point(29, 22);
-            this.checkBoxGenerateAspera.Name = "checkBoxGenerateAspera";
-            this.checkBoxGenerateAspera.Size = new System.Drawing.Size(136, 19);
-            this.checkBoxGenerateAspera.TabIndex = 85;
-            this.checkBoxGenerateAspera.Text = "Generate Aspera URL";
-            this.checkBoxGenerateAspera.UseVisualStyleBackColor = true;
             // 
             // BulkUpload
             // 
