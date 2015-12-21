@@ -172,6 +172,7 @@ namespace AMSExplorer
         static Bitmap EncodingImage = Bitmaps.encoding;
         static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
         public string _encoded = "Encoding";
+        public string _encodedPreset = "EncodingPreset";
 
         private Bitmap ReturnChannelBitmap(IChannel channel)
         {
@@ -207,6 +208,7 @@ namespace AMSExplorer
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
                                Encoding = ReturnChannelBitmap(c),
+                               EncodingPreset = c.EncodingType != ChannelEncodingType.None ? c.Encoding.SystemPreset : string.Empty,
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
@@ -236,10 +238,16 @@ namespace AMSExplorer
             this.Columns["InputProtocol"].Width = 180;
             this.Columns["PreviewUrl"].Width = 120;
 
-            this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
+            this.Columns[_encoded].DisplayIndex = this.ColumnCount - 4;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
             this.Columns[_encoded].HeaderText = "Cloud Encoding";
             this.Columns[_encoded].Width = 100;
+
+            this.Columns[_encodedPreset].DisplayIndex = this.ColumnCount - 3;
+            this.Columns[_encodedPreset].DefaultCellStyle.NullValue = null;
+            this.Columns[_encodedPreset].HeaderText = "Preset";
+            this.Columns[_encodedPreset].Width = 100;
+
             this.Columns["LastModified"].Width = 140;
             this.Columns["State"].Width = 75;
             this.Columns["Description"].Width = 110;
@@ -471,6 +479,7 @@ namespace AMSExplorer
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
+                           EncodingPreset = c.EncodingType != ChannelEncodingType.None ? c.Encoding.SystemPreset : string.Empty,
                            InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                            PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                            State = c.State,
@@ -1191,6 +1200,7 @@ namespace AMSExplorer
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
+        public string EncodingPreset { get; set; }
         public Uri InputUrl { get; set; }
         public Uri PreviewUrl { get; set; }
     }
