@@ -1966,7 +1966,7 @@ namespace AMSExplorer
                 // connection error ?
                 TextBoxLogWriteLine(ex);
             }
-            
+
             return SelectedAssets;
         }
 
@@ -6269,7 +6269,7 @@ namespace AMSExplorer
                 string currentype = _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType.ToString();
                 foreach (var it in comboBoxEncodingRU.Items)
                 {
-                    if( ((Item)it).Value == currentype)
+                    if (((Item)it).Value == currentype)
                     {
                         comboBoxEncodingRU.SelectedItem = it;
                     }
@@ -10237,7 +10237,7 @@ namespace AMSExplorer
                         comboBoxEncodingRU.SelectedItem = it;
                     }
                 }
-              //  comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
+                //  comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
             }
         }
 
@@ -12001,7 +12001,7 @@ namespace AMSExplorer
                 {
                     foreach (var file in asset.AssetFiles)
                     {
-                        command = command + " " + file;
+                        command = command + string.Format(@" ""{0}""", file);
                     }
                 }
             }
@@ -12011,7 +12011,7 @@ namespace AMSExplorer
                 {
                     foreach (var file in asset.IngestManifestFiles)
                     {
-                        command = command + " " + Path.Combine(encryptedfilefolder, file.Name);
+                        command = command + string.Format(@" ""{0}""", Path.Combine(encryptedfilefolder, file.Name));
                     }
                 }
             }
