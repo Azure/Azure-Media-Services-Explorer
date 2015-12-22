@@ -59,13 +59,14 @@
             this.linkLabelInfoAzCopy = new System.Windows.Forms.LinkLabel();
             this.checkBoxGenerateAzCopy = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panelSigniant = new System.Windows.Forms.Panel();
+            this.comboBoxSigniantServer = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxSigniantAPIKey = new System.Windows.Forms.TextBox();
             this.linkLabelSigniantRequestKey = new System.Windows.Forms.LinkLabel();
             this.linklabelSigniantMarket = new System.Windows.Forms.LinkLabel();
-            this.textBoxSigniantAPIKey = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.checkBoxGenerateSigniant = new System.Windows.Forms.CheckBox();
-            this.comboBoxSigniantServer = new System.Windows.Forms.ComboBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.checkBoxGenerateAspera = new System.Windows.Forms.CheckBox();
             this.linkLabelAspera = new System.Windows.Forms.LinkLabel();
@@ -83,6 +84,7 @@
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panelSigniant.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +92,6 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Location = new System.Drawing.Point(510, 14);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(143, 27);
@@ -407,13 +408,10 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.panelSigniant);
             this.tabPage4.Controls.Add(this.linkLabelSigniantRequestKey);
             this.tabPage4.Controls.Add(this.linklabelSigniantMarket);
-            this.tabPage4.Controls.Add(this.textBoxSigniantAPIKey);
-            this.tabPage4.Controls.Add(this.label9);
-            this.tabPage4.Controls.Add(this.label8);
             this.tabPage4.Controls.Add(this.checkBoxGenerateSigniant);
-            this.tabPage4.Controls.Add(this.comboBoxSigniantServer);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -421,6 +419,56 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Signiant Flight";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // panelSigniant
+            // 
+            this.panelSigniant.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelSigniant.Controls.Add(this.comboBoxSigniantServer);
+            this.panelSigniant.Controls.Add(this.label8);
+            this.panelSigniant.Controls.Add(this.label9);
+            this.panelSigniant.Controls.Add(this.textBoxSigniantAPIKey);
+            this.panelSigniant.Enabled = false;
+            this.panelSigniant.Location = new System.Drawing.Point(6, 66);
+            this.panelSigniant.Name = "panelSigniant";
+            this.panelSigniant.Size = new System.Drawing.Size(740, 161);
+            this.panelSigniant.TabIndex = 85;
+            // 
+            // comboBoxSigniantServer
+            // 
+            this.comboBoxSigniantServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSigniantServer.FormattingEnabled = true;
+            this.comboBoxSigniantServer.Location = new System.Drawing.Point(18, 21);
+            this.comboBoxSigniantServer.Name = "comboBoxSigniantServer";
+            this.comboBoxSigniantServer.Size = new System.Drawing.Size(247, 23);
+            this.comboBoxSigniantServer.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(382, 15);
+            this.label8.TabIndex = 80;
+            this.label8.Text = "Select the Signiant region (should be the same than the AMS account) :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 64);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 15);
+            this.label9.TabIndex = 81;
+            this.label9.Text = "API Key :";
+            // 
+            // textBoxSigniantAPIKey
+            // 
+            this.textBoxSigniantAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSigniantAPIKey.Location = new System.Drawing.Point(18, 82);
+            this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
+            this.textBoxSigniantAPIKey.Size = new System.Drawing.Size(553, 23);
+            this.textBoxSigniantAPIKey.TabIndex = 82;
             // 
             // linkLabelSigniantRequestKey
             // 
@@ -446,51 +494,16 @@
             this.linklabelSigniantMarket.Text = "Signiant Flight on Azure Marketplace";
             this.linklabelSigniantMarket.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
-            // textBoxSigniantAPIKey
-            // 
-            this.textBoxSigniantAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSigniantAPIKey.Location = new System.Drawing.Point(24, 142);
-            this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
-            this.textBoxSigniantAPIKey.Size = new System.Drawing.Size(525, 23);
-            this.textBoxSigniantAPIKey.TabIndex = 82;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 124);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 15);
-            this.label9.TabIndex = 81;
-            this.label9.Text = "API Key :";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 63);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 15);
-            this.label8.TabIndex = 80;
-            this.label8.Text = "Signiant server :";
-            // 
             // checkBoxGenerateSigniant
             // 
             this.checkBoxGenerateSigniant.AutoSize = true;
             this.checkBoxGenerateSigniant.Location = new System.Drawing.Point(24, 22);
             this.checkBoxGenerateSigniant.Name = "checkBoxGenerateSigniant";
-            this.checkBoxGenerateSigniant.Size = new System.Drawing.Size(199, 19);
+            this.checkBoxGenerateSigniant.Size = new System.Drawing.Size(257, 19);
             this.checkBoxGenerateSigniant.TabIndex = 1;
-            this.checkBoxGenerateSigniant.Text = "Generate Signiant command line";
+            this.checkBoxGenerateSigniant.Text = "Generate Signiant (sigcli.exe) command line";
             this.checkBoxGenerateSigniant.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxSigniantServer
-            // 
-            this.comboBoxSigniantServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSigniantServer.FormattingEnabled = true;
-            this.comboBoxSigniantServer.Location = new System.Drawing.Point(24, 81);
-            this.comboBoxSigniantServer.Name = "comboBoxSigniantServer";
-            this.comboBoxSigniantServer.Size = new System.Drawing.Size(247, 23);
-            this.comboBoxSigniantServer.TabIndex = 0;
+            this.checkBoxGenerateSigniant.CheckedChanged += new System.EventHandler(this.checkBoxGenerateSigniant_CheckedChanged);
             // 
             // tabPage6
             // 
@@ -612,6 +625,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panelSigniant.ResumeLayout(false);
+            this.panelSigniant.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -668,5 +683,6 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.LinkLabel linkLabelAspera;
         private System.Windows.Forms.CheckBox checkBoxGenerateAspera;
+        private System.Windows.Forms.Panel panelSigniant;
     }
 }

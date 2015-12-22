@@ -464,11 +464,32 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (checkBoxGenerateSigniant.Checked)
+            if (checkBoxGenerateSigniant.Checked && comboBoxSigniantServer.SelectedIndex<0)
             {
-                Properties.Settings.Default.SigniantFlightAPIKey = textBoxSigniantAPIKey.Text;
-                Properties.Settings.Default.Save();
+                // problem
+                MessageBox.Show("Please select a Signiant server in the same region than the AMS/Storage account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            else if (checkBoxGenerateSigniant.Checked && string.IsNullOrWhiteSpace(textBoxSigniantAPIKey.Text))
+            {
+                // problem
+                MessageBox.Show("Please provide a valid Signiant API Key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    Properties.Settings.Default.SigniantFlightAPIKey = textBoxSigniantAPIKey.Text;
+                    Properties.Settings.Default.Save();
+                }
+
+                this.DialogResult = DialogResult.OK;  // form will close with OK result
+                                                      // else --> form won't close...
+            }
+        }
+
+        private void checkBoxGenerateSigniant_CheckedChanged(object sender, EventArgs e)
+        {
+            panelSigniant.Enabled = checkBoxGenerateSigniant.Checked;
         }
     }
 
