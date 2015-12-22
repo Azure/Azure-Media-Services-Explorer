@@ -31,7 +31,7 @@ using System.Xml.Linq;
 
 namespace AMSExplorer
 {
-    public partial class MediaInsightsGeneric : Form
+    public partial class VideoAnalyticsGeneric : Form
     {
         private CloudMediaContext _context;
         private IMediaProcessor _processor;
@@ -87,7 +87,7 @@ namespace AMSExplorer
             }
         }
 
-        public MediaInsightsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
+        public VideoAnalyticsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -99,12 +99,11 @@ namespace AMSExplorer
         }
 
 
-        private void MediaInsightsGeneric_Load(object sender, EventArgs e)
+        private void VideoAnalyticsGeneric_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
-
-            // we don't have yet link or picture for MI Greneric
-            moreinfoprofilelink.Visible = false;
+            // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreYammerAMSPreview));
+            moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;
             labelPreview.Visible = _preview;

@@ -224,8 +224,8 @@
             this.label4KWarning.Name = "label4KWarning";
             this.label4KWarning.Size = new System.Drawing.Size(387, 23);
             this.label4KWarning.TabIndex = 73;
-            this.label4KWarning.Tag = "Warning : you should use a Premium Encoding RU for 4K";
-            this.label4KWarning.Text = "Warning : you should use a Premium Encoding RU for 4K";
+            this.label4KWarning.Tag = "Warning : you should use a S1 (Premium) Media RU for 4K";
+            this.label4KWarning.Text = "Warning : you should use a S1 (Premium) Media RU for 4K";
             this.label4KWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4

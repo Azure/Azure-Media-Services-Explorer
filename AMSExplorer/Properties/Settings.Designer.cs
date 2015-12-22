@@ -490,5 +490,17 @@ namespace AMSExplorer.Properties {
                 this["DisplayIngestManifestIDinGrid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SigniantFlightAPIKey {
+            get {
+                return ((string)(this["SigniantFlightAPIKey"]));
+            }
+            set {
+                this["SigniantFlightAPIKey"] = value;
+            }
+        }
     }
 }
