@@ -40,8 +40,8 @@ namespace AMSExplorer
         private X509Certificate2 cert = null;
 
         public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
-            new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/discovery/keys"},
-             new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
+                new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/.well-known/openid-configuration"},
+                new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
         public ContentKeyRestrictionType GetKeyRestrictionType
@@ -217,7 +217,7 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DynEncTokenIssuer= textBoxIssuer.Text ;
+            Properties.Settings.Default.DynEncTokenIssuer = textBoxIssuer.Text;
             Properties.Settings.Default.DynEncTokenAudience = textBoxAudience.Text;
             Program.SaveAndProtectUserConfig();
         }

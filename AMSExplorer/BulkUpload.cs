@@ -143,7 +143,14 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxSigniantAPIKey.Text;
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    return textBoxSigniantAPIKey.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
 
@@ -152,11 +159,13 @@ namespace AMSExplorer
             get
             {
                 var servers = new List<string>();
-                string regionname = (string)comboBoxSigniantServer.SelectedItem;
-                var flightentry = SigniantServers.Where(s => s.AzureContainerInfo == regionname).FirstOrDefault();
-                servers.Add(flightentry.FlightServer);
-                servers.Add(SigniantGlobalServer);
-
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    string regionname = (string)comboBoxSigniantServer.SelectedItem;
+                    var flightentry = SigniantServers.Where(s => s.AzureContainerInfo == regionname).FirstOrDefault();
+                    servers.Add(flightentry.FlightServer);
+                    servers.Add(SigniantGlobalServer);
+                }
                 return servers;
             }
         }
