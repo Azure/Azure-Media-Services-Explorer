@@ -151,6 +151,7 @@ namespace AMSExplorer
                     checkBoxCloneLocators.Visible = false;
                     labelCloneLocators.Visible = false;
                     checkBoxCloneAssetFilters.Checked = false;
+                    labelCloneFilters.Visible = false; // optioon to clone filter is displayed but we don't want to display that start and end times are removed. This is not the case for asset copy.
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
@@ -290,7 +291,7 @@ namespace AMSExplorer
 
         private void checkBoxTargetSingleAsset_CheckedChanged(object sender, EventArgs e)
         {
-            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = !checkBoxTargetSingleAsset.Checked;
+            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = checkBoxCloneAssetFilters.Enabled = !checkBoxTargetSingleAsset.Checked;
         }
     }
 

@@ -2692,7 +2692,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -2959,6 +2959,27 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when copying Dynamic encryption", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            // Copy filters
+            if (CloneAssetFilters && !ErrorCopyAsset && SourceAssets.FirstOrDefault().AssetFilters.Count() > 0)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Copying filter(s) to cloned asset '{0}'", SourceAssets.FirstOrDefault().Name);
+
+                    foreach (var filter in SourceAssets.FirstOrDefault().AssetFilters)
+                    {
+                        TargetAsset.AssetFilters.Create(filter.Name, filter.PresentationTimeRange, filter.Tracks);
+                        TextBoxLogWriteLine(string.Format("Cloned filter {0} created.", filter.Name));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when copying filter(s) to the asset '{0}'.", TargetAsset.Name, true);
                     TextBoxLogWriteLine(ex);
                 }
             }
@@ -10469,7 +10490,7 @@ namespace AMSExplorer
                         {
                             int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL));
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters));
                         }
                     }
                     else // merge all assets into a single asset
