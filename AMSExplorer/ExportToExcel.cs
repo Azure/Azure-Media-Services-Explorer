@@ -84,14 +84,46 @@ namespace AMSExplorer
 
             }
             index = backindex + _context.StreamingEndpoints.Count();
-            if (localtime)
+            var streamlocators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
+            if (streamlocators.Any())
             {
-                xlWorkSheet.Cells[row, index++] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                if (localtime)
+                {
+                    xlWorkSheet.Cells[row, index++] = (DateTime?)streamlocators.Max(l => l.ExpirationDateTime).ToLocalTime();
+                }
+                else
+                {
+                    xlWorkSheet.Cells[row, index++] = (DateTime?)streamlocators.Max(l => l.ExpirationDateTime);
+                }
             }
             else
             {
-                xlWorkSheet.Cells[row, index++] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime) : null;
+                xlWorkSheet.Cells[row, index++] = string.Empty;
             }
+
+
+            // SAS locator
+            var saslocators = asset.Locators.Where(l => l.Type == LocatorType.Sas);
+            var saslocator = saslocators.ToList().OrderByDescending(l => l.ExpirationDateTime).FirstOrDefault();
+            if (saslocator != null && asset.AssetFiles.Count() > 0)
+            {
+                var ProgressiveDownloadUri = asset.AssetFiles.ToList().OrderByDescending(af => af.ContentFileSize).FirstOrDefault().GetSasUri(saslocator);
+                xlWorkSheet.Cells[row, index++] = ProgressiveDownloadUri.AbsoluteUri;
+                if (localtime)
+                {
+                    xlWorkSheet.Cells[row, index++] = saslocator.ExpirationDateTime.ToLocalTime();
+                }
+                else
+                {
+                    xlWorkSheet.Cells[row, index++] = saslocator.ExpirationDateTime;
+                }
+            }
+            else
+            {
+                xlWorkSheet.Cells[row, index++] = string.Empty;
+                xlWorkSheet.Cells[row, index++] = string.Empty;
+            }
+
 
             if (detailed)
             {
@@ -111,17 +143,17 @@ namespace AMSExplorer
                     xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime) : null;
                 }
 
-                var sasloc = asset.Locators.Where(l => l.Type == LocatorType.Sas);
-                xlWorkSheet.Cells[row, index++] = sasloc.Count();
+                // SAS
+                xlWorkSheet.Cells[row, index++] = saslocators.Count();
                 if (localtime)
                 {
-                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
                 }
                 else
                 {
-                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime) : null;
-                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Min(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Max(l => l.ExpirationDateTime) : null;
                 }
 
                 xlWorkSheet.Cells[row, index++] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
@@ -204,8 +236,11 @@ namespace AMSExplorer
             xlWorkSheet.Cells[row, index++] = "Streaming URL"
             );
             index = backindex + _context.StreamingEndpoints.Count();
+            xlWorkSheet.Cells[row, index++] = "Streaming expiration time";
 
-            xlWorkSheet.Cells[row, index++] = "Expiration time";
+            xlWorkSheet.Cells[row, index++] = "SAS URL";
+            xlWorkSheet.Cells[row, index++] = "SAS expiration time";
+
             if (detailed)
             {
                 xlWorkSheet.Cells[row, index++] = "Alternate Id";
