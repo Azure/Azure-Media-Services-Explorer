@@ -12021,7 +12021,7 @@ namespace AMSExplorer
                              server,
                              im.StorageAccountName,
                              storKey,
-                             im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1));
+                             (new Uri(im.BlobStorageUriForUpload)).PathAndQuery.Substring(1));
 
             if (!fileencrypted)
             {
