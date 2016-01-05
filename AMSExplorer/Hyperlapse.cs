@@ -175,6 +175,10 @@ namespace AMSExplorer
         private void checkBoxDisplayTime_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxFrameRate.Visible = labelSourceFrameRate.Visible = panelTimes.Visible = checkBoxDisplayTime.Checked;
+            if (checkBoxDisplayTime.Checked)
+            {
+                DisplayTime();
+            }
         }
 
         private void numericUpDownStartFrame_ValueChanged(object sender, EventArgs e)
