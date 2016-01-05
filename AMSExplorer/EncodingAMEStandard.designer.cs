@@ -52,12 +52,10 @@
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
-            this.TabPageTrimming = new System.Windows.Forms.TabPage();
+            this.TabPageFeatures = new System.Windows.Forms.TabPage();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
             this.tabPageThJPG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
@@ -121,11 +119,14 @@
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
+            this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
-            this.TabPageTrimming.SuspendLayout();
+            this.TabPageFeatures.SuspendLayout();
             this.tabPageThJPG.SuspendLayout();
             this.panelThumbnailsJPG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThHeightJPG)).BeginInit();
@@ -290,7 +291,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 176);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 174);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -371,7 +372,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.TabPagePreset);
-            this.tabControl1.Controls.Add(this.TabPageTrimming);
+            this.tabControl1.Controls.Add(this.TabPageFeatures);
             this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThPNG);
             this.tabControl1.Controls.Add(this.tabPageThBMP);
@@ -401,21 +402,22 @@
             this.TabPagePreset.Text = "Preset";
             this.TabPagePreset.UseVisualStyleBackColor = true;
             // 
-            // TabPageTrimming
+            // TabPageFeatures
             // 
-            this.TabPageTrimming.Controls.Add(this.textBoxSourceDurationTime);
-            this.TabPageTrimming.Controls.Add(this.label7);
-            this.TabPageTrimming.Controls.Add(this.checkBoxAddAutomatic);
-            this.TabPageTrimming.Controls.Add(this.timeControlEndTime);
-            this.TabPageTrimming.Controls.Add(this.timeControlStartTime);
-            this.TabPageTrimming.Controls.Add(this.checkBoxSourceTrimming);
-            this.TabPageTrimming.Location = new System.Drawing.Point(4, 24);
-            this.TabPageTrimming.Name = "TabPageTrimming";
-            this.TabPageTrimming.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageTrimming.Size = new System.Drawing.Size(724, 361);
-            this.TabPageTrimming.TabIndex = 1;
-            this.TabPageTrimming.Text = "Trimming";
-            this.TabPageTrimming.UseVisualStyleBackColor = true;
+            this.TabPageFeatures.Controls.Add(this.checkBoxInsertSilentAudioTrack);
+            this.TabPageFeatures.Controls.Add(this.textBoxSourceDurationTime);
+            this.TabPageFeatures.Controls.Add(this.label7);
+            this.TabPageFeatures.Controls.Add(this.checkBoxAddAutomatic);
+            this.TabPageFeatures.Controls.Add(this.timeControlEndTime);
+            this.TabPageFeatures.Controls.Add(this.timeControlStartTime);
+            this.TabPageFeatures.Controls.Add(this.checkBoxSourceTrimming);
+            this.TabPageFeatures.Location = new System.Drawing.Point(4, 24);
+            this.TabPageFeatures.Name = "TabPageFeatures";
+            this.TabPageFeatures.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageFeatures.Size = new System.Drawing.Size(724, 361);
+            this.TabPageFeatures.TabIndex = 1;
+            this.TabPageFeatures.Text = "Features";
+            this.TabPageFeatures.UseVisualStyleBackColor = true;
             // 
             // textBoxSourceDurationTime
             // 
@@ -447,44 +449,6 @@
             this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for Trimming and Thumbnails";
             this.checkBoxAddAutomatic.UseVisualStyleBackColor = true;
             this.checkBoxAddAutomatic.CheckedChanged += new System.EventHandler(this.checkBoxAddAutomatic_CheckedChanged);
-            // 
-            // timeControlEndTime
-            // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(44, 98);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
-            // 
-            // timeControlStartTime
-            // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(44, 40);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // checkBoxSourceTrimming
             // 
@@ -1244,6 +1208,17 @@
             this.labelProcessorVersion.Text = "Version {0}";
             this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // checkBoxInsertSilentAudioTrack
+            // 
+            this.checkBoxInsertSilentAudioTrack.AutoSize = true;
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 194);
+            this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
+            this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
+            this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
+            this.checkBoxInsertSilentAudioTrack.Text = "Insert a silent audio track when input has no audio";
+            this.checkBoxInsertSilentAudioTrack.UseVisualStyleBackColor = true;
+            this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.checkBoxInsertSilentAudioTrack_CheckedChanged);
+            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1253,6 +1228,44 @@
             this.buttonJobOptions.TabIndex = 75;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(44, 98);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(44, 40);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // EncodingAMEStandard
             // 
@@ -1283,8 +1296,8 @@
             this.tabControl1.ResumeLayout(false);
             this.TabPagePreset.ResumeLayout(false);
             this.TabPagePreset.PerformLayout();
-            this.TabPageTrimming.ResumeLayout(false);
-            this.TabPageTrimming.PerformLayout();
+            this.TabPageFeatures.ResumeLayout(false);
+            this.TabPageFeatures.PerformLayout();
             this.tabPageThJPG.ResumeLayout(false);
             this.tabPageThJPG.PerformLayout();
             this.panelThumbnailsJPG.ResumeLayout(false);
@@ -1334,7 +1347,7 @@
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage TabPagePreset;
-        private System.Windows.Forms.TabPage TabPageTrimming;
+        private System.Windows.Forms.TabPage TabPageFeatures;
         private System.Windows.Forms.CheckBox checkBoxAddAutomatic;
         private System.Windows.Forms.CheckBox checkBoxSourceTrimming;
         private TimeControl timeControlEndTime;
@@ -1404,5 +1417,6 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail1;
         private System.Windows.Forms.LinkLabel linkLabelThumbnail2;
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
+        private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
     }
 }

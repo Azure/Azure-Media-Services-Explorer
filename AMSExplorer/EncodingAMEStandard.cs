@@ -136,7 +136,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly=false)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -230,6 +230,20 @@ namespace AMSExplorer
                     ////////////////////////////
                     if (obj.Sources != null) obj.Sources.Parent.Remove();
 
+
+                    // Clean Insert silent audio track
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null && codec.Type == "AACAudio" && codec.Condition != null && codec.Condition == "InsertSilenceIfNoAudio")
+                            {
+                                codec.Condition.Parent.Remove();
+                            }
+                        }
+                    }
+
+
                     if (obj.Codecs != null) // clean thumbnail entry in Codecs
                     {
                         var listDelete = new List<dynamic>();
@@ -262,7 +276,7 @@ namespace AMSExplorer
                     // End of Cleaning
                     ////////////////////////////
 
-
+                    // Trimming
                     if (checkBoxSourceTrimming.Checked)
                     {
                         if (obj.Sources == null)
@@ -274,6 +288,21 @@ namespace AMSExplorer
                         time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                         time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                         obj.Sources.Add(time);
+                    }
+
+                    // Insert silent audio track
+                    if (checkBoxInsertSilentAudioTrack.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "AACAudio")
+                                {
+                                    codec.Condition = "InsertSilenceIfNoAudio";
+                                }
+                            }
+                        }
                     }
 
                     if (_subclipConfig != null) // subclipping. we need to add top bitrate values
@@ -547,7 +576,7 @@ namespace AMSExplorer
         {
         }
 
-  
+
         private void checkBoxGenThumbnails_CheckedChanged(object sender, EventArgs e)
         {
             panelThumbnailsJPG.Enabled = checkBoxGenThumbnailsJPG.Checked;
@@ -574,6 +603,11 @@ namespace AMSExplorer
         private void linkLabelThumbnail1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void checkBoxInsertSilentAudioTrack_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
 
