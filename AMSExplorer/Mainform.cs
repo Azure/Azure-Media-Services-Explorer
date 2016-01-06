@@ -60,7 +60,6 @@ namespace AMSExplorer
 {
     public partial class Mainform : Form
     {
-
         // XML Configuration files path.
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
@@ -5107,8 +5106,6 @@ namespace AMSExplorer
             DoDeleteSelectedJobs();
         }
 
-
-
         private void richTextBoxLog_TextChanged(object sender, EventArgs e)
         {
             // we want to scroll down the textBox
@@ -5141,7 +5138,6 @@ namespace AMSExplorer
         }
 
 
-
         private void DoCreateJobReportEmail()
         {
             JobInfo JR = new JobInfo(ReturnSelectedJobs());
@@ -5158,8 +5154,6 @@ namespace AMSExplorer
         {
             DoCreateJobReportEmail();
         }
-
-
 
 
         private void DoMenuDisplayAssetInfoFromLocatorID()
@@ -5187,7 +5181,6 @@ namespace AMSExplorer
                 {
                     DisplayInfo(knownLocator.Asset);
                 }
-
             }
         }
 
@@ -5237,8 +5230,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
 
 
 
@@ -8250,10 +8241,8 @@ namespace AMSExplorer
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
             string preview = ReturnSelectedChannels().FirstOrDefault().Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri;
-            System.Windows.Forms.Clipboard.SetText(preview);
-            TextBoxLogWriteLine("The following ^preview URL has been copied to the clipboard :");
-            TextBoxLogWriteLine("<" + preview + ">");
-
+            EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
+            DisplayForm.Display();
         }
 
         private void generateThumbnailsForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9475,9 +9464,8 @@ namespace AMSExplorer
                             return;
                         }
                     }
-                    System.Windows.Forms.Clipboard.SetText(url);
-                    TextBoxLogWriteLine("The following URL has been copied to the clipboard :");
-                    TextBoxLogWriteLine("<" + url + ">");
+                    var tokenDisplayForm = new EditorXMLJSON("Output URL", url, false, false, false);
+                    tokenDisplayForm.Display();
                 }
                 else
                 {
@@ -10744,16 +10732,16 @@ namespace AMSExplorer
 
         private void inputSSLURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, true, true);
+            DoCopyChannelInputURLToClipboard(false, true);
 
         }
 
         private void inputURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, false, true);
+            DoCopyChannelInputURLToClipboard(false, false);
         }
 
-        private void DoCopyChannelInputURLToClipboard(bool secondary = false, bool https = false, bool UI = true)
+        private void DoCopyChannelInputURLToClipboard(bool secondary = false, bool https = false)
         {
             IChannel channel = ReturnSelectedChannels().FirstOrDefault();
             string absuri;
@@ -10776,25 +10764,28 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    if (UI) MessageBox.Show("SSL is only possible for Smooth Streaming input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("SSL is only possible for Smooth Streaming input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Error = true;
                 }
             }
 
-            if (!Error) System.Windows.Forms.Clipboard.SetText(absuri);
-
-
+            if (!Error) //System.Windows.Forms.Clipboard.SetText(absuri);
+            {
+                string label = string.Format("Input URL ({0})", secondary ? "secondary" : "primary");
+                EditorXMLJSON DisplayForm = new EditorXMLJSON(label, absuri, false, false, false);
+                DisplayForm.Display();
+            }
         }
 
         private void primaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, false, true);
+            DoCopyChannelInputURLToClipboard(false, false);
 
         }
 
         private void secondaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(true, false, true);
+            DoCopyChannelInputURLToClipboard(true, false);
 
         }
 
@@ -10822,24 +10813,24 @@ namespace AMSExplorer
 
         private void inputURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, false, true);
+            DoCopyChannelInputURLToClipboard(false, false);
         }
 
         private void inputSSLURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, true, true);
+            DoCopyChannelInputURLToClipboard(false, true);
 
         }
 
         private void primaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, false, true);
+            DoCopyChannelInputURLToClipboard(false, false);
 
         }
 
         private void secondaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(true, false, true);
+            DoCopyChannelInputURLToClipboard(true, false);
 
         }
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)

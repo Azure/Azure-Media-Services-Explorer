@@ -844,7 +844,7 @@ namespace AMSExplorer
 
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v1.5.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v1.6.0/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerDASHAzure = @"http://dashplayer.azurewebsites.net";
         public const string PlayerDASHAzureToLaunch = @"http://dashplayer.azurewebsites.net?url={0}";

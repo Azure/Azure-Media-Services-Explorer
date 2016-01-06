@@ -1136,7 +1136,6 @@ namespace AMSExplorer
                     buttonAzureMediaPlayer.Enabled = false;
                     buttonDashLiveAzure.Enabled = false;
                     buttonFlash.Enabled = false;
-                    buttonSLMonitor.Enabled = false;
                     buttonHTML.Enabled = false;
                     buttonOpen.Enabled = false;
                     buttonDel.Enabled = false;
@@ -1150,7 +1149,6 @@ namespace AMSExplorer
                             buttonAzureMediaPlayer.Enabled = true;
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = true;
-                            buttonSLMonitor.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1160,7 +1158,6 @@ namespace AMSExplorer
                             buttonAzureMediaPlayer.Enabled = true;
                             buttonDashLiveAzure.Enabled = true;
                             buttonFlash.Enabled = true;
-                            buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1170,7 +1167,6 @@ namespace AMSExplorer
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
-                            buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = true;
                             break;
@@ -1180,7 +1176,6 @@ namespace AMSExplorer
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
-                            buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".ism"));
                             break;

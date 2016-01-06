@@ -69,6 +69,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonGenerateManifest = new System.Windows.Forms.Button();
             this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonFileMetadata = new System.Windows.Forms.Button();
@@ -120,7 +121,6 @@
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonAzureMediaPlayer = new System.Windows.Forms.Button();
-            this.buttonSLMonitor = new System.Windows.Forms.Button();
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -128,7 +128,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonGenerateManifest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -562,6 +561,18 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonGenerateManifest
+            // 
+            this.buttonGenerateManifest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGenerateManifest.Location = new System.Drawing.Point(178, 469);
+            this.buttonGenerateManifest.Name = "buttonGenerateManifest";
+            this.buttonGenerateManifest.Size = new System.Drawing.Size(141, 27);
+            this.buttonGenerateManifest.TabIndex = 38;
+            this.buttonGenerateManifest.Text = "Generate a manifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateManifest, "Generate a manifest file for a multi MP4 files asset");
+            this.buttonGenerateManifest.UseVisualStyleBackColor = true;
+            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
             // 
             // buttonEditOnline
             // 
@@ -1051,7 +1062,6 @@
             this.tabPage3.Controls.Add(this.buttonOpen);
             this.tabPage3.Controls.Add(this.buttonDel);
             this.tabPage3.Controls.Add(this.buttonAzureMediaPlayer);
-            this.tabPage3.Controls.Add(this.buttonSLMonitor);
             this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
             this.tabPage3.Controls.Add(this.label1);
@@ -1169,18 +1179,6 @@
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
             this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
-            // buttonSLMonitor
-            // 
-            this.buttonSLMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSLMonitor.Enabled = false;
-            this.buttonSLMonitor.Location = new System.Drawing.Point(387, 473);
-            this.buttonSLMonitor.Name = "buttonSLMonitor";
-            this.buttonSLMonitor.Size = new System.Drawing.Size(120, 27);
-            this.buttonSLMonitor.TabIndex = 26;
-            this.buttonSLMonitor.Text = "Silverlight Monitor";
-            this.buttonSLMonitor.UseVisualStyleBackColor = true;
-            this.buttonSLMonitor.Click += new System.EventHandler(this.buttonSLMonitor_Click);
-            // 
             // buttonHTML
             // 
             this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1219,7 +1217,7 @@
             // 
             this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(290, 473);
+            this.buttonFlash.Location = new System.Drawing.Point(418, 473);
             this.buttonFlash.Name = "buttonFlash";
             this.buttonFlash.Size = new System.Drawing.Size(90, 27);
             this.buttonFlash.TabIndex = 20;
@@ -1248,18 +1246,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
-            // 
-            // buttonGenerateManifest
-            // 
-            this.buttonGenerateManifest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonGenerateManifest.Location = new System.Drawing.Point(178, 469);
-            this.buttonGenerateManifest.Name = "buttonGenerateManifest";
-            this.buttonGenerateManifest.Size = new System.Drawing.Size(141, 27);
-            this.buttonGenerateManifest.TabIndex = 38;
-            this.buttonGenerateManifest.Text = "Generate a manifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateManifest, "Generate a manifest file for a multi MP4 files asset");
-            this.buttonGenerateManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
             // 
             // AssetInformation
             // 
@@ -1346,7 +1332,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonFlash;
         private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.Button buttonSLMonitor;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
         private System.Windows.Forms.Button buttonAzureMediaPlayer;
         private System.Windows.Forms.Button buttonDuplicate;
