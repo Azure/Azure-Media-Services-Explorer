@@ -1,10 +1,11 @@
-Version 3.34.0.0 brings the following features and improvements :
+Version 3.35.0.0 brings the following features and improvements :
 
-* **Google Widevine license delivery** update :  packaging is enabled by default, and the JSON license template is visible and editable
-* **Optimizations for large number of jobs running**. Code has been optimized to monitor only visible jobs and increase the job polling time when needed. This should dramatically improve performances for accounts with a large number of running jobs
-* **Thumbnails generation** is now available in Media Encoder Standard UI. The thumbnail generation option in the menu has been moved from AME to MES processor
-* **Date/time range filtering**. A date/time range can be specified for the assets, jobs, channels and programs queries.
-* It's now possible to **change the encoding preset on an existing live channel**
-* **Asset filters copy option**. When a program is cloned or an asset is duplicated, there is an option to copy the asset filters. (time start and end values are reset when doing program cloning)
-* Icons update
-* Bug fixes
+* New **manifest generation** feature : if an asset contains one or several MP4 files without a manifest (.ISM), user can generate a manifest and review it. New button is located in asset info/files tab.
+* **Bulk ingest** update :
+ * Added support for **Signiant Flight**. New UI to specify the Signiant API Key and Server. The sigcli.exe command line is generated.
+ * Added **AzCopy** command line generation 
+* Encoding Reserved Units (Basic/Standard/Premium) renamed to Media Reserved Units (S1/S2/S3)
+* Support for new **silent audio track generation** setting with Media Encoder Standard (MES)
+* Added SAS locator information in the "Export to Excel" feature
+* Live Encoding preset is displayed in the grid for live encoding channels
+* Bug fixes and improvements
