@@ -3157,7 +3157,7 @@
             this.subclipProgramsToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 352);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 330);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -4779,7 +4779,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(994, 18);
             this.label13.TabIndex = 35;
-            this.label13.Text = "Media Reserved Unit management have been moved to the jobs tab";
+            this.label13.Text = "Media Reserved Unit management is now in the jobs tab";
             this.label13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dataGridViewProcessors
