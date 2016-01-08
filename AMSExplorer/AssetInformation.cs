@@ -56,7 +56,6 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
             myContext = context;
-
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -73,7 +72,6 @@ namespace AMSExplorer
                 {
                     System.Windows.Forms.Clipboard.SetText(TreeViewLocators.SelectedNode.Text);
                 }
-
             }
         }
 

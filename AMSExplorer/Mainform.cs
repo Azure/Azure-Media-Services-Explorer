@@ -4366,13 +4366,6 @@ namespace AMSExplorer
         );
             comboBoxOrderChannel.SelectedIndex = 0;
 
-            comboBoxOrderStreamingEndpoints.Items.AddRange(
-          typeof(OrderStreamingEndpoints)
-          .GetFields()
-          .Select(i => i.GetValue(null) as string)
-          .ToArray()
-          );
-            comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
             AddButtonsToSearchTextBox();
 
@@ -6237,7 +6230,7 @@ namespace AMSExplorer
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
-            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context, 1)));
+            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context)));
 
             tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
         }
@@ -9560,26 +9553,7 @@ namespace AMSExplorer
         {
             DoMenuDisplayAssetInfoOfProgram();
         }
-
-        private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHAzurePage);
-        }
-
-        private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHLiveAzure);
-        }
-
-        private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = ((ComboBox)sender).SelectedItem.ToString();
-
-            if (dataGridViewStreamingEndpointsV.Initialized)
-            {
-                DoRefreshGridStreamingEndpointV(false);
-            }
-        }
+             
 
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -12231,6 +12205,28 @@ namespace AMSExplorer
         private void toolStripMenuItemProgramAssetFilterInfo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridViewV_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            DataGridView DG = (DataGridView)sender;
+
+            if (DG.SortedColumn != null && DG.SortOrder != SortOrder.None)
+            {
+                var sortOrder = DG.SortOrder;
+                var dataGridViewColumn = DG.Columns[DG.SortedColumn.Name];
+                if (dataGridViewColumn != null)
+                {
+                    string strColumnName = dataGridViewColumn.Name;
+                    DataGridViewColumn col = DG.Columns[strColumnName];
+                    DG.Sort(col,
+                        sortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
+                }
+            }
+            else
+            {
+                DG.Sort(DG.Columns["Name"], ListSortDirection.Ascending);
+            }
         }
     }
 }

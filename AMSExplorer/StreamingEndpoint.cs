@@ -61,45 +61,7 @@ namespace AMSExplorer
 
     public class DataGridViewStreamingEndpoints : DataGridView
     {
-        public int ItemsPerPage
-        {
-            get
-            {
-                return _originsperpage;
-            }
-            set
-            {
-                _originsperpage = value;
-            }
-        }
-        public int PageCount
-        {
-            get
-            {
-                return _pagecount;
-            }
 
-        }
-        public int CurrentPage
-        {
-            get
-            {
-                return _currentpage;
-            }
-
-        }
-        public string OrderStreamingEndpointsInGrid
-        {
-            get
-            {
-                return _orderstreamingendpoints;
-            }
-            set
-            {
-                _orderstreamingendpoints = value;
-            }
-
-        }
         public string FilterStreamingEndpointsState
         {
             get
@@ -151,27 +113,25 @@ namespace AMSExplorer
             }
 
         }
-        public IEnumerable<IStreamingEndpoint> DisplayedStreamingEndpoints
+        public List<IStreamingEndpoint> DisplayedStreamingEndpoints
         {
+            // we want to keep the sorting in display
             get
             {
-                return streamingendpoints;
+                var list = new List<IStreamingEndpoint>();
+                foreach (var se in _MyObservStreamingEndpoints)
+                {
+                    list.Add(_context.StreamingEndpoints.Where(s => s.Id == se.Id).FirstOrDefault());
+                }
+                return list;
             }
-
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
-
-        static BindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        static BindingList<StreamingEndpointEntry> _MyObservStreamingEndpointthisPage;
-
+        static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
         static IEnumerable<IStreamingEndpoint> streamingendpoints;
-        static private int _originsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderstreamingendpoints = OrderStreamingEndpoints.LastModified;
         static string _filterstreamingendpointsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -198,7 +158,7 @@ namespace AMSExplorer
                           };
 
 
-            BindingList<StreamingEndpointEntry> MyObservOriginInPage = new BindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
+            SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
             this.DataSource = MyObservOriginInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             this.Columns["Name"].Width = 300;
@@ -215,20 +175,6 @@ namespace AMSExplorer
             _initialized = true;
         }
 
-
-        public void DisplayPage(int page)
-        {
-            if (!_initialized) return;
-            if (!_refreshedatleastonetime) return;
-
-            if ((page <= _pagecount) && (page > 0))
-            {
-                _currentpage = page;
-                this.DataSource = new BindingList<StreamingEndpointEntry>(_MyObservStreamingEndpoints.Skip(_originsperpage * (page - 1)).Take(_originsperpage).ToList());
-
-
-            }
-        }
 
         public void RefreshStreamingEndpoint(IStreamingEndpoint origin)
         {
@@ -296,19 +242,13 @@ namespace AMSExplorer
             }
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
-
-        private void RefreshStreamingEndpoints()
-        {
-            RefreshStreamingEndpoints(_context, _currentpage);
-        }
-
-
-        public void RefreshStreamingEndpoints(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+           
+        
+        public void RefreshStreamingEndpoints(CloudMediaContext context)
         {
             if (!_initialized) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
-            //this.FindForm().Cursor = Cursors.WaitCursor;
 
             _context = context;
 
@@ -317,12 +257,6 @@ namespace AMSExplorer
             streamingendpoints = context.StreamingEndpoints;
 
             _context = context;
-            _pagecount = (int)Math.Ceiling(((double)streamingendpoints.Count()) / ((double)_originsperpage));
-            if (_pagecount == 0) _pagecount = 1; // no asset but one page
-
-            if (pagetodisplay < 1) pagetodisplay = 1;
-            if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            _currentpage = pagetodisplay;
 
             try
             {
@@ -332,35 +266,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + e.Message);
                 Environment.Exit(0);
-            }
-
-
-            switch (_orderstreamingendpoints)
-            {
-                case OrderStreamingEndpoints.LastModified:
-                default:
-                    streamingendpoints = from c in streamingendpoints
-                                         orderby c.LastModified descending
-                                         select c;
-                    break;
-
-                case OrderStreamingEndpoints.Name:
-                    streamingendpoints = from c in streamingendpoints
-                                         orderby c.Name
-                                         select c;
-                    break;
-
-                case OrderStreamingEndpoints.State:
-                    streamingendpoints = from c in streamingendpoints
-                                         orderby c.State
-                                         select c;
-                    break;
-
-                case OrderStreamingEndpoints.ScaleUnits:
-                    streamingendpoints = from c in streamingendpoints
-                                         orderby c.ScaleUnits
-                                         select c;
-                    break;
             }
 
             endpointquery = from c in streamingendpoints
@@ -375,10 +280,8 @@ namespace AMSExplorer
                                 LastModified = c.LastModified.ToLocalTime().ToString("G"),
                             };
 
-
-            _MyObservStreamingEndpoints = new BindingList<StreamingEndpointEntry>(endpointquery.ToList());
-            _MyObservStreamingEndpointthisPage = new BindingList<StreamingEndpointEntry>(_MyObservStreamingEndpoints.Skip(_originsperpage * (_currentpage - 1)).Take(_originsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservStreamingEndpointthisPage));
+            _MyObservStreamingEndpoints = new SortableBindingList<StreamingEndpointEntry>(endpointquery.ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservStreamingEndpoints));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }

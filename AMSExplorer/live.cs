@@ -153,8 +153,7 @@ namespace AMSExplorer
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
 
-        static BindingList<ChannelEntry> _MyObservChannels;
-        static BindingList<ChannelEntry> _MyObservChannelthisPage;
+        static SortableBindingList<ChannelEntry> _MyObservChannels;
 
         static private int _channelsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
@@ -229,14 +228,16 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol);
 
-            BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
+            SortableBindingList<ChannelEntry> MyObservJobInPage = new SortableBindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
             this.Columns["InputUrl"].Width = 140;
+            this.Columns["InputUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
             this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
             this.Columns["InputProtocol"].Width = 180;
             this.Columns["PreviewUrl"].Width = 120;
+            this.Columns["PreviewUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 4;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
@@ -486,9 +487,8 @@ namespace AMSExplorer
                            LastModified = c.LastModified.ToLocalTime().ToString("G")
                        });
 
-            _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
-            _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannelthisPage));
+            _MyObservChannels = new SortableBindingList<ChannelEntry>(channelquery.ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannels));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
@@ -501,8 +501,8 @@ namespace AMSExplorer
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
 
-        static BindingList<ProgramEntry> _MyObservPrograms;
-        static BindingList<ProgramEntry> _MyObservProgramsthisPage;
+        static SortableBindingList<ProgramEntry> _MyObservPrograms;
+        static SortableBindingList<ProgramEntry> _MyObservProgramsthisPage;
 
 
         static private int _itemssperpage = 50; //nb of items per page
@@ -684,7 +684,7 @@ namespace AMSExplorer
             this.Columns.Add(imageCol);
 
 
-            BindingList<ProgramEntry> MyObservProgramInPage = new BindingList<ProgramEntry>(programquery.Take(0).ToList());
+            SortableBindingList<ProgramEntry> MyObservProgramInPage = new SortableBindingList<ProgramEntry>(programquery.Take(0).ToList());
             this.DataSource = MyObservProgramInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
             this.Columns["ChannelId"].Visible = false;
@@ -1020,9 +1020,8 @@ namespace AMSExplorer
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                          });
 
-            _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
-            _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
+            _MyObservPrograms = new SortableBindingList<ProgramEntry>(programquery.ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservPrograms));
             _refreshedatleastonetime = true;
             this.FindForm().Cursor = Cursors.Default;
 

@@ -190,6 +190,7 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="SortableBindingList.cs" />
     <Compile Include="TimeRangeSelection.cs">
       <SubType>Form</SubType>
     </Compile>
