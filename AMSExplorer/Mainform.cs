@@ -55,6 +55,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
 using Newtonsoft.Json;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -1249,13 +1250,13 @@ namespace AMSExplorer
 
         private void DoMenuUploadFromFolder_Step1()
         {
-            FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
 
-            if (!string.IsNullOrEmpty(_backuprootfolderupload)) openFolderDialog1.SelectedPath = _backuprootfolderupload;
+            if (!string.IsNullOrEmpty(_backuprootfolderupload)) openFolderDialog.DefaultDirectory = _backuprootfolderupload;
 
-            if (openFolderDialog1.ShowDialog() == DialogResult.OK)
+            if (openFolderDialog.ShowDialog()== CommonFileDialogResult.Ok)
             {
-                DoMenuUploadFromFolder_Step2(openFolderDialog1.SelectedPath);
+                DoMenuUploadFromFolder_Step2(openFolderDialog.FileName);
             }
         }
 
