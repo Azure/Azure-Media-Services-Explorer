@@ -4015,7 +4015,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{94055368-1BA8-484D-94B3-4FED11E44A97}</td></row>
 		<row><td>ISUSSignature</td><td>{0E4FDF20-D1F5-4528-B0F9-E06E51155DB1}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4074,6 +4074,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 	<table name="LaunchCondition">
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
+		<row><td>(Not Version9X) And (Not ((VersionNT&gt;=400 And VersionNT&lt;=502) Or (VersionNT=600 And MsiNTProductType=1)))</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_OS##</td></row>
 	</table>
 
 	<table name="ListBox">

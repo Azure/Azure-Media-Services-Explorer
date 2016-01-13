@@ -221,15 +221,35 @@ namespace AMSExplorer
             }
             else if (mode == TypeConfig.JSON) // JSON
             {
-                //var jo = JObject.Parse(jsondata);
                 dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
                 if (checkBoxAddAutomatic.Checked)
                 {
                     ////////////////////////////
                     // Cleaning of JSON
                     ////////////////////////////
-                    if (obj.Sources != null) obj.Sources.Parent.Remove();
 
+                    // clean auto deinterlaing
+                    // clean all sources
+                    //if (obj.Sources != null) obj.Sources.Parent.Remove();
+
+                    // clean trimming
+                    // clean deinterlace filter
+                    if (obj.Sources != null)
+                    {
+                        var listDelete = new List<dynamic>();
+                        foreach (var source in obj.Sources)
+                        {
+                            if ((source.StartTime != null && source.Duration != null) || (source.Filters != null && source.Filters.Deinterlace != null))
+                            {
+                                listDelete.Add(source);
+                            }
+                        }
+                        listDelete.ForEach(c => c.Remove());
+                        if (obj.Sources.Count == 0)
+                        {
+                            obj.Sources.Parent.Remove();
+                        }
+                    }
 
                     // Clean Insert silent audio track
                     if (obj.Codecs != null)
@@ -242,7 +262,6 @@ namespace AMSExplorer
                             }
                         }
                     }
-
 
                     if (obj.Codecs != null) // clean thumbnail entry in Codecs
                     {
@@ -276,6 +295,7 @@ namespace AMSExplorer
                     // End of Cleaning
                     ////////////////////////////
 
+
                     // Trimming
                     if (checkBoxSourceTrimming.Checked)
                     {
@@ -304,6 +324,48 @@ namespace AMSExplorer
                             }
                         }
                     }
+
+                    // Insert disable auto deinterlacing
+                    if (checkBoxDisableAutoDeinterlacing.Checked)
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        bool DeinterModeSet = false;
+                        foreach (var source in obj.Sources)
+                        {
+                            if (source.Filters != null)
+                            {
+                                if (source.Filters.Deinterlace != null)
+                                {
+                                    source.Filters.Deinterlace.Mode = "Off";
+                                }
+                                else
+                                {
+                                    dynamic modeeentry = new JObject() as dynamic;
+                                    modeeentry.Mode = "Off";
+                                    source.Filters.Deinterlace = modeeentry;
+                                }
+                                DeinterModeSet = true;
+                            }
+                        }
+
+                        if (!DeinterModeSet)
+                        {
+                            dynamic sourceentry = new JObject() as dynamic;
+                            dynamic deinterlaceentry = new JObject() as dynamic;
+                            dynamic modeeentry = new JObject() as dynamic;
+                            modeeentry.Mode = "Off";
+                            deinterlaceentry.Deinterlace = modeeentry;
+                            sourceentry.Filters = deinterlaceentry;
+                            obj.Sources.Add(sourceentry);
+                        }
+
+
+                    }
+
 
                     if (_subclipConfig != null) // subclipping. we need to add top bitrate values
                     {
@@ -606,6 +668,11 @@ namespace AMSExplorer
         }
 
         private void checkBoxInsertSilentAudioTrack_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxDisableAutoDeinterlacing_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }

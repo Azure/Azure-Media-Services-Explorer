@@ -53,6 +53,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
+            this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
@@ -119,7 +120,7 @@
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
-            this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
@@ -291,7 +292,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 174);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 172);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -404,6 +405,7 @@
             // 
             // TabPageFeatures
             // 
+            this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
             this.TabPageFeatures.Controls.Add(this.checkBoxInsertSilentAudioTrack);
             this.TabPageFeatures.Controls.Add(this.textBoxSourceDurationTime);
             this.TabPageFeatures.Controls.Add(this.label7);
@@ -418,6 +420,17 @@
             this.TabPageFeatures.TabIndex = 1;
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxInsertSilentAudioTrack
+            // 
+            this.checkBoxInsertSilentAudioTrack.AutoSize = true;
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 194);
+            this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
+            this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
+            this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
+            this.checkBoxInsertSilentAudioTrack.Text = "Insert a silent audio track when input has no audio";
+            this.checkBoxInsertSilentAudioTrack.UseVisualStyleBackColor = true;
+            this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.checkBoxInsertSilentAudioTrack_CheckedChanged);
             // 
             // textBoxSourceDurationTime
             // 
@@ -1208,16 +1221,16 @@
             this.labelProcessorVersion.Text = "Version {0}";
             this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // checkBoxInsertSilentAudioTrack
+            // checkBoxDisableAutoDeinterlacing
             // 
-            this.checkBoxInsertSilentAudioTrack.AutoSize = true;
-            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 194);
-            this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
-            this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
-            this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
-            this.checkBoxInsertSilentAudioTrack.Text = "Insert a silent audio track when input has no audio";
-            this.checkBoxInsertSilentAudioTrack.UseVisualStyleBackColor = true;
-            this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.checkBoxInsertSilentAudioTrack_CheckedChanged);
+            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
+            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
+            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
+            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
+            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
+            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
             // 
             // buttonJobOptions
             // 
@@ -1418,5 +1431,6 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail2;
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
         private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
+        private System.Windows.Forms.CheckBox checkBoxDisableAutoDeinterlacing;
     }
 }
