@@ -1990,6 +1990,107 @@ namespace AMSExplorer
             return response;
         }
 
+        public class ManifestSegmentData
+        {
+            public ulong timestamp;
+            public bool calculated; // it means the timesatmp has been calculated from previous
+        }
+
+        public class ManifestSegmentsResponse
+        {
+            public List<ManifestSegmentData> videoSegments;
+            public List<ManifestSegmentData> audioSegments;
+
+            public ManifestSegmentsResponse()
+            {
+                this.videoSegments = new List<ManifestSegmentData>();
+                this.audioSegments = new List<ManifestSegmentData>();
+            }
+        }
+
+        static public ManifestSegmentsResponse GetManifestSegmentsList(IAsset asset)
+        // Parse the manifest and get data from it
+        {
+            ManifestSegmentsResponse response = new ManifestSegmentsResponse();
+
+            try
+            {
+                ILocator mytemplocator = null;
+                Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
+                if (myuri == null)
+                {
+                    mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
+                    myuri = AssetInfo.GetValidOnDemandURI(asset);
+                }
+                if (myuri != null)
+                {
+                    XDocument manifest = XDocument.Load(myuri.ToString());
+                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    ulong d = 0, r;
+                    bool calc = true;
+
+                    // video track
+                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    ulong timeStamp = 0;
+                    foreach (var chunk in videotrack.Elements("c"))
+                    {
+                        if (chunk.Attribute("t") != null)
+                        {
+                            timeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            calc = false;
+                        }
+                        else
+                        {
+                            calc = true;
+                        }
+
+                        d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                        r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
+                        for (ulong i = 0; i < r; i++)
+                        {
+                            response.videoSegments.Add(new ManifestSegmentData() { timestamp = timeStamp, calculated = (i == 0) ? calc : true });
+                            timeStamp += d;
+                        }
+                    }
+
+                    // audio track
+                    var audiotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
+                    timeStamp = 0;
+                    d = 0;
+                    foreach (var chunk in audiotrack.Elements("c"))
+                    {
+                        if (chunk.Attribute("t") != null)
+                        {
+                            timeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            calc = false;
+                        }
+                        else
+                        {
+                            calc = true;
+                        }
+
+                        d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                        r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
+                        for (ulong i = 0; i < r; i++)
+                        {
+                            response.audioSegments.Add(new ManifestSegmentData() { timestamp = timeStamp, calculated = (i == 0) ? calc : true });
+                            timeStamp += d;
+                        }
+                    }
+                }
+                else
+                {
+                    // Error
+                }
+                if (mytemplocator != null) mytemplocator.Delete();
+            }
+            catch
+            {
+                // Error
+            }
+            return response;
+        }
+
         public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
             double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
