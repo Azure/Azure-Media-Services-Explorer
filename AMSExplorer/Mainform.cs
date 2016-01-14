@@ -2998,16 +2998,34 @@ namespace AMSExplorer
         }
 
 
-
-
-
         private void CheckListArchiveBlobs(Dictionary<string, string> storagekeys, IAsset SourceAsset, AssetInfo.ManifestSegmentsResponse manifestdata)
         {
-
             if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
             {
                 TextBoxLogWriteLine("Starting the integrity check for asset {0}.", SourceAsset.Name);
                 bool Error = false;
+
+                int index = 0;
+                foreach (var seg in manifestdata.videoSegments)
+                {
+                    if (seg.timestamp_mismatch)
+                    {
+                        TextBoxLogWriteLine("There is an overlap or gap issue in video track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
+                        Error = true;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach (var seg in manifestdata.audioSegments)
+                {
+                    if (seg.timestamp_mismatch)
+                    {
+                        TextBoxLogWriteLine("There is an overlap or gap issue in audio track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
+                        Error = true;
+                    }
+                    index++;
+                }
 
                 // let's get cloudblobcontainer for source
                 CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
@@ -3019,12 +3037,9 @@ namespace AMSExplorer
                 Uri sourceUri = new Uri(SourceLocator.Path);
                 CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
 
-
                 var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
 
-
                 List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
-
 
                 var mediablobs = SourceCloudBlobContainer.ListBlobs();
                 if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
@@ -3060,48 +3075,35 @@ namespace AMSExplorer
                                 manifestdatacurrenttrack = manifestdata.audioSegments;
                             }
 
-
-                            if (listblobtimestamps.Count  < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
+                            if (listblobtimestamps.Count < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
                             {
                                 TextBoxLogWriteLine("There are {0} segments in the manifest but only {1} segments in directory '{2}'", manifestdatacurrenttrack.Count, listblobtimestamps.Count, dir.Prefix, true);
                                 Error = true;
                             }
-
-                            /*
-                            var bloblong = srcBlobList.Select(b => ulong.Parse(b.Uri.LocalPath)).ToList();
-                            var mismatchblobs = bloblong.Except(manifestdatacurrenttrack.Select(m => m.timestamp).ToList()).ToList();
-                            if (mismatchblobs.Count > 0)
-                            {
-                                mismatchblobs.ForEach(b => TextBoxLogWriteLine("Mismatch blob {0} in directory {1}", b, dir.Prefix, true));
-                            }
-                            */
-
                             else if (manifestdatacurrenttrack.Count > 0)
                             {
-                                int i = 0;
+                                index = 0;
 
                                 // list timlestamps from blob
-                            
                                 ulong timestampinblob;
                                 foreach (var seg in manifestdatacurrenttrack)
                                 {
-                                    timestampinblob = listblobtimestamps[i];
+                                    timestampinblob = listblobtimestamps[index];
                                     if (timestampinblob != seg.timestamp && !seg.calculated)
                                     {
-                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (defined) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix,i, true);
+                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (defined) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
                                         Error = true;
                                         break;
                                     }
                                     else if (timestampinblob != seg.timestamp && seg.calculated)
                                     {
-                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (calculated) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix,i, true);
+                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (calculated) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
                                         Error = true;
                                         break;
                                     }
-                                    i++;
+                                    index++;
                                 }
                             }
-
                         }
                     }
                 }
@@ -3116,7 +3118,6 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("End of integrity check for asset {0}.", SourceAsset.Name);
                 }
-
             }
             else
             {
@@ -6790,7 +6791,6 @@ namespace AMSExplorer
                 try
                 {
                     TextBoxLogWriteLine("Streaming endpoint '{0}' : scaling to {1} unit(s)...", myO.Name, unit.ToString());
-                    //await Task.Run(() => myO.ScaleAsync(unit));
                     operation = await myO.SendScaleOperationAsync(unit);
                     while (operation.State == OperationState.InProgress)
                     {
@@ -12369,9 +12369,11 @@ namespace AMSExplorer
             bool usercanceled = false;
             var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
 
-            var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
-
-            CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
+            Task.Run(async () =>
+            {
+                var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
+                CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
+            });
         }
     }
 }

@@ -1994,6 +1994,7 @@ namespace AMSExplorer
         {
             public ulong timestamp;
             public bool calculated; // it means the timesatmp has been calculated from previous
+            public bool timestamp_mismatch; // if there is a mismatch
         }
 
         public class ManifestSegmentsResponse
@@ -2026,18 +2027,25 @@ namespace AMSExplorer
                 {
                     XDocument manifest = XDocument.Load(myuri.ToString());
                     var smoothmedia = manifest.Element("SmoothStreamingMedia");
+
                     ulong d = 0, r;
                     bool calc = true;
+                    bool mismatch = false;
+                    bool firstchunk = true;
+                    ulong timeStamp = 0;
 
                     // video track
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
-                    ulong timeStamp = 0;
                     foreach (var chunk in videotrack.Elements("c"))
                     {
+                        mismatch = false;
                         if (chunk.Attribute("t") != null)
                         {
-                            timeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            mismatch = (!firstchunk && readtimeStamp != timeStamp);
+                            timeStamp = readtimeStamp;
                             calc = false;
+                            firstchunk = false;
                         }
                         else
                         {
@@ -2048,7 +2056,12 @@ namespace AMSExplorer
                         r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
                         for (ulong i = 0; i < r; i++)
                         {
-                            response.videoSegments.Add(new ManifestSegmentData() { timestamp = timeStamp, calculated = (i == 0) ? calc : true });
+                            response.videoSegments.Add(new ManifestSegmentData()
+                            {
+                                timestamp = timeStamp,
+                                timestamp_mismatch = (i == 0) ? mismatch : false,
+                                calculated = (i == 0) ? calc : true
+                            });
                             timeStamp += d;
                         }
                     }
@@ -2057,12 +2070,17 @@ namespace AMSExplorer
                     var audiotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
                     timeStamp = 0;
                     d = 0;
+                    firstchunk = true;
                     foreach (var chunk in audiotrack.Elements("c"))
                     {
+                        mismatch = false;
                         if (chunk.Attribute("t") != null)
                         {
-                            timeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                            mismatch = (!firstchunk && readtimeStamp != timeStamp);
+                            timeStamp = readtimeStamp;
                             calc = false;
+                            firstchunk = false;
                         }
                         else
                         {
@@ -2073,7 +2091,12 @@ namespace AMSExplorer
                         r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
                         for (ulong i = 0; i < r; i++)
                         {
-                            response.audioSegments.Add(new ManifestSegmentData() { timestamp = timeStamp, calculated = (i == 0) ? calc : true });
+                            response.audioSegments.Add(new ManifestSegmentData()
+                            {
+                                timestamp = timeStamp,
+                                timestamp_mismatch = (i == 0) ? mismatch : false,
+                                calculated = (i == 0) ? calc : true
+                            });
                             timeStamp += d;
                         }
                     }
