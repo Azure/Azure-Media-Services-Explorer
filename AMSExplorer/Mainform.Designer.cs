@@ -111,6 +111,7 @@
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -503,7 +504,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -557,6 +558,7 @@
             this.importToolStripMenuItem1,
             this.exportToolStripMenuItem,
             this.mergeAssetsToANewAssetToolStripMenuItem,
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem,
             this.ContextMenuItemAssetRename,
             this.ContextMenuItemAssetDelete,
             this.toolStripSeparator5,
@@ -573,10 +575,9 @@
             this.toolStripSeparator30,
             this.publishToolStripMenuItem1,
             this.toolStripMenuItem22,
-            this.ContextMenuItemAssetPlayback,
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem});
+            this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 540);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1228,6 +1229,13 @@
             this.withCustomPlayerToolStripMenuItem1.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
             // 
+            // checkIntegrityOfLiveArchiveToolStripMenuItem
+            // 
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Text = "Check integrity of live archive";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -1272,6 +1280,7 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.mergeSelectedAssetsToolStripMenuItem,
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
             this.deleteToolStripMenuItem,
             this.createTestAssetsToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
@@ -5123,12 +5132,12 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // checkIntegrityOfLiveArchiveToolStripMenuItem
+            // checkIntegrityOfLiveArchiveToolStripMenuItem1
             // 
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem";
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Text = "Check integrity of live archive...";
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem_Click);
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem1";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem1_Click);
             // 
             // Mainform
             // 
@@ -5671,6 +5680,7 @@
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem1;
     }
 }
 

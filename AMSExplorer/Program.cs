@@ -2000,12 +2000,18 @@ namespace AMSExplorer
         public class ManifestSegmentsResponse
         {
             public List<ManifestSegmentData> videoSegments;
-            public List<ManifestSegmentData> audioSegments;
+            public List<int> videoBitrates;
+            public ManifestSegmentData[][] audioSegments;
+            //public List<ManifestSegmentData> audioSegments;
+           // public List<int> audioBitrates;
+            public int[][] audioBitrates;
 
             public ManifestSegmentsResponse()
             {
                 this.videoSegments = new List<ManifestSegmentData>();
-                this.audioSegments = new List<ManifestSegmentData>();
+                this.videoBitrates = new List<int>();
+                //this.audioSegments = new List<ManifestSegmentData>();
+                //this.audioBitrates = new List<int>();
             }
         }
 
@@ -2036,6 +2042,8 @@ namespace AMSExplorer
 
                     // video track
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    response.videoBitrates= videotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToList();
+
                     foreach (var chunk in videotrack.Elements("c"))
                     {
                         mismatch = false;
@@ -2067,38 +2075,52 @@ namespace AMSExplorer
                     }
 
                     // audio track
-                    var audiotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
-                    timeStamp = 0;
-                    d = 0;
-                    firstchunk = true;
-                    foreach (var chunk in audiotrack.Elements("c"))
-                    {
-                        mismatch = false;
-                        if (chunk.Attribute("t") != null)
-                        {
-                            var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
-                            mismatch = (!firstchunk && readtimeStamp != timeStamp);
-                            timeStamp = readtimeStamp;
-                            calc = false;
-                            firstchunk = false;
-                        }
-                        else
-                        {
-                            calc = true;
-                        }
+                    var audiotracks = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
+                    response.audioBitrates = new int[audiotracks.Count()][];
+                    response.audioSegments = new ManifestSegmentData[audiotracks.Count()][];
 
-                        d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
-                        r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
-                        for (ulong i = 0; i < r; i++)
+                    int a_index = 0;
+                    foreach (var audiotrack in audiotracks)
+                    {
+                        response.audioBitrates[a_index] = audiotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToArray();
+
+                        var audiotracksegmentdata = new List<ManifestSegmentData>();
+
+                        timeStamp = 0;
+                        d = 0;
+                        firstchunk = true;
+                        foreach (var chunk in audiotrack.Elements("c"))
                         {
-                            response.audioSegments.Add(new ManifestSegmentData()
+                            mismatch = false;
+                            if (chunk.Attribute("t") != null)
                             {
-                                timestamp = timeStamp,
-                                timestamp_mismatch = (i == 0) ? mismatch : false,
-                                calculated = (i == 0) ? calc : true
-                            });
-                            timeStamp += d;
+                                var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
+                                mismatch = (!firstchunk && readtimeStamp != timeStamp);
+                                timeStamp = readtimeStamp;
+                                calc = false;
+                                firstchunk = false;
+                            }
+                            else
+                            {
+                                calc = true;
+                            }
+
+                            d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                            r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
+                            for (ulong i = 0; i < r; i++)
+                            {
+                                audiotracksegmentdata.Add(new ManifestSegmentData()
+                                {
+                                    timestamp = timeStamp,
+                                    timestamp_mismatch = (i == 0) ? mismatch : false,
+                                    calculated = (i == 0) ? calc : true
+                                });
+                                timeStamp += d;
+                            }
+                           
                         }
+                        response.audioSegments[a_index] = audiotracksegmentdata.ToArray();
+                        a_index++;
                     }
                 }
                 else

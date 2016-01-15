@@ -3005,6 +3005,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the integrity check for asset {0}.", SourceAsset.Name);
                 bool Error = false;
 
+                TextBoxLogWriteLine("Checking video track segments in manifest...");
                 int index = 0;
                 foreach (var seg in manifestdata.videoSegments)
                 {
@@ -3016,16 +3017,26 @@ namespace AMSExplorer
                     index++;
                 }
 
+                TextBoxLogWriteLine("Checking audio track segments in manifest...");
                 index = 0;
-                foreach (var seg in manifestdata.audioSegments)
+                int a_index = 0;
+                foreach (var audiotrack in manifestdata.audioSegments)
                 {
-                    if (seg.timestamp_mismatch)
+                    foreach (var seg in audiotrack)
                     {
-                        TextBoxLogWriteLine("There is an overlap or gap issue in audio track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
-                        Error = true;
+                        if (seg.timestamp_mismatch)
+                        {
+                            TextBoxLogWriteLine("There is an overlap or gap issue in audio track {0}. Timestamp {1} calculation mismatch in manifest, index {2}", a_index, seg.timestamp, index, true);
+                            Error = true;
+                        }
+                        index++;
                     }
-                    index++;
+                    a_index++;
                 }
+
+
+                TextBoxLogWriteLine("Checking blobs in storage...");
+
 
                 // let's get cloudblobcontainer for source
                 CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
@@ -3054,13 +3065,44 @@ namespace AMSExplorer
                         }
                     }
 
+
+                    // let's check the presence of all audio_ and video_ directories
+                    var audiodir = ListDirectories.Where(d => d.Prefix.StartsWith("audio_"));
+                    var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
+                    if (videodir.Count() != manifestdata.videoBitrates.Count)
+                    {
+                        TextBoxLogWriteLine("There are {0} video tracks in the manifest but {1} video directories in storage", manifestdata.videoBitrates.Count(), videodir.Count(), true);
+                        Error = true;
+                    }
+
+                    if (audiodir.Count() != manifestdata.audioBitrates.GetLength(0))
+                    {
+                        TextBoxLogWriteLine("There are {0} audio tracks in the manifest but {1} audio directories in storage", manifestdata.audioBitrates.GetLength(0), audiodir.Count(), true);
+                        Error = true;
+                    }
+
+                    var except = videodir.Except(manifestdata.videoBitrates);
+                    if (except.Count() > 0)
+                    {
+                        TextBoxLogWriteLine("Some video directories in storage are not referenced as bitrate in the manifest. Bitrates : {0}", string.Join(",", except), true);
+                        Error = true;
+                    }
+                    var exceptb = manifestdata.videoBitrates.Except(videodir);
+                    if (exceptb.Count() > 0)
+                    {
+                        TextBoxLogWriteLine("Some bitrates in manifest cannot be found in storage as video directories. Bitrates : {0}", string.Join(",", exceptb), true);
+                        Error = true;
+                    }
+
+
                     // let's check the fragblobs
                     foreach (var dir in ListDirectories)
                     {
-                        TextBoxLogWriteLine("Listing fragblobs directory '{0}'....", dir.Prefix);
 
                         if (dir.Prefix.StartsWith("audio_") || dir.Prefix.StartsWith("video_"))
                         {
+                            TextBoxLogWriteLine("Checking fragblobs in directory '{0}'....", dir.Prefix);
+
                             var srcBlobList = dir.ListBlobs(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.None).ToList();
                             var listblobtimestamps = srcBlobList.Where(b => System.IO.Path.GetFileName(b.Uri.LocalPath) != "header").Select(b => ulong.Parse(System.IO.Path.GetFileName(b.Uri.LocalPath))).ToList().OrderBy(t => t).ToList();
 
@@ -3070,9 +3112,33 @@ namespace AMSExplorer
                             {
                                 manifestdatacurrenttrack = manifestdata.videoSegments;
                             }
-                            else
+                            else // audio
                             {
-                                manifestdatacurrenttrack = manifestdata.audioSegments;
+                                if (dir.Prefix.StartsWith("audio__"))  // let's get the index of audio track if it exists in directory name
+                                                                       // there is an index "audio__0_64000" for example
+                                {
+                                    var split = dir.Prefix.Split('_');
+                                    manifestdatacurrenttrack = manifestdata.audioSegments[int.Parse(split[2])].ToList();
+                                }
+                                else
+                                {
+                                    manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
+                                }
+                            }
+
+                            var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();
+                            var except2 = listblobtimestamps.Except(timestampsinmanifest);
+                            if (except2.Count() > 0)
+                            {
+                                TextBoxLogWriteLine("Some segments in directory {0} are not in the manifest. Segments with timestamp: {1}", dir.Prefix, string.Join(",", except2), true);
+                                Error = true;
+                            }
+
+                            var except3 = timestampsinmanifest.Except(listblobtimestamps);
+                            if (except3.Count() > 0)
+                            {
+                                TextBoxLogWriteLine("Some segments in manifest are not in directory {0}. Segments with timestamp: {1}", dir.Prefix, string.Join(",", except3), true);
+                                Error = true;
                             }
 
                             if (listblobtimestamps.Count < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
@@ -3084,7 +3150,7 @@ namespace AMSExplorer
                             {
                                 index = 0;
 
-                                // list timlestamps from blob
+                                // list timestamps from blob
                                 ulong timestampinblob;
                                 foreach (var seg in manifestdatacurrenttrack)
                                 {
@@ -3116,7 +3182,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    TextBoxLogWriteLine("End of integrity check for asset {0}.", SourceAsset.Name);
+                    TextBoxLogWriteLine("End of integrity check for asset {0}. No error detected.", SourceAsset.Name);
                 }
             }
             else
@@ -12374,6 +12440,11 @@ namespace AMSExplorer
                 var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
                 CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
             });
+        }
+
+        private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCheckIntegrityLiveArchive();
         }
     }
 }
