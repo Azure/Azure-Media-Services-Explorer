@@ -34,7 +34,7 @@
             this.splitContainerBox = new System.Windows.Forms.SplitContainer();
             this.splitContainerPreviews = new System.Windows.Forms.SplitContainer();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
-            this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
+            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.checkBoxPreviewSlate = new System.Windows.Forms.CheckBox();
             this.labelSlatePreviewInfo = new System.Windows.Forms.Label();
             this.pictureBoxPreviewSlate = new System.Windows.Forms.PictureBox();
@@ -132,7 +132,7 @@
             // 
             this.splitContainerPreviews.Panel1.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainerPreviews.Panel1.Controls.Add(this.checkBoxPreviewStream);
-            this.splitContainerPreviews.Panel1.Controls.Add(this.webBrowserPreview2);
+            this.splitContainerPreviews.Panel1.Controls.Add(this.webBrowserPreview);
             this.splitContainerPreviews.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
             // 
             // splitContainerPreviews.Panel2
@@ -159,15 +159,15 @@
             // 
             // webBrowserPreview2
             // 
-            this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.webBrowserPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserPreview2.Location = new System.Drawing.Point(7, 30);
-            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(23, 23);
-            this.webBrowserPreview2.Name = "webBrowserPreview2";
-            this.webBrowserPreview2.Size = new System.Drawing.Size(280, 292);
-            this.webBrowserPreview2.TabIndex = 2;
-            this.webBrowserPreview2.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserPreview2_DocumentCompleted);
+            this.webBrowserPreview.Location = new System.Drawing.Point(7, 30);
+            this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
+            this.webBrowserPreview.Name = "webBrowserPreview2";
+            this.webBrowserPreview.Size = new System.Drawing.Size(280, 292);
+            this.webBrowserPreview.TabIndex = 2;
+            this.webBrowserPreview.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserPreview2_DocumentCompleted);
             // 
             // checkBoxPreviewSlate
             // 
@@ -583,7 +583,7 @@
         private System.Windows.Forms.TextBox textBoxJPGSearch;
         private System.Windows.Forms.SplitContainer splitContainerBox;
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
-        private System.Windows.Forms.WebBrowser webBrowserPreview2;
+        private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.CheckBox checkBoxPreviewSlate;
         private System.Windows.Forms.PictureBox pictureBoxPreviewSlate;
         private System.Windows.Forms.ErrorProvider errorProvider1;

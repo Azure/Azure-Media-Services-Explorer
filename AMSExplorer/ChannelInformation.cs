@@ -324,7 +324,9 @@ namespace AMSExplorer
 
         private void ChanneltInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            // let's sure we dispose the webbrowser control
+            webBrowserPreview.Url = null;
+            webBrowserPreview.Dispose();
         }
 
 

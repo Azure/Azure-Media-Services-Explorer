@@ -52,7 +52,7 @@
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
-            this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
+            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
@@ -287,7 +287,7 @@
             this.groupBoxTrimming.Controls.Add(this.textBoxDurationTime);
             this.groupBoxTrimming.Controls.Add(this.label7);
             this.groupBoxTrimming.Controls.Add(this.labelAccurate);
-            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview2);
+            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview);
             this.groupBoxTrimming.Controls.Add(this.timeControlStart);
             this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
             this.groupBoxTrimming.Controls.Add(this.checkBoxPreviewStream);
@@ -336,14 +336,14 @@
             // 
             // webBrowserPreview2
             // 
-            this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.webBrowserPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserPreview2.Location = new System.Drawing.Point(17, 42);
-            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(23, 23);
-            this.webBrowserPreview2.Name = "webBrowserPreview2";
-            this.webBrowserPreview2.Size = new System.Drawing.Size(500, 217);
-            this.webBrowserPreview2.TabIndex = 4;
+            this.webBrowserPreview.Location = new System.Drawing.Point(17, 42);
+            this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
+            this.webBrowserPreview.Name = "webBrowserPreview2";
+            this.webBrowserPreview.Size = new System.Drawing.Size(500, 217);
+            this.webBrowserPreview.TabIndex = 4;
             // 
             // timeControlStart
             // 
@@ -694,7 +694,7 @@
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label labelAccurate;
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
-        private System.Windows.Forms.WebBrowser webBrowserPreview2;
+        private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.Panel panelAssetInfo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButtonAssetFilter;

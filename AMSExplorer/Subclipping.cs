@@ -477,6 +477,10 @@ namespace AMSExplorer
 
                 }
             }
+
+            // let's sure we dispose the webbrowser control
+            webBrowserPreview.Url = null;
+            webBrowserPreview.Dispose();
         }
 
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
@@ -504,12 +508,12 @@ namespace AMSExplorer
                 if (myuri != null)
                 {
                     string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
-                    webBrowserPreview2.Url = new Uri(myurl);
+                    webBrowserPreview.Url = new Uri(myurl);
                 }
             }
             else
             {
-                webBrowserPreview2.Url = null;
+                webBrowserPreview.Url = null;
             }
            
         }

@@ -100,6 +100,10 @@ namespace AMSExplorer
         private void ChannelAdSlateControl_FormClosed(object sender, FormClosedEventArgs e)
         {
             ListLocators.ToList().ForEach(entry => DeleteSASLocator(entry.Value));
+
+            // let's sure we dispose the webbrowser control
+            webBrowserPreview.Url = null;
+            webBrowserPreview.Dispose();
         }
 
 
@@ -330,12 +334,12 @@ namespace AMSExplorer
                 if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
                     string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: MyMainForm);
-                    webBrowserPreview2.Url = new Uri(myurl);
+                    webBrowserPreview.Url = new Uri(myurl);
                 }
             }
             else
             {
-                webBrowserPreview2.Url = null;
+                webBrowserPreview.Url = null;
             }
         }
 
