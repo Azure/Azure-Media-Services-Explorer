@@ -35,7 +35,6 @@
             this.radioButtonOFF = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.buttonSelFolder = new System.Windows.Forms.Button();
             this.textBoxFolder = new System.Windows.Forms.TextBox();
             this.checkBoxUseQueue = new System.Windows.Forms.CheckBox();
@@ -149,10 +148,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 49;
             this.pictureBox1.TabStop = false;
-            // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // buttonSelFolder
             // 
@@ -483,7 +478,6 @@
         private System.Windows.Forms.RadioButton radioButtonON;
         private System.Windows.Forms.RadioButton radioButtonOFF;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button buttonSelFolder;
         private System.Windows.Forms.TextBox textBoxFolder;
         private System.Windows.Forms.CheckBox checkBoxUseQueue;

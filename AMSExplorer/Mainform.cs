@@ -464,7 +464,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
+        private async Task ProcessUploadFromFolder(object folderPath, int index, AssetCreationOptions assetcreationoption, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -489,7 +489,7 @@ namespace AMSExplorer
                 asset = _context.Assets.CreateFromFolder(
                                                                folderPath as string,
                                                                storageaccount,
-                                                               Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                                               assetcreationoption,
                                                                (af, p) =>
                                                                {
                                                                    progress[af.Name] = p.Progress;
@@ -920,7 +920,7 @@ namespace AMSExplorer
                 {
                     int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index));
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None));
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
                 catch (Exception ex)
@@ -934,7 +934,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessUploadFileAndMore(object name, int index, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(object name, int index, AssetCreationOptions assetcreationoptions , WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -949,7 +949,7 @@ namespace AMSExplorer
                 asset = _context.Assets.CreateFromFile(
                                                       name as string,
                                                       storageaccount,
-                                                      Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                                      assetcreationoptions,
                                                       (af, p) =>
                                                       {
                                                           DoGridTransferUpdateProgress(p.Progress, index);
@@ -1270,7 +1270,11 @@ namespace AMSExplorer
                     int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
 
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFromFolder(SelectedPath, index));
+                    Task.Factory.StartNew(() => ProcessUploadFromFolder(
+                        SelectedPath,
+                        index,
+                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
+                        ));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
@@ -6062,7 +6066,11 @@ namespace AMSExplorer
                     {
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(path, index, MyWatchFolderSettings));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(
+                            path, 
+                            index, 
+                            Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                            MyWatchFolderSettings));
 
                     }
                     catch (Exception e)
@@ -8470,15 +8478,18 @@ namespace AMSExplorer
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
                             int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                            //Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected));
-                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected)));
+                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form.EncryptionOption, form2.StorageSelected)));
                         }
 
                         foreach (string file in form2.BatchSelectedFiles)
                         {
                             int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                            //Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected));
-                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected)));
+                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFileAndMore(
+                                file, 
+                                index,
+                                Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                null, 
+                                form2.StorageSelected)));
                         }
                         await Task.WhenAll(MyTasks);
 
@@ -8831,7 +8842,7 @@ namespace AMSExplorer
                         //    if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration)
                         //// Azure will deliver the PR or WV license and user wants to auto generate the key, so we can create a key with a random content key
 
-                        if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration)
+                        if (!reusekey &&((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration))
 
                         // Azure will deliver the PR or WV license or user wants to auto generate the key, so we can create a key with a random content key
                         {
@@ -12017,7 +12028,7 @@ namespace AMSExplorer
                 if (form.AssetFiles.Count() > 0)
                 {
                     // Encryption of files
-                    if (form.EncryptAssetFiles)
+                    if (form.AssetCreationOption== AssetCreationOptions.StorageEncrypted)
                     {
                         if (!Directory.Exists(form.EncryptToFolder))
                         {
@@ -12045,7 +12056,7 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey, form.GenerateAspera);
+                            DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.AssetCreationOption, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey, form.GenerateAspera);
                         }
                         catch (Exception ex)
                         {
@@ -12064,7 +12075,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey, bool GenerateAspera)
+        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, AssetCreationOptions creationoption, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey, bool GenerateAspera)
         {
             TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
             IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
@@ -12074,7 +12085,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    IAsset destAsset = _context.Assets.Create(asset.AssetName, assetStorage, encryptFiles ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    IAsset destAsset = _context.Assets.Create(asset.AssetName, assetStorage, creationoption);
                     IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, asset.AssetFiles);
                 }
                 catch (Exception ex)
@@ -12089,7 +12100,7 @@ namespace AMSExplorer
 
             // Encryption of files
             bool Error = false;
-            if (encryptFiles)
+            if (creationoption == AssetCreationOptions.StorageEncrypted)
             {
 
                 TextBoxLogWriteLine("Encryption of asset files for bulk upload...");
@@ -12109,7 +12120,7 @@ namespace AMSExplorer
             if (!Error)
             {
                 TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
-                if (encryptFiles)
+                if (creationoption == AssetCreationOptions.StorageEncrypted)
                 {
                     TextBoxLogWriteLine("Encrypted files are in {0}", encryptToFolder);
                 }
@@ -12122,14 +12133,14 @@ namespace AMSExplorer
 
                 if (GenerateSigniant)
                 {
-                    string commandline = GenerateSigniantCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder, SigniantServers, SigniantAPIKey);
+                    string commandline = GenerateSigniantCommandLine(manifest, assetFiles, creationoption == AssetCreationOptions.StorageEncrypted, encryptToFolder, SigniantServers, SigniantAPIKey);
                     var form = new EditorXMLJSON("Signiant Command Line", commandline, false, false, false);
                     form.Display();
                 }
 
                 if (GenerateAzCopy)
                 {
-                    string commandline = GenerateAzCopyCommandLine(manifest, assetFiles, encryptFiles, encryptToFolder);
+                    string commandline = GenerateAzCopyCommandLine(manifest, assetFiles, creationoption == AssetCreationOptions.StorageEncrypted, encryptToFolder);
                     var form = new EditorXMLJSON("AzCopy Command Line", commandline, false, false, false);
                     form.Display();
                 }

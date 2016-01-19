@@ -36,10 +36,11 @@
             this.checkBoxSubFolder = new System.Windows.Forms.CheckBox();
             this.checkBoxProcessFiles = new System.Windows.Forms.CheckBox();
             this.checkBoxOneUpDownload = new System.Windows.Forms.CheckBox();
-            this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxEncryption = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -127,21 +128,11 @@
             this.checkBoxOneUpDownload.Text = "One upload at a time (use a queue)";
             this.checkBoxOneUpDownload.UseVisualStyleBackColor = true;
             // 
-            // checkBoxUseStorageEncryption
-            // 
-            this.checkBoxUseStorageEncryption.AutoSize = true;
-            this.checkBoxUseStorageEncryption.Enabled = false;
-            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(21, 48);
-            this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
-            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(224, 19);
-            this.checkBoxUseStorageEncryption.TabIndex = 12;
-            this.checkBoxUseStorageEncryption.Text = "Use storage encryption for new assets";
-            this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.comboBoxEncryption);
             this.groupBox1.Controls.Add(this.checkBoxOneUpDownload);
-            this.groupBox1.Controls.Add(this.checkBoxUseStorageEncryption);
             this.groupBox1.Location = new System.Drawing.Point(30, 230);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(579, 89);
@@ -171,6 +162,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(639, 55);
             this.panel1.TabIndex = 54;
+            // 
+            // comboBoxEncryption
+            // 
+            this.comboBoxEncryption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEncryption.FormattingEnabled = true;
+            this.comboBoxEncryption.Location = new System.Drawing.Point(132, 50);
+            this.comboBoxEncryption.Name = "comboBoxEncryption";
+            this.comboBoxEncryption.Size = new System.Drawing.Size(429, 23);
+            this.comboBoxEncryption.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(108, 15);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Encryption option :";
             // 
             // BatchUploadFrame1
             // 
@@ -211,9 +220,10 @@
         private System.Windows.Forms.CheckBox checkBoxSubFolder;
         private System.Windows.Forms.CheckBox checkBoxProcessFiles;
         private System.Windows.Forms.CheckBox checkBoxOneUpDownload;
-        private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxEncryption;
     }
 }

@@ -30,6 +30,7 @@ using System.Reflection;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -98,20 +99,32 @@ namespace AMSExplorer
                 return ((Item)comboBoxStorageIngest.SelectedItem).Value;
             }
         }
-
-        public bool EncryptAssetFiles
-        {
-            get
-            {
-                return checkBoxEncrypt.Checked;
-            }
-        }
+               
 
         public string EncryptToFolder
         {
             get
             {
-                return checkBoxEncrypt.Checked ? textBoxFolderPath.Text : null;
+                return radioButtonStorageEncryption.Checked ? textBoxFolderPath.Text : null;
+            }
+        }
+
+        public AssetCreationOptions AssetCreationOption
+        {
+            get
+            {
+                if (radioButtonEncryptionNone.Checked)
+                {
+                    return AssetCreationOptions.None;
+                }
+                else if (radioButtonStorageEncryption.Checked)
+                {
+                    return AssetCreationOptions.StorageEncrypted;
+                }
+                else
+                {
+                    return AssetCreationOptions.CommonEncryptionProtected;
+                }
             }
         }
 
@@ -365,18 +378,14 @@ namespace AMSExplorer
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory= textBoxFolderPath.Text };
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath;
+                textBoxFolderPath.Text = openFolderDialog.FileName;// FolderDialog.SelectedPath;
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = checkBoxEncrypt.Checked;
-        }
-
+     
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
@@ -468,12 +477,11 @@ namespace AMSExplorer
         private void linklabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (checkBoxGenerateSigniant.Checked && comboBoxSigniantServer.SelectedIndex<0)
+            if (checkBoxGenerateSigniant.Checked && comboBoxSigniantServer.SelectedIndex < 0)
             {
                 // problem
                 MessageBox.Show("Please select a Signiant server in the same region than the AMS/Storage account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -499,6 +507,11 @@ namespace AMSExplorer
         private void checkBoxGenerateSigniant_CheckedChanged(object sender, EventArgs e)
         {
             panelSigniant.Enabled = checkBoxGenerateSigniant.Checked;
+        }
+
+        private void radioButtonStorageEncryption_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = radioButtonStorageEncryption.Checked;
         }
     }
 

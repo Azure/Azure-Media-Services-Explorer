@@ -135,7 +135,6 @@ namespace AMSExplorer
         {
             groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
-
         }
 
 

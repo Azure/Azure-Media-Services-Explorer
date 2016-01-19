@@ -24,6 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -155,10 +156,10 @@ namespace AMSExplorer
 
         private void buttonSelFolder_Click(object sender, EventArgs e)
         {
-
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = textBoxFolder.Text };
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolder.Text = folderBrowserDialog1.SelectedPath;
+                textBoxFolder.Text = openFolderDialog.FileName;
             }
         }
 

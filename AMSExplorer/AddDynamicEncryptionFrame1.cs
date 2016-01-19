@@ -91,7 +91,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (checkBoxProtocolDASH.Checked && EnableDynEnc) ? checkBoxWidevinePackaging.Checked : false;
+                return (checkBoxProtocolDASH.Checked && EnableDynEnc && !radioButtonNoDynEnc.Checked) ? checkBoxWidevinePackaging.Checked : false;
             }
         }
 
@@ -128,13 +128,8 @@ namespace AMSExplorer
         }
 
 
-
-
-
-
         private void buttonOk_Click(object sender, EventArgs e)
         {
-
         }
 
 

@@ -51,8 +51,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridAssetFiles = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.radioButtonCENCEncryption = new System.Windows.Forms.RadioButton();
+            this.radioButtonStorageEncryption = new System.Windows.Forms.RadioButton();
+            this.radioButtonEncryptionNone = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -77,6 +79,7 @@
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -318,8 +321,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.radioButtonCENCEncryption);
+            this.tabPage2.Controls.Add(this.radioButtonStorageEncryption);
+            this.tabPage2.Controls.Add(this.radioButtonEncryptionNone);
             this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.checkBoxEncrypt);
             this.tabPage2.Controls.Add(this.buttonBrowseFile);
             this.tabPage2.Controls.Add(this.textBoxFolderPath);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
@@ -327,34 +333,60 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(752, 355);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Storage Encryption";
+            this.tabPage2.Text = "Encryption";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCENCEncryption
+            // 
+            this.radioButtonCENCEncryption.AutoSize = true;
+            this.radioButtonCENCEncryption.Location = new System.Drawing.Point(28, 214);
+            this.radioButtonCENCEncryption.Name = "radioButtonCENCEncryption";
+            this.radioButtonCENCEncryption.Size = new System.Drawing.Size(379, 19);
+            this.radioButtonCENCEncryption.TabIndex = 85;
+            this.radioButtonCENCEncryption.TabStop = true;
+            this.radioButtonCENCEncryption.Text = "Common encryption (content is already encrypted with PlayReady)";
+            this.radioButtonCENCEncryption.UseVisualStyleBackColor = true;
+            this.radioButtonCENCEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
+            // 
+            // radioButtonStorageEncryption
+            // 
+            this.radioButtonStorageEncryption.AutoSize = true;
+            this.radioButtonStorageEncryption.Location = new System.Drawing.Point(28, 67);
+            this.radioButtonStorageEncryption.Name = "radioButtonStorageEncryption";
+            this.radioButtonStorageEncryption.Size = new System.Drawing.Size(125, 19);
+            this.radioButtonStorageEncryption.TabIndex = 84;
+            this.radioButtonStorageEncryption.TabStop = true;
+            this.radioButtonStorageEncryption.Text = "Storage encryption";
+            this.radioButtonStorageEncryption.UseVisualStyleBackColor = true;
+            this.radioButtonStorageEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
+            // 
+            // radioButtonEncryptionNone
+            // 
+            this.radioButtonEncryptionNone.AutoSize = true;
+            this.radioButtonEncryptionNone.Checked = true;
+            this.radioButtonEncryptionNone.Location = new System.Drawing.Point(28, 23);
+            this.radioButtonEncryptionNone.Name = "radioButtonEncryptionNone";
+            this.radioButtonEncryptionNone.Size = new System.Drawing.Size(216, 19);
+            this.radioButtonEncryptionNone.TabIndex = 83;
+            this.radioButtonEncryptionNone.TabStop = true;
+            this.radioButtonEncryptionNone.Text = "None (no encryption before upload)";
+            this.radioButtonEncryptionNone.UseVisualStyleBackColor = true;
+            this.radioButtonEncryptionNone.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
             // 
             // label4
             // 
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(37, 85);
+            this.label4.Location = new System.Drawing.Point(43, 157);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(471, 15);
             this.label4.TabIndex = 82;
             this.label4.Text = "key(s) will be locally generated and copied to the target asset(s) in AMS";
             // 
-            // checkBoxEncrypt
-            // 
-            this.checkBoxEncrypt.AutoSize = true;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(21, 16);
-            this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(243, 19);
-            this.checkBoxEncrypt.TabIndex = 0;
-            this.checkBoxEncrypt.Text = "Encrypt the local asset files to this folder :";
-            this.checkBoxEncrypt.UseVisualStyleBackColor = true;
-            this.checkBoxEncrypt.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // buttonBrowseFile
             // 
             this.buttonBrowseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowseFile.Enabled = false;
-            this.buttonBrowseFile.Location = new System.Drawing.Point(639, 46);
+            this.buttonBrowseFile.Location = new System.Drawing.Point(645, 118);
             this.buttonBrowseFile.Name = "buttonBrowseFile";
             this.buttonBrowseFile.Size = new System.Drawing.Size(95, 23);
             this.buttonBrowseFile.TabIndex = 3;
@@ -367,7 +399,7 @@
             this.textBoxFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolderPath.Enabled = false;
-            this.textBoxFolderPath.Location = new System.Drawing.Point(40, 46);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(46, 118);
             this.textBoxFolderPath.Name = "textBoxFolderPath";
             this.textBoxFolderPath.Size = new System.Drawing.Size(592, 23);
             this.textBoxFolderPath.TabIndex = 2;
@@ -594,6 +626,15 @@
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(43, 100);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(394, 15);
+            this.label10.TabIndex = 86;
+            this.label10.Text = "Content will be encrypted locally to AES 256, before upload, to this folder:";
+            // 
             // BulkUpload
             // 
             this.AcceptButton = this.buttonOk;
@@ -653,7 +694,6 @@
         private System.Windows.Forms.DataGridView dataGridAssetFiles;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBoxEncrypt;
         private System.Windows.Forms.Button buttonBrowseFile;
         private System.Windows.Forms.TextBox textBoxFolderPath;
         private System.Windows.Forms.TabPage tabPage3;
@@ -684,5 +724,9 @@
         private System.Windows.Forms.LinkLabel linkLabelAspera;
         private System.Windows.Forms.CheckBox checkBoxGenerateAspera;
         private System.Windows.Forms.Panel panelSigniant;
+        private System.Windows.Forms.RadioButton radioButtonStorageEncryption;
+        private System.Windows.Forms.RadioButton radioButtonEncryptionNone;
+        private System.Windows.Forms.RadioButton radioButtonCENCEncryption;
+        private System.Windows.Forms.Label label10;
     }
 }

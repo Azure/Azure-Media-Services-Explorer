@@ -28,6 +28,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -93,10 +94,10 @@ namespace AMSExplorer
       
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = textBoxFolderPath.Text };
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath;
+                textBoxFolderPath.Text = openFolderDialog.FileName;
             }
         }
 
