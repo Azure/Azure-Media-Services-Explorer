@@ -54,7 +54,6 @@
             this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonCreateMail = new System.Windows.Forms.Button();
             this.buttonCopyStats = new System.Windows.Forms.Button();
@@ -1310,7 +1309,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadFile;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonCreateMail;
         private System.Windows.Forms.Button buttonCopyStats;

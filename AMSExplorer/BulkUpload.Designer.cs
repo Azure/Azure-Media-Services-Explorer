@@ -35,7 +35,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.openFileDialogAssetFiles = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,6 +50,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridAssetFiles = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
             this.radioButtonCENCEncryption = new System.Windows.Forms.RadioButton();
             this.radioButtonStorageEncryption = new System.Windows.Forms.RadioButton();
             this.radioButtonEncryptionNone = new System.Windows.Forms.RadioButton();
@@ -79,7 +79,6 @@
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -335,6 +334,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Encryption";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(43, 100);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(394, 15);
+            this.label10.TabIndex = 86;
+            this.label10.Text = "Content will be encrypted locally to AES 256, before upload, to this folder:";
             // 
             // radioButtonCENCEncryption
             // 
@@ -626,15 +634,6 @@
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(43, 100);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(394, 15);
-            this.label10.TabIndex = 86;
-            this.label10.Text = "Content will be encrypted locally to AES 256, before upload, to this folder:";
-            // 
             // BulkUpload
             // 
             this.AcceptButton = this.buttonOk;
@@ -683,7 +682,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.OpenFileDialog openFileDialogAssetFiles;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button buttonSelectFiles;

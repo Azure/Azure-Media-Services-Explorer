@@ -381,29 +381,30 @@ namespace AMSExplorer
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory= textBoxFolderPath.Text };
             if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolderPath.Text = openFolderDialog.FileName;// FolderDialog.SelectedPath;
+                textBoxFolderPath.Text = openFolderDialog.FileName;
             }
         }
 
      
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true};
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
                 {
-                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"_Encrypted";
+                    textBoxFolderPath.Text = openFolderDialog.FileName + @"_Encrypted";
                 }
 
-                var folders = Directory.GetDirectories(folderBrowserDialog1.SelectedPath).ToList();
-                var files = Directory.GetFiles(folderBrowserDialog1.SelectedPath).ToList();
+                var folders = Directory.GetDirectories(openFolderDialog.FileName).ToList();
+                var files = Directory.GetFiles(openFolderDialog.FileName).ToList();
 
                 if (files.Count > 0)
                 {
                     Guid g = Guid.NewGuid();
                     foreach (var file in files)
                     {
-                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folderBrowserDialog1.SelectedPath), FileName = file });
+                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(openFolderDialog.FileName), FileName = file });
                     }
                 }
 

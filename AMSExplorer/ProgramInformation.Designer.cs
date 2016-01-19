@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.DGChannel = new System.Windows.Forms.DataGridView();
             this.buttonCopyStats = new System.Windows.Forms.Button();
@@ -40,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -50,7 +50,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
@@ -181,6 +180,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "DVR / Archive Settings";
             // 
+            // label9
+            // 
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(325, 43);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 15);
+            this.label9.TabIndex = 74;
+            this.label9.Text = "5 min to 25 hours max";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -288,15 +296,6 @@
             this.panel1.Size = new System.Drawing.Size(791, 55);
             this.panel1.TabIndex = 63;
             // 
-            // label9
-            // 
-            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(325, 43);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(144, 15);
-            this.label9.TabIndex = 74;
-            this.label9.Text = "5 min to 25 hours max";
-            // 
             // ProgramInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -335,7 +334,6 @@
 
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView DGChannel;
         private System.Windows.Forms.Button buttonCopyStats;

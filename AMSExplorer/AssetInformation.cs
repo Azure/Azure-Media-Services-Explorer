@@ -34,6 +34,7 @@ using System.Web;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -929,10 +930,11 @@ namespace AMSExplorer
 
             if (SelectedAssetFiles.Count > 0)
             {
-                if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
+                CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
+                if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     // let's check if this overwites existing files
-                    var listfiles = SelectedAssetFiles.ToList().Where(f => File.Exists(folderBrowserDialogDownload.SelectedPath + @"\\" + f.Name)).Select(f => folderBrowserDialogDownload.SelectedPath + @"\\" + f.Name).ToList();
+                    var listfiles = SelectedAssetFiles.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + f.Name)).Select(f => openFolderDialog.FileName + @"\\" + f.Name).ToList();
                     if (listfiles.Count > 0)
                     {
                         string text;
@@ -972,7 +974,7 @@ namespace AMSExplorer
                         {
                             int index = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does downloading.
-                            myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, folderBrowserDialogDownload.SelectedPath, index);
+                            myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, index);
                         }
                         MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
 
