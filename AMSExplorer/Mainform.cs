@@ -934,7 +934,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessUploadFileAndMore(object name, int index, AssetCreationOptions assetcreationoptions , WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(object name, int index, AssetCreationOptions assetcreationoptions, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -3006,8 +3006,10 @@ namespace AMSExplorer
         {
             if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
             {
-                TextBoxLogWriteLine("Starting the integrity check for asset {0}.", SourceAsset.Name);
+                TextBoxLogWriteLine("Starting the integrity check for asset '{0}'.", SourceAsset.Name);
                 bool Error = false;
+                bool codeIssue = false;
+                int nbErrors = 0;
 
                 TextBoxLogWriteLine("Checking video track segments in manifest...");
                 int index = 0;
@@ -3015,10 +3017,18 @@ namespace AMSExplorer
                 {
                     if (seg.timestamp_mismatch)
                     {
-                        TextBoxLogWriteLine("There is an overlap or gap issue in video track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
-                        Error = true;
+                        if (nbErrors < 10)
+                        {
+                            TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
+                            Error = true;
+                        }
+                        nbErrors++;
                     }
                     index++;
+                }
+                if (nbErrors >= 10)
+                {
+                    TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. {0} more errors.", nbErrors - 10, true);
                 }
 
                 TextBoxLogWriteLine("Checking audio track segments in manifest...");
@@ -3026,14 +3036,23 @@ namespace AMSExplorer
                 int a_index = 0;
                 foreach (var audiotrack in manifestdata.audioSegments)
                 {
+                    nbErrors = 0;
                     foreach (var seg in audiotrack)
                     {
                         if (seg.timestamp_mismatch)
                         {
-                            TextBoxLogWriteLine("There is an overlap or gap issue in audio track {0}. Timestamp {1} calculation mismatch in manifest, index {2}", a_index, seg.timestamp, index, true);
-                            Error = true;
+                            if (nbErrors < 10)
+                            {
+                                TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. Timestamp {1} calculation mismatch in manifest, index {2}", a_index, seg.timestamp, index, true);
+                                Error = true;
+                            }
+                            nbErrors++;
                         }
                         index++;
+                    }
+                    if (nbErrors >= 10)
+                    {
+                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. {1} more errors.", a_index, nbErrors - 10, true);
                     }
                     a_index++;
                 }
@@ -3048,145 +3067,180 @@ namespace AMSExplorer
                 IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
                 ILocator SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
 
-                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                Uri sourceUri = new Uri(SourceLocator.Path);
-                CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
-
-                var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
-
-                List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
-
-                var mediablobs = SourceCloudBlobContainer.ListBlobs();
-                if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
+                try
                 {
-                    foreach (var blob in mediablobs)
+                    // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+                    Uri sourceUri = new Uri(SourceLocator.Path);
+                    CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+
+                    //var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
+
+                    List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
+
+                    var mediablobs = SourceCloudBlobContainer.ListBlobs();
+                    if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                     {
-                        if (blob.GetType() == typeof(CloudBlobDirectory))
+                        foreach (var blob in mediablobs)
                         {
-                            CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
-                            ListDirectories.Add(blobdir);
-                            TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
+                            if (blob.GetType() == typeof(CloudBlobDirectory))
+                            {
+                                CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
+                                ListDirectories.Add(blobdir);
+                                TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
+                            }
                         }
-                    }
 
-
-                    // let's check the presence of all audio_ and video_ directories
-                    var audiodir = ListDirectories.Where(d => d.Prefix.StartsWith("audio_"));
-                    var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
-                    if (videodir.Count() != manifestdata.videoBitrates.Count)
-                    {
-                        TextBoxLogWriteLine("There are {0} video tracks in the manifest but {1} video directories in storage", manifestdata.videoBitrates.Count(), videodir.Count(), true);
-                        Error = true;
-                    }
-
-                    if (audiodir.Count() != manifestdata.audioBitrates.GetLength(0))
-                    {
-                        TextBoxLogWriteLine("There are {0} audio tracks in the manifest but {1} audio directories in storage", manifestdata.audioBitrates.GetLength(0), audiodir.Count(), true);
-                        Error = true;
-                    }
-
-                    var except = videodir.Except(manifestdata.videoBitrates);
-                    if (except.Count() > 0)
-                    {
-                        TextBoxLogWriteLine("Some video directories in storage are not referenced as bitrate in the manifest. Bitrates : {0}", string.Join(",", except), true);
-                        Error = true;
-                    }
-                    var exceptb = manifestdata.videoBitrates.Except(videodir);
-                    if (exceptb.Count() > 0)
-                    {
-                        TextBoxLogWriteLine("Some bitrates in manifest cannot be found in storage as video directories. Bitrates : {0}", string.Join(",", exceptb), true);
-                        Error = true;
-                    }
-
-
-                    // let's check the fragblobs
-                    foreach (var dir in ListDirectories)
-                    {
-
-                        if (dir.Prefix.StartsWith("audio_") || dir.Prefix.StartsWith("video_"))
+                        // let's check the presence of all audio_ and video_ directories
+                        var audiodir = ListDirectories.Where(d => d.Prefix.StartsWith("audio_"));
+                        var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
+                        if (videodir.Count() != manifestdata.videoBitrates.Count)
                         {
-                            TextBoxLogWriteLine("Checking fragblobs in directory '{0}'....", dir.Prefix);
+                            TextBoxLogWriteLine("Warning: {0} video tracks in the manifest but {1} video directories in storage", manifestdata.videoBitrates.Count(), videodir.Count(), true);
+                            Error = true;
+                        }
 
-                            var srcBlobList = dir.ListBlobs(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.None).ToList();
-                            var listblobtimestamps = srcBlobList.Where(b => System.IO.Path.GetFileName(b.Uri.LocalPath) != "header").Select(b => ulong.Parse(System.IO.Path.GetFileName(b.Uri.LocalPath))).ToList().OrderBy(t => t).ToList();
+                        if (audiodir.Count() != manifestdata.audioBitrates.GetLength(0))
+                        {
+                            TextBoxLogWriteLine("Warning: {0} audio tracks in the manifest but {1} audio directories in storage", manifestdata.audioBitrates.GetLength(0), audiodir.Count(), true);
+                            Error = true;
+                        }
 
-                            List<AssetInfo.ManifestSegmentData> manifestdatacurrenttrack;
+                        var except = videodir.Except(manifestdata.videoBitrates);
+                        if (except.Count() > 0)
+                        {
+                            TextBoxLogWriteLine("Warning: Some video directories in storage are not referenced as bitrate in the manifest. Bitrates : {0}", string.Join(",", except), true);
+                            Error = true;
+                        }
+                        var exceptb = manifestdata.videoBitrates.Except(videodir);
+                        if (exceptb.Count() > 0)
+                        {
+                            TextBoxLogWriteLine("Issue: Some bitrates in manifest cannot be found in storage as video directories. Bitrates : {0}", string.Join(",", exceptb), true);
+                            Error = true;
+                        }
 
-                            if (dir.Prefix.StartsWith("video_"))
+
+                        // let's check the fragblobs
+                        foreach (var dir in ListDirectories)
+                        {
+
+                            if (dir.Prefix.StartsWith("audio_") || dir.Prefix.StartsWith("video_"))
                             {
-                                manifestdatacurrenttrack = manifestdata.videoSegments;
-                            }
-                            else // audio
-                            {
-                                if (dir.Prefix.StartsWith("audio__"))  // let's get the index of audio track if it exists in directory name
-                                                                       // there is an index "audio__0_64000" for example
+                                TextBoxLogWriteLine("Checking fragblobs in directory '{0}'....", dir.Prefix);
+
+                                BlobResultSegment blobResultSegment = dir.ListBlobsSegmented(null);
+                                var listblobtimestampsTemp = blobResultSegment.Results.Select(b => b.Uri.LocalPath).ToList();
+
+
+                                while (blobResultSegment.ContinuationToken != null)
                                 {
-                                    var split = dir.Prefix.Split('_');
-                                    manifestdatacurrenttrack = manifestdata.audioSegments[int.Parse(split[2])].ToList();
+                                    TextBoxLogWriteLine("Checking fragblobs in directory '{0}' ({1} segments retrieved...)", dir.Prefix, listblobtimestampsTemp.Count);
+                                    blobResultSegment = dir.ListBlobsSegmented(blobResultSegment.ContinuationToken);
+                                    listblobtimestampsTemp.AddRange(blobResultSegment.Results.Select(b => b.Uri.LocalPath));
                                 }
-                                else
+                                TextBoxLogWriteLine("Checking fragblobs in directory '{0}' ({1} segments retrieved)", dir.Prefix, listblobtimestampsTemp.Count);
+
+                                var listblobtimestamps = listblobtimestampsTemp.Where(b => System.IO.Path.GetFileName(b) != "header").Select(b => ulong.Parse(System.IO.Path.GetFileName(b))).OrderBy(t => t).ToList();
+
+                                List<AssetInfo.ManifestSegmentData> manifestdatacurrenttrack;
+
+                                if (dir.Prefix.StartsWith("video_"))
                                 {
-                                    manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
+                                    manifestdatacurrenttrack = manifestdata.videoSegments;
                                 }
-                            }
-
-                            var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();
-                            var except2 = listblobtimestamps.Except(timestampsinmanifest);
-                            if (except2.Count() > 0)
-                            {
-                                TextBoxLogWriteLine("Some segments in directory {0} are not in the manifest. Segments with timestamp: {1}", dir.Prefix, string.Join(",", except2), true);
-                                Error = true;
-                            }
-
-                            var except3 = timestampsinmanifest.Except(listblobtimestamps);
-                            if (except3.Count() > 0)
-                            {
-                                TextBoxLogWriteLine("Some segments in manifest are not in directory {0}. Segments with timestamp: {1}", dir.Prefix, string.Join(",", except3), true);
-                                Error = true;
-                            }
-
-                            if (listblobtimestamps.Count < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
-                            {
-                                TextBoxLogWriteLine("There are {0} segments in the manifest but only {1} segments in directory '{2}'", manifestdatacurrenttrack.Count, listblobtimestamps.Count, dir.Prefix, true);
-                                Error = true;
-                            }
-                            else if (manifestdatacurrenttrack.Count > 0)
-                            {
-                                index = 0;
-
-                                // list timestamps from blob
-                                ulong timestampinblob;
-                                foreach (var seg in manifestdatacurrenttrack)
+                                else // audio
                                 {
-                                    timestampinblob = listblobtimestamps[index];
-                                    if (timestampinblob != seg.timestamp && !seg.calculated)
+                                    if (dir.Prefix.StartsWith("audio__"))  // let's get the index of audio track if it exists in directory name
                                     {
-                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (defined) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
-                                        Error = true;
-                                        break;
+                                        var split = dir.Prefix.Split('_');
+                                        manifestdatacurrenttrack = manifestdata.audioSegments[int.Parse(split[2])].ToList();
                                     }
-                                    else if (timestampinblob != seg.timestamp && seg.calculated)
+                                    else
                                     {
-                                        TextBoxLogWriteLine("There is an issue. Timestamp {0} in blob is different from timestamp {1} (calculated) in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
-                                        Error = true;
-                                        break;
+                                        manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
                                     }
-                                    index++;
+                                }
+
+                                var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();
+                                var except2 = listblobtimestamps.Except(timestampsinmanifest);
+                                const int maxSegDisplayed = 20;
+
+                                if (except2.Count() > 0)
+                                {
+                                    int count = except2.Count();
+                                    TextBoxLogWriteLine("Information: {0} segments in directory {1} are not in the manifest. This could occur if live is running. Segments with timestamp: {2}", count, dir.Prefix, string.Join(",", except2.Take(maxSegDisplayed)) + ((count > maxSegDisplayed) ? "..." : ""), true);
+                                }
+
+                                var except3 = timestampsinmanifest.Except(listblobtimestamps);
+                                if (except3.Count() > 0)
+                                {
+                                    int count = except3.Count();
+                                    TextBoxLogWriteLine("Issue: {0} segments in manifest are not in directory '{1}'. Segments with timestamp: {2}", count, dir.Prefix, string.Join(",", except3.Take(maxSegDisplayed)) + ((count > maxSegDisplayed) ? "..." : ""), true);
+                                    Error = true;
+                                }
+
+                                if (listblobtimestamps.Count < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
+                                {
+                                    TextBoxLogWriteLine("Issue: {0} segments in the manifest but only {1} segments in directory '{2}'", manifestdatacurrenttrack.Count, listblobtimestamps.Count, dir.Prefix, true);
+                                    Error = true;
+                                }
+                                else if (manifestdatacurrenttrack.Count > 0)
+                                {
+                                    index = 0;
+
+                                    // list timestamps from blob
+                                    ulong timestampinblob;
+                                    foreach (var seg in manifestdatacurrenttrack)
+                                    {
+                                        timestampinblob = listblobtimestamps[index];
+                                        if (timestampinblob != seg.timestamp && !seg.calculated)
+                                        {
+                                            TextBoxLogWriteLine("Issue: Timestamp {0} in blob is different from defined timestamp {1} in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
+                                            Error = true;
+                                            break;
+                                        }
+                                        else if (timestampinblob != seg.timestamp && seg.calculated)
+                                        {
+                                            TextBoxLogWriteLine("Issue: Timestamp {0} in blob is different from calculated timestamp {1} in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
+                                            Error = true;
+                                            break;
+                                        }
+                                        index++;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                SourceLocator.Delete();
-                readpolicy.Delete();
-
-                if (Error)
+                catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("End of integrity check for asset {0}. Error(s) detected.", SourceAsset.Name);
+                    TextBoxLogWriteLine("Error when analyzing the archive.", true);
+                    TextBoxLogWriteLine(ex);
+                    codeIssue = true;
+                }
+
+                try
+                {
+                    SourceLocator.Delete();
+                    readpolicy.Delete();
+                }
+
+                catch
+                {
+
+                }
+
+
+                if (codeIssue)
+                {
+                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. Code fails.", SourceAsset.Name);
+                }
+                else if (Error)
+                {
+                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. Error(s) detected.", SourceAsset.Name);
                 }
                 else
                 {
-                    TextBoxLogWriteLine("End of integrity check for asset {0}. No error detected.", SourceAsset.Name);
+                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. No error detected.", SourceAsset.Name);
                 }
             }
             else
@@ -3194,6 +3248,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Error storage key not found for asset '{0}'.", SourceAsset.Name, true);
             }
         }
+
 
 
         private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters)
@@ -6067,8 +6122,8 @@ namespace AMSExplorer
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
                         Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                            path, 
-                            index, 
+                            path,
+                            index,
                             Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                             MyWatchFolderSettings));
 
@@ -8485,10 +8540,10 @@ namespace AMSExplorer
                         {
                             int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                             MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                                file, 
+                                file,
                                 index,
                                 Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                                null, 
+                                null,
                                 form2.StorageSelected)));
                         }
                         await Task.WhenAll(MyTasks);
@@ -8842,7 +8897,7 @@ namespace AMSExplorer
                         //    if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration)
                         //// Azure will deliver the PR or WV license and user wants to auto generate the key, so we can create a key with a random content key
 
-                        if (!reusekey &&((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration))
+                        if (!reusekey && ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration))
 
                         // Azure will deliver the PR or WV license or user wants to auto generate the key, so we can create a key with a random content key
                         {
@@ -12028,7 +12083,7 @@ namespace AMSExplorer
                 if (form.AssetFiles.Count() > 0)
                 {
                     // Encryption of files
-                    if (form.AssetCreationOption== AssetCreationOptions.StorageEncrypted)
+                    if (form.AssetCreationOption == AssetCreationOptions.StorageEncrypted)
                     {
                         if (!Directory.Exists(form.EncryptToFolder))
                         {
@@ -12446,11 +12501,16 @@ namespace AMSExplorer
             bool usercanceled = false;
             var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
 
+
             Task.Run(async () =>
             {
                 var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
                 CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
             });
+
+
+            // var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
+            // CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
         }
 
         private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)
