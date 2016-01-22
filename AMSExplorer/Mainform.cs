@@ -2808,7 +2808,6 @@ namespace AMSExplorer
                                         {
                                             // exception if Blob does not exist, which is fine
                                         }
-                                        //destinationCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
                                         destinationCloudBlockBlob.StartCopy(file.GetSasUri());
 
                                         CloudBlockBlob blob;
@@ -3009,57 +3008,57 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the integrity check for asset '{0}'.", SourceAsset.Name);
                 bool Error = false;
                 bool codeIssue = false;
-                int nbErrors = 0;
+                int nbErrorsAudioManifest = 0;
+                int nbErrorsVideoManifest = 0;
 
+                // Video segments in manifest
                 TextBoxLogWriteLine("Checking video track segments in manifest...");
                 int index = 0;
                 foreach (var seg in manifestdata.videoSegments)
                 {
                     if (seg.timestamp_mismatch)
                     {
-                        if (nbErrors < 10)
+                        if (nbErrorsVideoManifest < 10)
                         {
                             TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
                             Error = true;
                         }
-                        nbErrors++;
+                        nbErrorsVideoManifest++;
                     }
                     index++;
                 }
-                if (nbErrors >= 10)
+                if (nbErrorsVideoManifest >= 10)
                 {
-                    TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. {0} more errors.", nbErrors - 10, true);
+                    TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. {0} more errors.", nbErrorsVideoManifest - 10, true);
                 }
 
+                // Audio segments in manifest
                 TextBoxLogWriteLine("Checking audio track segments in manifest...");
                 index = 0;
                 int a_index = 0;
                 foreach (var audiotrack in manifestdata.audioSegments)
                 {
-                    nbErrors = 0;
                     foreach (var seg in audiotrack)
                     {
                         if (seg.timestamp_mismatch)
                         {
-                            if (nbErrors < 10)
+                            if (nbErrorsAudioManifest < 10)
                             {
                                 TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. Timestamp {1} calculation mismatch in manifest, index {2}", a_index, seg.timestamp, index, true);
                                 Error = true;
                             }
-                            nbErrors++;
+                            nbErrorsAudioManifest++;
                         }
                         index++;
                     }
-                    if (nbErrors >= 10)
+                    if (nbErrorsAudioManifest >= 10)
                     {
-                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. {1} more errors.", a_index, nbErrors - 10, true);
+                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. {1} more errors.", a_index, nbErrorsAudioManifest - 10, true);
                     }
                     a_index++;
                 }
 
-
                 TextBoxLogWriteLine("Checking blobs in storage...");
-
 
                 // let's get cloudblobcontainer for source
                 CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
@@ -12497,20 +12496,13 @@ namespace AMSExplorer
         private void DoCheckIntegrityLiveArchive()
         {
             var assets = ReturnSelectedAssetsFromProgramsOrAssets();
-
             bool usercanceled = false;
             var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
 
-
             Task.Run(async () =>
             {
-                var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
-                CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
+                assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
             });
-
-
-            // var segments = AssetInfo.GetManifestSegmentsList(assets.FirstOrDefault());
-            // CheckListArchiveBlobs(storagekeys, assets.FirstOrDefault(), segments);
         }
 
         private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)

@@ -88,6 +88,9 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
+            // let's normalize the line breaks
+           textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
             labelWarningJSON.Text = Program.AnalyzeTextAndReportSyntaxError(textBoxConfiguration.Text);
         }
 

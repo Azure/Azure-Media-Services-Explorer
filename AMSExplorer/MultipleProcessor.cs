@@ -550,31 +550,57 @@ namespace AMSExplorer
 
         private void textBoxConfiguration1_TextChanged(object sender, EventArgs e)
         {
-            labelWarningJSON1.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            var textbox = (TextBox)sender;
+
+            // let's normalize the line breaks
+            textbox.Text = textbox.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            labelWarningJSON1.Text = Program.AnalyzeTextAndReportSyntaxError(textbox.Text);
             UpdateGeneralWarning();
         }
 
         private void textBoxConfiguration2_TextChanged(object sender, EventArgs e)
         {
-            labelWarningJSON2.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            var textbox = (TextBox)sender;
+
+            // let's normalize the line breaks
+            textbox.Text = textbox.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            labelWarningJSON2.Text = Program.AnalyzeTextAndReportSyntaxError(textbox.Text);
             UpdateGeneralWarning();
         }
 
         private void textBoxConfiguration3_TextChanged(object sender, EventArgs e)
         {
-            labelWarningJSON3.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            var textbox = (TextBox)sender;
+
+            // let's normalize the line breaks
+            textbox.Text = textbox.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            labelWarningJSON3.Text = Program.AnalyzeTextAndReportSyntaxError(textbox.Text);
             UpdateGeneralWarning();
         }
 
         private void textBoxConfiguration4_TextChanged(object sender, EventArgs e)
         {
-            labelWarningJSON4.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            var textbox = (TextBox)sender;
+
+            // let's normalize the line breaks
+            textbox.Text = textbox.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            labelWarningJSON4.Text = Program.AnalyzeTextAndReportSyntaxError(textbox.Text);
             UpdateGeneralWarning();
         }
 
         private void textBoxConfiguration5_TextChanged(object sender, EventArgs e)
         {
+            var textbox = (TextBox)sender;
 
+            // let's normalize the line breaks
+            textbox.Text = textbox.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            labelWarningJSON5.Text = Program.AnalyzeTextAndReportSyntaxError(textbox.Text);
+            UpdateGeneralWarning();
         }
     }
 }

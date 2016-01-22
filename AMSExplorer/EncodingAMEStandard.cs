@@ -565,6 +565,9 @@ namespace AMSExplorer
                 richTextBoxDesc.Text = string.Empty;
             }
 
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
             bool Error = false;
             var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
             if (type == TypeConfig.JSON)

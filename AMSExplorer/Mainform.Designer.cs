@@ -576,7 +576,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 540);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -774,7 +774,7 @@
             // 
             this.checkIntegrityOfLiveArchiveToolStripMenuItem.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem";
             this.checkIntegrityOfLiveArchiveToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Text = "Check integrity of live archive";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem.Text = "Check integrity of live archive(s)";
             this.checkIntegrityOfLiveArchiveToolStripMenuItem.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem_Click);
             // 
             // ContextMenuItemAssetRename
@@ -1487,7 +1487,7 @@
             // 
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem1";
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive(s)";
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem1_Click);
             // 
             // deleteToolStripMenuItem

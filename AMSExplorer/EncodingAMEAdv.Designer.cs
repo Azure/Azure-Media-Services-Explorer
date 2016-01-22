@@ -864,6 +864,7 @@
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxConfiguration.Size = new System.Drawing.Size(692, 67);
             this.textBoxConfiguration.TabIndex = 27;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // openFileDialogPreset
             // 
