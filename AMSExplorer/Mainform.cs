@@ -8085,6 +8085,8 @@ namespace AMSExplorer
         }
         private async void DoDisplayStreamingEndpointInfo(IStreamingEndpoint streamingendpoint)
         {
+            // Refresh the context
+            _context = Program.ConnectAndGetNewContext(_credentials);
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {

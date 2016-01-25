@@ -275,21 +275,15 @@ namespace AMSExplorer
                     size += file.ContentFileSize;
                 }
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                listViewFiles.Items[0].Selected = true;
                 listViewFiles.EndUpdate();
             }
 
             // Generate manifest button
             var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase));
             var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase));
-            if (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0)
-            {
-                buttonGenerateManifest.Enabled = true;
-            }
-            else
-            {
-                buttonGenerateManifest.Enabled = false;
-            }
-
+            buttonGenerateManifest.Enabled = (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0);
+            
             return size;
         }
 
@@ -385,7 +379,6 @@ namespace AMSExplorer
             {
                 DGAsset.Rows.Add("Program Id", program.Id);
             }
-
 
             if (myAsset.State != AssetState.Deleted)
             {
@@ -1098,7 +1091,7 @@ namespace AMSExplorer
             bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None);
 
             buttonDeleteFile.Enabled = bSelect;
-            buttonDeleteAll.Enabled = bSelect;
+            buttonDeleteAll.Enabled = true;
             buttonSetPrimary.Enabled = bSelect && !bMultiSelect;
             buttonDownloadFile.Enabled = bSelect;
             buttonOpenFile.Enabled = bSelect;

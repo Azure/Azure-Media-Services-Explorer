@@ -69,9 +69,9 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelVersion = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -83,7 +83,6 @@
             // buttonLogin
             // 
             this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonLogin.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonLogin.Location = new System.Drawing.Point(554, 15);
             this.buttonLogin.Name = "buttonLogin";
@@ -518,10 +517,6 @@
             this.panel1.TabIndex = 52;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
@@ -531,6 +526,10 @@
             this.labelVersion.Size = new System.Drawing.Size(78, 15);
             this.labelVersion.TabIndex = 6;
             this.labelVersion.Text = "Version ??????";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // AMSLogin
             // 

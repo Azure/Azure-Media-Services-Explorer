@@ -47,7 +47,7 @@ namespace AMSExplorer
             // China
             new EndPointMapping() {Name="Azure in China",APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="http://manage.windowsazure.cn"}, 
             // Government
-            new EndPointMapping() {Name="Azure Government",APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="http://manage.windowsazure.us"} 
+            new EndPointMapping() {Name="Azure Government",APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="http://manage.windowsazure.us"}
         };
 
         public CredentialsEntry LoginCredentials
@@ -197,6 +197,75 @@ namespace AMSExplorer
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(textBoxAccountName.Text))
+            {
+                MessageBox.Show("The account name cannot be empty.");
+                return;
+            }
+
+
+            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text, textBoxManagementPortal.Text);
+            if (CredentialsList == null) CredentialsList = new StringCollection();
+
+            //let's find if the account name is already in the list
+            int foundindex = -1;
+            for (int i = 0; i < CredentialsList.Count; i += CredentialsEntry.StringsCount)
+            {
+                if (CredentialsList[i] == textBoxAccountName.Text)
+                {
+                    foundindex = i;
+                    break;
+                }
+            }
+
+            if (foundindex == -1) // not found
+            {
+                var result = MessageBox.Show(string.Format("Do you want to save the credentials for {0} ?", textBoxAccountName.Text), "Save credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) // ok to save
+                {
+                    CredentialsList.AddRange(myCredentials.ToArray());
+                    Properties.Settings.Default.LoginList = CredentialsList;
+                    Program.SaveAndProtectUserConfig();
+                    listBoxAcounts.Items.Add(myCredentials.AccountName);
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                //found, let's compare the entry and propose to save credentials
+                bool changed = false;
+                for (int i = 0; i < CredentialsEntry.StringsCount; i++)
+                {
+                    if (CredentialsList[foundindex + i] != myCredentials.ToArray().Skip(i).Take(1).FirstOrDefault())
+                    {
+                        changed = true;
+                    }
+                }
+                if (changed)
+                {
+                    var result = MessageBox.Show(string.Format("Do you want to update the credentials for {0} ?", CredentialsList[foundindex]), "Update credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes) // ok to update the credentials
+                    {
+                        for (int i = 0; i < CredentialsEntry.StringsCount; i++)
+                        {
+                            CredentialsList[foundindex + i] = myCredentials.ToArray().Skip(i).Take(1).FirstOrDefault();
+                        }
+                        Properties.Settings.Default.LoginList = CredentialsList;
+                        Program.SaveAndProtectUserConfig();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            this.DialogResult = DialogResult.OK;  // form will close with OK result
+                                                  // else --> form won't close...
 
         }
 
