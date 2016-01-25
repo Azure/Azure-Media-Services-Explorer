@@ -71,6 +71,7 @@
             this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -373,6 +374,7 @@
             // 
             // groupBoxEncoding
             // 
+            this.groupBoxEncoding.Controls.Add(this.label6);
             this.groupBoxEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.textBoxCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.radioButtonDefaultPreset);
@@ -563,6 +565,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(195, 82);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(296, 16);
+            this.label6.TabIndex = 80;
+            this.label6.Text = "For a custom preset, contact amslived@microsoft.com";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -646,5 +660,6 @@
         private System.Windows.Forms.Label labelChannelMustBeStopped;
         private System.Windows.Forms.Label labelChannelStoppedOrStartedSettings;
         private System.Windows.Forms.TabPage tabPageEncoding;
+        private System.Windows.Forms.Label label6;
     }
 }

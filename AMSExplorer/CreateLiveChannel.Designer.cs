@@ -98,6 +98,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -382,6 +383,7 @@
             // 
             // tabPageLiveEncoding
             // 
+            this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonDefaultPreset);
@@ -849,6 +851,18 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(183, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(296, 16);
+            this.label6.TabIndex = 77;
+            this.label6.Text = "For a custom preset, contact amslived@microsoft.com";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // CreateLiveChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -971,5 +985,6 @@
         private System.Windows.Forms.LinkLabel moreinfoLiveStreamingProfilelink;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
+        private System.Windows.Forms.Label label6;
     }
 }
