@@ -374,6 +374,7 @@ namespace AMSExplorer
             public TokenType TokenType { get; set; }
             public bool IsTokenKeySymmetric { get; set; }
             public ContentKeyType ContentKeyType { get; set; }
+            public ContentKeyDeliveryType ContentKeyDeliveryType { get; set; }
         }
 
         public static bool IsAssetHasAuthorizationPolicyWithToken(IAsset MyAsset, CloudMediaContext _context)
@@ -414,6 +415,7 @@ namespace AMSExplorer
                     if (form.GetOption != null)
                     {
                         string tokenTemplateString = form.GetOption.Restrictions.FirstOrDefault().Requirements;
+                        //form.GetOption.KeyDeliveryType == ContentKeyDeliveryType.PlayReadyLicense
                         if (!string.IsNullOrEmpty(tokenTemplateString))
                         {
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
@@ -424,6 +426,7 @@ namespace AMSExplorer
                                 MyResult.TokenType = tokenTemplate.TokenType;
                                 MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
                                 MyResult.ContentKeyType = form.GetContentKeyFromSelectedOption.ContentKeyType;
+                                MyResult.ContentKeyDeliveryType = form.GetOption.KeyDeliveryType;
 
                                 if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                                 {

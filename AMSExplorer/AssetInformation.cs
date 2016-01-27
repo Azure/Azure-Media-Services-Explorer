@@ -283,7 +283,7 @@ namespace AMSExplorer
             var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase));
             var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase));
             buttonGenerateManifest.Enabled = (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0);
-            
+
             return size;
         }
 
@@ -1565,21 +1565,22 @@ namespace AMSExplorer
                 IContentKeyAuthorizationPolicyOption option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
                 if (option != null) // Token option
                 {
-
                     dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
                     dataGridViewAutPolOption.Rows.Add("Id", option.Id);
 
                     // Key delivery configuration
-                    //dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", option.KeyDeliveryConfiguration);
 
-                    int i = dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", "");
-                    DataGridViewButtonCell btn = new DataGridViewButtonCell();
-                    dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
-                    dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
-                    dataGridViewAutPolOption.Rows[i].Cells[1].Tag = option.KeyDeliveryConfiguration;
-
+                    int i = dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", "<null>");
+                    if (option.KeyDeliveryConfiguration != null)
+                    {
+                        DataGridViewButtonCell btn = new DataGridViewButtonCell();
+                        dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
+                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                        dataGridViewAutPolOption.Rows[i].Cells[1].Tag = option.KeyDeliveryConfiguration;
+                    }
 
                     dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
+
                     List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
                     foreach (var restriction in objList_restriction)
                     {
@@ -1592,46 +1593,64 @@ namespace AMSExplorer
                         if (restriction.Requirements != null)
                         {
                             // Restriction Requirements
-                            i = dataGridViewAutPolOption.Rows.Add("Restriction Requirements", "");
-                            btn = new DataGridViewButtonCell();
-                            dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
-                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
-                            dataGridViewAutPolOption.Rows[i].Cells[1].Tag = restriction.Requirements;
-
-                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                            dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
-                            if (tokenTemplate.PrimaryVerificationKey != null)
+                            i = dataGridViewAutPolOption.Rows.Add("Restriction Requirements", "<null>");
+                            if (restriction.Requirements != null)
                             {
-                                dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
-                                if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
+                                dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
+                                dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                                dataGridViewAutPolOption.Rows[i].Cells[1].Tag = restriction.Requirements;
+
+                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
+                                dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
+
+                                i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "<null>");
+                                if (tokenTemplate.PrimaryVerificationKey != null)
                                 {
-                                    var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
-
-                                    i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "");
-                                    btn = new DataGridViewButtonCell();
-                                    dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
-                                    dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
-                                    dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
+                                    dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                                    if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                    {
+                                        var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
+                                        btn2 = new DataGridViewButtonCell();
+                                        dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
+                                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
+                                        dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
+                                    }
                                 }
-                            }
 
-                            if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
-                            {
-                                dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
-                            }
-                            dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
-                            dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
-                            foreach (var claim in tokenTemplate.RequiredClaims)
-                            {
-                                dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
-                                dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
+
+                                foreach (var verifkey in tokenTemplate.AlternateVerificationKeys)
+                                {
+                                    i = dataGridViewAutPolOption.Rows.Add("Alternate Verification Key", "<null>");
+                                    if (verifkey != null)
+                                    {
+                                        dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (verifkey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                                        if (verifkey.GetType() == typeof(SymmetricVerificationKey))
+                                        {
+                                            var verifkeySym = (SymmetricVerificationKey)verifkey;
+                                            btn2 = new DataGridViewButtonCell();
+                                            dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
+                                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
+                                            dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkeySym.KeyValue);
+                                        }
+                                    }
+                                }
+
+                                if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
+                                {
+                                    dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
+                                }
+                                dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
+                                dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
+                                foreach (var claim in tokenTemplate.RequiredClaims)
+                                {
+                                    dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
+                                    dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
+                                }
                             }
                         }
                     }
                 }
-
-
-
             }
             buttonGetTestToken.Enabled = DisplayButGetToken;
             buttonRemoveAuthPol.Enabled = true;

@@ -841,6 +841,12 @@ namespace AMSExplorer
         public const string AMPtokensyntax = "&token={0}";
         public const string AMPformatsyntax = "&format={0}";
         public const string AMPtechsyntax = "&tech={0}";
+        public const string AMPPlayReady = "&playready={0}";
+        public const string AMPPlayReadyToken = "&playreadytoken={0}";
+        public const string AMPWidevine = "&widevine={0}";
+        public const string AMPWidevineToken = "&widevinetoken={0}";
+        public const string AMPAes = "&aes={0}";
+        public const string AMPAesToken = "&aestoken={0}";
 
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
@@ -2003,7 +2009,7 @@ namespace AMSExplorer
             public List<int> videoBitrates;
             public ManifestSegmentData[][] audioSegments;
             //public List<ManifestSegmentData> audioSegments;
-           // public List<int> audioBitrates;
+            // public List<int> audioBitrates;
             public int[][] audioBitrates;
 
             public ManifestSegmentsResponse()
@@ -2042,7 +2048,7 @@ namespace AMSExplorer
 
                     // video track
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
-                    response.videoBitrates= videotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToList();
+                    response.videoBitrates = videotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToList();
 
                     foreach (var chunk in videotrack.Elements("c"))
                     {
@@ -2117,7 +2123,7 @@ namespace AMSExplorer
                                 });
                                 timeStamp += d;
                             }
-                           
+
                         }
                         response.audioSegments[a_index] = audiotracksegmentdata.ToArray();
                         a_index++;
@@ -2706,30 +2712,38 @@ namespace AMSExplorer
 
                         if (keytype != AssetProtectionType.None)
                         {
-                            switch (keytype)
+                            bool insertoken = !string.IsNullOrEmpty(tokenresult.TokenString);
+                            switch (tokenresult.ContentKeyDeliveryType)// (keytype)
                             {
-                                case AssetProtectionType.AES:
-                                    playerurl += string.Format(Constants.AMPprotectionsyntax, "aes");
+                                case ContentKeyDeliveryType.BaselineHttp:// AssetProtectionType.AES:
+                                    playerurl += string.Format(Constants.AMPAes, true.ToString());
+                                    if (insertoken) playerurl += string.Format(Constants.AMPAesToken, tokenresult.TokenString);
                                     break;
 
-                                case AssetProtectionType.PlayReady:
-                                    playerurl += string.Format(Constants.AMPprotectionsyntax, "playready");
+                                case ContentKeyDeliveryType.PlayReadyLicense:// AssetProtectionType.PlayReady:
+                                    playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                    if (insertoken) playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString);
                                     break;
 
-                                case AssetProtectionType.Widevine:
-                                    playerurl += string.Format(Constants.AMPprotectionsyntax, "widevine");
+                                case ContentKeyDeliveryType.Widevine:// AssetProtectionType.Widevine:
+                                    playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                    if (insertoken) playerurl += string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
                                     break;
 
+                                    /*
                                 case AssetProtectionType.PlayReadyAndWidevine:
-                                    playerurl += string.Format(Constants.AMPprotectionsyntax, "drm");
+                                    playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                    playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                    if (insertoken)
+                                    {
+                                        playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString)
+                                                     + string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
+                                    }
                                     break;
+                                    */
 
                                 default:
                                     break;
-                            }
-                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                            {
-                                playerurl += string.Format(Constants.AMPtokensyntax, tokenresult.TokenString);
                             }
                         }
 
