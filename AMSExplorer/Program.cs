@@ -369,7 +369,7 @@ namespace AMSExplorer
                 switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
 
                 // manifest filename
-                string name = CommonPrefix(mp4AssetFiles.Select(f => f.Name).ToArray());
+                string name = CommonPrefix(mp4AssetFiles.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToArray());
                 if (string.IsNullOrEmpty(name))
                 {
                     name = "manifest";
@@ -2258,8 +2258,18 @@ namespace AMSExplorer
 
             if (ismAssetFiles.Count() != 0)
             {
-                ismAssetFiles.First().IsPrimary = true;
-                ismAssetFiles.First().Update();
+                if (ismAssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
+                {
+                    try
+                    {
+                        ismAssetFiles.First().IsPrimary = true;
+                        ismAssetFiles.First().Update();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+                }
             }
         }
 
@@ -2270,8 +2280,17 @@ namespace AMSExplorer
 
             if (ismAssetFiles.Count() == 1)
             {
-                ismAssetFiles.First().IsPrimary = true;
-                ismAssetFiles.First().Update();
+                try
+                {
+                    // let's remove primary attribute to another file if any
+                    asset.AssetFiles.Where(af => af.IsPrimary).ToList().ForEach(af => { af.IsPrimary = false; af.Update(); });
+                    ismAssetFiles.First().IsPrimary = true;
+                    ismAssetFiles.First().Update();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
         }
 
@@ -2730,17 +2749,17 @@ namespace AMSExplorer
                                     if (insertoken) playerurl += string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
                                     break;
 
-                                    /*
-                                case AssetProtectionType.PlayReadyAndWidevine:
-                                    playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
-                                    playerurl += string.Format(Constants.AMPWidevine, true.ToString());
-                                    if (insertoken)
-                                    {
-                                        playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString)
-                                                     + string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
-                                    }
-                                    break;
-                                    */
+                                /*
+                            case AssetProtectionType.PlayReadyAndWidevine:
+                                playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                if (insertoken)
+                                {
+                                    playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString)
+                                                 + string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
+                                }
+                                break;
+                                */
 
                                 default:
                                     break;
