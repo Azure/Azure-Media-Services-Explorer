@@ -4239,7 +4239,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessageStaticPackagers()
         {
-            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2016. At that time, these components will no longer be available.  The format conversion and encryption capabilities will be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2017.\nBefore that date, the same functionalities will be added to Media Encoder Standard.\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DisplayDeprecatedMessageAME()
@@ -5292,7 +5292,7 @@ namespace AMSExplorer
                 {
                     // live archive
                     contextMenuExportFilesToStorage.Enabled = false;
-                    contextMenuExportDownloadToLocal.Enabled = false;
+                    toolStripMenuItemDownloadToLocal.Enabled = false;
                 }
             }
         }
@@ -5326,7 +5326,7 @@ namespace AMSExplorer
                 {
                     // live archive
                     toAzureStorageToolStripMenuItem.Enabled = false;
-                    downloadToLocalToolStripMenuItem1.Enabled = false;
+                    toolStripMenuItemDownloadToLocal.Enabled = false;
                 }
             }
         }
@@ -12510,6 +12510,17 @@ namespace AMSExplorer
         private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCheckIntegrityLiveArchive();
+        }
+
+        private void toolStripMenuItem37_Click_1(object sender, EventArgs e)
+        {
+            DoMenuDownloadToLocal();
+        }
+
+        private void toolStripMenuItem38_Click(object sender, EventArgs e)
+        {
+            DoMenuDownloadToLocal();
+
         }
     }
 }

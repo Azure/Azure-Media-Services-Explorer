@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,7 +56,7 @@
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuExportFilesToStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuExportToAnotherMediaServicesAccount = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuExportDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem37 = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeAssetsToANewAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkIntegrityOfLiveArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetRename = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,10 +134,10 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadToLocalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -556,6 +556,7 @@
             this.toolStripMenuItem17,
             this.importToolStripMenuItem1,
             this.exportToolStripMenuItem,
+            this.toolStripMenuItem37,
             this.mergeAssetsToANewAssetToolStripMenuItem,
             this.checkIntegrityOfLiveArchiveToolStripMenuItem,
             this.ContextMenuItemAssetRename,
@@ -717,8 +718,7 @@
             this.exportAssetsInformationToExcelToolStripMenuItem,
             this.toolStripSeparator37,
             this.contextMenuExportFilesToStorage,
-            this.contextMenuExportToAnotherMediaServicesAccount,
-            this.contextMenuExportDownloadToLocal});
+            this.contextMenuExportToAnotherMediaServicesAccount});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.exportToolStripMenuItem.Text = "Export";
@@ -752,14 +752,14 @@
             this.contextMenuExportToAnotherMediaServicesAccount.Text = "Export to another Azure Media Services Account...";
             this.contextMenuExportToAnotherMediaServicesAccount.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1);
             // 
-            // contextMenuExportDownloadToLocal
+            // toolStripMenuItem37
             // 
-            this.contextMenuExportDownloadToLocal.Image = ((System.Drawing.Image)(resources.GetObject("contextMenuExportDownloadToLocal.Image")));
-            this.contextMenuExportDownloadToLocal.Name = "contextMenuExportDownloadToLocal";
-            this.contextMenuExportDownloadToLocal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.contextMenuExportDownloadToLocal.Size = new System.Drawing.Size(340, 22);
-            this.contextMenuExportDownloadToLocal.Text = "Download to local...";
-            this.contextMenuExportDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem16_Click);
+            this.toolStripMenuItem37.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem37.Image")));
+            this.toolStripMenuItem37.Name = "toolStripMenuItem37";
+            this.toolStripMenuItem37.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.toolStripMenuItem37.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItem37.Text = "Download to local...";
+            this.toolStripMenuItem37.Click += new System.EventHandler(this.toolStripMenuItem37_Click_1);
             // 
             // mergeAssetsToANewAssetToolStripMenuItem
             // 
@@ -1277,9 +1277,10 @@
             this.createOutlookReportEmailToolStripMenuItem1,
             this.importToolStripMenuItem,
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
-            this.renameToolStripMenuItem,
+            this.toolStripMenuItemDownloadToLocal,
             this.mergeSelectedAssetsToolStripMenuItem,
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
+            this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.createTestAssetsToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
@@ -1420,8 +1421,7 @@
             this.informationToExcelToolStripMenuItem,
             this.toolStripSeparator8,
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem,
-            this.toAzureStorageToolStripMenuItem,
-            this.downloadToLocalToolStripMenuItem1});
+            this.toAzureStorageToolStripMenuItem});
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyAssetFilesToAzureStorageToolStripMenuItem.Image")));
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Name = "copyAssetFilesToAzureStorageToolStripMenuItem";
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
@@ -1457,22 +1457,14 @@
             this.toAzureStorageToolStripMenuItem.Text = "To Azure Storage...";
             this.toAzureStorageToolStripMenuItem.Click += new System.EventHandler(this.toAzureStorageToolStripMenuItem_Click);
             // 
-            // downloadToLocalToolStripMenuItem1
+            // toolStripMenuItemDownloadToLocal
             // 
-            this.downloadToLocalToolStripMenuItem1.Name = "downloadToLocalToolStripMenuItem1";
-            this.downloadToLocalToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.downloadToLocalToolStripMenuItem1.Size = new System.Drawing.Size(376, 22);
-            this.downloadToLocalToolStripMenuItem1.Text = "Download to local...";
-            this.downloadToLocalToolStripMenuItem1.Click += new System.EventHandler(this.downloadToLocalToolStripMenuItem1_Click);
-            // 
-            // renameToolStripMenuItem
-            // 
-            this.renameToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("renameToolStripMenuItem.Image")));
-            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.renameToolStripMenuItem.Text = "Rename...";
-            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
+            this.toolStripMenuItemDownloadToLocal.Image = global::AMSExplorer.Bitmaps.download;
+            this.toolStripMenuItemDownloadToLocal.Name = "toolStripMenuItemDownloadToLocal";
+            this.toolStripMenuItemDownloadToLocal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.toolStripMenuItemDownloadToLocal.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemDownloadToLocal.Text = "Download to local...";
+            this.toolStripMenuItemDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem38_Click);
             // 
             // mergeSelectedAssetsToolStripMenuItem
             // 
@@ -1489,6 +1481,15 @@
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive(s)";
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem1_Click);
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("renameToolStripMenuItem.Image")));
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.renameToolStripMenuItem.Text = "Rename...";
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -4046,9 +4047,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject4.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject4.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject4;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4872,9 +4873,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject2.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject2;
+            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject1.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject1;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4902,9 +4903,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject3.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject3;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject2.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject2;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -5091,10 +5092,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -5320,7 +5321,6 @@
         private System.Windows.Forms.ToolStripMenuItem fromAzureStorageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromASingleHTTPURLAmazonS3EtcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toAzureStorageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem downloadToLocalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem setupAWatchFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelWatchFolder;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -5523,7 +5523,6 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuExportFilesToStorage;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuExportDownloadToLocal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
@@ -5678,6 +5677,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadToLocal;
     }
 }
 
