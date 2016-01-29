@@ -441,24 +441,19 @@ namespace AMSExplorer
             {
                 case OrderChannels.LastModified:
                     channelssrv = channelssrv.OrderByDescending(p => p.LastModified);
-
                     break;
-
 
                 case OrderChannels.Name:
                     channelssrv = channelssrv.OrderBy(p => p.Name);
-
                     break;
 
                 case OrderChannels.State:
                     channelssrv = channelssrv.OrderBy(p => p.State);
-
                     break;
 
                 default:
                     break;
             }
-
 
             IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
 
