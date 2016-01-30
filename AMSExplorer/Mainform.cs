@@ -4239,7 +4239,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessageStaticPackagers()
         {
-            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2017.\nBefore that date, the same functionalities will be added to Media Encoder Standard.\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2017.\n\nBefore that date, the same functionalities will be added to Media Encoder Standard.\n\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\n\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DisplayDeprecatedMessageAME()
@@ -4600,26 +4600,7 @@ namespace AMSExplorer
               );
             comboBoxStatusChannel.Items[0] = "All";
             comboBoxStatusChannel.SelectedIndex = 0;
-
-
-            comboBoxOrderProgram.Items.AddRange(
-          typeof(OrderPrograms)
-          .GetFields()
-          .Select(i => i.GetValue(null) as string)
-          .ToArray()
-          );
-            comboBoxOrderProgram.SelectedIndex = 0;
-
-
-            comboBoxOrderChannel.Items.AddRange(
-        typeof(OrderChannels)
-        .GetFields()
-        .Select(i => i.GetValue(null) as string)
-        .ToArray()
-        );
-            comboBoxOrderChannel.SelectedIndex = 0;
-
-
+            
             AddButtonsToSearchTextBox();
 
             // List of state and numbers of jobs per state
@@ -8634,16 +8615,7 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxOrderProgram_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewProgramsV.Initialized)
-            {
-                dataGridViewProgramsV.OrderItemsInGrid = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridProgramV(false);
-            }
-        }
-
-        private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
+               private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateStreamingEndpoint();
         }
@@ -11281,16 +11253,7 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxOrderChannel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewChannelsV.Initialized)
-            {
-                dataGridViewChannelsV.OrderItemsInGrid = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridChannelV(false);
-            }
-        }
-
-
+      
         private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
         {
 
@@ -12785,15 +12748,7 @@ namespace AMSExplorer
         public const string StateAscending = "State <";
     }
 
-    public static class OrderStreamingEndpoints
-    {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string State = "State";
-        public const string ScaleUnits = "Scale units";
-    }
-
-
+   
     public static class StatusAssets
     {
         public const string All = "All";

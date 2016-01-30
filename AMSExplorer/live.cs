@@ -78,18 +78,7 @@ namespace AMSExplorer
             }
 
         }
-        public string OrderItemsInGrid
-        {
-            get
-            {
-                return _orderitems;
-            }
-            set
-            {
-                _orderitems = value;
-            }
 
-        }
         public string FilterState
         {
             get
@@ -152,7 +141,6 @@ namespace AMSExplorer
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
-
         static SortableBindingList<ChannelEntry> _MyObservChannels;
 
         static private int _channelsperpage = 50; //nb of items per page
@@ -160,7 +148,6 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderitems = OrderJobs.LastModifiedDescending;
         static string _statefilter = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -211,7 +198,7 @@ namespace AMSExplorer
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
-                               LastModified = c.LastModified.ToLocalTime().ToString("G")
+                               LastModified = c.LastModified.ToLocalTime()
                            };
 
 
@@ -292,7 +279,7 @@ namespace AMSExplorer
                 {
                     _MyObservChannels[index].State = channel.State;
                     _MyObservChannels[index].Description = channel.Description;
-                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime().ToString("G");
+                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime();
                     this.Refresh();
                 }
             }
@@ -437,6 +424,7 @@ namespace AMSExplorer
                                                  );
             }
 
+            /*
             switch (_orderitems)
             {
                 case OrderChannels.LastModified:
@@ -454,6 +442,7 @@ namespace AMSExplorer
                 default:
                     break;
             }
+            */
 
             IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
 
@@ -479,7 +468,7 @@ namespace AMSExplorer
                            InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                            PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                            State = c.State,
-                           LastModified = c.LastModified.ToLocalTime().ToString("G")
+                           LastModified = c.LastModified.ToLocalTime()
                        });
 
             _MyObservChannels = new SortableBindingList<ChannelEntry>(channelquery.ToList());
@@ -491,21 +480,15 @@ namespace AMSExplorer
 
     public class DataGridViewLiveProgram : DataGridView
     {
-
         private List<string> idsList = new List<string>();
-
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
-
         static SortableBindingList<ProgramEntry> _MyObservPrograms;
-        static SortableBindingList<ProgramEntry> _MyObservProgramsthisPage;
-
 
         static private int _itemssperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderitems = OrderPrograms.LastModified;
         static string _statefilter = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -558,17 +541,7 @@ namespace AMSExplorer
             }
 
         }
-        public string OrderItemsInGrid
-        {
-            get
-            {
-                return _orderitems;
-            }
-            set
-            {
-                _orderitems = value;
-            }
-        }
+
 
         public bool AnyChannel
         {
@@ -659,7 +632,7 @@ namespace AMSExplorer
                                State = c.State,
                                Description = c.Description,
                                ArchiveWindowLength = c.ArchiveWindowLength,
-                               LastModified = c.LastModified.ToLocalTime().ToString("G"),
+                               LastModified = c.LastModified.ToLocalTime(),
                                Published = null,
                                ChannelName = c.Channel.Name,
                                ChannelId = c.Channel.Id
@@ -733,7 +706,7 @@ namespace AMSExplorer
                         _MyObservPrograms[index].State = program.State;
                         _MyObservPrograms[index].Description = program.Description;
                         _MyObservPrograms[index].ArchiveWindowLength = program.ArchiveWindowLength;
-                        _MyObservPrograms[index].LastModified = program.LastModified.ToLocalTime().ToString("G");
+                        _MyObservPrograms[index].LastModified = program.LastModified.ToLocalTime();
                         this.Refresh();
                     }
                     catch
@@ -967,6 +940,8 @@ namespace AMSExplorer
 
             // Sorting
             // this query has to be locally. Not supported on the server (it will page...)
+
+            /*
             switch (_orderitems)
             {
                 case OrderPrograms.LastModified:
@@ -984,6 +959,7 @@ namespace AMSExplorer
                 default:
                     break;
             }
+            */
 
 
 
@@ -1009,7 +985,7 @@ namespace AMSExplorer
                              Description = p.Description,
                              ArchiveWindowLength = p.ArchiveWindowLength,
                              State = p.State,
-                             LastModified = p.LastModified.ToLocalTime().ToString("G"),
+                             LastModified = p.LastModified.ToLocalTime(),
                              ChannelName = p.Channel.Name,
                              ChannelId = p.Channel.Id,
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
@@ -1024,19 +1000,7 @@ namespace AMSExplorer
         }
     }
 
-    public static class OrderPrograms
-    {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string State = "State";
-    }
 
-    public static class OrderChannels
-    {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string State = "State";
-    }
     public class ChannelInfo
     {
         public static async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
@@ -1190,7 +1154,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public ChannelState State { get; set; }
-        public string LastModified { get; set; }
+        public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
@@ -1204,7 +1168,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public ProgramState State { get; set; }
-        public string LastModified { get; set; }
+        public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
         public Bitmap Published { get; set; }
