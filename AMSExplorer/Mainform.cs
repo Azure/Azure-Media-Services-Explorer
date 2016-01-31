@@ -4600,7 +4600,7 @@ namespace AMSExplorer
               );
             comboBoxStatusChannel.Items[0] = "All";
             comboBoxStatusChannel.SelectedIndex = 0;
-            
+
             AddButtonsToSearchTextBox();
 
             // List of state and numbers of jobs per state
@@ -8615,7 +8615,7 @@ namespace AMSExplorer
             }
         }
 
-               private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateStreamingEndpoint();
         }
@@ -11253,7 +11253,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
         private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
         {
 
@@ -12485,6 +12485,175 @@ namespace AMSExplorer
             DoMenuDownloadToLocal();
 
         }
+
+        private void fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoFixSystemBitrate();
+        }
+
+        private void ProcessUploadFileToAsset(string SafeFileName, string FileName, IAsset MyAsset)
+        {
+            IAssetFile UploadedAssetFile = MyAsset.AssetFiles.Create(SafeFileName);
+            UploadedAssetFile.Upload(FileName as string);
+        }
+
+        private async void DoFixSystemBitrate()
+        {
+            if (System.Windows.Forms.MessageBox.Show("AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016 and will fix the ones with a wrong (too low) systemBitrate attribute.", "Manifest processing", System.Windows.Forms.MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.OK)
+            {
+                Task.Run(async () =>
+                {
+                    List<IAssetFile> manifestFiles = new List<IAssetFile>();
+
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
+
+                    // let's build the list of tasks
+                    TextBoxLogWriteLine("Listing all the manifest file since Jan 20, 2016...");
+                    var manifestFilesQuery = _context.Files.Where(f => f.LastModified > new DateTime(2016, 01, 20));
+
+                    while (true)
+                    {
+                        // Enumerate through all manifests (1000 at a time)
+                        var listfiles = manifestFilesQuery.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listfiles.Count;
+                        manifestFiles.AddRange(listfiles.Where(f => (f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase))));
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    TextBoxLogWriteLine("Found {0} manifest files modified after Jan 20, 2016", manifestFiles.Count);
+                    int numberOfProcessedFiles = 0;
+
+                    try
+                    {
+                        foreach (var file in manifestFiles)
+                        {
+
+                            string tempPath = System.IO.Path.GetTempPath();
+                            string filePath = Path.Combine(tempPath, file.Name);
+                            var currentAsset = file.Asset;
+
+                            TextBoxLogWriteLine("Reading file {0} of asset Id {1}", file.Name, currentAsset.Id);
+
+
+                            if (File.Exists(filePath))
+                            {
+                                File.Delete(filePath);
+                            }
+                            await Task.Factory.StartNew(() => file.Download(filePath));
+
+                            StreamReader streamReader = new StreamReader(filePath);
+                            Encoding fileEncoding = streamReader.CurrentEncoding;
+                            string datastring = streamReader.ReadToEnd();
+                            streamReader.Close();
+
+
+                            // let's analyse the manifest
+                            // Prepare the manifest
+                            bool ManifestMustBeUpdated = false;
+
+                            XDocument doc = XDocument.Parse(datastring);
+
+                            XNamespace ns = "http://www.w3.org/2001/SMIL20/Language";
+
+                            var bodyxml = doc.Element(ns + "smil");
+                            var body2 = bodyxml.Element(ns + "body");
+
+                            var switchxml = body2.Element(ns + "switch");
+
+                            var video = switchxml.Elements(ns + "video");
+                            var audio = switchxml.Elements(ns + "audio");
+
+                            // video tracks
+                            foreach (var vtrack in video)
+                            {
+                                var systemBitrate = vtrack.Attribute("systemBitrate");
+                                if (systemBitrate != null && (int.Parse(systemBitrate.Value)< 99000))
+                                {
+                                    ManifestMustBeUpdated = true;
+                                    systemBitrate.Remove();
+                                }
+                            }
+
+                            // audio tracks
+                            foreach (var vtrack in audio)
+                            {
+                                var systemBitrate = vtrack.Attribute("systemBitrate");
+                                if (systemBitrate != null && (int.Parse(systemBitrate.Value) < 1000))
+                                {
+                                    ManifestMustBeUpdated = true;
+                                    systemBitrate.Remove();
+                                }
+                            }
+
+                            if (File.Exists(filePath))
+                            {
+                                File.Delete(filePath);
+                            }
+
+                            if (ManifestMustBeUpdated) // file must be modified
+                            { // OK
+                                TextBoxLogWriteLine("Manifest file {0} of asset ID {1} needs to be updated...", file.Name, currentAsset.Id, true);
+
+
+                                // let's create new manifest in temp folder
+                                StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
+                                outfile.Write(doc.Declaration.ToString() + doc.ToString());
+                                outfile.Close();
+
+                                // let's deleyte file online
+                                string assetFileName = file.Name;
+                                bool assetFilePrimary = file.IsPrimary;
+                                file.Delete();
+
+                                await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, currentAsset));
+
+                                if (File.Exists(filePath))
+                                {
+                                    File.Delete(filePath);
+                                }
+
+                                if (assetFilePrimary)
+                                {
+                                    AssetInfo.SetFileAsPrimary(currentAsset, assetFileName);
+                                }
+                                TextBoxLogWriteLine("Manifest file {0} of asset ID {1} is updated.", file.Name, currentAsset.Id);
+                                numberOfProcessedFiles++;
+                            }
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when processing the manifest file(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (!Error) TextBoxLogWriteLine("{0} manifest file(s) processed.", numberOfProcessedFiles);
+                }
+           );
+
+
+            }
+        }
+
+        private void fixSystemBitrateInManifestsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoFixSystemBitrate();
+        }
     }
 }
 
@@ -12748,7 +12917,7 @@ namespace AMSExplorer
         public const string StateAscending = "State <";
     }
 
-   
+
     public static class StatusAssets
     {
         public const string All = "All";
