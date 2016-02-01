@@ -4239,7 +4239,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessageStaticPackagers()
         {
-            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2017.\n\nBefore that date, the same functionalities will be added to Media Encoder Standard.\n\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\n\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on December 31, 2016.\n\nBefore that date, the same functionalities will be added to Media Encoder Standard.\n\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\n\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DisplayDeprecatedMessageAME()
