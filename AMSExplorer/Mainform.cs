@@ -6873,7 +6873,8 @@ namespace AMSExplorer
                     System.Threading.Thread.Sleep(1000);
                     program = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
                 }
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                if (program != null)
+                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
             }
         }
 
@@ -6991,19 +6992,19 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Program '{0}' : NOT {1}. (Error {2})", program.Name, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                if (program != null)
+                {
+                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                }
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Program '{0}' : Error {1}", program != null ? program.Name : "<unknown>", Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
 
-
-
-
-
+        
         internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess)
         //used for all except creation 
         {
