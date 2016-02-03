@@ -12499,8 +12499,16 @@ namespace AMSExplorer
 
         private async void DoFixSystemBitrate()
         {
-            if (System.Windows.Forms.MessageBox.Show("AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016 and will fix the ones with a wrong (too low) systemBitrate attribute.", "Manifest processing", System.Windows.Forms.MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.OK)
+            var dialogResult = System.Windows.Forms.MessageBox.Show(
+                "AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016.\n\nDo you want to fix the ones with a wrong (too low) systemBitrate attribute ?\n(Yes: fix issues, No: list issues)",
+                "Manifest processing", System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+
+
+
+            if (dialogResult != System.Windows.Forms.DialogResult.Cancel)
             {
+                bool fixError = dialogResult == System.Windows.Forms.DialogResult.Yes;
+
                 Task.Run(async () =>
                 {
                     List<IAssetFile> manifestFiles = new List<IAssetFile>();
@@ -12544,7 +12552,7 @@ namespace AMSExplorer
                             string filePath = Path.Combine(tempPath, file.Name);
                             var currentAsset = file.Asset;
 
-                            TextBoxLogWriteLine("Reading file {0} of asset Id {1}", file.Name, currentAsset.Id);
+                            TextBoxLogWriteLine("Reading file '{0}' of asset ({1})", file.Name, currentAsset.Id);
 
 
                             if (File.Exists(filePath))
@@ -12579,10 +12587,10 @@ namespace AMSExplorer
                             foreach (var vtrack in video)
                             {
                                 var systemBitrate = vtrack.Attribute("systemBitrate");
-                                if (systemBitrate != null && (int.Parse(systemBitrate.Value)< 99000))
+                                if (systemBitrate != null && (int.Parse(systemBitrate.Value) < 99000))
                                 {
                                     ManifestMustBeUpdated = true;
-                                    systemBitrate.Remove();
+                                    if (fixError) systemBitrate.Remove();
                                 }
                             }
 
@@ -12593,7 +12601,7 @@ namespace AMSExplorer
                                 if (systemBitrate != null && (int.Parse(systemBitrate.Value) < 1000))
                                 {
                                     ManifestMustBeUpdated = true;
-                                    systemBitrate.Remove();
+                                    if (fixError) systemBitrate.Remove();
                                 }
                             }
 
@@ -12602,33 +12610,36 @@ namespace AMSExplorer
                                 File.Delete(filePath);
                             }
 
-                            if (ManifestMustBeUpdated) // file must be modified
-                            { // OK
-                                TextBoxLogWriteLine("Manifest file {0} of asset ID {1} needs to be updated...", file.Name, currentAsset.Id, true);
+                            if (ManifestMustBeUpdated) // file must be modified 
+                            {
+                                TextBoxLogWriteLine("Manifest file '{0}' of asset ({1}) needs to be updated...", file.Name, currentAsset.Id, true);
 
-
-                                // let's create new manifest in temp folder
-                                StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
-                                outfile.Write(doc.Declaration.ToString() + doc.ToString());
-                                outfile.Close();
-
-                                // let's deleyte file online
-                                string assetFileName = file.Name;
-                                bool assetFilePrimary = file.IsPrimary;
-                                file.Delete();
-
-                                await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, currentAsset));
-
-                                if (File.Exists(filePath))
+                                if (fixError) // user wants to fix the issue
                                 {
-                                    File.Delete(filePath);
-                                }
 
-                                if (assetFilePrimary)
-                                {
-                                    AssetInfo.SetFileAsPrimary(currentAsset, assetFileName);
+                                    // let's create new manifest in temp folder
+                                    StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
+                                    outfile.Write(doc.Declaration.ToString() + doc.ToString());
+                                    outfile.Close();
+
+                                    // let's deleyte file online
+                                    string assetFileName = file.Name;
+                                    bool assetFilePrimary = file.IsPrimary;
+                                    file.Delete();
+
+                                    await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, currentAsset));
+
+                                    if (File.Exists(filePath))
+                                    {
+                                        File.Delete(filePath);
+                                    }
+
+                                    if (assetFilePrimary)
+                                    {
+                                        AssetInfo.SetFileAsPrimary(currentAsset, assetFileName);
+                                    }
+                                    TextBoxLogWriteLine("Manifest file '{0}' of asset ({1}) has been updated.", file.Name, currentAsset.Id);
                                 }
-                                TextBoxLogWriteLine("Manifest file {0} of asset ID {1} is updated.", file.Name, currentAsset.Id);
                                 numberOfProcessedFiles++;
                             }
                         }
@@ -12642,10 +12653,19 @@ namespace AMSExplorer
                         Error = true;
                     }
 
-                    if (!Error) TextBoxLogWriteLine("{0} manifest file(s) processed.", numberOfProcessedFiles);
+                    if (!Error)
+                    {
+                        if (fixError)
+                        {
+                            TextBoxLogWriteLine("{0} manifest file(s) processed.", numberOfProcessedFiles);
+                        }
+                        else
+                        {
+                            TextBoxLogWriteLine("{0} manifest file(s) need to be processed.", numberOfProcessedFiles);
+                        }
+                    }
                 }
            );
-
 
             }
         }
