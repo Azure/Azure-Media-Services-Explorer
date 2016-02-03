@@ -4548,6 +4548,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>_Built</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4633,6 +4634,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>_Built</td><td>azurem_1_azure_media_services_explorer</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
