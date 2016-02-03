@@ -12461,13 +12461,21 @@ namespace AMSExplorer
         private void DoCheckIntegrityLiveArchive()
         {
             var assets = ReturnSelectedAssetsFromProgramsOrAssets();
-            bool usercanceled = false;
-            var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
 
-            Task.Run(async () =>
+            string question = (assets.Count == 1) ? string.Format("Check the integrity of '{0}' ?", assets[0].Name) : string.Format("Check the integrity of these {0} archives ?", assets.Count);
+            if (System.Windows.Forms.MessageBox.Show(question, "Integrity check", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
-            });
+                bool usercanceled = false;
+                var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
+
+                if (!usercanceled)
+                {
+                    Task.Run(async () =>
+                    {
+                        assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
+                    });
+                }
+            }
         }
 
         private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12500,10 +12508,8 @@ namespace AMSExplorer
         private async void DoFixSystemBitrate()
         {
             var dialogResult = System.Windows.Forms.MessageBox.Show(
-                "AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016.\n\nDo you want to fix the ones with a wrong (too low) systemBitrate attribute ?\n(Yes: fix issues, No: list issues)",
-                "Manifest processing", System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-
-
+                "AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016.\n\nDo you want to fix the ones with a wrong (too low) systemBitrate attribute ?\n(Yes: fix issues, No: only list issues)",
+                "Manifest check", System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
             if (dialogResult != System.Windows.Forms.DialogResult.Cancel)
             {

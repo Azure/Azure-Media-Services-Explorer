@@ -3838,7 +3838,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>-526101295</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://azure.microsoft.com</td><td>0</td><td/><td>421801067</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-526101295</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
