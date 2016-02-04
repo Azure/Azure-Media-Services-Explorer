@@ -41,22 +41,17 @@ namespace AMSExplorer
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
         private string defaultEncodingPreset = "";
 
-     
-
-
         public string ChannelName
         {
             get { return textboxchannelname.Text; }
             set { textboxchannelname.Text = value; }
         }
 
-
         public string ChannelDescription
         {
             get { return textBoxDescription.Text; }
             set { textBoxDescription.Text = value; }
         }
-
 
         public ChannelEncodingType EncodingType
         {
@@ -248,7 +243,7 @@ namespace AMSExplorer
             comboBoxAudioLanguageAddition.Items.Add(myitem);
             comboBoxAudioLanguageAddition.SelectedItem = myitem;
 
-            foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures))
+            foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures).OrderBy(c => c.DisplayName))
             {
                 myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
                 comboBoxAudioLanguageMain.Items.Add(myitem);
@@ -379,8 +374,11 @@ namespace AMSExplorer
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
         {
-            audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
-            UpdateProfileGrids();
+            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value)
+            {
+                audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+                UpdateProfileGrids();
+            }
         }
 
         internal static bool IsChannelNameValid(string name)
@@ -527,8 +525,8 @@ namespace AMSExplorer
             errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
         }
 
-       
-     
+
+
         private string ReturnLiveEncodingProfile()
         {
             if (EncodingType != ChannelEncodingType.None)
@@ -644,7 +642,32 @@ namespace AMSExplorer
         {
             checkIPAddress((TextBox)sender);
         }
+
+        private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
+        {
+            var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
+            if (checkBoxEnableMultiAudio.Checked && defaultaudiostream != null)
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
+            }
+        }
+
+        private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value)
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, String.Empty);
+            }
+        }
     }
 
-   
+
 }
