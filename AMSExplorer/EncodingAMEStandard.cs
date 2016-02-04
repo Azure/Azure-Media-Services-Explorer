@@ -45,6 +45,15 @@ namespace AMSExplorer
         public List<IAsset> SelectedAssets;
         private CloudMediaContext _context;
 
+        private bool bMultiAssetMode = true;
+        private const string strEditTimes = "Edit times";
+        private const string strStitch = "Stitch";
+        private const string strAudiooverlay = "Audio overlay";
+        private const string strVisualoverlay = "Visual overlay";
+        private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
+        private string overlayFilename = string.Empty; // indicate the name of the file to overlay
+
+
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
 
@@ -151,6 +160,230 @@ namespace AMSExplorer
 
         private void EncodingAMEStandard_Shown(object sender, EventArgs e)
         {
+            BuildAssetsPanel();
+        }
+
+        private void BuildAssetsPanel()
+        {
+            tableLayoutPanelIAssets.Visible = false;
+            tableLayoutPanelIAssets.ColumnCount += 3;
+            foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
+            {
+                style.SizeType = SizeType.Absolute;
+                style.Width = 80;
+            }
+            tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[1].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[1].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[2].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[2].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[3].SizeType = SizeType.Percent;
+            tableLayoutPanelIAssets.ColumnStyles[3].Width = 10;
+            tableLayoutPanelIAssets.ColumnStyles[4].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[4].Width = 100;
+            tableLayoutPanelIAssets.ColumnStyles[5].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[5].Width = 100;
+            int i = 0;
+
+            if (SelectedAssets.Count > 1) // Multi assets mode
+            {
+                bMultiAssetMode = true;
+                tableLayoutPanelIAssets.RowCount = SelectedAssets.Count;
+
+                foreach (IAsset asset in SelectedAssets)
+                {
+                    AddRowControls(i, asset.Name);
+                    i++;
+                }
+                tableLayoutPanelIAssets.Refresh();
+            }
+            else // Mono asset mode
+            {
+                bMultiAssetMode = false;
+                tableLayoutPanelIAssets.RowCount = SelectedAssets.FirstOrDefault().AssetFiles.Count();
+                tabControl1.TabPages[0].Text = "Input files";
+
+                foreach (IAssetFile assetfile in SelectedAssets.FirstOrDefault().AssetFiles)
+                {
+                    AddRowControls(i, assetfile.Name);
+                    i++;
+                }
+            }
+            tableLayoutPanelIAssets.Refresh();
+            tableLayoutPanelIAssets.Visible = true;
+        }
+
+        private void AddRowControls(int i, string itemName)
+        {
+            Button butUp = new Button() { Text = char.ConvertFromUtf32(8593), Tag = i, Width = 20 };
+            butUp.Click += new System.EventHandler(butUp_Clicked);
+
+            Button butDwn = new Button() { Text = char.ConvertFromUtf32(8595), Tag = i, Width = 20 };
+            butDwn.Click += new System.EventHandler(butDwn_Clicked);
+
+            Label Index = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = i.ToString()
+            };
+
+            Label label = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = itemName
+            };
+
+            tableLayoutPanelIAssets.Controls.Add(butUp, 0 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(butDwn, 1 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(Index, 2 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(label, 3 /* Column Index */, i /* Row index */);
+
+
+            if (IsOverlayFile(itemName))
+            {
+                CheckBox checkboxVisualOverlay = new CheckBox()
+                {
+                    Text = strVisualoverlay,
+                    Tag = i
+                };
+                checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
+                tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 4 /* Column Index */, i /* Row index */);
+
+            }
+
+
+
+            //   tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 5 /* Column Index */, i /* Row index */);
+            //    tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 6 /* Column Index */, i /* Row index */);
+            //    tableLayoutPanelIAssets.Controls.Add(checkboxTime, 7 /* Column Index */, i /* Row index */);
+            //    tableLayoutPanelIAssets.Controls.Add(textbaseStart, 8 /* Column Index */, i /* Row index */);
+            //    tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 9 /* Column Index */, i /* Row index */);
+
+        }
+
+        private bool IsOverlayFile(string filename)
+        {
+            var mediaFileExtensions = new[] { ".PNG", ".JPG", ".GIF", ".BMP" };
+            return (mediaFileExtensions.Contains(Path.GetExtension(filename).ToUpperInvariant()));
+        }
+
+
+        private void checkboxVisualOverlay_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender; // get the checkbox object
+            bVisualOverlay = cb.Checked;
+            if (bVisualOverlay)
+            {
+                var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+                overlayFilename = ((Label)tableLayoutPanelIAssets.GetControlFromPosition(3, position.Row)).Text;
+            }
+            UpdateCheckboxOverlay(cb);
+        }
+
+
+        private void UpdateCheckboxOverlay(CheckBox cb)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+            for (int i = 0; i < tableLayoutPanelIAssets.RowCount; i++)
+            {
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(position.Column, i); // let find all control from the same row and disable other checkboxes
+                if (c != null && i != position.Row && ((!bMultiAssetMode) || (bMultiAssetMode && i != 0)))
+                {
+                    c.Enabled = !cb.Checked;
+                }
+            }
+            //UpdateStitchAndOverlaysInDoc();
+        }
+
+        private void butDwn_Clicked(object sender, EventArgs e)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row + 1);
+            UpdateControls();
+            //   UpdateStitchAndOverlaysInDoc();
+        }
+
+        private void butUp_Clicked(object sender, EventArgs e)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row - 1);
+            UpdateControls();
+            //  UpdateStitchAndOverlaysInDoc();
+        }
+
+        private void UpdateControls()
+        {
+            tableLayoutPanelIAssets.GetControlFromPosition(0, 0).Enabled = false; // not possible to go up for first row
+            if (bMultiAssetMode)
+            {
+                CheckBox CBV = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, 0));
+
+                if (CBV.Checked)
+                {
+                    bVisualOverlay = false; // fist row is enabled for visualoverlay now, not possible, so we disable it
+                    CBV.Checked = false; // not possible to do overlay with first asset
+                }
+
+                CBV.Enabled = false; // not possible to do overlay with first asset
+            }
+
+            if (tableLayoutPanelIAssets.RowCount > 1)
+            {
+                for (int i = 1; i < tableLayoutPanelIAssets.RowCount; i++)
+                {
+                    tableLayoutPanelIAssets.GetControlFromPosition(0, i).Enabled = true; // button up
+                    tableLayoutPanelIAssets.GetControlFromPosition(1, i).Enabled = true; // button down
+                    if (!bVisualOverlay) // no visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = true; // checkbox overlay
+                    }
+                    else // one visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, i)).Checked;
+                    }
+
+                }
+            }
+            tableLayoutPanelIAssets.GetControlFromPosition(1, tableLayoutPanelIAssets.RowCount - 1).Enabled = false; // not possible to go down for last row
+        }
+
+
+        private void SwapControls(int indexrow1, int indexrow2)
+        {
+            tableLayoutPanelIAssets.Visible = false;
+            for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
+            {
+                if (col != 2) // col = 2 it's Visual Index column
+                {
+                    Control controw1 = tableLayoutPanelIAssets.GetControlFromPosition(col, indexrow1);
+                    Control controw2 = tableLayoutPanelIAssets.GetControlFromPosition(col, indexrow2);
+                    tableLayoutPanelIAssets.SetRow(controw1, indexrow2);
+                    tableLayoutPanelIAssets.SetRow(controw2, indexrow1);
+                    if (bMultiAssetMode) // if we have multiple assets as source, then let's exchange the assets and update the tag
+                    {
+                        SwapSelectedAssets(indexrow1, indexrow2); // SelectedAssets, 
+                        controw1.Tag = indexrow2;
+                        controw2.Tag = indexrow1;
+                    }
+                }
+            }
+            tableLayoutPanelIAssets.Visible = true;
+        }
+
+
+        private void SwapSelectedAssets(int index1, int index2)
+        {
+            // If nothing needs to be swapped, just return the original collection.
+            if (index1 == index2)
+                return;
+
+            // Swap the items.
+            IAsset temp = SelectedAssets[index1];
+            SelectedAssets[index1] = SelectedAssets[index2];
+            SelectedAssets[index2] = temp;
         }
 
         private void EncodingAMEStandard_Load(object sender, EventArgs e)
@@ -308,6 +541,31 @@ namespace AMSExplorer
                         time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                         time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                         obj.Sources.Add(time);
+                    }
+
+                    // Overlay
+                    if (false)//bVisualOverlay)
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        dynamic Streams = new JArray() as dynamic;
+                        obj.Sources.Add(Streams);
+
+                        dynamic Filters = new JObject();
+                        dynamic VideoOverlay = new JObject();
+                        dynamic Position = new JObject();
+                        Position.X = numericUpDownVOverlayRectX;
+                        Position.Y = numericUpDownVOverlayRectY;
+                        Position.Width = numericUpDownVOverlayRectW;
+                        Position.Height = numericUpDownVOverlayRectH;
+                        VideoOverlay.Add(Position);
+                        VideoOverlay.AudioGainLevel = 0;
+
+                        dynamic MediaParams = new JArray() as dynamic;
+                      
                     }
 
                     // Insert silent audio track

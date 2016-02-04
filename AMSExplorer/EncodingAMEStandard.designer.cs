@@ -53,10 +53,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
+            this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
             this.tabPageThJPG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
@@ -120,10 +123,31 @@
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
-            this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelIAssets = new System.Windows.Forms.TableLayoutPanel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.numericUpDownVOverlayRectH = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.numericUpDownVOverlayRectW = new System.Windows.Forms.NumericUpDown();
+            this.label42 = new System.Windows.Forms.Label();
+            this.numericUpDownVOverlayRectY = new System.Windows.Forms.NumericUpDown();
+            this.label43 = new System.Windows.Forms.Label();
+            this.numericUpDownVOverlayRectX = new System.Windows.Forms.NumericUpDown();
+            this.label44 = new System.Windows.Forms.Label();
+            this.textBoxVOverlayEndTime = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.textBoxVOverlayStartTime = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.textBoxVOverlayFadeOut = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.textBoxVOverlayFadeIn = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -141,6 +165,12 @@
             this.panelThumbnailsBMP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThHeightBMP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThWidthBMP)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectW)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectX)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -377,6 +407,8 @@
             this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThPNG);
             this.tabControl1.Controls.Add(this.tabPageThBMP);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(24, 97);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -421,6 +453,17 @@
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDisableAutoDeinterlacing
+            // 
+            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
+            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
+            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
+            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
+            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
+            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
+            // 
             // checkBoxInsertSilentAudioTrack
             // 
             this.checkBoxInsertSilentAudioTrack.AutoSize = true;
@@ -457,11 +500,49 @@
             this.checkBoxAddAutomatic.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAddAutomatic.Location = new System.Drawing.Point(16, 336);
             this.checkBoxAddAutomatic.Name = "checkBoxAddAutomatic";
-            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(428, 19);
+            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(459, 19);
             this.checkBoxAddAutomatic.TabIndex = 4;
-            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for Trimming and Thumbnails";
+            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for features, thumbnails and overlay";
             this.checkBoxAddAutomatic.UseVisualStyleBackColor = true;
             this.checkBoxAddAutomatic.CheckedChanged += new System.EventHandler(this.checkBoxAddAutomatic_CheckedChanged);
+            // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(44, 98);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(44, 40);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // checkBoxSourceTrimming
             // 
@@ -1221,17 +1302,6 @@
             this.labelProcessorVersion.Text = "Version {0}";
             this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // checkBoxDisableAutoDeinterlacing
-            // 
-            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
-            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
-            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
-            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
-            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
-            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
-            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1242,43 +1312,290 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // timeControlEndTime
+            // tabPage1
             // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(44, 98);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            this.tabPage1.Controls.Add(this.tableLayoutPanelIAssets);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(724, 361);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "Input assets";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // timeControlStartTime
+            // tableLayoutPanelIAssets
             // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(44, 40);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
+            this.tableLayoutPanelIAssets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanelIAssets.AutoScroll = true;
+            this.tableLayoutPanelIAssets.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanelIAssets.ColumnCount = 5;
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.90359F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.90359F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.6024F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.6024F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.6024F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanelIAssets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanelIAssets.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanelIAssets.Name = "tableLayoutPanelIAssets";
+            this.tableLayoutPanelIAssets.RowCount = 1;
+            this.tableLayoutPanelIAssets.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelIAssets.Size = new System.Drawing.Size(712, 199);
+            this.tableLayoutPanelIAssets.TabIndex = 38;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.label25);
+            this.tabPage2.Controls.Add(this.label35);
+            this.tabPage2.Controls.Add(this.label37);
+            this.tabPage2.Controls.Add(this.numericUpDownVOverlayRectH);
+            this.tabPage2.Controls.Add(this.label41);
+            this.tabPage2.Controls.Add(this.numericUpDownVOverlayRectW);
+            this.tabPage2.Controls.Add(this.label42);
+            this.tabPage2.Controls.Add(this.numericUpDownVOverlayRectY);
+            this.tabPage2.Controls.Add(this.label43);
+            this.tabPage2.Controls.Add(this.numericUpDownVOverlayRectX);
+            this.tabPage2.Controls.Add(this.label44);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayEndTime);
+            this.tabPage2.Controls.Add(this.label45);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayStartTime);
+            this.tabPage2.Controls.Add(this.label46);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeOut);
+            this.tabPage2.Controls.Add(this.label47);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeIn);
+            this.tabPage2.Controls.Add(this.label48);
+            this.tabPage2.Controls.Add(this.label50);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(724, 361);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Visual overlay";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(606, 192);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(63, 13);
+            this.label23.TabIndex = 56;
+            this.label23.Text = "hh:mm:ss:fff";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(606, 151);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(63, 13);
+            this.label25.TabIndex = 55;
+            this.label25.Text = "hh:mm:ss:fff";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(279, 191);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(63, 13);
+            this.label35.TabIndex = 54;
+            this.label35.Text = "hh:mm:ss:fff";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(279, 152);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(63, 13);
+            this.label37.TabIndex = 53;
+            this.label37.Text = "hh:mm:ss:fff";
+            // 
+            // numericUpDownVOverlayRectH
+            // 
+            this.numericUpDownVOverlayRectH.Location = new System.Drawing.Point(538, 231);
+            this.numericUpDownVOverlayRectH.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownVOverlayRectH.Name = "numericUpDownVOverlayRectH";
+            this.numericUpDownVOverlayRectH.Size = new System.Drawing.Size(80, 23);
+            this.numericUpDownVOverlayRectH.TabIndex = 50;
+            this.numericUpDownVOverlayRectH.Value = new decimal(new int[] {
+            144,
+            0,
+            0,
+            0});
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(516, 233);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(16, 15);
+            this.label41.TabIndex = 49;
+            this.label41.Text = "H";
+            // 
+            // numericUpDownVOverlayRectW
+            // 
+            this.numericUpDownVOverlayRectW.Location = new System.Drawing.Point(409, 231);
+            this.numericUpDownVOverlayRectW.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownVOverlayRectW.Name = "numericUpDownVOverlayRectW";
+            this.numericUpDownVOverlayRectW.Size = new System.Drawing.Size(80, 23);
+            this.numericUpDownVOverlayRectW.TabIndex = 48;
+            this.numericUpDownVOverlayRectW.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(385, 233);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(18, 15);
+            this.label42.TabIndex = 47;
+            this.label42.Text = "W";
+            // 
+            // numericUpDownVOverlayRectY
+            // 
+            this.numericUpDownVOverlayRectY.Location = new System.Drawing.Point(279, 231);
+            this.numericUpDownVOverlayRectY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownVOverlayRectY.Name = "numericUpDownVOverlayRectY";
+            this.numericUpDownVOverlayRectY.Size = new System.Drawing.Size(80, 23);
+            this.numericUpDownVOverlayRectY.TabIndex = 46;
+            this.numericUpDownVOverlayRectY.Value = new decimal(new int[] {
+            144,
+            0,
+            0,
+            0});
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(259, 233);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(14, 15);
+            this.label43.TabIndex = 45;
+            this.label43.Text = "Y";
+            // 
+            // numericUpDownVOverlayRectX
+            // 
+            this.numericUpDownVOverlayRectX.Location = new System.Drawing.Point(157, 231);
+            this.numericUpDownVOverlayRectX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownVOverlayRectX.Name = "numericUpDownVOverlayRectX";
+            this.numericUpDownVOverlayRectX.Size = new System.Drawing.Size(80, 23);
+            this.numericUpDownVOverlayRectX.TabIndex = 44;
+            this.numericUpDownVOverlayRectX.Value = new decimal(new int[] {
+            257,
+            0,
+            0,
+            0});
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(137, 233);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(14, 15);
+            this.label44.TabIndex = 43;
+            this.label44.Text = "X";
+            // 
+            // textBoxVOverlayEndTime
+            // 
+            this.textBoxVOverlayEndTime.Location = new System.Drawing.Point(484, 188);
+            this.textBoxVOverlayEndTime.Name = "textBoxVOverlayEndTime";
+            this.textBoxVOverlayEndTime.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayEndTime.TabIndex = 42;
+            this.textBoxVOverlayEndTime.Text = "00:00:10.2120000";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(406, 191);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(54, 15);
+            this.label45.TabIndex = 41;
+            this.label45.Text = "End time";
+            // 
+            // textBoxVOverlayStartTime
+            // 
+            this.textBoxVOverlayStartTime.Location = new System.Drawing.Point(484, 148);
+            this.textBoxVOverlayStartTime.Name = "textBoxVOverlayStartTime";
+            this.textBoxVOverlayStartTime.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayStartTime.TabIndex = 40;
+            this.textBoxVOverlayStartTime.Text = "00:00:05";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(406, 151);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(58, 15);
+            this.label46.TabIndex = 39;
+            this.label46.Text = "Start time";
+            // 
+            // textBoxVOverlayFadeOut
+            // 
+            this.textBoxVOverlayFadeOut.Location = new System.Drawing.Point(157, 188);
+            this.textBoxVOverlayFadeOut.Name = "textBoxVOverlayFadeOut";
+            this.textBoxVOverlayFadeOut.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeOut.TabIndex = 38;
+            this.textBoxVOverlayFadeOut.Text = "00:00:02";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(44, 191);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(103, 15);
+            this.label47.TabIndex = 37;
+            this.label47.Text = "Fade Out duration";
+            // 
+            // textBoxVOverlayFadeIn
+            // 
+            this.textBoxVOverlayFadeIn.Location = new System.Drawing.Point(157, 147);
+            this.textBoxVOverlayFadeIn.Name = "textBoxVOverlayFadeIn";
+            this.textBoxVOverlayFadeIn.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeIn.TabIndex = 36;
+            this.textBoxVOverlayFadeIn.Text = "00:00:02";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(44, 151);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(93, 15);
+            this.label48.TabIndex = 35;
+            this.label48.Text = "Fade In duration";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(45, 233);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(59, 15);
+            this.label50.TabIndex = 32;
+            this.label50.Text = "Rectangle";
             // 
             // EncodingAMEStandard
             // 
@@ -1330,6 +1647,13 @@
             this.panelThumbnailsBMP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThHeightBMP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThWidthBMP)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectW)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1432,5 +1756,29 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
         private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
         private System.Windows.Forms.CheckBox checkBoxDisableAutoDeinterlacing;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelIAssets;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown numericUpDownVOverlayRectH;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.NumericUpDown numericUpDownVOverlayRectW;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.NumericUpDown numericUpDownVOverlayRectY;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.NumericUpDown numericUpDownVOverlayRectX;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.TextBox textBoxVOverlayEndTime;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.TextBox textBoxVOverlayStartTime;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeOut;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeIn;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label50;
     }
 }
