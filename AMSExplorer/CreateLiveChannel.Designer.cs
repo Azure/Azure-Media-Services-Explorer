@@ -68,7 +68,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
             this.panelAudioControl = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
             this.panelMultiAudio = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
             this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
             this.buttonDelAddOption = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
@@ -77,7 +79,6 @@
             this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
             this.buttonAddAudioStream = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBoxEnableMultiAudio = new System.Windows.Forms.CheckBox();
             this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
@@ -99,8 +100,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -544,7 +543,6 @@
             this.panelAudioControl.Controls.Add(this.label18);
             this.panelAudioControl.Controls.Add(this.panelMultiAudio);
             this.panelAudioControl.Controls.Add(this.label9);
-            this.panelAudioControl.Controls.Add(this.checkBoxEnableMultiAudio);
             this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageMain);
             this.panelAudioControl.Controls.Add(this.label11);
             this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexMain);
@@ -552,6 +550,16 @@
             this.panelAudioControl.Name = "panelAudioControl";
             this.panelAudioControl.Size = new System.Drawing.Size(477, 362);
             this.panelAudioControl.TabIndex = 84;
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(4, 4);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(470, 18);
+            this.label18.TabIndex = 86;
+            this.label18.Text = "Default Audio Stream";
             // 
             // panelMultiAudio
             // 
@@ -566,11 +574,20 @@
             this.panelMultiAudio.Controls.Add(this.numericUpDownAudioIndexAddition);
             this.panelMultiAudio.Controls.Add(this.dataGridViewAudioStreams);
             this.panelMultiAudio.Controls.Add(this.buttonAddAudioStream);
-            this.panelMultiAudio.Enabled = false;
             this.panelMultiAudio.Location = new System.Drawing.Point(3, 120);
             this.panelMultiAudio.Name = "panelMultiAudio";
             this.panelMultiAudio.Size = new System.Drawing.Size(470, 239);
             this.panelMultiAudio.TabIndex = 85;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(0, 5);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(470, 18);
+            this.label19.TabIndex = 87;
+            this.label19.Text = "Additional Audio Streams";
             // 
             // comboBoxAudioLanguageAddition
             // 
@@ -651,17 +668,6 @@
             this.label9.Size = new System.Drawing.Size(116, 15);
             this.label9.TabIndex = 73;
             this.label9.Text = "Audio Stream Index :";
-            // 
-            // checkBoxEnableMultiAudio
-            // 
-            this.checkBoxEnableMultiAudio.AutoSize = true;
-            this.checkBoxEnableMultiAudio.Location = new System.Drawing.Point(7, 95);
-            this.checkBoxEnableMultiAudio.Name = "checkBoxEnableMultiAudio";
-            this.checkBoxEnableMultiAudio.Size = new System.Drawing.Size(169, 19);
-            this.checkBoxEnableMultiAudio.TabIndex = 77;
-            this.checkBoxEnableMultiAudio.Text = "Use multiple audio streams";
-            this.checkBoxEnableMultiAudio.UseVisualStyleBackColor = true;
-            this.checkBoxEnableMultiAudio.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // comboBoxAudioLanguageMain
             // 
@@ -869,26 +875,6 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(4, 4);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(470, 18);
-            this.label18.TabIndex = 86;
-            this.label18.Text = "Default Audio Stream";
-            // 
-            // label19
-            // 
-            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(0, 5);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(470, 18);
-            this.label19.TabIndex = 87;
-            this.label19.Text = "Additional Audio Streams";
-            // 
             // CreateLiveChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -1003,7 +989,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Panel panelMultiAudio;
-        private System.Windows.Forms.CheckBox checkBoxEnableMultiAudio;
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;

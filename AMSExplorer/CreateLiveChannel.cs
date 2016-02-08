@@ -78,9 +78,13 @@ namespace AMSExplorer
 
                     List<AudioStream> audiostreamsl = new List<AudioStream>();
                     audiostreamsl.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageMain.SelectedItem).Value, Index = (int)numericUpDownAudioIndexMain.Value });
-                    if (checkBoxEnableMultiAudio.Checked)
+                    foreach (var s in audiostreams)
                     {
-                        audiostreamsl.AddRange(audiostreams);
+                        audiostreamsl.Add(new AudioStream()
+                        {
+                            Index = s.Index,
+                            Language = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == s.Language).FirstOrDefault().ThreeLetterISOLanguageName
+                        });
                     }
                     encodingoption.AudioStreams = new ReadOnlyCollection<AudioStream>(audiostreamsl);
                 }
@@ -374,9 +378,16 @@ namespace AMSExplorer
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
         {
-            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value)
+            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value
+                && !audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value)
+                && audiostreams.Count < 7 //8 max audio streams
+                )
             {
-                audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+                audiostreams.Add(new AudioStream()
+                {
+                    Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Name,
+                    Index = (int)numericUpDownAudioIndexAddition.Value
+                });
                 UpdateProfileGrids();
             }
         }
@@ -581,7 +592,6 @@ namespace AMSExplorer
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            panelMultiAudio.Enabled = checkBoxEnableMultiAudio.Checked;
             UpdateProfileGrids();
         }
 
@@ -646,7 +656,7 @@ namespace AMSExplorer
         private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
         {
             var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
-            if (checkBoxEnableMultiAudio.Checked && defaultaudiostream != null)
+            if (defaultaudiostream != null)
             {
                 errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
             }
@@ -658,9 +668,10 @@ namespace AMSExplorer
 
         private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value)
+            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
+            || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
             {
-                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+                    errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
             }
             else
             {
