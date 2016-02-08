@@ -630,7 +630,7 @@ namespace AMSExplorer
             if (dataGridViewAudioStreams.SelectedRows.Count == 1)
             {
                 audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
-                videoStreamChanged = true;
+                audioStreamChanged = true;
             }
         }
 
