@@ -55,6 +55,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
@@ -67,7 +68,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
             this.panelAudioControl = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
             this.panelMultiAudio = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
             this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
             this.buttonDelAddOption = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
@@ -76,7 +79,6 @@
             this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
             this.buttonAddAudioStream = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBoxEnableMultiAudio = new System.Windows.Forms.CheckBox();
             this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
@@ -98,7 +100,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -400,6 +401,18 @@
             this.tabPageLiveEncoding.Text = "Live Encoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(183, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(296, 16);
+            this.label6.TabIndex = 77;
+            this.label6.Text = "For a custom preset, contact amslived@microsoft.com";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // textBoxCustomPreset
             // 
             this.textBoxCustomPreset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -527,9 +540,9 @@
             // 
             // panelAudioControl
             // 
+            this.panelAudioControl.Controls.Add(this.label18);
             this.panelAudioControl.Controls.Add(this.panelMultiAudio);
             this.panelAudioControl.Controls.Add(this.label9);
-            this.panelAudioControl.Controls.Add(this.checkBoxEnableMultiAudio);
             this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageMain);
             this.panelAudioControl.Controls.Add(this.label11);
             this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexMain);
@@ -538,11 +551,22 @@
             this.panelAudioControl.Size = new System.Drawing.Size(477, 362);
             this.panelAudioControl.TabIndex = 84;
             // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(4, 4);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(470, 18);
+            this.label18.TabIndex = 86;
+            this.label18.Text = "Default Audio Stream";
+            // 
             // panelMultiAudio
             // 
             this.panelMultiAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMultiAudio.Controls.Add(this.label19);
             this.panelMultiAudio.Controls.Add(this.comboBoxAudioLanguageAddition);
             this.panelMultiAudio.Controls.Add(this.buttonDelAddOption);
             this.panelMultiAudio.Controls.Add(this.label13);
@@ -550,24 +574,33 @@
             this.panelMultiAudio.Controls.Add(this.numericUpDownAudioIndexAddition);
             this.panelMultiAudio.Controls.Add(this.dataGridViewAudioStreams);
             this.panelMultiAudio.Controls.Add(this.buttonAddAudioStream);
-            this.panelMultiAudio.Enabled = false;
-            this.panelMultiAudio.Location = new System.Drawing.Point(3, 137);
+            this.panelMultiAudio.Location = new System.Drawing.Point(3, 120);
             this.panelMultiAudio.Name = "panelMultiAudio";
-            this.panelMultiAudio.Size = new System.Drawing.Size(470, 222);
+            this.panelMultiAudio.Size = new System.Drawing.Size(470, 239);
             this.panelMultiAudio.TabIndex = 85;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(0, 5);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(470, 18);
+            this.label19.TabIndex = 87;
+            this.label19.Text = "Additional Audio Streams";
             // 
             // comboBoxAudioLanguageAddition
             // 
             this.comboBoxAudioLanguageAddition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAudioLanguageAddition.FormattingEnabled = true;
-            this.comboBoxAudioLanguageAddition.Location = new System.Drawing.Point(24, 30);
+            this.comboBoxAudioLanguageAddition.Location = new System.Drawing.Point(24, 63);
             this.comboBoxAudioLanguageAddition.Name = "comboBoxAudioLanguageAddition";
             this.comboBoxAudioLanguageAddition.Size = new System.Drawing.Size(209, 23);
             this.comboBoxAudioLanguageAddition.TabIndex = 80;
             // 
             // buttonDelAddOption
             // 
-            this.buttonDelAddOption.Location = new System.Drawing.Point(394, 167);
+            this.buttonDelAddOption.Location = new System.Drawing.Point(394, 200);
             this.buttonDelAddOption.Name = "buttonDelAddOption";
             this.buttonDelAddOption.Size = new System.Drawing.Size(69, 27);
             this.buttonDelAddOption.TabIndex = 84;
@@ -578,7 +611,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(259, 12);
+            this.label13.Location = new System.Drawing.Point(259, 45);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(116, 15);
             this.label13.TabIndex = 78;
@@ -587,7 +620,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(21, 12);
+            this.label12.Location = new System.Drawing.Point(21, 45);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(65, 15);
             this.label12.TabIndex = 81;
@@ -595,19 +628,20 @@
             // 
             // numericUpDownAudioIndexAddition
             // 
-            this.numericUpDownAudioIndexAddition.Location = new System.Drawing.Point(262, 31);
+            this.numericUpDownAudioIndexAddition.Location = new System.Drawing.Point(262, 64);
             this.numericUpDownAudioIndexAddition.Name = "numericUpDownAudioIndexAddition";
             this.numericUpDownAudioIndexAddition.ReadOnly = true;
             this.numericUpDownAudioIndexAddition.Size = new System.Drawing.Size(119, 23);
             this.numericUpDownAudioIndexAddition.TabIndex = 79;
             this.toolTip1.SetToolTip(this.numericUpDownAudioIndexAddition, resources.GetString("numericUpDownAudioIndexAddition.ToolTip"));
+            this.numericUpDownAudioIndexAddition.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexAddition_ValueChanged);
             // 
             // dataGridViewAudioStreams
             // 
             this.dataGridViewAudioStreams.AllowUserToAddRows = false;
             this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
             this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAudioStreams.Location = new System.Drawing.Point(24, 61);
+            this.dataGridViewAudioStreams.Location = new System.Drawing.Point(24, 94);
             this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
             this.dataGridViewAudioStreams.ReadOnly = true;
             this.dataGridViewAudioStreams.RowHeadersVisible = false;
@@ -618,7 +652,7 @@
             // 
             // buttonAddAudioStream
             // 
-            this.buttonAddAudioStream.Location = new System.Drawing.Point(394, 28);
+            this.buttonAddAudioStream.Location = new System.Drawing.Point(394, 61);
             this.buttonAddAudioStream.Name = "buttonAddAudioStream";
             this.buttonAddAudioStream.Size = new System.Drawing.Size(69, 27);
             this.buttonAddAudioStream.TabIndex = 82;
@@ -629,28 +663,17 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(265, 21);
+            this.label9.Location = new System.Drawing.Point(265, 30);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(116, 15);
             this.label9.TabIndex = 73;
             this.label9.Text = "Audio Stream Index :";
             // 
-            // checkBoxEnableMultiAudio
-            // 
-            this.checkBoxEnableMultiAudio.AutoSize = true;
-            this.checkBoxEnableMultiAudio.Location = new System.Drawing.Point(30, 111);
-            this.checkBoxEnableMultiAudio.Name = "checkBoxEnableMultiAudio";
-            this.checkBoxEnableMultiAudio.Size = new System.Drawing.Size(169, 19);
-            this.checkBoxEnableMultiAudio.TabIndex = 77;
-            this.checkBoxEnableMultiAudio.Text = "Use multiple audio streams";
-            this.checkBoxEnableMultiAudio.UseVisualStyleBackColor = true;
-            this.checkBoxEnableMultiAudio.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // comboBoxAudioLanguageMain
             // 
             this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAudioLanguageMain.FormattingEnabled = true;
-            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(30, 39);
+            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(30, 48);
             this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
             this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(209, 23);
             this.comboBoxAudioLanguageMain.TabIndex = 75;
@@ -659,7 +682,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(27, 21);
+            this.label11.Location = new System.Drawing.Point(27, 30);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(65, 15);
             this.label11.TabIndex = 76;
@@ -667,12 +690,13 @@
             // 
             // numericUpDownAudioIndexMain
             // 
-            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(268, 40);
+            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(268, 49);
             this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
             this.numericUpDownAudioIndexMain.ReadOnly = true;
             this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(119, 23);
             this.numericUpDownAudioIndexMain.TabIndex = 74;
             this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
+            this.numericUpDownAudioIndexMain.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexMain_ValueChanged);
             // 
             // tabPageAdConfig
             // 
@@ -851,18 +875,6 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(183, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(296, 16);
-            this.label6.TabIndex = 77;
-            this.label6.Text = "For a custom preset, contact amslived@microsoft.com";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // CreateLiveChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -977,7 +989,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Panel panelMultiAudio;
-        private System.Windows.Forms.CheckBox checkBoxEnableMultiAudio;
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
@@ -986,5 +997,7 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
     }
 }

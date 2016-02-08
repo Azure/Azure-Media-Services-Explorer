@@ -49,6 +49,11 @@ namespace AMSExplorer
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
         private string defaultEncodingPreset = "";
+        private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private string defaultAudioStreamCode = null;
+        private bool videoStreamChanged = false;
+        private bool audioStreamChanged = false;
+
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -119,6 +124,51 @@ namespace AMSExplorer
             get
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+            }
+        }
+
+
+        public ReadOnlyCollection<VideoStream> VideoStreamList
+        {
+            get
+            {
+                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && videoStreamChanged)
+                { // RTP
+                    List<VideoStream> videostreams = new List<VideoStream>();
+                    videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
+                    return new ReadOnlyCollection<VideoStream>(videostreams);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public ReadOnlyCollection<AudioStream> AudioStreamList
+        {
+            get
+            {
+                if ( 
+                   MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && audioStreamChanged && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
+                   )
+                { // RTP
+                    List<AudioStream> audiostreamsl = new List<AudioStream>();
+                    audiostreamsl.Add(new AudioStream() { Language = defaultAudioStreamCode, Index = (int)numericUpDownAudioIndexMain.Value });
+                    foreach (var s in audiostreams)
+                    {
+                        audiostreamsl.Add(new AudioStream()
+                        {
+                            Index = s.Index,
+                            Language = s.Code
+                        });
+                    }
+                    return new ReadOnlyCollection<AudioStream>(audiostreamsl);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -221,7 +271,6 @@ namespace AMSExplorer
             }
 
 
-
             // Encoding Settings
             if (MyChannel.EncodingType != ChannelEncodingType.None)
             {
@@ -248,12 +297,110 @@ namespace AMSExplorer
                 if (MyChannel.State != ChannelState.Stopped)
                 {
                     groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
+                    groupBoxVideoStream.Enabled = false;
                     labelChannelMustBeStopped.Visible = true;
+                    labelIndexesChannelMustBeStopped.Visible = true;
+                    panelStreamIndexes.Enabled = false; // encoding settings cannot be edited
                 }
+
+                if (MyChannel.Input.StreamingProtocol != StreamingProtocol.RTPMPEG2TS)
+                {
+                    tabControl1.TabPages.Remove(tabPageIndexes); // no rtp channel, no indexes
+                    groupBoxVideoStream.Visible = false;
+                }
+                else
+                {
+
+                    numericUpDownVideoStreamIndex.Value = MyChannel.Encoding.VideoStreams != null && MyChannel.Encoding.VideoStreams.FirstOrDefault() != null ?
+                        MyChannel.Encoding.VideoStreams.FirstOrDefault().Index
+                        : 0;
+
+                    Item myitem = new Item("Undefined", "und");
+                    comboBoxAudioLanguageMain.Items.Add(myitem);
+                    //comboBoxAudioLanguageMain.SelectedItem = myitem;
+                    comboBoxAudioLanguageAddition.Items.Add(myitem);
+                    comboBoxAudioLanguageAddition.SelectedItem = myitem;
+
+                    foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures).OrderBy(c => c.DisplayName))
+                    {
+                        myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
+                        comboBoxAudioLanguageMain.Items.Add(myitem);
+                        comboBoxAudioLanguageAddition.Items.Add(myitem);
+                        if (MyChannel.Encoding.AudioStreams.Count > 0 && MyChannel.Encoding.AudioStreams[0].Language == ci.ThreeLetterISOLanguageName)
+                        {
+                            comboBoxAudioLanguageMain.SelectedItem = myitem;
+                        }
+                    }
+
+                    if (MyChannel.Encoding.AudioStreams != null && MyChannel.Encoding.AudioStreams.Count > 0)
+                    {
+                        defaultAudioStreamCode = MyChannel.Encoding.AudioStreams[0].Language; // in order to keep the initial code if needed
+
+                        if (comboBoxAudioLanguageMain.SelectedItem == null) // code which is not in culture list !
+                        {
+                            myitem = new Item(MyChannel.Encoding.AudioStreams[0].Language, MyChannel.Encoding.AudioStreams[0].Language);
+                            comboBoxAudioLanguageMain.Items.Add(myitem);
+                            comboBoxAudioLanguageMain.SelectedItem = myitem;
+                        }
+
+                        numericUpDownAudioIndexMain.Value = MyChannel.Encoding.AudioStreams[0].Index;
+
+                        if (MyChannel.Encoding.AudioStreams.Count > 1)
+                        {
+                            int index = 0;
+                            foreach (var audiostream in MyChannel.Encoding.AudioStreams)
+                            {
+                                if (index > 0)
+                                {
+                                    var language = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.ThreeLetterISOLanguageName == audiostream.Language).FirstOrDefault();
+                                    audiostreams.Add(new ExplorerAudioStream()
+                                    {
+                                        Language = language != null ? language.DisplayName : audiostream.Language,
+                                        Index = audiostream.Index,
+                                        Code = audiostream.Language
+                                    }
+                                        );
+                                }
+                                index++;
+                            }
+                        }
+
+                        // let set the next possible index
+                        List<int> audioindex = new List<int>() { MyChannel.Encoding.AudioStreams[0].Index };
+                        audioindex.AddRange(MyChannel.Encoding.AudioStreams.Select(a => a.Index).ToList());
+                        int indexAvailable = 0;
+                        while (true)
+                        {
+                            if (!audioindex.Contains(indexAvailable))
+                            {
+                                break;
+                            }
+                            indexAvailable++;
+                        }
+                        numericUpDownAudioIndexAddition.Value = indexAvailable;
+
+                    }
+                    else // no audiostream list !
+                    {
+                        defaultAudioStreamCode = null;
+                        numericUpDownAudioIndexMain.Value = 0;
+
+                        myitem = new Item("<null>", null);
+                        comboBoxAudioLanguageMain.Items.Add(myitem);
+                        comboBoxAudioLanguageMain.SelectedItem = myitem;
+
+                    }
+
+                    dataGridViewAudioStreams.DataSource = audiostreams;
+                    dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
+                }
+                audioStreamChanged = false; // to make they are at false now
+                videoStreamChanged = false; // to make they are at false now
             }
             else
             {
                 tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
+                tabControl1.TabPages.Remove(tabPageIndexes); // no encoding channel, no indexes
             }
 
 
@@ -303,7 +450,7 @@ namespace AMSExplorer
             textboxchannedesc.Text = MyChannel.Description;
 
             // Channel is not stopped or running. We cannot update settings
-            if (MyChannel.State!= ChannelState.Stopped && MyChannel.State != ChannelState.Running) 
+            if (MyChannel.State != ChannelState.Stopped && MyChannel.State != ChannelState.Running)
             {
                 labelChannelStoppedOrStartedSettings.Visible = true;
                 buttonUpdateClose.Enabled = false;
@@ -459,7 +606,90 @@ namespace AMSExplorer
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
         }
 
+        private void buttonAddAudioStream_Click(object sender, EventArgs e)
+        {
+            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value
+                && !audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value)
+                && audiostreams.Count < 7
+                && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
+                )
+            {
+                var selected = (Item)comboBoxAudioLanguageAddition.SelectedItem;
+                audiostreams.Add(new ExplorerAudioStream()
+                {
+                    Language = selected.Name,
+                    Index = (int)numericUpDownAudioIndexAddition.Value,
+                    Code = selected.Value
+                });
+                videoStreamChanged = true;
+            }
+        }
 
+        private void buttonDelAddOption_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewAudioStreams.SelectedRows.Count == 1)
+            {
+                audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
+                audioStreamChanged = true;
+            }
+        }
+
+        private void comboBoxAudioLanguageMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string lang = ((Item)comboBoxAudioLanguageMain.SelectedItem).Name;
+            var culture = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == lang).FirstOrDefault();
+            if (culture!=null)
+            {
+                defaultAudioStreamCode = culture.ThreeLetterISOLanguageName;
+            }
+            else
+            {
+                defaultAudioStreamCode = null;
+            }
+            audioStreamChanged = true; // user changed it
+        }
+
+        private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
+        {
+            var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
+            if (defaultaudiostream != null)
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
+            }
+            audioStreamChanged = true;
+        }
+
+        private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
+            || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, String.Empty);
+            }
+        }
+
+        private void numericUpDownVideoStreamIndex_ValueChanged(object sender, EventArgs e)
+        {
+            videoStreamChanged = true;
+        }
+    }
+
+
+
+    public class ExplorerAudioStream
+    {
+        //public ExplorerAudioStream();
+        public int Index { get; set; }
+        public string Language { get; set; }
+        public string Code { get; set; }
     }
 
 }

@@ -281,6 +281,8 @@ namespace AMSExplorer
                 overlayFilename = ((Label)tableLayoutPanelIAssets.GetControlFromPosition(3, position.Row)).Text;
             }
             UpdateCheckboxOverlay(cb);
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+
         }
 
 
@@ -544,28 +546,104 @@ namespace AMSExplorer
                     }
 
                     // Overlay
-                    if (false)//bVisualOverlay)
+                    if (bVisualOverlay)
                     {
+                        /*
+                        "Sources": [
+    {
+      "Streams": [],
+      "Filters": {
+        "VideoOverlay": {
+          "Position": {
+            "X": 0,
+            "Y": 0,
+            "Width": 100,
+            "Height": 100
+          },
+          "AudioGainLevel": 0.0,
+          "MediaParams": [
+            {
+              "OverlayLoopCount": 1
+            },
+            {
+              "IsOverlay": true,
+              "OverlayLoopCount": 1,
+              "InputLoop": true
+            }
+          ],
+          "Source": "OverlayImage.png",
+          "Clip": {
+            "Duration": "00:00:05"
+          },
+          "FadeInDuration": {
+            "StartTime": "00:00:00",
+            "Duration": "00:00:01"
+          },
+          "FadeOutDuration": {
+            "StartTime": "00:00:03",
+            "Duration": "00:00:04"
+          }
+        }
+      },
+      "Pad": true
+    }
+  ],
+
+    */
+
                         if (obj.Sources == null)
                         {
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        dynamic Streams = new JArray() as dynamic;
-                        obj.Sources.Add(Streams);
+                        dynamic Source = new JObject();
+                        Source.Streams = new JArray() as dynamic;
 
-                        dynamic Filters = new JObject();
-                        dynamic VideoOverlay = new JObject();
                         dynamic Position = new JObject();
-                        Position.X = numericUpDownVOverlayRectX;
-                        Position.Y = numericUpDownVOverlayRectY;
-                        Position.Width = numericUpDownVOverlayRectW;
-                        Position.Height = numericUpDownVOverlayRectH;
-                        VideoOverlay.Add(Position);
-                        VideoOverlay.AudioGainLevel = 0;
+                        Position.X = (int)numericUpDownVOverlayRectX.Value;
+                        Position.Y = (int)numericUpDownVOverlayRectY.Value;
+                        Position.Width = (int)numericUpDownVOverlayRectW.Value;
+                        Position.Height = (int)numericUpDownVOverlayRectH.Value;
+
+                        dynamic VideoOverlay = new JObject();
+                        VideoOverlay.Position = Position;
+                        VideoOverlay.AudioGainLevel = (decimal) 0;
 
                         dynamic MediaParams = new JArray() as dynamic;
-                      
+                        dynamic OverlayLoopCount = new JObject();
+                        OverlayLoopCount.OverlayLoopCount = 1;
+                        MediaParams.Add(OverlayLoopCount);
+
+                        dynamic ov = new JObject();
+                        ov.IsOverlay = true;
+                        ov.OverlayLoopCount = 1;
+                        ov.InputLoop = true;
+                        MediaParams.Add(ov);
+
+                        VideoOverlay.MediaParams = MediaParams;
+
+                        VideoOverlay.Source = overlayFilename;
+
+                        dynamic Clip = new JObject();
+                        Clip.Duration = "00:00:05";
+                        VideoOverlay.Clip = Clip;
+
+                        dynamic FadeInDuration = new JObject();
+                        FadeInDuration.StartTime = textBoxVOverlayFadeInStartTime.Text;
+                        FadeInDuration.Duration = textBoxVOverlayFadeInDuration.Text;
+                        VideoOverlay.FadeInDuration = FadeInDuration;
+
+                        dynamic FadeOutDuration = new JObject();
+                        FadeOutDuration.StartTime = textBoxVOverlayFadeOutStartTime.Text;
+                        FadeOutDuration.Duration = textBoxVOverlayFadeOutDuration.Text;
+                        VideoOverlay.FadeOutDuration = FadeOutDuration;
+
+                        dynamic VideoOverlayEntry = new JObject();
+                        VideoOverlayEntry.VideoOverlay = VideoOverlay;
+
+                        Source.Filters = VideoOverlayEntry;
+                        Source.Pad = true;
+                        obj.Sources.Add(Source);
                     }
 
                     // Insert silent audio track

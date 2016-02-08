@@ -121,9 +121,6 @@
             this.label39 = new System.Windows.Forms.Label();
             this.textBoxThTimeRangeBMP = new System.Windows.Forms.TextBox();
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
-            this.labelsummaryjob = new System.Windows.Forms.Label();
-            this.labelProcessorVersion = new System.Windows.Forms.Label();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelIAssets = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -139,15 +136,18 @@
             this.label43 = new System.Windows.Forms.Label();
             this.numericUpDownVOverlayRectX = new System.Windows.Forms.NumericUpDown();
             this.label44 = new System.Windows.Forms.Label();
-            this.textBoxVOverlayEndTime = new System.Windows.Forms.TextBox();
+            this.textBoxVOverlayFadeOutStartTime = new System.Windows.Forms.TextBox();
             this.label45 = new System.Windows.Forms.Label();
-            this.textBoxVOverlayStartTime = new System.Windows.Forms.TextBox();
+            this.textBoxVOverlayFadeInStartTime = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.textBoxVOverlayFadeOut = new System.Windows.Forms.TextBox();
+            this.textBoxVOverlayFadeOutDuration = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.textBoxVOverlayFadeIn = new System.Windows.Forms.TextBox();
+            this.textBoxVOverlayFadeInDuration = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
+            this.labelsummaryjob = new System.Windows.Forms.Label();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -1280,38 +1280,6 @@
             this.checkBoxGenThumbnailsBMP.UseVisualStyleBackColor = true;
             this.checkBoxGenThumbnailsBMP.CheckedChanged += new System.EventHandler(this.checkBoxGenThumbnailsBMP_CheckedChanged);
             // 
-            // labelsummaryjob
-            // 
-            this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(20, 49);
-            this.labelsummaryjob.Name = "labelsummaryjob";
-            this.labelsummaryjob.Size = new System.Drawing.Size(614, 41);
-            this.labelsummaryjob.TabIndex = 76;
-            this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
-            // 
-            // labelProcessorVersion
-            // 
-            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelProcessorVersion.Location = new System.Drawing.Point(628, 38);
-            this.labelProcessorVersion.Name = "labelProcessorVersion";
-            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
-            this.labelProcessorVersion.TabIndex = 77;
-            this.labelProcessorVersion.Text = "Version {0}";
-            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(596, 520);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 75;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tableLayoutPanelIAssets);
@@ -1359,13 +1327,13 @@
             this.tabPage2.Controls.Add(this.label43);
             this.tabPage2.Controls.Add(this.numericUpDownVOverlayRectX);
             this.tabPage2.Controls.Add(this.label44);
-            this.tabPage2.Controls.Add(this.textBoxVOverlayEndTime);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeOutStartTime);
             this.tabPage2.Controls.Add(this.label45);
-            this.tabPage2.Controls.Add(this.textBoxVOverlayStartTime);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeInStartTime);
             this.tabPage2.Controls.Add(this.label46);
-            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeOut);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeOutDuration);
             this.tabPage2.Controls.Add(this.label47);
-            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeIn);
+            this.tabPage2.Controls.Add(this.textBoxVOverlayFadeInDuration);
             this.tabPage2.Controls.Add(this.label48);
             this.tabPage2.Controls.Add(this.label50);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
@@ -1428,7 +1396,7 @@
             this.numericUpDownVOverlayRectH.Size = new System.Drawing.Size(80, 23);
             this.numericUpDownVOverlayRectH.TabIndex = 50;
             this.numericUpDownVOverlayRectH.Value = new decimal(new int[] {
-            144,
+            100,
             0,
             0,
             0});
@@ -1454,7 +1422,7 @@
             this.numericUpDownVOverlayRectW.Size = new System.Drawing.Size(80, 23);
             this.numericUpDownVOverlayRectW.TabIndex = 48;
             this.numericUpDownVOverlayRectW.Value = new decimal(new int[] {
-            255,
+            100,
             0,
             0,
             0});
@@ -1480,7 +1448,7 @@
             this.numericUpDownVOverlayRectY.Size = new System.Drawing.Size(80, 23);
             this.numericUpDownVOverlayRectY.TabIndex = 46;
             this.numericUpDownVOverlayRectY.Value = new decimal(new int[] {
-            144,
+            10,
             0,
             0,
             0});
@@ -1506,7 +1474,7 @@
             this.numericUpDownVOverlayRectX.Size = new System.Drawing.Size(80, 23);
             this.numericUpDownVOverlayRectX.TabIndex = 44;
             this.numericUpDownVOverlayRectX.Value = new decimal(new int[] {
-            257,
+            10,
             0,
             0,
             0});
@@ -1520,47 +1488,47 @@
             this.label44.TabIndex = 43;
             this.label44.Text = "X";
             // 
-            // textBoxVOverlayEndTime
+            // textBoxVOverlayFadeOutStartTime
             // 
-            this.textBoxVOverlayEndTime.Location = new System.Drawing.Point(484, 188);
-            this.textBoxVOverlayEndTime.Name = "textBoxVOverlayEndTime";
-            this.textBoxVOverlayEndTime.Size = new System.Drawing.Size(116, 23);
-            this.textBoxVOverlayEndTime.TabIndex = 42;
-            this.textBoxVOverlayEndTime.Text = "00:00:10.2120000";
+            this.textBoxVOverlayFadeOutStartTime.Location = new System.Drawing.Point(484, 188);
+            this.textBoxVOverlayFadeOutStartTime.Name = "textBoxVOverlayFadeOutStartTime";
+            this.textBoxVOverlayFadeOutStartTime.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeOutStartTime.TabIndex = 42;
+            this.textBoxVOverlayFadeOutStartTime.Text = "00:00:10.2120000";
             // 
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(406, 191);
+            this.label45.Location = new System.Drawing.Point(379, 191);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(54, 15);
+            this.label45.Size = new System.Drawing.Size(109, 15);
             this.label45.TabIndex = 41;
-            this.label45.Text = "End time";
+            this.label45.Text = "Fade Out Start time";
             // 
-            // textBoxVOverlayStartTime
+            // textBoxVOverlayFadeInStartTime
             // 
-            this.textBoxVOverlayStartTime.Location = new System.Drawing.Point(484, 148);
-            this.textBoxVOverlayStartTime.Name = "textBoxVOverlayStartTime";
-            this.textBoxVOverlayStartTime.Size = new System.Drawing.Size(116, 23);
-            this.textBoxVOverlayStartTime.TabIndex = 40;
-            this.textBoxVOverlayStartTime.Text = "00:00:05";
+            this.textBoxVOverlayFadeInStartTime.Location = new System.Drawing.Point(484, 148);
+            this.textBoxVOverlayFadeInStartTime.Name = "textBoxVOverlayFadeInStartTime";
+            this.textBoxVOverlayFadeInStartTime.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeInStartTime.TabIndex = 40;
+            this.textBoxVOverlayFadeInStartTime.Text = "00:00:05";
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(406, 151);
+            this.label46.Location = new System.Drawing.Point(379, 151);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(58, 15);
+            this.label46.Size = new System.Drawing.Size(99, 15);
             this.label46.TabIndex = 39;
-            this.label46.Text = "Start time";
+            this.label46.Text = "Fade In Start time";
             // 
-            // textBoxVOverlayFadeOut
+            // textBoxVOverlayFadeOutDuration
             // 
-            this.textBoxVOverlayFadeOut.Location = new System.Drawing.Point(157, 188);
-            this.textBoxVOverlayFadeOut.Name = "textBoxVOverlayFadeOut";
-            this.textBoxVOverlayFadeOut.Size = new System.Drawing.Size(116, 23);
-            this.textBoxVOverlayFadeOut.TabIndex = 38;
-            this.textBoxVOverlayFadeOut.Text = "00:00:02";
+            this.textBoxVOverlayFadeOutDuration.Location = new System.Drawing.Point(157, 188);
+            this.textBoxVOverlayFadeOutDuration.Name = "textBoxVOverlayFadeOutDuration";
+            this.textBoxVOverlayFadeOutDuration.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeOutDuration.TabIndex = 38;
+            this.textBoxVOverlayFadeOutDuration.Text = "00:00:02";
             // 
             // label47
             // 
@@ -1571,22 +1539,22 @@
             this.label47.TabIndex = 37;
             this.label47.Text = "Fade Out duration";
             // 
-            // textBoxVOverlayFadeIn
+            // textBoxVOverlayFadeInDuration
             // 
-            this.textBoxVOverlayFadeIn.Location = new System.Drawing.Point(157, 147);
-            this.textBoxVOverlayFadeIn.Name = "textBoxVOverlayFadeIn";
-            this.textBoxVOverlayFadeIn.Size = new System.Drawing.Size(116, 23);
-            this.textBoxVOverlayFadeIn.TabIndex = 36;
-            this.textBoxVOverlayFadeIn.Text = "00:00:02";
+            this.textBoxVOverlayFadeInDuration.Location = new System.Drawing.Point(157, 147);
+            this.textBoxVOverlayFadeInDuration.Name = "textBoxVOverlayFadeInDuration";
+            this.textBoxVOverlayFadeInDuration.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeInDuration.TabIndex = 36;
+            this.textBoxVOverlayFadeInDuration.Text = "00:00:02";
             // 
             // label48
             // 
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(44, 151);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(93, 15);
+            this.label48.Size = new System.Drawing.Size(94, 15);
             this.label48.TabIndex = 35;
-            this.label48.Text = "Fade In duration";
+            this.label48.Text = "Fade In Duration";
             // 
             // label50
             // 
@@ -1596,6 +1564,38 @@
             this.label50.Size = new System.Drawing.Size(59, 15);
             this.label50.TabIndex = 32;
             this.label50.Text = "Rectangle";
+            // 
+            // labelsummaryjob
+            // 
+            this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelsummaryjob.Location = new System.Drawing.Point(20, 49);
+            this.labelsummaryjob.Name = "labelsummaryjob";
+            this.labelsummaryjob.Size = new System.Drawing.Size(614, 41);
+            this.labelsummaryjob.TabIndex = 76;
+            this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
+            // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelProcessorVersion.Location = new System.Drawing.Point(628, 38);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
+            this.labelProcessorVersion.TabIndex = 77;
+            this.labelProcessorVersion.Text = "Version {0}";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 520);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 75;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 
@@ -1771,13 +1771,13 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.NumericUpDown numericUpDownVOverlayRectX;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.TextBox textBoxVOverlayEndTime;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeOutStartTime;
         private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.TextBox textBoxVOverlayStartTime;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeInStartTime;
         private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.TextBox textBoxVOverlayFadeOut;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeOutDuration;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.TextBox textBoxVOverlayFadeIn;
+        private System.Windows.Forms.TextBox textBoxVOverlayFadeInDuration;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label50;
     }

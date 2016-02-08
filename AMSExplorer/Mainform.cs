@@ -7004,7 +7004,7 @@ namespace AMSExplorer
             return operation;
         }
 
-        
+
         internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess)
         //used for all except creation 
         {
@@ -7487,6 +7487,18 @@ namespace AMSExplorer
                     if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
                     {
                         channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+
+                        var audiostream = form.AudioStreamList;
+                        if (audiostream != null) // user modified it
+                        {
+                            channel.Encoding.AudioStreams = audiostream;
+                        }
+
+                        var videostream = form.VideoStreamList;
+                        if (videostream != null) // user modified it
+                        {
+                            channel.Encoding.VideoStreams = videostream;
+                        }
                     }
 
                     // HLS Fragment per segment
