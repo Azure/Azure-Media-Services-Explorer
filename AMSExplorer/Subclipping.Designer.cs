@@ -53,8 +53,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
             this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -72,8 +70,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.panelJob = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label34 = new System.Windows.Forms.Label();
+            this.labelNoJSONBecauseReencoding = new System.Windows.Forms.Label();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -113,9 +114,9 @@
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(663, 14);
+            this.buttonOk.Location = new System.Drawing.Point(650, 14);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(114, 27);
+            this.buttonOk.Size = new System.Drawing.Size(127, 27);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Tag = "Subclip";
             this.buttonOk.Text = "Subclip";
@@ -217,6 +218,7 @@
             // 
             // tabPageXML
             // 
+            this.tabPageXML.Controls.Add(this.labelNoJSONBecauseReencoding);
             this.tabPageXML.Controls.Add(this.label3);
             this.tabPageXML.Controls.Add(this.textBoxConfiguration);
             this.tabPageXML.Location = new System.Drawing.Point(4, 24);
@@ -295,7 +297,7 @@
             this.groupBoxTrimming.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.groupBoxTrimming.Location = new System.Drawing.Point(337, 7);
             this.groupBoxTrimming.Name = "groupBoxTrimming";
-            this.groupBoxTrimming.Size = new System.Drawing.Size(537, 491);
+            this.groupBoxTrimming.Size = new System.Drawing.Size(537, 487);
             this.groupBoxTrimming.TabIndex = 131;
             this.groupBoxTrimming.TabStop = false;
             this.groupBoxTrimming.Text = "Trimming";
@@ -305,7 +307,7 @@
             this.textBoxDurationTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDurationTime.Enabled = false;
             this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxDurationTime.Location = new System.Drawing.Point(394, 462);
+            this.textBoxDurationTime.Location = new System.Drawing.Point(394, 458);
             this.textBoxDurationTime.Name = "textBoxDurationTime";
             this.textBoxDurationTime.ReadOnly = true;
             this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
@@ -317,7 +319,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(329, 465);
+            this.label7.Location = new System.Drawing.Point(329, 461);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 134;
@@ -334,58 +336,16 @@
             this.labelAccurate.Tag = "({0} accurate)";
             this.labelAccurate.Text = "({0} accurate)";
             // 
-            // webBrowserPreview2
+            // webBrowserPreview
             // 
             this.webBrowserPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowserPreview.Location = new System.Drawing.Point(17, 42);
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
-            this.webBrowserPreview.Name = "webBrowserPreview2";
-            this.webBrowserPreview.Size = new System.Drawing.Size(500, 217);
+            this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.Size = new System.Drawing.Size(500, 213);
             this.webBrowserPreview.TabIndex = 4;
-            // 
-            // timeControlStart
-            // 
-            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStart.Label1 = "";
-            this.timeControlStart.Label2 = "Start time :";
-            this.timeControlStart.Location = new System.Drawing.Point(7, 286);
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.Size = new System.Drawing.Size(511, 92);
-            this.timeControlStart.TabIndex = 122;
-            this.timeControlStart.TimeScale = null;
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlEnd
-            // 
-            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEnd.Label1 = "";
-            this.timeControlEnd.Label2 = "End time :";
-            this.timeControlEnd.Location = new System.Drawing.Point(7, 382);
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.Size = new System.Drawing.Size(511, 87);
-            this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = null;
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // checkBoxPreviewStream
             // 
@@ -593,16 +553,6 @@
             this.panelJob.Size = new System.Drawing.Size(915, 115);
             this.panelJob.TabIndex = 135;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(736, 33);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 130;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // label34
             // 
             this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -615,6 +565,68 @@
             this.label34.TabIndex = 136;
             this.label34.Text = "Live stream/archive Subclipping";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // labelNoJSONBecauseReencoding
+            // 
+            this.labelNoJSONBecauseReencoding.Location = new System.Drawing.Point(22, 46);
+            this.labelNoJSONBecauseReencoding.Name = "labelNoJSONBecauseReencoding";
+            this.labelNoJSONBecauseReencoding.Size = new System.Drawing.Size(833, 49);
+            this.labelNoJSONBecauseReencoding.TabIndex = 41;
+            this.labelNoJSONBecauseReencoding.Text = "No JSON shown in this scenario. Click “Subclip” to submit a task, and then a dial" +
+    "og will pop up allowing you to modify the encode settings…";
+            this.labelNoJSONBecauseReencoding.Visible = false;
+            // 
+            // timeControlStart
+            // 
+            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.Enabled = false;
+            this.timeControlStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStart.Label1 = "";
+            this.timeControlStart.Label2 = "Start time :";
+            this.timeControlStart.Location = new System.Drawing.Point(7, 282);
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStart.Size = new System.Drawing.Size(511, 92);
+            this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = null;
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
+            // timeControlEnd
+            // 
+            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.Enabled = false;
+            this.timeControlEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEnd.Label1 = "";
+            this.timeControlEnd.Label2 = "End time :";
+            this.timeControlEnd.Location = new System.Drawing.Point(7, 378);
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEnd.Size = new System.Drawing.Size(511, 87);
+            this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = null;
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(736, 33);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 130;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // Subclipping
             // 
@@ -701,5 +713,6 @@
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.TextBox textBoxDurationTime;
         public System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelNoJSONBecauseReencoding;
     }
 }
