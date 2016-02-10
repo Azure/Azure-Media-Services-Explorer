@@ -419,6 +419,17 @@ namespace AMSExplorer
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
+                labelNoJSONBecauseReencoding.Visible = true;
+                label3.Visible = textBoxConfiguration.Visible = false;
+
+                if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
+                {
+                    labelNoJSONBecauseReencoding.Text = @"No JSON shown yet in this scenario. Click ""Subclip..."" to submit a task, and then a dialog will pop up allowing you to modify the encode settings.";
+                }
+                else
+                {
+                    labelNoJSONBecauseReencoding.Text = @"No JSON shown in this scenario. Click ""Create filter..."" to create an asset filter, and then a dialog will pop up to create the filter with the specified start and times.";
+                }
             }
             else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) // archive all bitrate
                 ||
@@ -430,15 +441,25 @@ namespace AMSExplorer
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
+                labelNoJSONBecauseReencoding.Visible = false;
+                label3.Visible = textBoxConfiguration.Visible = true;
             }
-
         }
 
         private void UpdateButtonOk()
         {
-
-            buttonOk.Text = ((string)buttonOk.Tag) + ((radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) ? "" : "...");
-
+            if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked)
+            {
+                buttonOk.Text = ((string)buttonOk.Tag);
+            }
+            else if (radioButtonClipWithReencode.Checked)
+            {
+                buttonOk.Text = ((string)buttonOk.Tag) + "...";
+            }
+            else if (radioButtonAssetFilter.Checked)
+            {
+                buttonOk.Text = "Create filter...";
+            }
         }
 
         private void DisplayAccuracy()
@@ -515,7 +536,7 @@ namespace AMSExplorer
             {
                 webBrowserPreview.Url = null;
             }
-           
+
         }
 
 
@@ -531,7 +552,7 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count,processor.Version, subclipConfig)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
