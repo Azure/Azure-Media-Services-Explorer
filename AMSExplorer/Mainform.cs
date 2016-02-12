@@ -7488,16 +7488,14 @@ namespace AMSExplorer
                     {
                         channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
 
-                        var audiostream = form.AudioStreamList;
-                        if (audiostream != null) // user modified it
+                        if (form.AudioStreamsChanged) // user modified it
                         {
-                            channel.Encoding.AudioStreams = audiostream;
+                            channel.Encoding.AudioStreams = form.AudioStreamList;
                         }
 
-                        var videostream = form.VideoStreamList;
-                        if (videostream != null) // user modified it
+                        if (form.VideoStreamsChanged) // user modified it
                         {
-                            channel.Encoding.VideoStreams = videostream;
+                            channel.Encoding.VideoStreams = form.VideoStreamList;
                         }
                     }
 

@@ -38,7 +38,7 @@ namespace AMSExplorer
         CloudMediaContext MyContext;
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
-        private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
+        private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultEncodingPreset = "";
 
         public string ChannelName
@@ -83,7 +83,7 @@ namespace AMSExplorer
                         audiostreamsl.Add(new AudioStream()
                         {
                             Index = s.Index,
-                            Language = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == s.Language).FirstOrDefault().ThreeLetterISOLanguageName
+                            Language = s.Code// CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == s.Language).FirstOrDefault().ThreeLetterISOLanguageName
                         });
                     }
                     encodingoption.AudioStreams = new ReadOnlyCollection<AudioStream>(audiostreamsl);
@@ -383,10 +383,12 @@ namespace AMSExplorer
                 && audiostreams.Count < 7 //8 max audio streams
                 )
             {
-                audiostreams.Add(new AudioStream()
+                var selected = (Item)comboBoxAudioLanguageAddition.SelectedItem;
+                audiostreams.Add(new ExplorerAudioStream()
                 {
-                    Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Name,
-                    Index = (int)numericUpDownAudioIndexAddition.Value
+                    Language = selected.Name,
+                    Index = (int)numericUpDownAudioIndexAddition.Value,
+                    Code = selected.Value
                 });
                 UpdateProfileGrids();
             }
@@ -575,11 +577,13 @@ namespace AMSExplorer
                     }
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
+                    panelDisplayEncProfile.Visible = true;
                 }
                 else
                 {
                     dataGridViewVideoProf.DataSource = null;
                     dataGridViewAudioProf.DataSource = null;
+                    panelDisplayEncProfile.Visible = false; 
                 }
             }
         }
@@ -590,10 +594,6 @@ namespace AMSExplorer
         }
 
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateProfileGrids();
-        }
 
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
@@ -671,12 +671,17 @@ namespace AMSExplorer
             if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
             || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
             {
-                    errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
             }
             else
             {
                 errorProvider1.SetError(numericUpDownAudioIndexAddition, String.Empty);
             }
+        }
+
+        private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
