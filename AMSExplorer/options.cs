@@ -120,7 +120,7 @@ namespace AMSExplorer
 
         private void options_Load(object sender, EventArgs e)
         {
-            comboBoxNbItems.Items.AddRange(new string[] { "25", "50", "75", "100" });
+            comboBoxNbItems.Items.AddRange(new string[] { "25", "50", "75", "100", "150" });
             int indexc = comboBoxNbItems.Items.IndexOf(Properties.Settings.Default.NbItemsDisplayedInGrid.ToString());
             if (indexc == -1) indexc = 1; // not found!
             comboBoxNbItems.SelectedIndex = indexc;
