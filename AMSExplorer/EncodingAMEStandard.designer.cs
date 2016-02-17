@@ -53,6 +53,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
+            this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
+            this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -61,6 +64,7 @@
             this.tabPageThJPG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsJPG = new System.Windows.Forms.Panel();
+            this.checkBoxPresResRotJPG = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightJPG = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxThFileNameJPG = new System.Windows.Forms.TextBox();
@@ -83,6 +87,7 @@
             this.tabPageThPNG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail2 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsPNG = new System.Windows.Forms.Panel();
+            this.checkBoxPresResRotPNG = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightPNG = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxThFileNamePNG = new System.Windows.Forms.TextBox();
@@ -102,6 +107,7 @@
             this.tabPageThBMP = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail3 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsBMP = new System.Windows.Forms.Panel();
+            this.checkBoxPresResRotBMP = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightBMP = new System.Windows.Forms.NumericUpDown();
             this.label28 = new System.Windows.Forms.Label();
             this.textBoxThFileNameBMP = new System.Windows.Forms.TextBox();
@@ -120,7 +126,6 @@
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
-            this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
@@ -292,7 +297,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 172);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 166);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -405,14 +410,16 @@
             // 
             // TabPageFeatures
             // 
+            this.TabPageFeatures.Controls.Add(this.linkLabelMoreInfoPreserveResRotation);
+            this.TabPageFeatures.Controls.Add(this.checkBoxPreserveResAfterRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
             this.TabPageFeatures.Controls.Add(this.checkBoxInsertSilentAudioTrack);
             this.TabPageFeatures.Controls.Add(this.textBoxSourceDurationTime);
             this.TabPageFeatures.Controls.Add(this.label7);
             this.TabPageFeatures.Controls.Add(this.checkBoxAddAutomatic);
+            this.TabPageFeatures.Controls.Add(this.checkBoxSourceTrimming);
             this.TabPageFeatures.Controls.Add(this.timeControlEndTime);
             this.TabPageFeatures.Controls.Add(this.timeControlStartTime);
-            this.TabPageFeatures.Controls.Add(this.checkBoxSourceTrimming);
             this.TabPageFeatures.Location = new System.Drawing.Point(4, 24);
             this.TabPageFeatures.Name = "TabPageFeatures";
             this.TabPageFeatures.Padding = new System.Windows.Forms.Padding(3);
@@ -420,6 +427,39 @@
             this.TabPageFeatures.TabIndex = 1;
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelMoreInfoPreserveResRotation
+            // 
+            this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
+            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(211, 245);
+            this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
+            this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
+            this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
+            this.linkLabelMoreInfoPreserveResRotation.TabStop = true;
+            this.linkLabelMoreInfoPreserveResRotation.Text = "(more information)";
+            this.linkLabelMoreInfoPreserveResRotation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoPreserveResRotation_LinkClicked);
+            // 
+            // checkBoxPreserveResAfterRotation
+            // 
+            this.checkBoxPreserveResAfterRotation.AutoSize = true;
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(16, 244);
+            this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
+            this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPreserveResAfterRotation.TabIndex = 91;
+            this.checkBoxPreserveResAfterRotation.Text = "Preserve resolution after rotation";
+            this.checkBoxPreserveResAfterRotation.UseVisualStyleBackColor = true;
+            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.checkBoxPreserveResAfterRotation_CheckedChanged);
+            // 
+            // checkBoxDisableAutoDeinterlacing
+            // 
+            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
+            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
+            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
+            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
+            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
+            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
             // 
             // checkBoxInsertSilentAudioTrack
             // 
@@ -504,6 +544,7 @@
             this.panelThumbnailsJPG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsJPG.Controls.Add(this.checkBoxPresResRotJPG);
             this.panelThumbnailsJPG.Controls.Add(this.numericUpDownThHeightJPG);
             this.panelThumbnailsJPG.Controls.Add(this.label18);
             this.panelThumbnailsJPG.Controls.Add(this.textBoxThFileNameJPG);
@@ -527,6 +568,17 @@
             this.panelThumbnailsJPG.Name = "panelThumbnailsJPG";
             this.panelThumbnailsJPG.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsJPG.TabIndex = 112;
+            // 
+            // checkBoxPresResRotJPG
+            // 
+            this.checkBoxPresResRotJPG.AutoSize = true;
+            this.checkBoxPresResRotJPG.Location = new System.Drawing.Point(8, 279);
+            this.checkBoxPresResRotJPG.Name = "checkBoxPresResRotJPG";
+            this.checkBoxPresResRotJPG.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotJPG.TabIndex = 112;
+            this.checkBoxPresResRotJPG.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotJPG.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotJPG.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // numericUpDownThHeightJPG
             // 
@@ -564,7 +616,7 @@
             // 
             this.textBoxThFileNameJPG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNameJPG.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNameJPG.Location = new System.Drawing.Point(6, 243);
             this.textBoxThFileNameJPG.Name = "textBoxThFileNameJPG";
             this.textBoxThFileNameJPG.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNameJPG.TabIndex = 93;
@@ -597,7 +649,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 234);
+            this.label8.Location = new System.Drawing.Point(5, 225);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(128, 15);
             this.label8.TabIndex = 94;
@@ -772,6 +824,7 @@
             this.panelThumbnailsPNG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsPNG.Controls.Add(this.checkBoxPresResRotPNG);
             this.panelThumbnailsPNG.Controls.Add(this.numericUpDownThHeightPNG);
             this.panelThumbnailsPNG.Controls.Add(this.label6);
             this.panelThumbnailsPNG.Controls.Add(this.textBoxThFileNamePNG);
@@ -792,6 +845,17 @@
             this.panelThumbnailsPNG.Name = "panelThumbnailsPNG";
             this.panelThumbnailsPNG.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsPNG.TabIndex = 114;
+            // 
+            // checkBoxPresResRotPNG
+            // 
+            this.checkBoxPresResRotPNG.AutoSize = true;
+            this.checkBoxPresResRotPNG.Location = new System.Drawing.Point(8, 279);
+            this.checkBoxPresResRotPNG.Name = "checkBoxPresResRotPNG";
+            this.checkBoxPresResRotPNG.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotPNG.TabIndex = 113;
+            this.checkBoxPresResRotPNG.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotPNG.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotPNG.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // numericUpDownThHeightPNG
             // 
@@ -829,7 +893,7 @@
             // 
             this.textBoxThFileNamePNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNamePNG.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNamePNG.Location = new System.Drawing.Point(6, 243);
             this.textBoxThFileNamePNG.Name = "textBoxThFileNamePNG";
             this.textBoxThFileNamePNG.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNamePNG.TabIndex = 93;
@@ -862,7 +926,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(5, 234);
+            this.label12.Location = new System.Drawing.Point(5, 225);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(128, 15);
             this.label12.TabIndex = 94;
@@ -1001,6 +1065,7 @@
             this.panelThumbnailsBMP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsBMP.Controls.Add(this.checkBoxPresResRotBMP);
             this.panelThumbnailsBMP.Controls.Add(this.numericUpDownThHeightBMP);
             this.panelThumbnailsBMP.Controls.Add(this.label28);
             this.panelThumbnailsBMP.Controls.Add(this.textBoxThFileNameBMP);
@@ -1021,6 +1086,17 @@
             this.panelThumbnailsBMP.Name = "panelThumbnailsBMP";
             this.panelThumbnailsBMP.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsBMP.TabIndex = 114;
+            // 
+            // checkBoxPresResRotBMP
+            // 
+            this.checkBoxPresResRotBMP.AutoSize = true;
+            this.checkBoxPresResRotBMP.Location = new System.Drawing.Point(8, 279);
+            this.checkBoxPresResRotBMP.Name = "checkBoxPresResRotBMP";
+            this.checkBoxPresResRotBMP.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotBMP.TabIndex = 113;
+            this.checkBoxPresResRotBMP.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotBMP.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotBMP.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // numericUpDownThHeightBMP
             // 
@@ -1057,7 +1133,7 @@
             // 
             this.textBoxThFileNameBMP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNameBMP.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNameBMP.Location = new System.Drawing.Point(6, 243);
             this.textBoxThFileNameBMP.Name = "textBoxThFileNameBMP";
             this.textBoxThFileNameBMP.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNameBMP.TabIndex = 93;
@@ -1089,7 +1165,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(5, 234);
+            this.label29.Location = new System.Drawing.Point(5, 225);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(128, 15);
             this.label29.TabIndex = 94;
@@ -1220,17 +1296,6 @@
             this.labelProcessorVersion.TabIndex = 77;
             this.labelProcessorVersion.Text = "Version {0}";
             this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // checkBoxDisableAutoDeinterlacing
-            // 
-            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
-            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
-            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
-            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
-            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
-            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
-            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
             // 
             // buttonJobOptions
             // 
@@ -1432,5 +1497,10 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
         private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
         private System.Windows.Forms.CheckBox checkBoxDisableAutoDeinterlacing;
+        private System.Windows.Forms.LinkLabel linkLabelMoreInfoPreserveResRotation;
+        private System.Windows.Forms.CheckBox checkBoxPreserveResAfterRotation;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotJPG;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotPNG;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotBMP;
     }
 }

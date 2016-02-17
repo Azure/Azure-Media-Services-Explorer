@@ -173,6 +173,7 @@ namespace AMSExplorer
             linkLabelThumbnail1.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -263,6 +264,20 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Clean PreserveResolutionAfterRotation flag
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null &&
+                                (codec.Type == "H264Video" || codec.Type == "BmpImage" || codec.Type == "JpgImage" || codec.Type == "PngImage") &&
+                                codec.PreserveResolutionAfterRotation != null)
+                            {
+                                codec.PreserveResolutionAfterRotation.Parent.Remove();
+                            }
+                        }
+                    }
+
                     if (obj.Codecs != null) // clean thumbnail entry in Codecs
                     {
                         var listDelete = new List<dynamic>();
@@ -320,6 +335,21 @@ namespace AMSExplorer
                                 if (codec.Type != null && codec.Type == "AACAudio")
                                 {
                                     codec.Condition = "InsertSilenceIfNoAudio";
+                                }
+                            }
+                        }
+                    }
+
+                    // Insert PreserveResolutionAfterRotation for video track
+                    if (checkBoxPreserveResAfterRotation.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "H264Video")
+                                {
+                                    codec.PreserveResolutionAfterRotation = true;
                                 }
                             }
                         }
@@ -415,76 +445,15 @@ namespace AMSExplorer
 
                         if (checkBoxGenThumbnailsJPG.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNameJPG.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartJPG.Text)) thEntry.Start = textBoxThTimeStartJPG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepJPG.Text)) thEntry.Step = textBoxThTimeStepJPG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeJPG.Text)) thEntry.Range = textBoxThTimeRangeJPG.Text;
-
-                            thEntry.Type = "JpgImage";
-                            thEntry.JpgLayers = new JArray() as dynamic;
-                            dynamic JpgLayer = new JObject();
-                            JpgLayer.Quality = (int)numericUpDownThQuality.Value;
-                            JpgLayer.Type = "JpgLayer";
-                            JpgLayer.Width = (int)numericUpDownThWidthJPG.Value;
-                            JpgLayer.Height = (int)numericUpDownThHeightJPG.Value;
-                            thEntry.JpgLayers.Add(JpgLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "JpgFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Jpg, textBoxThFileNameJPG.Text, textBoxThTimeStartJPG.Text, textBoxThTimeStepJPG.Text, textBoxThTimeRangeJPG.Text, (int)numericUpDownThWidthJPG.Value, (int)numericUpDownThHeightJPG.Value, checkBoxPresResRotJPG.Checked, (int)numericUpDownThQuality.Value);
                         }
                         if (checkBoxGenThumbnailsPNG.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNamePNG.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartPNG.Text)) thEntry.Start = textBoxThTimeStartPNG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepPNG.Text)) thEntry.Step = textBoxThTimeStepPNG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangePNG.Text)) thEntry.Range = textBoxThTimeRangePNG.Text;
-
-                            thEntry.Type = "PngImage";
-                            thEntry.PngLayers = new JArray() as dynamic;
-                            dynamic PngLayer = new JObject();
-                            PngLayer.Type = "PngLayer";
-                            PngLayer.Width = (int)numericUpDownThWidthPNG.Value;
-                            PngLayer.Height = (int)numericUpDownThHeightPNG.Value;
-                            thEntry.PngLayers.Add(PngLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "PngFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Png, textBoxThFileNamePNG.Text, textBoxThTimeStartPNG.Text, textBoxThTimeStepPNG.Text, textBoxThTimeRangePNG.Text, (int)numericUpDownThWidthPNG.Value, (int)numericUpDownThHeightPNG.Value, checkBoxPresResRotPNG.Checked);
                         }
                         if (checkBoxGenThumbnailsBMP.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNameBMP.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartBMP.Text)) thEntry.Start = textBoxThTimeStartBMP.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepBMP.Text)) thEntry.Step = textBoxThTimeStepBMP.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeBMP.Text)) thEntry.Range = textBoxThTimeRangeBMP.Text;
-
-                            thEntry.Type = "BmpImage";
-                            thEntry.BmpLayers = new JArray() as dynamic;
-                            dynamic BmpLayer = new JObject();
-                            BmpLayer.Type = "BmpLayer";
-                            BmpLayer.Width = (int)numericUpDownThWidthBMP.Value;
-                            BmpLayer.Height = (int)numericUpDownThHeightBMP.Value;
-                            thEntry.BmpLayers.Add(BmpLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "BmpFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Bmp, textBoxThFileNameBMP.Text, textBoxThTimeStartBMP.Text, textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked);
                         }
                     }
                 }
@@ -496,6 +465,68 @@ namespace AMSExplorer
             }
         }
 
+        private void AddThumbnailJSON(ref dynamic obj, ThumbnailType thtype, string fileName, string timeStart, string TimeStep, string TimeRange, int width, int height, bool preserveResolutionRotation, int quality = -1)
+        {
+            string extension = Enum.GetName(typeof(ThumbnailType), thtype); // to get Png, Bmp or Jpg
+
+            dynamic thOutputEntry = new JObject();
+            thOutputEntry.FileName = fileName;
+            dynamic Format = new JObject();
+
+            dynamic thEntry = new JObject();
+            if (!string.IsNullOrWhiteSpace(timeStart)) thEntry.Start = timeStart;
+            if (!string.IsNullOrWhiteSpace(TimeStep)) thEntry.Step = TimeStep;
+            if (!string.IsNullOrWhiteSpace(TimeRange)) thEntry.Range = TimeRange;
+
+            thEntry.Type = extension + "Image";
+
+            if (preserveResolutionRotation)
+            {
+                thEntry.PreserveResolutionAfterRotation = true;
+            }
+
+            dynamic Layer = new JObject();
+            if (quality != -1)
+            {
+                Layer.Quality = quality;
+            }
+            Layer.Type = extension + "Layer";
+            Layer.Width = width;
+            Layer.Height = height;
+
+            
+
+            switch (thtype)
+            {
+                case ThumbnailType.Bmp:
+                    thEntry.BmpLayers = new JArray() as dynamic;
+                    thEntry.BmpLayers.Add(Layer);
+                    break;
+
+                case ThumbnailType.Png:
+                    thEntry.PngLayers = new JArray() as dynamic;
+                    thEntry.PngLayers.Add(Layer);
+                    break;
+
+                case ThumbnailType.Jpg:
+                    thEntry.JpgLayers = new JArray() as dynamic;
+                    thEntry.JpgLayers.Add(Layer);
+                    break;
+            }
+
+            obj.Codecs.Add(thEntry);
+
+            Format.Type = extension + "Format";
+            thOutputEntry.Format = Format;
+            obj.Outputs.Add(thOutputEntry);
+        }
+
+        enum ThumbnailType
+        {
+            Jpg = 0,
+            Png,
+            Bmp
+        }
 
         private void buttonSaveXML_Click(object sender, EventArgs e)
         {
@@ -553,7 +584,6 @@ namespace AMSExplorer
                 {
                     richTextBoxDesc.Text = string.Empty;
                 }
-
             }
         }
 
@@ -676,6 +706,17 @@ namespace AMSExplorer
         }
 
         private void checkBoxDisableAutoDeinterlacing_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void linkLabelMoreInfoPreserveResRotation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
+        }
+
+        private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }

@@ -8003,7 +8003,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -11434,7 +11434,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
