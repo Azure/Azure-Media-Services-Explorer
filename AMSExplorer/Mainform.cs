@@ -7072,17 +7072,17 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    TextBoxLogWriteLine("{0} '{1}': {2}.", objectlogname, objectname, strStatusSuccess);
+                    TextBoxLogWriteLine("{0} '{1}' : {2}.", objectlogname, objectname, strStatusSuccess);
                 }
                 else
                 {
-                    TextBoxLogWriteLine("{0} '{1}': NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("{0} '{1}' : NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("{0} '{1}': Error {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("{0} '{1}' : Error {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }

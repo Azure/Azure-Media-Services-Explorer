@@ -203,7 +203,7 @@ namespace AMSExplorer
             {
                 bMultiAssetMode = false;
                 tableLayoutPanelIAssets.RowCount = SelectedAssets.FirstOrDefault().AssetFiles.Count();
-                tabControl1.TabPages[0].Text = "Input files";
+                tabPageInput.Text = "Input files";
 
                 foreach (IAssetFile assetfile in SelectedAssets.FirstOrDefault().AssetFiles)
                 {
@@ -243,7 +243,7 @@ namespace AMSExplorer
             tableLayoutPanelIAssets.Controls.Add(label, 3 /* Column Index */, i /* Row index */);
 
 
-            if (IsOverlayFile(itemName))
+            if (bMultiAssetMode || (!bMultiAssetMode && IsOverlayFile(itemName)))
             {
                 CheckBox checkboxVisualOverlay = new CheckBox()
                 {
