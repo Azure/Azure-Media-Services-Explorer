@@ -47,6 +47,7 @@ namespace AMSExplorer
 
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
+        private const string strBest = "{Best}";
 
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"AAC Good Quality Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps."},
@@ -165,7 +166,7 @@ namespace AMSExplorer
             else // Thumbnail mode only
             {
                 textBoxConfiguration.Text = "{}";
-                tabControl1.SelectedTab = tabPageThJPG;
+                tabControl1.SelectedTab = tabPageThPNG;
             }
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
@@ -445,15 +446,21 @@ namespace AMSExplorer
 
                         if (checkBoxGenThumbnailsJPG.Checked)
                         {
-                            AddThumbnailJSON(ref obj, ThumbnailType.Jpg, textBoxThFileNameJPG.Text, textBoxThTimeStartJPG.Text, textBoxThTimeStepJPG.Text, textBoxThTimeRangeJPG.Text, (int)numericUpDownThWidthJPG.Value, (int)numericUpDownThHeightJPG.Value, checkBoxPresResRotJPG.Checked, (int)numericUpDownThQuality.Value);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Jpg, textBoxThFileNameJPG.Text,
+                                            checkBoxBestJPG.Checked ? strBest : textBoxThTimeStartJPG.Text,
+                                            textBoxThTimeStepJPG.Text, textBoxThTimeRangeJPG.Text, (int)numericUpDownThWidthJPG.Value, (int)numericUpDownThHeightJPG.Value, checkBoxPresResRotJPG.Checked, radioButtonPixelsJPG.Checked, (int)numericUpDownThQuality.Value);
                         }
                         if (checkBoxGenThumbnailsPNG.Checked)
                         {
-                            AddThumbnailJSON(ref obj, ThumbnailType.Png, textBoxThFileNamePNG.Text, textBoxThTimeStartPNG.Text, textBoxThTimeStepPNG.Text, textBoxThTimeRangePNG.Text, (int)numericUpDownThWidthPNG.Value, (int)numericUpDownThHeightPNG.Value, checkBoxPresResRotPNG.Checked);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Png, textBoxThFileNamePNG.Text,
+                                            checkBoxBestPNG.Checked ? strBest : textBoxThTimeStartPNG.Text,
+                                            textBoxThTimeStepPNG.Text, textBoxThTimeRangePNG.Text, (int)numericUpDownThWidthPNG.Value, (int)numericUpDownThHeightPNG.Value, checkBoxPresResRotPNG.Checked, radioButtonPixelsPNG.Checked);
                         }
                         if (checkBoxGenThumbnailsBMP.Checked)
                         {
-                            AddThumbnailJSON(ref obj, ThumbnailType.Bmp, textBoxThFileNameBMP.Text, textBoxThTimeStartBMP.Text, textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Bmp, textBoxThFileNameBMP.Text,
+                                            checkBoxBestBMP.Checked ? strBest : textBoxThTimeStartBMP.Text,
+                                            textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked, radioButtonPixelsBMP.Checked);
                         }
                     }
                 }
@@ -465,7 +472,7 @@ namespace AMSExplorer
             }
         }
 
-        private void AddThumbnailJSON(ref dynamic obj, ThumbnailType thtype, string fileName, string timeStart, string TimeStep, string TimeRange, int width, int height, bool preserveResolutionRotation, int quality = -1)
+        private void AddThumbnailJSON(ref dynamic obj, ThumbnailType thtype, string fileName, string timeStart, string TimeStep, string TimeRange, int width, int height, bool preserveResolutionRotation, bool pixelmode, int quality = -1)
         {
             string extension = Enum.GetName(typeof(ThumbnailType), thtype); // to get Png, Bmp or Jpg
 
@@ -475,15 +482,13 @@ namespace AMSExplorer
 
             dynamic thEntry = new JObject();
             if (!string.IsNullOrWhiteSpace(timeStart)) thEntry.Start = timeStart;
-            if (!string.IsNullOrWhiteSpace(TimeStep)) thEntry.Step = TimeStep;
-            if (!string.IsNullOrWhiteSpace(TimeRange)) thEntry.Range = TimeRange;
+            if (timeStart != strBest)
+            {
+                if (!string.IsNullOrWhiteSpace(TimeStep)) thEntry.Step = TimeStep;
+                if (!string.IsNullOrWhiteSpace(TimeRange)) thEntry.Range = TimeRange;
+            }
 
             thEntry.Type = extension + "Image";
-
-            if (preserveResolutionRotation)
-            {
-                thEntry.PreserveResolutionAfterRotation = true;
-            }
 
             dynamic Layer = new JObject();
             if (quality != -1)
@@ -491,10 +496,22 @@ namespace AMSExplorer
                 Layer.Quality = quality;
             }
             Layer.Type = extension + "Layer";
-            Layer.Width = width;
-            Layer.Height = height;
 
-            
+            if (pixelmode)
+            {
+                Layer.Width = width;
+                Layer.Height = height;
+            }
+            else // percentage
+            {
+                Layer.Width = width.ToString() + "%";
+                Layer.Height = height.ToString() + "%";
+
+                if (preserveResolutionRotation)
+                {
+                    thEntry.PreserveResolutionAfterRotation = true;
+                }
+            }
 
             switch (thtype)
             {
@@ -718,6 +735,67 @@ namespace AMSExplorer
 
         private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)
         {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void radioButtonPercentJPG_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotJPG.Visible = radioButtonPercentJPG.Checked;
+            if (radioButtonPercentJPG.Checked)
+            {
+                numericUpDownThWidthJPG.Maximum = numericUpDownThHeightJPG.Maximum = 100;
+                numericUpDownThWidthJPG.Value = numericUpDownThHeightJPG.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthJPG.Maximum = numericUpDownThHeightJPG.Maximum = 10000;
+            }
+        }
+
+        private void radioButtonPercentPNG_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotPNG.Visible = radioButtonPercentPNG.Checked;
+            if (radioButtonPercentPNG.Checked)
+            {
+                numericUpDownThWidthPNG.Maximum = numericUpDownThHeightPNG.Maximum = 100;
+                numericUpDownThWidthPNG.Value = numericUpDownThHeightPNG.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthPNG.Maximum = numericUpDownThHeightPNG.Maximum = 10000;
+            }
+        }
+
+        private void radioButtonPercentBMP_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotBMP.Visible = radioButtonPercentBMP.Checked;
+            if (radioButtonPercentBMP.Checked)
+            {
+                numericUpDownThWidthBMP.Maximum = numericUpDownThHeightBMP.Maximum = 100;
+                numericUpDownThWidthBMP.Value = numericUpDownThHeightBMP.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthBMP.Maximum = numericUpDownThHeightBMP.Maximum = 10000;
+            }
+        }
+
+
+        private void checkBoxBestJPG_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartJPG.Enabled = textBoxThTimeRangeJPG.Enabled = textBoxThTimeStepJPG.Enabled = !checkBoxBestJPG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxBestPNG_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartPNG.Enabled = textBoxThTimeRangePNG.Enabled = textBoxThTimeStepPNG.Enabled = !checkBoxBestPNG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxBestBMP_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartBMP.Enabled = textBoxThTimeRangeBMP.Enabled = textBoxThTimeStepBMP.Enabled = !checkBoxBestBMP.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
