@@ -7488,16 +7488,14 @@ namespace AMSExplorer
                     {
                         channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
 
-                        var audiostream = form.AudioStreamList;
-                        if (audiostream != null) // user modified it
+                        if (form.AudioStreamsChanged) // user modified it
                         {
-                            channel.Encoding.AudioStreams = audiostream;
+                            channel.Encoding.AudioStreams = form.AudioStreamList;
                         }
 
-                        var videostream = form.VideoStreamList;
-                        if (videostream != null) // user modified it
+                        if (form.VideoStreamsChanged) // user modified it
                         {
-                            channel.Encoding.VideoStreams = videostream;
+                            channel.Encoding.VideoStreams = form.VideoStreamList;
                         }
                     }
 
@@ -8005,7 +8003,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -11436,7 +11434,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);

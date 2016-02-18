@@ -52,28 +52,36 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
+            this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
             this.labelChannelMustBeStopped = new System.Windows.Forms.Label();
             this.groupBoxEncoding = new System.Windows.Forms.GroupBox();
+            this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
+            this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
+            this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
             this.tabPageIndexes = new System.Windows.Forms.TabPage();
-            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
-            this.buttonDelAddOption = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
-            this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
-            this.buttonAddAudioStream = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.panelStreamIndexes = new System.Windows.Forms.Panel();
             this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
+            this.buttonAddAudioStream = new System.Windows.Forms.Button();
+            this.buttonDelAddOption = new System.Windows.Forms.Button();
+            this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelIndexesChannelMustBeStopped = new System.Windows.Forms.Label();
             this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.checkBoxcrossdomains = new System.Windows.Forms.CheckBox();
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
@@ -88,9 +96,6 @@
             this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelIndexesChannelMustBeStopped = new System.Windows.Forms.Label();
-            this.panelStreamIndexes = new System.Windows.Forms.Panel();
-            this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -100,18 +105,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPageEncoding.SuspendLayout();
-            this.groupBoxEncoding.SuspendLayout();
-            this.tabPageIndexes.SuspendLayout();
+            this.groupBoxVideoStream.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
+            this.groupBoxEncoding.SuspendLayout();
+            this.panelDisplayEncProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
+            this.tabPageIndexes.SuspendLayout();
+            this.panelStreamIndexes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
             this.tabPagePolicies.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panelStreamIndexes.SuspendLayout();
-            this.groupBoxVideoStream.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -391,6 +399,37 @@
             this.tabPageEncoding.Text = "Live Encoding";
             this.tabPageEncoding.UseVisualStyleBackColor = true;
             // 
+            // groupBoxVideoStream
+            // 
+            this.groupBoxVideoStream.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxVideoStream.Controls.Add(this.label7);
+            this.groupBoxVideoStream.Controls.Add(this.numericUpDownVideoStreamIndex);
+            this.groupBoxVideoStream.Location = new System.Drawing.Point(25, 405);
+            this.groupBoxVideoStream.Name = "groupBoxVideoStream";
+            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 100);
+            this.groupBoxVideoStream.TabIndex = 81;
+            this.groupBoxVideoStream.TabStop = false;
+            this.groupBoxVideoStream.Text = "Video Stream";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(22, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 15);
+            this.label7.TabIndex = 101;
+            this.label7.Text = "Video Stream Index :";
+            // 
+            // numericUpDownVideoStreamIndex
+            // 
+            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(25, 48);
+            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
+            this.numericUpDownVideoStreamIndex.ReadOnly = true;
+            this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(140, 23);
+            this.numericUpDownVideoStreamIndex.TabIndex = 102;
+            this.numericUpDownVideoStreamIndex.ValueChanged += new System.EventHandler(this.numericUpDownVideoStreamIndex_ValueChanged);
+            // 
             // labelChannelMustBeStopped
             // 
             this.labelChannelMustBeStopped.Location = new System.Drawing.Point(22, 16);
@@ -402,16 +441,84 @@
             // 
             // groupBoxEncoding
             // 
+            this.groupBoxEncoding.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxEncoding.Controls.Add(this.panelDisplayEncProfile);
             this.groupBoxEncoding.Controls.Add(this.label6);
             this.groupBoxEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.textBoxCustomPreset);
             this.groupBoxEncoding.Controls.Add(this.radioButtonDefaultPreset);
             this.groupBoxEncoding.Location = new System.Drawing.Point(25, 48);
             this.groupBoxEncoding.Name = "groupBoxEncoding";
-            this.groupBoxEncoding.Size = new System.Drawing.Size(510, 125);
+            this.groupBoxEncoding.Size = new System.Drawing.Size(510, 351);
             this.groupBoxEncoding.TabIndex = 80;
             this.groupBoxEncoding.TabStop = false;
             this.groupBoxEncoding.Text = "Encoding Preset";
+            // 
+            // panelDisplayEncProfile
+            // 
+            this.panelDisplayEncProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewVideoProf);
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewAudioProf);
+            this.panelDisplayEncProfile.Controls.Add(this.label16);
+            this.panelDisplayEncProfile.Controls.Add(this.label17);
+            this.panelDisplayEncProfile.Location = new System.Drawing.Point(6, 105);
+            this.panelDisplayEncProfile.Name = "panelDisplayEncProfile";
+            this.panelDisplayEncProfile.Size = new System.Drawing.Size(498, 237);
+            this.panelDisplayEncProfile.TabIndex = 81;
+            // 
+            // dataGridViewVideoProf
+            // 
+            this.dataGridViewVideoProf.AllowUserToAddRows = false;
+            this.dataGridViewVideoProf.AllowUserToDeleteRows = false;
+            this.dataGridViewVideoProf.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewVideoProf.Location = new System.Drawing.Point(18, 20);
+            this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
+            this.dataGridViewVideoProf.ReadOnly = true;
+            this.dataGridViewVideoProf.RowHeadersVisible = false;
+            this.dataGridViewVideoProf.Size = new System.Drawing.Size(469, 121);
+            this.dataGridViewVideoProf.TabIndex = 71;
+            // 
+            // dataGridViewAudioProf
+            // 
+            this.dataGridViewAudioProf.AllowUserToAddRows = false;
+            this.dataGridViewAudioProf.AllowUserToDeleteRows = false;
+            this.dataGridViewAudioProf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAudioProf.Location = new System.Drawing.Point(18, 166);
+            this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
+            this.dataGridViewAudioProf.ReadOnly = true;
+            this.dataGridViewAudioProf.RowHeadersVisible = false;
+            this.dataGridViewAudioProf.Size = new System.Drawing.Size(469, 68);
+            this.dataGridViewAudioProf.TabIndex = 72;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(15, 2);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(142, 15);
+            this.label16.TabIndex = 73;
+            this.label16.Text = "Video profile (read-only) :";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(15, 148);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(144, 15);
+            this.label17.TabIndex = 74;
+            this.label17.Text = "Audio profile (read-only) :";
             // 
             // label6
             // 
@@ -445,6 +552,7 @@
             this.textBoxCustomPreset.Name = "textBoxCustomPreset";
             this.textBoxCustomPreset.Size = new System.Drawing.Size(332, 23);
             this.textBoxCustomPreset.TabIndex = 77;
+            this.textBoxCustomPreset.TextChanged += new System.EventHandler(this.textBoxCustomPreset_TextChanged);
             // 
             // radioButtonDefaultPreset
             // 
@@ -471,23 +579,62 @@
             this.tabPageIndexes.Text = "Audio Options";
             this.tabPageIndexes.UseVisualStyleBackColor = true;
             // 
-            // numericUpDownVideoStreamIndex
+            // panelStreamIndexes
             // 
-            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(25, 48);
-            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
-            this.numericUpDownVideoStreamIndex.ReadOnly = true;
-            this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(140, 23);
-            this.numericUpDownVideoStreamIndex.TabIndex = 102;
-            this.numericUpDownVideoStreamIndex.ValueChanged += new System.EventHandler(this.numericUpDownVideoStreamIndex_ValueChanged);
+            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexMain);
+            this.panelStreamIndexes.Controls.Add(this.label11);
+            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageMain);
+            this.panelStreamIndexes.Controls.Add(this.label9);
+            this.panelStreamIndexes.Controls.Add(this.label19);
+            this.panelStreamIndexes.Controls.Add(this.label18);
+            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageAddition);
+            this.panelStreamIndexes.Controls.Add(this.buttonAddAudioStream);
+            this.panelStreamIndexes.Controls.Add(this.buttonDelAddOption);
+            this.panelStreamIndexes.Controls.Add(this.dataGridViewAudioStreams);
+            this.panelStreamIndexes.Controls.Add(this.label13);
+            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexAddition);
+            this.panelStreamIndexes.Controls.Add(this.label12);
+            this.panelStreamIndexes.Location = new System.Drawing.Point(23, 34);
+            this.panelStreamIndexes.Name = "panelStreamIndexes";
+            this.panelStreamIndexes.Size = new System.Drawing.Size(508, 381);
+            this.panelStreamIndexes.TabIndex = 104;
             // 
-            // label7
+            // numericUpDownAudioIndexMain
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(22, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 15);
-            this.label7.TabIndex = 101;
-            this.label7.Text = "Video Stream Index :";
+            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(267, 76);
+            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
+            this.numericUpDownAudioIndexMain.ReadOnly = true;
+            this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(119, 23);
+            this.numericUpDownAudioIndexMain.TabIndex = 88;
+            this.numericUpDownAudioIndexMain.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexMain_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 57);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 15);
+            this.label11.TabIndex = 90;
+            this.label11.Text = "Language :";
+            // 
+            // comboBoxAudioLanguageMain
+            // 
+            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
+            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(29, 75);
+            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
+            this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(209, 23);
+            this.comboBoxAudioLanguageMain.TabIndex = 89;
+            this.comboBoxAudioLanguageMain.SelectedIndexChanged += new System.EventHandler(this.comboBoxAudioLanguageMain_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(264, 57);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(116, 15);
+            this.label9.TabIndex = 87;
+            this.label9.Text = "Audio Stream Index :";
             // 
             // label19
             // 
@@ -499,6 +646,16 @@
             this.label19.TabIndex = 99;
             this.label19.Text = "Additional Audio Streams";
             // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(3, 31);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(470, 18);
+            this.label18.TabIndex = 91;
+            this.label18.Text = "Default Audio Stream";
+            // 
             // comboBoxAudioLanguageAddition
             // 
             this.comboBoxAudioLanguageAddition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -507,6 +664,16 @@
             this.comboBoxAudioLanguageAddition.Name = "comboBoxAudioLanguageAddition";
             this.comboBoxAudioLanguageAddition.Size = new System.Drawing.Size(209, 23);
             this.comboBoxAudioLanguageAddition.TabIndex = 94;
+            // 
+            // buttonAddAudioStream
+            // 
+            this.buttonAddAudioStream.Location = new System.Drawing.Point(399, 193);
+            this.buttonAddAudioStream.Name = "buttonAddAudioStream";
+            this.buttonAddAudioStream.Size = new System.Drawing.Size(69, 27);
+            this.buttonAddAudioStream.TabIndex = 96;
+            this.buttonAddAudioStream.Text = "Add";
+            this.buttonAddAudioStream.UseVisualStyleBackColor = true;
+            this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
             // 
             // buttonDelAddOption
             // 
@@ -518,6 +685,19 @@
             this.buttonDelAddOption.UseVisualStyleBackColor = true;
             this.buttonDelAddOption.Click += new System.EventHandler(this.buttonDelAddOption_Click);
             // 
+            // dataGridViewAudioStreams
+            // 
+            this.dataGridViewAudioStreams.AllowUserToAddRows = false;
+            this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
+            this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAudioStreams.Location = new System.Drawing.Point(29, 226);
+            this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
+            this.dataGridViewAudioStreams.ReadOnly = true;
+            this.dataGridViewAudioStreams.RowHeadersVisible = false;
+            this.dataGridViewAudioStreams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAudioStreams.Size = new System.Drawing.Size(359, 133);
+            this.dataGridViewAudioStreams.TabIndex = 97;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -526,15 +706,6 @@
             this.label13.Size = new System.Drawing.Size(116, 15);
             this.label13.TabIndex = 92;
             this.label13.Text = "Audio Stream Index :";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(26, 177);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 15);
-            this.label12.TabIndex = 95;
-            this.label12.Text = "Language :";
             // 
             // numericUpDownAudioIndexAddition
             // 
@@ -550,75 +721,23 @@
             0});
             this.numericUpDownAudioIndexAddition.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexAddition_ValueChanged);
             // 
-            // dataGridViewAudioStreams
+            // label12
             // 
-            this.dataGridViewAudioStreams.AllowUserToAddRows = false;
-            this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
-            this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAudioStreams.Location = new System.Drawing.Point(29, 226);
-            this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
-            this.dataGridViewAudioStreams.ReadOnly = true;
-            this.dataGridViewAudioStreams.RowHeadersVisible = false;
-            this.dataGridViewAudioStreams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAudioStreams.Size = new System.Drawing.Size(359, 133);
-            this.dataGridViewAudioStreams.TabIndex = 97;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(26, 177);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 15);
+            this.label12.TabIndex = 95;
+            this.label12.Text = "Language :";
             // 
-            // buttonAddAudioStream
+            // labelIndexesChannelMustBeStopped
             // 
-            this.buttonAddAudioStream.Location = new System.Drawing.Point(399, 193);
-            this.buttonAddAudioStream.Name = "buttonAddAudioStream";
-            this.buttonAddAudioStream.Size = new System.Drawing.Size(69, 27);
-            this.buttonAddAudioStream.TabIndex = 96;
-            this.buttonAddAudioStream.Text = "Add";
-            this.buttonAddAudioStream.UseVisualStyleBackColor = true;
-            this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
-            // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(3, 31);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(470, 18);
-            this.label18.TabIndex = 91;
-            this.label18.Text = "Default Audio Stream";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(264, 57);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 15);
-            this.label9.TabIndex = 87;
-            this.label9.Text = "Audio Stream Index :";
-            // 
-            // comboBoxAudioLanguageMain
-            // 
-            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
-            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(29, 75);
-            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
-            this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(209, 23);
-            this.comboBoxAudioLanguageMain.TabIndex = 89;
-            this.comboBoxAudioLanguageMain.SelectedIndexChanged += new System.EventHandler(this.comboBoxAudioLanguageMain_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(26, 57);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 15);
-            this.label11.TabIndex = 90;
-            this.label11.Text = "Language :";
-            // 
-            // numericUpDownAudioIndexMain
-            // 
-            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(267, 76);
-            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
-            this.numericUpDownAudioIndexMain.ReadOnly = true;
-            this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(119, 23);
-            this.numericUpDownAudioIndexMain.TabIndex = 88;
-            this.numericUpDownAudioIndexMain.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexMain_ValueChanged);
+            this.labelIndexesChannelMustBeStopped.Location = new System.Drawing.Point(22, 16);
+            this.labelIndexesChannelMustBeStopped.Name = "labelIndexesChannelMustBeStopped";
+            this.labelIndexesChannelMustBeStopped.Size = new System.Drawing.Size(356, 19);
+            this.labelIndexesChannelMustBeStopped.TabIndex = 103;
+            this.labelIndexesChannelMustBeStopped.Text = "Channel must be stopped to change encoding settings";
+            this.labelIndexesChannelMustBeStopped.Visible = false;
             // 
             // tabPagePolicies
             // 
@@ -766,46 +885,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // labelIndexesChannelMustBeStopped
-            // 
-            this.labelIndexesChannelMustBeStopped.Location = new System.Drawing.Point(22, 16);
-            this.labelIndexesChannelMustBeStopped.Name = "labelIndexesChannelMustBeStopped";
-            this.labelIndexesChannelMustBeStopped.Size = new System.Drawing.Size(356, 19);
-            this.labelIndexesChannelMustBeStopped.TabIndex = 103;
-            this.labelIndexesChannelMustBeStopped.Text = "Channel must be stopped to change encoding settings";
-            this.labelIndexesChannelMustBeStopped.Visible = false;
-            // 
-            // panelStreamIndexes
-            // 
-            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexMain);
-            this.panelStreamIndexes.Controls.Add(this.label11);
-            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageMain);
-            this.panelStreamIndexes.Controls.Add(this.label9);
-            this.panelStreamIndexes.Controls.Add(this.label19);
-            this.panelStreamIndexes.Controls.Add(this.label18);
-            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageAddition);
-            this.panelStreamIndexes.Controls.Add(this.buttonAddAudioStream);
-            this.panelStreamIndexes.Controls.Add(this.buttonDelAddOption);
-            this.panelStreamIndexes.Controls.Add(this.dataGridViewAudioStreams);
-            this.panelStreamIndexes.Controls.Add(this.label13);
-            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexAddition);
-            this.panelStreamIndexes.Controls.Add(this.label12);
-            this.panelStreamIndexes.Location = new System.Drawing.Point(23, 34);
-            this.panelStreamIndexes.Name = "panelStreamIndexes";
-            this.panelStreamIndexes.Size = new System.Drawing.Size(508, 381);
-            this.panelStreamIndexes.TabIndex = 104;
-            // 
-            // groupBoxVideoStream
-            // 
-            this.groupBoxVideoStream.Controls.Add(this.label7);
-            this.groupBoxVideoStream.Controls.Add(this.numericUpDownVideoStreamIndex);
-            this.groupBoxVideoStream.Location = new System.Drawing.Point(25, 193);
-            this.groupBoxVideoStream.Name = "groupBoxVideoStream";
-            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 100);
-            this.groupBoxVideoStream.TabIndex = 81;
-            this.groupBoxVideoStream.TabStop = false;
-            this.groupBoxVideoStream.Text = "Video Stream";
-            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -834,22 +913,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPageEncoding.ResumeLayout(false);
+            this.groupBoxVideoStream.ResumeLayout(false);
+            this.groupBoxVideoStream.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
             this.groupBoxEncoding.ResumeLayout(false);
             this.groupBoxEncoding.PerformLayout();
+            this.panelDisplayEncProfile.ResumeLayout(false);
+            this.panelDisplayEncProfile.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             this.tabPageIndexes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
+            this.panelStreamIndexes.ResumeLayout(false);
+            this.panelStreamIndexes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
             this.tabPagePolicies.ResumeLayout(false);
             this.tabPagePolicies.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panelStreamIndexes.ResumeLayout(false);
-            this.panelStreamIndexes.PerformLayout();
-            this.groupBoxVideoStream.ResumeLayout(false);
-            this.groupBoxVideoStream.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -918,5 +1001,10 @@
         private System.Windows.Forms.Label labelIndexesChannelMustBeStopped;
         private System.Windows.Forms.Panel panelStreamIndexes;
         private System.Windows.Forms.GroupBox groupBoxVideoStream;
+        private System.Windows.Forms.Panel panelDisplayEncProfile;
+        private System.Windows.Forms.DataGridView dataGridViewVideoProf;
+        private System.Windows.Forms.DataGridView dataGridViewAudioProf;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }

@@ -127,12 +127,19 @@ namespace AMSExplorer
             }
         }
 
+        public bool VideoStreamsChanged
+        {
+            get
+            {
+                return videoStreamChanged;
+            }
+        }
 
         public ReadOnlyCollection<VideoStream> VideoStreamList
         {
             get
             {
-                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && videoStreamChanged)
+                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP
                     List<VideoStream> videostreams = new List<VideoStream>();
                     videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
@@ -145,12 +152,20 @@ namespace AMSExplorer
             }
         }
 
+        public bool AudioStreamsChanged
+        {
+            get
+            {
+                return audioStreamChanged;
+            }
+        }
+
         public ReadOnlyCollection<AudioStream> AudioStreamList
         {
             get
             {
-                if ( 
-                   MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && audioStreamChanged && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
+                if (
+                   MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
                    )
                 { // RTP
                     List<AudioStream> audiostreamsl = new List<AudioStream>();
@@ -334,7 +349,6 @@ namespace AMSExplorer
 
                     if (MyChannel.Encoding.AudioStreams != null && MyChannel.Encoding.AudioStreams.Count > 0)
                     {
-                        defaultAudioStreamCode = MyChannel.Encoding.AudioStreams[0].Language; // in order to keep the initial code if needed
 
                         if (comboBoxAudioLanguageMain.SelectedItem == null) // code which is not in culture list !
                         {
@@ -342,6 +356,8 @@ namespace AMSExplorer
                             comboBoxAudioLanguageMain.Items.Add(myitem);
                             comboBoxAudioLanguageMain.SelectedItem = myitem;
                         }
+
+                        defaultAudioStreamCode = MyChannel.Encoding.AudioStreams[0].Language; // in order to keep the initial code if needed
 
                         numericUpDownAudioIndexMain.Value = MyChannel.Encoding.AudioStreams[0].Index;
 
@@ -396,6 +412,8 @@ namespace AMSExplorer
                 }
                 audioStreamChanged = false; // to make they are at false now
                 videoStreamChanged = false; // to make they are at false now
+
+                UpdateProfileGrids();
             }
             else
             {
@@ -603,7 +621,57 @@ namespace AMSExplorer
 
         private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
         {
+            UpdateProfileGrids();
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
+        }
+
+        private void UpdateProfileGrids()
+        {
+            string encodingprofile = ReturnLiveEncodingProfile();
+            if (encodingprofile != null)
+            {
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    dataGridViewVideoProf.DataSource = profileliveselected.Video;
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
+
+                    //var option = this.EncodingOptions;
+                    var audio = this.AudioStreamList;
+                    if (audio != null)
+                    {
+                        foreach (var audiostream in audio)
+                        {
+                            profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                        }
+                    }
+                    else // no specific audio language specified
+                    {
+                        profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    }
+
+                    dataGridViewAudioProf.DataSource = profmultiaudio;
+                    panelDisplayEncProfile.Visible = true;
+                }
+                else
+                {
+                    dataGridViewVideoProf.DataSource = null;
+                    dataGridViewAudioProf.DataSource = null;
+                    panelDisplayEncProfile.Visible = false;
+                }
+            }
+        }
+
+        private string ReturnLiveEncodingProfile()
+        {
+            if (MyChannel.EncodingType != ChannelEncodingType.None)
+            {
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
@@ -622,6 +690,7 @@ namespace AMSExplorer
                     Code = selected.Value
                 });
                 videoStreamChanged = true;
+                UpdateProfileGrids();
             }
         }
 
@@ -631,6 +700,7 @@ namespace AMSExplorer
             {
                 audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
                 audioStreamChanged = true;
+                UpdateProfileGrids();
             }
         }
 
@@ -638,7 +708,7 @@ namespace AMSExplorer
         {
             string lang = ((Item)comboBoxAudioLanguageMain.SelectedItem).Name;
             var culture = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == lang).FirstOrDefault();
-            if (culture!=null)
+            if (culture != null)
             {
                 defaultAudioStreamCode = culture.ThreeLetterISOLanguageName;
             }
@@ -647,6 +717,7 @@ namespace AMSExplorer
                 defaultAudioStreamCode = null;
             }
             audioStreamChanged = true; // user changed it
+            UpdateProfileGrids();
         }
 
         private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
@@ -661,6 +732,7 @@ namespace AMSExplorer
                 errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
             }
             audioStreamChanged = true;
+            UpdateProfileGrids();
         }
 
         private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
@@ -679,6 +751,11 @@ namespace AMSExplorer
         private void numericUpDownVideoStreamIndex_ValueChanged(object sender, EventArgs e)
         {
             videoStreamChanged = true;
+        }
+
+        private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
         }
     }
 

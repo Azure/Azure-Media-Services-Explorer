@@ -603,7 +603,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(229, 15);
             this.label3.TabIndex = 84;
-            this.label3.Text = "Bulk ingest container name to create :";
+            this.label3.Text = "Bulk ingest name to create :";
             // 
             // textBoxManifestName
             // 

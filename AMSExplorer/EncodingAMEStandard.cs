@@ -56,6 +56,7 @@ namespace AMSExplorer
 
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
+        private const string strBest = "{Best}";
 
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"AAC Good Quality Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps."},
@@ -400,7 +401,7 @@ namespace AMSExplorer
             else // Thumbnail mode only
             {
                 textBoxConfiguration.Text = "{}";
-                tabControl1.SelectedTab = tabPageThJPG;
+                tabControl1.SelectedTab = tabPageThPNG;
             }
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
@@ -408,6 +409,7 @@ namespace AMSExplorer
             linkLabelThumbnail1.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -494,6 +496,20 @@ namespace AMSExplorer
                             if (codec.Type != null && codec.Type == "AACAudio" && codec.Condition != null && codec.Condition == "InsertSilenceIfNoAudio")
                             {
                                 codec.Condition.Parent.Remove();
+                            }
+                        }
+                    }
+
+                    // Clean PreserveResolutionAfterRotation flag
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null &&
+                                (codec.Type == "H264Video" || codec.Type == "BmpImage" || codec.Type == "JpgImage" || codec.Type == "PngImage") &&
+                                codec.PreserveResolutionAfterRotation != null)
+                            {
+                                codec.PreserveResolutionAfterRotation.Parent.Remove();
                             }
                         }
                     }
@@ -661,6 +677,21 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Insert PreserveResolutionAfterRotation for video track
+                    if (checkBoxPreserveResAfterRotation.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "H264Video")
+                                {
+                                    codec.PreserveResolutionAfterRotation = true;
+                                }
+                            }
+                        }
+                    }
+
                     // Insert disable auto deinterlacing
                     if (checkBoxDisableAutoDeinterlacing.Checked)
                     {
@@ -751,76 +782,21 @@ namespace AMSExplorer
 
                         if (checkBoxGenThumbnailsJPG.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNameJPG.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartJPG.Text)) thEntry.Start = textBoxThTimeStartJPG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepJPG.Text)) thEntry.Step = textBoxThTimeStepJPG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeJPG.Text)) thEntry.Range = textBoxThTimeRangeJPG.Text;
-
-                            thEntry.Type = "JpgImage";
-                            thEntry.JpgLayers = new JArray() as dynamic;
-                            dynamic JpgLayer = new JObject();
-                            JpgLayer.Quality = (int)numericUpDownThQuality.Value;
-                            JpgLayer.Type = "JpgLayer";
-                            JpgLayer.Width = (int)numericUpDownThWidthJPG.Value;
-                            JpgLayer.Height = (int)numericUpDownThHeightJPG.Value;
-                            thEntry.JpgLayers.Add(JpgLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "JpgFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Jpg, textBoxThFileNameJPG.Text,
+                                            checkBoxBestJPG.Checked ? strBest : textBoxThTimeStartJPG.Text,
+                                            textBoxThTimeStepJPG.Text, textBoxThTimeRangeJPG.Text, (int)numericUpDownThWidthJPG.Value, (int)numericUpDownThHeightJPG.Value, checkBoxPresResRotJPG.Checked, radioButtonPixelsJPG.Checked, (int)numericUpDownThQuality.Value);
                         }
                         if (checkBoxGenThumbnailsPNG.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNamePNG.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartPNG.Text)) thEntry.Start = textBoxThTimeStartPNG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepPNG.Text)) thEntry.Step = textBoxThTimeStepPNG.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangePNG.Text)) thEntry.Range = textBoxThTimeRangePNG.Text;
-
-                            thEntry.Type = "PngImage";
-                            thEntry.PngLayers = new JArray() as dynamic;
-                            dynamic PngLayer = new JObject();
-                            PngLayer.Type = "PngLayer";
-                            PngLayer.Width = (int)numericUpDownThWidthPNG.Value;
-                            PngLayer.Height = (int)numericUpDownThHeightPNG.Value;
-                            thEntry.PngLayers.Add(PngLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "PngFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Png, textBoxThFileNamePNG.Text,
+                                            checkBoxBestPNG.Checked ? strBest : textBoxThTimeStartPNG.Text,
+                                            textBoxThTimeStepPNG.Text, textBoxThTimeRangePNG.Text, (int)numericUpDownThWidthPNG.Value, (int)numericUpDownThHeightPNG.Value, checkBoxPresResRotPNG.Checked, radioButtonPixelsPNG.Checked);
                         }
                         if (checkBoxGenThumbnailsBMP.Checked)
                         {
-                            dynamic thOutputEntry = new JObject();
-                            thOutputEntry.FileName = textBoxThFileNameBMP.Text;
-                            dynamic Format = new JObject();
-
-                            dynamic thEntry = new JObject();
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartBMP.Text)) thEntry.Start = textBoxThTimeStartBMP.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepBMP.Text)) thEntry.Step = textBoxThTimeStepBMP.Text;
-                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeBMP.Text)) thEntry.Range = textBoxThTimeRangeBMP.Text;
-
-                            thEntry.Type = "BmpImage";
-                            thEntry.BmpLayers = new JArray() as dynamic;
-                            dynamic BmpLayer = new JObject();
-                            BmpLayer.Type = "BmpLayer";
-                            BmpLayer.Width = (int)numericUpDownThWidthBMP.Value;
-                            BmpLayer.Height = (int)numericUpDownThHeightBMP.Value;
-                            thEntry.BmpLayers.Add(BmpLayer);
-                            obj.Codecs.Add(thEntry);
-
-                            Format.Type = "BmpFormat";
-                            thOutputEntry.Format = Format;
-                            obj.Outputs.Add(thOutputEntry);
+                            AddThumbnailJSON(ref obj, ThumbnailType.Bmp, textBoxThFileNameBMP.Text,
+                                            checkBoxBestBMP.Checked ? strBest : textBoxThTimeStartBMP.Text,
+                                            textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked, radioButtonPixelsBMP.Checked);
                         }
                     }
                 }
@@ -832,6 +808,78 @@ namespace AMSExplorer
             }
         }
 
+        private void AddThumbnailJSON(ref dynamic obj, ThumbnailType thtype, string fileName, string timeStart, string TimeStep, string TimeRange, int width, int height, bool preserveResolutionRotation, bool pixelmode, int quality = -1)
+        {
+            string extension = Enum.GetName(typeof(ThumbnailType), thtype); // to get Png, Bmp or Jpg
+
+            dynamic thOutputEntry = new JObject();
+            thOutputEntry.FileName = fileName;
+            dynamic Format = new JObject();
+
+            dynamic thEntry = new JObject();
+            if (!string.IsNullOrWhiteSpace(timeStart)) thEntry.Start = timeStart;
+            if (timeStart != strBest)
+            {
+                if (!string.IsNullOrWhiteSpace(TimeStep)) thEntry.Step = TimeStep;
+                if (!string.IsNullOrWhiteSpace(TimeRange)) thEntry.Range = TimeRange;
+            }
+
+            thEntry.Type = extension + "Image";
+
+            dynamic Layer = new JObject();
+            if (quality != -1)
+            {
+                Layer.Quality = quality;
+            }
+            Layer.Type = extension + "Layer";
+
+            if (pixelmode)
+            {
+                Layer.Width = width;
+                Layer.Height = height;
+            }
+            else // percentage
+            {
+                Layer.Width = width.ToString() + "%";
+                Layer.Height = height.ToString() + "%";
+
+                if (preserveResolutionRotation)
+                {
+                    thEntry.PreserveResolutionAfterRotation = true;
+                }
+            }
+
+            switch (thtype)
+            {
+                case ThumbnailType.Bmp:
+                    thEntry.BmpLayers = new JArray() as dynamic;
+                    thEntry.BmpLayers.Add(Layer);
+                    break;
+
+                case ThumbnailType.Png:
+                    thEntry.PngLayers = new JArray() as dynamic;
+                    thEntry.PngLayers.Add(Layer);
+                    break;
+
+                case ThumbnailType.Jpg:
+                    thEntry.JpgLayers = new JArray() as dynamic;
+                    thEntry.JpgLayers.Add(Layer);
+                    break;
+            }
+
+            obj.Codecs.Add(thEntry);
+
+            Format.Type = extension + "Format";
+            thOutputEntry.Format = Format;
+            obj.Outputs.Add(thOutputEntry);
+        }
+
+        enum ThumbnailType
+        {
+            Jpg = 0,
+            Png,
+            Bmp
+        }
 
         private void buttonSaveXML_Click(object sender, EventArgs e)
         {
@@ -889,7 +937,6 @@ namespace AMSExplorer
                 {
                     richTextBoxDesc.Text = string.Empty;
                 }
-
             }
         }
 
@@ -1013,6 +1060,78 @@ namespace AMSExplorer
 
         private void checkBoxDisableAutoDeinterlacing_CheckedChanged(object sender, EventArgs e)
         {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void linkLabelMoreInfoPreserveResRotation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
+        }
+
+        private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void radioButtonPercentJPG_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotJPG.Visible = radioButtonPercentJPG.Checked;
+            if (radioButtonPercentJPG.Checked)
+            {
+                numericUpDownThWidthJPG.Maximum = numericUpDownThHeightJPG.Maximum = 100;
+                numericUpDownThWidthJPG.Value = numericUpDownThHeightJPG.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthJPG.Maximum = numericUpDownThHeightJPG.Maximum = 10000;
+            }
+        }
+
+        private void radioButtonPercentPNG_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotPNG.Visible = radioButtonPercentPNG.Checked;
+            if (radioButtonPercentPNG.Checked)
+            {
+                numericUpDownThWidthPNG.Maximum = numericUpDownThHeightPNG.Maximum = 100;
+                numericUpDownThWidthPNG.Value = numericUpDownThHeightPNG.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthPNG.Maximum = numericUpDownThHeightPNG.Maximum = 10000;
+            }
+        }
+
+        private void radioButtonPercentBMP_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxPresResRotBMP.Visible = radioButtonPercentBMP.Checked;
+            if (radioButtonPercentBMP.Checked)
+            {
+                numericUpDownThWidthBMP.Maximum = numericUpDownThHeightBMP.Maximum = 100;
+                numericUpDownThWidthBMP.Value = numericUpDownThHeightBMP.Value = 100;
+            }
+            else
+            {
+                numericUpDownThWidthBMP.Maximum = numericUpDownThHeightBMP.Maximum = 10000;
+            }
+        }
+
+
+        private void checkBoxBestJPG_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartJPG.Enabled = textBoxThTimeRangeJPG.Enabled = textBoxThTimeStepJPG.Enabled = !checkBoxBestJPG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxBestPNG_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartPNG.Enabled = textBoxThTimeRangePNG.Enabled = textBoxThTimeStepPNG.Enabled = !checkBoxBestPNG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxBestBMP_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxThTimeStartBMP.Enabled = textBoxThTimeRangeBMP.Enabled = textBoxThTimeStepBMP.Enabled = !checkBoxBestBMP.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }

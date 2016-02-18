@@ -53,6 +53,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
+            this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
+            this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
             this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
             this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
@@ -64,6 +66,9 @@
             this.tabPageThJPG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail1 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsJPG = new System.Windows.Forms.Panel();
+            this.radioButtonPercentJPG = new System.Windows.Forms.RadioButton();
+            this.radioButtonPixelsJPG = new System.Windows.Forms.RadioButton();
+            this.checkBoxPresResRotJPG = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightJPG = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxThFileNameJPG = new System.Windows.Forms.TextBox();
@@ -86,6 +91,9 @@
             this.tabPageThPNG = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail2 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsPNG = new System.Windows.Forms.Panel();
+            this.radioButtonPercentPNG = new System.Windows.Forms.RadioButton();
+            this.radioButtonPixelsPNG = new System.Windows.Forms.RadioButton();
+            this.checkBoxPresResRotPNG = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightPNG = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxThFileNamePNG = new System.Windows.Forms.TextBox();
@@ -105,6 +113,9 @@
             this.tabPageThBMP = new System.Windows.Forms.TabPage();
             this.linkLabelThumbnail3 = new System.Windows.Forms.LinkLabel();
             this.panelThumbnailsBMP = new System.Windows.Forms.Panel();
+            this.radioButtonPercentBMP = new System.Windows.Forms.RadioButton();
+            this.radioButtonPixelsBMP = new System.Windows.Forms.RadioButton();
+            this.checkBoxPresResRotBMP = new System.Windows.Forms.CheckBox();
             this.numericUpDownThHeightBMP = new System.Windows.Forms.NumericUpDown();
             this.label28 = new System.Windows.Forms.Label();
             this.textBoxThFileNameBMP = new System.Windows.Forms.TextBox();
@@ -147,6 +158,9 @@
             this.label50 = new System.Windows.Forms.Label();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
+            this.checkBoxBestJPG = new System.Windows.Forms.CheckBox();
+            this.checkBoxBestPNG = new System.Windows.Forms.CheckBox();
+            this.checkBoxBestBMP = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -322,7 +336,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 172);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 158);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -404,8 +418,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.TabPagePreset);
             this.tabControl1.Controls.Add(this.TabPageFeatures);
-            this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThPNG);
+            this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThBMP);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
@@ -437,14 +451,16 @@
             // 
             // TabPageFeatures
             // 
+            this.TabPageFeatures.Controls.Add(this.linkLabelMoreInfoPreserveResRotation);
+            this.TabPageFeatures.Controls.Add(this.checkBoxPreserveResAfterRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
             this.TabPageFeatures.Controls.Add(this.checkBoxInsertSilentAudioTrack);
             this.TabPageFeatures.Controls.Add(this.textBoxSourceDurationTime);
             this.TabPageFeatures.Controls.Add(this.label7);
             this.TabPageFeatures.Controls.Add(this.checkBoxAddAutomatic);
+            this.TabPageFeatures.Controls.Add(this.checkBoxSourceTrimming);
             this.TabPageFeatures.Controls.Add(this.timeControlEndTime);
             this.TabPageFeatures.Controls.Add(this.timeControlStartTime);
-            this.TabPageFeatures.Controls.Add(this.checkBoxSourceTrimming);
             this.TabPageFeatures.Location = new System.Drawing.Point(4, 24);
             this.TabPageFeatures.Name = "TabPageFeatures";
             this.TabPageFeatures.Padding = new System.Windows.Forms.Padding(3);
@@ -452,6 +468,28 @@
             this.TabPageFeatures.TabIndex = 1;
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelMoreInfoPreserveResRotation
+            // 
+            this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
+            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(211, 245);
+            this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
+            this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
+            this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
+            this.linkLabelMoreInfoPreserveResRotation.TabStop = true;
+            this.linkLabelMoreInfoPreserveResRotation.Text = "(more information)";
+            this.linkLabelMoreInfoPreserveResRotation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoPreserveResRotation_LinkClicked);
+            // 
+            // checkBoxPreserveResAfterRotation
+            // 
+            this.checkBoxPreserveResAfterRotation.AutoSize = true;
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(16, 244);
+            this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
+            this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPreserveResAfterRotation.TabIndex = 91;
+            this.checkBoxPreserveResAfterRotation.Text = "Preserve resolution after rotation";
+            this.checkBoxPreserveResAfterRotation.UseVisualStyleBackColor = true;
+            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.checkBoxPreserveResAfterRotation_CheckedChanged);
             // 
             // checkBoxDisableAutoDeinterlacing
             // 
@@ -585,6 +623,10 @@
             this.panelThumbnailsJPG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsJPG.Controls.Add(this.checkBoxBestJPG);
+            this.panelThumbnailsJPG.Controls.Add(this.radioButtonPercentJPG);
+            this.panelThumbnailsJPG.Controls.Add(this.radioButtonPixelsJPG);
+            this.panelThumbnailsJPG.Controls.Add(this.checkBoxPresResRotJPG);
             this.panelThumbnailsJPG.Controls.Add(this.numericUpDownThHeightJPG);
             this.panelThumbnailsJPG.Controls.Add(this.label18);
             this.panelThumbnailsJPG.Controls.Add(this.textBoxThFileNameJPG);
@@ -609,9 +651,44 @@
             this.panelThumbnailsJPG.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsJPG.TabIndex = 112;
             // 
+            // radioButtonPercentJPG
+            // 
+            this.radioButtonPercentJPG.AutoSize = true;
+            this.radioButtonPercentJPG.Location = new System.Drawing.Point(257, 26);
+            this.radioButtonPercentJPG.Name = "radioButtonPercentJPG";
+            this.radioButtonPercentJPG.Size = new System.Drawing.Size(84, 19);
+            this.radioButtonPercentJPG.TabIndex = 117;
+            this.radioButtonPercentJPG.Text = "Percentage";
+            this.radioButtonPercentJPG.UseVisualStyleBackColor = true;
+            this.radioButtonPercentJPG.CheckedChanged += new System.EventHandler(this.radioButtonPercentJPG_CheckedChanged);
+            // 
+            // radioButtonPixelsJPG
+            // 
+            this.radioButtonPixelsJPG.AutoSize = true;
+            this.radioButtonPixelsJPG.Checked = true;
+            this.radioButtonPixelsJPG.Location = new System.Drawing.Point(197, 26);
+            this.radioButtonPixelsJPG.Name = "radioButtonPixelsJPG";
+            this.radioButtonPixelsJPG.Size = new System.Drawing.Size(54, 19);
+            this.radioButtonPixelsJPG.TabIndex = 116;
+            this.radioButtonPixelsJPG.TabStop = true;
+            this.radioButtonPixelsJPG.Text = "Pixels";
+            this.radioButtonPixelsJPG.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPresResRotJPG
+            // 
+            this.checkBoxPresResRotJPG.AutoSize = true;
+            this.checkBoxPresResRotJPG.Location = new System.Drawing.Point(393, 26);
+            this.checkBoxPresResRotJPG.Name = "checkBoxPresResRotJPG";
+            this.checkBoxPresResRotJPG.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotJPG.TabIndex = 112;
+            this.checkBoxPresResRotJPG.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotJPG.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotJPG.Visible = false;
+            this.checkBoxPresResRotJPG.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
+            // 
             // numericUpDownThHeightJPG
             // 
-            this.numericUpDownThHeightJPG.Location = new System.Drawing.Point(105, 30);
+            this.numericUpDownThHeightJPG.Location = new System.Drawing.Point(105, 26);
             this.numericUpDownThHeightJPG.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -635,7 +712,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(102, 13);
+            this.label18.Location = new System.Drawing.Point(102, 9);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 15);
             this.label18.TabIndex = 110;
@@ -645,7 +722,7 @@
             // 
             this.textBoxThFileNameJPG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNameJPG.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNameJPG.Location = new System.Drawing.Point(6, 268);
             this.textBoxThFileNameJPG.Name = "textBoxThFileNameJPG";
             this.textBoxThFileNameJPG.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNameJPG.TabIndex = 93;
@@ -654,7 +731,7 @@
             // 
             // numericUpDownThWidthJPG
             // 
-            this.numericUpDownThWidthJPG.Location = new System.Drawing.Point(8, 30);
+            this.numericUpDownThWidthJPG.Location = new System.Drawing.Point(8, 26);
             this.numericUpDownThWidthJPG.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -678,7 +755,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 234);
+            this.label8.Location = new System.Drawing.Point(5, 250);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(128, 15);
             this.label8.TabIndex = 94;
@@ -687,7 +764,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(5, 13);
+            this.label17.Location = new System.Drawing.Point(5, 9);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(45, 15);
             this.label17.TabIndex = 108;
@@ -697,7 +774,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label16.Location = new System.Drawing.Point(154, 191);
+            this.label16.Location = new System.Drawing.Point(153, 216);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(181, 15);
             this.label16.TabIndex = 107;
@@ -706,7 +783,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 60);
+            this.label9.Location = new System.Drawing.Point(3, 85);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 15);
             this.label9.TabIndex = 96;
@@ -716,7 +793,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(154, 136);
+            this.label15.Location = new System.Drawing.Point(154, 161);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(181, 15);
             this.label15.TabIndex = 106;
@@ -724,18 +801,17 @@
             // 
             // textBoxThTimeStartJPG
             // 
-            this.textBoxThTimeStartJPG.Location = new System.Drawing.Point(7, 79);
+            this.textBoxThTimeStartJPG.Location = new System.Drawing.Point(7, 104);
             this.textBoxThTimeStartJPG.Name = "textBoxThTimeStartJPG";
             this.textBoxThTimeStartJPG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStartJPG.TabIndex = 97;
-            this.textBoxThTimeStartJPG.Text = "{Best}";
             this.textBoxThTimeStartJPG.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label14.Location = new System.Drawing.Point(279, 32);
+            this.label14.Location = new System.Drawing.Point(466, 79);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(115, 15);
             this.label14.TabIndex = 105;
@@ -744,7 +820,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 114);
+            this.label5.Location = new System.Drawing.Point(4, 139);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 15);
             this.label5.TabIndex = 98;
@@ -752,7 +828,7 @@
             // 
             // numericUpDownThQuality
             // 
-            this.numericUpDownThQuality.Location = new System.Drawing.Point(206, 30);
+            this.numericUpDownThQuality.Location = new System.Drawing.Point(393, 77);
             this.numericUpDownThQuality.Minimum = new decimal(new int[] {
             1,
             0,
@@ -770,7 +846,7 @@
             // 
             // textBoxThTimeStepJPG
             // 
-            this.textBoxThTimeStepJPG.Location = new System.Drawing.Point(8, 133);
+            this.textBoxThTimeStepJPG.Location = new System.Drawing.Point(8, 158);
             this.textBoxThTimeStepJPG.Name = "textBoxThTimeStepJPG";
             this.textBoxThTimeStepJPG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStepJPG.TabIndex = 99;
@@ -779,7 +855,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(203, 12);
+            this.label13.Location = new System.Drawing.Point(390, 59);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 15);
             this.label13.TabIndex = 103;
@@ -788,7 +864,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 170);
+            this.label11.Location = new System.Drawing.Point(3, 195);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(76, 15);
             this.label11.TabIndex = 100;
@@ -798,15 +874,15 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(153, 82);
+            this.label10.Location = new System.Drawing.Point(153, 107);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(228, 15);
+            this.label10.Size = new System.Drawing.Size(181, 15);
             this.label10.TabIndex = 102;
-            this.label10.Text = "examples : {Best} or 00:00:01 or 10% or 120";
+            this.label10.Text = "examples : 00:00:01 or 10% or 120";
             // 
             // textBoxThTimeRangeJPG
             // 
-            this.textBoxThTimeRangeJPG.Location = new System.Drawing.Point(7, 188);
+            this.textBoxThTimeRangeJPG.Location = new System.Drawing.Point(7, 213);
             this.textBoxThTimeRangeJPG.Name = "textBoxThTimeRangeJPG";
             this.textBoxThTimeRangeJPG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeRangeJPG.TabIndex = 101;
@@ -853,6 +929,10 @@
             this.panelThumbnailsPNG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsPNG.Controls.Add(this.checkBoxBestPNG);
+            this.panelThumbnailsPNG.Controls.Add(this.radioButtonPercentPNG);
+            this.panelThumbnailsPNG.Controls.Add(this.radioButtonPixelsPNG);
+            this.panelThumbnailsPNG.Controls.Add(this.checkBoxPresResRotPNG);
             this.panelThumbnailsPNG.Controls.Add(this.numericUpDownThHeightPNG);
             this.panelThumbnailsPNG.Controls.Add(this.label6);
             this.panelThumbnailsPNG.Controls.Add(this.textBoxThFileNamePNG);
@@ -874,9 +954,44 @@
             this.panelThumbnailsPNG.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsPNG.TabIndex = 114;
             // 
+            // radioButtonPercentPNG
+            // 
+            this.radioButtonPercentPNG.AutoSize = true;
+            this.radioButtonPercentPNG.Location = new System.Drawing.Point(257, 26);
+            this.radioButtonPercentPNG.Name = "radioButtonPercentPNG";
+            this.radioButtonPercentPNG.Size = new System.Drawing.Size(84, 19);
+            this.radioButtonPercentPNG.TabIndex = 115;
+            this.radioButtonPercentPNG.Text = "Percentage";
+            this.radioButtonPercentPNG.UseVisualStyleBackColor = true;
+            this.radioButtonPercentPNG.CheckedChanged += new System.EventHandler(this.radioButtonPercentPNG_CheckedChanged);
+            // 
+            // radioButtonPixelsPNG
+            // 
+            this.radioButtonPixelsPNG.AutoSize = true;
+            this.radioButtonPixelsPNG.Checked = true;
+            this.radioButtonPixelsPNG.Location = new System.Drawing.Point(197, 26);
+            this.radioButtonPixelsPNG.Name = "radioButtonPixelsPNG";
+            this.radioButtonPixelsPNG.Size = new System.Drawing.Size(54, 19);
+            this.radioButtonPixelsPNG.TabIndex = 114;
+            this.radioButtonPixelsPNG.TabStop = true;
+            this.radioButtonPixelsPNG.Text = "Pixels";
+            this.radioButtonPixelsPNG.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPresResRotPNG
+            // 
+            this.checkBoxPresResRotPNG.AutoSize = true;
+            this.checkBoxPresResRotPNG.Location = new System.Drawing.Point(393, 30);
+            this.checkBoxPresResRotPNG.Name = "checkBoxPresResRotPNG";
+            this.checkBoxPresResRotPNG.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotPNG.TabIndex = 113;
+            this.checkBoxPresResRotPNG.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotPNG.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotPNG.Visible = false;
+            this.checkBoxPresResRotPNG.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
+            // 
             // numericUpDownThHeightPNG
             // 
-            this.numericUpDownThHeightPNG.Location = new System.Drawing.Point(105, 30);
+            this.numericUpDownThHeightPNG.Location = new System.Drawing.Point(105, 26);
             this.numericUpDownThHeightPNG.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -900,7 +1015,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(102, 13);
+            this.label6.Location = new System.Drawing.Point(102, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 15);
             this.label6.TabIndex = 110;
@@ -910,7 +1025,7 @@
             // 
             this.textBoxThFileNamePNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNamePNG.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNamePNG.Location = new System.Drawing.Point(6, 268);
             this.textBoxThFileNamePNG.Name = "textBoxThFileNamePNG";
             this.textBoxThFileNamePNG.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNamePNG.TabIndex = 93;
@@ -919,7 +1034,7 @@
             // 
             // numericUpDownThWidthPNG
             // 
-            this.numericUpDownThWidthPNG.Location = new System.Drawing.Point(8, 30);
+            this.numericUpDownThWidthPNG.Location = new System.Drawing.Point(8, 26);
             this.numericUpDownThWidthPNG.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -943,7 +1058,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(5, 234);
+            this.label12.Location = new System.Drawing.Point(5, 250);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(128, 15);
             this.label12.TabIndex = 94;
@@ -952,7 +1067,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(5, 13);
+            this.label19.Location = new System.Drawing.Point(5, 9);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(45, 15);
             this.label19.TabIndex = 108;
@@ -962,7 +1077,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label20.Location = new System.Drawing.Point(154, 191);
+            this.label20.Location = new System.Drawing.Point(154, 216);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(181, 15);
             this.label20.TabIndex = 107;
@@ -971,7 +1086,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(3, 60);
+            this.label21.Location = new System.Drawing.Point(3, 85);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(67, 15);
             this.label21.TabIndex = 96;
@@ -981,7 +1096,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label22.Location = new System.Drawing.Point(154, 136);
+            this.label22.Location = new System.Drawing.Point(154, 161);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(181, 15);
             this.label22.TabIndex = 106;
@@ -989,17 +1104,16 @@
             // 
             // textBoxThTimeStartPNG
             // 
-            this.textBoxThTimeStartPNG.Location = new System.Drawing.Point(7, 79);
+            this.textBoxThTimeStartPNG.Location = new System.Drawing.Point(7, 104);
             this.textBoxThTimeStartPNG.Name = "textBoxThTimeStartPNG";
             this.textBoxThTimeStartPNG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStartPNG.TabIndex = 97;
-            this.textBoxThTimeStartPNG.Text = "00:00:00";
             this.textBoxThTimeStartPNG.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(4, 114);
+            this.label24.Location = new System.Drawing.Point(4, 139);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(66, 15);
             this.label24.TabIndex = 98;
@@ -1007,17 +1121,16 @@
             // 
             // textBoxThTimeStepPNG
             // 
-            this.textBoxThTimeStepPNG.Location = new System.Drawing.Point(8, 133);
+            this.textBoxThTimeStepPNG.Location = new System.Drawing.Point(8, 158);
             this.textBoxThTimeStepPNG.Name = "textBoxThTimeStepPNG";
             this.textBoxThTimeStepPNG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStepPNG.TabIndex = 99;
-            this.textBoxThTimeStepPNG.Text = "00:01:00";
             this.textBoxThTimeStepPNG.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(3, 170);
+            this.label26.Location = new System.Drawing.Point(3, 195);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(76, 15);
             this.label26.TabIndex = 100;
@@ -1027,15 +1140,15 @@
             // 
             this.label27.AutoSize = true;
             this.label27.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label27.Location = new System.Drawing.Point(153, 82);
+            this.label27.Location = new System.Drawing.Point(153, 107);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(228, 15);
+            this.label27.Size = new System.Drawing.Size(181, 15);
             this.label27.TabIndex = 102;
-            this.label27.Text = "examples : {Best} or 00:00:01 or 10% or 120";
+            this.label27.Text = "examples : 00:00:01 or 10% or 120";
             // 
             // textBoxThTimeRangePNG
             // 
-            this.textBoxThTimeRangePNG.Location = new System.Drawing.Point(7, 188);
+            this.textBoxThTimeRangePNG.Location = new System.Drawing.Point(7, 213);
             this.textBoxThTimeRangePNG.Name = "textBoxThTimeRangePNG";
             this.textBoxThTimeRangePNG.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeRangePNG.TabIndex = 101;
@@ -1082,6 +1195,10 @@
             this.panelThumbnailsBMP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelThumbnailsBMP.Controls.Add(this.checkBoxBestBMP);
+            this.panelThumbnailsBMP.Controls.Add(this.radioButtonPercentBMP);
+            this.panelThumbnailsBMP.Controls.Add(this.radioButtonPixelsBMP);
+            this.panelThumbnailsBMP.Controls.Add(this.checkBoxPresResRotBMP);
             this.panelThumbnailsBMP.Controls.Add(this.numericUpDownThHeightBMP);
             this.panelThumbnailsBMP.Controls.Add(this.label28);
             this.panelThumbnailsBMP.Controls.Add(this.textBoxThFileNameBMP);
@@ -1103,9 +1220,44 @@
             this.panelThumbnailsBMP.Size = new System.Drawing.Size(645, 301);
             this.panelThumbnailsBMP.TabIndex = 114;
             // 
+            // radioButtonPercentBMP
+            // 
+            this.radioButtonPercentBMP.AutoSize = true;
+            this.radioButtonPercentBMP.Location = new System.Drawing.Point(257, 26);
+            this.radioButtonPercentBMP.Name = "radioButtonPercentBMP";
+            this.radioButtonPercentBMP.Size = new System.Drawing.Size(84, 19);
+            this.radioButtonPercentBMP.TabIndex = 117;
+            this.radioButtonPercentBMP.Text = "Percentage";
+            this.radioButtonPercentBMP.UseVisualStyleBackColor = true;
+            this.radioButtonPercentBMP.CheckedChanged += new System.EventHandler(this.radioButtonPercentBMP_CheckedChanged);
+            // 
+            // radioButtonPixelsBMP
+            // 
+            this.radioButtonPixelsBMP.AutoSize = true;
+            this.radioButtonPixelsBMP.Checked = true;
+            this.radioButtonPixelsBMP.Location = new System.Drawing.Point(197, 26);
+            this.radioButtonPixelsBMP.Name = "radioButtonPixelsBMP";
+            this.radioButtonPixelsBMP.Size = new System.Drawing.Size(54, 19);
+            this.radioButtonPixelsBMP.TabIndex = 116;
+            this.radioButtonPixelsBMP.TabStop = true;
+            this.radioButtonPixelsBMP.Text = "Pixels";
+            this.radioButtonPixelsBMP.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPresResRotBMP
+            // 
+            this.checkBoxPresResRotBMP.AutoSize = true;
+            this.checkBoxPresResRotBMP.Location = new System.Drawing.Point(393, 30);
+            this.checkBoxPresResRotBMP.Name = "checkBoxPresResRotBMP";
+            this.checkBoxPresResRotBMP.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPresResRotBMP.TabIndex = 113;
+            this.checkBoxPresResRotBMP.Text = "Preserve resolution after rotation";
+            this.checkBoxPresResRotBMP.UseVisualStyleBackColor = true;
+            this.checkBoxPresResRotBMP.Visible = false;
+            this.checkBoxPresResRotBMP.CheckedChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
+            // 
             // numericUpDownThHeightBMP
             // 
-            this.numericUpDownThHeightBMP.Location = new System.Drawing.Point(105, 30);
+            this.numericUpDownThHeightBMP.Location = new System.Drawing.Point(105, 26);
             this.numericUpDownThHeightBMP.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1128,7 +1280,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(102, 13);
+            this.label28.Location = new System.Drawing.Point(102, 9);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(49, 15);
             this.label28.TabIndex = 110;
@@ -1138,7 +1290,7 @@
             // 
             this.textBoxThFileNameBMP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxThFileNameBMP.Location = new System.Drawing.Point(7, 253);
+            this.textBoxThFileNameBMP.Location = new System.Drawing.Point(6, 268);
             this.textBoxThFileNameBMP.Name = "textBoxThFileNameBMP";
             this.textBoxThFileNameBMP.Size = new System.Drawing.Size(566, 23);
             this.textBoxThFileNameBMP.TabIndex = 93;
@@ -1147,7 +1299,7 @@
             // 
             // numericUpDownThWidthBMP
             // 
-            this.numericUpDownThWidthBMP.Location = new System.Drawing.Point(8, 30);
+            this.numericUpDownThWidthBMP.Location = new System.Drawing.Point(8, 26);
             this.numericUpDownThWidthBMP.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1170,7 +1322,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(5, 234);
+            this.label29.Location = new System.Drawing.Point(5, 250);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(128, 15);
             this.label29.TabIndex = 94;
@@ -1179,7 +1331,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(5, 13);
+            this.label30.Location = new System.Drawing.Point(5, 9);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(45, 15);
             this.label30.TabIndex = 108;
@@ -1189,7 +1341,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label31.Location = new System.Drawing.Point(154, 191);
+            this.label31.Location = new System.Drawing.Point(154, 216);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(181, 15);
             this.label31.TabIndex = 107;
@@ -1198,7 +1350,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(3, 60);
+            this.label32.Location = new System.Drawing.Point(3, 85);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(67, 15);
             this.label32.TabIndex = 96;
@@ -1208,7 +1360,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label33.Location = new System.Drawing.Point(154, 136);
+            this.label33.Location = new System.Drawing.Point(154, 161);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(181, 15);
             this.label33.TabIndex = 106;
@@ -1216,17 +1368,16 @@
             // 
             // textBoxThTimeStartBMP
             // 
-            this.textBoxThTimeStartBMP.Location = new System.Drawing.Point(7, 79);
+            this.textBoxThTimeStartBMP.Location = new System.Drawing.Point(7, 104);
             this.textBoxThTimeStartBMP.Name = "textBoxThTimeStartBMP";
             this.textBoxThTimeStartBMP.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStartBMP.TabIndex = 97;
-            this.textBoxThTimeStartBMP.Text = "10%";
             this.textBoxThTimeStartBMP.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(4, 114);
+            this.label36.Location = new System.Drawing.Point(4, 139);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(66, 15);
             this.label36.TabIndex = 98;
@@ -1234,17 +1385,16 @@
             // 
             // textBoxThTimeStepBMP
             // 
-            this.textBoxThTimeStepBMP.Location = new System.Drawing.Point(8, 133);
+            this.textBoxThTimeStepBMP.Location = new System.Drawing.Point(8, 158);
             this.textBoxThTimeStepBMP.Name = "textBoxThTimeStepBMP";
             this.textBoxThTimeStepBMP.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeStepBMP.TabIndex = 99;
-            this.textBoxThTimeStepBMP.Text = "10%";
             this.textBoxThTimeStepBMP.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(3, 170);
+            this.label38.Location = new System.Drawing.Point(3, 195);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(76, 15);
             this.label38.TabIndex = 100;
@@ -1254,19 +1404,18 @@
             // 
             this.label39.AutoSize = true;
             this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label39.Location = new System.Drawing.Point(153, 82);
+            this.label39.Location = new System.Drawing.Point(153, 107);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(228, 15);
+            this.label39.Size = new System.Drawing.Size(181, 15);
             this.label39.TabIndex = 102;
-            this.label39.Text = "examples : {Best} or 00:00:01 or 10% or 120";
+            this.label39.Text = "examples : 00:00:01 or 10% or 120";
             // 
             // textBoxThTimeRangeBMP
             // 
-            this.textBoxThTimeRangeBMP.Location = new System.Drawing.Point(7, 188);
+            this.textBoxThTimeRangeBMP.Location = new System.Drawing.Point(7, 213);
             this.textBoxThTimeRangeBMP.Name = "textBoxThTimeRangeBMP";
             this.textBoxThTimeRangeBMP.Size = new System.Drawing.Size(140, 23);
             this.textBoxThTimeRangeBMP.TabIndex = 101;
-            this.textBoxThTimeRangeBMP.Text = "90%";
             this.textBoxThTimeRangeBMP.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // checkBoxGenThumbnailsBMP
@@ -1587,6 +1736,39 @@
             this.labelProcessorVersion.Text = "Version {0}";
             this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // checkBoxBestJPG
+            // 
+            this.checkBoxBestJPG.AutoSize = true;
+            this.checkBoxBestJPG.Location = new System.Drawing.Point(6, 62);
+            this.checkBoxBestJPG.Name = "checkBoxBestJPG";
+            this.checkBoxBestJPG.Size = new System.Drawing.Size(206, 19);
+            this.checkBoxBestJPG.TabIndex = 118;
+            this.checkBoxBestJPG.Text = "Best mode (first interesting frame)";
+            this.checkBoxBestJPG.UseVisualStyleBackColor = true;
+            this.checkBoxBestJPG.CheckedChanged += new System.EventHandler(this.checkBoxBestJPG_CheckedChanged);
+            // 
+            // checkBoxBestPNG
+            // 
+            this.checkBoxBestPNG.AutoSize = true;
+            this.checkBoxBestPNG.Location = new System.Drawing.Point(6, 62);
+            this.checkBoxBestPNG.Name = "checkBoxBestPNG";
+            this.checkBoxBestPNG.Size = new System.Drawing.Size(206, 19);
+            this.checkBoxBestPNG.TabIndex = 119;
+            this.checkBoxBestPNG.Text = "Best mode (first interesting frame)";
+            this.checkBoxBestPNG.UseVisualStyleBackColor = true;
+            this.checkBoxBestPNG.CheckedChanged += new System.EventHandler(this.checkBoxBestPNG_CheckedChanged);
+            // 
+            // checkBoxBestBMP
+            // 
+            this.checkBoxBestBMP.AutoSize = true;
+            this.checkBoxBestBMP.Location = new System.Drawing.Point(6, 62);
+            this.checkBoxBestBMP.Name = "checkBoxBestBMP";
+            this.checkBoxBestBMP.Size = new System.Drawing.Size(206, 19);
+            this.checkBoxBestBMP.TabIndex = 119;
+            this.checkBoxBestBMP.Text = "Best mode (first interesting frame)";
+            this.checkBoxBestBMP.UseVisualStyleBackColor = true;
+            this.checkBoxBestBMP.CheckedChanged += new System.EventHandler(this.checkBoxBestBMP_CheckedChanged);
+            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1756,6 +1938,20 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
         private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
         private System.Windows.Forms.CheckBox checkBoxDisableAutoDeinterlacing;
+        private System.Windows.Forms.LinkLabel linkLabelMoreInfoPreserveResRotation;
+        private System.Windows.Forms.CheckBox checkBoxPreserveResAfterRotation;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotJPG;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotPNG;
+        private System.Windows.Forms.CheckBox checkBoxPresResRotBMP;
+        private System.Windows.Forms.RadioButton radioButtonPercentJPG;
+        private System.Windows.Forms.RadioButton radioButtonPixelsJPG;
+        private System.Windows.Forms.RadioButton radioButtonPercentPNG;
+        private System.Windows.Forms.RadioButton radioButtonPixelsPNG;
+        private System.Windows.Forms.RadioButton radioButtonPercentBMP;
+        private System.Windows.Forms.RadioButton radioButtonPixelsBMP;
+        private System.Windows.Forms.CheckBox checkBoxBestJPG;
+        private System.Windows.Forms.CheckBox checkBoxBestPNG;
+        private System.Windows.Forms.CheckBox checkBoxBestBMP;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelIAssets;
         private System.Windows.Forms.TabPage tabPage2;

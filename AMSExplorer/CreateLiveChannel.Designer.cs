@@ -100,6 +100,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
+            this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -118,6 +119,7 @@
             this.tabPageAdConfig.SuspendLayout();
             this.panelInsertSlate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelDisplayEncProfile.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -384,14 +386,11 @@
             // 
             // tabPageLiveEncoding
             // 
+            this.tabPageLiveEncoding.Controls.Add(this.panelDisplayEncProfile);
             this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonDefaultPreset);
-            this.tabPageLiveEncoding.Controls.Add(this.label17);
-            this.tabPageLiveEncoding.Controls.Add(this.label16);
-            this.tabPageLiveEncoding.Controls.Add(this.dataGridViewAudioProf);
-            this.tabPageLiveEncoding.Controls.Add(this.dataGridViewVideoProf);
             this.tabPageLiveEncoding.Controls.Add(this.panelRTP);
             this.tabPageLiveEncoding.Location = new System.Drawing.Point(4, 24);
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
@@ -447,12 +446,13 @@
             this.radioButtonDefaultPreset.Tag = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.Text = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
+            this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
             // 
             // label17
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 209);
+            this.label17.Location = new System.Drawing.Point(15, 118);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(144, 15);
             this.label17.TabIndex = 74;
@@ -461,7 +461,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(19, 92);
+            this.label16.Location = new System.Drawing.Point(15, 2);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(142, 15);
             this.label16.TabIndex = 73;
@@ -475,11 +475,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAudioProf.Location = new System.Drawing.Point(22, 227);
+            this.dataGridViewAudioProf.Location = new System.Drawing.Point(18, 136);
             this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
             this.dataGridViewAudioProf.ReadOnly = true;
             this.dataGridViewAudioProf.RowHeadersVisible = false;
-            this.dataGridViewAudioProf.Size = new System.Drawing.Size(457, 68);
+            this.dataGridViewAudioProf.Size = new System.Drawing.Size(458, 68);
             this.dataGridViewAudioProf.TabIndex = 72;
             // 
             // dataGridViewVideoProf
@@ -491,11 +491,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewVideoProf.Location = new System.Drawing.Point(22, 111);
+            this.dataGridViewVideoProf.Location = new System.Drawing.Point(18, 20);
             this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
             this.dataGridViewVideoProf.ReadOnly = true;
             this.dataGridViewVideoProf.RowHeadersVisible = false;
-            this.dataGridViewVideoProf.Size = new System.Drawing.Size(457, 91);
+            this.dataGridViewVideoProf.Size = new System.Drawing.Size(458, 91);
             this.dataGridViewVideoProf.TabIndex = 71;
             // 
             // panelRTP
@@ -875,6 +875,20 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
+            // panelDisplayEncProfile
+            // 
+            this.panelDisplayEncProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewVideoProf);
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewAudioProf);
+            this.panelDisplayEncProfile.Controls.Add(this.label16);
+            this.panelDisplayEncProfile.Controls.Add(this.label17);
+            this.panelDisplayEncProfile.Location = new System.Drawing.Point(3, 92);
+            this.panelDisplayEncProfile.Name = "panelDisplayEncProfile";
+            this.panelDisplayEncProfile.Size = new System.Drawing.Size(487, 207);
+            this.panelDisplayEncProfile.TabIndex = 78;
+            // 
             // CreateLiveChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -922,6 +936,8 @@
             this.panelInsertSlate.ResumeLayout(false);
             this.panelInsertSlate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelDisplayEncProfile.ResumeLayout(false);
+            this.panelDisplayEncProfile.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -999,5 +1015,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Panel panelDisplayEncProfile;
     }
 }
