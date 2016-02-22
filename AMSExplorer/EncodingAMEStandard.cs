@@ -188,9 +188,17 @@ namespace AMSExplorer
 
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
-                timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode);
-                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode);
-                checkBoxSourceTrimming.Checked = true;
+                // come from subclip UI
+                timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode - _subclipConfig.OffsetForReencode);
+                timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
+                timeControlStartTime.ScaledFirstTimestampOffset = timeControlEndTime.ScaledFirstTimestampOffset = (ulong)_subclipConfig.OffsetForReencode.Ticks;
+                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode- _subclipConfig.OffsetForReencode);
+
+                // let's display the offset
+                labelOffset.Visible = textBoxOffset.Visible = true;
+                textBoxOffset.Text = _subclipConfig.OffsetForReencode.ToString();
+
+                checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
             }
         }
 
@@ -326,7 +334,7 @@ namespace AMSExplorer
 
 
                     // Trimming
-                    if (checkBoxSourceTrimming.Checked)
+                    if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked)
                     {
                         if (obj.Sources == null)
                         {
@@ -334,8 +342,18 @@ namespace AMSExplorer
                         }
 
                         dynamic time = new JObject();
+                        if (checkBoxSourceTrimmingStart.Checked)
+                        {
                         time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                            if (checkBoxSourceTrimmingEnd.Checked)
+                            {
                         time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                            }
+                        }
+                        else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
+                        {
+                            time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetOffSetAsTimeSpan();
+                        }
                         obj.Sources.Add(time);
                     }
 
@@ -809,16 +827,30 @@ namespace AMSExplorer
         }
         private void UpdateDurationText()
         {
+            // textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
+
+
+            if (checkBoxSourceTrimmingStart.Checked)
+            {
+                if (checkBoxSourceTrimmingEnd.Checked)
+                {
             textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
+        }
+                else
+                {
+                    textBoxSourceDurationTime.Text = string.Empty;
+                }
+            }
+            else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
+            {
+                textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetOffSetAsTimeSpan()).ToString();
+            }
+
         }
 
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlStartTime.Enabled =
-                timeControlEndTime.Enabled =
-                textBoxSourceDurationTime.Enabled =
-                checkBoxSourceTrimming.Checked;
-
+            timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -977,10 +1009,18 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 textBoxOverlayFileName.Text = form.SelectedAssetFile.Name;
-                bVisualOverlay=true;
+                bVisualOverlay = true;
                 UpdateTextBoxJSON(textBoxConfiguration.Text);
             }
         }
+
+        private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled =
+             checkBoxSourceTrimmingEnd.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+    
     }
 
     enum TypeConfig
@@ -989,6 +1029,4 @@ namespace AMSExplorer
         XML,
         Other
     }
-
-
 }
