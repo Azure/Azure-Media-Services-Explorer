@@ -3425,7 +3425,7 @@ namespace AMSExplorer
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public TimeSpan Duration { get; set; }
-
+        public TimeSpan Offset { get; set; }
     }
 
 
@@ -3445,6 +3445,7 @@ namespace AMSExplorer
         public bool CreateAssetFilter { get; set; }
         public TimeSpan StartTimeForReencode { get; set; }
         public TimeSpan DurationForReencode { get; set; }
+        public TimeSpan OffsetForReencode { get; set; }
         public TimeSpan StartTimeForAssetFilter { get; set; }
         public TimeSpan EndTimeForAssetFilter { get; set; }
 

@@ -169,6 +169,7 @@ namespace AMSExplorer
                 trimmingdata.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
                 trimmingdata.EndTime = timeControlEnd.GetTimeStampAsTimeSpanWithOffset();
                 trimmingdata.Duration = trimmingdata.EndTime - trimmingdata.StartTime;
+                trimmingdata.Offset = timeControlStart.GetOffSetAsTimeSpan();
             }
             return trimmingdata;
         }
@@ -302,6 +303,7 @@ namespace AMSExplorer
                     config.Trimming = true;
                     config.StartTimeForReencode = subdata.StartTime;
                     config.DurationForReencode = subdata.Duration;
+                    config.OffsetForReencode = subdata.Offset;
                 }
                 return config;
             }
