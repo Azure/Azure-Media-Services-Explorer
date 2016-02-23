@@ -1088,13 +1088,13 @@ namespace AMSExplorer
         {
             bool bSelect = listViewFiles.SelectedItems.Count > 0;
             bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
-            bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None);
+            bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None || myAsset.Options == AssetCreationOptions.CommonEncryptionProtected);
 
             buttonDeleteFile.Enabled = bSelect;
             buttonDeleteAll.Enabled = true;
             buttonSetPrimary.Enabled = bSelect && !bMultiSelect;
             buttonDownloadFile.Enabled = bSelect;
-            buttonOpenFile.Enabled = bSelect;
+            buttonOpenFile.Enabled = bSelect & NonEncrypted;
             buttonDuplicate.Enabled = bSelect & NonEncrypted && !bMultiSelect;
             buttonUpload.Enabled = true;
             buttonFileMetadata.Enabled = bSelect && !bMultiSelect;
@@ -1947,13 +1947,15 @@ namespace AMSExplorer
         {
             bool selected = listViewFiles.SelectedItems.Count > 0;
             bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
+            bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None || myAsset.Options == AssetCreationOptions.CommonEncryptionProtected);
 
             makeItPrimaryToolStripMenuItem.Enabled = selected && !bMultiSelect;
             showMetadataToolStripMenuItem.Enabled = selected && !bMultiSelect;
-            toolStripMenuItemOpenFile.Enabled = selected;
+            toolStripMenuItemOpenFile.Enabled = selected & NonEncrypted;
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteFileToolStripMenuItem.Enabled = selected;
-            duplicateFileToolStripMenuItem.Enabled = selected && !bMultiSelect;
+            duplicateFileToolStripMenuItem.Enabled = selected & NonEncrypted && !bMultiSelect;
+
             deleteAllFilesToolStripMenuItem.Enabled = selected;
         }
 
