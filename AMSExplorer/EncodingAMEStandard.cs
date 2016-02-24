@@ -121,7 +121,6 @@ namespace AMSExplorer
             }
         }
 
-
         public string EncodingConfiguration
         {
             get
@@ -225,7 +224,6 @@ namespace AMSExplorer
                 label4KWarning.Text = string.Empty;
                 buttonOk.Enabled = true;
                 richTextBoxDesc.Text = string.Empty;
-
             }
         }
 
@@ -713,7 +711,6 @@ namespace AMSExplorer
                 {
                     MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
                 }
-
             }
         }
 
@@ -799,7 +796,6 @@ namespace AMSExplorer
                     Error = true;
                 }
             }
-
             labelWarningJSON.Visible = Error;
         }
 
@@ -812,7 +808,6 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
-
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
@@ -827,9 +822,6 @@ namespace AMSExplorer
         }
         private void UpdateDurationText()
         {
-            // textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
-
-
             if (checkBoxSourceTrimmingStart.Checked)
             {
                 if (checkBoxSourceTrimmingEnd.Checked)
@@ -900,7 +892,6 @@ namespace AMSExplorer
         private void linkLabelMoreInfoPreserveResRotation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-
         }
 
         private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)

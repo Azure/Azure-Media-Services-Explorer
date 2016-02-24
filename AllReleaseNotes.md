@@ -1,3 +1,11 @@
+Version 3.37.0.0 brings the following features and improvements :
+
+* A way to change the video index and audio indexes and languages for an **existing encoding live channel (RTP)**
+* Update to **Media Encoder Standard** dialog box
+  * Update to thumbnails (percentage mode)
+  * Support for PreserveResolutionAfterRotation flag
+* Bug fixes and improvements
+
 Version 3.36.0.0 brings the following features and improvements :
 
 * New **Live Archive Integrity check**. This feature checks the timestamps in the manifest and the segments in the blob storage for a live archive. It will detect timestamps in overlap or gap, and missing segments.

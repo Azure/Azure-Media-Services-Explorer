@@ -205,12 +205,21 @@ namespace AMSExplorer
                 bool ret = Program.ConnectToStorage(_context, _credentials);
             }
 
-            if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
+            try // as this is the first call to MPs
             {
-                AMEPremiumWorkflowPresent = false;
-                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+                if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
+                {
+                    AMEPremiumWorkflowPresent = false;
+                    encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                    ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error message :\n" + ex.Message + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
+
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard) == null)
             {
@@ -8881,9 +8890,10 @@ namespace AMSExplorer
                         //    if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration)
                         //// Azure will deliver the PR or WV license and user wants to auto generate the key, so we can create a key with a random content key
 
-                        if (!reusekey && ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 || form2_CENC.ContentKeyRandomGeneration))
+                        if (!reusekey && ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 && form2_CENC.ContentKeyRandomGeneration))
 
                         // Azure will deliver the PR or WV license or user wants to auto generate the key, so we can create a key with a random content key
+                        // changed || form2_CENC.ContentKeyRandomGeneratio to && form2_CENC.ContentKeyRandomGeneratio
                         {
                             try
                             {
