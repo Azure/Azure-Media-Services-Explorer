@@ -902,7 +902,7 @@ namespace AMSExplorer
 
         public const string LinkMoreInfoDocAMS = @"https://azure.microsoft.com/en-us/documentation/services/media-services/";
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
-        public const string LinkBlogAMS = @"http://azure.microsoft.com/blog/topics/media-services/";
+        public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services-2/";
 
 
         public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";

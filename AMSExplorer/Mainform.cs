@@ -290,7 +290,7 @@ namespace AMSExplorer
             catch // can occur on test account
             {
                 MediaRUFeatureOn = false;
-                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
+                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the jobs tab.", true); // Warning
             }
 
             // nb assets limits
