@@ -63,7 +63,7 @@ namespace AMSExplorer
             Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
             Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
-            Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
+            Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
 
             Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
@@ -104,7 +104,7 @@ namespace AMSExplorer
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
             numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
-            numericUpDownIndexingPrice.Value = ((decimal)10);
+            numericUpDownIndexingPrice.Value = ((decimal)0.05);
 
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
@@ -154,7 +154,7 @@ namespace AMSExplorer
             numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
             numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
             numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
-            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPrice;
+            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin;
 
             textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
