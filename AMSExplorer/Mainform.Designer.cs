@@ -61,6 +61,7 @@
             this.checkIntegrityOfLiveArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fixSystemBitrateInManifestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetRename = new System.Windows.Forms.ToolStripMenuItem();
+            this.editAlternateIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteVisibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -502,6 +503,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.editAlternateIdToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -559,6 +561,7 @@
             this.checkIntegrityOfLiveArchiveToolStripMenuItem,
             this.fixSystemBitrateInManifestsToolStripMenuItem,
             this.ContextMenuItemAssetRename,
+            this.editAlternateIdToolStripMenuItem,
             this.ContextMenuItemAssetDelete,
             this.toolStripSeparator5,
             this.encodeToolStripMenuItem,
@@ -791,6 +794,14 @@
             this.ContextMenuItemAssetRename.Size = new System.Drawing.Size(343, 22);
             this.ContextMenuItemAssetRename.Text = "Rename...";
             this.ContextMenuItemAssetRename.Click += new System.EventHandler(this.toolStripMenuItemRename_Click);
+            // 
+            // editAlternateIdToolStripMenuItem
+            // 
+            this.editAlternateIdToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.rename;
+            this.editAlternateIdToolStripMenuItem.Name = "editAlternateIdToolStripMenuItem";
+            this.editAlternateIdToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.editAlternateIdToolStripMenuItem.Text = "Edit Alternate Id...";
+            this.editAlternateIdToolStripMenuItem.Click += new System.EventHandler(this.editAlternateIdToolStripMenuItem_Click);
             // 
             // ContextMenuItemAssetDelete
             // 
@@ -1288,6 +1299,7 @@
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
             this.fixSystemBitrateInManifestjan15FixToolStripMenuItem,
             this.renameToolStripMenuItem,
+            this.editAlternateIdToolStripMenuItem1,
             this.deleteToolStripMenuItem,
             this.createTestAssetsToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
@@ -5101,6 +5113,14 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // editAlternateIdToolStripMenuItem1
+            // 
+            this.editAlternateIdToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.rename;
+            this.editAlternateIdToolStripMenuItem1.Name = "editAlternateIdToolStripMenuItem1";
+            this.editAlternateIdToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.editAlternateIdToolStripMenuItem1.Text = "Edit Alternate Id...";
+            this.editAlternateIdToolStripMenuItem1.Click += new System.EventHandler(this.editAlternateIdToolStripMenuItem1_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5639,6 +5659,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadToLocal;
         private System.Windows.Forms.ToolStripMenuItem fixSystemBitrateInManifestjan15FixToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fixSystemBitrateInManifestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem1;
     }
 }
 

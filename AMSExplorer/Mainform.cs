@@ -1532,7 +1532,7 @@ namespace AMSExplorer
                 {
                     string value = AssetTORename.Name;
 
-                    if (Program.InputBox("Asset rename", "Enter the new name:", ref value) == DialogResult.OK)
+                    if (Program.InputBox("Asset rename", string.Format("Enter the new name for asset '{0}':", AssetTORename.Name), ref value) == DialogResult.OK)
                     {
                         try
                         {
@@ -1547,6 +1547,38 @@ namespace AMSExplorer
                         }
                         TextBoxLogWriteLine("Renamed asset '{0}'.", AssetTORename.Id);
                         dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                    }
+                }
+            }
+        }
+
+        private void DoMenuEditAssetAltId()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count > 0)
+            {
+                IAsset AssetToEditAltId = SelectedAssets.FirstOrDefault();
+
+                if (AssetToEditAltId != null)
+                {
+                    string value = AssetToEditAltId.AlternateId;
+
+                    if (Program.InputBox("Asset Alternate Id", string.Format("Enter the new alternate Id for asset '{0}':", AssetToEditAltId.Name), ref value) == DialogResult.OK)
+                    {
+                        try
+                        {
+                            AssetToEditAltId.AlternateId = value;
+                            AssetToEditAltId.Update();
+                        }
+                        catch
+                        {
+                            TextBoxLogWriteLine("There is a problem when editing the alternate Id.", true);
+                            return;
+                        }
+                        TextBoxLogWriteLine("Alternate Id for Asset Id '{0}' is now '{1}'.", AssetToEditAltId.Id, AssetToEditAltId.AlternateId);
+                        dataGridViewAssetsV.PurgeCacheAsset(AssetToEditAltId);
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
@@ -5271,6 +5303,7 @@ namespace AMSExplorer
 
             ContextMenuItemAssetDisplayInfo.Enabled =
             ContextMenuItemAssetRename.Enabled =
+            editAlternateIdToolStripMenuItem.Enabled =
             contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
@@ -5306,6 +5339,7 @@ namespace AMSExplorer
             bool singleitem = (assets.Count == 1);
             informationToolStripMenuItem.Enabled =
             renameToolStripMenuItem.Enabled =
+            editAlternateIdToolStripMenuItem1.Enabled =
             toAzureStorageToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem.Enabled = singleitem;
 
@@ -6419,6 +6453,7 @@ namespace AMSExplorer
             if (!init)
             {
                 dataGridViewAssetsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+                dataGridViewAssetsV.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
                 dataGridViewAssetsV.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
                 dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewChannelsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
@@ -12701,6 +12736,16 @@ namespace AMSExplorer
         {
             DoFixSystemBitrate();
         }
+
+        private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuEditAssetAltId();
+        }
+
+        private void editAlternateIdToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuEditAssetAltId();
+        }
     }
 }
 
@@ -13207,6 +13252,7 @@ namespace AMSExplorer
                          {
                              Name = a.Name,
                              Id = a.Id,
+                             AlternateId = a.AlternateId,
                              LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
                              Storage = a.StorageAccountName
                          };
@@ -13263,6 +13309,7 @@ namespace AMSExplorer
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            this.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
             this.Columns[_filter].DisplayIndex = lastColumn_sIndex;
@@ -13288,6 +13335,7 @@ namespace AMSExplorer
             this.Columns[_locatorexpirationdate].Width = 130;
             this.Columns["LastModified"].Width = 140;
             this.Columns["Id"].Width = 300;
+            this.Columns["AlternateId"].Width = 300;
             this.Columns["Storage"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
@@ -13319,6 +13367,7 @@ namespace AMSExplorer
                     {
                         AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.Name = asset.Name;
+                        AE.AlternateId = asset.AlternateId;
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
@@ -14033,6 +14082,7 @@ namespace AMSExplorer
                              {
                                  Name = a.Name,
                                  Id = a.Id,
+                                 AlternateId = a.AlternateId,
                                  Type = null,
                                  LastModified = a.LastModified.ToLocalTime().ToString("G"),
                                  Storage = a.StorageAccountName

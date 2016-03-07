@@ -502,5 +502,17 @@ namespace AMSExplorer.Properties {
                 this["SigniantFlightAPIKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayAssetAltIDinGrid {
+            get {
+                return ((bool)(this["DisplayAssetAltIDinGrid"]));
+            }
+            set {
+                this["DisplayAssetAltIDinGrid"] = value;
+            }
+        }
     }
 }

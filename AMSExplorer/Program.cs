@@ -3003,6 +3003,21 @@ namespace AMSExplorer
         }
         public string Id { get; set; }
 
+        public string _AlternateId;
+        public string AlternateId
+        {
+            get
+            { return _AlternateId; }
+            set
+            {
+                if (value != _AlternateId)
+                {
+                    _AlternateId = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public string _Type;
         public string Type
         {

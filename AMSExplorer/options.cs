@@ -39,6 +39,7 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
+            Properties.Settings.Default.DisplayAssetAltIDinGrid= checkBoxDisplayAssetAltId.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
             Properties.Settings.Default.DisplayIngestManifestIDinGrid = checkBoxDisplayBulkContId.Checked;
             Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
@@ -75,6 +76,7 @@ namespace AMSExplorer
         private void buttonReset_Click(object sender, EventArgs e)
         {
             checkBoxDisplayAssetID.Checked = false;
+            checkBoxDisplayAssetAltId.Checked = false;
             checkBoxDisplayAssetStorage.Checked = false;
             checkBoxDisplayBulkContId.Checked = false;
             checkBoxDisplayJobID.Checked = false;
@@ -126,6 +128,7 @@ namespace AMSExplorer
             comboBoxNbItems.SelectedIndex = indexc;
 
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
+            checkBoxDisplayAssetAltId.Checked = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;
             checkBoxDisplayBulkContId.Checked = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
             checkBoxDisplayJobID.Checked = Properties.Settings.Default.DisplayJobIDinGrid;
