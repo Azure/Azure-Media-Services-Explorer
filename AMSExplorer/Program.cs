@@ -792,6 +792,7 @@ namespace AMSExplorer
         public const string AzureMediaRedactor = "Azure Media Redactor";
         public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
         public const string AzureMediaStabilizer = "Azure Media Stabilizer";
+        public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
 
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
@@ -953,6 +954,11 @@ namespace AMSExplorer
         public const string SlateJPGExtension = ".jpg";
 
         public const string stringNull = "(null)"; // To display null is textbox
+
+
+        public const string FaceDetectionFaces = "Faces";
+        public const string FaceDetectionPerFaceEmotion = "PerFaceEmotion";
+        public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
     }
 
 
@@ -3392,6 +3398,8 @@ namespace AMSExplorer
         SelectedWorkflow,
         SelectedAssets
     }
+
+   
 
     public class WatchFolderSettings
     {

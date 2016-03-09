@@ -86,6 +86,8 @@ namespace AMSExplorer
         private bool AMRedactorPresent = true;
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
+        private bool AMVideoThumbnailsPresent = true;
+
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -261,6 +263,13 @@ namespace AMSExplorer
                 AMStabilizerPresent = false;
                 ProcessStabilizertoolStripMenuItem.Visible = false;
                 toolStripMenuItemStabilizer.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
+            {
+                AMVideoThumbnailsPresent = false;
+                ProcessVideoThumbnailstoolStripMenuItem.Visible = false;
+                toolStripMenuItemVideoThumbnails.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -1532,7 +1541,7 @@ namespace AMSExplorer
                 {
                     string value = AssetTORename.Name;
 
-                    if (Program.InputBox("Asset rename", string.Format("Enter the new name for asset '{0}':", AssetTORename.Name), ref value) == DialogResult.OK)
+                    if (Program.InputBox("Asset rename", string.Format("Enter the new name for asset '{0}' :", AssetTORename.Name), ref value) == DialogResult.OK)
                     {
                         try
                         {
@@ -1565,7 +1574,7 @@ namespace AMSExplorer
                 {
                     string value = AssetToEditAltId.AlternateId;
 
-                    if (Program.InputBox("Asset Alternate Id", string.Format("Enter the new alternate Id for asset '{0}':", AssetToEditAltId.Name), ref value) == DialogResult.OK)
+                    if (Program.InputBox("Asset Alternate Id", string.Format("Enter the new alternate Id for asset '{0}' :", AssetToEditAltId.Name), ref value) == DialogResult.OK)
                     {
                         try
                         {
@@ -4024,6 +4033,49 @@ namespace AMSExplorer
         }
 
 
+        private void DoMenuVideoAnalyticsFaceDetection(string processorStr, Image processorImage)
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected, or asset is null.");
+            }
+            else
+            {
+                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+
+                // Get the SDK extension method to  get a reference to the processor.
+                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
+
+                var form = new VideoAnalyticsFaceDetection(_context, processor, processorImage, true)
+                {
+                    MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
+                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
+                    MIInputAssetName = (SelectedAssets.Count > 1) ?
+                    string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
+                    : string.Format("Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
+                };
+
+                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
+                        SelectedAssets,
+                        form.MIJobName,
+                        form.JobOptions.Priority,
+                        taskname,
+                        form.MIOutputAssetName,
+                        new List<string> { form.JsonConfig() },
+                        form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.TasksOptionsSetting,
+                        form.JobOptions.StorageSelected);
+                }
+            }
+        }
+
+
         private void DoMenuProtectWithPlayReadyStatic()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -6286,6 +6338,11 @@ namespace AMSExplorer
                 ProcessStabilizertoolStripMenuItem.Enabled = false;
                 toolStripMenuItemStabilizer.Enabled = false;
             }
+            if (!AMVideoThumbnailsPresent)
+            {
+                ProcessVideoThumbnailstoolStripMenuItem.Enabled = false;
+                toolStripMenuItemVideoThumbnails.Enabled = false;
+            }
 
             // let's disable AME Std if not present
             if (!AMEStandardPresent)
@@ -6954,7 +7011,7 @@ namespace AMSExplorer
                     }
                     if (operation.State == OperationState.Succeeded)
                     {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}': scaled.", myO.Name);
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' : scaled.", myO.Name);
                     }
                     else
                     {
@@ -7088,7 +7145,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}': NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' : NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
                 dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
@@ -7116,17 +7173,17 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    TextBoxLogWriteLine("{0} '{1}': {2}.", objectlogname, objectname, strStatusSuccess);
+                    TextBoxLogWriteLine("{0} '{1}' : {2}.", objectlogname, objectname, strStatusSuccess);
                 }
                 else
                 {
-                    TextBoxLogWriteLine("{0} '{1}': NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("{0} '{1}' : NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("{0} '{1}': Error {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("{0} '{1}' : Error {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
@@ -7209,7 +7266,7 @@ namespace AMSExplorer
                             }
 
                             // delete programs
-                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Program '{0}': deleting...", p.Name));
+                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Program '{0}' : deleting...", p.Name));
                             var tasks = Programs.Select(p => ProgramExecuteAsync(p.DeleteAsync, p, "deleted")).ToArray();
                             bool Error = false;
                             try
@@ -7228,7 +7285,7 @@ namespace AMSExplorer
 
                             if (form.DeleteAsset && Error == false)
                             {
-                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}': deleting...", a.Name));
+                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a.Name));
                                 var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
                                 try
                                 {
@@ -7541,6 +7598,14 @@ namespace AMSExplorer
                         {
                             channel.Encoding.VideoStreams = form.VideoStreamList;
                         }
+                    }
+                    else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)
+                    {
+                        TextBoxLogWriteLine("Channel '{0}' : must be stoped to update the encoding settings", channel.Name);
+                    }
+                    else if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding == null)
+                    {
+                        TextBoxLogWriteLine("Channel '{0}' : configured as encoding channel but settings are null", channel.Name, true);
                     }
 
                     // HLS Fragment per segment
@@ -12419,7 +12484,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
+            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
@@ -12439,7 +12504,7 @@ namespace AMSExplorer
 
         private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
+            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
@@ -14959,7 +15024,7 @@ namespace AMSExplorer
                                        myform.BeginInvoke(new Action(() =>
                                        {
                                            myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
-                                           myform.TextBoxLogWriteLine(string.Format("Job '{0}': {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
+                                           myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
                                            if (JobRefreshed.State == JobState.Error)
                                            {
                                                foreach (var task in JobRefreshed.Tasks)
