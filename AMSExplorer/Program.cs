@@ -959,6 +959,10 @@ namespace AMSExplorer
         public const string FaceDetectionFaces = "Faces";
         public const string FaceDetectionPerFaceEmotion = "PerFaceEmotion";
         public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
+
+        public const string VideoThumbnailsOutputVideo = "video";
+        public const string VideoThumbnailsOutputImage = "image";
+        public const string VideoThumbnailsOutputBoth = "both";
     }
 
 

@@ -4075,6 +4075,48 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuVideoAnalyticsVideoThumbnails(string processorStr, Image processorImage)
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected, or asset is null.");
+            }
+            else
+            {
+                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+
+                // Get the SDK extension method to  get a reference to the processor.
+                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
+
+                var form = new VideoAnalyticsVideoThumbnails(_context, processor, processorImage, true)
+                {
+                    MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
+                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
+                    MIInputAssetName = (SelectedAssets.Count > 1) ?
+                    string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
+                    : string.Format("Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
+                };
+
+                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
+                        SelectedAssets,
+                        form.MIJobName,
+                        form.JobOptions.Priority,
+                        taskname,
+                        form.MIOutputAssetName,
+                        new List<string> { form.JsonConfig() },
+                        form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.TasksOptionsSetting,
+                        form.JobOptions.StorageSelected);
+                }
+            }
+        }
+
 
         private void DoMenuProtectWithPlayReadyStatic()
         {
@@ -12810,6 +12852,16 @@ namespace AMSExplorer
         private void editAlternateIdToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoMenuEditAssetAltId();
+        }
+
+        private void toolStripMenuItemVideoThumbnails_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
+        }
+
+        private void ProcessVideoThumbnailstoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
         }
     }
 }

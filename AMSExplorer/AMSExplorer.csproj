@@ -232,6 +232,12 @@
     <Compile Include="BulkContainerInfo.Designer.cs">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideoAnalyticsVideoThumbnails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoAnalyticsVideoThumbnails.Designer.cs">
+      <DependentUpon>VideoAnalyticsVideoThumbnails.cs</DependentUpon>
+    </Compile>
     <Compile Include="VideoAnalyticsFaceDetection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -715,6 +721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BulkContainerInfo.resx">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoAnalyticsVideoThumbnails.resx">
+      <DependentUpon>VideoAnalyticsVideoThumbnails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VideoAnalyticsFaceDetection.resx">
       <DependentUpon>VideoAnalyticsFaceDetection.cs</DependentUpon>
