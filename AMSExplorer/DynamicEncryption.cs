@@ -59,9 +59,6 @@ namespace AMSExplorer
     class DynamicEncryption
     {
 
-
-
-
         /// <summary>
         /// Configures authorization policy. 
         /// Creates a content key. 
@@ -402,7 +399,6 @@ namespace AMSExplorer
 
         public static TokenResult GetTestToken(IAsset MyAsset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
         {
-
             TokenResult MyResult = new TokenResult();
 
             /// WITH UI
@@ -784,6 +780,5 @@ namespace AMSExplorer
                 destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
             }
         }
-
     }
 }

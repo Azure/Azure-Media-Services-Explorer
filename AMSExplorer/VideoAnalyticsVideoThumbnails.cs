@@ -167,6 +167,7 @@ namespace AMSExplorer
         {
             panelVideoSettings.Enabled = checkBoxOutputVideo.Checked;
             panelImageSettings.Enabled = checkBoxOutputImage.Checked;
+            buttonOk.Enabled = checkBoxOutputVideo.Checked || checkBoxOutputImage.Checked;
         }
     }
 }

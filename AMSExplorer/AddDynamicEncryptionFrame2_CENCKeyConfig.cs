@@ -138,6 +138,7 @@ namespace AMSExplorer
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
         {
             //textBoxLAurl.Text = _PlayReadyTestLAURL;
+            radioButtonKeySeedBase64.Checked = true;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
             textBoxcontentkey.Text = string.Empty;
         }
