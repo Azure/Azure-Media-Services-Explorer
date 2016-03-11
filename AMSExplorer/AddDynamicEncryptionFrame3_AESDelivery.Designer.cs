@@ -40,6 +40,7 @@
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
@@ -92,6 +93,7 @@
             // 
             // groupBoxAuthPol
             // 
+            this.groupBoxAuthPol.Controls.Add(this.label3);
             this.groupBoxAuthPol.Controls.Add(this.labelkeylaurl);
             this.groupBoxAuthPol.Controls.Add(this.textBoxLAURL);
             this.groupBoxAuthPol.Controls.Add(this.label8);
@@ -102,7 +104,7 @@
             this.groupBoxAuthPol.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxAuthPol.Location = new System.Drawing.Point(14, 96);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 197);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 217);
             this.groupBoxAuthPol.TabIndex = 52;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Key Delivery From Azure Media Services";
@@ -198,6 +200,18 @@
             this.radioButtonNoAuthPolicy.Text = "No - An external key server is used to deliver the keys";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Location = new System.Drawing.Point(60, 172);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(550, 34);
+            this.label3.TabIndex = 76;
+            this.label3.Text = "Do not specify the key Id in the URL. The Dynamic Encryption service will automat" +
+    "ically add the correct key Id to the url when it generates the Envelope encrypte" +
+    "d content manifest";
+            // 
             // AddDynamicEncryptionFrame3_AESDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -237,5 +251,6 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label labelkeylaurl;
         public System.Windows.Forms.TextBox textBoxLAURL;
+        private System.Windows.Forms.Label label3;
     }
 }

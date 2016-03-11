@@ -183,7 +183,6 @@ namespace AMSExplorer
                         join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
                         select new { keyname = key.Name, keytype = key.ContentKeyType, keyid = key.Id, aupolid = autpol.Id };
 
-
             listViewAutOptions.BeginUpdate();
             listViewAutOptions.Items.Clear();
             foreach (var key in query)
@@ -214,7 +213,6 @@ namespace AMSExplorer
                             else if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                             {
                                 item.SubItems.Add("OpenID");
-
                             }
                         }
                         listViewAutOptions.Items.Add(item);
@@ -230,9 +228,6 @@ namespace AMSExplorer
 
             listViewAutOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAutOptions.EndUpdate();
-
-
-
         }
 
 

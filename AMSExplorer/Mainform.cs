@@ -10756,7 +10756,6 @@ namespace AMSExplorer
 
         private void DoGetTestToken()
         {
-
             bool Error = true;
             IAsset MyAsset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
             if (MyAsset != null)

@@ -837,6 +837,8 @@ namespace AMSExplorer
         public const string PlayerAMPinOptions = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
         public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
+        //public const string PlayerAMPToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer.html?url={0}";
+
         public const string PlayerAMPIFrameToLaunch = @"http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
         public const string AMPtokensyntax = "&token={0}";
@@ -2404,11 +2406,15 @@ namespace AMSExplorer
                         break;
 
                     case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl) && policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl))
+                        if (
+                            policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl)
+                            &&
+                            (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
+                            )
                         {
                             type = AssetProtectionType.PlayReadyAndWidevine;
                         }
-                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl))
+                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
                         {
                             type = AssetProtectionType.Widevine;
                         }
@@ -2717,6 +2723,7 @@ namespace AMSExplorer
                                         if (!string.IsNullOrEmpty(tokenresult.TokenString))
                                         {
                                             tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                            //tokenresult.TokenString = Constants.Bearer + tokenresult.TokenString;
                                         }
                                         break;
                                 }
@@ -2736,44 +2743,64 @@ namespace AMSExplorer
                 {
                     case PlayerType.AzureMediaPlayer:
                     case PlayerType.AzureMediaPlayerFrame:
-                        string playerurl = typeplayer == PlayerType.AzureMediaPlayer ?
-                            Constants.PlayerAMPToLaunch
-                            : Constants.PlayerAMPIFrameToLaunch;
+                        /*
+                         string playerurl = typeplayer == PlayerType.AzureMediaPlayer ?
+                             Constants.PlayerAMPToLaunch
+                             : Constants.PlayerAMPIFrameToLaunch;
+                            */
+                        string playerurl = "";
 
                         if (keytype != AssetProtectionType.None)
                         {
                             bool insertoken = !string.IsNullOrEmpty(tokenresult.TokenString);
-                            switch (tokenresult.ContentKeyDeliveryType)// (keytype)
+
+                            if (insertoken)  // token. Let's analyse the token to find the drm technology used
                             {
-                                case ContentKeyDeliveryType.BaselineHttp:// AssetProtectionType.AES:
-                                    playerurl += string.Format(Constants.AMPAes, true.ToString());
-                                    if (insertoken) playerurl += string.Format(Constants.AMPAesToken, tokenresult.TokenString);
-                                    break;
-
-                                case ContentKeyDeliveryType.PlayReadyLicense:// AssetProtectionType.PlayReady:
-                                    playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
-                                    if (insertoken) playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString);
-                                    break;
-
-                                case ContentKeyDeliveryType.Widevine:// AssetProtectionType.Widevine:
-                                    playerurl += string.Format(Constants.AMPWidevine, true.ToString());
-                                    if (insertoken) playerurl += string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
-                                    break;
-
-                                /*
-                            case AssetProtectionType.PlayReadyAndWidevine:
-                                playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
-                                playerurl += string.Format(Constants.AMPWidevine, true.ToString());
-                                if (insertoken)
+                                switch (tokenresult.ContentKeyDeliveryType)
                                 {
-                                    playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString)
-                                                 + string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
-                                }
-                                break;
-                                */
+                                    case ContentKeyDeliveryType.BaselineHttp:
+                                        playerurl += string.Format(Constants.AMPAes, true.ToString());
+                                        playerurl += string.Format(Constants.AMPAesToken, tokenresult.TokenString);
+                                        break;
 
-                                default:
-                                    break;
+                                    case ContentKeyDeliveryType.PlayReadyLicense:
+                                        playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                        playerurl += string.Format(Constants.AMPPlayReadyToken, tokenresult.TokenString);
+                                        break;
+
+                                    case ContentKeyDeliveryType.Widevine:
+                                        playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                        playerurl += string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                            else // No token. Open mode. Let's look to the key to know the drm technology
+                            {
+                                switch (keytype)
+                                {
+                                    case AssetProtectionType.AES:
+                                        playerurl += string.Format(Constants.AMPAes, true.ToString());
+                                        break;
+
+                                    case AssetProtectionType.PlayReady:
+                                        playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                        break;
+
+                                    case AssetProtectionType.Widevine:
+                                        playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                        break;
+
+                                    case AssetProtectionType.PlayReadyAndWidevine:
+                                        playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
+                                        playerurl += string.Format(Constants.AMPWidevine, true.ToString());
+                                        break;
+
+                                    default:
+                                        break;
+                                }
                             }
                         }
 
@@ -2837,8 +2864,14 @@ namespace AMSExplorer
                             }
                         }
 
-                        FullPlayBackLink = string.Format(playerurl, HttpUtility.UrlEncode(Urlstr));
+                        //FullPlayBackLink = string.Format(playerurl, HttpUtility.UrlEncode(Urlstr));
+                        //FullPlayBackLink = HttpUtility.UrlEncode(string.Format(playerurl, Urlstr));
 
+                        string playerurlbase = typeplayer == PlayerType.AzureMediaPlayer ?
+                                                Constants.PlayerAMPToLaunch
+                                              : Constants.PlayerAMPIFrameToLaunch;
+
+                        FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(Urlstr)) + playerurl;
                         break;
 
                     case PlayerType.SilverlightMonitoring:
@@ -3403,7 +3436,7 @@ namespace AMSExplorer
         SelectedAssets
     }
 
-   
+
 
     public class WatchFolderSettings
     {

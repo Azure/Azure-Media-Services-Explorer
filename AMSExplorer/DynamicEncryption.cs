@@ -529,9 +529,17 @@ namespace AMSExplorer
         {
             // if user does not specify a custom LA URL, let's use the AES key server from Azure Media Services
             if (keyAcquisitionUri == null)
+            {
                 keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
+            }
 
-            string envelopeEncryptionIV = Convert.ToBase64String(GetRandomBuffer(16));
+            // let's key the url with the key id parameter
+            UriBuilder uriBuilder = new UriBuilder(keyAcquisitionUri);
+            uriBuilder.Query = String.Empty;
+            keyAcquisitionUri = uriBuilder.Uri;
+
+            // Removed in March 2016. In order to use EnvelopeBaseKeyAcquisitionUrl and reuse the same policy for several assets
+            //string envelopeEncryptionIV = Convert.ToBase64String(GetRandomBuffer(16));
 
             // The following policy configuration specifies: 
             //   key url that will have KID=<Guid> appended to the envelope and
@@ -539,8 +547,9 @@ namespace AMSExplorer
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
                 new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
             {
-                {AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString()},
-                {AssetDeliveryPolicyConfigurationKey.EnvelopeEncryptionIVAsBase64, envelopeEncryptionIV}
+                {AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString()}
+                //{AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString()},
+                //{AssetDeliveryPolicyConfigurationKey.EnvelopeEncryptionIVAsBase64, envelopeEncryptionIV}
             };
 
             IAssetDeliveryPolicy assetDeliveryPolicy =
@@ -607,7 +616,12 @@ namespace AMSExplorer
                 {
                     widevineAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine).ToString();
                 }
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, widevineAcquisitionUrl);
+                // let's get the url without the key id parameter
+                UriBuilder uriBuilder = new UriBuilder(widevineAcquisitionUrl);
+                uriBuilder.Query = String.Empty;
+                widevineAcquisitionUrl = uriBuilder.Uri.ToString();
+
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
             // let's check the protocol: DASH only if only Widevine packaging
