@@ -2648,11 +2648,13 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    if (
+                    if (true)
+                        /*
                         (myasset != null && UISelectSEFiltersAndProtocols)
                         &&
                         (context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
+                        */
                     {
                         var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)

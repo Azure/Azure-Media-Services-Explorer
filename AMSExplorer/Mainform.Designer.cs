@@ -148,6 +148,9 @@
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createTestAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testQueryAllAssetFilesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.testQueryAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1312,7 +1315,8 @@
             this.renameToolStripMenuItem,
             this.editAlternateIdToolStripMenuItem1,
             this.deleteToolStripMenuItem,
-            this.createTestAssetsToolStripMenuItem});
+            this.createTestAssetsToolStripMenuItem,
+            this.advancedToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             this.assetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.assetToolStripMenuItem.Text = "Asset";
@@ -1578,6 +1582,29 @@
             this.createTestAssetsToolStripMenuItem.Text = "CreateTestAssets";
             this.createTestAssetsToolStripMenuItem.Visible = false;
             this.createTestAssetsToolStripMenuItem.Click += new System.EventHandler(this.createTestAssetsToolStripMenuItem_Click);
+            // 
+            // advancedToolStripMenuItem
+            // 
+            this.advancedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testQueryAllAssetFilesToolStripMenuItem1,
+            this.testQueryAllFilesToolStripMenuItem});
+            this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
+            this.advancedToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.advancedToolStripMenuItem.Text = "Advanced";
+            // 
+            // testQueryAllAssetFilesToolStripMenuItem1
+            // 
+            this.testQueryAllAssetFilesToolStripMenuItem1.Name = "testQueryAllAssetFilesToolStripMenuItem1";
+            this.testQueryAllAssetFilesToolStripMenuItem1.Size = new System.Drawing.Size(189, 22);
+            this.testQueryAllAssetFilesToolStripMenuItem1.Text = "Test: query all assets...";
+            this.testQueryAllAssetFilesToolStripMenuItem1.Click += new System.EventHandler(this.testQueryAllAssetFilesToolStripMenuItem1_Click);
+            // 
+            // testQueryAllFilesToolStripMenuItem
+            // 
+            this.testQueryAllFilesToolStripMenuItem.Name = "testQueryAllFilesToolStripMenuItem";
+            this.testQueryAllFilesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.testQueryAllFilesToolStripMenuItem.Text = "Test: query all files...";
+            this.testQueryAllFilesToolStripMenuItem.Click += new System.EventHandler(this.testQueryAllFilesToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -5683,6 +5710,9 @@
         private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemStabilizer;
         private System.Windows.Forms.ToolStripMenuItem ProcessStabilizertoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testQueryAllAssetFilesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem testQueryAllFilesToolStripMenuItem;
     }
 }
 
