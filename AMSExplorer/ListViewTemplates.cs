@@ -230,12 +230,13 @@ namespace AMSExplorer
 
             // Server side request
             var query = _context.Files.Where(f => (
-                                            f.Name.EndsWith(".xenio") // upercase/lowercase ignored
+                                     /*       f.Name.EndsWith(".xenio") // upercase/lowercase ignored
                                             || f.Name.EndsWith(".kayak")
                                             || f.Name.EndsWith(".workflow")
                                             || f.Name.EndsWith(".blueprint")
                                             || f.Name.EndsWith(".graph")
-                                            || f.Name.EndsWith(".zenium")
+                                            || f.Name.EndsWith(".zenium") */
+                                            f.Name.EndsWith(".workflow")
                                             )).ToArray();
 
             foreach (IAssetFile file in query)

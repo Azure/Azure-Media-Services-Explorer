@@ -1588,9 +1588,11 @@
             this.advancedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testQueryAllAssetFilesToolStripMenuItem1,
             this.testQueryAllFilesToolStripMenuItem});
+            this.advancedToolStripMenuItem.Enabled = false;
             this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
             this.advancedToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.advancedToolStripMenuItem.Text = "Advanced";
+            this.advancedToolStripMenuItem.Visible = false;
             // 
             // testQueryAllAssetFilesToolStripMenuItem1
             // 
