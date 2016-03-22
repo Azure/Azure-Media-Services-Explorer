@@ -176,7 +176,6 @@ namespace AMSExplorer
                 default:
                     return null;
             }
-
         }
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
@@ -194,7 +193,7 @@ namespace AMSExplorer
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
                                Encoding = ReturnChannelBitmap(c),
-                               EncodingPreset = c.EncodingType != ChannelEncodingType.None ? c.Encoding.SystemPreset : string.Empty,
+                               EncodingPreset = (c.EncodingType != ChannelEncodingType.None && c.Encoding != null) ? c.Encoding.SystemPreset : string.Empty,
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
@@ -215,8 +214,8 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol);
 
-            SortableBindingList<ChannelEntry> MyObservJobInPage = new SortableBindingList<ChannelEntry>(channelquery.Take(0).ToList());
-            this.DataSource = MyObservJobInPage;
+            SortableBindingList<ChannelEntry> MyObservChannelsInPage = new SortableBindingList<ChannelEntry>(channelquery.Take(0).ToList());
+            this.DataSource = MyObservChannelsInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
             this.Columns["InputUrl"].Width = 140;
@@ -464,7 +463,7 @@ namespace AMSExplorer
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
-                           EncodingPreset = c.EncodingType != ChannelEncodingType.None ? c.Encoding.SystemPreset : string.Empty,
+                           EncodingPreset = (c.EncodingType != ChannelEncodingType.None && c.Encoding != null) ? c.Encoding.SystemPreset : string.Empty,
                            InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                            PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                            State = c.State,

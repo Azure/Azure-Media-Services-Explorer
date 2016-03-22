@@ -305,8 +305,8 @@ namespace AMSExplorer
 
         private void GenerateSymKey()
         {
+            radioButtonContentKeyBase64.Checked = true;
             textBoxSymKey.Text = Convert.ToBase64String(new SymmetricVerificationKey().KeyValue);
-
         }
 
         private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)

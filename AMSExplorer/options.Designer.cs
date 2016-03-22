@@ -40,6 +40,8 @@
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDisplayAssetAltId = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
@@ -82,7 +84,6 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -215,6 +216,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayBulkContId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
@@ -233,6 +235,28 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grids Display";
+            // 
+            // checkBoxDisplayAssetAltId
+            // 
+            this.checkBoxDisplayAssetAltId.AutoSize = true;
+            this.checkBoxDisplayAssetAltId.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisplayAssetAltId.Location = new System.Drawing.Point(196, 59);
+            this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
+            this.checkBoxDisplayAssetAltId.Size = new System.Drawing.Size(118, 19);
+            this.checkBoxDisplayAssetAltId.TabIndex = 24;
+            this.checkBoxDisplayAssetAltId.Text = "Asset Alternate Id";
+            this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisplayBulkContId
+            // 
+            this.checkBoxDisplayBulkContId.AutoSize = true;
+            this.checkBoxDisplayBulkContId.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisplayBulkContId.Location = new System.Drawing.Point(49, 109);
+            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
+            this.checkBoxDisplayBulkContId.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxDisplayBulkContId.TabIndex = 23;
+            this.checkBoxDisplayBulkContId.Text = "Bulk Container Id";
+            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
             // 
@@ -565,7 +589,7 @@
             this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownIndexingPrice.TabIndex = 59;
             this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            1000,
+            5,
             0,
             0,
             131072});
@@ -576,9 +600,9 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label6.Location = new System.Drawing.Point(45, 158);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 15);
+            this.label6.Size = new System.Drawing.Size(187, 15);
             this.label6.TabIndex = 58;
-            this.label6.Text = "Content indexer price per content hour :";
+            this.label6.Text = "Content indexer price per minute :";
             // 
             // textBoxCurrency
             // 
@@ -761,17 +785,6 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
-            // checkBoxDisplayBulkContId
-            // 
-            this.checkBoxDisplayBulkContId.AutoSize = true;
-            this.checkBoxDisplayBulkContId.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayBulkContId.Location = new System.Drawing.Point(49, 109);
-            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
-            this.checkBoxDisplayBulkContId.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxDisplayBulkContId.TabIndex = 23;
-            this.checkBoxDisplayBulkContId.Text = "Bulk Container Id";
-            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
-            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -871,5 +884,6 @@
         private System.Windows.Forms.TextBox textBoxffmpegPath;
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
+        private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
     }
 }

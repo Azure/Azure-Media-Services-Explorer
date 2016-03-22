@@ -313,18 +313,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public decimal IndexingPrice {
-            get {
-                return ((decimal)(this["IndexingPrice"]));
-            }
-            set {
-                this["IndexingPrice"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("$")]
         public string Currency {
             get {
@@ -500,6 +488,30 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["SigniantFlightAPIKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayAssetAltIDinGrid {
+            get {
+                return ((bool)(this["DisplayAssetAltIDinGrid"]));
+            }
+            set {
+                this["DisplayAssetAltIDinGrid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
+        public decimal IndexingPricePerMin {
+            get {
+                return ((decimal)(this["IndexingPricePerMin"]));
+            }
+            set {
+                this["IndexingPricePerMin"] = value;
             }
         }
     }

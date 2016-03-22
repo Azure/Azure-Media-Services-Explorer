@@ -39,6 +39,7 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
+            Properties.Settings.Default.DisplayAssetAltIDinGrid= checkBoxDisplayAssetAltId.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
             Properties.Settings.Default.DisplayIngestManifestIDinGrid = checkBoxDisplayBulkContId.Checked;
             Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
@@ -62,7 +63,7 @@ namespace AMSExplorer
             Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
             Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
-            Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
+            Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
 
             Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
@@ -75,6 +76,7 @@ namespace AMSExplorer
         private void buttonReset_Click(object sender, EventArgs e)
         {
             checkBoxDisplayAssetID.Checked = false;
+            checkBoxDisplayAssetAltId.Checked = false;
             checkBoxDisplayAssetStorage.Checked = false;
             checkBoxDisplayBulkContId.Checked = false;
             checkBoxDisplayJobID.Checked = false;
@@ -102,7 +104,7 @@ namespace AMSExplorer
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
             numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
-            numericUpDownIndexingPrice.Value = ((decimal)10);
+            numericUpDownIndexingPrice.Value = ((decimal)0.05);
 
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
@@ -126,6 +128,7 @@ namespace AMSExplorer
             comboBoxNbItems.SelectedIndex = indexc;
 
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
+            checkBoxDisplayAssetAltId.Checked = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;
             checkBoxDisplayBulkContId.Checked = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
             checkBoxDisplayJobID.Checked = Properties.Settings.Default.DisplayJobIDinGrid;
@@ -151,7 +154,7 @@ namespace AMSExplorer
             numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
             numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
             numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
-            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPrice;
+            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin;
 
             textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
