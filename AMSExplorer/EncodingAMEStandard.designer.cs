@@ -1588,6 +1588,7 @@
             this.groupBoxFade.Controls.Add(this.label35);
             this.groupBoxFade.Controls.Add(this.textBoxVOverlayFadeOutDuration);
             this.groupBoxFade.Controls.Add(this.label37);
+            this.groupBoxFade.Enabled = false;
             this.groupBoxFade.Location = new System.Drawing.Point(35, 188);
             this.groupBoxFade.Name = "groupBoxFade";
             this.groupBoxFade.Size = new System.Drawing.Size(661, 122);

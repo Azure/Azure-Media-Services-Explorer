@@ -87,7 +87,7 @@ namespace AMSExplorer
             this.labelStorageAccount.Name = "labelStorageAccount";
             this.labelStorageAccount.Size = new System.Drawing.Size(431, 23);
             this.labelStorageAccount.TabIndex = 74;
-            this.labelStorageAccount.Text = "Select a file";
+            this.labelStorageAccount.Text = "Select a file in the source asset";
             // 
             // listViewFiles
             // 
