@@ -49,7 +49,6 @@ namespace AMSExplorer
         private const string strStitch = "Stitch";
         private const string strAudiooverlay = "Audio overlay";
         private const string strVisualoverlay = "Visual overlay";
-        private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
 
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
@@ -191,13 +190,18 @@ namespace AMSExplorer
                 timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode - _subclipConfig.OffsetForReencode);
                 timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
                 timeControlStartTime.ScaledFirstTimestampOffset = timeControlEndTime.ScaledFirstTimestampOffset = (ulong)_subclipConfig.OffsetForReencode.Ticks;
-                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode- _subclipConfig.OffsetForReencode);
+                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode - _subclipConfig.OffsetForReencode);
 
                 // let's display the offset
                 labelOffset.Visible = textBoxOffset.Visible = true;
                 textBoxOffset.Text = _subclipConfig.OffsetForReencode.ToString();
 
                 checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
+            }
+
+            if (_nbInputAssets > 1)
+            {
+                tabControl1.TabPages.Remove(tabPageOverlay); // no overlay if several assets have been selected
             }
         }
 
@@ -342,10 +346,10 @@ namespace AMSExplorer
                         dynamic time = new JObject();
                         if (checkBoxSourceTrimmingStart.Checked)
                         {
-                        time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                            time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                             if (checkBoxSourceTrimmingEnd.Checked)
                             {
-                        time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                                time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                             }
                         }
                         else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
@@ -356,49 +360,48 @@ namespace AMSExplorer
                     }
 
                     // Overlay
-                    if (bVisualOverlay)
+                    if (checkBoxOverlay.Checked)
                     {
                         /*
                         "Sources": [
-    {
-      "Streams": [],
-      "Filters": {
-        "VideoOverlay": {
-          "Position": {
-            "X": 0,
-            "Y": 0,
-            "Width": 100,
-            "Height": 100
-          },
-          "AudioGainLevel": 0.0,
-          "MediaParams": [
-            {
-              "OverlayLoopCount": 1
-            },
-            {
-              "IsOverlay": true,
-              "OverlayLoopCount": 1,
-              "InputLoop": true
-            }
-          ],
-          "Source": "OverlayImage.png",
-          "Clip": {
-            "Duration": "00:00:05"
-          },
-          "FadeInDuration": {
-            "StartTime": "00:00:00",
-            "Duration": "00:00:01"
-          },
-          "FadeOutDuration": {
-            "StartTime": "00:00:03",
-            "Duration": "00:00:04"
-          }
-        }
-      },
-      "Pad": true
-    }
-  ],
-
+                            {
+                              "Streams": [],
+                              "Filters": {
+                                "VideoOverlay": {
+                                  "Position": {
+                                    "X": 0,
+                                    "Y": 0,
+                                    "Width": 100,
+                                    "Height": 100
+                                  },
+                                  "AudioGainLevel": 0.0,
+                                  "MediaParams": [
+                                    {
+                                      "OverlayLoopCount": 1
+                                    },
+                                    {
+                                      "IsOverlay": true,
+                                      "OverlayLoopCount": 1,
+                                      "InputLoop": true
+                                    }
+                                  ],
+                                  "Source": "OverlayImage.png",
+                                  "Clip": {
+                                    "Duration": "00:00:05"
+                                  },
+                                  "FadeInDuration": {
+                                    "StartTime": "00:00:00",
+                                    "Duration": "00:00:01"
+                                  },
+                                  "FadeOutDuration": {
+                                    "StartTime": "00:00:03",
+                                    "Duration": "00:00:04"
+                                  }
+                                }
+                              },
+                              "Pad": true
+                            }
+                          ],
     */
 
                         if (obj.Sources == null)
@@ -411,7 +414,7 @@ namespace AMSExplorer
 
                         Source.Streams = new JArray() as dynamic;
 
-                        
+
                         dynamic VideoOverlayEntry = new JObject();
                         Source.Filters = VideoOverlayEntry;
 
@@ -438,7 +441,7 @@ namespace AMSExplorer
 
                         OverlayParamVideo.IsOverlay = false;
                         OverlayParamVideo.OverlayLoopCount = 1;
-                                                
+
                         dynamic OverlayParamImage = new JObject();
                         MediaParams.Add(OverlayParamImage);
 
@@ -452,7 +455,6 @@ namespace AMSExplorer
                         {
                             OverlayParamImage.OverlayLoopCount = 1;
                         }
-                      
 
 
                         VideoOverlay.Source = textBoxOverlayFileName.Text;
@@ -471,13 +473,13 @@ namespace AMSExplorer
 
                             FadeInDuration.StartTime = textBoxVOverlayFadeInStartTime.Text;
                             FadeInDuration.Duration = textBoxVOverlayFadeInDuration.Text;
-                            
+
                             dynamic FadeOutDuration = new JObject();
                             VideoOverlay.FadeOutDuration = FadeOutDuration;
 
                             FadeOutDuration.StartTime = textBoxVOverlayFadeOutStartTime.Text;
                             FadeOutDuration.Duration = textBoxVOverlayFadeOutDuration.Text;
-                            
+
                             OverlayParamImage.InputLoop = true; // needed for fade in out
                         }
                     }
@@ -826,8 +828,8 @@ namespace AMSExplorer
             {
                 if (checkBoxSourceTrimmingEnd.Checked)
                 {
-            textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
-        }
+                    textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
+                }
                 else
                 {
                     textBoxSourceDurationTime.Text = string.Empty;
@@ -1000,7 +1002,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 textBoxOverlayFileName.Text = form.SelectedAssetFile.Name;
-                bVisualOverlay = true;
+                CheckOverlayFile();
                 UpdateTextBoxJSON(textBoxConfiguration.Text);
             }
         }
@@ -1011,7 +1013,25 @@ namespace AMSExplorer
              checkBoxSourceTrimmingEnd.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
-    
+
+        private void checkBoxOverlay_CheckedChanged(object sender, EventArgs e)
+        {
+            panelOverlay.Enabled = checkBoxOverlay.Checked;
+            CheckOverlayFile();
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void CheckOverlayFile()
+        {
+            if (string.IsNullOrWhiteSpace(textBoxOverlayFileName.Text) && checkBoxOverlay.Checked)
+            {
+                errorProvider1.SetError(textBoxOverlayFileName, "Select a file in the source asset");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxOverlayFileName, String.Empty);
+            }
+        }
     }
 
     enum TypeConfig

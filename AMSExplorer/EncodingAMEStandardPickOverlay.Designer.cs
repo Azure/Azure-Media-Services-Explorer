@@ -121,9 +121,9 @@ namespace AMSExplorer
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(94, 247);
+            this.progressBarUpload.Location = new System.Drawing.Point(187, 247);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(360, 27);
+            this.progressBarUpload.Size = new System.Drawing.Size(267, 27);
             this.progressBarUpload.TabIndex = 77;
             this.progressBarUpload.Visible = false;
             // 
@@ -132,9 +132,9 @@ namespace AMSExplorer
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpload.Location = new System.Drawing.Point(19, 247);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(69, 27);
+            this.buttonUpload.Size = new System.Drawing.Size(162, 27);
             this.buttonUpload.TabIndex = 76;
-            this.buttonUpload.Text = "Upload";
+            this.buttonUpload.Text = "Upload a file to the asset";
             this.buttonUpload.UseVisualStyleBackColor = true;
             this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
             // 

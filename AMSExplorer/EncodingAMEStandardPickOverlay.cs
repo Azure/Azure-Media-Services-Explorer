@@ -100,6 +100,8 @@ namespace AMSExplorer
         {
             OpenFileDialog Dialog = new OpenFileDialog();
             Dialog.Multiselect = true;
+            Dialog.Filter = "Image Files|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+          
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
                 progressBarUpload.Maximum = 100 * Dialog.FileNames.Count();
