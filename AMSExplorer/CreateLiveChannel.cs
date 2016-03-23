@@ -315,12 +315,15 @@ namespace AMSExplorer
                 moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
 
                 // let's display the encoding tab if encoding has been choosen
-                if ((EncodingType == ChannelEncodingType.None) && EncodingTabDisplayed)
+                if (EncodingType == ChannelEncodingType.None) 
                 {
-                    tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
-                    tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
-                    tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
-                    EncodingTabDisplayed = false;
+                    if (EncodingTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+                        tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
+                        tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
+                        EncodingTabDisplayed = false;
+                    }
                     FillComboProtocols(false);
                 }
                 else
