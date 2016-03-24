@@ -207,6 +207,12 @@
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
+    <Compile Include="EncodingAMEStandardPickOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncodingAMEStandardPickOverlay.Designer.cs">
+      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimeRangeSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BulkUpload.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
+      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeRangeSelection.resx">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>

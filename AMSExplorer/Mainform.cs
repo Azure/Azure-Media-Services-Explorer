@@ -7098,7 +7098,7 @@ namespace AMSExplorer
                 var state = program.State;
                 while (!STask.IsCompleted)
                 {
-                    // refersh the program
+                    // refresh the program
                     IProgram programR = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
                     if (programR != null && state != programR.State)
                     {
