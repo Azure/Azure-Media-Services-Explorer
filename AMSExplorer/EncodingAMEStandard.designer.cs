@@ -175,6 +175,9 @@
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panelFade = new System.Windows.Forms.Panel();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
@@ -206,6 +209,7 @@
             this.groupBoxFade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelFade.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -357,7 +361,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 142);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 140);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -1506,19 +1510,20 @@
             this.panelOverlay.Controls.Add(this.groupBoxFade);
             this.panelOverlay.Controls.Add(this.label51);
             this.panelOverlay.Controls.Add(this.checkBoxOverlayDuration);
-            this.panelOverlay.Controls.Add(this.checkBoxOverlayFade);
             this.panelOverlay.Controls.Add(this.numericUpDownOverlayLoop);
-            this.panelOverlay.Controls.Add(this.textBoxOverlayDuration);
             this.panelOverlay.Controls.Add(this.checkBoxOverlayLoop);
+            this.panelOverlay.Controls.Add(this.textBoxOverlayDuration);
             this.panelOverlay.Controls.Add(this.label49);
             this.panelOverlay.Enabled = false;
             this.panelOverlay.Location = new System.Drawing.Point(16, 35);
             this.panelOverlay.Name = "panelOverlay";
-            this.panelOverlay.Size = new System.Drawing.Size(712, 343);
+            this.panelOverlay.Size = new System.Drawing.Size(712, 323);
             this.panelOverlay.TabIndex = 115;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label37);
+            this.groupBox2.Controls.Add(this.label35);
             this.groupBox2.Controls.Add(this.numericUpDownVOverlayRectY);
             this.groupBox2.Controls.Add(this.label43);
             this.groupBox2.Controls.Add(this.numericUpDownVOverlayRectX);
@@ -1528,15 +1533,17 @@
             this.groupBox2.Controls.Add(this.numericUpDownVOverlayRectH);
             this.groupBox2.Controls.Add(this.numericUpDownVOverlayRectW);
             this.groupBox2.Controls.Add(this.checkBoxOverlayResize);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(16, 48);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(661, 84);
             this.groupBox2.TabIndex = 104;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Overlay position (pixels in source video)";
+            this.groupBox2.Text = "Overlay position";
             // 
             // numericUpDownVOverlayRectY
             // 
+            this.numericUpDownVOverlayRectY.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownVOverlayRectY.Location = new System.Drawing.Point(112, 43);
             this.numericUpDownVOverlayRectY.Maximum = new decimal(new int[] {
             10000,
@@ -1556,6 +1563,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label43.Location = new System.Drawing.Point(109, 25);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(20, 15);
@@ -1564,6 +1572,7 @@
             // 
             // numericUpDownVOverlayRectX
             // 
+            this.numericUpDownVOverlayRectX.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownVOverlayRectX.Location = new System.Drawing.Point(13, 43);
             this.numericUpDownVOverlayRectX.Maximum = new decimal(new int[] {
             10000,
@@ -1583,6 +1592,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label44.Location = new System.Drawing.Point(10, 25);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(20, 15);
@@ -1592,6 +1602,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label40.Location = new System.Drawing.Point(349, 25);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(45, 15);
@@ -1601,6 +1612,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label41.Location = new System.Drawing.Point(448, 25);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(49, 15);
@@ -1611,6 +1623,7 @@
             // numericUpDownVOverlayRectH
             // 
             this.numericUpDownVOverlayRectH.Enabled = false;
+            this.numericUpDownVOverlayRectH.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownVOverlayRectH.Location = new System.Drawing.Point(451, 42);
             this.numericUpDownVOverlayRectH.Maximum = new decimal(new int[] {
             10000,
@@ -1630,6 +1643,7 @@
             // numericUpDownVOverlayRectW
             // 
             this.numericUpDownVOverlayRectW.Enabled = false;
+            this.numericUpDownVOverlayRectW.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownVOverlayRectW.Location = new System.Drawing.Point(352, 42);
             this.numericUpDownVOverlayRectW.Maximum = new decimal(new int[] {
             10000,
@@ -1649,6 +1663,7 @@
             // checkBoxOverlayResize
             // 
             this.checkBoxOverlayResize.AutoSize = true;
+            this.checkBoxOverlayResize.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxOverlayResize.Location = new System.Drawing.Point(274, 43);
             this.checkBoxOverlayResize.Name = "checkBoxOverlayResize";
             this.checkBoxOverlayResize.Size = new System.Drawing.Size(72, 19);
@@ -1688,47 +1703,41 @@
             // 
             // groupBoxFade
             // 
-            this.groupBoxFade.Controls.Add(this.label25);
-            this.groupBoxFade.Controls.Add(this.label23);
-            this.groupBoxFade.Controls.Add(this.label50);
-            this.groupBoxFade.Controls.Add(this.label46);
-            this.groupBoxFade.Controls.Add(this.textBoxVOverlayFadeOutStartTime);
-            this.groupBoxFade.Controls.Add(this.textBoxVOverlayFadeInStartTime);
-            this.groupBoxFade.Controls.Add(this.label54);
-            this.groupBoxFade.Controls.Add(this.label48);
-            this.groupBoxFade.Controls.Add(this.textBoxVOverlayFadeOutDuration);
-            this.groupBoxFade.Controls.Add(this.textBoxVOverlayFadeInDuration);
-            this.groupBoxFade.Enabled = false;
-            this.groupBoxFade.Location = new System.Drawing.Point(163, 173);
+            this.groupBoxFade.Controls.Add(this.panelFade);
+            this.groupBoxFade.Controls.Add(this.checkBoxOverlayFade);
+            this.groupBoxFade.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFade.Location = new System.Drawing.Point(16, 141);
             this.groupBoxFade.Name = "groupBoxFade";
-            this.groupBoxFade.Size = new System.Drawing.Size(514, 110);
+            this.groupBoxFade.Size = new System.Drawing.Size(661, 115);
             this.groupBoxFade.TabIndex = 66;
             this.groupBoxFade.TabStop = false;
+            this.groupBoxFade.Text = "Fade In/Out";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(21, 85);
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label25.Location = new System.Drawing.Point(5, 75);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(55, 15);
+            this.label25.Size = new System.Drawing.Size(61, 15);
             this.label25.TabIndex = 66;
-            this.label25.Text = "Fade Out";
+            this.label25.Text = "Fade Out :";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(21, 33);
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label23.Location = new System.Drawing.Point(5, 23);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(46, 15);
+            this.label23.Size = new System.Drawing.Size(51, 15);
             this.label23.TabIndex = 65;
-            this.label23.Text = "Fade In";
+            this.label23.Text = "Fade In :";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(101, 64);
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label50.Location = new System.Drawing.Point(85, 54);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(64, 15);
             this.label50.TabIndex = 39;
@@ -1737,7 +1746,8 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(101, 12);
+            this.label46.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label46.Location = new System.Drawing.Point(85, 2);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(64, 15);
             this.label46.TabIndex = 39;
@@ -1745,7 +1755,8 @@
             // 
             // textBoxVOverlayFadeOutStartTime
             // 
-            this.textBoxVOverlayFadeOutStartTime.Location = new System.Drawing.Point(104, 82);
+            this.textBoxVOverlayFadeOutStartTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxVOverlayFadeOutStartTime.Location = new System.Drawing.Point(88, 72);
             this.textBoxVOverlayFadeOutStartTime.Name = "textBoxVOverlayFadeOutStartTime";
             this.textBoxVOverlayFadeOutStartTime.Size = new System.Drawing.Size(116, 23);
             this.textBoxVOverlayFadeOutStartTime.TabIndex = 42;
@@ -1754,7 +1765,8 @@
             // 
             // textBoxVOverlayFadeInStartTime
             // 
-            this.textBoxVOverlayFadeInStartTime.Location = new System.Drawing.Point(104, 30);
+            this.textBoxVOverlayFadeInStartTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxVOverlayFadeInStartTime.Location = new System.Drawing.Point(88, 20);
             this.textBoxVOverlayFadeInStartTime.Name = "textBoxVOverlayFadeInStartTime";
             this.textBoxVOverlayFadeInStartTime.Size = new System.Drawing.Size(116, 23);
             this.textBoxVOverlayFadeInStartTime.TabIndex = 40;
@@ -1764,7 +1776,8 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(251, 64);
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label54.Location = new System.Drawing.Point(242, 54);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(59, 15);
             this.label54.TabIndex = 35;
@@ -1773,7 +1786,8 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(251, 12);
+            this.label48.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label48.Location = new System.Drawing.Point(242, 2);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(59, 15);
             this.label48.TabIndex = 35;
@@ -1781,7 +1795,8 @@
             // 
             // textBoxVOverlayFadeOutDuration
             // 
-            this.textBoxVOverlayFadeOutDuration.Location = new System.Drawing.Point(254, 82);
+            this.textBoxVOverlayFadeOutDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxVOverlayFadeOutDuration.Location = new System.Drawing.Point(245, 72);
             this.textBoxVOverlayFadeOutDuration.Name = "textBoxVOverlayFadeOutDuration";
             this.textBoxVOverlayFadeOutDuration.Size = new System.Drawing.Size(116, 23);
             this.textBoxVOverlayFadeOutDuration.TabIndex = 38;
@@ -1790,7 +1805,8 @@
             // 
             // textBoxVOverlayFadeInDuration
             // 
-            this.textBoxVOverlayFadeInDuration.Location = new System.Drawing.Point(254, 30);
+            this.textBoxVOverlayFadeInDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxVOverlayFadeInDuration.Location = new System.Drawing.Point(245, 20);
             this.textBoxVOverlayFadeInDuration.Name = "textBoxVOverlayFadeInDuration";
             this.textBoxVOverlayFadeInDuration.Size = new System.Drawing.Size(116, 23);
             this.textBoxVOverlayFadeInDuration.TabIndex = 36;
@@ -1809,7 +1825,7 @@
             // checkBoxOverlayDuration
             // 
             this.checkBoxOverlayDuration.AutoSize = true;
-            this.checkBoxOverlayDuration.Location = new System.Drawing.Point(16, 146);
+            this.checkBoxOverlayDuration.Location = new System.Drawing.Point(16, 264);
             this.checkBoxOverlayDuration.Name = "checkBoxOverlayDuration";
             this.checkBoxOverlayDuration.Size = new System.Drawing.Size(115, 19);
             this.checkBoxOverlayDuration.TabIndex = 58;
@@ -1820,11 +1836,12 @@
             // checkBoxOverlayFade
             // 
             this.checkBoxOverlayFade.AutoSize = true;
-            this.checkBoxOverlayFade.Location = new System.Drawing.Point(16, 218);
+            this.checkBoxOverlayFade.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxOverlayFade.Location = new System.Drawing.Point(13, 51);
             this.checkBoxOverlayFade.Name = "checkBoxOverlayFade";
-            this.checkBoxOverlayFade.Size = new System.Drawing.Size(138, 19);
+            this.checkBoxOverlayFade.Size = new System.Drawing.Size(61, 19);
             this.checkBoxOverlayFade.TabIndex = 64;
-            this.checkBoxOverlayFade.Text = "Enable Fade In && Out";
+            this.checkBoxOverlayFade.Text = "Enable";
             this.checkBoxOverlayFade.UseVisualStyleBackColor = true;
             this.checkBoxOverlayFade.CheckedChanged += new System.EventHandler(this.checkBoxOverlayFade_CheckedChanged);
             // 
@@ -1850,7 +1867,7 @@
             // textBoxOverlayDuration
             // 
             this.textBoxOverlayDuration.Enabled = false;
-            this.textBoxOverlayDuration.Location = new System.Drawing.Point(163, 144);
+            this.textBoxOverlayDuration.Location = new System.Drawing.Point(163, 262);
             this.textBoxOverlayDuration.Name = "textBoxOverlayDuration";
             this.textBoxOverlayDuration.Size = new System.Drawing.Size(116, 23);
             this.textBoxOverlayDuration.TabIndex = 59;
@@ -1871,9 +1888,9 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label49.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label49.Location = new System.Drawing.Point(287, 148);
+            this.label49.Location = new System.Drawing.Point(287, 266);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(63, 13);
             this.label49.TabIndex = 60;
@@ -1915,6 +1932,46 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // panelFade
+            // 
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInStartTime);
+            this.panelFade.Controls.Add(this.label54);
+            this.panelFade.Controls.Add(this.label25);
+            this.panelFade.Controls.Add(this.label48);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutStartTime);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutDuration);
+            this.panelFade.Controls.Add(this.label23);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInDuration);
+            this.panelFade.Controls.Add(this.label46);
+            this.panelFade.Controls.Add(this.label50);
+            this.panelFade.Enabled = false;
+            this.panelFade.Location = new System.Drawing.Point(80, 11);
+            this.panelFade.Name = "panelFade";
+            this.panelFade.Size = new System.Drawing.Size(384, 100);
+            this.panelFade.TabIndex = 67;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label35.Location = new System.Drawing.Point(537, 46);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(33, 13);
+            this.label35.TabIndex = 105;
+            this.label35.Text = "pixels";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label37.Location = new System.Drawing.Point(198, 49);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(33, 13);
+            this.label37.TabIndex = 106;
+            this.label37.Text = "pixels";
             // 
             // buttonJobOptions
             // 
@@ -2030,6 +2087,8 @@
             this.groupBoxFade.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelFade.ResumeLayout(false);
+            this.panelFade.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2185,5 +2244,8 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Panel panelFade;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label35;
     }
 }

@@ -971,7 +971,7 @@ namespace AMSExplorer
 
         private void checkBoxOverlayFade_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxFade.Enabled = checkBoxOverlayFade.Checked;
+            panelFade.Enabled = checkBoxOverlayFade.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
