@@ -9008,8 +9008,11 @@ namespace AMSExplorer
             bool reusekey = false;
             bool firstkeycreation = true;
             IContentKey formerkey = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
 
-            if (!form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null))  // user want to manually enter the cryptography data and key if providedd 
+            bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
+
+            if (ManualForceKeyData)  // user want to manually enter the cryptography data and key if provided
             {
                 // if the key already exists in the account (same key id), let's 
                 formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
@@ -9143,10 +9146,14 @@ namespace AMSExplorer
                         contentKey = contentkeys.FirstOrDefault();
                         TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                     }
-                    if ((form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0) // PlayReady/Widevine license and delivery from Azure Media Services
+                    if (
+                        (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady + form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine) > 0 // PlayReady/Widevine license and delivery from Azure Media Services
+                        &&
+                        (!ManualForceKeyData || (ManualForceKeyData && contentKeyAuthorizationPolicy == null)) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
+                        )
                     {
                         // let's create the Authorization Policy
-                        IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                        contentKeyAuthorizationPolicy = _context.
                                        ContentKeyAuthorizationPolicies.
                                        CreateAsync("Authorization Policy").Result;
 
@@ -9329,7 +9336,10 @@ namespace AMSExplorer
             IContentKey formerkey = null;
             bool reusekey = false;
 
-            if (!form2.ContentKeyRandomGeneration)
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
+            bool ManualForceKeyData = !form2.ContentKeyRandomGeneration;  // user want to manually enter the cryptography data
+
+            if (ManualForceKeyData)  // user want to manually enter the cryptography data and key if provided
             {
                 aeskey = form2.AESContentKey;
                 aeslaurl = form3_AES.AESLaUrl;
@@ -9452,11 +9462,15 @@ namespace AMSExplorer
                     }
 
 
-                    if (form3_AES.GetNumberOfAuthorizationPolicyOptions > 0) // AES Key and delivery from Azure Media Services
+                    if (
+                        form3_AES.GetNumberOfAuthorizationPolicyOptions > 0
+                        &&
+                        (!ManualForceKeyData || (ManualForceKeyData && contentKeyAuthorizationPolicy == null)) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
+                        ) // AES Key and delivery from Azure Media Services
                     {
 
                         // let's create the Authorization Policy
-                        IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                        contentKeyAuthorizationPolicy = _context.
                                        ContentKeyAuthorizationPolicies.
                                        CreateAsync("Authorization Policy").Result;
 
