@@ -443,9 +443,6 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.BeginUpdate();
             comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
 
-            //List<AssetFilter> filters = myDynManifestContext.ListAssetFilters(myAsset);
-            //var filters = myAsset.AssetFilters;
-
             if (myAsset.AssetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
                 myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAsset);
@@ -473,8 +470,6 @@ namespace AMSExplorer
                         (double)myassetmanifesttimingdata.TimeScale
                         : (double)TimeSpan.TicksPerSecond;
 
-
-                    //double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000d;
                     s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
                     d = ReturnFilterText(dvr, "max");
@@ -762,8 +757,12 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDisplayKeyProperties()
+        private void DoDisplayKeyPropertiesAndAutOptions()
         {
+            buttonRemoveAuthPolOption.Enabled = false;
+            buttonRemoveAuthPol.Enabled = false;
+            buttonGetTestToken.Enabled = false;
+
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
@@ -773,7 +772,7 @@ namespace AMSExplorer
                 dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
                 dataGridViewKeys.Rows.Add("Checksum", key.Checksum);
                 dataGridViewKeys.Rows.Add("Created", key.Created.ToLocalTime().ToString("G"));
-                dataGridViewKeys.Rows.Add("Las modified", key.LastModified.ToLocalTime().ToString("G"));
+                dataGridViewKeys.Rows.Add("Last modified", key.LastModified.ToLocalTime().ToString("G"));
                 dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
                 dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
                 int i = dataGridViewKeys.Rows.Add("Clear Key Value", "see clear key");
@@ -791,11 +790,12 @@ namespace AMSExplorer
                     myAuthPolicy = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
                     if (myAuthPolicy != null)
                     {
+                        buttonRemoveAuthPol.Enabled = true;
                         dataGridViewKeys.Rows.Add("Authorization Policy Name", myAuthPolicy.Name);
                         listViewAutPolOptions.BeginUpdate();
                         foreach (var option in myAuthPolicy.Options)
                         {
-                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(myAuthPolicy.Name) ? "<no name>" : myAuthPolicy.Name) + " / " + (string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name), 0);
+                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name), 0);
                             listViewAutPolOptions.Items.Add(item);
                         }
                         listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -807,39 +807,6 @@ namespace AMSExplorer
                 {
                     myAuthPolicy = null;
                 }
-                /* // No need for this
-                switch (key.ContentKeyType)
-                {
-
-                    case ContentKeyType.CommonEncryption:
-                        string DelUrl;
-                        try
-                        {
-                            DelUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).OriginalString;
-                        }
-                        catch (Exception e) // Perhaps PlayReady license delivery has been activated
-                        {
-                            if (e.InnerException == null)
-                            {
-                                DelUrl = e.Message;
-                            }
-                            else
-                            {
-                                DelUrl = string.Format("{0} ({1})", e.Message, Program.GetErrorMessage(e));
-                            }
-                        }
-                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
-                        break;
-
-                    case ContentKeyType.EnvelopeEncryption:
-                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp).OriginalString);
-                        break;
-
-
-                    default:
-                        break;
-
-                }*/
             }
             else
             {
@@ -1181,7 +1148,6 @@ namespace AMSExplorer
                 {
                     buttonDel.Enabled = true; // parent is null, so we can propose to delete the locator
                 }
-
             }
         }
 
@@ -1483,7 +1449,6 @@ namespace AMSExplorer
 
         private void listViewDelPol_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             bool bSelect = listViewDelPol.SelectedItems.Count > 0 ? true : false;
             buttonRemoveDelPol.Enabled = bSelect;
             DoDisplayDeliveryPolicyProperties();
@@ -1544,8 +1509,8 @@ namespace AMSExplorer
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
-            buttonRemoveAuthPol.Enabled = buttonGetTestToken.Enabled = false;
-            DoDisplayKeyProperties();
+            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled = buttonGetTestToken.Enabled = false;
+            DoDisplayKeyPropertiesAndAutOptions();
         }
 
 
@@ -1558,7 +1523,7 @@ namespace AMSExplorer
         {
             bool DisplayButGetToken = false;
 
-            if (listViewAutPolOptions.SelectedItems.Count > 0)
+            if (listViewAutPolOptions.SelectedItems.Count > 0 && myAuthPolicy!=null)
             {
                 dataGridViewAutPolOption.Rows.Clear();
 
@@ -1651,9 +1616,9 @@ namespace AMSExplorer
                         }
                     }
                 }
+                buttonRemoveAuthPolOption.Enabled = true;
             }
             buttonGetTestToken.Enabled = DisplayButGetToken;
-            buttonRemoveAuthPol.Enabled = true;
         }
 
         private void buttonGetTestToken_Click(object sender, EventArgs e)
@@ -1935,12 +1900,14 @@ namespace AMSExplorer
         private void contextMenuStripKey_Opening(object sender, CancelEventArgs e)
         {
             removeKeyToolStripMenuItem.Enabled = (listViewKeys.SelectedItems.Count > 0);
-
         }
 
         private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
         {
             getTestTokenToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
+            removeOptionToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
+            removeAuthorizationPolicyToolStripMenuItem.Enabled = (listViewAutPolOptions.Items.Count > 0);
+
         }
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
@@ -1977,7 +1944,7 @@ namespace AMSExplorer
                     {
                         string AuthPolId = AuthPol.Id;
                         string question = string.Format("This will remove the authorization policy '{0}' from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?", AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, "Delivery Policy removal", MessageBoxButtons.YesNoCancel);
+                        DialogResult DR = MessageBox.Show(question, "Authorization policy removal", MessageBoxButtons.YesNoCancel);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
@@ -2002,7 +1969,54 @@ namespace AMSExplorer
                                 MessageBox.Show(messagestr);
                             }
 
-                            DoDisplayKeyProperties();
+                            DoDisplayKeyPropertiesAndAutOptions();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRemoveAuthPolOption()
+        {
+            if (listViewAutPolOptions.SelectedItems.Count > 0)
+            {
+                if (listViewAutPolOptions.SelectedItems[0] != null)
+                {
+
+                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    IContentKeyAuthorizationPolicy AuthPol = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    var option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                    if (option != null)
+                    {
+                        string AuthPolId = AuthPol.Id;
+                        string question = string.Format("This will remove the option '{0}' from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?", AuthPol.Name);
+                        DialogResult DR = MessageBox.Show(question, "Option removal", MessageBoxButtons.YesNoCancel);
+
+                        if (DR == DialogResult.Yes || DR == DialogResult.No)
+                        {
+                            string step = "removing";
+                            try
+                            {
+                                AuthPol.Options.Remove(option);
+
+                                if (DR == DialogResult.Yes) // user wants also to delete the option
+                                {
+                                    step = "deleting";
+                                    option.Delete();
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when {0} the authorization policy option.", step);
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
+
+                            DoDisplayKeyPropertiesAndAutOptions();
                         }
                     }
                 }
@@ -2406,6 +2420,27 @@ namespace AMSExplorer
             buttonClose.Enabled = true;
             ListAssetFiles();
             BuildLocatorsTree();
+        }
+
+        private void button1_Click_5(object sender, EventArgs e)
+        {
+            DoRemoveAuthPolOption();
+        }
+
+        private void removeAuthorizationPolicyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemoveAuthPol();
+        }
+
+        private void removeOptionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemoveAuthPolOption();
+        }
+
+        private void removeAuthorizationPolicyToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoRemoveAuthPol();
+
         }
     }
 }

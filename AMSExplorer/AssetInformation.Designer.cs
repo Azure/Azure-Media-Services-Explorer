@@ -127,6 +127,9 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
+            this.removeOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAuthorizationPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -791,6 +794,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonRemoveAuthPolOption);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
             this.tabPage5.Controls.Add(this.buttonGetTestToken);
@@ -810,7 +814,7 @@
             // buttonRemoveAuthPol
             // 
             this.buttonRemoveAuthPol.Enabled = false;
-            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(128, 272);
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(129, 272);
             this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
             this.buttonRemoveAuthPol.Size = new System.Drawing.Size(140, 27);
             this.buttonRemoveAuthPol.TabIndex = 43;
@@ -833,7 +837,7 @@
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonGetTestToken.Enabled = false;
-            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 470);
+            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 469);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
             this.buttonGetTestToken.Size = new System.Drawing.Size(121, 27);
             this.buttonGetTestToken.TabIndex = 41;
@@ -884,7 +888,7 @@
             this.listViewAutPolOptions.Location = new System.Drawing.Point(275, 302);
             this.listViewAutPolOptions.MultiSelect = false;
             this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 160);
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 161);
             this.listViewAutPolOptions.TabIndex = 39;
             this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
@@ -898,9 +902,11 @@
             // contextMenuStripAuthPol
             // 
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getTestTokenToolStripMenuItem});
+            this.getTestTokenToolStripMenuItem,
+            this.removeOptionToolStripMenuItem,
+            this.removeAuthorizationPolicyToolStripMenuItem});
             this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(161, 26);
+            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(235, 70);
             this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
             // 
             // getTestTokenToolStripMenuItem
@@ -1246,6 +1252,32 @@
             this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
             // 
+            // buttonRemoveAuthPolOption
+            // 
+            this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveAuthPolOption.Enabled = false;
+            this.buttonRemoveAuthPolOption.Location = new System.Drawing.Point(402, 469);
+            this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
+            this.buttonRemoveAuthPolOption.Size = new System.Drawing.Size(103, 27);
+            this.buttonRemoveAuthPolOption.TabIndex = 44;
+            this.buttonRemoveAuthPolOption.Text = "Remove option";
+            this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
+            this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
+            // 
+            // removeOptionToolStripMenuItem
+            // 
+            this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
+            this.removeOptionToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.removeOptionToolStripMenuItem.Text = "Remove option...";
+            this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
+            // 
+            // removeAuthorizationPolicyToolStripMenuItem
+            // 
+            this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
+            this.removeAuthorizationPolicyToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeAuthorizationPolicyToolStripMenuItem.Text = "Remove authorization policy...";
+            this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -1391,5 +1423,8 @@
         private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
         private System.Windows.Forms.Button buttonEditOnline;
         private System.Windows.Forms.Button buttonGenerateManifest;
+        private System.Windows.Forms.Button buttonRemoveAuthPolOption;
+        private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
     }
 }

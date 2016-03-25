@@ -39,6 +39,17 @@ namespace AMSExplorer
     {
         private string _widevineTempUrl;
 
+        public string WidevinePolicyName
+        {
+            get
+            {
+                return textBoxPolicyName.Text;
+            }
+            set
+            {
+                textBoxPolicyName.Text = value;
+            }
+        }
         public string GetWidevineConfiguration(string keyDeliveryUrl)
         {
             var jsonstr = textBoxConfiguration.Text;

@@ -201,7 +201,8 @@ namespace AMSExplorer
 
             if (_nbInputAssets > 1)
             {
-                tabControl1.TabPages.Remove(tabPageOverlay); // no overlay if several assets have been selected
+                checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
+                //tabControl1.TabPages.Remove(tabPageOverlay); // no overlay if several assets have been selected
             }
         }
 

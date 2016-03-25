@@ -51,6 +51,8 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabelWidevinePolicy = new System.Windows.Forms.LinkLabel();
+            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBoxAdvLicense.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecLevel)).BeginInit();
             this.panel1.SuspendLayout();
@@ -70,7 +72,7 @@
             // radioButtonAdvanced
             // 
             this.radioButtonAdvanced.AutoSize = true;
-            this.radioButtonAdvanced.Location = new System.Drawing.Point(30, 104);
+            this.radioButtonAdvanced.Location = new System.Drawing.Point(29, 161);
             this.radioButtonAdvanced.Name = "radioButtonAdvanced";
             this.radioButtonAdvanced.Size = new System.Drawing.Size(123, 19);
             this.radioButtonAdvanced.TabIndex = 70;
@@ -82,7 +84,7 @@
             // 
             this.radioButtonBasic.AutoSize = true;
             this.radioButtonBasic.Checked = true;
-            this.radioButtonBasic.Location = new System.Drawing.Point(30, 79);
+            this.radioButtonBasic.Location = new System.Drawing.Point(30, 136);
             this.radioButtonBasic.Name = "radioButtonBasic";
             this.radioButtonBasic.Size = new System.Drawing.Size(91, 19);
             this.radioButtonBasic.TabIndex = 69;
@@ -104,9 +106,9 @@
             this.groupBoxAdvLicense.Controls.Add(this.label2);
             this.groupBoxAdvLicense.Controls.Add(this.textBoxTrackType);
             this.groupBoxAdvLicense.Enabled = false;
-            this.groupBoxAdvLicense.Location = new System.Drawing.Point(30, 139);
+            this.groupBoxAdvLicense.Location = new System.Drawing.Point(30, 186);
             this.groupBoxAdvLicense.Name = "groupBoxAdvLicense";
-            this.groupBoxAdvLicense.Size = new System.Drawing.Size(627, 312);
+            this.groupBoxAdvLicense.Size = new System.Drawing.Size(627, 265);
             this.groupBoxAdvLicense.TabIndex = 68;
             this.groupBoxAdvLicense.TabStop = false;
             this.groupBoxAdvLicense.Text = "Advanced license";
@@ -116,7 +118,7 @@
             this.checkBoxCanPlay.AutoSize = true;
             this.checkBoxCanPlay.Checked = true;
             this.checkBoxCanPlay.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCanPlay.Location = new System.Drawing.Point(15, 73);
+            this.checkBoxCanPlay.Location = new System.Drawing.Point(19, 68);
             this.checkBoxCanPlay.Name = "checkBoxCanPlay";
             this.checkBoxCanPlay.Size = new System.Drawing.Size(72, 19);
             this.checkBoxCanPlay.TabIndex = 47;
@@ -129,7 +131,7 @@
             this.checkBoxAllowTrackType.AutoSize = true;
             this.checkBoxAllowTrackType.Checked = true;
             this.checkBoxAllowTrackType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowTrackType.Location = new System.Drawing.Point(11, 36);
+            this.checkBoxAllowTrackType.Location = new System.Drawing.Point(19, 33);
             this.checkBoxAllowTrackType.Name = "checkBoxAllowTrackType";
             this.checkBoxAllowTrackType.Size = new System.Drawing.Size(139, 19);
             this.checkBoxAllowTrackType.TabIndex = 67;
@@ -142,7 +144,7 @@
             this.checkBoxCanPersist.AutoSize = true;
             this.checkBoxCanPersist.Checked = true;
             this.checkBoxCanPersist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCanPersist.Location = new System.Drawing.Point(15, 98);
+            this.checkBoxCanPersist.Location = new System.Drawing.Point(19, 93);
             this.checkBoxCanPersist.Name = "checkBoxCanPersist";
             this.checkBoxCanPersist.Size = new System.Drawing.Size(84, 19);
             this.checkBoxCanPersist.TabIndex = 48;
@@ -154,7 +156,7 @@
             // 
             this.comboBoxAllowedTrackTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAllowedTrackTypes.FormattingEnabled = true;
-            this.comboBoxAllowedTrackTypes.Location = new System.Drawing.Point(173, 34);
+            this.comboBoxAllowedTrackTypes.Location = new System.Drawing.Point(173, 29);
             this.comboBoxAllowedTrackTypes.Name = "comboBoxAllowedTrackTypes";
             this.comboBoxAllowedTrackTypes.Size = new System.Drawing.Size(207, 23);
             this.comboBoxAllowedTrackTypes.TabIndex = 45;
@@ -165,7 +167,7 @@
             this.checkBoxTrackType.AutoSize = true;
             this.checkBoxTrackType.Checked = true;
             this.checkBoxTrackType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTrackType.Location = new System.Drawing.Point(21, 212);
+            this.checkBoxTrackType.Location = new System.Drawing.Point(19, 191);
             this.checkBoxTrackType.Name = "checkBoxTrackType";
             this.checkBoxTrackType.Size = new System.Drawing.Size(88, 19);
             this.checkBoxTrackType.TabIndex = 66;
@@ -176,7 +178,7 @@
             // checkBoxCanRenew
             // 
             this.checkBoxCanRenew.AutoSize = true;
-            this.checkBoxCanRenew.Location = new System.Drawing.Point(15, 123);
+            this.checkBoxCanRenew.Location = new System.Drawing.Point(19, 118);
             this.checkBoxCanRenew.Name = "checkBoxCanRenew";
             this.checkBoxCanRenew.Size = new System.Drawing.Size(85, 19);
             this.checkBoxCanRenew.TabIndex = 49;
@@ -189,7 +191,7 @@
             this.checkBoxSecLevel.AutoSize = true;
             this.checkBoxSecLevel.Checked = true;
             this.checkBoxSecLevel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSecLevel.Location = new System.Drawing.Point(21, 252);
+            this.checkBoxSecLevel.Location = new System.Drawing.Point(19, 227);
             this.checkBoxSecLevel.Name = "checkBoxSecLevel";
             this.checkBoxSecLevel.Size = new System.Drawing.Size(104, 19);
             this.checkBoxSecLevel.TabIndex = 65;
@@ -201,7 +203,7 @@
             // 
             this.comboBoxReqOutputProtection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxReqOutputProtection.FormattingEnabled = true;
-            this.comboBoxReqOutputProtection.Location = new System.Drawing.Point(183, 171);
+            this.comboBoxReqOutputProtection.Location = new System.Drawing.Point(183, 150);
             this.comboBoxReqOutputProtection.Name = "comboBoxReqOutputProtection";
             this.comboBoxReqOutputProtection.Size = new System.Drawing.Size(207, 23);
             this.comboBoxReqOutputProtection.TabIndex = 50;
@@ -209,7 +211,7 @@
             // 
             // numericUpDownSecLevel
             // 
-            this.numericUpDownSecLevel.Location = new System.Drawing.Point(183, 252);
+            this.numericUpDownSecLevel.Location = new System.Drawing.Point(183, 227);
             this.numericUpDownSecLevel.Maximum = new decimal(new int[] {
             5,
             0,
@@ -228,7 +230,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 174);
+            this.label2.Location = new System.Drawing.Point(16, 153);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(159, 15);
             this.label2.TabIndex = 51;
@@ -236,7 +238,7 @@
             // 
             // textBoxTrackType
             // 
-            this.textBoxTrackType.Location = new System.Drawing.Point(183, 210);
+            this.textBoxTrackType.Location = new System.Drawing.Point(183, 189);
             this.textBoxTrackType.Name = "textBoxTrackType";
             this.textBoxTrackType.Size = new System.Drawing.Size(120, 23);
             this.textBoxTrackType.TabIndex = 53;
@@ -332,6 +334,24 @@
             this.linkLabelWidevinePolicy.Text = "More info";
             this.linkLabelWidevinePolicy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelWidevinePolicy_LinkClicked);
             // 
+            // textBoxPolicyName
+            // 
+            this.textBoxPolicyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPolicyName.Location = new System.Drawing.Point(29, 100);
+            this.textBoxPolicyName.Name = "textBoxPolicyName";
+            this.textBoxPolicyName.Size = new System.Drawing.Size(381, 23);
+            this.textBoxPolicyName.TabIndex = 91;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(26, 82);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 15);
+            this.label13.TabIndex = 90;
+            this.label13.Text = "Option name :";
+            // 
             // AddDynamicEncryptionFrame6_WidevineLicense
             // 
             this.AcceptButton = this.buttonOk;
@@ -340,6 +360,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.textBoxPolicyName);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.linkLabelWidevinePolicy);
             this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.textBoxConfiguration);
@@ -387,5 +409,7 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelWidevinePolicy;
+        private System.Windows.Forms.TextBox textBoxPolicyName;
+        private System.Windows.Forms.Label label13;
     }
 }

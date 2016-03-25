@@ -55,14 +55,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
+            this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
+            this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
+            this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
-            this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
             this.panelRTP = new System.Windows.Forms.Panel();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -86,7 +87,6 @@
             this.panelInsertSlate = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
@@ -100,14 +100,16 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
-            this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
+            this.labelRTPWarning = new System.Windows.Forms.Label();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
             this.tabPageLiveEncoding.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
+            this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
             this.panelRTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
             this.tabPageAudioOptions.SuspendLayout();
@@ -119,7 +121,6 @@
             this.tabPageAdConfig.SuspendLayout();
             this.panelInsertSlate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panelDisplayEncProfile.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -300,6 +301,7 @@
             // 
             // TabSettings
             // 
+            this.TabSettings.Controls.Add(this.labelRTPWarning);
             this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
@@ -400,6 +402,70 @@
             this.tabPageLiveEncoding.Text = "Live Encoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
             // 
+            // panelDisplayEncProfile
+            // 
+            this.panelDisplayEncProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewVideoProf);
+            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewAudioProf);
+            this.panelDisplayEncProfile.Controls.Add(this.label16);
+            this.panelDisplayEncProfile.Controls.Add(this.label17);
+            this.panelDisplayEncProfile.Location = new System.Drawing.Point(3, 92);
+            this.panelDisplayEncProfile.Name = "panelDisplayEncProfile";
+            this.panelDisplayEncProfile.Size = new System.Drawing.Size(487, 207);
+            this.panelDisplayEncProfile.TabIndex = 78;
+            // 
+            // dataGridViewVideoProf
+            // 
+            this.dataGridViewVideoProf.AllowUserToAddRows = false;
+            this.dataGridViewVideoProf.AllowUserToDeleteRows = false;
+            this.dataGridViewVideoProf.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewVideoProf.Location = new System.Drawing.Point(18, 20);
+            this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
+            this.dataGridViewVideoProf.ReadOnly = true;
+            this.dataGridViewVideoProf.RowHeadersVisible = false;
+            this.dataGridViewVideoProf.Size = new System.Drawing.Size(458, 91);
+            this.dataGridViewVideoProf.TabIndex = 71;
+            // 
+            // dataGridViewAudioProf
+            // 
+            this.dataGridViewAudioProf.AllowUserToAddRows = false;
+            this.dataGridViewAudioProf.AllowUserToDeleteRows = false;
+            this.dataGridViewAudioProf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAudioProf.Location = new System.Drawing.Point(18, 136);
+            this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
+            this.dataGridViewAudioProf.ReadOnly = true;
+            this.dataGridViewAudioProf.RowHeadersVisible = false;
+            this.dataGridViewAudioProf.Size = new System.Drawing.Size(458, 68);
+            this.dataGridViewAudioProf.TabIndex = 72;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(15, 2);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(142, 15);
+            this.label16.TabIndex = 73;
+            this.label16.Text = "Video profile (read-only) :";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(15, 118);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(144, 15);
+            this.label17.TabIndex = 74;
+            this.label17.Text = "Audio profile (read-only) :";
+            // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -447,56 +513,6 @@
             this.radioButtonDefaultPreset.Text = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
             this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(15, 118);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(144, 15);
-            this.label17.TabIndex = 74;
-            this.label17.Text = "Audio profile (read-only) :";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(15, 2);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(142, 15);
-            this.label16.TabIndex = 73;
-            this.label16.Text = "Video profile (read-only) :";
-            // 
-            // dataGridViewAudioProf
-            // 
-            this.dataGridViewAudioProf.AllowUserToAddRows = false;
-            this.dataGridViewAudioProf.AllowUserToDeleteRows = false;
-            this.dataGridViewAudioProf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAudioProf.Location = new System.Drawing.Point(18, 136);
-            this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
-            this.dataGridViewAudioProf.ReadOnly = true;
-            this.dataGridViewAudioProf.RowHeadersVisible = false;
-            this.dataGridViewAudioProf.Size = new System.Drawing.Size(458, 68);
-            this.dataGridViewAudioProf.TabIndex = 72;
-            // 
-            // dataGridViewVideoProf
-            // 
-            this.dataGridViewVideoProf.AllowUserToAddRows = false;
-            this.dataGridViewVideoProf.AllowUserToDeleteRows = false;
-            this.dataGridViewVideoProf.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewVideoProf.Location = new System.Drawing.Point(18, 20);
-            this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
-            this.dataGridViewVideoProf.ReadOnly = true;
-            this.dataGridViewVideoProf.RowHeadersVisible = false;
-            this.dataGridViewVideoProf.Size = new System.Drawing.Size(458, 91);
-            this.dataGridViewVideoProf.TabIndex = 71;
             // 
             // panelRTP
             // 
@@ -748,23 +764,6 @@
             this.textBoxJPGSearch.TabIndex = 85;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
-            // listViewJPG1
-            // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
-            this.listViewJPG1.TabIndex = 84;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
-            // 
             // label15
             // 
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -875,19 +874,34 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // panelDisplayEncProfile
+            // labelRTPWarning
             // 
-            this.panelDisplayEncProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelRTPWarning.AutoSize = true;
+            this.labelRTPWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelRTPWarning.Location = new System.Drawing.Point(253, 79);
+            this.labelRTPWarning.Name = "labelRTPWarning";
+            this.labelRTPWarning.Size = new System.Drawing.Size(181, 45);
+            this.labelRTPWarning.TabIndex = 64;
+            this.labelRTPWarning.Text = "RTP is not recommended.\r\nThis protocol could be unreliable\r\nover certain network " +
+    "conditions.\r\n";
+            this.labelRTPWarning.Visible = false;
+            // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewVideoProf);
-            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewAudioProf);
-            this.panelDisplayEncProfile.Controls.Add(this.label16);
-            this.panelDisplayEncProfile.Controls.Add(this.label17);
-            this.panelDisplayEncProfile.Location = new System.Drawing.Point(3, 92);
-            this.panelDisplayEncProfile.Name = "panelDisplayEncProfile";
-            this.panelDisplayEncProfile.Size = new System.Drawing.Size(487, 207);
-            this.panelDisplayEncProfile.TabIndex = 78;
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
+            this.listViewJPG1.TabIndex = 84;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // CreateLiveChannel
             // 
@@ -918,8 +932,10 @@
             this.TabSettings.PerformLayout();
             this.tabPageLiveEncoding.ResumeLayout(false);
             this.tabPageLiveEncoding.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
+            this.panelDisplayEncProfile.ResumeLayout(false);
+            this.panelDisplayEncProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             this.panelRTP.ResumeLayout(false);
             this.panelRTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
@@ -936,8 +952,6 @@
             this.panelInsertSlate.ResumeLayout(false);
             this.panelInsertSlate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panelDisplayEncProfile.ResumeLayout(false);
-            this.panelDisplayEncProfile.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1016,5 +1030,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
+        private System.Windows.Forms.Label labelRTPWarning;
     }
 }

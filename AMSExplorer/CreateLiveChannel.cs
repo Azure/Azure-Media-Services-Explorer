@@ -299,10 +299,12 @@ namespace AMSExplorer
             { // RTP
                 comboBoxAdMarkerSource.Items.Add(new Item("SCTE-35 Cue Messages", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
                 panelRTP.Enabled = panelAudioControl.Enabled = true;
+                labelRTPWarning.Visible = true;
             }
             else
             {
                 panelRTP.Enabled = panelAudioControl.Enabled = false;
+                labelRTPWarning.Visible = false;
             }
             comboBoxAdMarkerSource.SelectedIndex = 0;
         }

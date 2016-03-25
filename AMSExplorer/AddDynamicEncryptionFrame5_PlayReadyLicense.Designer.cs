@@ -128,8 +128,9 @@
             // 
             // moreinfocompliance
             // 
+            this.moreinfocompliance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfocompliance.AutoSize = true;
-            this.moreinfocompliance.Location = new System.Drawing.Point(412, 74);
+            this.moreinfocompliance.Location = new System.Drawing.Point(429, 75);
             this.moreinfocompliance.Name = "moreinfocompliance";
             this.moreinfocompliance.Size = new System.Drawing.Size(237, 15);
             this.moreinfocompliance.TabIndex = 19;
@@ -860,9 +861,11 @@
             // 
             // textBoxPolicyName
             // 
+            this.textBoxPolicyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPolicyName.Location = new System.Drawing.Point(30, 115);
             this.textBoxPolicyName.Name = "textBoxPolicyName";
-            this.textBoxPolicyName.Size = new System.Drawing.Size(220, 23);
+            this.textBoxPolicyName.Size = new System.Drawing.Size(262, 23);
             this.textBoxPolicyName.TabIndex = 55;
             this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
             // 
@@ -871,9 +874,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(27, 97);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(218, 15);
+            this.label13.Size = new System.Drawing.Size(83, 15);
             this.label13.TabIndex = 54;
-            this.label13.Text = "Content key authorization policy name :";
+            this.label13.Text = "Option name :";
             // 
             // buttonOk
             // 
@@ -924,6 +927,7 @@
             // 
             // checkBoxImportPolicyFile
             // 
+            this.checkBoxImportPolicyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxImportPolicyFile.AutoSize = true;
             this.checkBoxImportPolicyFile.Location = new System.Drawing.Point(310, 115);
             this.checkBoxImportPolicyFile.Name = "checkBoxImportPolicyFile";
@@ -935,6 +939,7 @@
             // 
             // buttonImportXML
             // 
+            this.buttonImportXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonImportXML.Enabled = false;
             this.buttonImportXML.Location = new System.Drawing.Point(495, 112);
             this.buttonImportXML.Name = "buttonImportXML";
@@ -946,6 +951,7 @@
             // 
             // linkLabelPlayReadyPolicy
             // 
+            this.linkLabelPlayReadyPolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelPlayReadyPolicy.AutoSize = true;
             this.linkLabelPlayReadyPolicy.Location = new System.Drawing.Point(608, 118);
             this.linkLabelPlayReadyPolicy.Name = "linkLabelPlayReadyPolicy";

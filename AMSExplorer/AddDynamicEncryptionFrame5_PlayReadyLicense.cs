@@ -96,7 +96,7 @@ namespace AMSExplorer
             }
         }
 
-        public string PlayReadyPolicyName
+        public string PlayReadOptionName
         {
             get
             {

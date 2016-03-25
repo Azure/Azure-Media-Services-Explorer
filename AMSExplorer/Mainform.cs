@@ -809,11 +809,14 @@ namespace AMSExplorer
             if (asset.AssetFiles.Count() == 1)
             {
                 return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase));
+            /*
+            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
+            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
+            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
+    */
+            );
             }
             else
             {
@@ -8881,10 +8884,11 @@ namespace AMSExplorer
                                         form4list.Add(form4);
                                         tokensymmetrickey = form4.SymmetricKey;
                                         AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        //AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
                                         step++;
                                         if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
+                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                            form5_PlayReadyLicense.PlayReadOptionName = string.Format("{0}{1} PlayReady Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
                                             if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
                                             {
                                                 form5list.Add(form5_PlayReadyLicense);
@@ -8912,6 +8916,9 @@ namespace AMSExplorer
                                         form4list.Add(form4);
                                         tokensymmetrickey = form4.SymmetricKey;
                                         AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                        form6_WidevineLicense.WidevinePolicyName = string.Format("{0}{1} Widevine Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
+
                                         step++;
 
                                         if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
@@ -9151,7 +9158,9 @@ namespace AMSExplorer
                         { // for each option
 
                             string PlayReadyLicenseDeliveryConfig = null;
+                            string PlayReadyLicenseOptionName = null;
                             string WidevineLicenseDeliveryConfig = null;
+                            string WidevineLicenseOptionName = null;
                             bool ItIsAPlayReadyOption = form4list.IndexOf(form4) < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady;
 
                             if (ItIsAPlayReadyOption)
@@ -9162,6 +9171,7 @@ namespace AMSExplorer
                                 try
                                 {
                                     PlayReadyLicenseDeliveryConfig = form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
+                                    PlayReadyLicenseOptionName = form5PlayReadyLicenseList[form4list.IndexOf(form4)].PlayReadOptionName;
                                 }
                                 catch (Exception e)
                                 {
@@ -9170,6 +9180,7 @@ namespace AMSExplorer
                                     TextBoxLogWriteLine(e);
                                     ErrorCreationKey = true;
                                 }
+
                             }
                             else
                             { // user wants to define a Widevine license for this option
@@ -9177,6 +9188,9 @@ namespace AMSExplorer
                                 WidevineLicenseDeliveryConfig =
                                     form6WidevineLicenseList[form4list.IndexOf(form4) - form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady]
                                     .GetWidevineConfiguration(contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine).ToString());
+                                WidevineLicenseOptionName =
+                                    form6WidevineLicenseList[form4list.IndexOf(form4) - form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady]
+                                    .WidevinePolicyName;
                             }
 
                             if (!ErrorCreationKey)
@@ -9189,13 +9203,13 @@ namespace AMSExplorer
                                         case ContentKeyRestrictionType.Open:
                                             if (ItIsAPlayReadyOption)
                                             {
-                                                policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.PlayReadyLicense, PlayReadyLicenseDeliveryConfig, _context);
+                                                policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(PlayReadyLicenseOptionName, contentKey, ContentKeyDeliveryType.PlayReadyLicense, PlayReadyLicenseDeliveryConfig, _context);
                                                 TextBoxLogWriteLine("Created PlayReady Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
                                                 contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                             }
                                             else // widevine
                                             {
-                                                policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.Widevine, WidevineLicenseDeliveryConfig, _context);
+                                                policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(WidevineLicenseOptionName, contentKey, ContentKeyDeliveryType.Widevine, WidevineLicenseDeliveryConfig, _context);
                                                 TextBoxLogWriteLine("Created Widevine Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
                                                 contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                             }
@@ -9222,12 +9236,12 @@ namespace AMSExplorer
 
                                             if (ItIsAPlayReadyOption)
                                             {
-                                                policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType.PlayReadyLicense, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
+                                                policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(PlayReadyLicenseOptionName, ContentKeyDeliveryType.PlayReadyLicense, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
                                                 TextBoxLogWriteLine("Created Token PlayReady authorization policy for the asset '{0}'.", AssetToProcess.Name);
                                             }
                                             else //widevine
                                             {
-                                                policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType.Widevine, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, WidevineLicenseDeliveryConfig, OpenIdDoc);
+                                                policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(WidevineLicenseOptionName, ContentKeyDeliveryType.Widevine, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, WidevineLicenseDeliveryConfig, OpenIdDoc);
                                                 TextBoxLogWriteLine("Created Token Widevine authorization policy for the asset '{0}'", AssetToProcess.Name);
                                             }
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
@@ -9461,7 +9475,7 @@ namespace AMSExplorer
                                 {
                                     case ContentKeyRestrictionType.Open:
 
-                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
+                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption("Open Mode AES", contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
                                         TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                         contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                         break;

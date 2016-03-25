@@ -180,7 +180,7 @@ namespace AMSExplorer
 
 
 
-        static public IContentKeyAuthorizationPolicyOption AddOpenAuthorizationPolicyOption(IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
+        static public IContentKeyAuthorizationPolicyOption AddOpenAuthorizationPolicyOption(string optionName, IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
         {
             // Create ContentKeyAuthorizationPolicy with Open restrictions 
             // and create authorization policy          
@@ -196,7 +196,7 @@ namespace AMSExplorer
 
             IContentKeyAuthorizationPolicyOption policyOption =
                 _context.ContentKeyAuthorizationPolicyOptions.Create(
-                "Open option",
+                optionName,
                 contentkeydeliverytype,
                 restrictions,
                 keydeliveryconfig);
@@ -237,7 +237,7 @@ namespace AMSExplorer
             return policyOption;
         }
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType deliveryType, IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyCENC(string optionName, ContentKeyDeliveryType deliveryType, IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey, openIdDiscoveryPath);
             string tname = detailedtokentype.ToString();
@@ -253,7 +253,7 @@ namespace AMSExplorer
                                                         };
 
             IContentKeyAuthorizationPolicyOption policyOption =
-         _context.ContentKeyAuthorizationPolicyOptions.Create(tname + " Token option " + deliveryType.ToString(),
+         _context.ContentKeyAuthorizationPolicyOptions.Create(optionName,
              deliveryType,
                  restrictions, newLicenseTemplate);
 
