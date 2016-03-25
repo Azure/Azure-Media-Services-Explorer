@@ -57,8 +57,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.textBoxOffset = new System.Windows.Forms.TextBox();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
@@ -139,8 +141,11 @@
             this.textBoxThTimeRangeBMP = new System.Windows.Forms.TextBox();
             this.checkBoxGenThumbnailsBMP = new System.Windows.Forms.CheckBox();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
+            this.linkLabelInfoOverlay = new System.Windows.Forms.LinkLabel();
             this.panelOverlay = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.numericUpDownVOverlayRectY = new System.Windows.Forms.NumericUpDown();
             this.label43 = new System.Windows.Forms.Label();
             this.numericUpDownVOverlayRectX = new System.Windows.Forms.NumericUpDown();
@@ -154,33 +159,29 @@
             this.label42 = new System.Windows.Forms.Label();
             this.textBoxOverlayFileName = new System.Windows.Forms.TextBox();
             this.groupBoxFade = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.textBoxVOverlayFadeOutStartTime = new System.Windows.Forms.TextBox();
+            this.panelFade = new System.Windows.Forms.Panel();
             this.textBoxVOverlayFadeInStartTime = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
+            this.textBoxVOverlayFadeOutStartTime = new System.Windows.Forms.TextBox();
             this.textBoxVOverlayFadeOutDuration = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.textBoxVOverlayFadeInDuration = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.checkBoxOverlayFade = new System.Windows.Forms.CheckBox();
             this.label51 = new System.Windows.Forms.Label();
             this.checkBoxOverlayDuration = new System.Windows.Forms.CheckBox();
-            this.checkBoxOverlayFade = new System.Windows.Forms.CheckBox();
             this.numericUpDownOverlayLoop = new System.Windows.Forms.NumericUpDown();
-            this.textBoxOverlayDuration = new System.Windows.Forms.TextBox();
             this.checkBoxOverlayLoop = new System.Windows.Forms.CheckBox();
+            this.textBoxOverlayDuration = new System.Windows.Forms.TextBox();
             this.label49 = new System.Windows.Forms.Label();
             this.checkBoxOverlay = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panelFade = new System.Windows.Forms.Panel();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -207,9 +208,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectW)).BeginInit();
             this.groupBoxFade.SuspendLayout();
+            this.panelFade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panelFade.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -274,7 +275,7 @@
             this.moreinfopresetslink.TabIndex = 76;
             this.moreinfopresetslink.TabStop = true;
             this.moreinfopresetslink.Text = "More information on presets";
-            this.moreinfopresetslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfopresetslink_LinkClicked);
+            this.moreinfopresetslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // richTextBoxDesc
             // 
@@ -361,7 +362,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 140);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 138);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -525,6 +526,25 @@
             this.textBoxOffset.TabIndex = 95;
             this.textBoxOffset.Visible = false;
             // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
             // checkBoxSourceTrimmingEnd
             // 
             this.checkBoxSourceTrimmingEnd.AutoSize = true;
@@ -543,6 +563,25 @@
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 82;
             this.label7.Text = "Duration :";
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // textBoxSourceDurationTime
             // 
@@ -572,7 +611,7 @@
             this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
             this.linkLabelMoreInfoPreserveResRotation.TabStop = true;
             this.linkLabelMoreInfoPreserveResRotation.Text = "(more information)";
-            this.linkLabelMoreInfoPreserveResRotation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoPreserveResRotation_LinkClicked);
+            this.linkLabelMoreInfoPreserveResRotation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // checkBoxPreserveResAfterRotation
             // 
@@ -643,7 +682,7 @@
             this.linkLabelThumbnail2.TabIndex = 115;
             this.linkLabelThumbnail2.TabStop = true;
             this.linkLabelThumbnail2.Text = "More information on thumbnails";
-            this.linkLabelThumbnail2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
+            this.linkLabelThumbnail2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // panelThumbnailsPNG
             // 
@@ -920,7 +959,7 @@
             this.linkLabelThumbnail1.TabIndex = 113;
             this.linkLabelThumbnail1.TabStop = true;
             this.linkLabelThumbnail1.Text = "More information on thumbnails";
-            this.linkLabelThumbnail1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
+            this.linkLabelThumbnail1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // panelThumbnailsJPG
             // 
@@ -1237,7 +1276,7 @@
             this.linkLabelThumbnail3.TabIndex = 115;
             this.linkLabelThumbnail3.TabStop = true;
             this.linkLabelThumbnail3.Text = "More information on thumbnails";
-            this.linkLabelThumbnail3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelThumbnail1_LinkClicked);
+            this.linkLabelThumbnail3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // panelThumbnailsBMP
             // 
@@ -1491,6 +1530,7 @@
             // 
             // tabPageOverlay
             // 
+            this.tabPageOverlay.Controls.Add(this.linkLabelInfoOverlay);
             this.tabPageOverlay.Controls.Add(this.panelOverlay);
             this.tabPageOverlay.Controls.Add(this.checkBoxOverlay);
             this.tabPageOverlay.Location = new System.Drawing.Point(4, 24);
@@ -1500,6 +1540,18 @@
             this.tabPageOverlay.TabIndex = 6;
             this.tabPageOverlay.Text = "Visual Overlay";
             this.tabPageOverlay.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelInfoOverlay
+            // 
+            this.linkLabelInfoOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelInfoOverlay.AutoSize = true;
+            this.linkLabelInfoOverlay.Location = new System.Drawing.Point(559, 17);
+            this.linkLabelInfoOverlay.Name = "linkLabelInfoOverlay";
+            this.linkLabelInfoOverlay.Size = new System.Drawing.Size(159, 15);
+            this.linkLabelInfoOverlay.TabIndex = 116;
+            this.linkLabelInfoOverlay.TabStop = true;
+            this.linkLabelInfoOverlay.Text = "More information on overlay";
+            this.linkLabelInfoOverlay.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // panelOverlay
             // 
@@ -1540,6 +1592,28 @@
             this.groupBox2.TabIndex = 104;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Overlay position";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label37.Location = new System.Drawing.Point(198, 49);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(33, 13);
+            this.label37.TabIndex = 106;
+            this.label37.Text = "pixels";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label35.Location = new System.Drawing.Point(537, 46);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(33, 13);
+            this.label35.TabIndex = 105;
+            this.label35.Text = "pixels";
             // 
             // numericUpDownVOverlayRectY
             // 
@@ -1713,55 +1787,23 @@
             this.groupBoxFade.TabStop = false;
             this.groupBoxFade.Text = "Fade In/Out";
             // 
-            // label25
+            // panelFade
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label25.Location = new System.Drawing.Point(5, 75);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(61, 15);
-            this.label25.TabIndex = 66;
-            this.label25.Text = "Fade Out :";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label23.Location = new System.Drawing.Point(5, 23);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(51, 15);
-            this.label23.TabIndex = 65;
-            this.label23.Text = "Fade In :";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label50.Location = new System.Drawing.Point(85, 54);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(64, 15);
-            this.label50.TabIndex = 39;
-            this.label50.Text = "Start time :";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label46.Location = new System.Drawing.Point(85, 2);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(64, 15);
-            this.label46.TabIndex = 39;
-            this.label46.Text = "Start time :";
-            // 
-            // textBoxVOverlayFadeOutStartTime
-            // 
-            this.textBoxVOverlayFadeOutStartTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxVOverlayFadeOutStartTime.Location = new System.Drawing.Point(88, 72);
-            this.textBoxVOverlayFadeOutStartTime.Name = "textBoxVOverlayFadeOutStartTime";
-            this.textBoxVOverlayFadeOutStartTime.Size = new System.Drawing.Size(116, 23);
-            this.textBoxVOverlayFadeOutStartTime.TabIndex = 42;
-            this.textBoxVOverlayFadeOutStartTime.Text = "00:00:10";
-            this.textBoxVOverlayFadeOutStartTime.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInStartTime);
+            this.panelFade.Controls.Add(this.label54);
+            this.panelFade.Controls.Add(this.label25);
+            this.panelFade.Controls.Add(this.label48);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutStartTime);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutDuration);
+            this.panelFade.Controls.Add(this.label23);
+            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInDuration);
+            this.panelFade.Controls.Add(this.label46);
+            this.panelFade.Controls.Add(this.label50);
+            this.panelFade.Enabled = false;
+            this.panelFade.Location = new System.Drawing.Point(80, 11);
+            this.panelFade.Name = "panelFade";
+            this.panelFade.Size = new System.Drawing.Size(384, 100);
+            this.panelFade.TabIndex = 67;
             // 
             // textBoxVOverlayFadeInStartTime
             // 
@@ -1783,6 +1825,16 @@
             this.label54.TabIndex = 35;
             this.label54.Text = "Duration :";
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label25.Location = new System.Drawing.Point(5, 75);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(61, 15);
+            this.label25.TabIndex = 66;
+            this.label25.Text = "Fade Out :";
+            // 
             // label48
             // 
             this.label48.AutoSize = true;
@@ -1792,6 +1844,16 @@
             this.label48.Size = new System.Drawing.Size(59, 15);
             this.label48.TabIndex = 35;
             this.label48.Text = "Duration :";
+            // 
+            // textBoxVOverlayFadeOutStartTime
+            // 
+            this.textBoxVOverlayFadeOutStartTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxVOverlayFadeOutStartTime.Location = new System.Drawing.Point(88, 72);
+            this.textBoxVOverlayFadeOutStartTime.Name = "textBoxVOverlayFadeOutStartTime";
+            this.textBoxVOverlayFadeOutStartTime.Size = new System.Drawing.Size(116, 23);
+            this.textBoxVOverlayFadeOutStartTime.TabIndex = 42;
+            this.textBoxVOverlayFadeOutStartTime.Text = "00:00:10";
+            this.textBoxVOverlayFadeOutStartTime.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // textBoxVOverlayFadeOutDuration
             // 
@@ -1803,6 +1865,16 @@
             this.textBoxVOverlayFadeOutDuration.Text = "00:00:02";
             this.textBoxVOverlayFadeOutDuration.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label23.Location = new System.Drawing.Point(5, 23);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(51, 15);
+            this.label23.TabIndex = 65;
+            this.label23.Text = "Fade In :";
+            // 
             // textBoxVOverlayFadeInDuration
             // 
             this.textBoxVOverlayFadeInDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -1812,6 +1884,38 @@
             this.textBoxVOverlayFadeInDuration.TabIndex = 36;
             this.textBoxVOverlayFadeInDuration.Text = "00:00:02";
             this.textBoxVOverlayFadeInDuration.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label46.Location = new System.Drawing.Point(85, 2);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(64, 15);
+            this.label46.TabIndex = 39;
+            this.label46.Text = "Start time :";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label50.Location = new System.Drawing.Point(85, 54);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(64, 15);
+            this.label50.TabIndex = 39;
+            this.label50.Text = "Start time :";
+            // 
+            // checkBoxOverlayFade
+            // 
+            this.checkBoxOverlayFade.AutoSize = true;
+            this.checkBoxOverlayFade.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxOverlayFade.Location = new System.Drawing.Point(13, 51);
+            this.checkBoxOverlayFade.Name = "checkBoxOverlayFade";
+            this.checkBoxOverlayFade.Size = new System.Drawing.Size(61, 19);
+            this.checkBoxOverlayFade.TabIndex = 64;
+            this.checkBoxOverlayFade.Text = "Enable";
+            this.checkBoxOverlayFade.UseVisualStyleBackColor = true;
+            this.checkBoxOverlayFade.CheckedChanged += new System.EventHandler(this.checkBoxOverlayFade_CheckedChanged);
             // 
             // label51
             // 
@@ -1833,18 +1937,6 @@
             this.checkBoxOverlayDuration.UseVisualStyleBackColor = true;
             this.checkBoxOverlayDuration.CheckedChanged += new System.EventHandler(this.checkBoxOverlayDuration_CheckedChanged);
             // 
-            // checkBoxOverlayFade
-            // 
-            this.checkBoxOverlayFade.AutoSize = true;
-            this.checkBoxOverlayFade.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxOverlayFade.Location = new System.Drawing.Point(13, 51);
-            this.checkBoxOverlayFade.Name = "checkBoxOverlayFade";
-            this.checkBoxOverlayFade.Size = new System.Drawing.Size(61, 19);
-            this.checkBoxOverlayFade.TabIndex = 64;
-            this.checkBoxOverlayFade.Text = "Enable";
-            this.checkBoxOverlayFade.UseVisualStyleBackColor = true;
-            this.checkBoxOverlayFade.CheckedChanged += new System.EventHandler(this.checkBoxOverlayFade_CheckedChanged);
-            // 
             // numericUpDownOverlayLoop
             // 
             this.numericUpDownOverlayLoop.Enabled = false;
@@ -1864,16 +1956,6 @@
             0});
             this.numericUpDownOverlayLoop.ValueChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
-            // textBoxOverlayDuration
-            // 
-            this.textBoxOverlayDuration.Enabled = false;
-            this.textBoxOverlayDuration.Location = new System.Drawing.Point(163, 262);
-            this.textBoxOverlayDuration.Name = "textBoxOverlayDuration";
-            this.textBoxOverlayDuration.Size = new System.Drawing.Size(116, 23);
-            this.textBoxOverlayDuration.TabIndex = 59;
-            this.textBoxOverlayDuration.Text = "00:00:10";
-            this.textBoxOverlayDuration.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
-            // 
             // checkBoxOverlayLoop
             // 
             this.checkBoxOverlayLoop.AutoSize = true;
@@ -1884,6 +1966,16 @@
             this.checkBoxOverlayLoop.Text = "Loop the overlay (gif)";
             this.checkBoxOverlayLoop.UseVisualStyleBackColor = true;
             this.checkBoxOverlayLoop.CheckedChanged += new System.EventHandler(this.checkBoxOverlayLoop_CheckedChanged);
+            // 
+            // textBoxOverlayDuration
+            // 
+            this.textBoxOverlayDuration.Enabled = false;
+            this.textBoxOverlayDuration.Location = new System.Drawing.Point(163, 262);
+            this.textBoxOverlayDuration.Name = "textBoxOverlayDuration";
+            this.textBoxOverlayDuration.Size = new System.Drawing.Size(116, 23);
+            this.textBoxOverlayDuration.TabIndex = 59;
+            this.textBoxOverlayDuration.Text = "00:00:10";
+            this.textBoxOverlayDuration.TextChanged += new System.EventHandler(this.ThumbnailSettingsChanged);
             // 
             // label49
             // 
@@ -1933,46 +2025,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // panelFade
-            // 
-            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInStartTime);
-            this.panelFade.Controls.Add(this.label54);
-            this.panelFade.Controls.Add(this.label25);
-            this.panelFade.Controls.Add(this.label48);
-            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutStartTime);
-            this.panelFade.Controls.Add(this.textBoxVOverlayFadeOutDuration);
-            this.panelFade.Controls.Add(this.label23);
-            this.panelFade.Controls.Add(this.textBoxVOverlayFadeInDuration);
-            this.panelFade.Controls.Add(this.label46);
-            this.panelFade.Controls.Add(this.label50);
-            this.panelFade.Enabled = false;
-            this.panelFade.Location = new System.Drawing.Point(80, 11);
-            this.panelFade.Name = "panelFade";
-            this.panelFade.Size = new System.Drawing.Size(384, 100);
-            this.panelFade.TabIndex = 67;
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label35.Location = new System.Drawing.Point(537, 46);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(33, 13);
-            this.label35.TabIndex = 105;
-            this.label35.Text = "pixels";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label37.Location = new System.Drawing.Point(198, 49);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(33, 13);
-            this.label37.TabIndex = 106;
-            this.label37.Text = "pixels";
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1982,44 +2034,6 @@
             this.buttonJobOptions.TabIndex = 75;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // timeControlEndTime
-            // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
-            // 
-            // timeControlStartTime
-            // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // EncodingAMEStandard
             // 
@@ -2085,10 +2099,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVOverlayRectW)).EndInit();
             this.groupBoxFade.ResumeLayout(false);
             this.groupBoxFade.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panelFade.ResumeLayout(false);
             this.panelFade.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2247,5 +2261,6 @@
         private System.Windows.Forms.Panel panelFade;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.LinkLabel linkLabelInfoOverlay;
     }
 }

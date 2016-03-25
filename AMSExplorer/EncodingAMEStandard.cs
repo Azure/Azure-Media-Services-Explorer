@@ -181,6 +181,7 @@ namespace AMSExplorer
             linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
+            linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -806,12 +807,7 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
-
-        private void moreinfopresetslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(e.Link.LinkData as string);
-        }
-
+   
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -877,7 +873,7 @@ namespace AMSExplorer
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
-        private void linkLabelThumbnail1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
@@ -890,11 +886,6 @@ namespace AMSExplorer
         private void checkBoxDisableAutoDeinterlacing_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
-        }
-
-        private void linkLabelMoreInfoPreserveResRotation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(e.Link.LinkData as string);
         }
 
         private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)

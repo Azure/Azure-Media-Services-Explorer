@@ -907,13 +907,13 @@ namespace AMSExplorer
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services-2/";
 
-
         public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
         public const string LinkMorePresetsMES = "http://go.microsoft.com/fwlink/?LinkId=618336";
         public const string LinkThumbnailsMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-dotnet-generate-thumbnail-with-mes/";
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
+        public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
 
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
@@ -936,7 +936,6 @@ namespace AMSExplorer
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
-
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
