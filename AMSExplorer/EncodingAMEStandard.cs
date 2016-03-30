@@ -188,10 +188,10 @@ namespace AMSExplorer
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
                 // come from subclip UI
-                timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode - _subclipConfig.OffsetForReencode);
+                timeControlStartTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].In);
                 timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
                 timeControlStartTime.ScaledFirstTimestampOffset = timeControlEndTime.ScaledFirstTimestampOffset = (ulong)_subclipConfig.OffsetForReencode.Ticks;
-                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode - _subclipConfig.OffsetForReencode);
+                timeControlEndTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].Out);
 
                 // let's display the offset
                 labelOffset.Visible = textBoxOffset.Visible = true;

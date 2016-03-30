@@ -3502,8 +3502,12 @@ namespace AMSExplorer
         public bool Reencode { get; set; }
         public bool Trimming { get; set; }
         public bool CreateAssetFilter { get; set; }
+
+        public List<ExplorerEDLEntryInOut> InOutForReencode { get; set; }
+        /*
         public TimeSpan StartTimeForReencode { get; set; }
         public TimeSpan DurationForReencode { get; set; }
+    */    
         public TimeSpan OffsetForReencode { get; set; }
         public TimeSpan StartTimeForAssetFilter { get; set; }
         public TimeSpan EndTimeForAssetFilter { get; set; }
