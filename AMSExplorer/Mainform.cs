@@ -2232,13 +2232,13 @@ namespace AMSExplorer
                 ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey, _credentials.ReturnStorageSuffix())
                 {
                     ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
-                    ImportNewAssetName = "NewAsset Blob_" + Guid.NewGuid(),
+                    ImportNewAssetName = Constants.NameconvUploadasset,
                     ImportCreateNewAsset = true
                 };
 
                 if (!string.IsNullOrEmpty(targetAssetID))
                 {
-                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypyted and is in the default storage account
+                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypted and is in the default storage account
                     {
                         form.ImportOptionToCopyFilesToExistingAsset = true;
                         form.ImportLabelExistingAssetName = AssetInfo.GetAsset(targetAssetID, _context).Name;
@@ -2261,7 +2261,7 @@ namespace AMSExplorer
                 {
                     int index = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, targetAssetID, index));
+                    Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
@@ -2269,11 +2269,37 @@ namespace AMSExplorer
         }
 
 
-        private void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, string targetAssetID, int index)
+        private void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, bool CreateOneAssetPerFile, string targetAssetID, int index)
         {
+            bool Error = false;
+
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
 
+            List<IAsset> assets = new List<IAsset>();
+            if (CreateNewAsset)
+            {
+                if (CreateOneAssetPerFile) // one asset per file
+                {
+                    foreach (var file in SelectedBlobs)
+                    {
+                        string currentassetname = newassetname.Replace(Constants.NameconvUploadasset, HttpUtility.UrlDecode(Path.GetFileName(file.Uri.AbsoluteUri)));
+                        assets.Add(_context.Assets.Create(currentassetname, AssetCreationOptions.None));
+                    }
+                }
+                else // one asset for all files
+                {
+                    // Create a new asset.
+                    string currentassetname = newassetname.Replace(Constants.NameconvUploadasset, HttpUtility.UrlDecode(Path.GetFileName(SelectedBlobs[0].Uri.AbsoluteUri)));
+                    assets.Add(_context.Assets.Create(currentassetname, AssetCreationOptions.None));
+                }
+            }
+            else //copy files in an existing asset
+            {
+                assets.Add(AssetInfo.GetAsset(targetAssetID, _context));
+            }
+
+            /*
             IAsset asset;
             if (CreateNewAsset)
             {
@@ -2283,147 +2309,61 @@ namespace AMSExplorer
             else //copy files in an existing asset
             {
                 asset = AssetInfo.GetAsset(targetAssetID, _context);
-
             }
-            if (UseDefaultStorage) // The default storage is used
+            */
+
+            CloudStorageAccount sourceStorageAccount;
+            if (UseDefaultStorage)
             {
-                CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
-
-
-                var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                var mediaBlobContainer = cloudBlobClient.GetContainerReference(containername);
-
-                TextBoxLogWriteLine("Starting the blob copy process.");
-
-                IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-                ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
-
-                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                Uri uploadUri = new Uri(destinationLocator.Path);
-                string assetTargetContainerName = uploadUri.Segments[1];
-                CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-
-                CloudBlockBlob sourceCloudBlob, destinationBlob;
-                long Length = 0;
-                long BytesCopied = 0;
-                string fileName;
-                double percentComplete;
-                bool Error = false;
-
-                //calculate size
-                foreach (var sourceBlob1 in SelectedBlobs)
-                {
-                    fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob1.Uri.AbsoluteUri));
-
-                    sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
-                    sourceCloudBlob.FetchAttributes();
-
-                    Length += sourceCloudBlob.Properties.Length;
-                }
-
-                // do the copy
-                int nbblob = 0;
-                foreach (var sourceBlob in SelectedBlobs)
-                {
-                    nbblob++;
-                    fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
-
-                    sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
-                    sourceCloudBlob.FetchAttributes();
-
-                    if (sourceCloudBlob.Properties.Length > 0)
-                    {
-                        try
-                        {
-                            IAssetFile assetFile = asset.AssetFiles.Create(fileName);
-                            destinationBlob = assetTargetContainer.GetBlockBlobReference(fileName);
-
-                            destinationBlob.DeleteIfExists();
-                            destinationBlob.StartCopy(sourceCloudBlob);
-
-                            CloudBlockBlob blob;
-                            blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(fileName);
-
-                            while (blob.CopyState.Status == CopyStatus.Pending)
-                            {
-                                Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                blob.FetchAttributes();
-                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                DoGridTransferUpdateProgress(percentComplete, index);
-                            }
-
-                            if (blob.CopyState.Status == CopyStatus.Failed)
-                            {
-                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
-                                Error = true;
-                                break;
-                            }
-
-                            destinationBlob.FetchAttributes();
-                            assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
-                            assetFile.Update();
-
-                            if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
-                            {
-                                DoGridTransferDeclareError(index, "Error during blob copy.");
-                                Error = true;
-                                break;
-                            }
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Failed to copy file '{0}'!.", fileName, true);
-                            DoGridTransferDeclareError(index, ex);
-                            Error = true;
-                        }
-
-                        BytesCopied += sourceCloudBlob.Properties.Length;
-                        percentComplete = (long)100 * (long)BytesCopied / (long)Length;
-                        if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
-                    }
-                }
-
-                asset.Update();
-
-                destinationLocator.Delete();
-                writePolicy.Delete();
-
-                // Refresh the asset.
-                asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-                AssetInfo.SetISMFileAsPrimary(asset);
-                if (!Error)
-                {
-                    DoGridTransferDeclareCompleted(index, asset.Id);
-                }
-                DoRefreshGridAssetV(false);
-
+                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
             }
-            else // Use another storage account
+            else
             {
-                // Create Media Services context.
+                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
+            }
 
-                var externalStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
-                var externalCloudBlobClient = externalStorageAccount.CreateCloudBlobClient();
-                var externalMediaBlobContainer = externalCloudBlobClient.GetContainerReference(containername);
+            var sourceCloudBlobClient = sourceStorageAccount.CreateCloudBlobClient();
+            var sourceMediaBlobContainer = sourceCloudBlobClient.GetContainerReference(containername);
 
-                TextBoxLogWriteLine("Starting the Azure Storage copy process.");
+            TextBoxLogWriteLine("Starting the Azure Storage copy process.");
 
-                externalMediaBlobContainer.CreateIfNotExists();
+            sourceMediaBlobContainer.CreateIfNotExists();
 
-                // Get the SAS token to use for all blobs if dealing with multiple accounts
-                string blobToken = externalMediaBlobContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy()
-                {
-                    // Specify the expiration time for the signature.
-                    SharedAccessExpiryTime = DateTime.Now.AddDays(1),
-                    // Specify the permissions granted by the signature.
-                    Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.Read
-                });
+            // Get the SAS token to use for all blobs if dealing with multiple accounts
+            string blobToken = sourceMediaBlobContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy()
+            {
+                // Specify the expiration time for the signature.
+                SharedAccessExpiryTime = DateTime.Now.AddDays(1),
+                // Specify the permissions granted by the signature.
+                Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.Read
+            });
 
-                IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy",
-                  TimeSpan.FromDays(1), AccessPermissions.Write);
+            IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy",
+              TimeSpan.FromDays(1), AccessPermissions.Write);
+
+            int assetindex = 0;
+            string fileName;
+
+            long BytesCopied = 0;
+            double percentComplete;
+
+            CloudBlockBlob sourceCloudBlob, destinationBlob;
+
+            //calculate size of all files
+            long Length = 0;
+            foreach (var sourceBlob in SelectedBlobs)
+            {
+                fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
+
+                sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
+                sourceCloudBlob.FetchAttributes();
+
+                Length += sourceCloudBlob.Properties.Length;
+            }
+
+
+            foreach (var asset in assets)
+            {
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
                 var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
@@ -2435,32 +2375,13 @@ namespace AMSExplorer
                 CloudBlobContainer assetContainer =
                     destBlobStorage.GetContainerReference(destinationContainerName);
 
-                CloudBlockBlob sourceCloudBlob, destinationBlob;
-                long Length = 0;
-                long BytesCopied = 0;
-                string fileName;
-                double percentComplete;
-
-                //calculate size
-                foreach (var sourceBlob in SelectedBlobs)
+                if (CreateOneAssetPerFile)
                 {
+                    // do the copy
+                    var sourceBlob = SelectedBlobs[assetindex];
                     fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
 
-                    sourceCloudBlob = externalMediaBlobContainer.GetBlockBlobReference(fileName);
-                    sourceCloudBlob.FetchAttributes();
-
-                    Length += sourceCloudBlob.Properties.Length;
-                }
-
-                // do the copy
-                int nbblob = 0;
-                bool Error = false;
-                foreach (var sourceBlob in SelectedBlobs)
-                {
-                    nbblob++;
-                    fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
-
-                    sourceCloudBlob = externalMediaBlobContainer.GetBlockBlobReference(fileName);
+                    sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
                     sourceCloudBlob.FetchAttributes();
 
                     if (sourceCloudBlob.Properties.Length > 0)
@@ -2477,7 +2398,7 @@ namespace AMSExplorer
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                 destinationBlob.FetchAttributes();
-                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
+                                percentComplete = (Convert.ToDouble(assetindex + 1) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
                                 DoGridTransferUpdateProgress(percentComplete, index);
                             }
 
@@ -2505,23 +2426,101 @@ namespace AMSExplorer
                         if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
 
                     }
+
+
+                }
+                else // all files in the same asset
+                {
+                    // do the copy
+                    int nbblob = 0;
+
+                    foreach (var sourceBlob in SelectedBlobs)
+                    {
+                        nbblob++;
+                        fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
+
+                        sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
+                        sourceCloudBlob.FetchAttributes();
+
+                        if (sourceCloudBlob.Properties.Length > 0)
+                        {
+                            try
+                            {
+                                IAssetFile assetFile = asset.AssetFiles.Create(fileName);
+                                destinationBlob = assetContainer.GetBlockBlobReference(fileName);
+
+                                destinationBlob.DeleteIfExists();
+                                destinationBlob.StartCopy(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken));
+
+                                while (destinationBlob.CopyState.Status == CopyStatus.Pending)
+                                {
+                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    destinationBlob.FetchAttributes();
+                                    percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
+                                    DoGridTransferUpdateProgress(percentComplete, index);
+                                }
+
+                                if (destinationBlob.CopyState.Status == CopyStatus.Failed)
+                                {
+                                    DoGridTransferDeclareError(index, destinationBlob.CopyState.StatusDescription);
+                                    Error = true;
+                                    break;
+                                }
+
+                                destinationBlob.FetchAttributes();
+                                assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
+                                assetFile.Update();
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
+                                DoGridTransferDeclareError(index, ex);
+                                Error = true;
+                                break;
+
+                            }
+                            BytesCopied += sourceCloudBlob.Properties.Length;
+                            percentComplete = 100d * BytesCopied / Length;
+                            if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
+
+                        }
+                    }
                 }
 
                 asset.Update();
                 destinationLocator.Delete();
-                writePolicy.Delete();
 
                 // Refresh the asset.
-                asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-                AssetInfo.SetISMFileAsPrimary(asset);
-
-                if (!Error)
+                IAsset asset_refreshed = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+                if (asset_refreshed.AssetFiles.Count() == 1)
                 {
-                    DoGridTransferDeclareCompleted(index, asset.Id);
+                    AssetInfo.SetFileAsPrimary(asset_refreshed, asset_refreshed.AssetFiles.FirstOrDefault().Name);
                 }
-                DoRefreshGridAssetV(false);
+                else
+                {
+                    AssetInfo.SetISMFileAsPrimary(asset_refreshed);
+                }
 
+                assetindex++;
             }
+
+            writePolicy.Delete();
+
+            if (!Error)
+            {
+                if (CreateOneAssetPerFile)
+                {
+                    DoGridTransferDeclareCompleted(index, "");
+                }
+                else
+                {
+                    DoGridTransferDeclareCompleted(index, assets[0].Id);
+                }
+            }
+
+            DoRefreshGridAssetV(false);
+
+
         }
 
 
