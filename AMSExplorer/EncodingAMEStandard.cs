@@ -42,7 +42,8 @@ namespace AMSExplorer
 
         private SubClipConfiguration _subclipConfig;
 
-        public List<IAsset> SelectedAssets;
+        private List<IAsset> _selectedAssets;
+        IAsset _firstAsset;
         private CloudMediaContext _context;
 
         private const string strEditTimes = "Edit times";
@@ -87,6 +88,19 @@ namespace AMSExplorer
         private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
+
+        public List<IAsset> SelectedAssets
+        {
+            set
+            {
+                _selectedAssets = value;
+                _firstAsset = _selectedAssets.FirstOrDefault();
+            }
+            get
+            {
+                return _selectedAssets;
+            }
+        }
 
         public string EncodingLabel
         {
@@ -203,7 +217,6 @@ namespace AMSExplorer
             if (_nbInputAssets > 1)
             {
                 checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
-                //tabControl1.TabPages.Remove(tabPageOverlay); // no overlay if several assets have been selected
             }
         }
 
@@ -458,6 +471,16 @@ namespace AMSExplorer
                             OverlayParamImage.OverlayLoopCount = 1;
                         }
 
+                        if (_firstAsset != null)
+                        {
+                            for (int i = 2; i < _firstAsset.AssetFiles.Count(); i++) // if more than two files in the asset, we need to add Mediaparams for each extra file
+                            {
+                                dynamic OverlayParam = new JObject();
+                                OverlayParam.IsOverlay = false;
+                                OverlayParam.OverlayLoopCount = 1;
+                                MediaParams.Add(OverlayParam);
+                            }
+                        }
 
                         VideoOverlay.Source = textBoxOverlayFileName.Text;
 
@@ -807,7 +830,7 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
-   
+
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -990,13 +1013,14 @@ namespace AMSExplorer
 
         private void DoSelectFile()
         {
-            var form = new EncodingAMEStandardPickOverlay(SelectedAssets.FirstOrDefault());
+            var form = new EncodingAMEStandardPickOverlay(_firstAsset);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 textBoxOverlayFileName.Text = form.SelectedAssetFile.Name;
                 CheckOverlayFile();
                 UpdateTextBoxJSON(textBoxConfiguration.Text);
             }
+            _firstAsset = _context.Assets.Where(a => a.Id == _firstAsset.Id).FirstOrDefault(); // let's refresh if the user added one or several files to it
         }
 
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
