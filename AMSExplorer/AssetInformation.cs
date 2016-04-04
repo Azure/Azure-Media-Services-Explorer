@@ -389,11 +389,19 @@ namespace AMSExplorer
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
 
-                foreach (IAsset p_asset in myAsset.ParentAssets)
+                try
                 {
-                    DGAsset.Rows.Add("Parent asset", p_asset.Name);
-                    DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                    foreach (IAsset p_asset in myAsset.ParentAssets)
+                    {
+                        DGAsset.Rows.Add("Parent asset", p_asset.Name);
+                        DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                    }
                 }
+                catch
+                {
+                    DGAsset.Rows.Add("Parent asset(s)", "<error, deleted?>");
+                }
+
 
                 IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(myContext);
 

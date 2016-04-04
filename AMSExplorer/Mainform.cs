@@ -6011,8 +6011,16 @@ namespace AMSExplorer
                 IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == SelectedJobs.FirstOrDefault().Id).FirstOrDefault();
                 if (JobToDisplayP2 != null)
                 {
-                    ReadOnlyCollection<IAsset> assetcol = inputasset ? JobToDisplayP2.InputMediaAssets : JobToDisplayP2.OutputMediaAssets;
-                    if (assetcol.Count > 0)
+                    ReadOnlyCollection<IAsset> assetcol = null;
+                    try
+                    {
+                        assetcol = inputasset ? JobToDisplayP2.InputMediaAssets : JobToDisplayP2.OutputMediaAssets;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error when accessing the asset", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (assetcol != null && assetcol.Count > 0)
                     {
                         if (assetcol.Count > 1) MessageBox.Show("There are " + assetcol.Count + " assets. Displaying only the first one.");
                         IAsset asset = assetcol.FirstOrDefault();
