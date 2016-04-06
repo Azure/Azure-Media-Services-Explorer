@@ -689,7 +689,7 @@ namespace AMSExplorer
                     Index = (int)numericUpDownAudioIndexAddition.Value,
                     Code = selected.Value
                 });
-                videoStreamChanged = true;
+                audioStreamChanged = true;
                 UpdateProfileGrids();
             }
         }
