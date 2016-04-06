@@ -57,6 +57,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxOneAssetPerFile = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkBoxOneAssetPerFile);
             this.groupBox1.Controls.Add(this.labelSelectedAssetWarning);
             this.groupBox1.Controls.Add(this.labelExistingAssetName);
             this.groupBox1.Controls.Add(this.textBoxNewAssetName);
@@ -117,7 +119,7 @@
             // 
             this.labelExistingAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelExistingAssetName.AutoSize = true;
-            this.labelExistingAssetName.Location = new System.Drawing.Point(170, 52);
+            this.labelExistingAssetName.Location = new System.Drawing.Point(170, 55);
             this.labelExistingAssetName.Name = "labelExistingAssetName";
             this.labelExistingAssetName.Size = new System.Drawing.Size(63, 15);
             this.labelExistingAssetName.TabIndex = 18;
@@ -369,6 +371,17 @@
             this.panel1.Size = new System.Drawing.Size(792, 55);
             this.panel1.TabIndex = 63;
             // 
+            // checkBoxOneAssetPerFile
+            // 
+            this.checkBoxOneAssetPerFile.AutoSize = true;
+            this.checkBoxOneAssetPerFile.Enabled = false;
+            this.checkBoxOneAssetPerFile.Location = new System.Drawing.Point(557, 24);
+            this.checkBoxOneAssetPerFile.Name = "checkBoxOneAssetPerFile";
+            this.checkBoxOneAssetPerFile.Size = new System.Drawing.Size(151, 19);
+            this.checkBoxOneAssetPerFile.TabIndex = 46;
+            this.checkBoxOneAssetPerFile.Text = "Create one asset per file";
+            this.checkBoxOneAssetPerFile.UseVisualStyleBackColor = true;
+            // 
             // ImportFromAzureStorage
             // 
             this.AcceptButton = this.buttonUpload;
@@ -433,5 +446,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelSelectedAssetWarning;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBoxOneAssetPerFile;
     }
 }

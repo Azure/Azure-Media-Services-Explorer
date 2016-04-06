@@ -389,11 +389,19 @@ namespace AMSExplorer
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
 
-                foreach (IAsset p_asset in myAsset.ParentAssets)
+                try
                 {
-                    DGAsset.Rows.Add("Parent asset", p_asset.Name);
-                    DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                    foreach (IAsset p_asset in myAsset.ParentAssets)
+                    {
+                        DGAsset.Rows.Add("Parent asset", p_asset.Name);
+                        DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                    }
                 }
+                catch
+                {
+                    DGAsset.Rows.Add("Parent asset(s)", "<error, deleted?>");
+                }
+
 
                 IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(myContext);
 
@@ -560,6 +568,38 @@ namespace AMSExplorer
             List<Uri> ProgressiveDownloadUris;
             IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
             string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
+
+
+            // delivery policies
+            bool protocolDASH, protocolHLS, protocolSmooth;
+
+            if (myAsset.DeliveryPolicies.Count > 0)
+            { // some dynamic encryption, let's analyse the procotols
+
+                protocolDASH = protocolHLS = protocolSmooth = false;
+
+                foreach (var pol in myAsset.DeliveryPolicies)
+                {
+                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
+                    {
+                        protocolDASH = true;
+                    }
+                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.HLS) == AssetDeliveryProtocol.HLS)
+                    {
+                        protocolHLS = true;
+                    }
+                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.SmoothStreaming) == AssetDeliveryProtocol.SmoothStreaming)
+                    {
+                        protocolSmooth = true;
+                    }
+                }
+            }
+            else
+            {
+                protocolDASH = protocolHLS = protocolSmooth = true;
+            }
+
+
             if (SelectedSE != null)
             {
                 bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
@@ -633,10 +673,14 @@ namespace AMSExplorer
 
                         int indexn = 1;
 
-                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
-                        foreach (IAssetFile IAF in myAsset.AssetFiles)
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
-                        indexn++;
+                        if (myAsset.DeliveryPolicies.Count == 0) // if no dynamic encryption 
+                        {
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
+
+                            foreach (IAssetFile IAF in myAsset.AssetFiles)
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
+                            indexn++;
+                        }
 
                         if (myAsset.AssetType == AssetType.MediaServicesHLS)
                         // It is a static HLS asset, so let's propose only the standard HLS V3 locator
@@ -649,7 +693,7 @@ namespace AMSExplorer
                                                                                                                                                                              // It's not Static HLS
                                                                                                                                                                              // Smooth or multi MP4
                         {
-                            if (locator.GetSmoothStreamingUri() != null)
+                            if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
                             {
                                 Color ColorSmooth = ((myAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
@@ -666,7 +710,7 @@ namespace AMSExplorer
                                 }
                                 indexn++;
                             }
-                            if (locator.GetMpegDashUri() != null)
+                            if (protocolDASH && locator.GetMpegDashUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
@@ -675,7 +719,7 @@ namespace AMSExplorer
                                 }
                                 indexn++;
                             }
-                            if (locator.GetHlsUri() != null)
+                            if (protocolHLS && locator.GetHlsUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
@@ -1523,7 +1567,7 @@ namespace AMSExplorer
         {
             bool DisplayButGetToken = false;
 
-            if (listViewAutPolOptions.SelectedItems.Count > 0 && myAuthPolicy!=null)
+            if (listViewAutPolOptions.SelectedItems.Count > 0 && myAuthPolicy != null)
             {
                 dataGridViewAutPolOption.Rows.Clear();
 

@@ -58,7 +58,7 @@
                     <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
                     <propertyDefinition hidden="true" name="_graphMinDisplaySize" group="System" dynamic="true"/>
                     <property name="_graphDisplayContents">false</property>
-                    <property name="_graphDisplayLocation">667.8813171386719,388.2469825744629</property>
+                    <property name="_graphDisplayLocation">654.8813171386719,228.2469825744629</property>
                     <property name="_graphMinDisplaySize" isNull="true"/>
                     <property name="_timeBase_local" isNull="true"/>
                     <property name="acquireChildLicenses" isNull="true"/>
@@ -2137,12 +2137,12 @@ Deinterlace only if necessary</componentName>
                             <property name="filename" marshallerKey="Serializable">rO0ABXNyADVjYS5kaWdpdGFscmFwaWRzLmtheWFrLmRhdGEuaW1wbC5EZWZhdWx0RGF0YUNvbnRh
 aW5lcgAAAAAAAAABAgAEWgAHbXV0YWJsZUoAC3NpemVJbkJ5dGVzTAAKZGF0YU9iamVjdHQAEkxq
 YXZhL2xhbmcvT2JqZWN0O0wACGRhdGFUeXBldAAmTGNhL2RpZ2l0YWxyYXBpZHMva2F5YWsvZGF0
-YS9EYXRhVHlwZTt4cAEAAAAAAAAAAXQATUY6XEltYWdpbmUgQ29tbXVuaWNhdGlvbnNcU291cmNl
+YS9EYXRhVHlwZTt4cAAAAAAAAAAAAXQATUY6XEltYWdpbmUgQ29tbXVuaWNhdGlvbnNcU291cmNl
 IEZpbGVzXE1YRl9YRENBTUhEXzEwODBpMjlfOHhNb25vX0FuY0RhdGEubXhmc3IALWNhLmRpZ2l0
 YWxyYXBpZHMua2F5YWsuZGF0YXR5cGVzLkJhc2VEYXRhVHlwZQAAAAAAAAABAgADWgAHbXV0YWJs
 ZUwAEmRhdGFUeXBlRGVmaW5pdGlvbnQARkxjYS9kaWdpdGFscmFwaWRzL2theWFrL2RhdGF0eXBl
 cy9kZWZpbml0aW9uL21vZGVsL0RhdGFUeXBlRGVmaW5pdGlvbjtMAANtYXB0AA9MamF2YS91dGls
-L01hcDt4cAFwc3IAEWphdmEudXRpbC5IYXNoTWFwBQfawcMWYNEDAAJGAApsb2FkRmFjdG9ySQAJ
+L01hcDt4cABwc3IAEWphdmEudXRpbC5IYXNoTWFwBQfawcMWYNEDAAJGAApsb2FkRmFjdG9ySQAJ
 dGhyZXNob2xkeHA/AAAAAAAAQHcIAAAAQAAAAAB4</property>
                             <property name="ignoreChildComponentErrors" isNull="true"/>
                             <property name="ignoreParentGraphState" isNull="true"/>
@@ -2563,7 +2563,7 @@ dGhyZXNob2xkeHA/AAAAAAAAQHcIAAAAQAAAAAB4</property>
                     <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
                     <propertyDefinition hidden="true" name="_graphMinDisplaySize" group="System" dynamic="true"/>
                     <property name="_graphDisplayContents">false</property>
-                    <property name="_graphDisplayLocation">695.8900146484375,560.9419593811035</property>
+                    <property name="_graphDisplayLocation">682.8900146484375,400.9419593811035</property>
                     <property name="_graphMinDisplaySize" isNull="true"/>
                     <property name="_timeBase_local" isNull="true"/>
                     <property name="acquireChildLicenses" isNull="true"/>
@@ -4642,13 +4642,13 @@ Deinterlace only if necessary</componentName>
                             <property name="filename" marshallerKey="Serializable">rO0ABXNyADVjYS5kaWdpdGFscmFwaWRzLmtheWFrLmRhdGEuaW1wbC5EZWZhdWx0RGF0YUNvbnRh
 aW5lcgAAAAAAAAABAgAEWgAHbXV0YWJsZUoAC3NpemVJbkJ5dGVzTAAKZGF0YU9iamVjdHQAEkxq
 YXZhL2xhbmcvT2JqZWN0O0wACGRhdGFUeXBldAAmTGNhL2RpZ2l0YWxyYXBpZHMva2F5YWsvZGF0
-YS9EYXRhVHlwZTt4cAEAAAAAAAAAAXQATUY6XEltYWdpbmUgQ29tbXVuaWNhdGlvbnNcU291cmNl
+YS9EYXRhVHlwZTt4cAAAAAAAAAAAAXQATUY6XEltYWdpbmUgQ29tbXVuaWNhdGlvbnNcU291cmNl
 IEZpbGVzXE1YRl9YRENBTUhEXzEwODBpMjlfOHhNb25vX0FuY0RhdGEubXhmc3IALWNhLmRpZ2l0
 YWxyYXBpZHMua2F5YWsuZGF0YXR5cGVzLkJhc2VEYXRhVHlwZQAAAAAAAAABAgADWgAHbXV0YWJs
 ZUwAEmRhdGFUeXBlRGVmaW5pdGlvbnQARkxjYS9kaWdpdGFscmFwaWRzL2theWFrL2RhdGF0eXBl
 cy9kZWZpbml0aW9uL21vZGVsL0RhdGFUeXBlRGVmaW5pdGlvbjtMAANtYXB0AA9MamF2YS91dGls
 L01hcDt4cABwc3IAEWphdmEudXRpbC5IYXNoTWFwBQfawcMWYNEDAAJGAApsb2FkRmFjdG9ySQAJ
-dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
+dGhyZXNob2xkeHA/AAAAAAAAQHcIAAAAQAAAAAB4</property>
                             <property name="ignoreChildComponentErrors" isNull="true"/>
                             <property name="ignoreParentGraphState" isNull="true"/>
                             <property name="inspection_max_megabytes" isNull="true"/>
@@ -5410,7 +5410,7 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
                     <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
                     <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
                     <property name="_graphDisplayContents" isNull="true"/>
-                    <property name="_graphDisplayLocation">274.7292785644531,471.7443542480469</property>
+                    <property name="_graphDisplayLocation">261.7292785644531,310.7443542480469</property>
                     <property name="_timeBase_local" isNull="true"/>
                     <property name="conditionsXml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
 &lt;LogicRules&gt;
@@ -5420,6 +5420,41 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
             &lt;lhs source="DATA_TYPE" value="track.0.trackDetails.image_width"/&gt;
             &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
         &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.1.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.2.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.3.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.4.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.5.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.6.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
+        &lt;Condition&gt;
+            &lt;compareOperation&gt;LESS_THAN&lt;/compareOperation&gt;
+            &lt;lhs source="DATA_TYPE" value="track.7.trackDetails.image_width"/&gt;
+            &lt;rhs source="EXPLICIT_VALUE" value="640"/&gt;
+        &lt;/Condition&gt;
     &lt;/Conditions&gt;
 &lt;/LogicRules&gt;
 </property>
@@ -5427,7 +5462,7 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
                     <property name="defaultOutputPin" isNull="true"/>
                     <property name="dynamicSwitching" isNull="true"/>
                     <property name="evaluateEndOfStream">false</property>
-                    <property name="logicOperator">and</property>
+                    <property name="logicOperator">or</property>
                     <property name="logsMaxEntries" isNull="true"/>
                     <componentName>Logic Branch - SD</componentName>
                     <componentDefinitionName>Logic Branch</componentDefinitionName>
@@ -5443,7 +5478,7 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
                     <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
                     <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
                     <property name="_graphDisplayContents" isNull="true"/>
-                    <property name="_graphDisplayLocation">40.0,303.0</property>
+                    <property name="_graphDisplayLocation">27.0,143.0</property>
                     <property name="_timeBase_local" isNull="true"/>
                     <property name="defaultInputPin" isNull="true"/>
                     <property name="defaultOutputPin">out</property>
@@ -5487,7 +5522,7 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
             </pin>
             <pin name="outputAssetsCommand" type="COMMAND">
                 <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
-                <property name="_graphDisplayLocation">1216.8106689453125,441.9895935058594</property>
+                <property name="_graphDisplayLocation">1144.8106689453125,347.9895935058594</property>
             </pin>
         </component>
     </components>
@@ -5495,6 +5530,10 @@ dGhyZXNob2xkeHA/AAAAAAAAAHcIAAAAEAAAAAB4</property>
         <connection>
             <sourcePath>primarySourceFile</sourcePath>
             <destinationPath>AVC - source framesize pass-through/Media File Input/filename</destinationPath>
+        </connection>
+        <connection>
+            <sourcePath>primarySourceFile</sourcePath>
+            <destinationPath>AVC - 640x360 or 640x480/Media File Input/filename</destinationPath>
         </connection>
         <connection>
             <sourcePath>AVC - source framesize pass-through/writeComplete</sourcePath>
@@ -6397,7 +6436,7 @@ Deinterlace only if necessary/Deinterlacer/in</destinationPath>
         <osName>Windows 7</osName>
         <osArch>amd64</osArch>
         <osVersion>6.1</osVersion>
-        <authoredDate>2014-12-05T17:04:42.404-05:00</authoredDate>
+        <authoredDate>2014-12-09T15:18:09.242-05:00</authoredDate>
         <plugins>
             <plugin pluginId="ca.digitalrapids.AACSourceController" name="AAC Source Controller">
                 <pluginVersion>1.0.24.0</pluginVersion>

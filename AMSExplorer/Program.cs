@@ -1049,21 +1049,31 @@ namespace AMSExplorer
             {
                 lSize = 0;
                 sizecanbecalculated = true;
-                foreach (IAsset asset in task.InputAssets)
+
+                try
                 {
-                    if (asset.State == AssetState.Deleted)
+                    foreach (IAsset asset in task.InputAssets)
                     {
-                        sizecanbecalculated = false;
-                    }
-                    else
-                    {
-                        foreach (IAssetFile fileItem in asset.AssetFiles)
+                        if (asset.State == AssetState.Deleted)
                         {
-                            lSize += fileItem.ContentFileSize;
+                            sizecanbecalculated = false;
+                        }
+                        else
+                        {
+                            foreach (IAssetFile fileItem in asset.AssetFiles)
+                            {
+                                lSize += fileItem.ContentFileSize;
+                            }
                         }
                     }
                 }
+
+                catch
+                {
+                    sizecanbecalculated = false;
+                }
             }
+
             if (sizecanbecalculated)
             {
                 return lSize;
@@ -1084,20 +1094,32 @@ namespace AMSExplorer
             {
                 lSize = 0;
                 sizecanbecalculated = true;
-                foreach (IAsset asset in task.OutputAssets)
+
+
+                try
                 {
-                    if (asset.State == AssetState.Deleted)
+                    foreach (IAsset asset in task.OutputAssets)
                     {
-                        sizecanbecalculated = false;
-                    }
-                    else
-                    {
-                        foreach (IAssetFile fileItem in asset.AssetFiles)
+                        if (asset.State == AssetState.Deleted)
                         {
-                            lSize += fileItem.ContentFileSize;
+                            sizecanbecalculated = false;
+                        }
+                        else
+                        {
+                            foreach (IAssetFile fileItem in asset.AssetFiles)
+                            {
+                                lSize += fileItem.ContentFileSize;
+                            }
                         }
                     }
                 }
+
+                catch
+                {
+                    sizecanbecalculated = false;
+                }
+
+                
             }
             if (sizecanbecalculated)
             {
@@ -1373,37 +1395,53 @@ namespace AMSExplorer
                         sb.AppendLine("=====================");
                         sb.AppendLine("");
 
-                        foreach (IAsset asset in task.InputAssets)
+                        try
                         {
-                            if (asset.State == AssetState.Deleted)
+                            foreach (IAsset asset in task.InputAssets)
                             {
-                                sb.AppendLine("Asset Deleted");
-                            }
-                            else
-                            {
-                                ListAssetInfo(asset, ref sb);
-                                sb.AppendLine("");
-                                ListFilesInAsset(asset, ref sb);
+                                if (asset.State == AssetState.Deleted)
+                                {
+                                    sb.AppendLine("Asset Deleted");
+                                }
+                                else
+                                {
+                                    ListAssetInfo(asset, ref sb);
+                                    sb.AppendLine("");
+                                    ListFilesInAsset(asset, ref sb);
+                                }
                             }
                         }
+                        catch
+                        {
+                            sb.AppendLine("Asset(s) error. Deleted?");
+                        }
+                        
                         sb.AppendLine("");
                         sb.AppendLine("Output Assets       :");
                         sb.AppendLine("=====================");
                         sb.AppendLine("");
 
-                        foreach (IAsset asset in task.OutputAssets)
+                        try
                         {
-                            if (asset.State == AssetState.Deleted)
+                            foreach (IAsset asset in task.OutputAssets)
                             {
-                                sb.AppendLine("Asset Deleted");
-                            }
-                            else
-                            {
-                                ListAssetInfo(asset, ref sb);
-                                sb.AppendLine("");
-                                ListFilesInAsset(asset, ref sb);
+                                if (asset.State == AssetState.Deleted)
+                                {
+                                    sb.AppendLine("Asset Deleted");
+                                }
+                                else
+                                {
+                                    ListAssetInfo(asset, ref sb);
+                                    sb.AppendLine("");
+                                    ListFilesInAsset(asset, ref sb);
+                                }
                             }
                         }
+                        catch
+                        {
+                            sb.AppendLine("Asset(s) error. Deleted?");
+                        }
+
                         sb.AppendLine("");
 
                         if (task.State == JobState.Error)

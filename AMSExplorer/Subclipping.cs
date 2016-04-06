@@ -247,7 +247,7 @@ namespace AMSExplorer
                 stream_v.Type = "VideoStream";
                 stream_v.Value = filter;
 
-                if (checkBoxUseEDL.Checked) // EDL
+                if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
                 {
                     foreach (var entry in buttonShowEDL.GetEDLEntries())
                     {
@@ -266,8 +266,7 @@ namespace AMSExplorer
                 {
                     dynamic sourceEntry = new JObject() as dynamic;
 
-                    // trimming
-                    if (checkBoxTrimming.Checked)
+                    if (checkBoxTrimming.Checked) // with trimming
                     {
                         sourceEntry.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
                         sourceEntry.Duration = timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset();
@@ -338,7 +337,7 @@ namespace AMSExplorer
                         config.OffsetForReencode = subdata.Offset;
                     }
                     config.InOutForReencode = list;
-                                       
+
                 }
                 return config;
             }
@@ -424,12 +423,14 @@ namespace AMSExplorer
             {
                 backupCheckboxTrim = checkBoxTrimming.Checked; // let's save status
             }
+
             timeControlStart.Enabled =
             timeControlEnd.Enabled =
             textBoxDurationTime.Enabled =
             checkBoxPreviewStream.Enabled =
-            buttonShowEDL.Enabled =
+            checkBoxUseEDL.Enabled =
              checkBoxTrimming.Checked;
+
             CheckIfErrorTimeControls();
             ResetConfigXML();
             PlaybackAsset();
@@ -437,7 +438,7 @@ namespace AMSExplorer
 
         private void UpdateXMLData()
         {
-            textBoxConfiguration.Text = GetSubclippingConfiguration().Configuration;
+            textBoxConfiguration.Text = GetSubclippingInternalConfiguration().Configuration;
         }
 
         private void tabPageXML_Enter(object sender, EventArgs e)
@@ -448,6 +449,7 @@ namespace AMSExplorer
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton senderr = sender as RadioButton;
+
             if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
                 ||
                 (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
@@ -464,10 +466,12 @@ namespace AMSExplorer
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
                     labelNoJSONBecauseReencoding.Text = @"No JSON shown yet in this scenario. Click ""Subclip..."" to submit a task, and then a dialog will pop up allowing you to modify the encode settings.";
+                    panelEDL.Visible = true;
                 }
                 else
                 {
                     labelNoJSONBecauseReencoding.Text = @"No JSON shown in this scenario. Click ""Create filter..."" to create an asset filter, and then a dialog will pop up to create the filter with the specified start and times.";
+                    panelEDL.Visible = false;
                 }
             }
             else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) // archive all bitrate
@@ -482,6 +486,7 @@ namespace AMSExplorer
                 DisplayAccuracy();
                 labelNoJSONBecauseReencoding.Visible = false;
                 label3.Visible = textBoxConfiguration.Visible = true;
+                panelEDL.Visible = true;
             }
         }
 
@@ -656,7 +661,7 @@ namespace AMSExplorer
                     this.JobOptions.Priority,
                     taskname,
                     this.EncodingOutputAssetName,
-                    new List<string>() { this.GetSubclippingConfiguration().Configuration },
+                    new List<string>() { subclipConfig.Configuration },
                     this.JobOptions.OutputAssetsCreationOptions,
                     this.JobOptions.TasksOptionsSetting,
                     this.JobOptions.StorageSelected);
@@ -672,11 +677,13 @@ namespace AMSExplorer
                 In = timeControlStart.GetTimeStampAsTimeSpanWitoutOffset(),
                 Out = timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset()
             });
+            ResetConfigXML();
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
         {
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
+            ResetConfigXML();
         }
     }
 }
