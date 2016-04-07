@@ -64,15 +64,13 @@
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownAMEPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownLegacyEncodingPrice = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownAMEPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -93,11 +91,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPremiumWorkflowPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -522,57 +519,28 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(47, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 15);
+            this.label4.Size = new System.Drawing.Size(222, 15);
             this.label4.TabIndex = 54;
-            this.label4.Text = "Encoding price per output GB :";
+            this.label4.Text = "Standard Encoding price, per output GB :";
             // 
-            // numericUpDownAMEPrice
+            // numericUpDownMESPrice
             // 
-            this.numericUpDownAMEPrice.DecimalPlaces = 2;
-            this.numericUpDownAMEPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAMEPrice.Increment = new decimal(new int[] {
+            this.numericUpDownMESPrice.DecimalPlaces = 2;
+            this.numericUpDownMESPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(337, 66);
-            this.numericUpDownAMEPrice.Name = "numericUpDownAMEPrice";
-            this.numericUpDownAMEPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownAMEPrice.TabIndex = 55;
-            this.numericUpDownAMEPrice.Value = new decimal(new int[] {
+            this.numericUpDownMESPrice.Location = new System.Drawing.Point(337, 66);
+            this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
+            this.numericUpDownMESPrice.Size = new System.Drawing.Size(73, 23);
+            this.numericUpDownMESPrice.TabIndex = 55;
+            this.numericUpDownMESPrice.Value = new decimal(new int[] {
             199,
             0,
             0,
             131072});
-            // 
-            // numericUpDownLegacyEncodingPrice
-            // 
-            this.numericUpDownLegacyEncodingPrice.DecimalPlaces = 2;
-            this.numericUpDownLegacyEncodingPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownLegacyEncodingPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(337, 126);
-            this.numericUpDownLegacyEncodingPrice.Name = "numericUpDownLegacyEncodingPrice";
-            this.numericUpDownLegacyEncodingPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownLegacyEncodingPrice.TabIndex = 57;
-            this.numericUpDownLegacyEncodingPrice.Value = new decimal(new int[] {
-            139,
-            0,
-            0,
-            131072});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(45, 128);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(226, 15);
-            this.label5.TabIndex = 56;
-            this.label5.Text = "Legacy encoding price per processed GB :";
             // 
             // numericUpDownIndexingPrice
             // 
@@ -584,7 +552,7 @@
             0,
             0,
             131072});
-            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(337, 156);
+            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(337, 125);
             this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
             this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownIndexingPrice.TabIndex = 59;
@@ -598,7 +566,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label6.Location = new System.Drawing.Point(45, 158);
+            this.label6.Location = new System.Drawing.Point(45, 127);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(187, 15);
             this.label6.TabIndex = 58;
@@ -616,20 +584,18 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.numericUpDownAMEPremiumWorkflowPrice);
+            this.groupBox4.Controls.Add(this.numericUpDownPremiumWorkflowPrice);
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
-            this.groupBox4.Controls.Add(this.numericUpDownAMEPrice);
-            this.groupBox4.Controls.Add(this.numericUpDownLegacyEncodingPrice);
-            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
             this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(7, 7);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(562, 233);
+            this.groupBox4.Size = new System.Drawing.Size(562, 208);
             this.groupBox4.TabIndex = 64;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Prices";
@@ -640,24 +606,24 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label9.Location = new System.Drawing.Point(47, 98);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(275, 15);
+            this.label9.Size = new System.Drawing.Size(278, 15);
             this.label9.TabIndex = 64;
-            this.label9.Text = "Premium Workflow encoding price per output GB :";
+            this.label9.Text = "Premium Workflow encoding price, per output GB :";
             // 
-            // numericUpDownAMEPremiumWorkflowPrice
+            // numericUpDownPremiumWorkflowPrice
             // 
-            this.numericUpDownAMEPremiumWorkflowPrice.DecimalPlaces = 2;
-            this.numericUpDownAMEPremiumWorkflowPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAMEPremiumWorkflowPrice.Increment = new decimal(new int[] {
+            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 2;
+            this.numericUpDownPremiumWorkflowPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(337, 96);
-            this.numericUpDownAMEPremiumWorkflowPrice.Name = "numericUpDownAMEPremiumWorkflowPrice";
-            this.numericUpDownAMEPremiumWorkflowPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownAMEPremiumWorkflowPrice.TabIndex = 63;
-            this.numericUpDownAMEPremiumWorkflowPrice.Value = new decimal(new int[] {
+            this.numericUpDownPremiumWorkflowPrice.Location = new System.Drawing.Point(337, 96);
+            this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
+            this.numericUpDownPremiumWorkflowPrice.Size = new System.Drawing.Size(73, 23);
+            this.numericUpDownPremiumWorkflowPrice.TabIndex = 63;
+            this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
             399,
             0,
             0,
@@ -668,7 +634,7 @@
             this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.amspriceslink.AutoSize = true;
             this.amspriceslink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.amspriceslink.Location = new System.Drawing.Point(47, 193);
+            this.amspriceslink.Location = new System.Drawing.Point(45, 168);
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.Size = new System.Drawing.Size(125, 15);
             this.amspriceslink.TabIndex = 62;
@@ -812,12 +778,11 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPremiumWorkflowPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -859,10 +824,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.NumericUpDown numericUpDownAMEPrice;
+        private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownLegacyEncodingPrice;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxCurrency;
@@ -872,7 +835,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownAMEPremiumWorkflowPrice;
+        private System.Windows.Forms.NumericUpDown numericUpDownPremiumWorkflowPrice;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

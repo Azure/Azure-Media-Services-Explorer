@@ -1200,12 +1200,8 @@ namespace AMSExplorer
                                 pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
                                 break;
                             case (Constants.AzureMediaEncoderPremiumWorkflow):
-                                // AME Premium Workflow Encoding task
+                                // Premium Workflow Encoding task
                                 pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.MEPremiumWorkflowPrice;
-                                break;
-                            case (Constants.WindowsAzureMediaEncoder):
-                                // WAME Encoding task
-                                pricetask = (lsizeinputprocessed + lsizeoutputprocessed) * (double)Properties.Settings.Default.LegacyEncodingPrice;
                                 break;
                             case (MediaProcessorNames.StorageDecryption):
                             case (MediaProcessorNames.WindowsAzureMediaEncryptor):

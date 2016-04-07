@@ -60,9 +60,8 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
-            Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
-            Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
-            Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
+            Properties.Settings.Default.AMEPrice = numericUpDownMESPrice.Value;
+            Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownPremiumWorkflowPrice.Value;
             Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
 
@@ -101,9 +100,8 @@ namespace AMSExplorer
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 3650;
             numericUpDownTokenDuration.Value = 60;
-            numericUpDownAMEPrice.Value = ((decimal)1.99);
-            numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
-            numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
+            numericUpDownMESPrice.Value = ((decimal)1.99);
+            numericUpDownPremiumWorkflowPrice.Value = ((decimal)3.99);
             numericUpDownIndexingPrice.Value = ((decimal)0.05);
 
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
@@ -151,9 +149,8 @@ namespace AMSExplorer
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
-            numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
-            numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
-            numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
+            numericUpDownMESPrice.Value = Properties.Settings.Default.AMEPrice;
+            numericUpDownPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
             numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin;
 
             textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;
