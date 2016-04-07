@@ -32,8 +32,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using System.Net;
-
-
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -45,6 +43,7 @@ namespace AMSExplorer
     {
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
+        public bool MultipleSelection = false;
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
@@ -82,13 +81,11 @@ namespace AMSExplorer
         public string GetChannelClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
-
         }
 
-        public string GetChannelCrossdomaintPolicy
+        public string GetChannelCrossdomainPolicy
         {
             get { return (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null; }
-
         }
 
         public TimeSpan? KeyframeInterval
@@ -117,7 +114,6 @@ namespace AMSExplorer
                 return checkBoxHLSFragPerSeg.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
             }
         }
-
 
         public string SystemPreset
         {
@@ -215,76 +211,109 @@ namespace AMSExplorer
 
         private void ChannelInformation_Load(object sender, EventArgs e)
         {
-            labelChannelName.Text += MyChannel.Name;
-            DGChannel.ColumnCount = 2;
 
-            // channel info
-            DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGChannel.Rows.Add("Name", MyChannel.Name);
-            DGChannel.Rows.Add("Id", MyChannel.Id);
-            DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
-            DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Description", MyChannel.Description);
-            DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
-            DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
-
-            if (MyChannel.Encoding != null)
+            if (!MultipleSelection) // one channel
             {
-                DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
-                DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
-                DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
-                DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
-                DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
+                labelChannelName.Text += MyChannel.Name;
 
-                if (MyChannel.Slate != null)
+                DGChannel.ColumnCount = 2;
+
+                // channel info
+                DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGChannel.Rows.Add("Name", MyChannel.Name);
+                DGChannel.Rows.Add("Id", MyChannel.Id);
+                DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
+                DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Description", MyChannel.Description);
+                DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
+                DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
+
+                if (MyChannel.Encoding != null)
                 {
-                    DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
-                    DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
-                }
-                else
-                {
-                    DGChannel.Rows.Add("Slate settings", "(none)");
-                }
-            }
+                    DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
+                    DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
+                    DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
+                    DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
+                    DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
 
-
-            if (MyChannel.Input.KeyFrameInterval != null)
-            {
-                DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
-                checkBoxKeyFrameIntDefined.Checked = true;
-                textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
-            }
-
-            string[] stringnameurl = new string[] { "Primary ", "Secondary " };
-
-            int i = 0;
-            foreach (var endpoint in MyChannel.Input.Endpoints)
-            {
-                DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
-                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
-                {
-                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
-                }
-                i++;
-            }
-            foreach (var endpoint in MyChannel.Preview.Endpoints)
-            {
-                DGChannel.Rows.Add(string.Format("Preview URL ({0})", endpoint.Protocol), endpoint.Url);
-            }
-            if (MyChannel.Output != null)
-            {
-                if (MyChannel.Output.Hls != null)
-                {
-                    if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                    if (MyChannel.Slate != null)
                     {
-                        DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
-                        checkBoxHLSFragPerSeg.Checked = true;
-                        numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+                        DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                    }
+                    else
+                    {
+                        DGChannel.Rows.Add("Slate settings", "(none)");
+                    }
+                }
+
+
+                if (MyChannel.Input.KeyFrameInterval != null)
+                {
+                    DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
+                    checkBoxKeyFrameIntDefined.Checked = true;
+                    textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
+                }
+
+                string[] stringnameurl = new string[] { "Primary ", "Secondary " };
+
+                int i = 0;
+                foreach (var endpoint in MyChannel.Input.Endpoints)
+                {
+                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
+                    if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
+                    {
+                        DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                    }
+                    i++;
+                }
+                foreach (var endpoint in MyChannel.Preview.Endpoints)
+                {
+                    DGChannel.Rows.Add(string.Format("Preview URL ({0})", endpoint.Protocol), endpoint.Url);
+                }
+                if (MyChannel.Output != null)
+                {
+                    if (MyChannel.Output.Hls != null)
+                    {
+                        if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
+                            checkBoxHLSFragPerSeg.Checked = true;
+                            numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        }
+                    }
+                }
+            }
+            else // multiselect
+            {
+                labelChannelName.Text = "(multiple channels have been selected)";
+
+                tabControl1.TabPages.Remove(tabPageChannelInfo); // no channel info page
+                tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
+                label2.Visible = false; // description
+                textboxchannedesc.Visible = false; // no description textbox
+
+                if (MyChannel.Input.KeyFrameInterval != null)
+                {
+                    checkBoxKeyFrameIntDefined.Checked = true;
+                    textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
+                }
+
+                if (MyChannel.Output != null)
+                {
+                    if (MyChannel.Output.Hls != null)
+                    {
+                        if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            checkBoxHLSFragPerSeg.Checked = true;
+                            numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        }
                     }
                 }
             }
 
+            // comon code - multiselect or only one channel selected
 
             // Encoding Settings
             if (MyChannel.EncodingType != ChannelEncodingType.None)
@@ -325,14 +354,12 @@ namespace AMSExplorer
                 }
                 else
                 {
-
                     numericUpDownVideoStreamIndex.Value = MyChannel.Encoding.VideoStreams != null && MyChannel.Encoding.VideoStreams.FirstOrDefault() != null ?
                         MyChannel.Encoding.VideoStreams.FirstOrDefault().Index
                         : 0;
 
                     Item myitem = new Item("Undefined", "und");
                     comboBoxAudioLanguageMain.Items.Add(myitem);
-                    //comboBoxAudioLanguageMain.SelectedItem = myitem;
                     comboBoxAudioLanguageAddition.Items.Add(myitem);
                     comboBoxAudioLanguageAddition.SelectedItem = myitem;
 
@@ -404,7 +431,6 @@ namespace AMSExplorer
                         myitem = new Item("<null>", null);
                         comboBoxAudioLanguageMain.Items.Add(myitem);
                         comboBoxAudioLanguageMain.SelectedItem = myitem;
-
                     }
 
                     dataGridViewAudioStreams.DataSource = audiostreams;
@@ -446,7 +472,6 @@ namespace AMSExplorer
                         PreviewEndpointSettingList.Add(endpoint);
                     }
                 }
-
             }
             dataGridViewPreviewIP.DataSource = PreviewEndpointSettingList;
             dataGridViewPreviewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
@@ -572,7 +597,6 @@ namespace AMSExplorer
         private void checkBoxHLSFragPerSeg_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSeg.Checked;
-
         }
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
@@ -636,7 +660,6 @@ namespace AMSExplorer
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
                     List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
 
-                    //var option = this.EncodingOptions;
                     var audio = this.AudioStreamList;
                     if (audio != null)
                     {
@@ -649,7 +672,6 @@ namespace AMSExplorer
                     {
                         profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
                     }
-
                     dataGridViewAudioProf.DataSource = profmultiaudio;
                     panelDisplayEncProfile.Visible = true;
                 }
@@ -759,8 +781,6 @@ namespace AMSExplorer
         }
     }
 
-
-
     public class ExplorerAudioStream
     {
         //public ExplorerAudioStream();
@@ -768,5 +788,4 @@ namespace AMSExplorer
         public string Language { get; set; }
         public string Code { get; set; }
     }
-
 }

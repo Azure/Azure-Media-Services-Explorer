@@ -93,7 +93,7 @@ namespace AMSExplorer
         bool DisplaySplashDuringLoading;
         private bool MediaRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
-        private bool backupCheckboxAnychannel = false;
+        private enumDisplayProgram backupCheckboxAnychannel =  enumDisplayProgram.Selected;
         private bool CheckboxAnychannelChangedByCode = false;
 
         private bool largeAccount = false; // if nb assets > trigger
@@ -7611,7 +7611,7 @@ namespace AMSExplorer
 
         private void DoDisplayChannelInfo()
         {
-            DoDisplayChannelInfo(ReturnSelectedChannels().FirstOrDefault());
+            DoDisplayChannelInfo(ReturnSelectedChannels());
         }
 
         private void DoDisplayChannelAdSlateControl()
@@ -7635,144 +7635,155 @@ namespace AMSExplorer
             }
         }
 
-        private async void DoDisplayChannelInfo(IChannel channel)
+        private async void DoDisplayChannelInfo(List<IChannel> channels)
         {
-            if (channel != null)
+            var firstchannel = channels.FirstOrDefault();
+            bool multiselection = channels.Count > 1;
+
+            if (firstchannel != null)
             {
                 ChannelInformation form = new ChannelInformation(this)
                 {
-                    MyChannel = channel,
-                    MyContext = _context
+                    MyChannel = firstchannel,
+                    MyContext = _context,
+                    MultipleSelection = multiselection
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
-
-                    channel.Description = form.GetChannelDescription;
-                    channel.Input.KeyFrameInterval = form.KeyframeInterval;
-
-                    if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
+                    foreach (var channel in channels)
                     {
-                        channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+                        TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
 
-                        if (form.AudioStreamsChanged) // user modified it
+                        if (!multiselection) // let' update description only if one channel was selected
                         {
-                            channel.Encoding.AudioStreams = form.AudioStreamList;
+                            channel.Description = form.GetChannelDescription;
+                        }
+                        channel.Input.KeyFrameInterval = form.KeyframeInterval;
+
+                        if (channel.EncodingType == firstchannel.EncodingType)
+                        {
+                            if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
+                            {
+                                channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+
+                                if (form.AudioStreamsChanged || multiselection) // user modified it
+                                {
+                                    channel.Encoding.AudioStreams = form.AudioStreamList;
+                                }
+
+                                if (form.VideoStreamsChanged || multiselection) // user modified it
+                                {
+                                    channel.Encoding.VideoStreams = form.VideoStreamList;
+                                }
+                            }
+                            else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)
+                            {
+                                TextBoxLogWriteLine("Channel '{0}' : must be stoped to update the encoding settings", channel.Name);
+                            }
+                            else if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding == null)
+                            {
+                                TextBoxLogWriteLine("Channel '{0}' : configured as encoding channel but settings are null", channel.Name, true);
+                            }
                         }
 
-                        if (form.VideoStreamsChanged) // user modified it
+                        // HLS Fragment per segment
+                        if (form.HLSFragPerSegment != null)
                         {
-                            channel.Encoding.VideoStreams = form.VideoStreamList;
+                            if (channel.Output == null)
+                            {
+                                channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                            }
+                            else if (channel.Output.Hls == null)
+                            {
+                                channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                            }
+                            else
+                            {
+                                channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                            }
                         }
-                    }
-                    else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)
-                    {
-                        TextBoxLogWriteLine("Channel '{0}' : must be stoped to update the encoding settings", channel.Name);
-                    }
-                    else if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding == null)
-                    {
-                        TextBoxLogWriteLine("Channel '{0}' : configured as encoding channel but settings are null", channel.Name, true);
-                    }
+                        else // form.HLSFragPerSegment is null
+                        {
+                            if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+                            {
+                                channel.Output.Hls.FragmentsPerSegment = null;
+                            }
+                        }
 
-                    // HLS Fragment per segment
-                    if (form.HLSFragPerSegment != null)
-                    {
-                        if (channel.Output == null)
+                        // Input allow list
+                        if (form.GetInputIPAllowList != null)
                         {
-                            channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
-                        }
-                        else if (channel.Output.Hls == null)
-                        {
-                            channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                            if (channel.Input.AccessControl == null)
+                            {
+                                channel.Input.AccessControl = new ChannelAccessControl();
+                            }
+                            channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
                         }
                         else
                         {
-                            channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                            if (channel.Input.AccessControl != null)
+                            {
+                                channel.Input.AccessControl.IPAllowList = null;
+                            }
                         }
-                    }
-                    else // form.HLSFragPerSegment is null
-                    {
-                        if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+
+                        // Preview allow list
+                        if (form.GetPreviewAllowList != null)
                         {
-                            channel.Output.Hls.FragmentsPerSegment = null;
+                            if (channel.Preview.AccessControl == null)
+                            {
+                                channel.Preview.AccessControl = new ChannelAccessControl();
+                            }
+                            channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
                         }
-                    }
-
-                    // Input allow list
-                    if (form.GetInputIPAllowList != null)
-                    {
-                        if (channel.Input.AccessControl == null)
+                        else
                         {
-                            channel.Input.AccessControl = new ChannelAccessControl();
+                            if (channel.Preview.AccessControl != null)
+                            {
+                                channel.Preview.AccessControl.IPAllowList = null;
+                            }
                         }
-                        channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
-                    }
-                    else
-                    {
-                        if (channel.Input.AccessControl != null)
+
+
+                        // Client Access Policy
+                        if (form.GetChannelClientPolicy != null)
                         {
-                            channel.Input.AccessControl.IPAllowList = null;
+                            if (channel.CrossSiteAccessPolicies == null)
+                            {
+                                channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
+
                         }
-                    }
-
-
-                    // Preview allow list
-                    if (form.GetPreviewAllowList != null)
-                    {
-                        if (channel.Preview.AccessControl == null)
+                        else
                         {
-                            channel.Preview.AccessControl = new ChannelAccessControl();
+                            if (channel.CrossSiteAccessPolicies != null)
+                            {
+                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                            }
                         }
-                        channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
 
-                    }
-                    else
-                    {
-                        if (channel.Preview.AccessControl != null)
+
+                        // Cross domain  Policy
+                        if (form.GetChannelCrossdomainPolicy != null)
                         {
-                            channel.Preview.AccessControl.IPAllowList = null;
+                            if (channel.CrossSiteAccessPolicies == null)
+                            {
+                                channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomainPolicy;
+
                         }
-                    }
-
-
-                    // Client Access Policy
-                    if (form.GetChannelClientPolicy != null)
-                    {
-                        if (channel.CrossSiteAccessPolicies == null)
+                        else
                         {
-                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            if (channel.CrossSiteAccessPolicies != null)
+                            {
+                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                            }
                         }
-                        channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
-
+                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                     }
-                    else
-                    {
-                        if (channel.CrossSiteAccessPolicies != null)
-                        {
-                            channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
-                        }
-                    }
-
-
-                    // Cross domain  Policy
-                    if (form.GetChannelCrossdomaintPolicy != null)
-                    {
-                        if (channel.CrossSiteAccessPolicies == null)
-                        {
-                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                        }
-                        channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomaintPolicy;
-
-                    }
-                    else
-                    {
-                        if (channel.CrossSiteAccessPolicies != null)
-                        {
-                            channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
-                        }
-                    }
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                 }
             }
         }
@@ -8492,7 +8503,7 @@ namespace AMSExplorer
                 IChannel channel = GetChannel(dataGridViewChannelsV.Rows[e.RowIndex].Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString());
                 if (channel != null)
                 {
-                    DoDisplayChannelInfo(channel);
+                    DoDisplayChannelInfo((new List<IChannel>() { channel }));
                 }
             }
         }
@@ -11268,8 +11279,8 @@ namespace AMSExplorer
             bool single = channels.Count == 1;
             bool oneOrMore = channels.Count > 0;
 
-            // channel info if only one channel
-            ContextMenuItemChannelDisplayInfomation.Enabled = single;
+            // channel info
+            ContextMenuItemChannelDisplayInfomation.Enabled = oneOrMore;
 
             // slate control if at least one channel with live transcoding
             ContextMenuItemChannelAdAndSlateControl.Enabled = channels.Any(c => c.Encoding != null);
@@ -11300,8 +11311,8 @@ namespace AMSExplorer
             bool single = channels.Count == 1;
             bool oneOrMore = channels.Count > 0;
 
-            // channel info if only one channel
-            channInfoToolStripMenuItem.Enabled = single;
+            // channel info
+            channInfoToolStripMenuItem.Enabled = oneOrMore;
 
             // slate control if at least one channel with live transcoding
             channelsAdAndSlateControlToolStripMenuItem.Enabled = channels.Any(c => c.Encoding != null);
@@ -12168,34 +12179,20 @@ namespace AMSExplorer
             }
         }
 
-        private void checkBoxAnyChannel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewProgramsV.Initialized && !CheckboxAnychannelChangedByCode)
-            {
-
-                dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
-                Task.Run(() =>
-                {
-                    DoRefreshGridProgramV(false);
-                });
-            }
-            CheckboxAnychannelChangedByCode = false;
-        }
-
         private void textBoxSearchNameProgram_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
             {
                 CheckboxAnychannelChangedByCode = true;
-                checkBoxAnyChannel.Checked = backupCheckboxAnychannel;
-                checkBoxAnyChannel.Enabled = true;
+                SetRadiobuttonDisplayProgram(backupCheckboxAnychannel);
+                radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = true;
             }
-            else if (checkBoxAnyChannel.Enabled) // not empty and checkbox is still enabled
+            else if (radioButtonChAll.Checked) // not empty and checkbox is still enabled
             {
                 CheckboxAnychannelChangedByCode = true;
-                backupCheckboxAnychannel = checkBoxAnyChannel.Checked;
-                checkBoxAnyChannel.Checked = true;
-                checkBoxAnyChannel.Enabled = false;
+                backupCheckboxAnychannel = ReturnDisplayProgram();
+                SetRadiobuttonDisplayProgram(enumDisplayProgram.Any);
+                radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = false;
             }
         }
 
@@ -13075,6 +13072,54 @@ namespace AMSExplorer
         private void testQueryAllAssetFilesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoAccessAssetTest();
+        }
+
+        private enumDisplayProgram ReturnDisplayProgram()
+        {
+            if (radioButtonChAll.Checked)
+            {
+                return enumDisplayProgram.Any;
+            }
+            else if (radioButtonChNone.Checked)
+            {
+                return enumDisplayProgram.None;
+            }
+            else
+            {
+                return enumDisplayProgram.Selected;
+            }
+        }
+
+        private void SetRadiobuttonDisplayProgram(enumDisplayProgram value)
+        {
+            switch (value)
+            {
+                case enumDisplayProgram.Any:
+                    radioButtonChAll.Checked = true;
+                    break;
+
+                case enumDisplayProgram.None:
+                    radioButtonChNone.Checked = true;
+                    break;
+
+                case enumDisplayProgram.Selected:
+                    radioButtonChSelected.Checked = true;
+                    break;
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewProgramsV.Initialized && !CheckboxAnychannelChangedByCode)
+            {
+                dataGridViewProgramsV.DisplayChannel = ReturnDisplayProgram();
+
+                Task.Run(() =>
+                {
+                    DoRefreshGridProgramV(false);
+                });
+            }
+            CheckboxAnychannelChangedByCode = false;
         }
     }
 }
