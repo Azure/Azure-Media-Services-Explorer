@@ -93,7 +93,7 @@ namespace AMSExplorer
         bool DisplaySplashDuringLoading;
         private bool MediaRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
-        private enumDisplayProgram backupCheckboxAnychannel =  enumDisplayProgram.Selected;
+        private enumDisplayProgram backupCheckboxAnychannel = enumDisplayProgram.Selected;
         private bool CheckboxAnychannelChangedByCode = false;
 
         private bool largeAccount = false; // if nb assets > trigger
@@ -8260,132 +8260,138 @@ namespace AMSExplorer
 
         private void DoDisplayStreamingEndpointInfo()
         {
-            DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints().FirstOrDefault());
+            DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints());
         }
-        private async void DoDisplayStreamingEndpointInfo(IStreamingEndpoint streamingendpoint)
+        private async void DoDisplayStreamingEndpointInfo(List<IStreamingEndpoint> streamingendpoints)
         {
             // Refresh the context
             _context = Program.ConnectAndGetNewContext(_credentials);
+            bool multiselection = streamingendpoints.Count > 1;
+
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
-                MyStreamingEndpoint = streamingendpoint,
-                MyContext = _context
+                MyStreamingEndpoint = streamingendpoints.FirstOrDefault(),
+                MyContext = _context,
+                MultipleSelection = multiselection
             };
 
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
-
-                streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
-
-                if (form.GetStreamingAllowList != null)
+                foreach (var streamingendpoint in streamingendpoints)
                 {
-                    if (streamingendpoint.AccessControl == null)
+                    streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
+
+                    if (form.GetStreamingAllowList != null)
                     {
-                        streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                        if (streamingendpoint.AccessControl == null)
+                        {
+                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                        }
+                        streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
                     }
-                    streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
-                }
-                else
-                {
-                    if (streamingendpoint.AccessControl != null)
+                    else
                     {
-                        streamingendpoint.AccessControl.IPAllowList = null;
+                        if (streamingendpoint.AccessControl != null)
+                        {
+                            streamingendpoint.AccessControl.IPAllowList = null;
+                        }
                     }
-                }
 
-                if (form.GetStreamingAkamaiList != null)
-                {
-                    if (streamingendpoint.AccessControl == null)
+                    if (form.GetStreamingAkamaiList != null)
                     {
-                        streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
-                    }
-                    streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
+                        if (streamingendpoint.AccessControl == null)
+                        {
+                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                        }
+                        streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
 
-                }
-                else
-                {
-                    if (streamingendpoint.AccessControl != null)
+                    }
+                    else
                     {
-                        streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                        if (streamingendpoint.AccessControl != null)
+                        {
+                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                        }
                     }
-                }
 
-                if (form.MaxCacheAge != null)
-                {
-                    if (streamingendpoint.CacheControl == null)
+                    if (form.MaxCacheAge != null)
                     {
-                        streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                        if (streamingendpoint.CacheControl == null)
+                        {
+                            streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                        }
+                        streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
                     }
-                    streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
-                }
-                else
-                {
-                    if (streamingendpoint.CacheControl != null)
+                    else
                     {
-                        streamingendpoint.CacheControl.MaxAge = null;
+                        if (streamingendpoint.CacheControl != null)
+                        {
+                            streamingendpoint.CacheControl.MaxAge = null;
+                        }
                     }
-                }
 
-                // Client Access Policy
-                if (form.GetOriginClientPolicy != null)
-                {
-                    if (streamingendpoint.CrossSiteAccessPolicies == null)
+                    // Client Access Policy
+                    if (form.GetOriginClientPolicy != null)
                     {
-                        streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                    }
-                    streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
+                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        {
+                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
-                }
-                else
-                {
-                    if (streamingendpoint.CrossSiteAccessPolicies != null)
+                    }
+                    else
                     {
-                        streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                        if (streamingendpoint.CrossSiteAccessPolicies != null)
+                        {
+                            streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                        }
                     }
-                }
 
 
-                // Cross domain  Policy
-                if (form.GetOriginCrossdomaintPolicy != null)
-                {
-                    if (streamingendpoint.CrossSiteAccessPolicies == null)
+                    // Cross domain  Policy
+                    if (form.GetOriginCrossdomaintPolicy != null)
                     {
-                        streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                    }
-                    streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
+                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        {
+                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
-                }
-                else
-                {
-                    if (streamingendpoint.CrossSiteAccessPolicies != null)
+                    }
+                    else
                     {
-                        streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                        if (streamingendpoint.CrossSiteAccessPolicies != null)
+                        {
+                            streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                        }
+                    }
+
+                    if (!multiselection) streamingendpoint.Description = form.GetOriginDescription;
+
+                    // Let's take actions now
+
+                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
+                        });
+                    }
+                    else // no scaling
+                    {
+                        Task.Run(async () =>
+                        {
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                        });
+
                     }
                 }
 
-                streamingendpoint.Description = form.GetOriginDescription;
-
-                // Let's take actions now
-
-                if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
-                {
-                    Task.Run(async () =>
-                   {
-                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                       await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
-                   });
-                }
-                else // no scaling
-                {
-                    Task.Run(async () =>
-                   {
-                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                   });
-
-                }
+               
 
             }
         }
@@ -8582,7 +8588,7 @@ namespace AMSExplorer
                 IStreamingEndpoint se = GetStreamingEndpoint(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
                 if (se != null)
                 {
-                    DoDisplayStreamingEndpointInfo(se);
+                    DoDisplayStreamingEndpointInfo(new List<IStreamingEndpoint>() { se });
                 }
             }
         }
@@ -13120,6 +13126,11 @@ namespace AMSExplorer
                 });
             }
             CheckboxAnychannelChangedByCode = false;
+        }
+
+        private void tabPageLive_Resize(object sender, EventArgs e)
+        {
+            panelChannels.Size = new Size(panelChannels.Size.Width, tabPageLive.Size.Height / 2);
         }
     }
 }
