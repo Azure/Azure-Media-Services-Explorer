@@ -5230,6 +5230,11 @@ namespace AMSExplorer
                     e.Cancel = true;
                 }
             }
+
+            if (e.Cancel == false)
+            {
+                notifyIcon1.Dispose();
+            }
         }
 
         private void comboBoxPageJobs_SelectedIndexChanged(object sender, EventArgs e)
@@ -8394,7 +8399,7 @@ namespace AMSExplorer
                     }
                 }
 
-               
+
 
             }
         }
