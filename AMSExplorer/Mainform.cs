@@ -7790,18 +7790,21 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("channel selection changed : begin");
-            List<IChannel> SelectedChannels = ReturnSelectedChannels();
-            if (SelectedChannels.Count > 0)
+            if (radioButtonChSelected.Checked) // only in select mode
             {
-
-                dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
-
-                Task.Run(() =>
+                Debug.WriteLine("channel selection changed : begin");
+                List<IChannel> SelectedChannels = ReturnSelectedChannels();
+                if (SelectedChannels.Count > 0)
                 {
-                    Debug.WriteLine("channel selection changed : before refresh");
-                    DoRefreshGridProgramV(false);
-                });
+
+                    dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+
+                    Task.Run(() =>
+                    {
+                        Debug.WriteLine("channel selection changed : before refresh");
+                        DoRefreshGridProgramV(false);
+                    });
+                }
             }
         }
 
