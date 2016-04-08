@@ -476,23 +476,28 @@
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.tabPageLive = new System.Windows.Forms.TabPage();
-            this.checkBoxAnyChannel = new System.Windows.Forms.CheckBox();
+            this.panelPrograms = new System.Windows.Forms.Panel();
+            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
+            this.labelPrograms = new System.Windows.Forms.Label();
+            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
+            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
+            this.label14 = new System.Windows.Forms.Label();
+            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
+            this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
+            this.panelChannels = new System.Windows.Forms.Panel();
+            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
+            this.labelChannels = new System.Windows.Forms.Label();
             this.comboBoxSearchChannelOption = new System.Windows.Forms.ComboBox();
+            this.buttonSetFilterChannel = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
-            this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.buttonSetFilterChannel = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.labelPrograms = new System.Windows.Forms.Label();
-            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
-            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
-            this.labelChannels = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
-            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
-            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.label13 = new System.Windows.Forms.Label();
             this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
@@ -538,7 +543,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.tabPageLive.SuspendLayout();
+            this.panelPrograms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).BeginInit();
+            this.panelChannels.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).BeginInit();
             this.tabPageProcessors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
@@ -584,7 +591,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(367, 606);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(367, 584);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -866,7 +873,7 @@
             this.encodeAssetsWithAMEStandardToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeAssetsWithAMEStandardToolStripMenuItem.Name = "encodeAssetsWithAMEStandardToolStripMenuItem";
             this.encodeAssetsWithAMEStandardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.encodeAssetsWithAMEStandardToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Size = new System.Drawing.Size(472, 22);
             this.encodeAssetsWithAMEStandardToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Standard (MES)...";
             this.encodeAssetsWithAMEStandardToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAMEStandardToolStripMenuItem_Click);
             // 
@@ -875,21 +882,20 @@
             this.ContextMenuItemPremiumWorkflow.Image = global::AMSExplorer.Bitmaps.encoding;
             this.ContextMenuItemPremiumWorkflow.Name = "ContextMenuItemPremiumWorkflow";
             this.ContextMenuItemPremiumWorkflow.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.ContextMenuItemPremiumWorkflow.Size = new System.Drawing.Size(544, 22);
+            this.ContextMenuItemPremiumWorkflow.Size = new System.Drawing.Size(472, 22);
             this.ContextMenuItemPremiumWorkflow.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
             this.ContextMenuItemPremiumWorkflow.Click += new System.EventHandler(this.encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click);
             // 
             // toolStripSeparator32
             // 
             this.toolStripSeparator32.Name = "toolStripSeparator32";
-            this.toolStripSeparator32.Size = new System.Drawing.Size(541, 6);
+            this.toolStripSeparator32.Size = new System.Drawing.Size(469, 6);
             // 
             // encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem
             // 
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Name = "encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem";
-            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Size = new System.Drawing.Size(472, 22);
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (system preset)...";
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem_Click);
             // 
@@ -897,9 +903,7 @@
             // 
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Name = "encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem";
-            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.E)));
-            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Size = new System.Drawing.Size(472, 22);
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem_Click);
             // 
@@ -1915,8 +1919,7 @@
             // 
             this.toolStripMenuItem33.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem33.Image")));
             this.toolStripMenuItem33.Name = "toolStripMenuItem33";
-            this.toolStripMenuItem33.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.toolStripMenuItem33.Size = new System.Drawing.Size(346, 22);
+            this.toolStripMenuItem33.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItem33.Text = "System preset...";
             this.toolStripMenuItem33.Click += new System.EventHandler(this.toolStripMenuItem33_Click_1);
             // 
@@ -1924,9 +1927,7 @@
             // 
             this.toolStripMenuItem36.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem36.Image")));
             this.toolStripMenuItem36.Name = "toolStripMenuItem36";
-            this.toolStripMenuItem36.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.E)));
-            this.toolStripMenuItem36.Size = new System.Drawing.Size(346, 22);
+            this.toolStripMenuItem36.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItem36.Text = "Advanced mode with custom preset...";
             this.toolStripMenuItem36.Click += new System.EventHandler(this.toolStripMenuItem36_Click_1);
             // 
@@ -2676,6 +2677,7 @@
             // 
             this.startOriginsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startOriginsToolStripMenuItem.Image")));
             this.startOriginsToolStripMenuItem.Name = "startOriginsToolStripMenuItem";
+            this.startOriginsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.startOriginsToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
             this.startOriginsToolStripMenuItem.Text = "Start streaming endpoint(s)";
             this.startOriginsToolStripMenuItem.Click += new System.EventHandler(this.startOriginsToolStripMenuItem_Click);
@@ -2684,6 +2686,7 @@
             // 
             this.stopOriginsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopOriginsToolStripMenuItem.Image")));
             this.stopOriginsToolStripMenuItem.Name = "stopOriginsToolStripMenuItem";
+            this.stopOriginsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
             this.stopOriginsToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
             this.stopOriginsToolStripMenuItem.Text = "Stop streaming endpoint(s)";
             this.stopOriginsToolStripMenuItem.Click += new System.EventHandler(this.stopOriginsToolStripMenuItem_Click);
@@ -3531,7 +3534,7 @@
             this.ContextMenuItemChannelCopyPreviewURLToClipboard,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 308);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 330);
             this.contextMenuStripChannels.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripChannels_Opening);
             // 
             // refreshToolStripMenuItem3
@@ -3552,7 +3555,7 @@
             this.ContextMenuItemChannelDisplayInfomation.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelDisplayInfomation.Image")));
             this.ContextMenuItemChannelDisplayInfomation.Name = "ContextMenuItemChannelDisplayInfomation";
             this.ContextMenuItemChannelDisplayInfomation.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelDisplayInfomation.Text = "Channel infomation and settings...";
+            this.ContextMenuItemChannelDisplayInfomation.Text = "Channel(s) infomation and settings...";
             this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
             // 
             // ContextMenuItemChannelAdAndSlateControl
@@ -3804,6 +3807,7 @@
             // 
             this.ContextMenuItemOriginStart.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemOriginStart.Image")));
             this.ContextMenuItemOriginStart.Name = "ContextMenuItemOriginStart";
+            this.ContextMenuItemOriginStart.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.ContextMenuItemOriginStart.Size = new System.Drawing.Size(340, 22);
             this.ContextMenuItemOriginStart.Text = "Start streaming endpoint(s)";
             this.ContextMenuItemOriginStart.Click += new System.EventHandler(this.startOriginsToolStripMenuItem1_Click);
@@ -3812,6 +3816,7 @@
             // 
             this.ContextMenuItemOriginStop.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemOriginStop.Image")));
             this.ContextMenuItemOriginStop.Name = "ContextMenuItemOriginStop";
+            this.ContextMenuItemOriginStop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
             this.ContextMenuItemOriginStop.Size = new System.Drawing.Size(340, 22);
             this.ContextMenuItemOriginStop.Text = "Stop streaming endpoint(s)";
             this.ContextMenuItemOriginStop.Click += new System.EventHandler(this.stopOriginsToolStripMenuItem1_Click);
@@ -3928,10 +3933,10 @@
             // 
             // textBoxSearchNameChannel
             // 
-            this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(176, 189);
+            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(176, 186);
             this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
             this.textBoxSearchNameChannel.Size = new System.Drawing.Size(121, 23);
             this.textBoxSearchNameChannel.TabIndex = 53;
@@ -3942,9 +3947,9 @@
             this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(176, 410);
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(176, 177);
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(121, 23);
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(122, 23);
             this.textBoxSearchNameProgram.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, "Search in program name, program Id and asset Id");
             this.textBoxSearchNameProgram.TextChanged += new System.EventHandler(this.textBoxSearchNameProgram_TextChanged);
@@ -4691,25 +4696,8 @@
             // 
             // tabPageLive
             // 
-            this.tabPageLive.Controls.Add(this.checkBoxAnyChannel);
-            this.tabPageLive.Controls.Add(this.comboBoxSearchProgramOption);
-            this.tabPageLive.Controls.Add(this.comboBoxSearchChannelOption);
-            this.tabPageLive.Controls.Add(this.label24);
-            this.tabPageLive.Controls.Add(this.comboBoxFilterTimeChannel);
-            this.tabPageLive.Controls.Add(this.comboBoxStatusChannel);
-            this.tabPageLive.Controls.Add(this.label25);
-            this.tabPageLive.Controls.Add(this.buttonSetFilterChannel);
-            this.tabPageLive.Controls.Add(this.textBoxSearchNameChannel);
-            this.tabPageLive.Controls.Add(this.label15);
-            this.tabPageLive.Controls.Add(this.labelPrograms);
-            this.tabPageLive.Controls.Add(this.comboBoxFilterTimeProgram);
-            this.tabPageLive.Controls.Add(this.comboBoxStatusProgram);
-            this.tabPageLive.Controls.Add(this.labelChannels);
-            this.tabPageLive.Controls.Add(this.label16);
-            this.tabPageLive.Controls.Add(this.buttonSetFilterProgram);
-            this.tabPageLive.Controls.Add(this.textBoxSearchNameProgram);
-            this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
-            this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
+            this.tabPageLive.Controls.Add(this.panelPrograms);
+            this.tabPageLive.Controls.Add(this.panelChannels);
             this.tabPageLive.Location = new System.Drawing.Point(4, 24);
             this.tabPageLive.Name = "tabPageLive";
             this.tabPageLive.Padding = new System.Windows.Forms.Padding(3);
@@ -4717,175 +4705,28 @@
             this.tabPageLive.TabIndex = 6;
             this.tabPageLive.Text = "Live";
             this.tabPageLive.UseVisualStyleBackColor = true;
+            this.tabPageLive.Resize += new System.EventHandler(this.tabPageLive_Resize);
             // 
-            // checkBoxAnyChannel
+            // panelPrograms
             // 
-            this.checkBoxAnyChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxAnyChannel.AutoSize = true;
-            this.checkBoxAnyChannel.Location = new System.Drawing.Point(907, 413);
-            this.checkBoxAnyChannel.Name = "checkBoxAnyChannel";
-            this.checkBoxAnyChannel.Size = new System.Drawing.Size(92, 19);
-            this.checkBoxAnyChannel.TabIndex = 64;
-            this.checkBoxAnyChannel.Text = "Any channel";
-            this.checkBoxAnyChannel.UseVisualStyleBackColor = true;
-            this.checkBoxAnyChannel.CheckedChanged += new System.EventHandler(this.checkBoxAnyChannel_CheckedChanged);
-            // 
-            // comboBoxSearchProgramOption
-            // 
-            this.comboBoxSearchProgramOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxSearchProgramOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchProgramOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxSearchProgramOption.FormattingEnabled = true;
-            this.comboBoxSearchProgramOption.Location = new System.Drawing.Point(6, 410);
-            this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
-            this.comboBoxSearchProgramOption.Size = new System.Drawing.Size(164, 23);
-            this.comboBoxSearchProgramOption.TabIndex = 63;
-            // 
-            // comboBoxSearchChannelOption
-            // 
-            this.comboBoxSearchChannelOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchChannelOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxSearchChannelOption.FormattingEnabled = true;
-            this.comboBoxSearchChannelOption.Location = new System.Drawing.Point(6, 189);
-            this.comboBoxSearchChannelOption.Name = "comboBoxSearchChannelOption";
-            this.comboBoxSearchChannelOption.Size = new System.Drawing.Size(164, 23);
-            this.comboBoxSearchChannelOption.TabIndex = 62;
-            // 
-            // label24
-            // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(384, 193);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(39, 15);
-            this.label24.TabIndex = 61;
-            this.label24.Text = "Filter :";
-            // 
-            // comboBoxFilterTimeChannel
-            // 
-            this.comboBoxFilterTimeChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxFilterTimeChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxFilterTimeChannel.FormattingEnabled = true;
-            this.comboBoxFilterTimeChannel.Location = new System.Drawing.Point(429, 189);
-            this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
-            this.comboBoxFilterTimeChannel.Size = new System.Drawing.Size(102, 23);
-            this.comboBoxFilterTimeChannel.TabIndex = 60;
-            this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
-            // 
-            // comboBoxStatusChannel
-            // 
-            this.comboBoxStatusChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStatusChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxStatusChannel.FormattingEnabled = true;
-            this.comboBoxStatusChannel.Location = new System.Drawing.Point(589, 189);
-            this.comboBoxStatusChannel.Name = "comboBoxStatusChannel";
-            this.comboBoxStatusChannel.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxStatusChannel.TabIndex = 58;
-            this.comboBoxStatusChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusChannel_SelectedIndexChanged);
-            // 
-            // label25
-            // 
-            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(538, 193);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(45, 15);
-            this.label25.TabIndex = 59;
-            this.label25.Text = "Status :";
-            // 
-            // buttonSetFilterChannel
-            // 
-            this.buttonSetFilterChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetFilterChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSetFilterChannel.Location = new System.Drawing.Point(298, 189);
-            this.buttonSetFilterChannel.Name = "buttonSetFilterChannel";
-            this.buttonSetFilterChannel.Size = new System.Drawing.Size(54, 23);
-            this.buttonSetFilterChannel.TabIndex = 55;
-            this.buttonSetFilterChannel.Text = "Apply";
-            this.buttonSetFilterChannel.UseVisualStyleBackColor = true;
-            this.buttonSetFilterChannel.Click += new System.EventHandler(this.buttonSetFilterChannel_Click);
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(384, 414);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(39, 15);
-            this.label15.TabIndex = 52;
-            this.label15.Text = "Filter :";
-            // 
-            // labelPrograms
-            // 
-            this.labelPrograms.AutoSize = true;
-            this.labelPrograms.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrograms.Location = new System.Drawing.Point(6, 236);
-            this.labelPrograms.Name = "labelPrograms";
-            this.labelPrograms.Size = new System.Drawing.Size(57, 13);
-            this.labelPrograms.TabIndex = 32;
-            this.labelPrograms.Text = "Programs";
-            // 
-            // comboBoxFilterTimeProgram
-            // 
-            this.comboBoxFilterTimeProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
-            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(429, 410);
-            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
-            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 23);
-            this.comboBoxFilterTimeProgram.TabIndex = 51;
-            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
-            // 
-            // comboBoxStatusProgram
-            // 
-            this.comboBoxStatusProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxStatusProgram.FormattingEnabled = true;
-            this.comboBoxStatusProgram.Location = new System.Drawing.Point(589, 410);
-            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
-            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxStatusProgram.TabIndex = 49;
-            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
-            // 
-            // labelChannels
-            // 
-            this.labelChannels.AutoSize = true;
-            this.labelChannels.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelChannels.Location = new System.Drawing.Point(2, 4);
-            this.labelChannels.Name = "labelChannels";
-            this.labelChannels.Size = new System.Drawing.Size(55, 13);
-            this.labelChannels.TabIndex = 31;
-            this.labelChannels.Text = "Channels";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(538, 414);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(45, 15);
-            this.label16.TabIndex = 50;
-            this.label16.Text = "Status :";
-            // 
-            // buttonSetFilterProgram
-            // 
-            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetFilterProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 410);
-            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
-            this.buttonSetFilterProgram.Size = new System.Drawing.Size(54, 23);
-            this.buttonSetFilterProgram.TabIndex = 48;
-            this.buttonSetFilterProgram.Text = "Apply";
-            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
-            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
+            this.panelPrograms.Controls.Add(this.dataGridViewProgramsV);
+            this.panelPrograms.Controls.Add(this.labelPrograms);
+            this.panelPrograms.Controls.Add(this.radioButtonChNone);
+            this.panelPrograms.Controls.Add(this.comboBoxSearchProgramOption);
+            this.panelPrograms.Controls.Add(this.radioButtonChAll);
+            this.panelPrograms.Controls.Add(this.textBoxSearchNameProgram);
+            this.panelPrograms.Controls.Add(this.label14);
+            this.panelPrograms.Controls.Add(this.buttonSetFilterProgram);
+            this.panelPrograms.Controls.Add(this.radioButtonChSelected);
+            this.panelPrograms.Controls.Add(this.label16);
+            this.panelPrograms.Controls.Add(this.comboBoxStatusProgram);
+            this.panelPrograms.Controls.Add(this.label15);
+            this.panelPrograms.Controls.Add(this.comboBoxFilterTimeProgram);
+            this.panelPrograms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPrograms.Location = new System.Drawing.Point(3, 223);
+            this.panelPrograms.Name = "panelPrograms";
+            this.panelPrograms.Size = new System.Drawing.Size(1000, 215);
+            this.panelPrograms.TabIndex = 70;
             // 
             // dataGridViewProgramsV
             // 
@@ -4895,13 +4736,13 @@
             this.dataGridViewProgramsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProgramsV.AnyChannel = false;
             this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
             this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
+            this.dataGridViewProgramsV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewProgramsV.FilterState = "All";
             this.dataGridViewProgramsV.ItemsPerPage = 50;
-            this.dataGridViewProgramsV.Location = new System.Drawing.Point(6, 252);
+            this.dataGridViewProgramsV.Location = new System.Drawing.Point(4, 18);
             this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
@@ -4909,7 +4750,7 @@
             searchObject2.Text = "";
             this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
+            this.dataGridViewProgramsV.Size = new System.Drawing.Size(992, 153);
             this.dataGridViewProgramsV.TabIndex = 31;
             this.dataGridViewProgramsV.TimeFilter = "Last week";
             this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -4919,18 +4760,164 @@
             this.dataGridViewProgramsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
             this.dataGridViewProgramsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
+            // labelPrograms
+            // 
+            this.labelPrograms.AutoSize = true;
+            this.labelPrograms.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrograms.Location = new System.Drawing.Point(0, 2);
+            this.labelPrograms.Name = "labelPrograms";
+            this.labelPrograms.Size = new System.Drawing.Size(57, 13);
+            this.labelPrograms.TabIndex = 32;
+            this.labelPrograms.Text = "Programs";
+            // 
+            // radioButtonChNone
+            // 
+            this.radioButtonChNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonChNone.AutoSize = true;
+            this.radioButtonChNone.Location = new System.Drawing.Point(941, 179);
+            this.radioButtonChNone.Name = "radioButtonChNone";
+            this.radioButtonChNone.Size = new System.Drawing.Size(54, 19);
+            this.radioButtonChNone.TabIndex = 68;
+            this.radioButtonChNone.Text = "None";
+            this.radioButtonChNone.UseVisualStyleBackColor = true;
+            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // comboBoxSearchProgramOption
+            // 
+            this.comboBoxSearchProgramOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxSearchProgramOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchProgramOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxSearchProgramOption.FormattingEnabled = true;
+            this.comboBoxSearchProgramOption.Location = new System.Drawing.Point(6, 177);
+            this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
+            this.comboBoxSearchProgramOption.Size = new System.Drawing.Size(164, 23);
+            this.comboBoxSearchProgramOption.TabIndex = 63;
+            // 
+            // radioButtonChAll
+            // 
+            this.radioButtonChAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonChAll.AutoSize = true;
+            this.radioButtonChAll.Location = new System.Drawing.Point(896, 179);
+            this.radioButtonChAll.Name = "radioButtonChAll";
+            this.radioButtonChAll.Size = new System.Drawing.Size(39, 19);
+            this.radioButtonChAll.TabIndex = 67;
+            this.radioButtonChAll.Text = "All";
+            this.radioButtonChAll.UseVisualStyleBackColor = true;
+            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(734, 181);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(80, 15);
+            this.label14.TabIndex = 66;
+            this.label14.Text = "For channels :";
+            // 
+            // buttonSetFilterProgram
+            // 
+            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSetFilterProgram.Location = new System.Drawing.Point(299, 177);
+            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
+            this.buttonSetFilterProgram.Size = new System.Drawing.Size(54, 23);
+            this.buttonSetFilterProgram.TabIndex = 48;
+            this.buttonSetFilterProgram.Text = "Apply";
+            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
+            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
+            // 
+            // radioButtonChSelected
+            // 
+            this.radioButtonChSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonChSelected.AutoSize = true;
+            this.radioButtonChSelected.Checked = true;
+            this.radioButtonChSelected.Location = new System.Drawing.Point(821, 179);
+            this.radioButtonChSelected.Name = "radioButtonChSelected";
+            this.radioButtonChSelected.Size = new System.Drawing.Size(69, 19);
+            this.radioButtonChSelected.TabIndex = 65;
+            this.radioButtonChSelected.TabStop = true;
+            this.radioButtonChSelected.Text = "Selected";
+            this.radioButtonChSelected.UseVisualStyleBackColor = true;
+            this.radioButtonChSelected.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(539, 181);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(45, 15);
+            this.label16.TabIndex = 50;
+            this.label16.Text = "Status :";
+            // 
+            // comboBoxStatusProgram
+            // 
+            this.comboBoxStatusProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxStatusProgram.FormattingEnabled = true;
+            this.comboBoxStatusProgram.Location = new System.Drawing.Point(590, 177);
+            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
+            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxStatusProgram.TabIndex = 49;
+            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(385, 181);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 15);
+            this.label15.TabIndex = 52;
+            this.label15.Text = "Filter :";
+            // 
+            // comboBoxFilterTimeProgram
+            // 
+            this.comboBoxFilterTimeProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
+            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(430, 177);
+            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
+            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 23);
+            this.comboBoxFilterTimeProgram.TabIndex = 51;
+            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
+            // 
+            // panelChannels
+            // 
+            this.panelChannels.Controls.Add(this.dataGridViewChannelsV);
+            this.panelChannels.Controls.Add(this.labelChannels);
+            this.panelChannels.Controls.Add(this.comboBoxSearchChannelOption);
+            this.panelChannels.Controls.Add(this.textBoxSearchNameChannel);
+            this.panelChannels.Controls.Add(this.buttonSetFilterChannel);
+            this.panelChannels.Controls.Add(this.label25);
+            this.panelChannels.Controls.Add(this.comboBoxStatusChannel);
+            this.panelChannels.Controls.Add(this.label24);
+            this.panelChannels.Controls.Add(this.comboBoxFilterTimeChannel);
+            this.panelChannels.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelChannels.Location = new System.Drawing.Point(3, 3);
+            this.panelChannels.Name = "panelChannels";
+            this.panelChannels.Size = new System.Drawing.Size(1000, 220);
+            this.panelChannels.TabIndex = 69;
+            // 
             // dataGridViewChannelsV
             // 
             this.dataGridViewChannelsV.AllowUserToAddRows = false;
             this.dataGridViewChannelsV.AllowUserToDeleteRows = false;
             this.dataGridViewChannelsV.AllowUserToResizeRows = false;
-            this.dataGridViewChannelsV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewChannelsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewChannelsV.ChannelsPerPage = 50;
             this.dataGridViewChannelsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewChannelsV.ContextMenuStrip = this.contextMenuStripChannels;
             this.dataGridViewChannelsV.FilterState = "All";
-            this.dataGridViewChannelsV.Location = new System.Drawing.Point(6, 20);
+            this.dataGridViewChannelsV.Location = new System.Drawing.Point(4, 17);
             this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
@@ -4938,7 +4925,7 @@
             searchObject3.Text = "";
             this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
+            this.dataGridViewChannelsV.Size = new System.Drawing.Size(992, 163);
             this.dataGridViewChannelsV.TabIndex = 30;
             this.dataGridViewChannelsV.TimeFilter = "Last week";
             this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
@@ -4948,6 +4935,85 @@
             this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
             this.dataGridViewChannelsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
             this.dataGridViewChannelsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
+            // 
+            // labelChannels
+            // 
+            this.labelChannels.AutoSize = true;
+            this.labelChannels.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelChannels.Location = new System.Drawing.Point(0, 1);
+            this.labelChannels.Name = "labelChannels";
+            this.labelChannels.Size = new System.Drawing.Size(55, 13);
+            this.labelChannels.TabIndex = 31;
+            this.labelChannels.Text = "Channels";
+            // 
+            // comboBoxSearchChannelOption
+            // 
+            this.comboBoxSearchChannelOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxSearchChannelOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchChannelOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxSearchChannelOption.FormattingEnabled = true;
+            this.comboBoxSearchChannelOption.Location = new System.Drawing.Point(6, 186);
+            this.comboBoxSearchChannelOption.Name = "comboBoxSearchChannelOption";
+            this.comboBoxSearchChannelOption.Size = new System.Drawing.Size(164, 23);
+            this.comboBoxSearchChannelOption.TabIndex = 62;
+            // 
+            // buttonSetFilterChannel
+            // 
+            this.buttonSetFilterChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSetFilterChannel.Location = new System.Drawing.Point(298, 186);
+            this.buttonSetFilterChannel.Name = "buttonSetFilterChannel";
+            this.buttonSetFilterChannel.Size = new System.Drawing.Size(54, 23);
+            this.buttonSetFilterChannel.TabIndex = 55;
+            this.buttonSetFilterChannel.Text = "Apply";
+            this.buttonSetFilterChannel.UseVisualStyleBackColor = true;
+            this.buttonSetFilterChannel.Click += new System.EventHandler(this.buttonSetFilterChannel_Click);
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(538, 190);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(45, 15);
+            this.label25.TabIndex = 59;
+            this.label25.Text = "Status :";
+            // 
+            // comboBoxStatusChannel
+            // 
+            this.comboBoxStatusChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStatusChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxStatusChannel.FormattingEnabled = true;
+            this.comboBoxStatusChannel.Location = new System.Drawing.Point(589, 186);
+            this.comboBoxStatusChannel.Name = "comboBoxStatusChannel";
+            this.comboBoxStatusChannel.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxStatusChannel.TabIndex = 58;
+            this.comboBoxStatusChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusChannel_SelectedIndexChanged);
+            // 
+            // label24
+            // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(384, 190);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(39, 15);
+            this.label24.TabIndex = 61;
+            this.label24.Text = "Filter :";
+            // 
+            // comboBoxFilterTimeChannel
+            // 
+            this.comboBoxFilterTimeChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterTimeChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxFilterTimeChannel.FormattingEnabled = true;
+            this.comboBoxFilterTimeChannel.Location = new System.Drawing.Point(429, 186);
+            this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
+            this.comboBoxFilterTimeChannel.Size = new System.Drawing.Size(102, 23);
+            this.comboBoxFilterTimeChannel.TabIndex = 60;
+            this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
             // 
             // tabPageProcessors
             // 
@@ -5223,8 +5289,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.tabPageLive.ResumeLayout(false);
-            this.tabPageLive.PerformLayout();
+            this.panelPrograms.ResumeLayout(false);
+            this.panelPrograms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).EndInit();
+            this.panelChannels.ResumeLayout(false);
+            this.panelChannels.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
             this.tabPageProcessors.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
@@ -5661,7 +5730,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
-        private System.Windows.Forms.CheckBox checkBoxAnyChannel;
         private System.Windows.Forms.ToolStripMenuItem withAnExternalAsperaSignantAzCopyToolStripMenuItem;
         private DataGridViewIngestManifest dataGridViewIngestManifestsV;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripIngestManifests;
@@ -5715,6 +5783,12 @@
         private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testQueryAllAssetFilesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem testQueryAllFilesToolStripMenuItem;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.RadioButton radioButtonChSelected;
+        private System.Windows.Forms.RadioButton radioButtonChNone;
+        private System.Windows.Forms.RadioButton radioButtonChAll;
+        private System.Windows.Forms.Panel panelChannels;
+        private System.Windows.Forms.Panel panelPrograms;
     }
 }
 

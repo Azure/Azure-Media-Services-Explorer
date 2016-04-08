@@ -39,6 +39,7 @@ namespace AMSExplorer
     public partial class StreamingEndpointInformation : Form
     {
         public IStreamingEndpoint MyStreamingEndpoint;
+        public bool MultipleSelection = false;
         public CloudMediaContext MyContext;
         private string MaxCacheAgeInitial;
         private BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
@@ -122,7 +123,6 @@ namespace AMSExplorer
         }
 
 
-
         public string GetOriginClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
@@ -132,7 +132,6 @@ namespace AMSExplorer
         public string GetOriginCrossdomaintPolicy
         {
             get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
-
         }
 
         public StreamingEndpointInformation()
@@ -142,23 +141,33 @@ namespace AMSExplorer
         }
 
 
-
         private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
-            labelSEName.Text = string.Format(labelSEName.Text, MyStreamingEndpoint.Name);
-            hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
-            DGOrigin.ColumnCount = 2;
+            if (!MultipleSelection) // one SE
+            {
+                labelSEName.Text = string.Format(labelSEName.Text, MyStreamingEndpoint.Name);
+                hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
+                DGOrigin.ColumnCount = 2;
 
-            // asset info
-            DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGOrigin.Rows.Add("Name", MyStreamingEndpoint.Name);
-            DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
-            DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
-            DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
-            DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime().ToString("G"));
-            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime().ToString("G"));
-            DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
-            DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
+                // asset info
+                DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGOrigin.Rows.Add("Name", MyStreamingEndpoint.Name);
+                DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
+                DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
+                DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
+                DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
+                DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
+            }
+            else
+            {
+                labelSEName.Text = "(multiple streaming endpoints have been selected)";
+                tabControl1.TabPages.Remove( tabPageInfo); // no SE info page
+                labeldesc.Visible = false; // description
+                textboxorigindesc.Visible = false; // no description textbox
+            }
+            
 
             // Custom Hostnames binding to control
             if (MyStreamingEndpoint.CustomHostNames != null)
@@ -177,7 +186,7 @@ namespace AMSExplorer
 
             if (MyStreamingEndpoint.ScaleUnits != null)
             {
-                DGOrigin.Rows.Add("Scale Units", MyStreamingEndpoint.ScaleUnits);
+                if (!MultipleSelection) DGOrigin.Rows.Add("Scale Units", MyStreamingEndpoint.ScaleUnits);
                 if (numericUpDownRU.Maximum < MyStreamingEndpoint.ScaleUnits) numericUpDownRU.Maximum = (int)MyStreamingEndpoint.ScaleUnits * 2;
                 numericUpDownRU.Value = (int)MyStreamingEndpoint.ScaleUnits;
             }

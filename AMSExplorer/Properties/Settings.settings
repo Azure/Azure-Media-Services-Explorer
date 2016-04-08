@@ -71,9 +71,6 @@
     <Setting Name="AMEPrice" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1.99</Value>
     </Setting>
-    <Setting Name="LegacyEncodingPrice" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1.39</Value>
-    </Setting>
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
     </Setting>
