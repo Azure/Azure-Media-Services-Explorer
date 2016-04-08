@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -476,6 +476,8 @@
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.tabPageLive = new System.Windows.Forms.TabPage();
+            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
+            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
             this.label14 = new System.Windows.Forms.Label();
             this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
             this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
@@ -510,8 +512,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
-            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -4131,9 +4131,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject2.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject2;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4722,6 +4722,30 @@
             this.tabPageLive.Text = "Live";
             this.tabPageLive.UseVisualStyleBackColor = true;
             // 
+            // radioButtonChNone
+            // 
+            this.radioButtonChNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonChNone.AutoSize = true;
+            this.radioButtonChNone.Location = new System.Drawing.Point(945, 412);
+            this.radioButtonChNone.Name = "radioButtonChNone";
+            this.radioButtonChNone.Size = new System.Drawing.Size(54, 19);
+            this.radioButtonChNone.TabIndex = 68;
+            this.radioButtonChNone.Text = "None";
+            this.radioButtonChNone.UseVisualStyleBackColor = true;
+            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButtonChAll
+            // 
+            this.radioButtonChAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonChAll.AutoSize = true;
+            this.radioButtonChAll.Location = new System.Drawing.Point(900, 412);
+            this.radioButtonChAll.Name = "radioButtonChAll";
+            this.radioButtonChAll.Size = new System.Drawing.Size(39, 19);
+            this.radioButtonChAll.TabIndex = 67;
+            this.radioButtonChAll.Text = "All";
+            this.radioButtonChAll.UseVisualStyleBackColor = true;
+            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
             // label14
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -4915,15 +4939,16 @@
             this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
             this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
+            this.dataGridViewProgramsV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewProgramsV.FilterState = "All";
             this.dataGridViewProgramsV.ItemsPerPage = 50;
             this.dataGridViewProgramsV.Location = new System.Drawing.Point(6, 252);
             this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject1.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject1;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4950,9 +4975,9 @@
             this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject4.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject4.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject4;
+            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -5139,10 +5164,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -5185,30 +5210,6 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
-            // 
-            // radioButtonChAll
-            // 
-            this.radioButtonChAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonChAll.AutoSize = true;
-            this.radioButtonChAll.Location = new System.Drawing.Point(900, 412);
-            this.radioButtonChAll.Name = "radioButtonChAll";
-            this.radioButtonChAll.Size = new System.Drawing.Size(39, 19);
-            this.radioButtonChAll.TabIndex = 67;
-            this.radioButtonChAll.Text = "All";
-            this.radioButtonChAll.UseVisualStyleBackColor = true;
-            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButtonChNone
-            // 
-            this.radioButtonChNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonChNone.AutoSize = true;
-            this.radioButtonChNone.Location = new System.Drawing.Point(945, 412);
-            this.radioButtonChNone.Name = "radioButtonChNone";
-            this.radioButtonChNone.Size = new System.Drawing.Size(54, 19);
-            this.radioButtonChNone.TabIndex = 68;
-            this.radioButtonChNone.Text = "None";
-            this.radioButtonChNone.UseVisualStyleBackColor = true;
-            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Mainform
             // 

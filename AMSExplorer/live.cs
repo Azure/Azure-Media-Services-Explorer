@@ -765,7 +765,7 @@ namespace AMSExplorer
             IQueryable<IProgram> programssrv = context.Programs;
             IEnumerable<IProgram> programs;
 
-            if (_anyChannel== enumDisplayProgram.None)
+            if (_anyChannel == enumDisplayProgram.None)
             {
                 programs = new List<IProgram>();
             }
@@ -900,9 +900,7 @@ namespace AMSExplorer
                         // Create an executable query from the expression tree.
                         programssrv = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
                     }
-
                 }
-
 
                 // let's get all the results locally
 
@@ -942,32 +940,6 @@ namespace AMSExplorer
                     programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
                 }
 
-
-                // Sorting
-                // this query has to be locally. Not supported on the server (it will page...)
-
-                /*
-                switch (_orderitems)
-                {
-                    case OrderPrograms.LastModified:
-                        programs = programs.OrderByDescending(p => p.LastModified);
-                        break;
-
-                    case OrderPrograms.Name:
-                        programs = programs.OrderBy(p => p.Name);
-                        break;
-
-                    case OrderPrograms.State:
-                        programs = programs.OrderBy(p => p.State);
-                        break;
-
-                    default:
-                        break;
-                }
-                */
-
-
-
                 if ((!string.IsNullOrEmpty(_timefilter)))
                 {
                     if (_timefilter == FilterTime.First50Items)
@@ -978,12 +950,9 @@ namespace AMSExplorer
                     else if (_timefilter == FilterTime.First1000Items)
                     {
                         programs = programs.Take(1000);
-
                     }
                 }
             }
-
-          
 
             programquery = programs.Select(p =>
                          new ProgramEntry
@@ -1063,9 +1032,6 @@ namespace AMSExplorer
             }
             return operation;
         }
-
-
-
 
         public static async Task<IOperation> ChannelExecuteOperationAsync(Func<TimeSpan, int, bool, Task<IOperation>> fCall, TimeSpan ts, int i, bool b, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
         {
@@ -1308,7 +1274,7 @@ namespace AMSExplorer
         Selected = 0,
         Any,
         None
-    } 
+    }
 
     public static class AMSEXPlorerLiveProfile
     {
