@@ -7656,15 +7656,42 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    var modifications = form.Modifications;
+                    if (multiselection)
+                    {
+                        var dico = new Dictionary<string, bool>();
+
+                        IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
+                        foreach (PropertyInfo info in props)
+                        {
+                            dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
+                        }
+
+                        var formSettings = new SettingsSelection("channels", dico);
+
+                        if (formSettings.ShowDialog() != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            foreach (var it in formSettings.Settings)
+                            {
+                                PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
+                                propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
+                            }
+                        }
+                    }
+
                     foreach (var channel in channels)
                     {
                         TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
 
-                        if (form.Modifications.Description) // let' update description if needed
+                        if (modifications.Description) // let' update description if needed
                         {
                             channel.Description = form.GetChannelDescription;
                         }
-                        if (form.Modifications.KeyFrameInterval)
+                        if (modifications.KeyFrameInterval)
                         {
                             channel.Input.KeyFrameInterval = form.KeyframeInterval;
                         }
@@ -7673,18 +7700,18 @@ namespace AMSExplorer
                         {
                             if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
                             {
-                                if (form.Modifications.SystemPreset)
+                                if (modifications.SystemPreset)
                                 {
                                     channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
                                 }
 
 
-                                if (form.Modifications.AudioStreams) // user modified it
+                                if (modifications.AudioStreams) // user modified it
                                 {
                                     channel.Encoding.AudioStreams = form.AudioStreamList;
                                 }
 
-                                if (form.Modifications.VideoStreams) // user modified it
+                                if (modifications.VideoStreams) // user modified it
                                 {
                                     channel.Encoding.VideoStreams = form.VideoStreamList;
                                 }
@@ -7699,7 +7726,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        if (form.Modifications.HLSFragPerSegment)
+                        if (modifications.HLSFragPerSegment)
                         {
                             // HLS Fragment per segment
                             if (form.HLSFragPerSegment != null)
@@ -7726,7 +7753,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        if (form.Modifications.InputIPAllowList)
+                        if (modifications.InputIPAllowList)
                         {
                             // Input allow list
                             if (form.GetInputIPAllowList != null)
@@ -7746,7 +7773,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        if (form.Modifications.PreviewIPAllowList)
+                        if (modifications.PreviewIPAllowList)
                         {
                             // Preview allow list
                             if (form.GetPreviewAllowList != null)
@@ -7765,9 +7792,9 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                       
 
-                        if (form.Modifications.ClientAccessPolicy)
+
+                        if (modifications.ClientAccessPolicy)
                         {
                             // Client Access Policy
                             if (form.GetChannelClientPolicy != null)
@@ -7788,7 +7815,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        if (form.Modifications.CrossDomainPolicy)
+                        if (modifications.CrossDomainPolicy)
                         {
                             // Cross domain  Policy
                             if (form.GetChannelCrossdomainPolicy != null)
@@ -7808,7 +7835,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                           
+
                         await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                     }
                 }
@@ -8135,27 +8162,67 @@ namespace AMSExplorer
 
         private void DoDisplayProgramInfo()
         {
-            DoDisplayProgramInfo(ReturnSelectedPrograms().FirstOrDefault());
+            DoDisplayProgramInfo(ReturnSelectedPrograms());
         }
 
-        private async void DoDisplayProgramInfo(IProgram program)
+        private async void DoDisplayProgramInfo(List<IProgram> programs)
         {
-            if (program != null)
+            bool multiselection = programs.Count > 1;
+            if (programs.FirstOrDefault() != null)
             {
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
                     ProgramInformation form = new ProgramInformation(this, _context)
                     {
-                        MyProgram = program,
-                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
+                        MyProgram = programs.FirstOrDefault(),
+                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
+                        MultipleSelection = multiselection
                     };
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        program.ArchiveWindowLength = form.archiveWindowLength;
-                        program.Description = form.ProgramDescription;
-                        await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                        var modifications = form.Modifications;
+
+                        if (multiselection)
+                        {
+                            var dico = new Dictionary<string, bool>();
+
+                            IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
+                            foreach (PropertyInfo info in props)
+                            {
+                                dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
+                            }
+
+                            var formSettings = new SettingsSelection("programs", dico);
+
+                            if (formSettings.ShowDialog() != DialogResult.OK)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                foreach (var it in formSettings.Settings)
+                                {
+                                    PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
+                                    propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
+                                }
+                            }
+                        }
+
+                        foreach (var program in programs)
+                        {
+                            if (modifications.ArchiveWindow)
+                            {
+                                program.ArchiveWindowLength = form.archiveWindowLength;
+                            }
+                            if (modifications.Description)
+                            {
+                                program.Description = form.ProgramDescription;
+                            }
+
+                            await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                        }
                     }
                 }
                 finally
@@ -8309,101 +8376,152 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                var modifications = form.Modifications;
+                if (multiselection)
+                {
+                    var dico = new Dictionary<string, bool>();
+
+                    IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
+                    foreach (PropertyInfo info in props)
+                    {
+                        dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
+                    }
+
+                    var formSettings = new SettingsSelection("streaming endpoints", dico);
+
+                    if (formSettings.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        foreach (var it in formSettings.Settings)
+                        {
+                            PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
+                            propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
+                        }
+                    }
+                }
+
                 foreach (var streamingendpoint in streamingendpoints)
                 {
-                    streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
-
-                    if (form.GetStreamingAllowList != null)
+                    if (modifications.CustomHostNames)
                     {
-                        if (streamingendpoint.AccessControl == null)
-                        {
-                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
-                        }
-                        streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
-                    }
-                    else
-                    {
-                        if (streamingendpoint.AccessControl != null)
-                        {
-                            streamingendpoint.AccessControl.IPAllowList = null;
-                        }
+                        streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
                     }
 
-                    if (form.GetStreamingAkamaiList != null)
+                    if (modifications.StreamingAllowedIPAddresses)
                     {
-                        if (streamingendpoint.AccessControl == null)
+                        if (form.GetStreamingAllowList != null)
                         {
-                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            if (streamingendpoint.AccessControl == null)
+                            {
+                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            }
+                            streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
                         }
-                        streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
-
-                    }
-                    else
-                    {
-                        if (streamingendpoint.AccessControl != null)
+                        else
                         {
-                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                            if (streamingendpoint.AccessControl != null)
+                            {
+                                streamingendpoint.AccessControl.IPAllowList = null;
+                            }
                         }
                     }
 
-                    if (form.MaxCacheAge != null)
+                    if (modifications.AkamaiAuthentication)
                     {
-                        if (streamingendpoint.CacheControl == null)
+
+                        if (form.GetStreamingAkamaiList != null)
                         {
-                            streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                            if (streamingendpoint.AccessControl == null)
+                            {
+                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            }
+                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
+
                         }
-                        streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
-                    }
-                    else
-                    {
-                        if (streamingendpoint.CacheControl != null)
+                        else
                         {
-                            streamingendpoint.CacheControl.MaxAge = null;
+                            if (streamingendpoint.AccessControl != null)
+                            {
+                                streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                            }
+
+                        }
+                    }
+
+                    if (modifications.MaxCacheAge)
+                    {
+
+                        if (form.MaxCacheAge != null)
+                        {
+                            if (streamingendpoint.CacheControl == null)
+                            {
+                                streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                            }
+                            streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
+                        }
+                        else
+                        {
+                            if (streamingendpoint.CacheControl != null)
+                            {
+                                streamingendpoint.CacheControl.MaxAge = null;
+                            }
                         }
                     }
 
                     // Client Access Policy
-                    if (form.GetOriginClientPolicy != null)
+                    if (modifications.ClientAccessPolicy)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        if (form.GetOriginClientPolicy != null)
                         {
-                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                        }
-                        streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
+                            if (streamingendpoint.CrossSiteAccessPolicies == null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
-                    }
-                    else
-                    {
-                        if (streamingendpoint.CrossSiteAccessPolicies != null)
+                        }
+                        else
                         {
-                            streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                            if (streamingendpoint.CrossSiteAccessPolicies != null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                            }
                         }
                     }
 
 
                     // Cross domain  Policy
-                    if (form.GetOriginCrossdomaintPolicy != null)
+                    if (modifications.CrossDomainPolicy)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        if (form.GetOriginCrossdomaintPolicy != null)
                         {
-                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                        }
-                        streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
+                            if (streamingendpoint.CrossSiteAccessPolicies == null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
+                        }
+                        else
+                        {
+                            if (streamingendpoint.CrossSiteAccessPolicies != null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                            }
+                        }
                     }
-                    else
+
+                    if (modifications.Description)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies != null)
-                        {
-                            streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
-                        }
+                        streamingendpoint.Description = form.GetOriginDescription;
                     }
-
-                    if (!multiselection) streamingendpoint.Description = form.GetOriginDescription;
 
                     // Let's take actions now
 
-                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
+                    if (modifications.StreamingUnits && streamingendpoint.ScaleUnits != form.GetScaleUnits)
                     {
                         Task.Run(async () =>
                         {
@@ -8417,7 +8535,6 @@ namespace AMSExplorer
                         {
                             await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                         });
-
                     }
                 }
 
@@ -8551,7 +8668,7 @@ namespace AMSExplorer
                 IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
                 if (program != null)
                 {
-                    DoDisplayProgramInfo(program);
+                    DoDisplayProgramInfo(new List<IProgram>() { program });
                 }
             }
         }
@@ -11379,7 +11496,7 @@ namespace AMSExplorer
             oneOrMore = programs.Count > 0;
 
             // program info if only one program
-            displayProgramInformationToolStripMenuItem.Enabled = single;
+            displayProgramInformationToolStripMenuItem.Enabled = oneOrMore;
 
             // asset info if only one program
             ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
@@ -11407,7 +11524,7 @@ namespace AMSExplorer
             bool oneOrMore = programs.Count > 0;
 
             // program info if only one program
-            ContextMenuItemProgramDisplayInformation.Enabled = single;
+            ContextMenuItemProgramDisplayInformation.Enabled = oneOrMore;
 
             // asset info if only one program
             ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = single;

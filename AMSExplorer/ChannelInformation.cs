@@ -44,7 +44,7 @@ namespace AMSExplorer
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
         public bool MultipleSelection = false;
-        public ExplorerChannelModifications Modifications;
+        public ExplorerChannelModifications Modifications= new ExplorerChannelModifications();
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
@@ -273,8 +273,6 @@ namespace AMSExplorer
 
                 tabControl1.TabPages.Remove(tabPageChannelInfo); // no channel info page
                 tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
-                label2.Visible = false; // description
-                textboxchannedesc.Visible = false; // no description textbox
 
                 if (MyChannel.Input.KeyFrameInterval != null)
                 {

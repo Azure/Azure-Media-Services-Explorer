@@ -41,6 +41,8 @@ namespace AMSExplorer
         public IStreamingEndpoint MyStreamingEndpoint;
         public bool MultipleSelection = false;
         public CloudMediaContext MyContext;
+        public ExplorerSEModifications Modifications = new ExplorerSEModifications();
+
         private string MaxCacheAgeInitial;
         private BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
         private BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
@@ -163,11 +165,11 @@ namespace AMSExplorer
             else
             {
                 labelSEName.Text = "(multiple streaming endpoints have been selected)";
-                tabControl1.TabPages.Remove( tabPageInfo); // no SE info page
+                tabControl1.TabPages.Remove(tabPageInfo); // no SE info page
                 labeldesc.Visible = false; // description
                 textboxorigindesc.Visible = false; // no description textbox
             }
-            
+
 
             // Custom Hostnames binding to control
             if (MyStreamingEndpoint.CustomHostNames != null)
@@ -249,6 +251,19 @@ namespace AMSExplorer
             textboxorigindesc.Text = MyStreamingEndpoint.Description;
 
             checkMaxCacheAgeValue();
+
+            // let's track when user edit a setting
+            Modifications = new ExplorerSEModifications
+            {
+                Description = false,
+                ClientAccessPolicy = false,
+                CrossDomainPolicy = false,
+                AkamaiAuthentication = false,
+                CustomHostNames = false,
+                MaxCacheAge = false,
+                StreamingAllowedIPAddresses = false,
+                StreamingUnits = false
+            };
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -290,6 +305,7 @@ namespace AMSExplorer
         private void buttonAddIP_Click(object sender, EventArgs e)
         {
             endpointSettingList.AddNew();
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void buttonDelIP_Click(object sender, EventArgs e)
@@ -297,6 +313,7 @@ namespace AMSExplorer
             if (dataGridViewIP.SelectedRows.Count == 1)
             {
                 endpointSettingList.RemoveAt(dataGridViewIP.SelectedRows[0].Index);
+                Modifications.StreamingAllowedIPAddresses = true;
             }
         }
 
@@ -310,6 +327,7 @@ namespace AMSExplorer
         private void buttonAddAkamai_Click(object sender, EventArgs e)
         {
             AkamaiSettingList.AddNew();
+            Modifications.AkamaiAuthentication = true;
         }
 
         private void buttonDelAkamai_Click(object sender, EventArgs e)
@@ -318,6 +336,7 @@ namespace AMSExplorer
             if (dataGridViewAkamai.SelectedRows.Count == 1)
             {
                 AkamaiSettingList.RemoveAt(dataGridViewAkamai.SelectedRows[0].Index);
+                Modifications.AkamaiAuthentication = true;
             }
         }
 
@@ -326,26 +345,31 @@ namespace AMSExplorer
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            Modifications.ClientAccessPolicy = true;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
+            Modifications.CrossDomainPolicy = true;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewAkamai.Enabled = buttonAddAkamai.Enabled = buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
+            Modifications.AkamaiAuthentication = true;
         }
 
         private void buttonAddHostName_Click(object sender, EventArgs e)
         {
             CustomHostNamesList.AddNew();
+            Modifications.CustomHostNames = true;
         }
 
         private void buttonDelHostName_Click(object sender, EventArgs e)
@@ -353,6 +377,7 @@ namespace AMSExplorer
             if (dataGridViewCustomHostname.SelectedRows.Count == 1)
             {
                 CustomHostNamesList.RemoveAt(dataGridViewCustomHostname.SelectedRows[0].Index);
+                Modifications.CustomHostNames = true;
             }
         }
 
@@ -373,8 +398,7 @@ namespace AMSExplorer
 
         private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
         {
-
-
+            Modifications.StreamingUnits = true;
         }
 
 
@@ -387,11 +411,13 @@ namespace AMSExplorer
         {
             checkBoxStreamingIPlistSet.Checked = false;
             endpointSettingList.Clear();
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void textBoxMaxCacheAge_TextChanged(object sender, EventArgs e)
         {
             checkMaxCacheAgeValue();
+            Modifications.MaxCacheAge = true;
         }
 
         private void checkMaxCacheAgeValue()
@@ -405,5 +431,32 @@ namespace AMSExplorer
                 errorProvider1.SetError(textBoxMaxCacheAge, String.Empty);
             }
         }
+
+        private void textboxorigindesc_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.Description = true;
+        }
+
+        private void textBoxClientPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.ClientAccessPolicy = true;
+        }
+
+        private void textBoxCrossDomPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.CrossDomainPolicy = true;
+        }
+    }
+
+    public class ExplorerSEModifications
+    {
+        public bool Description { get; set; }
+        public bool StreamingUnits { get; set; }
+        public bool MaxCacheAge { get; set; }
+        public bool StreamingAllowedIPAddresses { get; set; }
+        public bool AkamaiAuthentication { get; set; }
+        public bool CustomHostNames { get; set; }
+        public bool ClientAccessPolicy { get; set; }
+        public bool CrossDomainPolicy { get; set; }
     }
 }
