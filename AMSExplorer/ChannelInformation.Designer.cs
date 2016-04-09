@@ -245,6 +245,7 @@
             0,
             0,
             0});
+            this.numericUpDownHLSFragPerSeg.ValueChanged += new System.EventHandler(this.numericUpDownHLSFragPerSeg_ValueChanged);
             // 
             // checkBoxHLSFragPerSeg
             // 
@@ -385,6 +386,7 @@
             this.textboxchannedesc.Name = "textboxchannedesc";
             this.textboxchannedesc.Size = new System.Drawing.Size(808, 23);
             this.textboxchannedesc.TabIndex = 46;
+            this.textboxchannedesc.TextChanged += new System.EventHandler(this.textboxchannedesc_TextChanged);
             // 
             // tabPageEncoding
             // 
@@ -566,6 +568,7 @@
             this.radioButtonDefaultPreset.Tag = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.Text = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
+            this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
             // 
             // tabPageIndexes
             // 
@@ -776,6 +779,7 @@
             this.textBoxCrossDomPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxCrossDomPolicy.Size = new System.Drawing.Size(866, 205);
             this.textBoxCrossDomPolicy.TabIndex = 65;
+            this.textBoxCrossDomPolicy.TextChanged += new System.EventHandler(this.textBoxCrossDomPolicy_TextChanged);
             // 
             // checkBoxclientpolicy
             // 
@@ -799,6 +803,7 @@
             this.textBoxClientPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxClientPolicy.Size = new System.Drawing.Size(866, 217);
             this.textBoxClientPolicy.TabIndex = 63;
+            this.textBoxClientPolicy.TextChanged += new System.EventHandler(this.textBoxClientPolicy_TextChanged);
             // 
             // tabPagePreview
             // 
