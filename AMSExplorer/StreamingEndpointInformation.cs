@@ -258,7 +258,7 @@ namespace AMSExplorer
                 Description = false,
                 ClientAccessPolicy = false,
                 CrossDomainPolicy = false,
-                AkamaiAuthentication = false,
+                AkamaiSignatureHeaderAuthentication = false,
                 CustomHostNames = false,
                 MaxCacheAge = false,
                 StreamingAllowedIPAddresses = false,
@@ -327,7 +327,7 @@ namespace AMSExplorer
         private void buttonAddAkamai_Click(object sender, EventArgs e)
         {
             AkamaiSettingList.AddNew();
-            Modifications.AkamaiAuthentication = true;
+            Modifications.AkamaiSignatureHeaderAuthentication = true;
         }
 
         private void buttonDelAkamai_Click(object sender, EventArgs e)
@@ -336,7 +336,7 @@ namespace AMSExplorer
             if (dataGridViewAkamai.SelectedRows.Count == 1)
             {
                 AkamaiSettingList.RemoveAt(dataGridViewAkamai.SelectedRows[0].Index);
-                Modifications.AkamaiAuthentication = true;
+                Modifications.AkamaiSignatureHeaderAuthentication = true;
             }
         }
 
@@ -363,7 +363,7 @@ namespace AMSExplorer
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewAkamai.Enabled = buttonAddAkamai.Enabled = buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
-            Modifications.AkamaiAuthentication = true;
+            Modifications.AkamaiSignatureHeaderAuthentication = true;
         }
 
         private void buttonAddHostName_Click(object sender, EventArgs e)
@@ -454,7 +454,7 @@ namespace AMSExplorer
         public bool StreamingUnits { get; set; }
         public bool MaxCacheAge { get; set; }
         public bool StreamingAllowedIPAddresses { get; set; }
-        public bool AkamaiAuthentication { get; set; }
+        public bool AkamaiSignatureHeaderAuthentication { get; set; }
         public bool CustomHostNames { get; set; }
         public bool ClientAccessPolicy { get; set; }
         public bool CrossDomainPolicy { get; set; }

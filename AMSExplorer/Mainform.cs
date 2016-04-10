@@ -7659,27 +7659,14 @@ namespace AMSExplorer
                     var modifications = form.Modifications;
                     if (multiselection)
                     {
-                        var dico = new Dictionary<string, bool>();
-
-                        IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
-                        foreach (PropertyInfo info in props)
-                        {
-                            dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
-                        }
-
-                        var formSettings = new SettingsSelection("channels", dico);
-
+                        var formSettings = new SettingsSelection("channels", modifications);
                         if (formSettings.ShowDialog() != DialogResult.OK)
                         {
                             return;
                         }
                         else
                         {
-                            foreach (var it in formSettings.Settings)
-                            {
-                                PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
-                                propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
-                            }
+                            modifications = (ExplorerChannelModifications)formSettings.SettingsObject;
                         }
                     }
 
@@ -8186,15 +8173,7 @@ namespace AMSExplorer
 
                         if (multiselection)
                         {
-                            var dico = new Dictionary<string, bool>();
-
-                            IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
-                            foreach (PropertyInfo info in props)
-                            {
-                                dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
-                            }
-
-                            var formSettings = new SettingsSelection("programs", dico);
+                            var formSettings = new SettingsSelection("programs", modifications);
 
                             if (formSettings.ShowDialog() != DialogResult.OK)
                             {
@@ -8202,11 +8181,7 @@ namespace AMSExplorer
                             }
                             else
                             {
-                                foreach (var it in formSettings.Settings)
-                                {
-                                    PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
-                                    propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
-                                }
+                                modifications = (ExplorerProgramModifications)formSettings.SettingsObject;
                             }
                         }
 
@@ -8379,15 +8354,7 @@ namespace AMSExplorer
                 var modifications = form.Modifications;
                 if (multiselection)
                 {
-                    var dico = new Dictionary<string, bool>();
-
-                    IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
-                    foreach (PropertyInfo info in props)
-                    {
-                        dico.Add(info.Name, (bool)info.GetValue(form.Modifications));
-                    }
-
-                    var formSettings = new SettingsSelection("streaming endpoints", dico);
+                    var formSettings = new SettingsSelection("streaming endpoints", modifications);
 
                     if (formSettings.ShowDialog() != DialogResult.OK)
                     {
@@ -8395,11 +8362,7 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        foreach (var it in formSettings.Settings)
-                        {
-                            PropertyInfo propertyInfo = modifications.GetType().GetProperty(it.Key);
-                            propertyInfo.SetValue(modifications, Convert.ChangeType(it.Value, propertyInfo.PropertyType), null);
-                        }
+                        modifications = (ExplorerSEModifications)formSettings.SettingsObject;
                     }
                 }
 
@@ -8429,7 +8392,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    if (modifications.AkamaiAuthentication)
+                    if (modifications.AkamaiSignatureHeaderAuthentication)
                     {
 
                         if (form.GetStreamingAkamaiList != null)
@@ -8492,7 +8455,6 @@ namespace AMSExplorer
                         }
                     }
 
-
                     // Cross domain  Policy
                     if (modifications.CrossDomainPolicy)
                     {
@@ -8537,9 +8499,6 @@ namespace AMSExplorer
                         });
                     }
                 }
-
-
-
             }
         }
 

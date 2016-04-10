@@ -29,41 +29,48 @@ using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 using System.IO;
 using System.Net;
+using System.Reflection;
 
 namespace AMSExplorer
 {
     public partial class SettingsSelection : Form
     {
-        public Dictionary<string, bool> Settings
+        private object _modifications;
+       
+        public object SettingsObject // return the modifications object with changed done by user
         {
             get
             {
-                var settings = new Dictionary<string, bool>();
+                object newmodif = _modifications;
                 foreach (ListViewItem it in listViewSettings.Items)
                 {
-                    settings.Add(it.Text, it.Checked);
+                    PropertyInfo propertyInfo = newmodif.GetType().GetProperty(it.Text);
+                    propertyInfo.SetValue(newmodif, Convert.ChangeType(it.Checked, propertyInfo.PropertyType), null);
                 }
-                return settings;
+                return newmodif;
             }
-            
         }
 
-        public SettingsSelection(string itemName, Dictionary<string, bool> Settings)
+        public SettingsSelection(string itemName, object modifications)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             label5.Text = string.Format(label5.Text, itemName);
 
-            foreach (KeyValuePair<string, bool> entry in Settings)
+            _modifications = modifications;
+
+            var dico = new Dictionary<string, bool>();
+
+            IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
+            foreach (PropertyInfo info in props)
             {
-                var lvitem = new ListViewItem(entry.Key);
-                if (entry.Value)
+                var lvitem = new ListViewItem(info.Name);
+                if ((bool)info.GetValue(modifications))
                 {
                     lvitem.Checked = true;
                 }
                 listViewSettings.Items.Add(lvitem);
             }
-
         }
 
         private void SettingsSelection_Load(object sender, EventArgs e)
