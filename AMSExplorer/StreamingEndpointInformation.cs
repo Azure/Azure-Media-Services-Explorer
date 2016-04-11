@@ -166,8 +166,6 @@ namespace AMSExplorer
             {
                 labelSEName.Text = "(multiple streaming endpoints have been selected)";
                 tabControl1.TabPages.Remove(tabPageInfo); // no SE info page
-                labeldesc.Visible = false; // description
-                textboxorigindesc.Visible = false; // no description textbox
             }
 
 
