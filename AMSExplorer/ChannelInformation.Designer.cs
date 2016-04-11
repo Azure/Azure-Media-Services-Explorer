@@ -823,6 +823,7 @@
             this.webBrowserPreview.Location = new System.Drawing.Point(0, 0);
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
             this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.ScriptErrorsSuppressed = true;
             this.webBrowserPreview.Size = new System.Drawing.Size(879, 511);
             this.webBrowserPreview.TabIndex = 0;
             // 
