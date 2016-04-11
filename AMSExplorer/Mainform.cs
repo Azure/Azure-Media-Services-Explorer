@@ -1824,7 +1824,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
+                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS locator or user does not want to force the GUID if this is a Streaming locator
                     {
                         locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
                     }
@@ -1861,6 +1861,40 @@ namespace AMSExplorer
 
                 if (locatorType == LocatorType.OnDemandOrigin)
                 {
+                    // delivery policies
+                    bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
+
+                    if (AssetToP.DeliveryPolicies.Count > 0)
+                    { // some dynamic encryption, let's analyse the procotols
+
+                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = false;
+
+                        foreach (var pol in AssetToP.DeliveryPolicies)
+                        {
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
+                            {
+                                protocolDASH = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.HLS) == AssetDeliveryProtocol.HLS)
+                            {
+                                protocolHLS = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.SmoothStreaming) == AssetDeliveryProtocol.SmoothStreaming)
+                            {
+                                protocolSmooth = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.ProgressiveDownload) == AssetDeliveryProtocol.ProgressiveDownload)
+                            {
+                                protocolProgressiveDownload = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
+                    }
+
+
                     // Get the MPEG-DASH URL of the asset for adaptive streaming.
                     Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
 
@@ -1870,6 +1904,20 @@ namespace AMSExplorer
 
                     // Get the Smooth URL of the asset for adaptive streaming.
                     Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
+
+                    if (
+                            (AssetToP.Options == AssetCreationOptions.None && AssetToP.DeliveryPolicies.Count == 0)
+                            ||
+                            (AssetToP.Options == AssetCreationOptions.StorageEncrypted && protocolProgressiveDownload)
+                            ) // if no dynamic encryption and asset clear, or asset storage encrypted with progressive download decryption
+                    {
+                        sbuilderThisAsset.AppendLine(AssetInfo._prog_down_http_streaming + " : ");
+                        foreach (IAssetFile IAF in AssetToP.AssetFiles)
+                        {
+                            sbuilderThisAsset.AppendLine(AddBracket((new Uri(AssetInfo.RW(locator.Path, SESelected) + IAF.Name)).AbsoluteUri));
+                        }
+                    }
+
 
                     if (AssetToP.AssetType == AssetType.MediaServicesHLS)
                     // It is a static HLS asset, so let's propose only the standard HLS V3 locator
@@ -1888,19 +1936,19 @@ namespace AMSExplorer
                         else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                         // Smooth or multi MP4, SE RU so dynamic packaging is possible
                         {
-                            if (locator.GetSmoothStreamingUri() != null)
+                            if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
                                 sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
                             }
-                            if (locator.GetMpegDashUri() != null)
+                            if (protocolDASH && locator.GetMpegDashUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
                             }
-                            if (locator.GetHlsUri() != null)
+                            if (protocolHLS && locator.GetHlsUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
@@ -8962,8 +9010,6 @@ namespace AMSExplorer
                     return false;
                 }
             }
-
-
 
             labelAssetName = "Dynamic encryption will be applied for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
             if (SelectedAssets.Count > 1)

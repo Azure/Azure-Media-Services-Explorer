@@ -566,7 +566,6 @@ namespace AMSExplorer
 
         static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyNoDynEnc(IAsset asset, AssetDeliveryProtocol assetdeliveryprotocol, CloudMediaContext _context)
         {
-
             IAssetDeliveryPolicy assetDeliveryPolicy =
                 _context.AssetDeliveryPolicies.Create(
                             "AssetDeliveryPolicy NoDynEnc",
