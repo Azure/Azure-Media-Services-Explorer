@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class VideoAnalyticsVideoThumbnails
+    partial class MediaAnalyticsVideoThumbnails
     {
         /// <summary>
         /// Required designer variable.
@@ -440,7 +440,7 @@
             this.Name = "VideoAnalyticsVideoThumbnails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
-            this.Load += new System.EventHandler(this.VideoAnalyticsVideoThumbnails_Load);
+            this.Load += new System.EventHandler(this.MediaAnalyticsVideoThumbnails_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.groupBoxVideoSettings.ResumeLayout(false);

@@ -32,7 +32,7 @@ using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
-    public partial class VideoAnalyticsFaceDetection : Form
+    public partial class MediaAnalyticsVideoThumbnails : Form
     {
         private CloudMediaContext _context;
         private IMediaProcessor _processor;
@@ -91,56 +91,37 @@ namespace AMSExplorer
 
         public string JsonConfig()
         {
-            // Example of config :
-            //  @"{'Version':'1.0', 'Options': {'AggregateEmotionWindowMs':'987','Mode':'AggregateEmotion','AggregateEmotionIntervalMs':'342'}}"
+            // Example of config
+            // @"{'Version':'1.0', 'Options': {'OutputType':'video', 'MaxStaticThumbnailCount':'0', 'MaxMotionThumbnailDurationInSecs':'0.0', 'OutputAudio':'true', 'FadeInFadeOut':'true'}}" 
 
             dynamic obj = new JObject();
             obj.Version = "1.0";
-            obj.Options = new JObject();
-
-            if (radioButtonFaceDetection.Checked)
-            {
-                obj.Options.Mode = Constants.FaceDetectionFaces;
-            }
-            else if (radioButtonPerFaceEmotionDetection.Checked)
-            {
-                obj.Options.Mode = Constants.FaceDetectionPerFaceEmotion;
-            }
-            else if (radioButtonAggregateEmotionDetection.Checked)
-            {
-                obj.Options.Mode = Constants.FaceDetectionAggregateEmotion;
-                obj.Options.AggregateEmotionWindowMs = numericUpDownAggregateWindow.Value.ToString("F0");
-                obj.Options.AggregateEmotionIntervalMs = numericUpDownAggregateInterval.Value.ToString("F0");
-            }
-           
-            return JsonConvert.SerializeObject(obj);
-
-
-            /*
-             dynamic obj = new JObject();
-            obj.Version = "1.0";
             dynamic Options = new JObject();
 
-            if (radioButtonFaceDetection.Checked)
+            if (checkBoxOutputVideo.Checked)
             {
-                Options.Mode = Constants.FaceDetectionFaces;
+                Options.OutputType = Constants.VideoThumbnailsOutputVideo;
+                Options.MaxMotionThumbnailDurationInSecs = checkBoxVideoDurationAuto.Checked ? "0.0" : numericUpDownVideoDuration.Value.ToString("F1");
+                Options.OutputAudio = checkBoxOutputAudio.Checked.ToString();
+                Options.FadeInFadeOut = checkBoxVideoFade.Checked.ToString();
             }
-            else if (radioButtonPerFaceEmotionDetection.Checked)
+
+            if (checkBoxOutputImage.Checked)
             {
-                Options.Mode = Constants.FaceDetectionPerFaceEmotion;
+                Options.OutputType = Constants.VideoThumbnailsOutputImage;
+                Options.MaxStaticThumbnailCount = checkBoxImageCountAuto.Checked ? "0" : numericUpDownImageCount.Value.ToString("F0");
             }
-            else if (radioButtonAggregateEmotionDetection.Checked)
+
+            if (checkBoxOutputVideo.Checked && checkBoxOutputImage.Checked)
             {
-                Options.Mode = Constants.FaceDetectionAggregateEmotion;
-                Options.AggregateEmotionWindowMs = numericUpDownAggregateWindow.Value.ToString("F0");
-                Options.AggregateEmotionIntervalMs = numericUpDownAggregateInterval.Value.ToString("F0");
+                Options.OutputType = Constants.VideoThumbnailsOutputBoth;
             }
+
             obj.Options = Options;
             return JsonConvert.SerializeObject(obj);
-    */
         }
 
-        public VideoAnalyticsFaceDetection(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
+        public MediaAnalyticsVideoThumbnails(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -152,7 +133,7 @@ namespace AMSExplorer
         }
 
 
-        private void VideoAnalyticsFaceDetection_Load(object sender, EventArgs e)
+        private void MediaAnalyticsVideoThumbnails_Load(object sender, EventArgs e)
         {
             // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreYammerAMSPreview));
@@ -172,33 +153,21 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void radioButtonAggregateEmotionDetection_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxVideoDurationAuto_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxAggregateSettings.Enabled = radioButtonAggregateEmotionDetection.Checked;
+            numericUpDownVideoDuration.Enabled = !checkBoxVideoDurationAuto.Checked;
         }
 
-        private void numericUpDownAggregateWindow_ValueChanged(object sender, EventArgs e)
+        private void checkBoxImageCountAuto_CheckedChanged(object sender, EventArgs e)
         {
-            checkValues();
+            numericUpDownImageCount.Enabled = !checkBoxImageCountAuto.Checked;
         }
 
-        private void checkValues()
+        private void checkBoxOutputImage_CheckedChanged(object sender, EventArgs e)
         {
-
-            if (numericUpDownAggregateWindow.Value <= numericUpDownAggregateInterval.Value)
-            {
-                errorProvider1.SetError(numericUpDownAggregateInterval, "Window length must be larger than interval");
-            }
-            else
-            {
-                errorProvider1.SetError(numericUpDownAggregateInterval, String.Empty);
-            }
-        }
-
-        private void numericUpDownAggregateInterval_ValueChanged(object sender, EventArgs e)
-        {
-            checkValues();
-
+            panelVideoSettings.Enabled = checkBoxOutputVideo.Checked;
+            panelImageSettings.Enabled = checkBoxOutputImage.Checked;
+            buttonOk.Enabled = checkBoxOutputVideo.Checked || checkBoxOutputImage.Checked;
         }
     }
 }

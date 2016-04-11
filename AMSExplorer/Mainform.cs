@@ -4070,7 +4070,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsGeneric(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4113,7 +4113,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsFaceDetection(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsFaceDetection(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4155,7 +4155,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsVideoThumbnails(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsVideoThumbnails(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
