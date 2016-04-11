@@ -45,7 +45,7 @@ namespace AMSExplorer
             }
         }
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton =true)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -65,6 +65,12 @@ namespace AMSExplorer
             buttonInsertSample.Visible = showSamplePremium;
             labelWarningJSON.Text = string.Empty;
             buttonFormat.Visible = DisplayFormatButton;
+
+            if (infoText!=null)
+            {
+                labelInfoText.Text = infoText;
+                labelInfoText.Visible = true;
+            }
         }
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
@@ -89,7 +95,7 @@ namespace AMSExplorer
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
             // let's normalize the line breaks
-           textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
 
             labelWarningJSON.Text = Program.AnalyzeTextAndReportSyntaxError(textBoxConfiguration.Text);
         }

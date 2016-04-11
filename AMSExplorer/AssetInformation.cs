@@ -2424,7 +2424,8 @@ namespace AMSExplorer
             {
                 var smildata = Program.LoadAndUpdateManifestTemplate(myAsset);
 
-                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false);
+                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false, true, 
+                    "Please check carefully the content of the generated manifest as the tool makes guesses !");
 
                 if (editform.Display() == DialogResult.OK)
                 { // OK
