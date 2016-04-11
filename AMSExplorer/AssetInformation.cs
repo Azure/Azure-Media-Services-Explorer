@@ -571,12 +571,12 @@ namespace AMSExplorer
 
 
             // delivery policies
-            bool protocolDASH, protocolHLS, protocolSmooth;
+            bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
 
             if (myAsset.DeliveryPolicies.Count > 0)
             { // some dynamic encryption, let's analyse the procotols
 
-                protocolDASH = protocolHLS = protocolSmooth = false;
+                protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = false;
 
                 foreach (var pol in myAsset.DeliveryPolicies)
                 {
@@ -592,11 +592,15 @@ namespace AMSExplorer
                     {
                         protocolSmooth = true;
                     }
+                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.ProgressiveDownload) == AssetDeliveryProtocol.ProgressiveDownload)
+                    {
+                        protocolProgressiveDownload = true;
+                    }
                 }
             }
             else
             {
-                protocolDASH = protocolHLS = protocolSmooth = true;
+                protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
             }
 
 
@@ -673,7 +677,11 @@ namespace AMSExplorer
 
                         int indexn = 1;
 
-                        if (myAsset.DeliveryPolicies.Count == 0) // if no dynamic encryption 
+                        if (
+                            (myAsset.Options == AssetCreationOptions.None && myAsset.DeliveryPolicies.Count == 0)
+                            ||
+                            (myAsset.Options == AssetCreationOptions.StorageEncrypted && protocolProgressiveDownload)
+                            ) // if no dynamic encryption and asset clear, or asset storage encrypted with progressive download decryption
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
 
@@ -2424,7 +2432,8 @@ namespace AMSExplorer
             {
                 var smildata = Program.LoadAndUpdateManifestTemplate(myAsset);
 
-                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false);
+                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false, true,
+                    "Please check carefully the content of the generated manifest as the tool makes guesses !");
 
                 if (editform.Display() == DialogResult.OK)
                 { // OK

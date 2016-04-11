@@ -68,7 +68,16 @@ namespace AMSExplorer
         {
             get
             {
-                return ((checkBoxProtocolDASH.Checked ? AssetDeliveryProtocol.Dash : AssetDeliveryProtocol.None) | (checkBoxProtocolHLS.Checked ? AssetDeliveryProtocol.HLS : AssetDeliveryProtocol.None) | (checkBoxProtocolSmooth.Checked ? AssetDeliveryProtocol.SmoothStreaming : AssetDeliveryProtocol.None));
+                return (
+                    (checkBoxProtocolDASH.Checked ? AssetDeliveryProtocol.Dash : AssetDeliveryProtocol.None) 
+                    |
+                    (checkBoxProtocolHLS.Checked ? AssetDeliveryProtocol.HLS : AssetDeliveryProtocol.None)
+                    | 
+                    (checkBoxProtocolSmooth.Checked ? AssetDeliveryProtocol.SmoothStreaming : AssetDeliveryProtocol.None)
+                    |
+                    // progressive download only available for dyn decryption
+                    ((radioButtonDecryptStorage.Checked && checkBoxProtocolProgressiveDownload.Checked) ? AssetDeliveryProtocol.ProgressiveDownload : AssetDeliveryProtocol.None)
+                    );
             }
         }
 
@@ -138,6 +147,7 @@ namespace AMSExplorer
             panelPackaging.Visible = !radioButtonDecryptStorage.Checked;
             checkBoxEnableDynEnc.Checked = true;
             checkBoxEnableDynEnc.Visible = !radioButtonDecryptStorage.Checked;
+            checkBoxProtocolProgressiveDownload.Visible = radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)

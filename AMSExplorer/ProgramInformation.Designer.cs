@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.DGChannel = new System.Windows.Forms.DataGridView();
-            this.buttonCopyStats = new System.Windows.Forms.Button();
+            this.buttonDisplayRelatedAsset = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -51,10 +51,10 @@
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
@@ -77,16 +77,16 @@
             this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
             this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
             // 
-            // tabPage1
+            // tabPageInfo
             // 
-            this.tabPage1.Controls.Add(this.DGChannel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 378);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Program information";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageInfo.Controls.Add(this.DGChannel);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 24);
+            this.tabPageInfo.Name = "tabPageInfo";
+            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInfo.Size = new System.Drawing.Size(748, 378);
+            this.tabPageInfo.TabIndex = 0;
+            this.tabPageInfo.Text = "Program information";
+            this.tabPageInfo.UseVisualStyleBackColor = true;
             // 
             // DGChannel
             // 
@@ -108,43 +108,43 @@
             this.DGChannel.Size = new System.Drawing.Size(732, 360);
             this.DGChannel.TabIndex = 0;
             // 
-            // buttonCopyStats
+            // buttonDisplayRelatedAsset
             // 
-            this.buttonCopyStats.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.buttonCopyStats.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCopyStats.Location = new System.Drawing.Point(19, 48);
-            this.buttonCopyStats.Name = "buttonCopyStats";
-            this.buttonCopyStats.Size = new System.Drawing.Size(252, 27);
-            this.buttonCopyStats.TabIndex = 24;
-            this.buttonCopyStats.Text = "Display related asset information";
-            this.buttonCopyStats.UseVisualStyleBackColor = true;
-            this.buttonCopyStats.Click += new System.EventHandler(this.buttonOpenAsset_Click);
+            this.buttonDisplayRelatedAsset.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.buttonDisplayRelatedAsset.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonDisplayRelatedAsset.Location = new System.Drawing.Point(19, 48);
+            this.buttonDisplayRelatedAsset.Name = "buttonDisplayRelatedAsset";
+            this.buttonDisplayRelatedAsset.Size = new System.Drawing.Size(252, 27);
+            this.buttonDisplayRelatedAsset.TabIndex = 24;
+            this.buttonDisplayRelatedAsset.Text = "Display related asset information";
+            this.buttonDisplayRelatedAsset.UseVisualStyleBackColor = true;
+            this.buttonDisplayRelatedAsset.Click += new System.EventHandler(this.buttonOpenAsset_Click);
             // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageInfo);
+            this.tabControl1.Controls.Add(this.tabPageSettings);
             this.tabControl1.Location = new System.Drawing.Point(14, 93);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(756, 406);
             this.tabControl1.TabIndex = 34;
             // 
-            // tabPage2
+            // tabPageSettings
             // 
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.textBoxDescription);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(748, 378);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageSettings.Controls.Add(this.label2);
+            this.tabPageSettings.Controls.Add(this.textBoxDescription);
+            this.tabPageSettings.Controls.Add(this.groupBox4);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 24);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettings.Size = new System.Drawing.Size(748, 378);
+            this.tabPageSettings.TabIndex = 3;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -163,6 +163,7 @@
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(699, 23);
             this.textBoxDescription.TabIndex = 51;
+            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
             // 
             // groupBox4
             // 
@@ -209,6 +210,7 @@
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
             this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveMinutes.TabIndex = 62;
+            this.numericUpDownArchiveMinutes.ValueChanged += new System.EventHandler(this.numericUpDownArchiveMinutes_ValueChanged);
             // 
             // label10
             // 
@@ -230,6 +232,7 @@
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveHours.TabIndex = 59;
+            this.numericUpDownArchiveHours.ValueChanged += new System.EventHandler(this.numericUpDownArchiveHours_ValueChanged);
             // 
             // pictureBox2
             // 
@@ -305,21 +308,21 @@
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonCopyStats);
+            this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProgramInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Program Information";
-            this.Load += new System.EventHandler(this.ProgramInformation_Load_1);
+            this.Load += new System.EventHandler(this.ProgramInformation_Load);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabPageInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageSettings.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
@@ -334,12 +337,12 @@
 
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.DataGridView DGChannel;
-        private System.Windows.Forms.Button buttonCopyStats;
+        private System.Windows.Forms.Button buttonDisplayRelatedAsset;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelProgramName;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonUpdateClose;
         private System.Windows.Forms.Label label2;

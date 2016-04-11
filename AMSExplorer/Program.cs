@@ -340,12 +340,10 @@ namespace AMSExplorer
 
         public static ManifestGenerated LoadAndUpdateManifestTemplate(IAsset asset)
         {
-
             var mp4AssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (mp4AssetFiles.Count() != 0)
             {
-
                 // Prepare the manifest
                 XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
 
@@ -363,8 +361,15 @@ namespace AMSExplorer
                 }
 
                 // audio track
-                var mp4AudioAssetFiles = mp4AssetFiles.Where(f => f.Name.ToLower().Contains("audio") || f.Name.ToLower().Contains("aac"));
-                string mp4fileaudio = (mp4AudioAssetFiles.Count() == 1) ? mp4AudioAssetFiles.FirstOrDefault().Name : mp4AssetFiles[0].Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+                var mp4AudioAssetFilesName = mp4AssetFiles.Where(f => 
+                                                            (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
+                                                            || 
+                                                            (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
+                                                            );
+
+                var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
+                
+                string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
 
                 switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
 

@@ -44,15 +44,13 @@ namespace AMSExplorer
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
         public bool MultipleSelection = false;
+        public ExplorerChannelModifications Modifications= new ExplorerChannelModifications();
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
         private string defaultEncodingPreset = "";
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultAudioStreamCode = null;
-        private bool videoStreamChanged = false;
-        private bool audioStreamChanged = false;
-
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -123,14 +121,6 @@ namespace AMSExplorer
             }
         }
 
-        public bool VideoStreamsChanged
-        {
-            get
-            {
-                return videoStreamChanged;
-            }
-        }
-
         public ReadOnlyCollection<VideoStream> VideoStreamList
         {
             get
@@ -145,14 +135,6 @@ namespace AMSExplorer
                 {
                     return null;
                 }
-            }
-        }
-
-        public bool AudioStreamsChanged
-        {
-            get
-            {
-                return audioStreamChanged;
             }
         }
 
@@ -291,8 +273,6 @@ namespace AMSExplorer
 
                 tabControl1.TabPages.Remove(tabPageChannelInfo); // no channel info page
                 tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
-                label2.Visible = false; // description
-                textboxchannedesc.Visible = false; // no description textbox
 
                 if (MyChannel.Input.KeyFrameInterval != null)
                 {
@@ -436,8 +416,6 @@ namespace AMSExplorer
                     dataGridViewAudioStreams.DataSource = audiostreams;
                     dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
                 }
-                audioStreamChanged = false; // to make they are at false now
-                videoStreamChanged = false; // to make they are at false now
 
                 UpdateProfileGrids();
             }
@@ -498,6 +476,21 @@ namespace AMSExplorer
                 labelChannelStoppedOrStartedSettings.Visible = true;
                 buttonUpdateClose.Enabled = false;
             }
+
+            // let's track when user edit a setting
+            Modifications = new ExplorerChannelModifications
+            {
+                Description = false,
+                AudioStreams = false,
+                ClientAccessPolicy = false,
+                CrossDomainPolicy = false,
+                HLSFragPerSegment = false,
+                InputIPAllowList = false,
+                KeyFrameInterval = false,
+                PreviewIPAllowList = false,
+                SystemPreset = false,
+                VideoStreams = false
+            };
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -529,11 +522,13 @@ namespace AMSExplorer
         private void buttonAddIngestIP_Click(object sender, EventArgs e)
         {
             InputEndpointSettingList.AddNew();
+            Modifications.InputIPAllowList = true;
         }
 
         private void buttonAddPreviewIP_Click(object sender, EventArgs e)
         {
             PreviewEndpointSettingList.AddNew();
+            Modifications.PreviewIPAllowList = true;
         }
 
         private void buttonDelIngestIP_Click(object sender, EventArgs e)
@@ -541,6 +536,7 @@ namespace AMSExplorer
             if (dataGridViewInputIP.SelectedRows.Count == 1)
             {
                 InputEndpointSettingList.RemoveAt(dataGridViewInputIP.SelectedRows[0].Index);
+                Modifications.InputIPAllowList = true;
             }
         }
 
@@ -549,6 +545,7 @@ namespace AMSExplorer
             if (dataGridViewPreviewIP.SelectedRows.Count == 1)
             {
                 PreviewEndpointSettingList.RemoveAt(dataGridViewPreviewIP.SelectedRows[0].Index);
+                Modifications.PreviewIPAllowList = true;
             }
         }
 
@@ -563,17 +560,20 @@ namespace AMSExplorer
             dataGridViewPreviewIP.Enabled = checkBoxPreviewSet.Checked;
             buttonAddPreviewIP.Enabled = checkBoxPreviewSet.Checked;
             buttonDelPreviewIP.Enabled = checkBoxPreviewSet.Checked;
+            Modifications.PreviewIPAllowList = true;
         }
 
 
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            Modifications.ClientAccessPolicy = true;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Enabled = checkBoxcrossdomains.Checked;
+            Modifications.CrossDomainPolicy = true;
         }
 
         private void dataGridViewInputIP_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -586,17 +586,20 @@ namespace AMSExplorer
             dataGridViewInputIP.Enabled = checkBoxInputSet.Checked;
             buttonAddInputIP.Enabled = checkBoxInputSet.Checked;
             buttonDelInputIP.Enabled = checkBoxInputSet.Checked;
+            Modifications.InputIPAllowList = true;
         }
 
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
             checkKeyFrameValue();
+            Modifications.KeyFrameInterval = true;
         }
 
         private void checkBoxHLSFragPerSeg_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSeg.Checked;
+            Modifications.HLSFragPerSegment = true;
         }
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
@@ -604,12 +607,14 @@ namespace AMSExplorer
             InputEndpointSettingList.Clear();
             InputEndpointSettingList.Add(new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
+            Modifications.InputIPAllowList = true;
         }
 
         private void buttonAllowAllPreviewIP_Click(object sender, EventArgs e)
         {
             checkBoxPreviewSet.Checked = false;
             PreviewEndpointSettingList.Clear();
+            Modifications.PreviewIPAllowList = true;
         }
 
         private void tabPage4_Enter(object sender, EventArgs e)
@@ -629,6 +634,7 @@ namespace AMSExplorer
         private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
         {
             checkKeyFrameValue();
+            Modifications.KeyFrameInterval = true;
         }
 
         private void checkKeyFrameValue()
@@ -647,6 +653,7 @@ namespace AMSExplorer
         {
             UpdateProfileGrids();
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
+            Modifications.SystemPreset = true;
         }
 
         private void UpdateProfileGrids()
@@ -711,8 +718,8 @@ namespace AMSExplorer
                     Index = (int)numericUpDownAudioIndexAddition.Value,
                     Code = selected.Value
                 });
-                audioStreamChanged = true;
                 UpdateProfileGrids();
+                Modifications.AudioStreams = true;
             }
         }
 
@@ -721,8 +728,8 @@ namespace AMSExplorer
             if (dataGridViewAudioStreams.SelectedRows.Count == 1)
             {
                 audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
-                audioStreamChanged = true;
                 UpdateProfileGrids();
+                Modifications.AudioStreams = true;
             }
         }
 
@@ -738,8 +745,8 @@ namespace AMSExplorer
             {
                 defaultAudioStreamCode = null;
             }
-            audioStreamChanged = true; // user changed it
             UpdateProfileGrids();
+            Modifications.AudioStreams = true;
         }
 
         private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
@@ -753,8 +760,8 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
             }
-            audioStreamChanged = true;
             UpdateProfileGrids();
+            Modifications.AudioStreams = true;
         }
 
         private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
@@ -772,20 +779,59 @@ namespace AMSExplorer
 
         private void numericUpDownVideoStreamIndex_ValueChanged(object sender, EventArgs e)
         {
-            videoStreamChanged = true;
+            Modifications.VideoStreams = true;
         }
 
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
+            Modifications.SystemPreset = true;
+        }
+
+        private void textboxchannedesc_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.Description = true;
+        }
+
+        private void numericUpDownHLSFragPerSeg_ValueChanged(object sender, EventArgs e)
+        {
+            Modifications.HLSFragPerSegment = true;
+        }
+
+        private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.SystemPreset = true;
+        }
+
+        private void textBoxClientPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.ClientAccessPolicy = true;
+        }
+
+        private void textBoxCrossDomPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.CrossDomainPolicy = true;
         }
     }
 
     public class ExplorerAudioStream
     {
-        //public ExplorerAudioStream();
         public int Index { get; set; }
         public string Language { get; set; }
         public string Code { get; set; }
+    }
+
+    public class ExplorerChannelModifications
+    {
+        public bool Description { get; set; }
+        public bool KeyFrameInterval { get; set; }
+        public bool SystemPreset { get; set; }
+        public bool AudioStreams { get; set; }
+        public bool VideoStreams { get; set; }
+        public bool HLSFragPerSegment { get; set; }
+        public bool InputIPAllowList { get; set; }
+        public bool PreviewIPAllowList { get; set; }
+        public bool ClientAccessPolicy { get; set; }
+        public bool CrossDomainPolicy { get; set; }
     }
 }

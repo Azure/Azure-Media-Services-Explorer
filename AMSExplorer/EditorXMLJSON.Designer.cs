@@ -38,6 +38,7 @@
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.buttonFormat = new System.Windows.Forms.Button();
+            this.labelInfoText = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,6 +149,20 @@
             this.buttonFormat.UseVisualStyleBackColor = true;
             this.buttonFormat.Click += new System.EventHandler(this.buttonFormat_Click);
             // 
+            // labelInfoText
+            // 
+            this.labelInfoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.labelInfoText.ForeColor = System.Drawing.Color.Black;
+            this.labelInfoText.Location = new System.Drawing.Point(626, 107);
+            this.labelInfoText.Name = "labelInfoText";
+            this.labelInfoText.Size = new System.Drawing.Size(149, 80);
+            this.labelInfoText.TabIndex = 82;
+            this.labelInfoText.Tag = "";
+            this.labelInfoText.Text = "This is an information text";
+            this.labelInfoText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelInfoText.Visible = false;
+            // 
             // EditorXMLJSON
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -155,6 +170,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelInfoText);
             this.Controls.Add(this.buttonFormat);
             this.Controls.Add(this.buttonCopyClipboard);
             this.Controls.Add(this.buttonInsertSample);
@@ -184,5 +200,6 @@
         private System.Windows.Forms.Button buttonInsertSample;
         private System.Windows.Forms.Button buttonCopyClipboard;
         private System.Windows.Forms.Button buttonFormat;
+        private System.Windows.Forms.Label labelInfoText;
     }
 }

@@ -400,6 +400,7 @@
             this.textboxorigindesc.Name = "textboxorigindesc";
             this.textboxorigindesc.Size = new System.Drawing.Size(523, 23);
             this.textboxorigindesc.TabIndex = 49;
+            this.textboxorigindesc.TextChanged += new System.EventHandler(this.textboxorigindesc_TextChanged);
             // 
             // textBoxMaxCacheAge
             // 
@@ -501,6 +502,7 @@
             this.textBoxCrossDomPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxCrossDomPolicy.Size = new System.Drawing.Size(863, 207);
             this.textBoxCrossDomPolicy.TabIndex = 61;
+            this.textBoxCrossDomPolicy.TextChanged += new System.EventHandler(this.textBoxCrossDomPolicy_TextChanged);
             // 
             // checkBoxclientpolicy
             // 
@@ -525,6 +527,7 @@
             this.textBoxClientPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxClientPolicy.Size = new System.Drawing.Size(863, 212);
             this.textBoxClientPolicy.TabIndex = 59;
+            this.textBoxClientPolicy.TextChanged += new System.EventHandler(this.textBoxClientPolicy_TextChanged);
             // 
             // labelSEName
             // 

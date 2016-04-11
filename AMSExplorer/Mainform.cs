@@ -1824,7 +1824,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
+                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS locator or user does not want to force the GUID if this is a Streaming locator
                     {
                         locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
                     }
@@ -1861,6 +1861,40 @@ namespace AMSExplorer
 
                 if (locatorType == LocatorType.OnDemandOrigin)
                 {
+                    // delivery policies
+                    bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
+
+                    if (AssetToP.DeliveryPolicies.Count > 0)
+                    { // some dynamic encryption, let's analyse the procotols
+
+                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = false;
+
+                        foreach (var pol in AssetToP.DeliveryPolicies)
+                        {
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
+                            {
+                                protocolDASH = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.HLS) == AssetDeliveryProtocol.HLS)
+                            {
+                                protocolHLS = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.SmoothStreaming) == AssetDeliveryProtocol.SmoothStreaming)
+                            {
+                                protocolSmooth = true;
+                            }
+                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.ProgressiveDownload) == AssetDeliveryProtocol.ProgressiveDownload)
+                            {
+                                protocolProgressiveDownload = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
+                    }
+
+
                     // Get the MPEG-DASH URL of the asset for adaptive streaming.
                     Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
 
@@ -1870,6 +1904,20 @@ namespace AMSExplorer
 
                     // Get the Smooth URL of the asset for adaptive streaming.
                     Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
+
+                    if (
+                            (AssetToP.Options == AssetCreationOptions.None && AssetToP.DeliveryPolicies.Count == 0)
+                            ||
+                            (AssetToP.Options == AssetCreationOptions.StorageEncrypted && protocolProgressiveDownload)
+                            ) // if no dynamic encryption and asset clear, or asset storage encrypted with progressive download decryption
+                    {
+                        sbuilderThisAsset.AppendLine(AssetInfo._prog_down_http_streaming + " : ");
+                        foreach (IAssetFile IAF in AssetToP.AssetFiles)
+                        {
+                            sbuilderThisAsset.AppendLine(AddBracket((new Uri(AssetInfo.RW(locator.Path, SESelected) + IAF.Name)).AbsoluteUri));
+                        }
+                    }
+
 
                     if (AssetToP.AssetType == AssetType.MediaServicesHLS)
                     // It is a static HLS asset, so let's propose only the standard HLS V3 locator
@@ -1888,19 +1936,19 @@ namespace AMSExplorer
                         else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                         // Smooth or multi MP4, SE RU so dynamic packaging is possible
                         {
-                            if (locator.GetSmoothStreamingUri() != null)
+                            if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
                                 sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
                             }
-                            if (locator.GetMpegDashUri() != null)
+                            if (protocolDASH && locator.GetMpegDashUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
                             }
-                            if (locator.GetHlsUri() != null)
+                            if (protocolHLS && locator.GetHlsUri() != null)
                             {
                                 sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
@@ -4022,7 +4070,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsGeneric(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4065,7 +4113,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsFaceDetection(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsFaceDetection(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4107,7 +4155,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new VideoAnalyticsVideoThumbnails(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsVideoThumbnails(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -7656,28 +7704,49 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    var modifications = form.Modifications;
+                    if (multiselection)
+                    {
+                        var formSettings = new SettingsSelection("channels", modifications);
+                        if (formSettings.ShowDialog() != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            modifications = (ExplorerChannelModifications)formSettings.SettingsObject;
+                        }
+                    }
+
                     foreach (var channel in channels)
                     {
                         TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
 
-                        if (!multiselection) // let' update description only if one channel was selected
+                        if (modifications.Description) // let' update description if needed
                         {
                             channel.Description = form.GetChannelDescription;
                         }
-                        channel.Input.KeyFrameInterval = form.KeyframeInterval;
+                        if (modifications.KeyFrameInterval)
+                        {
+                            channel.Input.KeyFrameInterval = form.KeyframeInterval;
+                        }
 
                         if (channel.EncodingType == firstchannel.EncodingType)
                         {
                             if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
                             {
-                                channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+                                if (modifications.SystemPreset)
+                                {
+                                    channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+                                }
 
-                                if (form.AudioStreamsChanged || multiselection) // user modified it
+
+                                if (modifications.AudioStreams) // user modified it
                                 {
                                     channel.Encoding.AudioStreams = form.AudioStreamList;
                                 }
 
-                                if (form.VideoStreamsChanged || multiselection) // user modified it
+                                if (modifications.VideoStreams) // user modified it
                                 {
                                     channel.Encoding.VideoStreams = form.VideoStreamList;
                                 }
@@ -7692,101 +7761,116 @@ namespace AMSExplorer
                             }
                         }
 
-                        // HLS Fragment per segment
-                        if (form.HLSFragPerSegment != null)
+                        if (modifications.HLSFragPerSegment)
                         {
-                            if (channel.Output == null)
+                            // HLS Fragment per segment
+                            if (form.HLSFragPerSegment != null)
                             {
-                                channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                                if (channel.Output == null)
+                                {
+                                    channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                                }
+                                else if (channel.Output.Hls == null)
+                                {
+                                    channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                                }
+                                else
+                                {
+                                    channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                                }
                             }
-                            else if (channel.Output.Hls == null)
+                            else // form.HLSFragPerSegment is null
                             {
-                                channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                                if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+                                {
+                                    channel.Output.Hls.FragmentsPerSegment = null;
+                                }
+                            }
+                        }
+
+                        if (modifications.InputIPAllowList)
+                        {
+                            // Input allow list
+                            if (form.GetInputIPAllowList != null)
+                            {
+                                if (channel.Input.AccessControl == null)
+                                {
+                                    channel.Input.AccessControl = new ChannelAccessControl();
+                                }
+                                channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
                             }
                             else
                             {
-                                channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
-                            }
-                        }
-                        else // form.HLSFragPerSegment is null
-                        {
-                            if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
-                            {
-                                channel.Output.Hls.FragmentsPerSegment = null;
+                                if (channel.Input.AccessControl != null)
+                                {
+                                    channel.Input.AccessControl.IPAllowList = null;
+                                }
                             }
                         }
 
-                        // Input allow list
-                        if (form.GetInputIPAllowList != null)
+                        if (modifications.PreviewIPAllowList)
                         {
-                            if (channel.Input.AccessControl == null)
+                            // Preview allow list
+                            if (form.GetPreviewAllowList != null)
                             {
-                                channel.Input.AccessControl = new ChannelAccessControl();
+                                if (channel.Preview.AccessControl == null)
+                                {
+                                    channel.Preview.AccessControl = new ChannelAccessControl();
+                                }
+                                channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
                             }
-                            channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
-                        }
-                        else
-                        {
-                            if (channel.Input.AccessControl != null)
+                            else
                             {
-                                channel.Input.AccessControl.IPAllowList = null;
-                            }
-                        }
-
-                        // Preview allow list
-                        if (form.GetPreviewAllowList != null)
-                        {
-                            if (channel.Preview.AccessControl == null)
-                            {
-                                channel.Preview.AccessControl = new ChannelAccessControl();
-                            }
-                            channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
-                        }
-                        else
-                        {
-                            if (channel.Preview.AccessControl != null)
-                            {
-                                channel.Preview.AccessControl.IPAllowList = null;
+                                if (channel.Preview.AccessControl != null)
+                                {
+                                    channel.Preview.AccessControl.IPAllowList = null;
+                                }
                             }
                         }
 
 
-                        // Client Access Policy
-                        if (form.GetChannelClientPolicy != null)
+                        if (modifications.ClientAccessPolicy)
                         {
-                            if (channel.CrossSiteAccessPolicies == null)
+                            // Client Access Policy
+                            if (form.GetChannelClientPolicy != null)
                             {
-                                channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                if (channel.CrossSiteAccessPolicies == null)
+                                {
+                                    channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                }
+                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
+
                             }
-                            channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
-
-                        }
-                        else
-                        {
-                            if (channel.CrossSiteAccessPolicies != null)
+                            else
                             {
-                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
-                            }
-                        }
-
-
-                        // Cross domain  Policy
-                        if (form.GetChannelCrossdomainPolicy != null)
-                        {
-                            if (channel.CrossSiteAccessPolicies == null)
-                            {
-                                channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                            }
-                            channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomainPolicy;
-
-                        }
-                        else
-                        {
-                            if (channel.CrossSiteAccessPolicies != null)
-                            {
-                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                                if (channel.CrossSiteAccessPolicies != null)
+                                {
+                                    channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                                }
                             }
                         }
+
+                        if (modifications.CrossDomainPolicy)
+                        {
+                            // Cross domain  Policy
+                            if (form.GetChannelCrossdomainPolicy != null)
+                            {
+                                if (channel.CrossSiteAccessPolicies == null)
+                                {
+                                    channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                }
+                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomainPolicy;
+
+                            }
+                            else
+                            {
+                                if (channel.CrossSiteAccessPolicies != null)
+                                {
+                                    channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                                }
+                            }
+                        }
+
                         await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                     }
                 }
@@ -8113,27 +8197,55 @@ namespace AMSExplorer
 
         private void DoDisplayProgramInfo()
         {
-            DoDisplayProgramInfo(ReturnSelectedPrograms().FirstOrDefault());
+            DoDisplayProgramInfo(ReturnSelectedPrograms());
         }
 
-        private async void DoDisplayProgramInfo(IProgram program)
+        private async void DoDisplayProgramInfo(List<IProgram> programs)
         {
-            if (program != null)
+            bool multiselection = programs.Count > 1;
+            if (programs.FirstOrDefault() != null)
             {
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
                     ProgramInformation form = new ProgramInformation(this, _context)
                     {
-                        MyProgram = program,
-                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
+                        MyProgram = programs.FirstOrDefault(),
+                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
+                        MultipleSelection = multiselection
                     };
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        program.ArchiveWindowLength = form.archiveWindowLength;
-                        program.Description = form.ProgramDescription;
-                        await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                        var modifications = form.Modifications;
+
+                        if (multiselection)
+                        {
+                            var formSettings = new SettingsSelection("programs", modifications);
+
+                            if (formSettings.ShowDialog() != DialogResult.OK)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                modifications = (ExplorerProgramModifications)formSettings.SettingsObject;
+                            }
+                        }
+
+                        foreach (var program in programs)
+                        {
+                            if (modifications.ArchiveWindow)
+                            {
+                                program.ArchiveWindowLength = form.archiveWindowLength;
+                            }
+                            if (modifications.Description)
+                            {
+                                program.Description = form.ProgramDescription;
+                            }
+
+                            await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                        }
                     }
                 }
                 finally
@@ -8287,101 +8399,139 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                var modifications = form.Modifications;
+                if (multiselection)
+                {
+                    var formSettings = new SettingsSelection("streaming endpoints", modifications);
+
+                    if (formSettings.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        modifications = (ExplorerSEModifications)formSettings.SettingsObject;
+                    }
+                }
+
                 foreach (var streamingendpoint in streamingendpoints)
                 {
-                    streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
-
-                    if (form.GetStreamingAllowList != null)
+                    if (modifications.CustomHostNames)
                     {
-                        if (streamingendpoint.AccessControl == null)
-                        {
-                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
-                        }
-                        streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
-                    }
-                    else
-                    {
-                        if (streamingendpoint.AccessControl != null)
-                        {
-                            streamingendpoint.AccessControl.IPAllowList = null;
-                        }
+                        streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
                     }
 
-                    if (form.GetStreamingAkamaiList != null)
+                    if (modifications.StreamingAllowedIPAddresses)
                     {
-                        if (streamingendpoint.AccessControl == null)
+                        if (form.GetStreamingAllowList != null)
                         {
-                            streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            if (streamingendpoint.AccessControl == null)
+                            {
+                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            }
+                            streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
                         }
-                        streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
-
-                    }
-                    else
-                    {
-                        if (streamingendpoint.AccessControl != null)
+                        else
                         {
-                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                            if (streamingendpoint.AccessControl != null)
+                            {
+                                streamingendpoint.AccessControl.IPAllowList = null;
+                            }
                         }
                     }
 
-                    if (form.MaxCacheAge != null)
+                    if (modifications.AkamaiSignatureHeaderAuthentication)
                     {
-                        if (streamingendpoint.CacheControl == null)
+
+                        if (form.GetStreamingAkamaiList != null)
                         {
-                            streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                            if (streamingendpoint.AccessControl == null)
+                            {
+                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                            }
+                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
+
                         }
-                        streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
-                    }
-                    else
-                    {
-                        if (streamingendpoint.CacheControl != null)
+                        else
                         {
-                            streamingendpoint.CacheControl.MaxAge = null;
+                            if (streamingendpoint.AccessControl != null)
+                            {
+                                streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                            }
+
+                        }
+                    }
+
+                    if (modifications.MaxCacheAge)
+                    {
+
+                        if (form.MaxCacheAge != null)
+                        {
+                            if (streamingendpoint.CacheControl == null)
+                            {
+                                streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
+                            }
+                            streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
+                        }
+                        else
+                        {
+                            if (streamingendpoint.CacheControl != null)
+                            {
+                                streamingendpoint.CacheControl.MaxAge = null;
+                            }
                         }
                     }
 
                     // Client Access Policy
-                    if (form.GetOriginClientPolicy != null)
+                    if (modifications.ClientAccessPolicy)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        if (form.GetOriginClientPolicy != null)
                         {
-                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                        }
-                        streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
+                            if (streamingendpoint.CrossSiteAccessPolicies == null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
-                    }
-                    else
-                    {
-                        if (streamingendpoint.CrossSiteAccessPolicies != null)
+                        }
+                        else
                         {
-                            streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                            if (streamingendpoint.CrossSiteAccessPolicies != null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                            }
                         }
                     }
-
 
                     // Cross domain  Policy
-                    if (form.GetOriginCrossdomaintPolicy != null)
+                    if (modifications.CrossDomainPolicy)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies == null)
+                        if (form.GetOriginCrossdomaintPolicy != null)
                         {
-                            streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                        }
-                        streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
+                            if (streamingendpoint.CrossSiteAccessPolicies == null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                            }
+                            streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
+                        }
+                        else
+                        {
+                            if (streamingendpoint.CrossSiteAccessPolicies != null)
+                            {
+                                streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                            }
+                        }
                     }
-                    else
+
+                    if (modifications.Description)
                     {
-                        if (streamingendpoint.CrossSiteAccessPolicies != null)
-                        {
-                            streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
-                        }
+                        streamingendpoint.Description = form.GetOriginDescription;
                     }
-
-                    if (!multiselection) streamingendpoint.Description = form.GetOriginDescription;
 
                     // Let's take actions now
 
-                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
+                    if (modifications.StreamingUnits && streamingendpoint.ScaleUnits != form.GetScaleUnits)
                     {
                         Task.Run(async () =>
                         {
@@ -8395,12 +8545,8 @@ namespace AMSExplorer
                         {
                             await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                         });
-
                     }
                 }
-
-
-
             }
         }
 
@@ -8529,7 +8675,7 @@ namespace AMSExplorer
                 IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
                 if (program != null)
                 {
-                    DoDisplayProgramInfo(program);
+                    DoDisplayProgramInfo(new List<IProgram>() { program });
                 }
             }
         }
@@ -8864,8 +9010,6 @@ namespace AMSExplorer
                     return false;
                 }
             }
-
-
 
             labelAssetName = "Dynamic encryption will be applied for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
             if (SelectedAssets.Count > 1)
@@ -11357,7 +11501,7 @@ namespace AMSExplorer
             oneOrMore = programs.Count > 0;
 
             // program info if only one program
-            displayProgramInformationToolStripMenuItem.Enabled = single;
+            displayProgramInformationToolStripMenuItem.Enabled = oneOrMore;
 
             // asset info if only one program
             ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
@@ -11385,7 +11529,7 @@ namespace AMSExplorer
             bool oneOrMore = programs.Count > 0;
 
             // program info if only one program
-            ContextMenuItemProgramDisplayInformation.Enabled = single;
+            ContextMenuItemProgramDisplayInformation.Enabled = oneOrMore;
 
             // asset info if only one program
             ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = single;

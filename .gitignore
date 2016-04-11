@@ -103,6 +103,9 @@ packages/
 csx
 *.build.csdef
 
+# Visual Studio 2015 cache/options directory
+.vs/
+
 # Windows Store app package directory
 AppPackages/
 

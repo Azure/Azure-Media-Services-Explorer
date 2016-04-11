@@ -206,6 +206,12 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsSelection.Designer.cs">
+      <DependentUpon>SettingsSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="EDL.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,23 +250,23 @@
     <Compile Include="BulkContainerInfo.Designer.cs">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoAnalyticsVideoThumbnails.cs">
+    <Compile Include="MediaAnalyticsVideoThumbnails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoAnalyticsVideoThumbnails.Designer.cs">
-      <DependentUpon>VideoAnalyticsVideoThumbnails.cs</DependentUpon>
+    <Compile Include="MediaAnalyticsVideoThumbnails.Designer.cs">
+      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoAnalyticsFaceDetection.cs">
+    <Compile Include="MediaAnalyticsFaceDetection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoAnalyticsFaceDetection.Designer.cs">
-      <DependentUpon>VideoAnalyticsFaceDetection.cs</DependentUpon>
+    <Compile Include="MediaAnalyticsFaceDetection.Designer.cs">
+      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoAnalyticsGeneric.cs">
+    <Compile Include="MediaAnalyticsGeneric.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoAnalyticsGeneric.Designer.cs">
-      <DependentUpon>VideoAnalyticsGeneric.cs</DependentUpon>
+    <Compile Include="MediaAnalyticsGeneric.Designer.cs">
+      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareUpdate.cs">
       <SubType>Form</SubType>
@@ -761,6 +767,9 @@
     <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
       <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingsSelection.resx">
+      <DependentUpon>SettingsSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TimeRangeSelection.resx">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -770,14 +779,14 @@
     <EmbeddedResource Include="BulkContainerInfo.resx">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoAnalyticsVideoThumbnails.resx">
-      <DependentUpon>VideoAnalyticsVideoThumbnails.cs</DependentUpon>
+    <EmbeddedResource Include="MediaAnalyticsVideoThumbnails.resx">
+      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoAnalyticsFaceDetection.resx">
-      <DependentUpon>VideoAnalyticsFaceDetection.cs</DependentUpon>
+    <EmbeddedResource Include="MediaAnalyticsFaceDetection.resx">
+      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoAnalyticsGeneric.resx">
-      <DependentUpon>VideoAnalyticsGeneric.cs</DependentUpon>
+    <EmbeddedResource Include="MediaAnalyticsGeneric.resx">
+      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>
