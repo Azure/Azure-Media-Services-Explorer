@@ -341,7 +341,7 @@ namespace AMSExplorer
                     else  // No EDL
                     {
                         var subdata = GetSubClipTrimmingDataTimeSpan();
-                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime, End = subdata.EndTime });
+                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset });
                         config.OffsetForReencode = subdata.Offset;
                     }
                     config.InOutForReencode = list;

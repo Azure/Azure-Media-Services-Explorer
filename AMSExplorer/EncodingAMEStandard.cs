@@ -227,7 +227,7 @@ namespace AMSExplorer
                     checkBoxUseEDL.Checked = true;
                     buttonShowEDL.EDLEntries = _subclipConfig.InOutForReencode;
                 }
-             }
+            }
 
             if (_nbInputAssets > 1)
             {
@@ -410,6 +410,41 @@ namespace AMSExplorer
                         obj.Sources.Add(time);
                     }
 
+                    // Subcliping - we need to add top bitrate values
+                    if (_subclipConfig != null) // subclipping. we need to add top bitrate values
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        dynamic streamA = new JObject();
+                        streamA.Type = "AudioStream";
+                        streamA.Value = "TopBitrate";
+
+                        dynamic streamV = new JObject();
+                        streamV.Type = "VideoStream";
+                        streamV.Value = "TopBitrate";
+
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                entry.Streams = new JArray() as dynamic;
+                                entry.Streams.Add(streamA);
+                                entry.Streams.Add(streamV);
+                            }
+                        }
+                        else
+                        {
+                            dynamic entry = new JObject() as dynamic;
+                            entry.Streams = new JArray() as dynamic;
+                            entry.Streams.Add(streamA);
+                            entry.Streams.Add(streamV);
+                            obj.Sources.Add(entry);
+                        }
+                    }
+
 
                     // Overlay
                     if (checkBoxOverlay.Checked)
@@ -465,7 +500,6 @@ namespace AMSExplorer
                         obj.Sources.Add(Source);
 
                         Source.Streams = new JArray() as dynamic;
-
 
                         dynamic VideoOverlayEntry = new JObject();
                         Source.Filters = VideoOverlayEntry;
@@ -584,81 +618,43 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        bool DeinterModeSet = false;
-                        foreach (var source in obj.Sources)
+                        dynamic modeeentry = new JObject() as dynamic;
+                        modeeentry.Mode = "Off";
+                        dynamic deinterlaceentry = new JObject() as dynamic;
+                        deinterlaceentry.Deinterlace = modeeentry;
+
+
+                        if (obj.Sources.Count > 0)
                         {
-                            if (source.Filters != null)
+                            foreach (dynamic source in obj.Sources)
                             {
-                                if (source.Filters.Deinterlace != null)
+                                bool DeinterModeSet = false;
+                                if (source.Filters != null)
                                 {
-                                    source.Filters.Deinterlace.Mode = "Off";
+                                    if (source.Filters.Deinterlace != null)
+                                    {
+                                        source.Filters.Deinterlace.Mode = "Off";
+                                    }
+                                    else
+                                    {
+                                        source.Filters.Deinterlace = modeeentry;
+                                    }
+                                    DeinterModeSet = true;
                                 }
-                                else
+
+                                if (!DeinterModeSet)
                                 {
-                                    dynamic modeeentry = new JObject() as dynamic;
-                                    modeeentry.Mode = "Off";
-                                    source.Filters.Deinterlace = modeeentry;
+                                    source.Filters = deinterlaceentry;
                                 }
-                                DeinterModeSet = true;
                             }
                         }
-
-                        if (!DeinterModeSet)
+                        else // no source
                         {
                             dynamic sourceentry = new JObject() as dynamic;
-                            dynamic deinterlaceentry = new JObject() as dynamic;
-                            dynamic modeeentry = new JObject() as dynamic;
-                            modeeentry.Mode = "Off";
-                            deinterlaceentry.Deinterlace = modeeentry;
                             sourceentry.Filters = deinterlaceentry;
                             obj.Sources.Add(sourceentry);
                         }
                     }
-
-
-                    if (_subclipConfig != null) // subclipping. we need to add top bitrate values
-                    {
-                        if (obj.Sources == null)
-                        {
-                            obj.Sources = new JArray() as dynamic;
-                        }
-
-                        if (obj.Sources.Count > 0)
-                        {
-                            foreach (dynamic entry in obj.Sources)
-                            {
-                                entry.Streams = new JArray() as dynamic;
-
-                                dynamic stream = new JObject();
-                                stream.Type = "AudioStream";
-                                stream.Value = "TopBitrate";
-                                entry.Streams.Add(stream);
-
-                                stream = new JObject();
-                                stream.Type = "VideoStream";
-                                stream.Value = "TopBitrate";
-                                entry.Streams.Add(stream);
-                            }
-                        }
-                        else
-                        {
-                            dynamic entry = new JObject() as dynamic;
-                            entry.Streams = new JArray() as dynamic;
-
-                            dynamic stream = new JObject();
-                            stream.Type = "AudioStream";
-                            stream.Value = "TopBitrate";
-                            entry.Streams.Add(stream);
-
-                            stream = new JObject();
-                            stream.Type = "VideoStream";
-                            stream.Value = "TopBitrate";
-                            entry.Streams.Add(stream);
-
-                            obj.Sources.Add(entry);
-                        }
-                    }
-
 
                     // Thumbnails settings
                     if (checkBoxGenThumbnailsJPG.Checked || checkBoxGenThumbnailsPNG.Checked || checkBoxGenThumbnailsBMP.Checked)
