@@ -182,6 +182,10 @@
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.panelEDL = new System.Windows.Forms.Panel();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
+            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -211,6 +215,7 @@
             this.panelFade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelEDL.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -492,6 +497,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panelEDL);
             this.groupBox1.Controls.Add(this.labelOffset);
             this.groupBox1.Controls.Add(this.textBoxOffset);
             this.groupBox1.Controls.Add(this.timeControlEndTime);
@@ -502,7 +508,7 @@
             this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingStart);
             this.groupBox1.Location = new System.Drawing.Point(16, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(691, 149);
+            this.groupBox1.Size = new System.Drawing.Size(691, 190);
             this.groupBox1.TabIndex = 94;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source Trimming";
@@ -605,7 +611,7 @@
             // linkLabelMoreInfoPreserveResRotation
             // 
             this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
-            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(211, 245);
+            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(211, 277);
             this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
             this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
             this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
@@ -616,7 +622,7 @@
             // checkBoxPreserveResAfterRotation
             // 
             this.checkBoxPreserveResAfterRotation.AutoSize = true;
-            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(16, 244);
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(16, 276);
             this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
             this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
             this.checkBoxPreserveResAfterRotation.TabIndex = 91;
@@ -627,7 +633,7 @@
             // checkBoxDisableAutoDeinterlacing
             // 
             this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 219);
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 251);
             this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
             this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
             this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
@@ -638,7 +644,7 @@
             // checkBoxInsertSilentAudioTrack
             // 
             this.checkBoxInsertSilentAudioTrack.AutoSize = true;
-            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 194);
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 226);
             this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
             this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
             this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
@@ -2035,6 +2041,52 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // panelEDL
+            // 
+            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEDL.Controls.Add(this.buttonShowEDL);
+            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
+            this.panelEDL.Location = new System.Drawing.Point(9, 139);
+            this.panelEDL.Name = "panelEDL";
+            this.panelEDL.Size = new System.Drawing.Size(508, 34);
+            this.panelEDL.TabIndex = 136;
+            // 
+            // buttonAddEDLEntry
+            // 
+            this.buttonAddEDLEntry.Enabled = false;
+            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
+            this.buttonAddEDLEntry.TabIndex = 137;
+            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonShowEDL
+            // 
+            this.buttonShowEDL.Enabled = false;
+            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
+            this.buttonShowEDL.TabIndex = 138;
+            this.buttonShowEDL.Text = "Show EDL...";
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUseEDL
+            // 
+            this.checkBoxUseEDL.AutoSize = true;
+            this.checkBoxUseEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxUseEDL.Location = new System.Drawing.Point(3, 8);
+            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
+            this.checkBoxUseEDL.Size = new System.Drawing.Size(185, 19);
+            this.checkBoxUseEDL.TabIndex = 139;
+            this.checkBoxUseEDL.Text = "Use Editing Decision List (EDL)";
+            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
+            this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
+            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2103,6 +2155,8 @@
             this.panelFade.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelEDL.ResumeLayout(false);
+            this.panelEDL.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2262,5 +2316,9 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.LinkLabel linkLabelInfoOverlay;
+        private System.Windows.Forms.Panel panelEDL;
+        private System.Windows.Forms.Button buttonAddEDLEntry;
+        private ButtonEDL buttonShowEDL;
+        private System.Windows.Forms.CheckBox checkBoxUseEDL;
     }
 }

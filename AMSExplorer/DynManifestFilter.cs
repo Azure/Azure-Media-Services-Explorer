@@ -104,7 +104,6 @@ namespace AMSExplorer
                 isGlobalFilter = true;
                 tabControl1.TabPages.Remove(tabPageInformation);
                 _filter_presentationtimerange = new PresentationTimeRange();
-                // _filter_tracks = new List<FilterTrackSelectStatement>();
                 filtertracks = new List<ExFilterTrack>();
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
@@ -123,7 +122,6 @@ namespace AMSExplorer
                 DisplayFilterInfo();
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                //_filter_tracks = new List<FilterTrackSelectStatement>();
                 filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
 
                 _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
@@ -160,7 +158,6 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageInformation);
 
                 _filter_presentationtimerange = new PresentationTimeRange();
-                //_filter_tracks = new List<FilterTrackSelectStatement>();
 
                 filtertracks = new List<ExFilterTrack>();
 
@@ -235,7 +232,6 @@ namespace AMSExplorer
 
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                //_filter_tracks = _filterToDisplay.Tracks;
                 filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
 
                 _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
@@ -286,7 +282,6 @@ namespace AMSExplorer
                 {
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
                     timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
-                    //timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
 
@@ -549,10 +544,10 @@ namespace AMSExplorer
             get
             {
                 var ptr = new PresentationTimeRange(
-                    start: checkBoxStartTime.Checked ? (ulong?)timeControlStart.GetScaledTimeStampWithOffset() : null,
-                    end: checkBoxEndTime.Checked ? (ulong?)timeControlEnd.GetScaledTimeStampWithOffset() : null,
+                    start: checkBoxStartTime.Checked ? (ulong?)timeControlStart.ScaledTimeStampWithOffset : null,
+                    end: checkBoxEndTime.Checked ? (ulong?)timeControlEnd.ScaledTimeStampWithOffset : null,
                     backoff: checkBoxLiveBackoff.Checked ? (TimeSpan?)TimeSpan.FromSeconds((double)numericUpDownBackoffSeconds.Value) : null,
-                    pwDuration: checkBoxDVRWindow.Checked ? (TimeSpan?)timeControlDVR.GetTimeStampAsTimeSpanWitoutOffset() : null,
+                    pwDuration: checkBoxDVRWindow.Checked ? (TimeSpan?)timeControlDVR.TimeStampWithoutOffset : null,
                     timescale: (ulong?)_timescale
                 );
                 return ptr;
@@ -837,7 +832,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlStart, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
             }
-            else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
+            else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.TimeStampWithoutOffset > timeControlEnd.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
             }
@@ -854,7 +849,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlEnd, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
             }
-            else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
+            else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.TimeStampWithoutOffset < timeControlStart.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
             }
@@ -865,7 +860,7 @@ namespace AMSExplorer
 
 
             // dvr
-            if (checkBoxDVRWindow.Checked && timeControlDVR.GetTimeStampAsTimeSpanWitoutOffset() < TimeSpan.FromMinutes(2))
+            if (checkBoxDVRWindow.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(2))
             {
                 errorProvider1.SetError(timeControlDVR, "The DVR Window must be at least 2 minutes (or more)");
             }
@@ -899,7 +894,7 @@ namespace AMSExplorer
             if (checkBoxStartTime.Checked && checkBoxEndTime.Checked)
             {
                 textBoxDurationTime.Enabled = true;
-                textBoxDurationTime.Text = (timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset()).ToString();
+                textBoxDurationTime.Text = (timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset).ToString();
 
             }
             else

@@ -36,6 +36,18 @@ namespace AMSExplorer
     {
         private BindingList<ExplorerEDLEntryInOut> TimeCodeList = new BindingList<ExplorerEDLEntryInOut>();
 
+        public delegate void ChangedEventHandler(object sender, EventArgs e);
+
+        // An event that clients can use to be notified whenever the
+        // elements of the list change.
+        public event ChangedEventHandler Changed;
+
+        protected virtual void OnChanged(EventArgs e)
+        {
+            if (Changed != null)
+                Changed(this, e);
+        }
+
         public EDL()
         {
             InitializeComponent();
@@ -47,16 +59,24 @@ namespace AMSExplorer
             dataGridViewEDL.DataSource = TimeCodeList;
 
         }
-              
+
 
         public void AddEDLEntry(ExplorerEDLEntryInOut entry)
         {
             TimeCodeList.Add(entry);
+            OnChanged(EventArgs.Empty);
         }
 
-        public List<ExplorerEDLEntryInOut> GetEDLEntries()
+        public List<ExplorerEDLEntryInOut> EDLEntries
         {
-            return TimeCodeList.ToList();
+            get
+            {
+                return TimeCodeList.ToList();
+            }
+            set
+            {
+                TimeCodeList = new BindingList<ExplorerEDLEntryInOut>(value);
+            }
         }
 
         private void buttonUp_Click(object sender, EventArgs e)
@@ -69,6 +89,7 @@ namespace AMSExplorer
                 TimeCodeList[index] = backup;
                 dataGridViewEDL.ClearSelection();
                 dataGridViewEDL.Rows[index - 1].Selected = true;
+                OnChanged(EventArgs.Empty);
             }
         }
 
@@ -82,6 +103,7 @@ namespace AMSExplorer
                 TimeCodeList[index] = backup;
                 dataGridViewEDL.ClearSelection();
                 dataGridViewEDL.Rows[index + 1].Selected = true;
+                OnChanged(EventArgs.Empty);
             }
         }
 
@@ -90,6 +112,7 @@ namespace AMSExplorer
             if (dataGridViewEDL.SelectedRows.Count == 1)
             {
                 TimeCodeList.RemoveAt(dataGridViewEDL.SelectedRows[0].Index);
+                OnChanged(EventArgs.Empty);
             }
         }
 
@@ -101,8 +124,8 @@ namespace AMSExplorer
         private void dataGridViewEDL_SelectionChanged(object sender, EventArgs e)
         {
             buttonDelEntry.Enabled = dataGridViewEDL.SelectedRows.Count > 0;
-            buttonUp.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index > 1;
-            buttonDown.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index < dataGridViewEDL.Rows.Count-1;
+            buttonUp.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index > 0;
+            buttonDown.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index < dataGridViewEDL.Rows.Count - 1;
 
         }
 
@@ -117,12 +140,30 @@ namespace AMSExplorer
 
     class ButtonEDL : Button
     {
-        EDL myEDL;
+        private EDL myEDL;
+
+        //      public delegate void ChangedEventHandler(object sender, EventArgs e);
+
+        //    public event ChangedEventHandler Changed;
+
+        // Invoke the Changed event; called whenever list changes
+
+
+        public event EDL.ChangedEventHandler EDLChanged
+        {
+            add { myEDL.Changed += new EDL.ChangedEventHandler(value); }
+            remove { myEDL.Changed -= new EDL.ChangedEventHandler(value); }
+        }
+
+
 
         public ButtonEDL()
         {
             this.Click += ButtonEDL_Click;
+
         }
+
+
 
         public void Initialize()
         {
@@ -139,21 +180,34 @@ namespace AMSExplorer
             myEDL.AddEDLEntry(entry);
         }
 
-        public List<ExplorerEDLEntryInOut> GetEDLEntries()
+        public List<ExplorerEDLEntryInOut> EDLEntries
         {
-            return myEDL.GetEDLEntries();
+            get
+            {
+                return myEDL.EDLEntries;
+            }
+            set
+            {
+                myEDL.EDLEntries = value;
+            }
         }
 
-        public string GetXML()
-        {
-            return null;// myEDL.TextData;
-        }
+        public TimeSpan Offset { get; set; }
+
     }
 
     public class ExplorerEDLEntryInOut
     {
-        public TimeSpan In { get; set; }
-        public TimeSpan Out { get; set; }
+        public TimeSpan Start { get; set; }
+        public TimeSpan End { get; set; }
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                return End - Start;
+            }
+        }
     }
 
 }

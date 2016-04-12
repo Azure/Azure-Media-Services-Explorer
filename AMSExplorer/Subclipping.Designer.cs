@@ -50,8 +50,9 @@
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.panelAssetInfo = new System.Windows.Forms.Panel();
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
-            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
+            this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
@@ -74,7 +75,6 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.panelJob = new System.Windows.Forms.Panel();
             this.label34 = new System.Windows.Forms.Label();
-            this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonShowEDL = new AMSExplorer.ButtonEDL();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
@@ -85,10 +85,10 @@
             this.tabPageTR.SuspendLayout();
             this.panelAssetInfo.SuspendLayout();
             this.groupBoxTrimming.SuspendLayout();
+            this.panelEDL.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.panelJob.SuspendLayout();
-            this.panelEDL.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -313,10 +313,33 @@
             this.groupBoxTrimming.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.groupBoxTrimming.Location = new System.Drawing.Point(337, 7);
             this.groupBoxTrimming.Name = "groupBoxTrimming";
-            this.groupBoxTrimming.Size = new System.Drawing.Size(537, 483);
+            this.groupBoxTrimming.Size = new System.Drawing.Size(537, 469);
             this.groupBoxTrimming.TabIndex = 131;
             this.groupBoxTrimming.TabStop = false;
             this.groupBoxTrimming.Text = "Trimming";
+            // 
+            // panelEDL
+            // 
+            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEDL.Controls.Add(this.buttonShowEDL);
+            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
+            this.panelEDL.Location = new System.Drawing.Point(10, 435);
+            this.panelEDL.Name = "panelEDL";
+            this.panelEDL.Size = new System.Drawing.Size(508, 34);
+            this.panelEDL.TabIndex = 135;
+            // 
+            // buttonAddEDLEntry
+            // 
+            this.buttonAddEDLEntry.Enabled = false;
+            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
+            this.buttonAddEDLEntry.TabIndex = 137;
+            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.button2_Click);
             // 
             // checkBoxUseEDL
             // 
@@ -331,24 +354,12 @@
             this.checkBoxUseEDL.UseVisualStyleBackColor = true;
             this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
             // 
-            // buttonAddEDLEntry
-            // 
-            this.buttonAddEDLEntry.Enabled = false;
-            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
-            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
-            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
-            this.buttonAddEDLEntry.TabIndex = 137;
-            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
-            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
-            this.buttonAddEDLEntry.Click += new System.EventHandler(this.button2_Click);
-            // 
             // textBoxDurationTime
             // 
             this.textBoxDurationTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDurationTime.Enabled = false;
             this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxDurationTime.Location = new System.Drawing.Point(395, 389);
+            this.textBoxDurationTime.Location = new System.Drawing.Point(395, 375);
             this.textBoxDurationTime.Name = "textBoxDurationTime";
             this.textBoxDurationTime.ReadOnly = true;
             this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
@@ -360,7 +371,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(392, 371);
+            this.label7.Location = new System.Drawing.Point(392, 357);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 134;
@@ -386,7 +397,7 @@
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
             this.webBrowserPreview.Name = "webBrowserPreview";
             this.webBrowserPreview.ScriptErrorsSuppressed = true;
-            this.webBrowserPreview.Size = new System.Drawing.Size(500, 209);
+            this.webBrowserPreview.Size = new System.Drawing.Size(500, 195);
             this.webBrowserPreview.TabIndex = 4;
             // 
             // checkBoxPreviewStream
@@ -608,17 +619,6 @@
             this.label34.Text = "Live stream/archive Subclipping";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // panelEDL
-            // 
-            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
-            this.panelEDL.Controls.Add(this.buttonShowEDL);
-            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
-            this.panelEDL.Location = new System.Drawing.Point(10, 449);
-            this.panelEDL.Name = "panelEDL";
-            this.panelEDL.Size = new System.Drawing.Size(508, 34);
-            this.panelEDL.TabIndex = 135;
-            // 
             // buttonShowEDL
             // 
             this.buttonShowEDL.Enabled = false;
@@ -640,7 +640,7 @@
             this.timeControlStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlStart.Label1 = "";
             this.timeControlStart.Label2 = "Start time :";
-            this.timeControlStart.Location = new System.Drawing.Point(7, 278);
+            this.timeControlStart.Location = new System.Drawing.Point(7, 264);
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
@@ -661,7 +661,7 @@
             this.timeControlEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlEnd.Label1 = "";
             this.timeControlEnd.Label2 = "End time :";
-            this.timeControlEnd.Location = new System.Drawing.Point(7, 374);
+            this.timeControlEnd.Location = new System.Drawing.Point(7, 360);
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
@@ -710,13 +710,13 @@
             this.panelAssetInfo.PerformLayout();
             this.groupBoxTrimming.ResumeLayout(false);
             this.groupBoxTrimming.PerformLayout();
+            this.panelEDL.ResumeLayout(false);
+            this.panelEDL.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.panelJob.ResumeLayout(false);
             this.panelJob.PerformLayout();
-            this.panelEDL.ResumeLayout(false);
-            this.panelEDL.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
