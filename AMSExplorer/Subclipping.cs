@@ -104,7 +104,7 @@ namespace AMSExplorer
                 {
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentassetmanifestdata.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
-                    buttonShowEDL.Offset = TimeSpan.FromTicks((long)_parentassetmanifestdata.TimestampOffset);
+                    buttonShowEDL.Offset = timeControlStart.GetOffSetAsTimeSpan();
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;

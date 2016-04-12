@@ -125,7 +125,6 @@ namespace AMSExplorer
             }
         }
 
-
         public TimeSpan Min
         {
             get { return min; }
@@ -148,7 +147,6 @@ namespace AMSExplorer
                 return (ulong)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
             }
         }
-
         
         public ulong ScaledTimeStampWithOffset
         {

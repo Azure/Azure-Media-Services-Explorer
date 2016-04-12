@@ -176,10 +176,8 @@ namespace AMSExplorer
 
         private void EncodingAMEStandard_Load(object sender, EventArgs e)
         {
-
             buttonShowEDL.Initialize();
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
-
 
             // presets list
             var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
