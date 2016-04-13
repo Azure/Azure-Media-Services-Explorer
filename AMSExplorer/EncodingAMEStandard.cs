@@ -179,18 +179,6 @@ namespace AMSExplorer
             buttonShowEDL.Initialize();
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
 
-            // presets list
-            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
-            listboxPresets.Items.AddRange(filePaths.ToArray());
-            if (!_ThumbnailsModeOnly)
-            {
-                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
-            }
-            else // Thumbnail mode only
-            {
-                textBoxConfiguration.Text = "{}";
-                tabControl1.SelectedTab = tabPageThPNG;
-            }
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
@@ -230,6 +218,19 @@ namespace AMSExplorer
             if (_nbInputAssets > 1)
             {
                 checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
+            }
+
+            // presets list
+            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
+            listboxPresets.Items.AddRange(filePaths.ToArray());
+            if (!_ThumbnailsModeOnly)
+            {
+                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+            }
+            else // Thumbnail mode only
+            {
+                textBoxConfiguration.Text = "{}";
+                tabControl1.SelectedTab = tabPageThPNG;
             }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -295,7 +296,8 @@ namespace AMSExplorer
                         foreach (var source in obj.Sources)
                         {
                             if (
-                                (source.StartTime != null && source.Duration != null)
+                                (source.StartTime != null)
+                                || (source.Duration != null)
                                 || (source.Filters != null && source.Filters.Deinterlace != null)
                                 || (source.Filters != null && source.Filters.VideoOverlay != null)
                                 )
@@ -494,14 +496,9 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        dynamic Source = new JObject();
-                        obj.Sources.Add(Source);
 
-                        Source.Streams = new JArray() as dynamic;
-
+                        // let's prepare objects
                         dynamic VideoOverlayEntry = new JObject();
-                        Source.Filters = VideoOverlayEntry;
-
                         dynamic VideoOverlay = new JObject();
                         VideoOverlayEntry.VideoOverlay = VideoOverlay;
 
@@ -575,6 +572,48 @@ namespace AMSExplorer
                             FadeOutDuration.Duration = textBoxVOverlayFadeOutDuration.Text;
 
                             OverlayParamImage.InputLoop = true; // needed for fade in out
+                        }
+
+
+                        // now we put these objects in the preset
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                if (entry.Filters != null)
+                                {
+                                    entry.Filters.Add(VideoOverlayEntry);
+                                }
+                                else
+                                {
+                                    entry.Filters = VideoOverlayEntry;
+
+                                }
+
+                                if (entry.Streams == null)
+                                {
+                                    entry.Streams = new JArray() as dynamic;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dynamic Source = new JObject();
+                            obj.Sources.Add(Source);
+
+                            if (Source.Filters != null)
+                            {
+                                Source.Filters.Add(VideoOverlayEntry);
+                            }
+                            else
+                            {
+                                Source.Filters = VideoOverlayEntry;
+                            }
+
+                            if (Source.Streams == null)
+                            {
+                                Source.Streams = new JArray() as dynamic;
+                            }
                         }
                     }
 

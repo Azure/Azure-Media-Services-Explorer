@@ -11765,6 +11765,11 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
+            {
+                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline + "You should use the subclipping UI if you plan to trim the source to make sure that that timestamps are correctly managed.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
