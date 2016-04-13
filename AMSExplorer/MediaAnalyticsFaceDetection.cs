@@ -114,30 +114,6 @@ namespace AMSExplorer
             }
            
             return JsonConvert.SerializeObject(obj);
-
-
-            /*
-             dynamic obj = new JObject();
-            obj.Version = "1.0";
-            dynamic Options = new JObject();
-
-            if (radioButtonFaceDetection.Checked)
-            {
-                Options.Mode = Constants.FaceDetectionFaces;
-            }
-            else if (radioButtonPerFaceEmotionDetection.Checked)
-            {
-                Options.Mode = Constants.FaceDetectionPerFaceEmotion;
-            }
-            else if (radioButtonAggregateEmotionDetection.Checked)
-            {
-                Options.Mode = Constants.FaceDetectionAggregateEmotion;
-                Options.AggregateEmotionWindowMs = numericUpDownAggregateWindow.Value.ToString("F0");
-                Options.AggregateEmotionIntervalMs = numericUpDownAggregateInterval.Value.ToString("F0");
-            }
-            obj.Options = Options;
-            return JsonConvert.SerializeObject(obj);
-    */
         }
 
         public MediaAnalyticsFaceDetection(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)

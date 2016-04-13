@@ -87,6 +87,7 @@ namespace AMSExplorer
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
+        private bool AMIndexerV2Present = true;
 
 
         private System.Timers.Timer TimerAutoRefresh;
@@ -270,6 +271,12 @@ namespace AMSExplorer
                 AMVideoThumbnailsPresent = false;
                 ProcessVideoThumbnailstoolStripMenuItem.Visible = false;
                 toolStripMenuItemVideoThumbnails.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview) == null)
+            {
+                AMIndexerV2Present = false;
+                toolStripMenuItemIndexv2.Visible = false;
+                toolStripMenuItem38Indexer2.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -4510,6 +4517,59 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuIndex2PreviewAssets()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+            var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
+
+            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
+
+            var form = new IndexerV2(_context, processor.Version)
+            {
+                IndexerJobName = "Media Indexing v2 of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for media indexing."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
+            };
+
+            string taskname = "Media Indexing v2 of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(form.JsonConfig());
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.IndexerJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
         private void DoMenuHyperlapseAssets()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -6458,10 +6518,19 @@ namespace AMSExplorer
                 ProcessStabilizertoolStripMenuItem.Enabled = false;
                 toolStripMenuItemStabilizer.Enabled = false;
             }
+
+            // let's disable video thumbnails if not present
             if (!AMVideoThumbnailsPresent)
             {
                 ProcessVideoThumbnailstoolStripMenuItem.Enabled = false;
                 toolStripMenuItemVideoThumbnails.Enabled = false;
+            }
+
+            // let's disable Indexer v2 if not present
+            if (!AMIndexerV2Present)
+            {
+                toolStripMenuItemIndexv2.Enabled = false;
+                toolStripMenuItem38Indexer2.Enabled = false;
             }
 
             // let's disable AME Std if not present
@@ -13288,6 +13357,16 @@ namespace AMSExplorer
         private void tabPageLive_Resize(object sender, EventArgs e)
         {
             panelChannels.Size = new Size(panelChannels.Size.Width, tabPageLive.Size.Height / 2);
+        }
+
+        private void toolStripMenuItem38_Click_1(object sender, EventArgs e)
+        {
+            DoMenuIndex2PreviewAssets();
+        }
+
+        private void toolStripMenuItem38Indexer2_Click(object sender, EventArgs e)
+        {
+            DoMenuIndex2PreviewAssets();
         }
     }
 }
