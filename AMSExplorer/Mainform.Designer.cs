@@ -77,6 +77,7 @@
             this.ContextMenuItemThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaIntelligenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem38Indexer2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHyperlapse = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFaceDetector = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRedactor = new System.Windows.Forms.ToolStripMenuItem();
@@ -515,7 +516,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.toolStripMenuItem38Indexer2 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -593,7 +593,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(367, 606);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(367, 584);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -950,6 +950,14 @@
             this.toolStripMenuItemIndexer.Size = new System.Drawing.Size(359, 22);
             this.toolStripMenuItemIndexer.Text = "Index asset(s) with Azure Media Indexer...";
             this.toolStripMenuItemIndexer.Click += new System.EventHandler(this.toolStripMenuItem33_Click);
+            // 
+            // toolStripMenuItem38Indexer2
+            // 
+            this.toolStripMenuItem38Indexer2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem38Indexer2.Image")));
+            this.toolStripMenuItem38Indexer2.Name = "toolStripMenuItem38Indexer2";
+            this.toolStripMenuItem38Indexer2.Size = new System.Drawing.Size(359, 22);
+            this.toolStripMenuItem38Indexer2.Text = "Index asset(s) with Azure Media Indexer 2...";
+            this.toolStripMenuItem38Indexer2.Click += new System.EventHandler(this.toolStripMenuItem38Indexer2_Click);
             // 
             // toolStripMenuItemHyperlapse
             // 
@@ -1825,7 +1833,6 @@
             // 
             this.toolStripMenuItemIndexv2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemIndexv2.Image")));
             this.toolStripMenuItemIndexv2.Name = "toolStripMenuItemIndexv2";
-            this.toolStripMenuItemIndexv2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.toolStripMenuItemIndexv2.Size = new System.Drawing.Size(419, 22);
             this.toolStripMenuItemIndexv2.Text = "Index asset(s) with Azure Media Indexer 2...";
             this.toolStripMenuItemIndexv2.Click += new System.EventHandler(this.toolStripMenuItem38_Click_1);
@@ -5248,15 +5255,6 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
-            // 
-            // toolStripMenuItem38Indexer2
-            // 
-            this.toolStripMenuItem38Indexer2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem38Indexer2.Image")));
-            this.toolStripMenuItem38Indexer2.Name = "toolStripMenuItem38Indexer2";
-            this.toolStripMenuItem38Indexer2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.toolStripMenuItem38Indexer2.Size = new System.Drawing.Size(359, 22);
-            this.toolStripMenuItem38Indexer2.Text = "Index asset(s) with Azure Media Indexer 2...";
-            this.toolStripMenuItem38Indexer2.Click += new System.EventHandler(this.toolStripMenuItem38Indexer2_Click);
             // 
             // Mainform
             // 

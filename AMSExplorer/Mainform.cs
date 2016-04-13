@@ -87,6 +87,7 @@ namespace AMSExplorer
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
+        private bool AMIndexerV2Present = true;
 
 
         private System.Timers.Timer TimerAutoRefresh;
@@ -270,6 +271,12 @@ namespace AMSExplorer
                 AMVideoThumbnailsPresent = false;
                 ProcessVideoThumbnailstoolStripMenuItem.Visible = false;
                 toolStripMenuItemVideoThumbnails.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview) == null)
+            {
+                AMIndexerV2Present = false;
+                toolStripMenuItemIndexv2.Visible = false;
+                toolStripMenuItem38Indexer2.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -6511,10 +6518,19 @@ namespace AMSExplorer
                 ProcessStabilizertoolStripMenuItem.Enabled = false;
                 toolStripMenuItemStabilizer.Enabled = false;
             }
+
+            // let's disable video thumbnails if not present
             if (!AMVideoThumbnailsPresent)
             {
                 ProcessVideoThumbnailstoolStripMenuItem.Enabled = false;
                 toolStripMenuItemVideoThumbnails.Enabled = false;
+            }
+
+            // let's disable Indexer v2 if not present
+            if (!AMIndexerV2Present)
+            {
+                toolStripMenuItemIndexv2.Enabled = false;
+                toolStripMenuItem38Indexer2.Enabled = false;
             }
 
             // let's disable AME Std if not present
