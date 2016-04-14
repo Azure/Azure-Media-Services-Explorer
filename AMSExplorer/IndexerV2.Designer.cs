@@ -244,8 +244,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(588, 19);
             this.label4.TabIndex = 75;
-            this.label4.Text = "The preview is limited to ~10 minutes of processing, but is free to all customers" +
-    "";
+            this.label4.Text = "The preview is limited to ~10 minutes of processing.";
             // 
             // IndexerV2
             // 
@@ -272,7 +271,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "IndexerV2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Media Indexing 2";
+            this.Text = "Media Indexing v2";
             this.Load += new System.EventHandler(this.IndexerV2_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
