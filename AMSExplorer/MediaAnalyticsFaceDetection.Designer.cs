@@ -40,7 +40,6 @@
             this.labelProcessorName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelPreview = new System.Windows.Forms.Label();
             this.groupBoxAggregateSettings = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,14 +48,12 @@
             this.numericUpDownAggregateWindow = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.radioButtonFaceDetection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPerFaceEmotionDetection = new System.Windows.Forms.RadioButton();
             this.radioButtonAggregateEmotionDetection = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBoxAggregateSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateWindow)).BeginInit();
@@ -183,10 +180,6 @@
             this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // labelPreview
             // 
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -258,19 +251,18 @@
             0,
             0,
             0});
-            this.numericUpDownAggregateInterval.ValueChanged += new System.EventHandler(this.numericUpDownAggregateInterval_ValueChanged);
             // 
             // numericUpDownAggregateWindow
             // 
             this.numericUpDownAggregateWindow.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownAggregateWindow.Location = new System.Drawing.Point(20, 51);
             this.numericUpDownAggregateWindow.Maximum = new decimal(new int[] {
-            3000,
+            2000,
             0,
             0,
             0});
             this.numericUpDownAggregateWindow.Minimum = new decimal(new int[] {
-            1000,
+            250,
             0,
             0,
             0});
@@ -279,18 +271,17 @@
             this.numericUpDownAggregateWindow.TabIndex = 0;
             this.toolTip1.SetToolTip(this.numericUpDownAggregateWindow, "The length of video used to produce each aggregate result");
             this.numericUpDownAggregateWindow.Value = new decimal(new int[] {
-            2000,
+            500,
             0,
             0,
             0});
-            this.numericUpDownAggregateWindow.ValueChanged += new System.EventHandler(this.numericUpDownAggregateWindow_ValueChanged);
             // 
             // radioButtonFaceDetection
             // 
             this.radioButtonFaceDetection.AutoSize = true;
             this.radioButtonFaceDetection.Checked = true;
             this.radioButtonFaceDetection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonFaceDetection.Location = new System.Drawing.Point(8, 22);
+            this.radioButtonFaceDetection.Location = new System.Drawing.Point(17, 29);
             this.radioButtonFaceDetection.Name = "radioButtonFaceDetection";
             this.radioButtonFaceDetection.Size = new System.Drawing.Size(107, 19);
             this.radioButtonFaceDetection.TabIndex = 77;
@@ -298,22 +289,11 @@
             this.radioButtonFaceDetection.Text = "Faces detection";
             this.radioButtonFaceDetection.UseVisualStyleBackColor = true;
             // 
-            // radioButtonPerFaceEmotionDetection
-            // 
-            this.radioButtonPerFaceEmotionDetection.AutoSize = true;
-            this.radioButtonPerFaceEmotionDetection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonPerFaceEmotionDetection.Location = new System.Drawing.Point(8, 47);
-            this.radioButtonPerFaceEmotionDetection.Name = "radioButtonPerFaceEmotionDetection";
-            this.radioButtonPerFaceEmotionDetection.Size = new System.Drawing.Size(168, 19);
-            this.radioButtonPerFaceEmotionDetection.TabIndex = 78;
-            this.radioButtonPerFaceEmotionDetection.Text = "Per face emotion detection";
-            this.radioButtonPerFaceEmotionDetection.UseVisualStyleBackColor = true;
-            // 
             // radioButtonAggregateEmotionDetection
             // 
             this.radioButtonAggregateEmotionDetection.AutoSize = true;
             this.radioButtonAggregateEmotionDetection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonAggregateEmotionDetection.Location = new System.Drawing.Point(8, 72);
+            this.radioButtonAggregateEmotionDetection.Location = new System.Drawing.Point(17, 55);
             this.radioButtonAggregateEmotionDetection.Name = "radioButtonAggregateEmotionDetection";
             this.radioButtonAggregateEmotionDetection.Size = new System.Drawing.Size(181, 19);
             this.radioButtonAggregateEmotionDetection.TabIndex = 79;
@@ -325,7 +305,6 @@
             // 
             this.groupBox1.Controls.Add(this.radioButtonFaceDetection);
             this.groupBox1.Controls.Add(this.radioButtonAggregateEmotionDetection);
-            this.groupBox1.Controls.Add(this.radioButtonPerFaceEmotionDetection);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 125);
             this.groupBox1.Name = "groupBox1";
@@ -354,7 +333,7 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // VideoAnalyticsFaceDetection
+            // MediaAnalyticsFaceDetection
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -376,12 +355,11 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.labelProcessorVersion);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "VideoAnalyticsFaceDetection";
+            this.Name = "MediaAnalyticsFaceDetection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
             this.Load += new System.EventHandler(this.MediaAnalyticsFaceDetection_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.groupBoxAggregateSettings.ResumeLayout(false);
             this.groupBoxAggregateSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateInterval)).EndInit();
@@ -409,7 +387,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private ButtonJobOptions buttonJobOptions;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.GroupBox groupBoxAggregateSettings;
         private System.Windows.Forms.NumericUpDown numericUpDownAggregateInterval;
@@ -420,6 +397,5 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonFaceDetection;
         private System.Windows.Forms.RadioButton radioButtonAggregateEmotionDetection;
-        private System.Windows.Forms.RadioButton radioButtonPerFaceEmotionDetection;
     }
 }
