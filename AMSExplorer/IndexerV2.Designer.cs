@@ -48,6 +48,7 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.labelPreview = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetName.Location = new System.Drawing.Point(21, 47);
+            this.labelAssetName.Location = new System.Drawing.Point(14, 42);
             this.labelAssetName.Name = "labelAssetName";
             this.labelAssetName.Size = new System.Drawing.Size(446, 35);
             this.labelAssetName.TabIndex = 50;
@@ -152,7 +153,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 94);
+            this.label6.Location = new System.Drawing.Point(14, 95);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 15);
             this.label6.TabIndex = 67;
@@ -162,7 +163,7 @@
             // 
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(24, 113);
+            this.comboBoxLanguage.Location = new System.Drawing.Point(17, 113);
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.comboBoxLanguage.Size = new System.Drawing.Size(140, 23);
             this.comboBoxLanguage.TabIndex = 68;
@@ -171,7 +172,7 @@
             // buttonGenOptions
             // 
             this.buttonGenOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenOptions.Location = new System.Drawing.Point(466, 110);
+            this.buttonGenOptions.Location = new System.Drawing.Point(466, 113);
             this.buttonGenOptions.Name = "buttonGenOptions";
             this.buttonGenOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonGenOptions.TabIndex = 69;
@@ -235,6 +236,17 @@
             this.labelPreview.Text = "Preview";
             this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Location = new System.Drawing.Point(14, 161);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(588, 19);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "The preview is limited to ~10 minutes of processing, but is free to all customers" +
+    "";
+            // 
             // IndexerV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -242,6 +254,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 389);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -259,7 +272,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "IndexerV2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Media Indexing";
+            this.Text = "Media Indexing 2";
             this.Load += new System.EventHandler(this.IndexerV2_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -288,5 +301,6 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label labelProcessorVersion;
         public System.Windows.Forms.Label labelPreview;
+        private System.Windows.Forms.Label label4;
     }
 }
