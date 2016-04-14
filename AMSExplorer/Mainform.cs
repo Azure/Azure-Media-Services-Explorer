@@ -11836,16 +11836,22 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            bool LiveArchiveAsset = false;
             if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
             {
-                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline + "You should use the subclipping UI if you plan to trim the source to make sure that that timestamps are correctly managed.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline
+                    + "You should use the subclipping UI if you plan to trim the source to make sure that that timestamps are correctly managed." + Constants.endline
+                    + "Overlay is also disabled.", "Live archive asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                LiveArchiveAsset = true;
             }
 
             string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, 
+                disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
+                disableSourceTrimming: LiveArchiveAsset)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)

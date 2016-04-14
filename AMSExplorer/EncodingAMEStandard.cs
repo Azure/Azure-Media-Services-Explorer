@@ -88,6 +88,8 @@ namespace AMSExplorer
         private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
+        private bool _disableOverlay;
+        private bool _disableSourceTrimming;
 
         public List<IAsset> SelectedAssets
         {
@@ -155,7 +157,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -165,6 +167,8 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
             _nbInputAssets = nbInputAssets;
             _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
+            _disableOverlay = disableOverlay;
+            _disableSourceTrimming = disableSourceTrimming;
         }
 
 
@@ -213,6 +217,8 @@ namespace AMSExplorer
                     checkBoxUseEDL.Checked = true;
                     buttonShowEDL.EDLEntries = _subclipConfig.InOutForReencode;
                 }
+
+                _disableOverlay = true;
             }
 
             if (_nbInputAssets > 1)
@@ -231,6 +237,16 @@ namespace AMSExplorer
             {
                 textBoxConfiguration.Text = "{}";
                 tabControl1.SelectedTab = tabPageThPNG;
+            }
+
+            if (_disableOverlay)
+            {
+                checkBoxOverlay.Enabled = false;
+            }
+
+            if (_disableSourceTrimming)
+            {
+                groupBox1.Enabled = false;
             }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -290,20 +306,22 @@ namespace AMSExplorer
                     // clean trimming
                     // clean deinterlace filter
                     // clean overlay
+
+                    
                     if (obj.Sources != null)
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
-                        {
+                        { /*
                             if (
                                 (source.StartTime != null)
                                 || (source.Duration != null)
                                 || (source.Filters != null && source.Filters.Deinterlace != null)
                                 || (source.Filters != null && source.Filters.VideoOverlay != null)
                                 )
-                            {
+                            {*/
                                 listDelete.Add(source);
-                            }
+                            //}
                         }
                         listDelete.ForEach(c => c.Remove());
                         if (obj.Sources.Count == 0)
@@ -311,6 +329,7 @@ namespace AMSExplorer
                             obj.Sources.Parent.Remove();
                         }
                     }
+                    
 
                     // Clean Insert silent audio track
                     if (obj.Codecs != null)

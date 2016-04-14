@@ -604,7 +604,7 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig, disableOverlay: true)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
