@@ -4336,6 +4336,7 @@ namespace AMSExplorer
                     index++;
                     string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
                     IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
+
                     string config = configuration[index];
 
                     string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
@@ -4357,7 +4358,6 @@ namespace AMSExplorer
                     {
                         myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
                     }
-
 
                     // Submit the job and wait until it is completed. 
                     bool Error = false;
@@ -4384,7 +4384,6 @@ namespace AMSExplorer
 
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);
-
             }
 
                 );
@@ -4529,7 +4528,11 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            // Removed as not supported by Indexer v2 Preview
+            //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
@@ -4566,7 +4569,6 @@ namespace AMSExplorer
                             form.JobOptions.TasksOptionsSetting,
                             form.JobOptions.StorageSelected
                                 );
-
             }
         }
 

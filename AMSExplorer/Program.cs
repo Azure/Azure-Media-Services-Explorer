@@ -933,6 +933,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/2015/05/14/announcing-hyperlapse-for-azure-media-services/";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
+        public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
@@ -942,11 +943,11 @@ namespace AMSExplorer
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
+        public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/blog/face-and-emotion-detection";
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
         public const string LinkWidevineTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-widevine-license-template-overview/";
-
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
@@ -964,7 +965,6 @@ namespace AMSExplorer
 
 
         public const string FaceDetectionFaces = "Faces";
-        public const string FaceDetectionPerFaceEmotion = "PerFaceEmotion";
         public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
 
         public const string VideoThumbnailsOutputVideo = "video";

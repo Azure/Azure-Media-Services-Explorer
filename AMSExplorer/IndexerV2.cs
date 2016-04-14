@@ -49,15 +49,14 @@ namespace AMSExplorer
             new Item("Portuguese", "PtBr"),
             new Item("Arabic (Egyptian)", "ArEg") };
 
-
         public IndexerOptionsVar IndexerGenerationOptions
         {
             get
             {
                 return optionsVar;
             }
-
         }
+
         public string IndexerInputAssetName
         {
             get
@@ -69,6 +68,7 @@ namespace AMSExplorer
                 labelAssetName.Text = value;
             }
         }
+
         public string IndexerOutputAssetName
         {
             get
@@ -128,7 +128,7 @@ namespace AMSExplorer
             comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
             comboBoxLanguage.SelectedIndex = 0;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexer));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexerV2));
         }
 
         private void buttonGenOptions_Click(object sender, EventArgs e)
