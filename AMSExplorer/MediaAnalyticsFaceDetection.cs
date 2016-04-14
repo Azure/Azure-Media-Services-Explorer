@@ -50,6 +50,7 @@ namespace AMSExplorer
                 labelAssetName.Text = value;
             }
         }
+
         public string MIOutputAssetName
         {
             get
@@ -61,7 +62,6 @@ namespace AMSExplorer
                 textboxoutputassetname.Text = value;
             }
         }
-
 
         public string MIJobName
         {
@@ -75,7 +75,6 @@ namespace AMSExplorer
             }
         }
 
-
         public JobOptionsVar JobOptions
         {
             get
@@ -87,7 +86,6 @@ namespace AMSExplorer
                 buttonJobOptions.SetSettings(value);
             }
         }
-
 
         public string JsonConfig()
         {
@@ -101,10 +99,6 @@ namespace AMSExplorer
             if (radioButtonFaceDetection.Checked)
             {
                 obj.Options.Mode = Constants.FaceDetectionFaces;
-            }
-            else if (radioButtonPerFaceEmotionDetection.Checked)
-            {
-                obj.Options.Mode = Constants.FaceDetectionPerFaceEmotion;
             }
             else if (radioButtonAggregateEmotionDetection.Checked)
             {
@@ -127,11 +121,10 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
         }
 
-
         private void MediaAnalyticsFaceDetection_Load(object sender, EventArgs e)
         {
             // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreYammerAMSPreview));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoFaceDetection));
             moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;
@@ -140,7 +133,6 @@ namespace AMSExplorer
             buttonOk.Image = _processorImage;
             this.Text = _processor.Name;
         }
-
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -151,30 +143,6 @@ namespace AMSExplorer
         private void radioButtonAggregateEmotionDetection_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAggregateSettings.Enabled = radioButtonAggregateEmotionDetection.Checked;
-        }
-
-        private void numericUpDownAggregateWindow_ValueChanged(object sender, EventArgs e)
-        {
-            checkValues();
-        }
-
-        private void checkValues()
-        {
-
-            if (numericUpDownAggregateWindow.Value <= numericUpDownAggregateInterval.Value)
-            {
-                errorProvider1.SetError(numericUpDownAggregateInterval, "Window length must be larger than interval");
-            }
-            else
-            {
-                errorProvider1.SetError(numericUpDownAggregateInterval, String.Empty);
-            }
-        }
-
-        private void numericUpDownAggregateInterval_ValueChanged(object sender, EventArgs e)
-        {
-            checkValues();
-
         }
     }
 }
