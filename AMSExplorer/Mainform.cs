@@ -4528,6 +4528,9 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
             // Removed as not supported by Indexer v2 Preview
             //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
 
