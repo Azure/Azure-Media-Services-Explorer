@@ -88,6 +88,8 @@ namespace AMSExplorer
         private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
+        private bool _disableOverlay;
+        private bool _disableSourceTrimming;
 
         public List<IAsset> SelectedAssets
         {
@@ -155,7 +157,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -165,6 +167,8 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
             _nbInputAssets = nbInputAssets;
             _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
+            _disableOverlay = disableOverlay;
+            _disableSourceTrimming = disableSourceTrimming;
         }
 
 
@@ -176,18 +180,9 @@ namespace AMSExplorer
 
         private void EncodingAMEStandard_Load(object sender, EventArgs e)
         {
-            // presets list
-            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
-            listboxPresets.Items.AddRange(filePaths.ToArray());
-            if (!_ThumbnailsModeOnly)
-            {
-                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
-            }
-            else // Thumbnail mode only
-            {
-                textBoxConfiguration.Text = "{}";
-                tabControl1.SelectedTab = tabPageThPNG;
-            }
+            buttonShowEDL.Initialize();
+            buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
+
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
@@ -202,24 +197,65 @@ namespace AMSExplorer
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
                 // come from subclip UI
-                timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode - _subclipConfig.OffsetForReencode);
-                timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
-                timeControlStartTime.ScaledFirstTimestampOffset = timeControlEndTime.ScaledFirstTimestampOffset = (ulong)_subclipConfig.OffsetForReencode.Ticks;
-                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode - _subclipConfig.OffsetForReencode);
 
+                // offset
+                buttonShowEDL.Offset = _subclipConfig.OffsetForReencode;
+                timeControlStartTime.ScaledFirstTimestampOffset = timeControlEndTime.ScaledFirstTimestampOffset = (ulong)_subclipConfig.OffsetForReencode.Ticks;
                 // let's display the offset
                 labelOffset.Visible = textBoxOffset.Visible = true;
                 textBoxOffset.Text = _subclipConfig.OffsetForReencode.ToString();
 
-                checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
+                if (_subclipConfig.InOutForReencode.Count == 1) // one entry only, let's display in the two visible controls
+                {
+                    timeControlStartTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].Start);
+                    timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
+                    timeControlEndTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].End);
+                    checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
+                }
+                else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
+                {
+                    checkBoxUseEDL.Checked = true;
+                    buttonShowEDL.EDLEntries = _subclipConfig.InOutForReencode;
+                }
+
+                _disableOverlay = true;
             }
 
             if (_nbInputAssets > 1)
             {
                 checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
             }
+
+            // presets list
+            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
+            listboxPresets.Items.AddRange(filePaths.ToArray());
+            if (!_ThumbnailsModeOnly)
+            {
+                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+            }
+            else // Thumbnail mode only
+            {
+                textBoxConfiguration.Text = "{}";
+                tabControl1.SelectedTab = tabPageThPNG;
+            }
+
+            if (_disableOverlay)
+            {
+                checkBoxOverlay.Enabled = false;
+            }
+
+            if (_disableSourceTrimming)
+            {
+                groupBox1.Enabled = false;
+            }
+
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
+        private void ButtonShowEDL_EDLChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
 
         private void buttonLoadJSON_Click(object sender, EventArgs e)
         {
@@ -270,19 +306,22 @@ namespace AMSExplorer
                     // clean trimming
                     // clean deinterlace filter
                     // clean overlay
+
+                    
                     if (obj.Sources != null)
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
-                        {
+                        { /*
                             if (
-                                (source.StartTime != null && source.Duration != null)
+                                (source.StartTime != null)
+                                || (source.Duration != null)
                                 || (source.Filters != null && source.Filters.Deinterlace != null)
                                 || (source.Filters != null && source.Filters.VideoOverlay != null)
                                 )
-                            {
+                            {*/
                                 listDelete.Add(source);
-                            }
+                            //}
                         }
                         listDelete.ForEach(c => c.Remove());
                         if (obj.Sources.Count == 0)
@@ -290,6 +329,7 @@ namespace AMSExplorer
                             obj.Sources.Parent.Remove();
                         }
                     }
+                    
 
                     // Clean Insert silent audio track
                     if (obj.Codecs != null)
@@ -351,7 +391,22 @@ namespace AMSExplorer
 
 
                     // Trimming
-                    if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked)
+                    if (checkBoxUseEDL.Checked)  // EDL MODE
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        {
+                            dynamic time = new JObject();
+                            time.StartTime = entry.Start + buttonShowEDL.Offset;
+                            time.Duration = entry.Duration;
+                            obj.Sources.Add(time);
+                        }
+                    }
+                    else if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked) // Only start or end or both (no edl)
                     {
                         if (obj.Sources == null)
                         {
@@ -361,18 +416,54 @@ namespace AMSExplorer
                         dynamic time = new JObject();
                         if (checkBoxSourceTrimmingStart.Checked)
                         {
-                            time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                            time.StartTime = timeControlStartTime.TimeStampWithOffset;
                             if (checkBoxSourceTrimmingEnd.Checked)
                             {
-                                time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                                time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset;
                             }
                         }
                         else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
                         {
-                            time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetOffSetAsTimeSpan();
+                            time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
                         obj.Sources.Add(time);
                     }
+
+                    // Subcliping - we need to add top bitrate values
+                    if (_subclipConfig != null) // subclipping. we need to add top bitrate values
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        dynamic streamA = new JObject();
+                        streamA.Type = "AudioStream";
+                        streamA.Value = "TopBitrate";
+
+                        dynamic streamV = new JObject();
+                        streamV.Type = "VideoStream";
+                        streamV.Value = "TopBitrate";
+
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                entry.Streams = new JArray() as dynamic;
+                                entry.Streams.Add(streamA);
+                                entry.Streams.Add(streamV);
+                            }
+                        }
+                        else
+                        {
+                            dynamic entry = new JObject() as dynamic;
+                            entry.Streams = new JArray() as dynamic;
+                            entry.Streams.Add(streamA);
+                            entry.Streams.Add(streamV);
+                            obj.Sources.Add(entry);
+                        }
+                    }
+
 
                     // Overlay
                     if (checkBoxOverlay.Checked)
@@ -424,15 +515,9 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        dynamic Source = new JObject();
-                        obj.Sources.Add(Source);
 
-                        Source.Streams = new JArray() as dynamic;
-
-
+                        // let's prepare objects
                         dynamic VideoOverlayEntry = new JObject();
-                        Source.Filters = VideoOverlayEntry;
-
                         dynamic VideoOverlay = new JObject();
                         VideoOverlayEntry.VideoOverlay = VideoOverlay;
 
@@ -507,6 +592,48 @@ namespace AMSExplorer
 
                             OverlayParamImage.InputLoop = true; // needed for fade in out
                         }
+
+
+                        // now we put these objects in the preset
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                if (entry.Filters != null)
+                                {
+                                    entry.Filters.Add(VideoOverlayEntry);
+                                }
+                                else
+                                {
+                                    entry.Filters = VideoOverlayEntry;
+
+                                }
+
+                                if (entry.Streams == null)
+                                {
+                                    entry.Streams = new JArray() as dynamic;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dynamic Source = new JObject();
+                            obj.Sources.Add(Source);
+
+                            if (Source.Filters != null)
+                            {
+                                Source.Filters.Add(VideoOverlayEntry);
+                            }
+                            else
+                            {
+                                Source.Filters = VideoOverlayEntry;
+                            }
+
+                            if (Source.Streams == null)
+                            {
+                                Source.Streams = new JArray() as dynamic;
+                            }
+                        }
                     }
 
                     // Insert silent audio track
@@ -547,69 +674,43 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        bool DeinterModeSet = false;
-                        foreach (var source in obj.Sources)
+                        dynamic modeeentry = new JObject() as dynamic;
+                        modeeentry.Mode = "Off";
+                        dynamic deinterlaceentry = new JObject() as dynamic;
+                        deinterlaceentry.Deinterlace = modeeentry;
+
+
+                        if (obj.Sources.Count > 0)
                         {
-                            if (source.Filters != null)
+                            foreach (dynamic source in obj.Sources)
                             {
-                                if (source.Filters.Deinterlace != null)
+                                bool DeinterModeSet = false;
+                                if (source.Filters != null)
                                 {
-                                    source.Filters.Deinterlace.Mode = "Off";
+                                    if (source.Filters.Deinterlace != null)
+                                    {
+                                        source.Filters.Deinterlace.Mode = "Off";
+                                    }
+                                    else
+                                    {
+                                        source.Filters.Deinterlace = modeeentry;
+                                    }
+                                    DeinterModeSet = true;
                                 }
-                                else
+
+                                if (!DeinterModeSet)
                                 {
-                                    dynamic modeeentry = new JObject() as dynamic;
-                                    modeeentry.Mode = "Off";
-                                    source.Filters.Deinterlace = modeeentry;
+                                    source.Filters = deinterlaceentry;
                                 }
-                                DeinterModeSet = true;
                             }
                         }
-
-                        if (!DeinterModeSet)
+                        else // no source
                         {
                             dynamic sourceentry = new JObject() as dynamic;
-                            dynamic deinterlaceentry = new JObject() as dynamic;
-                            dynamic modeeentry = new JObject() as dynamic;
-                            modeeentry.Mode = "Off";
-                            deinterlaceentry.Deinterlace = modeeentry;
                             sourceentry.Filters = deinterlaceentry;
                             obj.Sources.Add(sourceentry);
                         }
                     }
-
-
-                    if (_subclipConfig != null) // subclipping. we need to add top bitrate values
-                    {
-                        if (obj.Sources == null)
-                        {
-                            obj.Sources = new JArray() as dynamic;
-                        }
-
-                        dynamic entry = new JObject() as dynamic;
-
-                        bool alreadyentry = false;
-                        if (obj.Sources.Count > 0)
-                        {
-                            entry = obj.Sources[0];
-                            alreadyentry = true;
-                        }
-
-                        entry.Streams = new JArray() as dynamic;
-
-                        dynamic stream = new JObject();
-                        stream.Type = "AudioStream";
-                        stream.Value = "TopBitrate";
-                        entry.Streams.Add(stream);
-
-                        stream = new JObject();
-                        stream.Type = "VideoStream";
-                        stream.Value = "TopBitrate";
-                        entry.Streams.Add(stream);
-
-                        if (!alreadyentry) obj.Sources.Add(entry);
-                    }
-
 
                     // Thumbnails settings
                     if (checkBoxGenThumbnailsJPG.Checked || checkBoxGenThumbnailsPNG.Checked || checkBoxGenThumbnailsBMP.Checked)
@@ -848,7 +949,7 @@ namespace AMSExplorer
             {
                 if (checkBoxSourceTrimmingEnd.Checked)
                 {
-                    textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
+                    textBoxSourceDurationTime.Text = (timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset).ToString();
                 }
                 else
                 {
@@ -857,7 +958,7 @@ namespace AMSExplorer
             }
             else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
             {
-                textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetOffSetAsTimeSpan()).ToString();
+                textBoxSourceDurationTime.Text = (timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan()).ToString();
             }
 
         }
@@ -865,6 +966,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
+            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1025,8 +1127,8 @@ namespace AMSExplorer
 
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled =
-             checkBoxSourceTrimmingEnd.Checked;
+            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = checkBoxSourceTrimmingEnd.Checked;
+            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1047,6 +1149,24 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(textBoxOverlayFileName, String.Empty);
             }
+        }
+
+        private void buttonAddEDLEntry_Click(object sender, EventArgs e)
+        {
+            if (checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked)
+            {
+                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                {
+                    Start = timeControlStartTime.TimeStampWithoutOffset,
+                    End = timeControlEndTime.TimeStampWithoutOffset
+                });
+            }
+        }
+
+        private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
 

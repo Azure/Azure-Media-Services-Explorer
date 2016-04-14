@@ -88,6 +88,9 @@ namespace AMSExplorer
             _selectedAssets = assetlist;
             _mainform = mainform;
 
+            buttonShowEDL.Initialize();
+            buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
+            buttonShowEDL.Offset = new TimeSpan(0);
 
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
@@ -101,6 +104,7 @@ namespace AMSExplorer
                 {
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentassetmanifestdata.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
+                    buttonShowEDL.Offset = timeControlStart.GetOffSetAsTimeSpan();
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
@@ -139,6 +143,10 @@ namespace AMSExplorer
             }
         }
 
+        private void ButtonShowEDL_EDLChanged(object sender, EventArgs e)
+        {
+            UpdateXMLData();
+        }
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
@@ -153,9 +161,9 @@ namespace AMSExplorer
             var trimmingdata = new SubClipTrimmingDataXMLSerialized();
             if (checkBoxTrimming.Checked)
             {
-                trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
-                trimmingdata.EndTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset());
-                trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
+                trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.TimeStampWithOffset);
+                trimmingdata.EndTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.TimeStampWithOffset);
+                trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset);
             }
             return trimmingdata;
         }
@@ -166,8 +174,8 @@ namespace AMSExplorer
             var trimmingdata = new SubClipTrimmingDataTimeSpan();
             if (checkBoxTrimming.Checked)
             {
-                trimmingdata.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
-                trimmingdata.EndTime = timeControlEnd.GetTimeStampAsTimeSpanWithOffset();
+                trimmingdata.StartTime = timeControlStart.TimeStampWithOffset;
+                trimmingdata.EndTime = timeControlEnd.TimeStampWithOffset;
                 trimmingdata.Duration = trimmingdata.EndTime - trimmingdata.StartTime;
                 trimmingdata.Offset = timeControlStart.GetOffSetAsTimeSpan();
             }
@@ -236,29 +244,49 @@ namespace AMSExplorer
 
                 // Sources
                 obj.Sources = new JArray() as dynamic;
-                dynamic sourceEntry = new JObject() as dynamic;
-                // trimming
-                if (checkBoxTrimming.Checked)
-                {
-                    sourceEntry.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
-                    sourceEntry.Duration = timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset();
-                }
-
-                sourceEntry.Streams = new JArray() as dynamic;
 
                 string filter = radioButtonArchiveAllBitrate.Checked ? "*" : "TopBitrate";
                 string mode = radioButtonArchiveAllBitrate.Checked ? "ArchiveAllBitrates" : "ArchiveTopBitrate";
 
-                dynamic stream = new JObject();
-                stream.Type = "AudioStream";
-                stream.Value = filter;
-                sourceEntry.Streams.Add(stream);
-                stream = new JObject();
-                stream.Type = "VideoStream";
-                stream.Value = filter;
-                sourceEntry.Streams.Add(stream);
+                dynamic stream_a = new JObject();
+                stream_a.Type = "AudioStream";
+                stream_a.Value = filter;
+                dynamic stream_v = new JObject();
+                stream_v.Type = "VideoStream";
+                stream_v.Value = filter;
 
-                obj.Sources.Add(sourceEntry);
+                if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
+                {
+                    foreach (var entry in buttonShowEDL.EDLEntries)
+                    {
+                        dynamic sourceEntry = new JObject() as dynamic;
+                        sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
+                        sourceEntry.Duration = entry.Duration;
+                        sourceEntry.Streams = new JArray() as dynamic;
+
+                        sourceEntry.Streams.Add(stream_a);
+                        sourceEntry.Streams.Add(stream_v);
+
+                        obj.Sources.Add(sourceEntry);
+                    }
+                }
+                else // No EDL
+                {
+                    dynamic sourceEntry = new JObject() as dynamic;
+
+                    if (checkBoxTrimming.Checked) // with trimming
+                    {
+                        sourceEntry.StartTime = timeControlStart.TimeStampWithOffset;
+                        sourceEntry.Duration = timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset;
+                    }
+                    sourceEntry.Streams = new JArray() as dynamic;
+
+                    sourceEntry.Streams.Add(stream_a);
+                    sourceEntry.Streams.Add(stream_v);
+
+                    obj.Sources.Add(sourceEntry);
+                }
+
 
                 obj.Outputs = new JArray() as dynamic;
                 dynamic output = new JObject();
@@ -299,11 +327,25 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
-                    var subdata = GetSubClipTrimmingDataTimeSpan();
                     config.Trimming = true;
-                    config.StartTimeForReencode = subdata.StartTime;
-                    config.DurationForReencode = subdata.Duration;
-                    config.OffsetForReencode = subdata.Offset;
+                    var list = new List<ExplorerEDLEntryInOut>();
+
+                    if (checkBoxUseEDL.Checked) // EDL
+                    {
+                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        {
+                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End });
+                        }
+                        config.OffsetForReencode = timeControlStart.GetOffSetAsTimeSpan();
+                    }
+                    else  // No EDL
+                    {
+                        var subdata = GetSubClipTrimmingDataTimeSpan();
+                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset });
+                        config.OffsetForReencode = subdata.Offset;
+                    }
+                    config.InOutForReencode = list;
+
                 }
                 return config;
             }
@@ -337,7 +379,7 @@ namespace AMSExplorer
         private void CheckIfErrorTimeControls()
         {
             // time start control
-            if (checkBoxTrimming.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
+            if (checkBoxTrimming.Checked && timeControlStart.TimeStampWithoutOffset > timeControlEnd.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
             }
@@ -347,7 +389,7 @@ namespace AMSExplorer
             }
 
             // time end control
-            if (checkBoxTrimming.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
+            if (checkBoxTrimming.Checked && timeControlEnd.TimeStampWithoutOffset < timeControlStart.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
             }
@@ -380,7 +422,7 @@ namespace AMSExplorer
 
         private void UpdateDurationText()
         {
-            textBoxDurationTime.Text = (timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset()).ToString();
+            textBoxDurationTime.Text = (timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset).ToString();
         }
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
@@ -389,10 +431,14 @@ namespace AMSExplorer
             {
                 backupCheckboxTrim = checkBoxTrimming.Checked; // let's save status
             }
+
             timeControlStart.Enabled =
             timeControlEnd.Enabled =
             textBoxDurationTime.Enabled =
-            checkBoxPreviewStream.Enabled = checkBoxTrimming.Checked;
+            checkBoxPreviewStream.Enabled =
+            checkBoxUseEDL.Enabled =
+             checkBoxTrimming.Checked;
+
             CheckIfErrorTimeControls();
             ResetConfigXML();
             PlaybackAsset();
@@ -400,7 +446,7 @@ namespace AMSExplorer
 
         private void UpdateXMLData()
         {
-            textBoxConfiguration.Text = GetSubclippingConfiguration().Configuration;
+            textBoxConfiguration.Text = GetSubclippingInternalConfiguration().Configuration;
         }
 
         private void tabPageXML_Enter(object sender, EventArgs e)
@@ -411,6 +457,7 @@ namespace AMSExplorer
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton senderr = sender as RadioButton;
+
             if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
                 ||
                 (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
@@ -427,10 +474,12 @@ namespace AMSExplorer
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
                     labelNoJSONBecauseReencoding.Text = @"No JSON shown yet in this scenario. Click ""Subclip..."" to submit a task, and then a dialog will pop up allowing you to modify the encode settings.";
+                    panelEDL.Visible = true;
                 }
                 else
                 {
                     labelNoJSONBecauseReencoding.Text = @"No JSON shown in this scenario. Click ""Create filter..."" to create an asset filter, and then a dialog will pop up to create the filter with the specified start and times.";
+                    panelEDL.Visible = false;
                 }
             }
             else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) // archive all bitrate
@@ -445,6 +494,7 @@ namespace AMSExplorer
                 DisplayAccuracy();
                 labelNoJSONBecauseReencoding.Visible = false;
                 label3.Visible = textBoxConfiguration.Visible = true;
+                panelEDL.Visible = true;
             }
         }
 
@@ -554,7 +604,7 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig, disableOverlay: true)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
@@ -619,13 +669,29 @@ namespace AMSExplorer
                     this.JobOptions.Priority,
                     taskname,
                     this.EncodingOutputAssetName,
-                    new List<string>() { this.GetSubclippingConfiguration().Configuration },
+                    new List<string>() { subclipConfig.Configuration },
                     this.JobOptions.OutputAssetsCreationOptions,
                     this.JobOptions.TasksOptionsSetting,
                     this.JobOptions.StorageSelected);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+            {
+                Start = timeControlStart.TimeStampWithoutOffset,
+                End = timeControlEnd.TimeStampWithoutOffset
+            });
+            //ResetConfigXML();
+        }
+
+        private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
+            ResetConfigXML();
         }
     }
 }
