@@ -800,10 +800,12 @@ namespace AMSExplorer
                 DGDelPol.Rows.Add("Protocol", ADP.AssetDeliveryProtocol);
                 if (ADP.AssetDeliveryConfiguration != null)
                 {
+                    int i = 0;
                     foreach (var conf in ADP.AssetDeliveryConfiguration)
                     {
-                        DGDelPol.Rows.Add("Configuration, Key", conf.Key);
-                        DGDelPol.Rows.Add("Configuration, Value", conf.Value);
+                        DGDelPol.Rows.Add(string.Format("Config #{0}, \"{1}\"", i, conf.Key), conf.Value);
+                        //DGDelPol.Rows.Add(string.Format("Configuration #{0}, Value", i), conf.Value);
+                        i++;
                     }
                 }
             }

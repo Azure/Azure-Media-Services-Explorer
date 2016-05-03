@@ -4450,7 +4450,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessageAME()
         {
-            MessageBox.Show("Instead of using Azure Media Encoder, you should encode with \"Media Encoder Standard.\"\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("The end of life date for Azure Media Encoder is March 1, 2017.\n\nIt is now recommended to use Media Encoder Standard (MES).\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DoMenuIndexAssets()

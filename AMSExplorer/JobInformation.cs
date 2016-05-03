@@ -30,7 +30,6 @@ namespace AMSExplorer
 {
     public partial class JobInformation : Form
     {
-
         public IJob MyJob;
         private CloudMediaContext _context;
         public JobInformation(CloudMediaContext context)
@@ -39,8 +38,6 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
         }
-
-
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
         {
@@ -58,9 +55,7 @@ namespace AMSExplorer
                 {
                     System.Windows.Forms.Clipboard.Clear();
                 }
-
             }
-
         }
 
         private void buttonCopyStats_Click(object sender, EventArgs e)
@@ -76,13 +71,11 @@ namespace AMSExplorer
 
         private void JobInformation_Load(object sender, EventArgs e)
         {
-
             labelJobNameTitle.Text += MyJob.Name;
 
             DGJob.ColumnCount = 2;
             DGTasks.ColumnCount = 2;
             DGTasks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-
 
             DGErrors.ColumnCount = 3;
             DGErrors.Columns[0].HeaderText = "Task";
