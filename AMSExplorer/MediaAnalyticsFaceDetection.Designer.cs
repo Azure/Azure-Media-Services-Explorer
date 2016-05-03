@@ -53,18 +53,20 @@
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.groupBoxAggregateSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateWindow)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 305);
+            this.label3.Location = new System.Drawing.Point(14, 339);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -74,7 +76,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 324);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 358);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(418, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -106,9 +108,9 @@
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetName.Location = new System.Drawing.Point(14, 66);
+            this.labelAssetName.Location = new System.Drawing.Point(277, 111);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(495, 35);
+            this.labelAssetName.Size = new System.Drawing.Size(350, 35);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
@@ -116,7 +118,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 268);
+            this.textBoxJobName.Location = new System.Drawing.Point(17, 302);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(418, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -125,7 +127,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 250);
+            this.label5.Location = new System.Drawing.Point(14, 284);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -163,7 +165,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 389);
+            this.panel1.Location = new System.Drawing.Point(-2, 423);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 55);
             this.panel1.TabIndex = 66;
@@ -185,7 +187,7 @@
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoSize = true;
             this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelPreview.Location = new System.Drawing.Point(568, 39);
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(59, 20);
@@ -201,7 +203,7 @@
             this.groupBoxAggregateSettings.Controls.Add(this.numericUpDownAggregateWindow);
             this.groupBoxAggregateSettings.Enabled = false;
             this.groupBoxAggregateSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxAggregateSettings.Location = new System.Drawing.Point(277, 125);
+            this.groupBoxAggregateSettings.Location = new System.Drawing.Point(277, 159);
             this.groupBoxAggregateSettings.Name = "groupBoxAggregateSettings";
             this.groupBoxAggregateSettings.Size = new System.Drawing.Size(350, 109);
             this.groupBoxAggregateSettings.TabIndex = 76;
@@ -289,6 +291,7 @@
             this.radioButtonFaceDetection.Text = "Face detection";
             this.toolTip1.SetToolTip(this.radioButtonFaceDetection, "Only face detection");
             this.radioButtonFaceDetection.UseVisualStyleBackColor = true;
+            this.radioButtonFaceDetection.CheckedChanged += new System.EventHandler(this.radioButtonFaceDetection_CheckedChanged);
             // 
             // radioButtonAggregateEmotionDetection
             // 
@@ -308,7 +311,7 @@
             this.groupBox1.Controls.Add(this.radioButtonFaceDetection);
             this.groupBox1.Controls.Add(this.radioButtonAggregateEmotionDetection);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 125);
+            this.groupBox1.Location = new System.Drawing.Point(12, 159);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(259, 109);
             this.groupBox1.TabIndex = 80;
@@ -318,7 +321,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(467, 268);
+            this.buttonJobOptions.Location = new System.Drawing.Point(467, 302);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
@@ -335,6 +338,16 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps._04_face_detection;
+            this.pictureBox1.Location = new System.Drawing.Point(14, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(250, 125);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 81;
+            this.pictureBox1.TabStop = false;
+            // 
             // MediaAnalyticsFaceDetection
             // 
             this.AcceptButton = this.buttonOk;
@@ -342,7 +355,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(645, 445);
+            this.ClientSize = new System.Drawing.Size(645, 479);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxAggregateSettings);
             this.Controls.Add(this.labelPreview);
@@ -368,6 +382,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateWindow)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,5 +414,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonFaceDetection;
         private System.Windows.Forms.RadioButton radioButtonAggregateEmotionDetection;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

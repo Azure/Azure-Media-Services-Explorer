@@ -136,7 +136,7 @@ namespace AMSExplorer
         private void MediaAnalyticsVideoThumbnails_Load(object sender, EventArgs e)
         {
             // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreYammerAMSPreview));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoSummarization));
             moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;

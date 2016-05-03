@@ -106,7 +106,7 @@ namespace AMSExplorer
                 obj.Options.AggregateEmotionWindowMs = numericUpDownAggregateWindow.Value.ToString("F0");
                 obj.Options.AggregateEmotionIntervalMs = numericUpDownAggregateInterval.Value.ToString("F0");
             }
-           
+
             return JsonConvert.SerializeObject(obj);
         }
 
@@ -143,6 +143,18 @@ namespace AMSExplorer
         private void radioButtonAggregateEmotionDetection_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAggregateSettings.Enabled = radioButtonAggregateEmotionDetection.Checked;
+            if (radioButtonAggregateEmotionDetection.Checked)
+            {
+                pictureBox1.Image = global::AMSExplorer.Bitmaps._06_emotion;
+            }
+        }
+
+        private void radioButtonFaceDetection_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonFaceDetection.Checked)
+            {
+                pictureBox1.Image = global::AMSExplorer.Bitmaps._04_face_detection;
+            }
         }
     }
 }

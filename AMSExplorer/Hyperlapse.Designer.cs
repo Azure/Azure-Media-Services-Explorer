@@ -441,7 +441,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.hyperlapse_large;
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps._02_hyperlapse;
             this.pictureBox1.Location = new System.Drawing.Point(14, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(92, 89);

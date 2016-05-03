@@ -63,6 +63,56 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _01_indexer {
+            get {
+                object obj = ResourceManager.GetObject("01-indexer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _02_hyperlapse {
+            get {
+                object obj = ResourceManager.GetObject("02-hyperlapse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _03_motion_detection {
+            get {
+                object obj = ResourceManager.GetObject("03-motion-detection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _04_face_detection {
+            get {
+                object obj = ResourceManager.GetObject("04-face-detection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _06_emotion {
+            get {
+                object obj = ResourceManager.GetObject("06-emotion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _8_12_2014_13_20_04 {
             get {
                 object obj = ResourceManager.GetObject("_8_12_2014_13_20_04", resourceCulture);
@@ -236,6 +286,16 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap encoding {
             get {
                 object obj = ResourceManager.GetObject("encoding", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap encoding_large {
+            get {
+                object obj = ResourceManager.GetObject("encoding-large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

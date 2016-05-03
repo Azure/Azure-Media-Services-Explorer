@@ -49,14 +49,16 @@
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.labelPreview = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 255);
+            this.label3.Location = new System.Drawing.Point(14, 280);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -66,7 +68,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 274);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 299);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(364, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -87,9 +89,9 @@
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetName.Location = new System.Drawing.Point(14, 42);
+            this.labelAssetName.Location = new System.Drawing.Point(178, 75);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(446, 35);
+            this.labelAssetName.Size = new System.Drawing.Size(341, 35);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
@@ -97,7 +99,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 218);
+            this.textBoxJobName.Location = new System.Drawing.Point(17, 243);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(364, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -106,7 +108,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 200);
+            this.label5.Location = new System.Drawing.Point(14, 225);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -145,7 +147,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 333);
+            this.panel1.Location = new System.Drawing.Point(-2, 358);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 55);
             this.panel1.TabIndex = 66;
@@ -153,7 +155,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 95);
+            this.label6.Location = new System.Drawing.Point(14, 134);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 15);
             this.label6.TabIndex = 67;
@@ -163,7 +165,7 @@
             // 
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(17, 113);
+            this.comboBoxLanguage.Location = new System.Drawing.Point(17, 152);
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.comboBoxLanguage.Size = new System.Drawing.Size(140, 23);
             this.comboBoxLanguage.TabIndex = 68;
@@ -172,7 +174,7 @@
             // buttonGenOptions
             // 
             this.buttonGenOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenOptions.Location = new System.Drawing.Point(466, 113);
+            this.buttonGenOptions.Location = new System.Drawing.Point(177, 149);
             this.buttonGenOptions.Name = "buttonGenOptions";
             this.buttonGenOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonGenOptions.TabIndex = 69;
@@ -183,7 +185,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(466, 215);
+            this.buttonJobOptions.Location = new System.Drawing.Point(466, 240);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 70;
@@ -228,7 +230,7 @@
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoSize = true;
             this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelPreview.Location = new System.Drawing.Point(567, 32);
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(59, 20);
@@ -240,11 +242,21 @@
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(14, 161);
+            this.label4.Location = new System.Drawing.Point(14, 191);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(588, 19);
+            this.label4.Size = new System.Drawing.Size(612, 19);
             this.label4.TabIndex = 75;
             this.label4.Text = "The preview is limited to ~10 minutes of processing.";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps._01_indexer;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(160, 101);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 83;
+            this.pictureBox1.TabStop = false;
             // 
             // IndexerV2
             // 
@@ -252,7 +264,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(645, 389);
+            this.ClientSize = new System.Drawing.Size(645, 414);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.labelProcessorVersion);
@@ -274,6 +287,7 @@
             this.Text = "Media Indexing v2";
             this.Load += new System.EventHandler(this.IndexerV2_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,5 +315,6 @@
         private System.Windows.Forms.Label labelProcessorVersion;
         public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

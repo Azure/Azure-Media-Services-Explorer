@@ -178,7 +178,7 @@
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoSize = true;
             this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelPreview.Location = new System.Drawing.Point(568, 39);
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(59, 20);
@@ -206,7 +206,7 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // MediaIntelligenceGeneric
+            // MediaAnalyticsGeneric
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -226,7 +226,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.labelProcessorVersion);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "MediaIntelligenceGeneric";
+            this.Name = "MediaAnalyticsGeneric";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
             this.Load += new System.EventHandler(this.MediaAnalyticsGeneric_Load);

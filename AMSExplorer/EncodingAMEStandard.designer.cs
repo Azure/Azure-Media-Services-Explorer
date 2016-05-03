@@ -55,6 +55,10 @@
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelEDL = new System.Windows.Forms.Panel();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
+            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
@@ -182,15 +186,13 @@
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.panelEDL = new System.Windows.Forms.Panel();
-            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
             this.TabPageFeatures.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panelEDL.SuspendLayout();
             this.tabPageThPNG.SuspendLayout();
             this.panelThumbnailsPNG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThHeightPNG)).BeginInit();
@@ -215,7 +217,7 @@
             this.panelFade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panelEDL.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -512,6 +514,53 @@
             this.groupBox1.TabIndex = 94;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source Trimming";
+            // 
+            // panelEDL
+            // 
+            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEDL.Controls.Add(this.buttonShowEDL);
+            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
+            this.panelEDL.Location = new System.Drawing.Point(9, 139);
+            this.panelEDL.Name = "panelEDL";
+            this.panelEDL.Size = new System.Drawing.Size(508, 34);
+            this.panelEDL.TabIndex = 136;
+            // 
+            // buttonAddEDLEntry
+            // 
+            this.buttonAddEDLEntry.Enabled = false;
+            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
+            this.buttonAddEDLEntry.TabIndex = 137;
+            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonShowEDL
+            // 
+            this.buttonShowEDL.Enabled = false;
+            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
+            this.buttonShowEDL.TabIndex = 138;
+            this.buttonShowEDL.Text = "Show EDL...";
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUseEDL
+            // 
+            this.checkBoxUseEDL.AutoSize = true;
+            this.checkBoxUseEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxUseEDL.Location = new System.Drawing.Point(3, 8);
+            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
+            this.checkBoxUseEDL.Size = new System.Drawing.Size(185, 19);
+            this.checkBoxUseEDL.TabIndex = 139;
+            this.checkBoxUseEDL.Text = "Use Editing Decision List (EDL)";
+            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
+            this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
             // 
             // labelOffset
             // 
@@ -2010,9 +2059,9 @@
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(20, 49);
+            this.labelsummaryjob.Location = new System.Drawing.Point(94, 49);
             this.labelsummaryjob.Name = "labelsummaryjob";
-            this.labelsummaryjob.Size = new System.Drawing.Size(614, 41);
+            this.labelsummaryjob.Size = new System.Drawing.Size(540, 41);
             this.labelsummaryjob.TabIndex = 76;
             this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
             // 
@@ -2041,51 +2090,15 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // panelEDL
+            // pictureBox1
             // 
-            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
-            this.panelEDL.Controls.Add(this.buttonShowEDL);
-            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
-            this.panelEDL.Location = new System.Drawing.Point(9, 139);
-            this.panelEDL.Name = "panelEDL";
-            this.panelEDL.Size = new System.Drawing.Size(508, 34);
-            this.panelEDL.TabIndex = 136;
-            // 
-            // buttonAddEDLEntry
-            // 
-            this.buttonAddEDLEntry.Enabled = false;
-            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
-            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
-            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
-            this.buttonAddEDLEntry.TabIndex = 137;
-            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
-            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
-            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
-            // 
-            // buttonShowEDL
-            // 
-            this.buttonShowEDL.Enabled = false;
-            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
-            this.buttonShowEDL.TabIndex = 138;
-            this.buttonShowEDL.Text = "Show EDL...";
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUseEDL
-            // 
-            this.checkBoxUseEDL.AutoSize = true;
-            this.checkBoxUseEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxUseEDL.Location = new System.Drawing.Point(3, 8);
-            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
-            this.checkBoxUseEDL.Size = new System.Drawing.Size(185, 19);
-            this.checkBoxUseEDL.TabIndex = 139;
-            this.checkBoxUseEDL.Text = "Use Editing Decision List (EDL)";
-            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
-            this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
+            this.pictureBox1.Location = new System.Drawing.Point(27, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 84;
+            this.pictureBox1.TabStop = false;
             // 
             // EncodingAMEStandard
             // 
@@ -2094,6 +2107,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.labelsummaryjob);
             this.Controls.Add(this.buttonJobOptions);
@@ -2120,6 +2134,8 @@
             this.TabPageFeatures.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelEDL.ResumeLayout(false);
+            this.panelEDL.PerformLayout();
             this.tabPageThPNG.ResumeLayout(false);
             this.tabPageThPNG.PerformLayout();
             this.panelThumbnailsPNG.ResumeLayout(false);
@@ -2155,8 +2171,7 @@
             this.panelFade.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panelEDL.ResumeLayout(false);
-            this.panelEDL.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2320,5 +2335,6 @@
         private System.Windows.Forms.Button buttonAddEDLEntry;
         private ButtonEDL buttonShowEDL;
         private System.Windows.Forms.CheckBox checkBoxUseEDL;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

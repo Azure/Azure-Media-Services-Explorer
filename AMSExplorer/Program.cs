@@ -942,8 +942,11 @@ namespace AMSExplorer
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
+
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
-        public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/blog/face-and-emotion-detection";
+        public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
+        public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
+        public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
@@ -951,7 +954,6 @@ namespace AMSExplorer
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
-
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 

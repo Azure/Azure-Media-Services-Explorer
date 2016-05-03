@@ -4062,7 +4062,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalytics(string processorStr, Image processorImage)
+        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -4077,7 +4077,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true)
+                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true, urlMoreInfo)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -11050,16 +11050,23 @@ namespace AMSExplorer
             IAsset MyAsset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
             if (MyAsset != null)
             {
-                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, _context, displayUI: true);
-
-                if (!string.IsNullOrEmpty(testToken.TokenString))
+                if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(MyAsset, _context)) // dynamic encryption with token
                 {
-                    TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken.TokenString);
-                    var tokenDisplayForm = new EditorXMLJSON("Authorization test token", Constants.Bearer + testToken.TokenString, false, false);
-                    tokenDisplayForm.Display();
+                    DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, _context, displayUI: true);
+
+                    if (!string.IsNullOrEmpty(testToken.TokenString))
+                    {
+                        TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken.TokenString);
+                        var tokenDisplayForm = new EditorXMLJSON("Authorization test token", Constants.Bearer + testToken.TokenString, false, false);
+                        tokenDisplayForm.Display();
+                        Error = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There is no policy defined using the token mode", "No token", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Error = false;
                 }
-
             }
             if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -11849,7 +11856,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, 
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version,
                 disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
                 disableSourceTrimming: LiveArchiveAsset)
             {
@@ -12817,17 +12824,17 @@ namespace AMSExplorer
 
         private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
+            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
         }
 
         private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
+            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
@@ -12837,17 +12844,17 @@ namespace AMSExplorer
 
         private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
+            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void ProcessMotionDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
+            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
         }
 
         private void ProcessStabilizertoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
+            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)

@@ -199,7 +199,7 @@
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoSize = true;
             this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelPreview.Location = new System.Drawing.Point(568, 39);
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(59, 20);
@@ -212,12 +212,12 @@
             this.groupBoxVideoSettings.Controls.Add(this.panelVideoSettings);
             this.groupBoxVideoSettings.Controls.Add(this.checkBoxOutputVideo);
             this.groupBoxVideoSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxVideoSettings.Location = new System.Drawing.Point(17, 101);
+            this.groupBoxVideoSettings.Location = new System.Drawing.Point(17, 106);
             this.groupBoxVideoSettings.Name = "groupBoxVideoSettings";
             this.groupBoxVideoSettings.Size = new System.Drawing.Size(227, 169);
             this.groupBoxVideoSettings.TabIndex = 76;
             this.groupBoxVideoSettings.TabStop = false;
-            this.groupBoxVideoSettings.Text = "Motion Thumbnail (Video)";
+            this.groupBoxVideoSettings.Text = "Video Summarization";
             // 
             // panelVideoSettings
             // 
@@ -352,9 +352,9 @@
             this.checkBoxOutputImage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxOutputImage.Location = new System.Drawing.Point(17, 21);
             this.checkBoxOutputImage.Name = "checkBoxOutputImage";
-            this.checkBoxOutputImage.Size = new System.Drawing.Size(100, 19);
+            this.checkBoxOutputImage.Size = new System.Drawing.Size(105, 19);
             this.checkBoxOutputImage.TabIndex = 81;
-            this.checkBoxOutputImage.Text = "Output Image";
+            this.checkBoxOutputImage.Text = "Output Images";
             this.checkBoxOutputImage.UseVisualStyleBackColor = true;
             this.checkBoxOutputImage.CheckedChanged += new System.EventHandler(this.checkBoxOutputImage_CheckedChanged);
             // 
@@ -383,12 +383,12 @@
             this.groupBoxImageSettings.Controls.Add(this.checkBoxOutputImage);
             this.groupBoxImageSettings.Controls.Add(this.panelImageSettings);
             this.groupBoxImageSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxImageSettings.Location = new System.Drawing.Point(265, 104);
+            this.groupBoxImageSettings.Location = new System.Drawing.Point(265, 109);
             this.groupBoxImageSettings.Name = "groupBoxImageSettings";
             this.groupBoxImageSettings.Size = new System.Drawing.Size(227, 166);
             this.groupBoxImageSettings.TabIndex = 88;
             this.groupBoxImageSettings.TabStop = false;
-            this.groupBoxImageSettings.Text = "Static Thumbnail (Image)";
+            this.groupBoxImageSettings.Text = "Thumbnails (Images)";
             // 
             // panelImageSettings
             // 
@@ -415,7 +415,7 @@
             this.checkBoxImageCountAuto.UseVisualStyleBackColor = true;
             this.checkBoxImageCountAuto.CheckedChanged += new System.EventHandler(this.checkBoxImageCountAuto_CheckedChanged);
             // 
-            // VideoAnalyticsVideoThumbnails
+            // MediaAnalyticsVideoThumbnails
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -437,7 +437,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.labelProcessorVersion);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "VideoAnalyticsVideoThumbnails";
+            this.Name = "MediaAnalyticsVideoThumbnails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
             this.Load += new System.EventHandler(this.MediaAnalyticsVideoThumbnails_Load);

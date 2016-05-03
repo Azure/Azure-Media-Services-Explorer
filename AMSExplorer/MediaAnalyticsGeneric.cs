@@ -37,6 +37,7 @@ namespace AMSExplorer
         private IMediaProcessor _processor;
         private bool _preview;
         private Image _processorImage;
+        private string _urlMoreInfo;
 
         public string MIInputAssetName
         {
@@ -87,7 +88,7 @@ namespace AMSExplorer
             }
         }
 
-        public MediaAnalyticsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
+        public MediaAnalyticsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview, string urlMoreInfo)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -95,6 +96,7 @@ namespace AMSExplorer
             _processor = processor;
             _preview = preview;
             _processorImage = processorImage;
+            _urlMoreInfo = urlMoreInfo;
             buttonJobOptions.Initialize(_context);
         }
 
@@ -102,7 +104,7 @@ namespace AMSExplorer
         private void MediaAnalyticsGeneric_Load(object sender, EventArgs e)
         {
             // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreYammerAMSPreview));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, _urlMoreInfo));
             moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;
