@@ -150,10 +150,6 @@ namespace AMSExplorer
             checkBoxProtocolProgressiveDownload.Visible = radioButtonDecryptStorage.Checked;
         }
 
-        private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxDelPolProtocols.Visible = !radioButtonNoDynEnc.Checked;
@@ -177,6 +173,14 @@ namespace AMSExplorer
         private void radioButtonAESClearKey_CheckedChanged(object sender, EventArgs e)
         {
             panelPackaging.Visible = !radioButtonAESClearKey.Checked;
+        }
+
+        private void radioButtonCENCCbcsKey_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxProtocolProgressiveDownload.Visible = !radioButtonCENCCbcsKey.Checked;
+            checkBoxProtocolDASH.Visible = !radioButtonCENCCbcsKey.Checked;
+            checkBoxProtocolHLS.Visible = radioButtonCENCCbcsKey.Checked;
+            checkBoxProtocolSmooth.Visible = !radioButtonCENCCbcsKey.Checked;
         }
     }
 }

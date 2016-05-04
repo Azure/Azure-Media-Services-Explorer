@@ -40,6 +40,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBoxDelPolProtocols = new System.Windows.Forms.GroupBox();
             this.panelDynEnc = new System.Windows.Forms.Panel();
+            this.checkBoxProtocolProgressiveDownload = new System.Windows.Forms.CheckBox();
             this.panelPackaging = new System.Windows.Forms.Panel();
             this.checkBoxPlayReadyPackaging = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -54,7 +55,8 @@
             this.checkBoxEnableDynEnc = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxProtocolProgressiveDownload = new System.Windows.Forms.CheckBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.radioButtonCENCCbcsKey = new System.Windows.Forms.RadioButton();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -63,6 +65,7 @@
             this.panelDynEnc.SuspendLayout();
             this.panelPackaging.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -110,12 +113,13 @@
             this.radioButtonCENCKey.TabStop = true;
             this.radioButtonCENCKey.Text = "Common encryption (PlayReady, Widevine...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
-            this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
             // 
             // groupBoxKeyType
             // 
             this.groupBoxKeyType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxKeyType.Controls.Add(this.pictureBox4);
+            this.groupBoxKeyType.Controls.Add(this.radioButtonCENCCbcsKey);
             this.groupBoxKeyType.Controls.Add(this.radioButtonNoDynEnc);
             this.groupBoxKeyType.Controls.Add(this.pictureBox1);
             this.groupBoxKeyType.Controls.Add(this.radioButtonDecryptStorage);
@@ -126,7 +130,7 @@
             this.groupBoxKeyType.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxKeyType.Location = new System.Drawing.Point(14, 93);
             this.groupBoxKeyType.Name = "groupBoxKeyType";
-            this.groupBoxKeyType.Size = new System.Drawing.Size(645, 149);
+            this.groupBoxKeyType.Size = new System.Drawing.Size(645, 171);
             this.groupBoxKeyType.TabIndex = 43;
             this.groupBoxKeyType.TabStop = false;
             this.groupBoxKeyType.Text = "Protection";
@@ -135,7 +139,7 @@
             // 
             this.radioButtonNoDynEnc.AutoSize = true;
             this.radioButtonNoDynEnc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonNoDynEnc.Location = new System.Drawing.Point(52, 111);
+            this.radioButtonNoDynEnc.Location = new System.Drawing.Point(52, 133);
             this.radioButtonNoDynEnc.Name = "radioButtonNoDynEnc";
             this.radioButtonNoDynEnc.Size = new System.Drawing.Size(224, 19);
             this.radioButtonNoDynEnc.TabIndex = 62;
@@ -146,7 +150,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_decryption;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 85);
+            this.pictureBox1.Location = new System.Drawing.Point(26, 111);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -157,7 +161,7 @@
             // 
             this.radioButtonDecryptStorage.AutoSize = true;
             this.radioButtonDecryptStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDecryptStorage.Location = new System.Drawing.Point(52, 85);
+            this.radioButtonDecryptStorage.Location = new System.Drawing.Point(52, 108);
             this.radioButtonDecryptStorage.Name = "radioButtonDecryptStorage";
             this.radioButtonDecryptStorage.Size = new System.Drawing.Size(311, 19);
             this.radioButtonDecryptStorage.TabIndex = 61;
@@ -191,7 +195,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxDelPolProtocols.Controls.Add(this.panelDynEnc);
             this.groupBoxDelPolProtocols.Controls.Add(this.checkBoxEnableDynEnc);
-            this.groupBoxDelPolProtocols.Location = new System.Drawing.Point(14, 261);
+            this.groupBoxDelPolProtocols.Location = new System.Drawing.Point(14, 287);
             this.groupBoxDelPolProtocols.Name = "groupBoxDelPolProtocols";
             this.groupBoxDelPolProtocols.Size = new System.Drawing.Size(645, 367);
             this.groupBoxDelPolProtocols.TabIndex = 47;
@@ -210,6 +214,17 @@
             this.panelDynEnc.Name = "panelDynEnc";
             this.panelDynEnc.Size = new System.Drawing.Size(633, 314);
             this.panelDynEnc.TabIndex = 86;
+            // 
+            // checkBoxProtocolProgressiveDownload
+            // 
+            this.checkBoxProtocolProgressiveDownload.AutoSize = true;
+            this.checkBoxProtocolProgressiveDownload.Location = new System.Drawing.Point(37, 115);
+            this.checkBoxProtocolProgressiveDownload.Name = "checkBoxProtocolProgressiveDownload";
+            this.checkBoxProtocolProgressiveDownload.Size = new System.Drawing.Size(143, 19);
+            this.checkBoxProtocolProgressiveDownload.TabIndex = 87;
+            this.checkBoxProtocolProgressiveDownload.Text = "Progressive Download";
+            this.checkBoxProtocolProgressiveDownload.UseVisualStyleBackColor = true;
+            this.checkBoxProtocolProgressiveDownload.Visible = false;
             // 
             // panelPackaging
             // 
@@ -376,16 +391,29 @@
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
             // 
-            // checkBoxProtocolProgressiveDownload
+            // pictureBox4
             // 
-            this.checkBoxProtocolProgressiveDownload.AutoSize = true;
-            this.checkBoxProtocolProgressiveDownload.Location = new System.Drawing.Point(37, 115);
-            this.checkBoxProtocolProgressiveDownload.Name = "checkBoxProtocolProgressiveDownload";
-            this.checkBoxProtocolProgressiveDownload.Size = new System.Drawing.Size(143, 19);
-            this.checkBoxProtocolProgressiveDownload.TabIndex = 87;
-            this.checkBoxProtocolProgressiveDownload.Text = "Progressive Download";
-            this.checkBoxProtocolProgressiveDownload.UseVisualStyleBackColor = true;
-            this.checkBoxProtocolProgressiveDownload.Visible = false;
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            this.pictureBox4.Location = new System.Drawing.Point(26, 83);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox4.TabIndex = 64;
+            this.pictureBox4.TabStop = false;
+            // 
+            // radioButtonCENCCbcsKey
+            // 
+            this.radioButtonCENCCbcsKey.AutoSize = true;
+            this.radioButtonCENCCbcsKey.Checked = true;
+            this.radioButtonCENCCbcsKey.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonCENCCbcsKey.Location = new System.Drawing.Point(52, 83);
+            this.radioButtonCENCCbcsKey.Name = "radioButtonCENCCbcsKey";
+            this.radioButtonCENCCbcsKey.Size = new System.Drawing.Size(217, 19);
+            this.radioButtonCENCCbcsKey.TabIndex = 63;
+            this.radioButtonCENCCbcsKey.TabStop = true;
+            this.radioButtonCENCCbcsKey.Text = "Common encryption Cbcs (FairPlay)";
+            this.radioButtonCENCCbcsKey.UseVisualStyleBackColor = true;
+            this.radioButtonCENCCbcsKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCCbcsKey_CheckedChanged);
             // 
             // AddDynamicEncryptionFrame1
             // 
@@ -416,6 +444,7 @@
             this.panelPackaging.ResumeLayout(false);
             this.panelPackaging.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,5 +479,7 @@
         private System.Windows.Forms.Panel panelDynEnc;
         private System.Windows.Forms.Panel panelPackaging;
         private System.Windows.Forms.CheckBox checkBoxProtocolProgressiveDownload;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.RadioButton radioButtonCENCCbcsKey;
     }
 }
