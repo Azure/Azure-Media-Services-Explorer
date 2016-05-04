@@ -4072,7 +4072,7 @@ namespace AMSExplorer
             }
             else
             {
-                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -4115,7 +4115,7 @@ namespace AMSExplorer
             }
             else
             {
-                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -4157,7 +4157,7 @@ namespace AMSExplorer
             }
             else
             {
-                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -4465,7 +4465,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
+            var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
@@ -4533,6 +4533,7 @@ namespace AMSExplorer
 
             // Removed as not supported by Indexer v2 Preview
             //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
@@ -4582,7 +4583,7 @@ namespace AMSExplorer
                 return;
             }
 
-            CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
@@ -4609,29 +4610,51 @@ namespace AMSExplorer
             }
         }
 
-        private static void CheckSingleFileMP4MOVWMVExtension(List<IAsset> SelectedAssets)
+        private static void CheckPrimaryFileExtension(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
         {
-            var mediaFileExtensions = new[] { ".MOV", ".WMV", ".MP4" };
+            // if one asset selected
+            if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() != null)
+            {
+                IAsset asset = SelectedAssets.FirstOrDefault();
+                IAssetFile primary = asset.AssetFiles.Where(f => f.IsPrimary).FirstOrDefault();
+                var selectableFiles = asset.AssetFiles.ToList().Where(f => mediaFileExtensions.Contains(Path.GetExtension(f.Name).ToUpperInvariant())).ToList();
 
-            if (
+                // if primary file is not a video file supported but there are video files in asset
+                if (primary != null
+                    && !mediaFileExtensions.Contains(Path.GetExtension(primary.Name).ToUpperInvariant())
+                    && selectableFiles.Count > 0)
+                {
+                    var form = new MediaAnalyticsPickVideoFileInAsset(asset, mediaFileExtensions, true);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        AssetInfo.SetFileAsPrimary(asset, form.SelectedAssetFile.Name);
+                    }
+                }
+                // no video file in asset
+                else if (selectableFiles.Count == 0)
+                {
+                    MessageBox.Show("Source asset must be a single " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            // several selected assets
+            else if (
                 SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
                 ||
                 SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!mediaFileExtensions.Contains(Path.GetExtension(a.AssetFiles.FirstOrDefault().Name).ToUpperInvariant())))
                 )
             {
-                MessageBox.Show("Source asset must be a single MP4, MOV or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Source asset must be a single " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private static Dictionary<string, string> CheckSingleFileIndexerSupportedExtensions(List<IAsset> SelectedAssets)
+        private static Dictionary<string, string> CheckSingleFileIndexerV1SupportedExtensions(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
         {
-            var mediaFileExtensions = new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" };
-
             var IndexAnotherFile = new Dictionary<string, string>();
 
             if (SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && !mediaFileExtensions.Contains(Path.GetExtension(a.AssetFiles.FirstOrDefault().Name).ToUpperInvariant())))
             {
-                MessageBox.Show("If the input asset contains only one file, it must be a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("If the input asset contains only one file, it must be a " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             int MultiFileAssetPb = 0;
@@ -4644,8 +4667,9 @@ namespace AMSExplorer
                     var pf = asset.AssetFiles.Where(a => a.IsPrimary).FirstOrDefault();
                     if (pf != null && !mediaFileExtensions.Contains(Path.GetExtension(pf.Name).ToUpperInvariant()))
                     { // primary file is not ok to index
-                        if (SelectedAssets.Count < 10)
+                        if (SelectedAssets.Count < 5)
                         {
+                            /*
                             var supportedfile = asset.AssetFiles.AsEnumerable().Where(af =>
                                                     mediaFileExtensions.Contains(Path.GetExtension(af.Name).ToUpperInvariant()))
                                                     .ToList().OrderByDescending(af => af.ContentFileSize);
@@ -4655,6 +4679,16 @@ namespace AMSExplorer
                                 if (MessageBox.Show(string.Format("The asset '{0}'\nis a multi file asset and the primary file '{1}'\nis not supported as an input.\n\nConfigure Indexer to index file '{2}' ?", asset.Name, pf.Name, proposedfile), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                                 {
                                     IndexAnotherFile.Add(asset.Id, proposedfile);
+                                }
+                            }
+                            */
+                            var supportedfile = asset.AssetFiles.ToList().Where(f => mediaFileExtensions.Contains(Path.GetExtension(f.Name).ToUpperInvariant())).ToList();
+                            if (supportedfile.Count() > 0) // but there is one that can be indexed
+                            {
+                                var form = new MediaAnalyticsPickVideoFileInAsset(asset, mediaFileExtensions, false);
+                                if (form.ShowDialog() == DialogResult.OK)
+                                {
+                                    IndexAnotherFile.Add(asset.Id, form.SelectedAssetFile.Name);
                                 }
                             }
                             else
@@ -4674,11 +4708,11 @@ namespace AMSExplorer
 
             if (MultiFileAssetPb == 1)
             {
-                MessageBox.Show(string.Format("Asset '{0}' is a multi file asset and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", assetnamepb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format("Asset '{0}' is a multi file asset and the primary file is not a " + string.Join(", ", mediaFileExtensions) + " file.\nIndexing will probably fail.", assetnamepb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (MultiFileAssetPb > 1)
             {
-                MessageBox.Show(string.Format("There are '{0}' assets which are multi files assets and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", MultiFileAssetPb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format("There are {0} assets which are multi files assets and the primary file is not a " + string.Join(", ", mediaFileExtensions) + " file.\nIndexing will probably fail.", MultiFileAssetPb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return IndexAnotherFile;
         }
@@ -15449,7 +15483,6 @@ namespace AMSExplorer
         {
             Task.Run(() =>
            {
-               //IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
                IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
 
                // let's cancel monitor task of non visible jobs
