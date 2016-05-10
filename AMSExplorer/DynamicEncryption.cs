@@ -39,6 +39,7 @@ using System.IdentityModel.Tokens;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
 using Newtonsoft.Json;
+using Microsoft.WindowsAzure.MediaServices.Client.FairPlay;
 
 namespace AMSExplorer
 {
@@ -119,7 +120,7 @@ namespace AMSExplorer
             return randomBytes;
         }
 
-        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context)
+        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, ContentKeyType keyType = ContentKeyType.CommonEncryption)
         {
             // Create envelope encryption content key
             Guid keyId = Guid.NewGuid();
@@ -128,23 +129,24 @@ namespace AMSExplorer
             IContentKey key = _context.ContentKeys.Create(
                                     keyId,
                                     contentKey,
-                                    "ContentKey CENC",
-                                    ContentKeyType.CommonEncryption);
+                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " CBC" : ""),
+                                    keyType);
 
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
+            asset.Update();
 
             return key;
         }
 
-        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, Guid keyId, byte[] contentKey)
-        {
 
+        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, Guid keyId, byte[] contentKey, ContentKeyType keyType = ContentKeyType.CommonEncryption)
+        {
             IContentKey key = _context.ContentKeys.Create(
                                     keyId,
                                     contentKey,
-                                    "ContentKey CENC",
-                                    ContentKeyType.CommonEncryption);
+                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " CBC" : ""),
+                                    keyType);
 
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
@@ -322,9 +324,11 @@ namespace AMSExplorer
 
 
 
-        static public X509Certificate2 GetCertificateFromFile(bool informuser = false)
+        static public PFXCertificate GetCertificateFromFile(bool informuser = false, X509KeyStorageFlags flags = X509KeyStorageFlags.DefaultKeySet)
         {
             X509Certificate2 cert = null;
+            string password = string.Empty;
+
 
             if (informuser)
             {
@@ -339,13 +343,12 @@ namespace AMSExplorer
 
             if (openFileDialogCert.ShowDialog() == DialogResult.OK)
             {
-                string password = string.Empty;
 
                 if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
                 {
                     try
                     {
-                        cert = new X509Certificate2(openFileDialogCert.FileName, password);
+                        cert = new X509Certificate2(openFileDialogCert.FileName, password, flags);
                     }
                     catch (Exception e)
                     {
@@ -362,8 +365,11 @@ namespace AMSExplorer
                     }
                 }
             }
-            return cert;
+            return new PFXCertificate { Certificate = cert, Password = password };
         }
+
+
+
 
         public class TokenResult
         {
@@ -508,7 +514,7 @@ namespace AMSExplorer
                                         {
                                             if (signingcredentials == null)
                                             {
-                                                X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
+                                                X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true).Certificate;
                                                 if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                             }
                                         }
@@ -578,7 +584,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null)
         {
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
@@ -623,17 +629,53 @@ namespace AMSExplorer
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
+
+            // FairPlay
+            if (form1.FairPlayPackaging)
+            {
+                if (fairplayAcquisitionUrl == null)
+                {
+                    fairplayAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.FairPlay).ToString();
+                }
+                // let's get the url without the key id parameter
+                UriBuilder uriBuilder = new UriBuilder(fairplayAcquisitionUrl);
+                uriBuilder.Query = String.Empty;
+                fairplayAcquisitionUrl = uriBuilder.Uri.ToString();
+
+                var kdPolicy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Single();
+
+                var kdOption = kdPolicy.Options.Single(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay);
+
+                FairPlayConfiguration configFP = JsonConvert.DeserializeObject<FairPlayConfiguration>(kdOption.KeyDeliveryConfiguration);
+
+                // The reason the below code replaces "https://" with "skd://" is because
+                // in the IOS player sample code which you obtained in Apple developer account, 
+                // the player only recognizes a Key URL that starts with skd://. 
+                // However, if you are using a customized player, 
+                // you can choose whatever protocol you want. 
+                // For example, "https". 
+
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, configFP.ContentEncryptionIV);
+            }
+
+
             // let's check the protocol: DASH only if only Widevine packaging
             var protocol = form1.GetAssetDeliveryProtocol;
             if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
             {
                 protocol = AssetDeliveryProtocol.Dash;
             }
+            // HLS only for FairPlay
+            if (form1.FairPlayPackaging)
+            {
+                protocol = AssetDeliveryProtocol.HLS;
+            }
 
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
                                                                             name,
-                                                                            AssetDeliveryPolicyType.DynamicCommonEncryption,
+                                                                            form1.FairPlayPackaging ? AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs : AssetDeliveryPolicyType.DynamicCommonEncryption,
                                                                             protocol,
                                                                             assetDeliveryPolicyConfiguration
                                                                             );
@@ -642,6 +684,49 @@ namespace AMSExplorer
             asset.DeliveryPolicies.Add(assetDeliveryPolicy);
 
             return assetDeliveryPolicy;
+        }
+
+        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, PFXCertificate certificate)
+        {
+            // For testing you can provide all zeroes for ASK bytes together with the cert from Apple FPS SDK. 
+            // However, for production you must use a real ASK from Apple bound to a real prod certificate.
+            //byte[] askBytes = Guid.NewGuid().ToByteArray();
+
+            var askId = Guid.NewGuid();
+            // Key delivery retrieves askKey by askId and uses this key to generate the response.
+            IContentKey askKey = _context.ContentKeys.Create(
+                                    askId,
+                                    askBytes,
+                                    "askKey",
+                                    ContentKeyType.FairPlayASk);
+
+            //Customer password for creating the .pfx file.
+            //string pfxPassword = "<customer password for creating the .pfx file>";
+            // Key delivery retrieves pfxPasswordKey by pfxPasswordId and uses this key to generate the response.
+            var pfxPasswordId = Guid.NewGuid();
+            byte[] pfxPasswordBytes = System.Text.Encoding.UTF8.GetBytes(certificate.Password);
+            IContentKey pfxPasswordKey = _context.ContentKeys.Create(
+                                    pfxPasswordId,
+                                    pfxPasswordBytes,
+                                    "pfxPasswordKey",
+                                    ContentKeyType.FairPlayPfxPassword);
+
+            // iv - 16 bytes random value, must match the iv in the asset delivery policy.
+            byte[] iv = Guid.NewGuid().ToByteArray();
+
+            //Specify the .pfx file created by the customer.
+            //var appCert = new X509Certificate2("path to the .pfx file created by the customer", pfxPassword, X509KeyStorageFlags.Exportable);
+
+
+            string FairPlayConfiguration =
+                Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
+                    certificate.Certificate,
+                    certificate.Password,
+                    pfxPasswordId,
+                    askId,
+                    iv);
+
+            return FairPlayConfiguration;
         }
 
 
@@ -793,5 +878,11 @@ namespace AMSExplorer
                 destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
             }
         }
+    }
+
+    public class PFXCertificate
+    {
+        public string Password { get; set; }
+        public X509Certificate2 Certificate { get; set; }
     }
 }

@@ -45,6 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBoxWidevine = new System.Windows.Forms.GroupBox();
+            this.labelPreview = new System.Windows.Forms.Label();
             this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.panelExternalWidevine = new System.Windows.Forms.Panel();
             this.textBoxWVLAurl = new System.Windows.Forms.TextBox();
@@ -53,7 +54,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonExternalWVServer = new System.Windows.Forms.RadioButton();
             this.radioButtonDeliverWVFromAMS = new System.Windows.Forms.RadioButton();
-            this.labelPreview = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
             this.panelExternalPlayReady.SuspendLayout();
@@ -260,7 +260,7 @@
             this.label8.Size = new System.Drawing.Size(574, 42);
             this.label8.TabIndex = 69;
             this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
-    "ens, or want to deliver various PlayReady licenses based on token claims";
+    "ens, or want to deliver various PlayReady licenses based on token claims.";
             // 
             // groupBoxWidevine
             // 
@@ -277,6 +277,19 @@
             this.groupBoxWidevine.TabIndex = 71;
             this.groupBoxWidevine.TabStop = false;
             this.groupBoxWidevine.Text = "Widevine";
+            // 
+            // labelPreview
+            // 
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPreview.AutoSize = true;
+            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.Location = new System.Drawing.Point(361, 36);
+            this.labelPreview.Name = "labelPreview";
+            this.labelPreview.Size = new System.Drawing.Size(83, 15);
+            this.labelPreview.TabIndex = 84;
+            this.labelPreview.Text = "Public preview";
+            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // numericUpDownNbOptionsWidevine
             // 
@@ -380,19 +393,6 @@
             this.radioButtonDeliverWVFromAMS.TabStop = true;
             this.radioButtonDeliverWVFromAMS.Text = "From Azure Media Services with";
             this.radioButtonDeliverWVFromAMS.UseVisualStyleBackColor = true;
-            // 
-            // labelPreview
-            // 
-            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPreview.AutoSize = true;
-            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelPreview.Location = new System.Drawing.Point(361, 36);
-            this.labelPreview.Name = "labelPreview";
-            this.labelPreview.Size = new System.Drawing.Size(83, 15);
-            this.labelPreview.TabIndex = 84;
-            this.labelPreview.Text = "Public preview";
-            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AddDynamicEncryptionFrame3_CENCDelivery
             // 

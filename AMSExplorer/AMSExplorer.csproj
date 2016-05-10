@@ -158,6 +158,12 @@
     <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -745,6 +751,9 @@
     </Content>
     <EmbeddedResource Include="AddDynamicEncryptionFrame3_AESDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENCDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>

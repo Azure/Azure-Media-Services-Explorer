@@ -2354,19 +2354,6 @@ namespace AMSExplorer
                 assets.Add(AssetInfo.GetAsset(targetAssetID, _context));
             }
 
-            /*
-            IAsset asset;
-            if (CreateNewAsset)
-            {
-                // Create a new asset.
-                asset = _context.Assets.Create(newassetname, AssetCreationOptions.None);
-            }
-            else //copy files in an existing asset
-            {
-                asset = AssetInfo.GetAsset(targetAssetID, _context);
-            }
-            */
-
             CloudStorageAccount sourceStorageAccount;
             if (UseDefaultStorage)
             {
@@ -2479,10 +2466,7 @@ namespace AMSExplorer
                         BytesCopied += sourceCloudBlob.Properties.Length;
                         percentComplete = 100d * BytesCopied / Length;
                         if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
-
                     }
-
-
                 }
                 else // all files in the same asset
                 {
@@ -2574,9 +2558,8 @@ namespace AMSExplorer
             }
 
             DoRefreshGridAssetV(false);
-
-
         }
+
 
 
         private void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, int index)
@@ -9193,6 +9176,53 @@ namespace AMSExplorer
                         }
                         break;
 
+                    ///////////////////////////////////////////// CENC CBCS (FairPlay) Dynamic Encryption
+                    case AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs:
+
+                        AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC_Cbcs = new AddDynamicEncryptionFrame2_CENCKeyConfig(
+
+                            forceusertoprovidekey)
+                        { Left = form1.Left, Top = form1.Top };
+                        if (form2_CENC_Cbcs.ShowDialog() == DialogResult.OK)
+                        {
+                            var form3_CENC = new AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(_context, true);
+                            if (form3_CENC.ShowDialog() == DialogResult.OK)
+                            {
+                                bool NeedToDisplayFairPlayLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0;
+
+                                List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
+
+                                bool usercancelledform4 = false;
+
+                                int step = 3;
+                                string tokensymmetrickey = null;
+                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                {
+                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "FairPlay", tokensymmetrickey, false) { Left = form2_CENC_Cbcs.Left, Top = form2_CENC_Cbcs.Top };
+
+                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    {
+                                        step++;
+                                        form4list.Add(form4);
+                                        tokensymmetrickey = form4.SymmetricKey;
+                                    }
+                                    else
+                                    {
+                                        usercancelledform4 = true;
+                                    }
+                                }
+
+                                if (!usercancelledform4)
+                                {
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_CENC, form4list, true);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                }
+                            }
+                        }
+                        break;
+
                     ///////////////////////////////////////////// AES Dynamic Encryption
                     case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
                         AddDynamicEncryptionFrame2_AESKeyConfig form2_AES =
@@ -9574,6 +9604,288 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        {
+            bool ErrorCreationKey = false;
+            bool reusekey = false;
+            bool firstkeycreation = true;
+            IContentKey formerkey = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
+
+            bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
+
+            if (ManualForceKeyData)  // user want to manually enter the cryptography data and key if provided
+            {
+                // if the key already exists in the account (same key id), let's 
+                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
+                if (formerkey != null)
+                {
+                    if (DisplayUI && MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // user wants to replace the key
+                        try
+                        {
+                            formerkey.Delete();
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
+                            TextBoxLogWriteLine(e);
+                            TextBoxLogWriteLine("The former key will be reused.", true);
+                            reusekey = true;
+                        }
+                    }
+                    else
+                    {
+                        reusekey = true;
+                    }
+                }
+            }
+
+
+            foreach (IAsset AssetToProcess in SelectedAssets)
+            {
+                if (AssetToProcess != null)
+                {
+                    IContentKey contentKey = null;
+                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
+                    // special case, no dynamic encryption, goal is to setup key auth policy. CENC key is selected
+
+                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                    {
+                        ErrorCreationKey = false;
+
+                        //// Azure will deliver the FairPlay license and user wants to auto generate the key, so we can create a key with a random content key
+
+                        if (!reusekey && (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 && form2_CENC.ContentKeyRandomGeneration))
+
+                        // Azure will deliver the FairPlay license or user wants to auto generate the key, so we can create a key with a random content key
+                        {
+                            try
+                            {
+                                contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, ContentKeyType.CommonEncryptionCbcs);
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
+                            if (!ErrorCreationKey)
+                            {
+                                TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
+                            }
+
+                        }
+                        else // user wants to deliver with an external PlayReady or Widevine server or want to provide the key, so let's create the key based on what the user input
+                        {
+                            // if the key does not exist in the account (same key id), let's create it
+                            if ((firstkeycreation && !reusekey) || form2_CENC.KeyId == null) // if we need to generate a new key id for each asset
+                            {
+                                if (form2_CENC.KeySeed != null) // seed has been given
+                                {
+                                    Guid keyid = (form2_CENC.KeyId == null) ? Guid.NewGuid() : (Guid)form2_CENC.KeyId;
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_CENC.KeySeed), keyid);
+                                    try
+                                    {
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey, ContentKeyType.CommonEncryptionCbcs);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        ErrorCreationKey = true;
+                                    }
+                                    if (!ErrorCreationKey)
+                                    {
+                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                    }
+                                }
+                                else // no seed given, so content key has been setup
+                                {
+                                    try
+                                    {
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey), ContentKeyType.CommonEncryptionCbcs);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for asset '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        ErrorCreationKey = true;
+                                    }
+                                    if (!ErrorCreationKey)
+                                    {
+                                        TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
+                                    }
+
+                                }
+                                formerkey = contentKey;
+                                firstkeycreation = false;
+                            }
+                            else
+                            {
+                                contentKey = formerkey;
+                                AssetToProcess.ContentKeys.Add(contentKey);
+                                AssetToProcess.Update();
+                                TextBoxLogWriteLine("Reusing key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                            }
+                        }
+                    }
+                    /*
+                    else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
+                                   // TO DO ? : if user wants to deliver license from external servers
+                                   // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
+                    {
+                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
+                    }
+                    */
+                    else // let's use existing content key
+                    {
+                        contentKey = contentkeys.FirstOrDefault();
+                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
+                    }
+                    if (
+                        form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 // FairPlay license and delivery from Azure Media Services
+                        &&
+                        (!ManualForceKeyData || (ManualForceKeyData && contentKeyAuthorizationPolicy == null)) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
+                        )
+                    {
+                        // let's create the Authorization Policy
+                        contentKeyAuthorizationPolicy = _context.
+                                       ContentKeyAuthorizationPolicies.
+                                       CreateAsync("Authorization Policy").Result;
+
+                        // Associate the content key authorization policy with the content key.
+                        contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                        contentKey = contentKey.UpdateAsync().Result;
+
+                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, Guid.NewGuid().ToByteArray(), form3_CENC.FairPlayCertificate);// form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
+
+
+
+
+                        foreach (var form4 in form4list)
+                        { // for each option
+
+                            IContentKeyAuthorizationPolicyOption policyOption = null;
+                            try
+                            {
+                                string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                string FairPlayPolicyName = string.Format("{0}{1} FairPlay Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, form4list.IndexOf(form4) + 1);
+
+                                switch (form4.GetKeyRestrictionType)
+                                {
+                                    case ContentKeyRestrictionType.Open:
+
+                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, contentKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
+                                        TextBoxLogWriteLine("Created PlayReady Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
+                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+                                        break;
+
+                                    case ContentKeyRestrictionType.TokenRestricted:
+                                        TokenVerificationKey mytokenverifkey = null;
+                                        string OpenIdDoc = null;
+                                        switch (form4.GetDetailedTokenType)
+                                        {
+                                            case ExplorerTokenType.SWT:
+                                            case ExplorerTokenType.JWTSym:
+                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
+                                                break;
+
+                                            case ExplorerTokenType.JWTOpenID:
+                                                OpenIdDoc = form4.GetOpenIdDiscoveryDocument;
+                                                break;
+
+                                            case ExplorerTokenType.JWTX509:
+                                                mytokenverifkey = new X509CertTokenVerificationKey(form4.GetX509Certificate);
+                                                break;
+                                        }
+
+
+                                        policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(FairPlayPolicyName, ContentKeyDeliveryType.FairPlay, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, FairPlayLicenseDeliveryConfig, OpenIdDoc);
+                                        TextBoxLogWriteLine("Created Token PlayReady authorization policy for the asset '{0}'.", AssetToProcess.Name);
+
+
+                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+
+                                        if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
+                                        {
+                                            // let display a test token
+                                            X509SigningCredentials signingcred = null;
+                                            if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                            {
+                                                signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                            }
+
+                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form4list.IndexOf(form4), form4.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                        }
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
+
+                        }
+                        contentKeyAuthorizationPolicy.Update();
+                    }
+
+
+                    // Let's create the Asset Delivery Policy now
+                    if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.None && form1.EnableDynEnc)
+                    {
+                        IAssetDeliveryPolicy DelPol = null;
+
+                        var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
+                        if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
+                        {
+                            assetDeliveryProtocol = AssetDeliveryProtocol.Dash;  // only DASH
+                        }
+
+                        string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
+                        ErrorCreationKey = false;
+
+                        try
+                        {
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(
+                                AssetToProcess,
+                                contentKey,
+                                form1,
+                                name,
+                                _context,
+                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null: form3_CENC.FairPlayLAurl.ToString()
+                                   );
+
+                            TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                        }
+                        catch (Exception e)
+                        {
+                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            ErrorCreationKey = true;
+                        }
+                    }
+                }
+            }
+        }
+
+
         private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, AddDynamicEncryptionFrame3_AESDelivery form3_AES, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
@@ -9919,11 +10231,11 @@ namespace AMSExplorer
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
-                    bool Error = false;
                     string keydeliveryconfig = string.Empty;
 
                     foreach (IAsset AssetToProcess in SelectedAssets)
                     {
+                        bool Error = false;
 
                         if (AssetToProcess != null)
                         {
@@ -9958,8 +10270,8 @@ namespace AMSExplorer
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when removing the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(e);
+                                Error = true;
                             }
-
 
                             if (myDialogResult == DialogResult.Yes) // Let's delete the policies
                             {
@@ -9982,11 +10294,14 @@ namespace AMSExplorer
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
                                     TextBoxLogWriteLine(e);
+                                    Error = true;
                                 }
                             }
 
-                            if (Error) break;
-                            TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+                            if (!Error)
+                            {
+                                TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+                            }
 
                             dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10004,10 +10319,10 @@ namespace AMSExplorer
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("CENC and Enveloppe keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("CENC and Envelope keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("CENC and Enveloppe keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("CENC and Envelope keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
 
@@ -10015,20 +10330,18 @@ namespace AMSExplorer
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
-                    bool Error = false;
 
                     foreach (IAsset AssetToProcess in SelectedAssets)
                     {
+                        bool Error = false;
 
                         if (AssetToProcess != null)
                         {
                             List<string> KeysListIDs = new List<string>();
                             try
                             {
-                                IList<IContentKey> CENCAESkeys = AssetToProcess.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption || k.ContentKeyType == ContentKeyType.EnvelopeEncryption).ToList();
+                                IList<IContentKey> CENCAESkeys = AssetToProcess.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption || k.ContentKeyType == ContentKeyType.CommonEncryptionCbcs || k.ContentKeyType == ContentKeyType.EnvelopeEncryption).ToList();
                                 KeysListIDs = CENCAESkeys.Select(k => k.Id).ToList(); // create a list of IDs
-
-
 
                                 // deleting authorization policies & options
                                 foreach (var key in CENCAESkeys)
@@ -10041,11 +10354,16 @@ namespace AMSExplorer
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when removing the keys for '{0}'.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(e);
+                                Error = true;
+                            }
+                            if (!Error)
+                            {
+                                TextBoxLogWriteLine("Removed CENC and Envelope keys for asset {0}.", AssetToProcess.Name);
                             }
 
                             if (myDialogResult == DialogResult.Yes) // Let's delete the keys
                             {
-
+                                Error = false;
                                 try
                                 {
                                     // deleting keys
@@ -10057,12 +10375,14 @@ namespace AMSExplorer
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when deleting the keys for '{0}'.", AssetToProcess.Name, true);
                                     TextBoxLogWriteLine(e);
+                                    Error = true;
+                                }
+
+                                if (!Error)
+                                {
+                                    TextBoxLogWriteLine("Deleted CENC and Envelope keys for asset {0}.", AssetToProcess.Name);
                                 }
                             }
-
-
-                            if (Error) break;
-                            TextBoxLogWriteLine("Removed{0} CENC and Enveloppe keys for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
                             dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();

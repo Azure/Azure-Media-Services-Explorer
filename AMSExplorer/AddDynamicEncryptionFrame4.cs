@@ -244,7 +244,7 @@ namespace AMSExplorer
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
-            cert = DynamicEncryption.GetCertificateFromFile(false);
+            cert = DynamicEncryption.GetCertificateFromFile(false).Certificate;
             labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
             UpdateButtonOk();
         }
