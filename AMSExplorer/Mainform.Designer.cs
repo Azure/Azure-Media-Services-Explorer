@@ -134,6 +134,11 @@
             this.createOutlookReportEmailToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToClipboardToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,9 +148,6 @@
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editAlternateIdToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,6 +187,7 @@
             this.ProcessRedactortoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProcessMotionDetectortoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProcessStabilizertoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProcessVideoThumbnailstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
             this.processAssetsWithAJobTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsadvancedModeWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -520,7 +523,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.ProcessVideoThumbnailstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1354,17 +1356,16 @@
             this.assetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.informationToolStripMenuItem,
             this.displayParentJobToolStripMenuItem,
-            this.uploadFromASingleFileToolStripMenuItem,
             this.createOutlookReportEmailToolStripMenuItem1,
-            this.importToolStripMenuItem,
-            this.copyAssetFilesToAzureStorageToolStripMenuItem,
-            this.toolStripMenuItemDownloadToLocal,
-            this.mergeSelectedAssetsToolStripMenuItem,
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.editAlternateIdToolStripMenuItem1,
             this.deleteToolStripMenuItem,
+            this.toolsToolStripMenuItem1,
+            this.toolStripSeparator40,
+            this.uploadFromASingleFileToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.copyAssetFilesToAzureStorageToolStripMenuItem,
+            this.toolStripMenuItemDownloadToLocal,
             this.createTestAssetsToolStripMenuItem,
             this.advancedToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
@@ -1378,7 +1379,7 @@
             this.informationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("informationToolStripMenuItem.Image")));
             this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
             this.informationToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.informationToolStripMenuItem.Text = "Display information";
             this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
             // 
@@ -1386,7 +1387,7 @@
             // 
             this.displayParentJobToolStripMenuItem.Name = "displayParentJobToolStripMenuItem";
             this.displayParentJobToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.displayParentJobToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.displayParentJobToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.displayParentJobToolStripMenuItem.Text = "Display parent job";
             this.displayParentJobToolStripMenuItem.Click += new System.EventHandler(this.displayParentJobToolStripMenuItem_Click);
             // 
@@ -1400,7 +1401,7 @@
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem});
             this.uploadFromASingleFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uploadFromASingleFileToolStripMenuItem.Image")));
             this.uploadFromASingleFileToolStripMenuItem.Name = "uploadFromASingleFileToolStripMenuItem";
-            this.uploadFromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.uploadFromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.uploadFromASingleFileToolStripMenuItem.Text = "Upload";
             // 
             // fromASingleFileToolStripMenuItem
@@ -1452,7 +1453,7 @@
             this.toolStripMenuItem29,
             this.copyToClipboardToolStripMenuItem2});
             this.createOutlookReportEmailToolStripMenuItem1.Name = "createOutlookReportEmailToolStripMenuItem1";
-            this.createOutlookReportEmailToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.createOutlookReportEmailToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.createOutlookReportEmailToolStripMenuItem1.Text = "Report";
             // 
             // toolStripMenuItem29
@@ -1472,6 +1473,44 @@
             this.copyToClipboardToolStripMenuItem2.Text = "Copy to clipboard";
             this.copyToClipboardToolStripMenuItem2.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem2_Click);
             // 
+            // toolsToolStripMenuItem1
+            // 
+            this.toolsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mergeSelectedAssetsToolStripMenuItem,
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem});
+            this.toolsToolStripMenuItem1.Name = "toolsToolStripMenuItem1";
+            this.toolsToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
+            this.toolsToolStripMenuItem1.Text = "Tools";
+            // 
+            // mergeSelectedAssetsToolStripMenuItem
+            // 
+            this.mergeSelectedAssetsToolStripMenuItem.Name = "mergeSelectedAssetsToolStripMenuItem";
+            this.mergeSelectedAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
+            this.mergeSelectedAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.mergeSelectedAssetsToolStripMenuItem.Text = "Copy/merge asset(s) to a new asset...";
+            this.mergeSelectedAssetsToolStripMenuItem.Click += new System.EventHandler(this.mergeSelectedAssetsToolStripMenuItem_Click_1);
+            // 
+            // checkIntegrityOfLiveArchiveToolStripMenuItem1
+            // 
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem1";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive(s)...";
+            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem1_Click_1);
+            // 
+            // fixSystemBitrateInManifestjan15FixToolStripMenuItem
+            // 
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Name = "fixSystemBitrateInManifestjan15FixToolStripMenuItem";
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Text = "Fix systemBitrate in manifests...";
+            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Click += new System.EventHandler(this.fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click_1);
+            // 
+            // toolStripSeparator40
+            // 
+            this.toolStripSeparator40.Name = "toolStripSeparator40";
+            this.toolStripSeparator40.Size = new System.Drawing.Size(217, 6);
+            // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1479,7 +1518,7 @@
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem});
             this.importToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importToolStripMenuItem.Image")));
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // fromAzureStorageToolStripMenuItem
@@ -1508,7 +1547,7 @@
             this.toAzureStorageToolStripMenuItem});
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyAssetFilesToAzureStorageToolStripMenuItem.Image")));
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Name = "copyAssetFilesToAzureStorageToolStripMenuItem";
-            this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Text = "Export";
             // 
             // informationToExcelToolStripMenuItem
@@ -1546,39 +1585,16 @@
             this.toolStripMenuItemDownloadToLocal.Image = global::AMSExplorer.Bitmaps.download;
             this.toolStripMenuItemDownloadToLocal.Name = "toolStripMenuItemDownloadToLocal";
             this.toolStripMenuItemDownloadToLocal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.toolStripMenuItemDownloadToLocal.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemDownloadToLocal.Size = new System.Drawing.Size(220, 22);
             this.toolStripMenuItemDownloadToLocal.Text = "Download to local...";
             this.toolStripMenuItemDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem38_Click);
-            // 
-            // mergeSelectedAssetsToolStripMenuItem
-            // 
-            this.mergeSelectedAssetsToolStripMenuItem.Name = "mergeSelectedAssetsToolStripMenuItem";
-            this.mergeSelectedAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.C)));
-            this.mergeSelectedAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.mergeSelectedAssetsToolStripMenuItem.Text = "Copy/merge asset(s) to a new asset...";
-            this.mergeSelectedAssetsToolStripMenuItem.Click += new System.EventHandler(this.mergeSelectedAssetsToolStripMenuItem_Click);
-            // 
-            // checkIntegrityOfLiveArchiveToolStripMenuItem1
-            // 
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Name = "checkIntegrityOfLiveArchiveToolStripMenuItem1";
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Text = "Check integrity of live archive(s)...";
-            this.checkIntegrityOfLiveArchiveToolStripMenuItem1.Click += new System.EventHandler(this.checkIntegrityOfLiveArchiveToolStripMenuItem1_Click);
-            // 
-            // fixSystemBitrateInManifestjan15FixToolStripMenuItem
-            // 
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Name = "fixSystemBitrateInManifestjan15FixToolStripMenuItem";
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Text = "Fix systemBitrate in manifests...";
-            this.fixSystemBitrateInManifestjan15FixToolStripMenuItem.Click += new System.EventHandler(this.fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("renameToolStripMenuItem.Image")));
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
             this.renameToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.renameToolStripMenuItem.Text = "Rename...";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
@@ -1586,7 +1602,7 @@
             // 
             this.editAlternateIdToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.rename;
             this.editAlternateIdToolStripMenuItem1.Name = "editAlternateIdToolStripMenuItem1";
-            this.editAlternateIdToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.editAlternateIdToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.editAlternateIdToolStripMenuItem1.Text = "Edit Alternate Id...";
             this.editAlternateIdToolStripMenuItem1.Click += new System.EventHandler(this.editAlternateIdToolStripMenuItem1_Click);
             // 
@@ -1598,7 +1614,7 @@
             this.allAssetsToolStripMenuItem});
             this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // selectedAssetToolStripMenuItem
@@ -1628,7 +1644,7 @@
             // 
             this.createTestAssetsToolStripMenuItem.Enabled = false;
             this.createTestAssetsToolStripMenuItem.Name = "createTestAssetsToolStripMenuItem";
-            this.createTestAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.createTestAssetsToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.createTestAssetsToolStripMenuItem.Text = "CreateTestAssets";
             this.createTestAssetsToolStripMenuItem.Visible = false;
             this.createTestAssetsToolStripMenuItem.Click += new System.EventHandler(this.createTestAssetsToolStripMenuItem_Click);
@@ -1640,7 +1656,7 @@
             this.testQueryAllFilesToolStripMenuItem});
             this.advancedToolStripMenuItem.Enabled = false;
             this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
-            this.advancedToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.advancedToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.advancedToolStripMenuItem.Text = "Advanced";
             this.advancedToolStripMenuItem.Visible = false;
             // 
@@ -1920,6 +1936,14 @@
             this.ProcessStabilizertoolStripMenuItem.Size = new System.Drawing.Size(350, 22);
             this.ProcessStabilizertoolStripMenuItem.Text = "Process asset(s) with Azure Media Stabilizer";
             this.ProcessStabilizertoolStripMenuItem.Click += new System.EventHandler(this.ProcessStabilizertoolStripMenuItem_Click_1);
+            // 
+            // ProcessVideoThumbnailstoolStripMenuItem
+            // 
+            this.ProcessVideoThumbnailstoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.thumbnails;
+            this.ProcessVideoThumbnailstoolStripMenuItem.Name = "ProcessVideoThumbnailstoolStripMenuItem";
+            this.ProcessVideoThumbnailstoolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.ProcessVideoThumbnailstoolStripMenuItem.Text = "Process asset(s) with Azure Media Video Thumbnails";
+            this.ProcessVideoThumbnailstoolStripMenuItem.Click += new System.EventHandler(this.ProcessVideoThumbnailstoolStripMenuItem_Click_1);
             // 
             // toolStripSeparator39
             // 
@@ -5291,14 +5315,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // ProcessVideoThumbnailstoolStripMenuItem
-            // 
-            this.ProcessVideoThumbnailstoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.thumbnails;
-            this.ProcessVideoThumbnailstoolStripMenuItem.Name = "ProcessVideoThumbnailstoolStripMenuItem";
-            this.ProcessVideoThumbnailstoolStripMenuItem.Size = new System.Drawing.Size(350, 22);
-            this.ProcessVideoThumbnailstoolStripMenuItem.Text = "Process asset(s) with Azure Media Video Thumbnails";
-            this.ProcessVideoThumbnailstoolStripMenuItem.Click += new System.EventHandler(this.ProcessVideoThumbnailstoolStripMenuItem_Click_1);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5558,7 +5574,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLog;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTextToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mergeSelectedAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeDynamicEncryptionForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemPremiumWorkflow;
@@ -5814,10 +5829,8 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadToLocal;
-        private System.Windows.Forms.ToolStripMenuItem fixSystemBitrateInManifestjan15FixToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemStabilizer;
@@ -5859,6 +5872,11 @@
         private System.Windows.Forms.ToolStripMenuItem ProcessMotionDetectortoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ProcessStabilizertoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ProcessVideoThumbnailstoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
+        private System.Windows.Forms.ToolStripMenuItem mergeSelectedAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkIntegrityOfLiveArchiveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fixSystemBitrateInManifestjan15FixToolStripMenuItem;
     }
 }
 

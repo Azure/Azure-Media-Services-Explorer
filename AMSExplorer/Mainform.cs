@@ -10098,10 +10098,7 @@ namespace AMSExplorer
             DoCopyAssetToAnotherAMSAccount();
         }
 
-        private void mergeAssetsToANewAssetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyAssetToAnotherAMSAccount();
-        }
+     
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13650,6 +13647,21 @@ namespace AMSExplorer
         private void ProcessVideoThumbnailstoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
+        }
+
+        private void mergeSelectedAssetsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
+        private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            DoCheckIntegrityLiveArchive();
+        }
+
+        private void fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoFixSystemBitrate();
         }
     }
 }
