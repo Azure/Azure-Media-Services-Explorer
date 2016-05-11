@@ -108,7 +108,7 @@ namespace AMSExplorer
 
 
 
-        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool ForceUseToProvideKey, bool showPlayReadyTestButton = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -121,18 +121,7 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
-            /*
-            if (DoNotAskURL)
-            {
-                //textBoxLAurl.Enabled = false;
-                panelPlayReadyTest.Visible = false;
-            }
-            if (!laststep)
-            {
-                buttonOk.Text = "Next";
-                buttonOk.Image = null;
-            }
-            */
+            panelPlayReadyTest.Visible = showPlayReadyTestButton;
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)

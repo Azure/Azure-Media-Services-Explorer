@@ -33,6 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxPlayReady = new System.Windows.Forms.GroupBox();
+            this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.buttonImportPFX = new System.Windows.Forms.Button();
             this.panelExternalFairPlay = new System.Windows.Forms.Panel();
             this.textBoxFairPlayLAurl = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -42,12 +45,9 @@
             this.numericUpDownNbOptionsPlayReady = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.buttonImportPFX = new System.Windows.Forms.Button();
-            this.labelCertificateFile = new System.Windows.Forms.Label();
-            this.textBoxASK = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
+            this.panelFairPlayFromAMS.SuspendLayout();
             this.panelExternalFairPlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +55,7 @@
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.Enabled = false;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(386, 13);
             this.buttonOk.Name = "buttonOk";
@@ -99,6 +100,7 @@
             // 
             // groupBoxPlayReady
             // 
+            this.groupBoxPlayReady.Controls.Add(this.panelFairPlayFromAMS);
             this.groupBoxPlayReady.Controls.Add(this.panelExternalFairPlay);
             this.groupBoxPlayReady.Controls.Add(this.radioButtonDeliverPRfromAMS);
             this.groupBoxPlayReady.Controls.Add(this.radioButtonExternalPRServer);
@@ -107,10 +109,37 @@
             this.groupBoxPlayReady.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxPlayReady.Location = new System.Drawing.Point(12, 87);
             this.groupBoxPlayReady.Name = "groupBoxPlayReady";
-            this.groupBoxPlayReady.Size = new System.Drawing.Size(645, 226);
+            this.groupBoxPlayReady.Size = new System.Drawing.Size(645, 275);
             this.groupBoxPlayReady.TabIndex = 52;
             this.groupBoxPlayReady.TabStop = false;
             this.groupBoxPlayReady.Text = "Apple FairPlay Streaming";
+            // 
+            // panelFairPlayFromAMS
+            // 
+            this.panelFairPlayFromAMS.Controls.Add(this.labelCertificateFile);
+            this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
+            this.panelFairPlayFromAMS.Location = new System.Drawing.Point(41, 63);
+            this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
+            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 59);
+            this.panelFairPlayFromAMS.TabIndex = 85;
+            // 
+            // labelCertificateFile
+            // 
+            this.labelCertificateFile.Location = new System.Drawing.Point(259, 23);
+            this.labelCertificateFile.Name = "labelCertificateFile";
+            this.labelCertificateFile.Size = new System.Drawing.Size(335, 21);
+            this.labelCertificateFile.TabIndex = 71;
+            this.labelCertificateFile.Text = "(no file selected)";
+            // 
+            // buttonImportPFX
+            // 
+            this.buttonImportPFX.Location = new System.Drawing.Point(26, 17);
+            this.buttonImportPFX.Name = "buttonImportPFX";
+            this.buttonImportPFX.Size = new System.Drawing.Size(227, 27);
+            this.buttonImportPFX.TabIndex = 70;
+            this.buttonImportPFX.Text = "Import App Certificate (.PFX)...";
+            this.buttonImportPFX.UseVisualStyleBackColor = true;
+            this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
             // 
             // panelExternalFairPlay
             // 
@@ -120,9 +149,9 @@
             this.panelExternalFairPlay.Controls.Add(this.label7);
             this.panelExternalFairPlay.Controls.Add(this.label3);
             this.panelExternalFairPlay.Enabled = false;
-            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 81);
+            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 179);
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
-            this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 127);
+            this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 74);
             this.panelExternalFairPlay.TabIndex = 81;
             // 
             // textBoxFairPlayLAurl
@@ -173,8 +202,9 @@
             // radioButtonExternalPRServer
             // 
             this.radioButtonExternalPRServer.AutoSize = true;
+            this.radioButtonExternalPRServer.Enabled = false;
             this.radioButtonExternalPRServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalPRServer.Location = new System.Drawing.Point(41, 59);
+            this.radioButtonExternalPRServer.Location = new System.Drawing.Point(41, 157);
             this.radioButtonExternalPRServer.Name = "radioButtonExternalPRServer";
             this.radioButtonExternalPRServer.Size = new System.Drawing.Size(201, 19);
             this.radioButtonExternalPRServer.TabIndex = 62;
@@ -226,44 +256,6 @@
             this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
     "ens, or want to deliver various FairPlay licenses based on token claims.";
             // 
-            // buttonImportPFX
-            // 
-            this.buttonImportPFX.Location = new System.Drawing.Point(70, 357);
-            this.buttonImportPFX.Name = "buttonImportPFX";
-            this.buttonImportPFX.Size = new System.Drawing.Size(227, 27);
-            this.buttonImportPFX.TabIndex = 70;
-            this.buttonImportPFX.Text = "Import App Certificate (.PFX)...";
-            this.buttonImportPFX.UseVisualStyleBackColor = true;
-            this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
-            // 
-            // labelCertificateFile
-            // 
-            this.labelCertificateFile.Location = new System.Drawing.Point(305, 363);
-            this.labelCertificateFile.Name = "labelCertificateFile";
-            this.labelCertificateFile.Size = new System.Drawing.Size(306, 21);
-            this.labelCertificateFile.TabIndex = 71;
-            this.labelCertificateFile.Text = "(no file selected)";
-            // 
-            // textBoxASK
-            // 
-            this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxASK.Location = new System.Drawing.Point(70, 419);
-            this.textBoxASK.Name = "textBoxASK";
-            this.textBoxASK.Size = new System.Drawing.Size(419, 23);
-            this.textBoxASK.TabIndex = 81;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(67, 399);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(163, 15);
-            this.label4.TabIndex = 80;
-            this.label4.Text = "Application Secret Key (ASK) :";
-            // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -272,10 +264,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
-            this.Controls.Add(this.textBoxASK);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.buttonImportPFX);
-            this.Controls.Add(this.labelCertificateFile);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxPlayReady);
             this.Controls.Add(this.panel1);
@@ -288,6 +276,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);
             this.groupBoxPlayReady.PerformLayout();
+            this.panelFairPlayFromAMS.ResumeLayout(false);
             this.panelExternalFairPlay.ResumeLayout(false);
             this.panelExternalFairPlay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).EndInit();
@@ -314,7 +303,6 @@
         private System.Windows.Forms.Panel panelExternalFairPlay;
         private System.Windows.Forms.Button buttonImportPFX;
         private System.Windows.Forms.Label labelCertificateFile;
-        private System.Windows.Forms.TextBox textBoxASK;
-        public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panelFairPlayFromAMS;
     }
 }

@@ -81,14 +81,6 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-
-            /*
-             if (!laststep)
-             {
-                 buttonOk.Text = "Next";
-                 buttonOk.Image = null;
-             }
-            */
         }
 
         private void SetupDynEnc_Load(object sender, EventArgs e)

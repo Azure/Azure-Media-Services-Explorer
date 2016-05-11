@@ -5978,37 +5978,12 @@ namespace AMSExplorer
             }
         }
 
-
-        private void encodeAssetsWithAzureMediaEncoderToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEAdvanced();
-        }
-
-        private void toolStripMenuItemIndex_Click(object sender, EventArgs e)
-        {
-            DoMenuIndexAssets();
-        }
-
-        private void indexAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuIndexAssets();
-        }
-
-
+        
 
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
         }
-
-
-
-        private void withSilverlightMMPPFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
-        }
-
-
 
         private void withFlashOSMFToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
@@ -6047,26 +6022,13 @@ namespace AMSExplorer
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
         }
-
-        private void withSilverlightMontoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
-        }
+   
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
         }
-
-        private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHAzurePage);
-        }
-
-        private void createOutlookReportEmailToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCreateAssetReportEmail();
-        }
+   
 
         private void DoCreateAssetReportEmail()
         {
@@ -6230,16 +6192,7 @@ namespace AMSExplorer
         {
             DoExportAssetToAzureStorage();
         }
-
-        private void downloadToLocalToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuDownloadToLocal();
-        }
-
-        private void copyAssetFilesToAzureStorageToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoExportAssetToAzureStorage();
-        }
+         
 
         private void setupAWatchFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -9179,9 +9132,7 @@ namespace AMSExplorer
                     ///////////////////////////////////////////// CENC CBCS (FairPlay) Dynamic Encryption
                     case AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs:
 
-                        AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC_Cbcs = new AddDynamicEncryptionFrame2_CENCKeyConfig(
-
-                            forceusertoprovidekey)
+                        var form2_CENC_Cbcs = new AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig()
                         { Left = form1.Left, Top = form1.Top };
                         if (form2_CENC_Cbcs.ShowDialog() == DialogResult.OK)
                         {
@@ -9341,7 +9292,7 @@ namespace AMSExplorer
                         {
                             try
                             {
-                                contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                                contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context);
                             }
                             catch (Exception e)
                             {
@@ -9367,7 +9318,7 @@ namespace AMSExplorer
                                     byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_CENC.KeySeed), keyid);
                                     try
                                     {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, keyid, bytecontentkey);
                                     }
                                     catch (Exception e)
                                     {
@@ -9385,7 +9336,7 @@ namespace AMSExplorer
                                 {
                                     try
                                     {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey));
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey));
                                     }
                                     catch (Exception e)
                                     {
@@ -9604,154 +9555,108 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
-            bool reusekey = false;
-            bool firstkeycreation = true;
             IContentKey formerkey = null;
+            IContentKey contentKey = null;
             IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
 
-            bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
 
-            if (ManualForceKeyData)  // user want to manually enter the cryptography data and key if provided
+            // if the key already exists in the account (same key id), let's 
+            formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
+            if (formerkey != null)
             {
-                // if the key already exists in the account (same key id), let's 
-                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
-                if (formerkey != null)
+                bool sametype = formerkey.ContentKeyType == ContentKeyType.CommonEncryptionCbcs;
+                string message = "A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)";
+                if (!sametype)
                 {
-                    if (DisplayUI && MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    message = "A Content key with the same Key Id exists already in the account but it is not a CENC CBC key.\nDo you want to try to replace it?\n(If not, the existing key will be used which is not going to work)";
+                }
+
+                if (DisplayUI && MessageBox.Show(message, "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // user wants to replace the key
+                    try
                     {
-                        // user wants to replace the key
-                        try
-                        {
-                            formerkey.Delete();
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
-                            TextBoxLogWriteLine(e);
-                            TextBoxLogWriteLine("The former key will be reused.", true);
-                            reusekey = true;
-                        }
+                        formerkey.Delete();
                     }
-                    else
+                    catch (Exception e)
                     {
-                        reusekey = true;
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
+                        TextBoxLogWriteLine(e);
+                        TextBoxLogWriteLine("The former key will be reused.", true);
+                        contentKey = formerkey;
                     }
                 }
+                else
+                {
+                    contentKey = formerkey;
+                }
             }
+
+
+            if (contentKey == null) // let's create the key one time
+            {
+                try
+                {
+                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(_context, form2_CENC.KeyId, form2_CENC.FairPlayASK, ContentKeyType.CommonEncryptionCbcs);
+                }
+                catch (Exception e)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when creating the content key", true);
+                    TextBoxLogWriteLine(e);
+                    ErrorCreationKey = true;
+                }
+                if (!ErrorCreationKey)
+                {
+                    TextBoxLogWriteLine("Created key {0}.", contentKey.Id);
+                }
+            }
+
 
 
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
                 if (AssetToProcess != null)
                 {
-                    IContentKey contentKey = null;
+                    IContentKey currentAssetKey = null;
+
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
                     // special case, no dynamic encryption, goal is to setup key auth policy. CENC key is selected
 
-                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                    if (contentkeys.Count() == 0) // no content key existing so we can attach the CBC key
                     {
-                        ErrorCreationKey = false;
-
-                        //// Azure will deliver the FairPlay license and user wants to auto generate the key, so we can create a key with a random content key
-
-                        if (!reusekey && (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 && form2_CENC.ContentKeyRandomGeneration))
-
-                        // Azure will deliver the FairPlay license or user wants to auto generate the key, so we can create a key with a random content key
+                        try
                         {
-                            try
-                            {
-                                contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, ContentKeyType.CommonEncryptionCbcs);
-                            }
-                            catch (Exception e)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                                TextBoxLogWriteLine(e);
-                                ErrorCreationKey = true;
-                            }
-                            if (!ErrorCreationKey)
-                            {
-                                TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
-                            }
-
+                            // Associate the key with the asset.
+                            AssetToProcess.ContentKeys.Add(contentKey);
+                            AssetToProcess.Update();
                         }
-                        else // user wants to deliver with an external PlayReady or Widevine server or want to provide the key, so let's create the key based on what the user input
+                        catch (Exception e)
                         {
-                            // if the key does not exist in the account (same key id), let's create it
-                            if ((firstkeycreation && !reusekey) || form2_CENC.KeyId == null) // if we need to generate a new key id for each asset
-                            {
-                                if (form2_CENC.KeySeed != null) // seed has been given
-                                {
-                                    Guid keyid = (form2_CENC.KeyId == null) ? Guid.NewGuid() : (Guid)form2_CENC.KeyId;
-                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_CENC.KeySeed), keyid);
-                                    try
-                                    {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey, ContentKeyType.CommonEncryptionCbcs);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        ErrorCreationKey = true;
-                                    }
-                                    if (!ErrorCreationKey)
-                                    {
-                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                                    }
-                                }
-                                else // no seed given, so content key has been setup
-                                {
-                                    try
-                                    {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey), ContentKeyType.CommonEncryptionCbcs);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for asset '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        ErrorCreationKey = true;
-                                    }
-                                    if (!ErrorCreationKey)
-                                    {
-                                        TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
-                                    }
-
-                                }
-                                formerkey = contentKey;
-                                firstkeycreation = false;
-                            }
-                            else
-                            {
-                                contentKey = formerkey;
-                                AssetToProcess.ContentKeys.Add(contentKey);
-                                AssetToProcess.Update();
-                                TextBoxLogWriteLine("Reusing key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                            }
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when attaching the content key for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            ErrorCreationKey = true;
                         }
+                        currentAssetKey = contentKey;
                     }
-                    /*
-                    else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
-                                   // TO DO ? : if user wants to deliver license from external servers
-                                   // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
+
+                    else // asset has already a CENC CBC attached - let's use it
                     {
-                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
+                        currentAssetKey = contentkeys.FirstOrDefault();
+                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'. It is recommended to delete the key before to create a new authorization policy", currentAssetKey.Id, AssetToProcess.Name, true);
                     }
-                    */
-                    else // let's use existing content key
-                    {
-                        contentKey = contentkeys.FirstOrDefault();
-                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
-                    }
+
+
+
                     if (
                         form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 // FairPlay license and delivery from Azure Media Services
                         &&
-                        (!ManualForceKeyData || (ManualForceKeyData && contentKeyAuthorizationPolicy == null)) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
+                        (currentAssetKey.AuthorizationPolicyId == null  /*contentKeyAuthorizationPolicy == null*/) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
                         )
                     {
                         // let's create the Authorization Policy
@@ -9760,13 +9665,10 @@ namespace AMSExplorer
                                        CreateAsync("Authorization Policy").Result;
 
                         // Associate the content key authorization policy with the content key.
-                        contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
-                        contentKey = contentKey.UpdateAsync().Result;
+                        currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                        currentAssetKey = currentAssetKey.UpdateAsync().Result;
 
-                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, Guid.NewGuid().ToByteArray(), form3_CENC.FairPlayCertificate);// form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
-
-
-
+                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, currentAssetKey.GetClearKeyValue(), form3_CENC.FairPlayCertificate);
 
                         foreach (var form4 in form4list)
                         { // for each option
@@ -9781,8 +9683,8 @@ namespace AMSExplorer
                                 {
                                     case ContentKeyRestrictionType.Open:
 
-                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, contentKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
-                                        TextBoxLogWriteLine("Created PlayReady Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
+                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, currentAssetKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
+                                        TextBoxLogWriteLine("Created PlayReady Open authorization policy for the key '{0}' ", currentAssetKey.Id);
                                         contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
                                         break;
@@ -9806,13 +9708,10 @@ namespace AMSExplorer
                                                 break;
                                         }
 
-
-                                        policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(FairPlayPolicyName, ContentKeyDeliveryType.FairPlay, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, FairPlayLicenseDeliveryConfig, OpenIdDoc);
-                                        TextBoxLogWriteLine("Created Token PlayReady authorization policy for the asset '{0}'.", AssetToProcess.Name);
-
+                                        policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(FairPlayPolicyName, ContentKeyDeliveryType.FairPlay, currentAssetKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, FairPlayLicenseDeliveryConfig, OpenIdDoc);
+                                        TextBoxLogWriteLine("Created Token PlayReady authorization policy for the key '{0}'.", currentAssetKey.Id);
 
                                         contentKeyAuthorizationPolicy.Options.Add(policyOption);
-
 
                                         if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                         {
@@ -9837,7 +9736,7 @@ namespace AMSExplorer
                             catch (Exception e)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine("There is a problem when creating the authorization policy for key '{0}'.", currentAssetKey.Id, true);
                                 TextBoxLogWriteLine(e);
                                 ErrorCreationKey = true;
                             }
@@ -9847,16 +9746,12 @@ namespace AMSExplorer
                     }
 
 
+
                     // Let's create the Asset Delivery Policy now
-                    if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.None && form1.EnableDynEnc)
+                    if (form1.EnableDynEnc)
                     {
                         IAssetDeliveryPolicy DelPol = null;
-
                         var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
-                        if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
-                        {
-                            assetDeliveryProtocol = AssetDeliveryProtocol.Dash;  // only DASH
-                        }
 
                         string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
                         ErrorCreationKey = false;
@@ -9865,11 +9760,11 @@ namespace AMSExplorer
                         {
                             DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(
                                 AssetToProcess,
-                                contentKey,
+                               currentAssetKey,
                                 form1,
                                 name,
                                 _context,
-                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null: form3_CENC.FairPlayLAurl.ToString()
+                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl.ToString()
                                    );
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -11970,16 +11865,6 @@ namespace AMSExplorer
             Process.Start(Constants.AMSSamples);
         }
 
-        private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-        }
-
-        private void processAssetsWithHyperlapseToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-        }
-
         private void buttonSetFilterChannel_Click(object sender, EventArgs e)
         {
             DoChannelSearch();
@@ -13122,10 +13007,6 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void toolStripMenuItem36_Click(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-        }
 
         private void toolStripMenuItem33_Click(object sender, EventArgs e)
         {
@@ -13157,25 +13038,7 @@ namespace AMSExplorer
             DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
         }
 
-        private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
-        }
 
-        private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
-        }
-
-        private void ProcessMotionDetectortoolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
-        }
-
-        private void ProcessStabilizertoolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
-        }
 
         private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
@@ -13201,11 +13064,7 @@ namespace AMSExplorer
             DoMenuEncodeWithAMEAdvanced();
 
         }
-
-        private void toolStripMenuItemProgramAssetFilterInfo_Click(object sender, EventArgs e)
-        {
-
-        }
+          
 
         private void dataGridViewV_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
         {
@@ -13228,11 +13087,7 @@ namespace AMSExplorer
                 DG.Sort(DG.Columns["Name"], ListSortDirection.Ascending);
             }
         }
-
-        private void checkIntegrityOfLiveArchiveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCheckIntegrityLiveArchive();
-        }
+           
 
         private void DoCheckIntegrityLiveArchive()
         {
@@ -13451,11 +13306,7 @@ namespace AMSExplorer
 
             }
         }
-
-        private void fixSystemBitrateInManifestsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoFixSystemBitrate();
-        }
+          
 
         private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13471,16 +13322,7 @@ namespace AMSExplorer
         {
             DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
         }
-
-        private void ProcessVideoThumbnailstoolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
-        }
-
-        private void accessAssetsTestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoAccessAssetFilesTest();
-        }
+         
 
         private void DoAccessAssetFilesTest()
         {
@@ -13625,11 +13467,7 @@ namespace AMSExplorer
                 }
             }
         }
-
-        private void testQueryAllAssetFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+  
 
         private void testQueryAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13702,6 +13540,116 @@ namespace AMSExplorer
         private void toolStripMenuItem38Indexer2_Click(object sender, EventArgs e)
         {
             DoMenuIndex2PreviewAssets();
+        }
+
+        private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
+        {
+            DoCopyOutputURLAssetOrProgramToClipboard();
+
+        }
+
+        private void toolStripMenuItem22_Click_3(object sender, EventArgs e)
+        {
+            DoSubmitFromTemplate();
+
+        }
+
+        private void toolStripMenuItem39_Click(object sender, EventArgs e)
+        {
+            DoMenuProcessGeneric();
+        }
+
+        private void toolStripMenuItem40_Click(object sender, EventArgs e)
+        {
+            DoGenerateThumbnails();
+        }
+
+        private void toolStripMenuItem41_Click(object sender, EventArgs e)
+        {
+            DoCheckIntegrityLiveArchive();
+        }
+
+        private void toolStripMenuItem42_Click(object sender, EventArgs e)
+        {
+            DoFixSystemBitrate();
+        }
+
+        private void toolStripMenuItem43_Click(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
+        private void toolStripMenuItem45_Click(object sender, EventArgs e)
+        {
+            DoMenuValidateMultiMP4Static();
+
+        }
+
+        private void toolStripMenuItem46_Click(object sender, EventArgs e)
+        {
+            DoMenuMP4ToSmoothStatic();
+
+        }
+
+        private void toolStripMenuItem47_Click(object sender, EventArgs e)
+        {
+            DoMenuPackageSmoothToHLSStatic();
+        }
+
+        private void toolStripMenuItem48_Click(object sender, EventArgs e)
+        {
+            DoMenuProtectWithPlayReadyStatic();
+        }
+
+        private void toolStripMenuItem49_Click(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMESystemPreset();
+        }
+
+        private void toolStripMenuItem50_Click(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMEAdvanced();
+        }
+
+        private void indexAssetsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuIndexAssets();
+        }
+
+        private void toolStripMenuItemIndexv2_Click(object sender, EventArgs e)
+        {
+            DoMenuIndex2PreviewAssets();
+        }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+
+        }
+
+        private void ProcessFaceDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
+        }
+
+        private void ProcessRedactortoolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
+        }
+
+        private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
+        }
+
+        private void ProcessStabilizertoolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
+        }
+
+        private void ProcessVideoThumbnailstoolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
         }
     }
 }
@@ -15275,6 +15223,7 @@ namespace AMSExplorer
                     AssetEncryptionState assetEncryptionStateDash = asset.GetEncryptionState(AssetDeliveryProtocol.Dash);
                     bool CENCEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicCommonEncryption);
                     bool EnvelopeEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicEnvelopeEncryption);
+
                     if (CENCEnable && EnvelopeEnable)
                     {
                         ABT.bitmap = new Bitmap((envelopeencryptedimage.Width + commonencryptedimage.Width), envelopeencryptedimage.Height);

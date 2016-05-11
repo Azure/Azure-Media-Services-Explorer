@@ -120,7 +120,7 @@ namespace AMSExplorer
             return randomBytes;
         }
 
-        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, ContentKeyType keyType = ContentKeyType.CommonEncryption)
+        static public IContentKey CreateCommonTypeContentKeyAndAttachAsset(IAsset asset, CloudMediaContext _context, ContentKeyType keyType = ContentKeyType.CommonEncryption)
         {
             // Create envelope encryption content key
             Guid keyId = Guid.NewGuid();
@@ -129,7 +129,7 @@ namespace AMSExplorer
             IContentKey key = _context.ContentKeys.Create(
                                     keyId,
                                     contentKey,
-                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " CBC" : ""),
+                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " cbcs" : ""),
                                     keyType);
 
             // Associate the key with the asset.
@@ -140,18 +140,29 @@ namespace AMSExplorer
         }
 
 
-        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, Guid keyId, byte[] contentKey, ContentKeyType keyType = ContentKeyType.CommonEncryption)
+        static public IContentKey CreateCommonTypeContentKeyAndAttachAsset(IAsset asset, CloudMediaContext _context, Guid keyId, byte[] contentKey, ContentKeyType keyType = ContentKeyType.CommonEncryption)
         {
             IContentKey key = _context.ContentKeys.Create(
                                     keyId,
                                     contentKey,
-                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " CBC" : ""),
+                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " cbcs" : ""),
                                     keyType);
 
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
             asset.Update();
 
+            return key;
+        }
+
+        static public IContentKey CreateCommonTypeContentKey(CloudMediaContext _context, Guid keyId, byte[] contentKey, ContentKeyType keyType = ContentKeyType.CommonEncryption)
+        {
+            IContentKey key = _context.ContentKeys.Create(
+                                    keyId,
+                                    contentKey,
+                                    "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " cbcs" : ""),
+                                    keyType);
+                        
             return key;
         }
 
@@ -644,7 +655,10 @@ namespace AMSExplorer
 
                 var kdPolicy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Single();
 
-                var kdOption = kdPolicy.Options.Single(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay);
+                //var kdOption = kdPolicy.Options.Single(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay);
+                // there could be several options, let's take the first one (the ultimate goal is to get the iv and la_url
+                var kdOption = kdPolicy.Options.Where(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay).First();
+
 
                 FairPlayConfiguration configFP = JsonConvert.DeserializeObject<FairPlayConfiguration>(kdOption.KeyDeliveryConfiguration);
 
@@ -713,10 +727,6 @@ namespace AMSExplorer
 
             // iv - 16 bytes random value, must match the iv in the asset delivery policy.
             byte[] iv = Guid.NewGuid().ToByteArray();
-
-            //Specify the .pfx file created by the customer.
-            //var appCert = new X509Certificate2("path to the .pfx file created by the customer", pfxPassword, X509KeyStorageFlags.Exportable);
-
 
             string FairPlayConfiguration =
                 Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(

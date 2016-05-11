@@ -32,8 +32,6 @@ namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery : Form
     {
-
-
         public Uri FairPlayLAurl
         {
             get
@@ -47,7 +45,6 @@ namespace AMSExplorer
                 {
 
                 }
-
                 return myuri;
             }
             set
@@ -62,14 +59,6 @@ namespace AMSExplorer
             get
             {
                 return cert;
-            }
-        }
-
-        public string FairPlayASK
-        {
-            get
-            {
-                return textBoxASK.Text;
             }
         }
 
@@ -90,8 +79,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
 
 
         private CloudMediaContext _context;
@@ -123,15 +110,17 @@ namespace AMSExplorer
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
             panelExternalFairPlay.Enabled = radioButtonExternalPRServer.Checked;
+            panelFairPlayFromAMS.Enabled = !radioButtonExternalPRServer.Checked;
             numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalPRServer.Checked;
-
         }
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
             cert = DynamicEncryption.GetCertificateFromFile(false, X509KeyStorageFlags.Exportable);
 
-            labelCertificateFile.Text = (cert != null) ? cert.Certificate.SubjectName.Name : "(Error)";
+            labelCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
+            buttonOk.Enabled = (cert.Certificate != null);
         }
+
     }
 }
