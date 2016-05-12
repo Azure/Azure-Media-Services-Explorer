@@ -162,7 +162,7 @@ namespace AMSExplorer
                                     contentKey,
                                     "ContentKey CENC" + (keyType == ContentKeyType.CommonEncryptionCbcs ? " cbcs" : ""),
                                     keyType);
-                        
+
             return key;
         }
 
@@ -750,6 +750,48 @@ namespace AMSExplorer
             responseTemplate.LicenseTemplates.Add(licenseTemplate);
 
             return MediaServicesLicenseTemplateSerializer.Serialize(responseTemplate);
+        }
+
+        public static void DeleteKey(CloudMediaContext mediaContext, IContentKey key)
+        {
+            var policy = mediaContext.ContentKeyAuthorizationPolicies
+                .Where(o => o.Id == key.AuthorizationPolicyId)
+                .SingleOrDefault();
+
+            if (key.ContentKeyType == ContentKeyType.CommonEncryptionCbcs)
+            {
+                if (policy != null)
+                {
+                    string template = policy.Options.Single().KeyDeliveryConfiguration;
+
+                    var config = JsonConvert.DeserializeObject<FairPlayConfiguration>(template);
+
+                    IContentKey ask = mediaContext
+                        .ContentKeys
+                        .Where(k => k.Id == Constants.ContentKeyIdPrefix + config.ASkId.ToString())
+                        .SingleOrDefault();
+
+                    if (ask != null)
+                    {
+                        ask.Delete();
+                    }
+
+                    IContentKey pfxPassword = mediaContext
+                        .ContentKeys
+                        .Where(k => k.Id == Constants.ContentKeyIdPrefix + config.FairPlayPfxPasswordId.ToString())
+                        .SingleOrDefault();
+
+                    if (pfxPassword != null)
+                    {
+                        pfxPassword.Delete();
+                    }
+                }
+            }
+            if (policy != null)
+            {
+                policy.Delete();
+            }
+            key.Delete();
         }
 
         public static byte[] HexStringToByteArray(string hex)

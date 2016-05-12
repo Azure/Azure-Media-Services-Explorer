@@ -5978,7 +5978,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
 
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6022,13 +6022,13 @@ namespace AMSExplorer
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
         }
-   
+
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
         }
-   
+
 
         private void DoCreateAssetReportEmail()
         {
@@ -6192,7 +6192,7 @@ namespace AMSExplorer
         {
             DoExportAssetToAzureStorage();
         }
-         
+
 
         private void setupAWatchFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -9562,24 +9562,33 @@ namespace AMSExplorer
             IContentKey contentKey = null;
             IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
 
-
-            // if the key already exists in the account (same key id), let's 
+            // if the key already exists in the account (same key id), let's
             formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
             if (formerkey != null)
             {
                 bool sametype = formerkey.ContentKeyType == ContentKeyType.CommonEncryptionCbcs;
-                string message = "A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)";
+                string message;
                 if (!sametype)
                 {
-                    message = "A Content key with the same Key Id exists already in the account but it is not a CENC CBC key.\nDo you want to try to replace it?\n(If not, the existing key will be used which is not going to work)";
+                    message = "A Content key with the same Key Id exists already in the account but it is not a FairPlay cbcs key.\nDo you want to try to replace it?\n(If not, the existing key will be used which is not going to work)";
+                    TextBoxLogWriteLine("A Content key with the same Key Id exists already in the account but it is not a FairPlay cbcs key.");
+                }
+                else
+                {
+                    message = "A FairPlay cbcs content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)";
+                    TextBoxLogWriteLine("A FairPlay cbcs content key with the same Key Id exists already in the account.");
                 }
 
                 if (DisplayUI && MessageBox.Show(message, "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     // user wants to replace the key
+                    TextBoxLogWriteLine("User decided to replace it.");
+
                     try
                     {
-                        formerkey.Delete();
+                        //formerkey.Delete();
+                        DynamicEncryption.DeleteKey(_context, formerkey);
+                        TextBoxLogWriteLine("Key has been deleted.");
                     }
                     catch (Exception e)
                     {
@@ -9606,13 +9615,13 @@ namespace AMSExplorer
                 catch (Exception e)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when creating the content key", true);
+                    TextBoxLogWriteLine("There is a problem when creating the FairPlay cbcs content key", true);
                     TextBoxLogWriteLine(e);
                     ErrorCreationKey = true;
                 }
                 if (!ErrorCreationKey)
                 {
-                    TextBoxLogWriteLine("Created key {0}.", contentKey.Id);
+                    TextBoxLogWriteLine("Created FairPlay cbcs key {0}.", contentKey.Id);
                 }
             }
 
@@ -9629,11 +9638,13 @@ namespace AMSExplorer
 
                     if (contentkeys.Count() == 0) // no content key existing so we can attach the CBC key
                     {
+                        TextBoxLogWriteLine("Attaching FairPlay to asset {0}.", AssetToProcess.Name);
                         try
                         {
                             // Associate the key with the asset.
                             AssetToProcess.ContentKeys.Add(contentKey);
                             AssetToProcess.Update();
+                            TextBoxLogWriteLine("Key attached.");
                         }
                         catch (Exception e)
                         {
@@ -9645,10 +9656,10 @@ namespace AMSExplorer
                         currentAssetKey = contentKey;
                     }
 
-                    else // asset has already a CENC CBC attached - let's use it
+                    else // asset has already a FairPlay cbcs attached - let's use it
                     {
                         currentAssetKey = contentkeys.FirstOrDefault();
-                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'. It is recommended to delete the key before to create a new authorization policy", currentAssetKey.Id, AssetToProcess.Name, true);
+                        TextBoxLogWriteLine("Existing FairPlay cbcs key '{0}' will be used for asset '{1}'. It is recommended to delete the key before to create a new authorization policy", currentAssetKey.Id, AssetToProcess.Name, true);
                     }
 
 
@@ -10098,7 +10109,7 @@ namespace AMSExplorer
             DoCopyAssetToAnotherAMSAccount();
         }
 
-     
+
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10256,23 +10267,28 @@ namespace AMSExplorer
                             if (myDialogResult == DialogResult.Yes) // Let's delete the keys
                             {
                                 Error = false;
-                                try
+
+                                // deleting keys
+                                //var deleteTasks = _context.ContentKeys.ToList().Where(k => KeysListIDs.Contains(k.Id)).ToList().Select(k => k.DeleteAsync()).ToArray();
+                                //Task.WaitAll(deleteTasks);
+                                foreach (var key in _context.ContentKeys.ToList().Where(k => KeysListIDs.Contains(k.Id)).ToList())
                                 {
-                                    // deleting keys
-                                    var deleteTasks = _context.ContentKeys.ToList().Where(k => KeysListIDs.Contains(k.Id)).ToList().Select(k => k.DeleteAsync()).ToArray();
-                                    Task.WaitAll(deleteTasks);
-                                }
-                                catch (Exception e)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the keys for '{0}'.", AssetToProcess.Name, true);
-                                    TextBoxLogWriteLine(e);
-                                    Error = true;
+                                    try
+                                    {
+                                        DynamicEncryption.DeleteKey(_context, key);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the key {0} which was attached to '{1}'.", key.Id, AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        Error = true;
+                                    }
                                 }
 
                                 if (!Error)
                                 {
-                                    TextBoxLogWriteLine("Deleted CENC and Envelope keys for asset {0}.", AssetToProcess.Name);
+                                    TextBoxLogWriteLine("Deleted CENC, FairPlay and Envelope keys for asset {0}.", AssetToProcess.Name);
                                 }
                             }
 
@@ -10283,6 +10299,7 @@ namespace AMSExplorer
                 }
             }
         }
+
 
         private void encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13061,7 +13078,7 @@ namespace AMSExplorer
             DoMenuEncodeWithAMEAdvanced();
 
         }
-          
+
 
         private void dataGridViewV_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
         {
@@ -13084,7 +13101,7 @@ namespace AMSExplorer
                 DG.Sort(DG.Columns["Name"], ListSortDirection.Ascending);
             }
         }
-           
+
 
         private void DoCheckIntegrityLiveArchive()
         {
@@ -13303,7 +13320,7 @@ namespace AMSExplorer
 
             }
         }
-          
+
 
         private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13319,7 +13336,7 @@ namespace AMSExplorer
         {
             DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
         }
-         
+
 
         private void DoAccessAssetFilesTest()
         {
@@ -13464,7 +13481,7 @@ namespace AMSExplorer
                 }
             }
         }
-  
+
 
         private void testQueryAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
