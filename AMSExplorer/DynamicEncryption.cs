@@ -595,7 +595,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null, string iv_if_externalserver = null)
         {
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
@@ -647,30 +647,37 @@ namespace AMSExplorer
                 if (fairplayAcquisitionUrl == null)
                 {
                     fairplayAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.FairPlay).ToString();
+
+                    // let's get the url without the key id parameter
+                    UriBuilder uriBuilder = new UriBuilder(fairplayAcquisitionUrl);
+                    uriBuilder.Query = String.Empty;
+                    fairplayAcquisitionUrl = uriBuilder.Uri.ToString();
+
+                    var kdPolicy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).SingleOrDefault();
+
+                    if (kdPolicy != null)
+                    {
+                        // there could be several options, let's take the first one (the ultimate goal is to get the iv and la_url
+                        var kdOption = kdPolicy.Options.Where(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay).First();
+
+                        FairPlayConfiguration configFP = JsonConvert.DeserializeObject<FairPlayConfiguration>(kdOption.KeyDeliveryConfiguration);
+
+                        // The reason the below code replaces "https://" with "skd://" is because
+                        // in the IOS player sample code which you obtained in Apple developer account, 
+                        // the player only recognizes a Key URL that starts with skd://. 
+                        // However, if you are using a customized player, 
+                        // you can choose whatever protocol you want. 
+                        // For example, "https". 
+
+                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
+                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, configFP.ContentEncryptionIV);
+                    }
                 }
-                // let's get the url without the key id parameter
-                UriBuilder uriBuilder = new UriBuilder(fairplayAcquisitionUrl);
-                uriBuilder.Query = String.Empty;
-                fairplayAcquisitionUrl = uriBuilder.Uri.ToString();
-
-                var kdPolicy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Single();
-
-                //var kdOption = kdPolicy.Options.Single(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay);
-                // there could be several options, let's take the first one (the ultimate goal is to get the iv and la_url
-                var kdOption = kdPolicy.Options.Where(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay).First();
-
-
-                FairPlayConfiguration configFP = JsonConvert.DeserializeObject<FairPlayConfiguration>(kdOption.KeyDeliveryConfiguration);
-
-                // The reason the below code replaces "https://" with "skd://" is because
-                // in the IOS player sample code which you obtained in Apple developer account, 
-                // the player only recognizes a Key URL that starts with skd://. 
-                // However, if you are using a customized player, 
-                // you can choose whatever protocol you want. 
-                // For example, "https". 
-
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, configFP.ContentEncryptionIV);
+                else // user wants to use an external fairplay server
+                {
+                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
+                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
+                }
             }
 
 
@@ -700,7 +707,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, PFXCertificate certificate)
+        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, byte[] iv, PFXCertificate certificate)
         {
             // For testing you can provide all zeroes for ASK bytes together with the cert from Apple FPS SDK. 
             // However, for production you must use a real ASK from Apple bound to a real prod certificate.
@@ -726,7 +733,11 @@ namespace AMSExplorer
                                     ContentKeyType.FairPlayPfxPassword);
 
             // iv - 16 bytes random value, must match the iv in the asset delivery policy.
-            byte[] iv = Guid.NewGuid().ToByteArray();
+            //byte[] iv = Guid.NewGuid().ToByteArray();
+            if (iv == null)
+            {
+                iv = Guid.NewGuid().ToByteArray();
+            }
 
             string FairPlayConfiguration =
                 Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
@@ -754,9 +765,15 @@ namespace AMSExplorer
 
         public static void DeleteKey(CloudMediaContext mediaContext, IContentKey key)
         {
-            var policy = mediaContext.ContentKeyAuthorizationPolicies
-                .Where(o => o.Id == key.AuthorizationPolicyId)
-                .SingleOrDefault();
+            IContentKeyAuthorizationPolicy policy = null;
+
+            if (key.AuthorizationPolicyId != null)
+            {
+                policy = mediaContext.ContentKeyAuthorizationPolicies
+             .Where(o => o.Id == key.AuthorizationPolicyId)
+             .SingleOrDefault();
+            }
+
 
             if (key.ContentKeyType == ContentKeyType.CommonEncryptionCbcs)
             {

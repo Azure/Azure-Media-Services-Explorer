@@ -120,7 +120,7 @@
             this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxCrypto.Location = new System.Drawing.Point(17, 119);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 474);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 241);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "CENC cbcs Content Key";

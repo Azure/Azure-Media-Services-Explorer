@@ -58,8 +58,7 @@ namespace AMSExplorer
                 }
             }
         }
-
-
+              
 
         public Guid KeyId
         {
@@ -90,6 +89,8 @@ namespace AMSExplorer
                 textBoxkeyid.Text = value.ToString();
             }
         }
+
+      
 
 
         public AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig()
@@ -194,5 +195,9 @@ namespace AMSExplorer
 
             }
         }
+
+     
+
+    
     }
 }

@@ -9136,7 +9136,7 @@ namespace AMSExplorer
                         { Left = form1.Left, Top = form1.Top };
                         if (form2_CENC_Cbcs.ShowDialog() == DialogResult.OK)
                         {
-                            var form3_CENC = new AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(_context, true);
+                            var form3_CENC = new AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(_context);
                             if (form3_CENC.ShowDialog() == DialogResult.OK)
                             {
                                 bool NeedToDisplayFairPlayLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0;
@@ -9555,7 +9555,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             IContentKey formerkey = null;
@@ -9563,7 +9563,7 @@ namespace AMSExplorer
             IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
 
             // if the key already exists in the account (same key id), let's
-            formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC.KeyId.ToString()).FirstOrDefault();
+            formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC_cbcs.KeyId.ToString()).FirstOrDefault();
             if (formerkey != null)
             {
                 bool sametype = formerkey.ContentKeyType == ContentKeyType.CommonEncryptionCbcs;
@@ -9610,7 +9610,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(_context, form2_CENC.KeyId, form2_CENC.FairPlayASK, ContentKeyType.CommonEncryptionCbcs);
+                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(_context, form2_CENC_cbcs.KeyId, form2_CENC_cbcs.FairPlayASK, ContentKeyType.CommonEncryptionCbcs);
                 }
                 catch (Exception e)
                 {
@@ -9679,7 +9679,7 @@ namespace AMSExplorer
                         currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
                         currentAssetKey = currentAssetKey.UpdateAsync().Result;
 
-                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, currentAssetKey.GetClearKeyValue(), form3_CENC.FairPlayCertificate);
+                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, currentAssetKey.GetClearKeyValue(), form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
 
                         foreach (var form4 in form4list)
                         { // for each option
@@ -9767,6 +9767,12 @@ namespace AMSExplorer
                         string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
                         ErrorCreationKey = false;
 
+                        string myIV = null;
+                        if (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay == 0 && form3_CENC.FairPlayIV != null)
+                        {
+                            myIV = DynamicEncryption.ByteArrayToHexString(form3_CENC.FairPlayIV);
+                        }
+
                         try
                         {
                             DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(
@@ -9775,7 +9781,8 @@ namespace AMSExplorer
                                 form1,
                                 name,
                                 _context,
-                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl.ToString()
+                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
+                                iv_if_externalserver: myIV
                                    );
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
