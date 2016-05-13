@@ -669,7 +669,7 @@ namespace AMSExplorer
                         // you can choose whatever protocol you want. 
                         // For example, "https". 
 
-                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
+                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
                         assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, configFP.ContentEncryptionIV);
                     }
                 }
@@ -680,7 +680,7 @@ namespace AMSExplorer
                         // user wants it to be auto generated
                         iv_if_externalserver = DynamicEncryption.ByteArrayToHexString(Guid.NewGuid().ToByteArray());
                     }
-                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
+                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl, fairplayAcquisitionUrl);
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
                 }
             }
@@ -828,7 +828,14 @@ namespace AMSExplorer
             foreach (var key in asset.ContentKeys.ToArray())
             {
                 CleanupKey(mediaContext, key);
-                asset.ContentKeys.Remove(key);
+                try // because we have an error for FairPlay key
+                {
+                    asset.ContentKeys.Remove(key);
+                }
+                catch
+                {
+
+                }
             }
             await asset.DeleteAsync();
 

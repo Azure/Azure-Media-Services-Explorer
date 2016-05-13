@@ -9618,7 +9618,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(_context, form2_CENC_cbcs.KeyId, form2_CENC_cbcs.FairPlayASK, ContentKeyType.CommonEncryptionCbcs);
+                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(_context, form2_CENC_cbcs.KeyId, form2_CENC_cbcs.FairPlayContentKey, ContentKeyType.CommonEncryptionCbcs);
                 }
                 catch (Exception e)
                 {
@@ -9687,7 +9687,7 @@ namespace AMSExplorer
                         currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
                         currentAssetKey = currentAssetKey.UpdateAsync().Result;
 
-                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, currentAssetKey.GetClearKeyValue(), form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
+                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form2_CENC_cbcs.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
 
                         foreach (var form4 in form4list)
                         { // for each option

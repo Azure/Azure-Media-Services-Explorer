@@ -34,10 +34,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
-            this.textBoxASK = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxContentKey = new System.Windows.Forms.TextBox();
+            this.buttongenerateContentKey = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.radioButtonContentKeyBase64 = new System.Windows.Forms.RadioButton();
             this.radioButtonContentKeyHex = new System.Windows.Forms.RadioButton();
+            this.textBoxASK = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonASKBase64 = new System.Windows.Forms.RadioButton();
+            this.radioButtonASKHex = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxkeyid = new System.Windows.Forms.TextBox();
@@ -51,6 +58,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.groupBoxCrypto.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -108,6 +116,11 @@
             // 
             this.groupBoxCrypto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxCrypto.Controls.Add(this.label2);
+            this.groupBoxCrypto.Controls.Add(this.label1);
+            this.groupBoxCrypto.Controls.Add(this.textBoxContentKey);
+            this.groupBoxCrypto.Controls.Add(this.buttongenerateContentKey);
+            this.groupBoxCrypto.Controls.Add(this.panel3);
             this.groupBoxCrypto.Controls.Add(this.label3);
             this.groupBoxCrypto.Controls.Add(this.textBoxASK);
             this.groupBoxCrypto.Controls.Add(this.panel2);
@@ -120,31 +133,62 @@
             this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxCrypto.Location = new System.Drawing.Point(17, 119);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 241);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 400);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "CENC cbcs Content Key";
             // 
-            // textBoxASK
+            // label2
             // 
-            this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(102, 149);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(267, 15);
+            this.label2.TabIndex = 92;
+            this.label2.Text = "If empty, it will be automatically generated";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label1.Location = new System.Drawing.Point(19, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 15);
+            this.label1.TabIndex = 88;
+            this.label1.Text = "Content key :";
+            // 
+            // textBoxContentKey
+            // 
+            this.textBoxContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxASK.Location = new System.Drawing.Point(22, 91);
-            this.textBoxASK.Name = "textBoxASK";
-            this.textBoxASK.Size = new System.Drawing.Size(416, 23);
-            this.textBoxASK.TabIndex = 86;
-            this.textBoxASK.TextChanged += new System.EventHandler(this.textBoxASK_TextChanged);
+            this.textBoxContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxContentKey.Location = new System.Drawing.Point(22, 167);
+            this.textBoxContentKey.Name = "textBoxContentKey";
+            this.textBoxContentKey.Size = new System.Drawing.Size(416, 23);
+            this.textBoxContentKey.TabIndex = 89;
             // 
-            // panel2
+            // buttongenerateContentKey
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
-            this.panel2.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel2.Location = new System.Drawing.Point(458, 73);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(87, 55);
-            this.panel2.TabIndex = 87;
+            this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(549, 161);
+            this.buttongenerateContentKey.Name = "buttongenerateContentKey";
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
+            this.buttongenerateContentKey.TabIndex = 90;
+            this.buttongenerateContentKey.Text = "Generate";
+            this.buttongenerateContentKey.UseVisualStyleBackColor = true;
+            this.buttongenerateContentKey.Click += new System.EventHandler(this.buttongenerateContentKey_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.radioButtonContentKeyBase64);
+            this.panel3.Controls.Add(this.radioButtonContentKeyHex);
+            this.panel3.Location = new System.Drawing.Point(455, 149);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(87, 55);
+            this.panel3.TabIndex = 91;
             // 
             // radioButtonContentKeyBase64
             // 
@@ -160,7 +204,7 @@
             this.radioButtonContentKeyBase64.TabStop = true;
             this.radioButtonContentKeyBase64.Text = "Base64";
             this.radioButtonContentKeyBase64.UseVisualStyleBackColor = true;
-            this.radioButtonContentKeyBase64.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyBase64_CheckedChanged);
+            this.radioButtonContentKeyBase64.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyBase64_CheckedChanged_1);
             // 
             // radioButtonContentKeyHex
             // 
@@ -174,7 +218,58 @@
             this.radioButtonContentKeyHex.TabIndex = 69;
             this.radioButtonContentKeyHex.Text = "Hex";
             this.radioButtonContentKeyHex.UseVisualStyleBackColor = true;
-            this.radioButtonContentKeyHex.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyHex_CheckedChanged);
+            this.radioButtonContentKeyHex.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyHex_CheckedChanged_1);
+            // 
+            // textBoxASK
+            // 
+            this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxASK.Location = new System.Drawing.Point(22, 91);
+            this.textBoxASK.Name = "textBoxASK";
+            this.textBoxASK.Size = new System.Drawing.Size(416, 23);
+            this.textBoxASK.TabIndex = 86;
+            this.textBoxASK.TextChanged += new System.EventHandler(this.textBoxASK_TextChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.radioButtonASKBase64);
+            this.panel2.Controls.Add(this.radioButtonASKHex);
+            this.panel2.Location = new System.Drawing.Point(458, 73);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(87, 55);
+            this.panel2.TabIndex = 87;
+            // 
+            // radioButtonASKBase64
+            // 
+            this.radioButtonASKBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonASKBase64.AutoSize = true;
+            this.radioButtonASKBase64.Checked = true;
+            this.radioButtonASKBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonASKBase64.Location = new System.Drawing.Point(9, 7);
+            this.radioButtonASKBase64.Name = "radioButtonASKBase64";
+            this.radioButtonASKBase64.Size = new System.Drawing.Size(61, 19);
+            this.radioButtonASKBase64.TabIndex = 68;
+            this.radioButtonASKBase64.TabStop = true;
+            this.radioButtonASKBase64.Text = "Base64";
+            this.radioButtonASKBase64.UseVisualStyleBackColor = true;
+            this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyBase64_CheckedChanged);
+            // 
+            // radioButtonASKHex
+            // 
+            this.radioButtonASKHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonASKHex.AutoSize = true;
+            this.radioButtonASKHex.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonASKHex.Location = new System.Drawing.Point(9, 32);
+            this.radioButtonASKHex.Name = "radioButtonASKHex";
+            this.radioButtonASKHex.Size = new System.Drawing.Size(45, 19);
+            this.radioButtonASKHex.TabIndex = 69;
+            this.radioButtonASKHex.Text = "Hex";
+            this.radioButtonASKHex.UseVisualStyleBackColor = true;
+            this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyHex_CheckedChanged);
             // 
             // label4
             // 
@@ -190,7 +285,7 @@
             // 
             this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(71, 152);
+            this.label10.Location = new System.Drawing.Point(71, 232);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(267, 15);
             this.label10.TabIndex = 69;
@@ -201,7 +296,7 @@
             this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxkeyid.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxkeyid.Location = new System.Drawing.Point(22, 170);
+            this.textBoxkeyid.Location = new System.Drawing.Point(22, 250);
             this.textBoxkeyid.Name = "textBoxkeyid";
             this.textBoxkeyid.Size = new System.Drawing.Size(416, 23);
             this.textBoxkeyid.TabIndex = 32;
@@ -211,7 +306,7 @@
             // 
             this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGenKeyID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonGenKeyID.Location = new System.Drawing.Point(549, 167);
+            this.buttonGenKeyID.Location = new System.Drawing.Point(549, 247);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
             this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
             this.buttonGenKeyID.TabIndex = 33;
@@ -224,7 +319,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.radioButtonKeyIDGuid);
             this.panel4.Controls.Add(this.radioButtonKeyIDBase64);
-            this.panel4.Location = new System.Drawing.Point(458, 152);
+            this.panel4.Location = new System.Drawing.Point(458, 232);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(87, 55);
             this.panel4.TabIndex = 72;
@@ -263,7 +358,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(19, 152);
+            this.label5.Location = new System.Drawing.Point(19, 232);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 15);
             this.label5.TabIndex = 31;
@@ -303,6 +398,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBoxCrypto.ResumeLayout(false);
             this.groupBoxCrypto.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -331,8 +428,15 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxASK;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonASKBase64;
+        private System.Windows.Forms.RadioButton radioButtonASKHex;
+        public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxContentKey;
+        private System.Windows.Forms.Button buttongenerateContentKey;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RadioButton radioButtonContentKeyBase64;
         private System.Windows.Forms.RadioButton radioButtonContentKeyHex;
-        public System.Windows.Forms.Label label4;
     }
 }

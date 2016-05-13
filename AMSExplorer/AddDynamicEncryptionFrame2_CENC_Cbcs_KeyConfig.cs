@@ -41,7 +41,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    if (radioButtonContentKeyHex.Checked)
+                    if (radioButtonASKHex.Checked)
                     {
                         return DynamicEncryption.HexStringToByteArray(textBoxASK.Text);
                     }
@@ -58,7 +58,35 @@ namespace AMSExplorer
                 }
             }
         }
-              
+
+        public byte[] FairPlayContentKey
+        {
+            get
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(textBoxContentKey.Text))
+                    {
+                        return DynamicEncryption.GetRandomBuffer(16);
+                    }
+                    else if (radioButtonContentKeyHex.Checked)
+                    {
+                        return DynamicEncryption.HexStringToByteArray(textBoxContentKey.Text);
+                    }
+
+                    else // (radioButtonContentKeyBase64.Checked)
+                    {
+                        return Convert.FromBase64String(textBoxContentKey.Text);
+                    }
+                }
+
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
 
         public Guid KeyId
         {
@@ -104,7 +132,7 @@ namespace AMSExplorer
         {
             radioButtonKeyIDGuid.Checked = true;
             textBoxkeyid.Text = Guid.NewGuid().ToString();
-            radioButtonContentKeyBase64.Checked = true;
+            radioButtonASKBase64.Checked = true;
         }
 
 
@@ -153,7 +181,7 @@ namespace AMSExplorer
 
         private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonContentKeyBase64.Checked)
+            if (radioButtonASKBase64.Checked)
             {
                 try
                 {
@@ -168,7 +196,7 @@ namespace AMSExplorer
 
         private void radioButtonContentKeyHex_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonContentKeyHex.Checked)
+            if (radioButtonASKHex.Checked)
             {
                 try
                 {
@@ -196,8 +224,40 @@ namespace AMSExplorer
             }
         }
 
-     
+        private void buttongenerateContentKey_Click(object sender, EventArgs e)
+        {
+            radioButtonContentKeyBase64.Checked = true;
+            textBoxContentKey.Text = Convert.ToBase64String(DynamicEncryption.GetRandomBuffer(16));
+        }
 
-    
+        private void radioButtonContentKeyBase64_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyBase64.Checked)
+            {
+                try
+                {
+                    textBoxContentKey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxContentKey.Text));
+                }
+                catch
+                {
+                    textBoxContentKey.Text = string.Empty;
+                }
+            }
+        }
+
+        private void radioButtonContentKeyHex_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyHex.Checked)
+            {
+                try
+                {
+                    textBoxContentKey.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxContentKey.Text));
+                }
+                catch
+                {
+                    textBoxContentKey.Text = string.Empty;
+                }
+            }
+        }
     }
 }
