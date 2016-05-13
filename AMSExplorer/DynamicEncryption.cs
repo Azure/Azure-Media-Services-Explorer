@@ -675,6 +675,11 @@ namespace AMSExplorer
                 }
                 else // user wants to use an external fairplay server
                 {
+                    if (iv_if_externalserver == null)
+                    {
+                        // user wants it to be auto generated
+                        iv_if_externalserver = DynamicEncryption.ByteArrayToHexString(Guid.NewGuid().ToByteArray());
+                    }
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
                 }
@@ -762,6 +767,93 @@ namespace AMSExplorer
 
             return MediaServicesLicenseTemplateSerializer.Serialize(responseTemplate);
         }
+
+
+        public static void CleanupKey(CloudMediaContext mediaContext, IContentKey key)
+        {
+            IContentKeyAuthorizationPolicy policy = null;
+
+            if (key.AuthorizationPolicyId != null)
+            {
+                policy = mediaContext.ContentKeyAuthorizationPolicies
+             .Where(o => o.Id == key.AuthorizationPolicyId)
+             .SingleOrDefault();
+            }
+
+            if (policy != null)
+            {
+                if (key.ContentKeyType == ContentKeyType.CommonEncryptionCbcs)
+                {
+                    string template = policy.Options.Single().KeyDeliveryConfiguration;
+
+                    var config = JsonConvert.DeserializeObject<FairPlayConfiguration>(template);
+
+                    IContentKey ask = mediaContext
+                        .ContentKeys
+                        .Where(k => k.Id == Constants.ContentKeyIdPrefix + config.ASkId.ToString())
+                        .SingleOrDefault();
+
+                    if (ask != null)
+                    {
+                        ask.Delete();
+                    }
+
+                    IContentKey pfxPassword = mediaContext
+                        .ContentKeys
+                        .Where(k => k.Id == Constants.ContentKeyIdPrefix + config.FairPlayPfxPasswordId.ToString())
+                        .SingleOrDefault();
+
+                    if (pfxPassword != null)
+                    {
+                        pfxPassword.Delete();
+                    }
+                }
+
+                policy.Delete();
+            }
+        }
+
+        public static async Task DeleteAssetAsync(CloudMediaContext mediaContext, IAsset asset)
+        {
+
+            foreach (var locator in asset.Locators.ToArray())
+            {
+                await locator.DeleteAsync();
+            }
+            foreach (var policy in asset.DeliveryPolicies.ToArray())
+            {
+                asset.DeliveryPolicies.Remove(policy);
+                await policy.DeleteAsync();
+            }
+            foreach (var key in asset.ContentKeys.ToArray())
+            {
+                CleanupKey(mediaContext, key);
+                asset.ContentKeys.Remove(key);
+            }
+            await asset.DeleteAsync();
+
+            return;
+
+        }
+        public static void DeleteAsset(CloudMediaContext mediaContext, IAsset asset)
+        {
+            foreach (var locator in asset.Locators.ToArray())
+            {
+                locator.Delete();
+            }
+            foreach (var policy in asset.DeliveryPolicies.ToArray())
+            {
+                asset.DeliveryPolicies.Remove(policy);
+                policy.Delete();
+            }
+            foreach (var key in asset.ContentKeys.ToArray())
+            {
+                CleanupKey(mediaContext, key);
+                asset.ContentKeys.Remove(key);
+            }
+            asset.Delete();
+        }
+
 
         public static void DeleteKey(CloudMediaContext mediaContext, IContentKey key)
         {

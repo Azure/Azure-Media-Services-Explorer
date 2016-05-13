@@ -2151,6 +2151,7 @@ namespace AMSExplorer
 
         private void DoDeleteAssets(List<IAsset> SelectedAssets)
         {
+          
             if (SelectedAssets.Count > 0)
             {
                 string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
@@ -2161,8 +2162,15 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
-                            Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
+                            //Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context,a)).ToArray();
                             TextBoxLogWriteLine("Deleting asset(s)");
+                            /*
+                           foreach (var asset in SelectedAssets)
+                            {
+                                DynamicEncryption.DeleteAsset(_context, asset);
+                            }
+                            */
                             Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
@@ -9587,7 +9595,7 @@ namespace AMSExplorer
                     try
                     {
                         //formerkey.Delete();
-                        DynamicEncryption.DeleteKey(_context, formerkey);
+                        DynamicEncryption.CleanupKey(_context, formerkey);
                         TextBoxLogWriteLine("Key has been deleted.");
                     }
                     catch (Exception e)
@@ -10221,6 +10229,9 @@ namespace AMSExplorer
             }
         }
 
+       
+
+
         private void DoRemoveKeys()
         {
             string labelAssetName;
@@ -10237,6 +10248,8 @@ namespace AMSExplorer
                 labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
 
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                bool deleteKeys = myDialogResult == DialogResult.Yes;
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
@@ -10256,7 +10269,8 @@ namespace AMSExplorer
                                 // deleting authorization policies & options
                                 foreach (var key in CENCAESkeys)
                                 {
-                                    AssetToProcess.ContentKeys.Remove(key);
+                                    DynamicEncryption.CleanupKey(_context, key);
+                                    if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
                                 }
                             }
                             catch (Exception e)
@@ -10282,7 +10296,7 @@ namespace AMSExplorer
                                 {
                                     try
                                     {
-                                        DynamicEncryption.DeleteKey(_context, key);
+                                        DynamicEncryption.CleanupKey(_context, key);
                                     }
                                     catch (Exception e)
                                     {
