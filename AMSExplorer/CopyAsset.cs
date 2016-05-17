@@ -245,6 +245,27 @@ namespace AMSExplorer
                 }
                 radioButtonDefaultStorage.Checked = true;
                 listBoxStorage.Items.Clear();
+
+                // let's check connection to account
+                try
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials, true, false);
+                    foreach (var storage in newcontext.StorageAccounts)
+                    {
+                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
+                    }
+                    labelWarningStorage.Text = "";
+                }
+                catch
+                {
+                    labelWarningStorage.Text = "Error when connecting to account.";
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
+                }
+
             }
         }
 
@@ -257,7 +278,7 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials);
+                    CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials, true, false);
                     foreach (var storage in newcontext.StorageAccounts)
                     {
                         listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
@@ -265,7 +286,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    labelWarningStorage.Text = "Erreur when connecting to account.";
+                    labelWarningStorage.Text = "Error when connecting to account.";
                 }
                 finally
                 {

@@ -218,6 +218,12 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaAnalyticsPickVideoFileInAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsPickVideoFileInAsset.Designer.cs">
+      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
+    </Compile>
     <Compile Include="IndexerV2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -793,6 +799,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsPickVideoFileInAsset.resx">
+      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
       <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
