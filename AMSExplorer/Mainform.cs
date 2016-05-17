@@ -2877,18 +2877,23 @@ namespace AMSExplorer
                     // do the copy
                     int nbblob = 0;
 
-
-                    // foreach (IAssetFile file in SourceAsset.AssetFiles) 
                     // For LIve archive, the folder for chiks are returnbed as files. So we detect this case and don't try to copy the folders as asset files
-                    IEnumerable<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
+                    List<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
                     if (
                         assetFilesToCopy.Where(af => af.Name.Contains(".")).Count() == 2
                         && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISMC")).Count() == 1
                         && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISM")).Count() == 1
                         ) // only 2 files with extensions, and these files are ISMC and ISM
                     {
-                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_") && !af.Name.StartsWith("scte35_"));
-                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
+                        // assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_") && !af.Name.StartsWith("scte35_"));
+                        //  var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
+
+                        // let read the storage to make sure it's not a directory
+                        var mediablobsFolders = SourceCloudBlobContainer.ListBlobs().ToList().Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(a => (a as CloudBlobDirectory).Prefix);
+
+                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => af.AssetFileOptions == AssetFileOptions.None && !mediablobsFolders.Contains(af.Name + "/")).ToList();
+
+                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.AssetFileOptions == AssetFileOptions.Fragmented || mediablobsFolders.Contains(af.Name + "/")).ToList();
 
                         foreach (IAssetFile sourcefolder in assetFilesLiveFolders)
                         {
@@ -3125,6 +3130,11 @@ namespace AMSExplorer
 
         private void CheckListArchiveBlobs(Dictionary<string, string> storagekeys, IAsset SourceAsset, AssetInfo.ManifestSegmentsResponse manifestdata)
         {
+            if (manifestdata.audioBitrates == null && manifestdata.videoBitrates.Count == 0 && manifestdata.audioSegments == null && manifestdata.videoSegments.Count == 0)
+            {
+                TextBoxLogWriteLine("Error. Impossible to get manifest data for '{0}'. Is a streaming endpoint with dynamic packaging running?", SourceAsset.Name, true);
+                return;
+            }
             if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
             {
                 TextBoxLogWriteLine("Starting the integrity check for asset '{0}'.", SourceAsset.Name);
@@ -3166,7 +3176,7 @@ namespace AMSExplorer
                         {
                             if (nbErrorsAudioManifest < 10)
                             {
-                                TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. Timestamp {1} calculation mismatch in manifest, index {2}", a_index, seg.timestamp, index, true);
+                                TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track #{0} '{1}'. Timestamp {2} calculation mismatch in manifest, index {3}", a_index, manifestdata.audioName[a_index], seg.timestamp, index, true);
                                 Error = true;
                             }
                             nbErrorsAudioManifest++;
@@ -3175,7 +3185,7 @@ namespace AMSExplorer
                     }
                     if (nbErrorsAudioManifest >= 10)
                     {
-                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track {0}. {1} more errors.", a_index, nbErrorsAudioManifest - 10, true);
+                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track #{0} '{1}'. {2} more errors.", a_index, manifestdata.audioName[a_index], nbErrorsAudioManifest - 10, true);
                     }
                     a_index++;
                 }
@@ -3212,8 +3222,10 @@ namespace AMSExplorer
                         }
 
                         // let's check the presence of all audio_ and video_ directories
-                        var audiodir = ListDirectories.Where(d => d.Prefix.StartsWith("audio_"));
-                        var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
+                        var audiodir = ListDirectories.Where(d => manifestdata.audioName.Any(an => d.Prefix.Contains(an))); //ListDirectories.Where(d => d.Prefix.StartsWith("audio"));
+                                                                                                                            // var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
+                        var videodir = ListDirectories.Where(d => d.Prefix.Contains(manifestdata.videoName)).Select(d => int.Parse(d.Prefix.Substring(manifestdata.videoName.Length + 1, d.Prefix.Length - manifestdata.videoName.Length - 2))); //ListDirectories.Where(d => d.Prefix.StartsWith("audio"));
+
                         if (videodir.Count() != manifestdata.videoBitrates.Count)
                         {
                             TextBoxLogWriteLine("Warning: {0} video tracks in the manifest but {1} video directories in storage", manifestdata.videoBitrates.Count(), videodir.Count(), true);
@@ -3243,8 +3255,7 @@ namespace AMSExplorer
                         // let's check the fragblobs
                         foreach (var dir in ListDirectories)
                         {
-
-                            if (dir.Prefix.StartsWith("audio_") || dir.Prefix.StartsWith("video_"))
+                            if (manifestdata.audioName.Any(an => dir.Prefix.Contains(an)) || dir.Prefix.Contains(manifestdata.videoName))
                             {
                                 TextBoxLogWriteLine("Checking fragblobs in directory '{0}'....", dir.Prefix);
 
@@ -3264,13 +3275,25 @@ namespace AMSExplorer
 
                                 List<AssetInfo.ManifestSegmentData> manifestdatacurrenttrack;
 
-                                if (dir.Prefix.StartsWith("video_"))
+                                if (dir.Prefix.Contains(manifestdata.videoName))//dir.Prefix.StartsWith("video_"))
                                 {
                                     manifestdatacurrenttrack = manifestdata.videoSegments;
                                 }
                                 else // audio
                                 {
-                                    if (dir.Prefix.StartsWith("audio__"))  // let's get the index of audio track if it exists in directory name
+                                    int i = 0;
+                                    manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
+                                    foreach (var audiob in manifestdata.audioBitrates)
+                                    {
+                                        if (dir.Prefix.Equals(manifestdata.audioName[i] + "_" + audiob[0].ToString() + "/"))
+                                        {
+                                            manifestdatacurrenttrack = manifestdata.audioSegments[i].ToList();
+                                            break;
+                                        }
+                                        i++;
+                                    }
+                                    /*
+                                    if (dir.Prefix.Contains("__"))  // let's get the index of audio track if it exists in directory name
                                     {
                                         var split = dir.Prefix.Split('_');
                                         manifestdatacurrenttrack = manifestdata.audioSegments[int.Parse(split[2])].ToList();
@@ -3279,6 +3302,7 @@ namespace AMSExplorer
                                     {
                                         manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
                                     }
+                                    */
                                 }
 
                                 var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();

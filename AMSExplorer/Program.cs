@@ -90,7 +90,7 @@ namespace AMSExplorer
             }
         }
 
-        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false)
+        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
         {
             CloudMediaContext myContext = null;
             if (credentials.UsePartnerAPI == true.ToString())
@@ -103,8 +103,15 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (custom API)." + Constants.endline + "Application will close. " + Constants.endline + e.Message);
-                    Environment.Exit(0);
+                    if (displayErrorMessageAndQuit)
+                    {
+                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (custom API)." + Constants.endline + "Application will close. " + Constants.endline + e.Message);
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
             else if (credentials.UseOtherAPI == true.ToString())
@@ -116,8 +123,15 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (Partner API)." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                    Environment.Exit(0);
+                    if (displayErrorMessageAndQuit)
+                    {
+                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (Partner API)." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
             else
@@ -129,8 +143,15 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                    Environment.Exit(0);
+                    if (displayErrorMessageAndQuit)
+                    {
+                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
             if (refreshToken)
@@ -142,8 +163,15 @@ namespace AMSExplorer
                 catch (Exception e)
                 {
                     // Add useful information to the exception
-                    MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                    Environment.Exit(0);
+                    if (displayErrorMessageAndQuit)
+                    {
+                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
 
@@ -361,14 +389,14 @@ namespace AMSExplorer
                 }
 
                 // audio track
-                var mp4AudioAssetFilesName = mp4AssetFiles.Where(f => 
+                var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
                                                             (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
-                                                            || 
+                                                            ||
                                                             (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
                                                             );
 
                 var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
-                
+
                 string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
 
                 switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
@@ -1127,7 +1155,7 @@ namespace AMSExplorer
                     sizecanbecalculated = false;
                 }
 
-                
+
             }
             if (sizecanbecalculated)
             {
@@ -1419,7 +1447,7 @@ namespace AMSExplorer
                         {
                             sb.AppendLine("Asset(s) error. Deleted?");
                         }
-                        
+
                         sb.AppendLine("");
                         sb.AppendLine("Output Assets       :");
                         sb.AppendLine("=====================");
@@ -2061,17 +2089,15 @@ namespace AMSExplorer
         {
             public List<ManifestSegmentData> videoSegments;
             public List<int> videoBitrates;
+            public string videoName;
             public ManifestSegmentData[][] audioSegments;
-            //public List<ManifestSegmentData> audioSegments;
-            // public List<int> audioBitrates;
             public int[][] audioBitrates;
+            public string[] audioName;
 
             public ManifestSegmentsResponse()
             {
                 this.videoSegments = new List<ManifestSegmentData>();
                 this.videoBitrates = new List<int>();
-                //this.audioSegments = new List<ManifestSegmentData>();
-                //this.audioBitrates = new List<int>();
             }
         }
 
@@ -2101,8 +2127,9 @@ namespace AMSExplorer
                     ulong timeStamp = 0;
 
                     // video track
-                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video").FirstOrDefault();
                     response.videoBitrates = videotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToList();
+                    response.videoName = videotrack.Attribute("Name").Value;
 
                     foreach (var chunk in videotrack.Elements("c"))
                     {
@@ -2138,11 +2165,14 @@ namespace AMSExplorer
                     var audiotracks = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
                     response.audioBitrates = new int[audiotracks.Count()][];
                     response.audioSegments = new ManifestSegmentData[audiotracks.Count()][];
+                    response.audioName = new string[audiotracks.Count()];
+
 
                     int a_index = 0;
                     foreach (var audiotrack in audiotracks)
                     {
                         response.audioBitrates[a_index] = audiotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToArray();
+                        response.audioName[a_index] = audiotrack.Attribute("Name").Value;
 
                         var audiotracksegmentdata = new List<ManifestSegmentData>();
 
@@ -3546,7 +3576,7 @@ namespace AMSExplorer
         public bool CreateAssetFilter { get; set; }
 
         public List<ExplorerEDLEntryInOut> InOutForReencode { get; set; }
-        
+
         public TimeSpan OffsetForReencode { get; set; }
         public TimeSpan StartTimeForAssetFilter { get; set; }
         public TimeSpan EndTimeForAssetFilter { get; set; }
