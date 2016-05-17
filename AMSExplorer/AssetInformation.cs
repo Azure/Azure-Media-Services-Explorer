@@ -780,6 +780,7 @@ namespace AMSExplorer
                 DGFiles.Rows.Add("Created", AF.Created.ToLocalTime().ToString("G"));
                 DGFiles.Rows.Add("Last modified", AF.LastModified.ToLocalTime().ToString("G"));
                 DGFiles.Rows.Add("Primary file", AF.IsPrimary);
+                DGFiles.Rows.Add("Options", AF.AssetFileOptions);
                 DGFiles.Rows.Add("Encrypted", AF.IsEncrypted);
                 DGFiles.Rows.Add("Encryption scheme", AF.EncryptionScheme);
                 DGFiles.Rows.Add("Encryption version", AF.EncryptionVersion);
