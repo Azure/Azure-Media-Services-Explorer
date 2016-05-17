@@ -595,7 +595,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null, string iv_if_externalserver = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null, string iv_if_externalserver = null, bool UseSKDForAMSLAURL = true)
         {
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
@@ -669,7 +669,7 @@ namespace AMSExplorer
                         // you can choose whatever protocol you want. 
                         // For example, "https". 
 
-                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl, fairplayAcquisitionUrl.Replace("https://", "skd://"));
+                        assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, UseSKDForAMSLAURL ? fairplayAcquisitionUrl.Replace("https://", "skd://") : fairplayAcquisitionUrl);
                         assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, configFP.ContentEncryptionIV);
                     }
                 }
@@ -680,7 +680,7 @@ namespace AMSExplorer
                         // user wants it to be auto generated
                         iv_if_externalserver = DynamicEncryption.ByteArrayToHexString(Guid.NewGuid().ToByteArray());
                     }
-                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl, fairplayAcquisitionUrl);
+                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
                 }
             }

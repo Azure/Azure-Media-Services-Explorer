@@ -9848,7 +9848,8 @@ namespace AMSExplorer
                                 name,
                                 _context,
                                 fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
-                                iv_if_externalserver: myIV
+                                iv_if_externalserver: myIV,
+                                UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
                                    );
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);

@@ -105,6 +105,13 @@ namespace AMSExplorer
             }
         }
 
+        public bool AMSLAURLSchemeSKD // true if skd, false if https
+        {
+            get
+            {
+                return radioButtonSkd.Checked;
+            }
+        }
 
         private CloudMediaContext _context;
         private PFXCertificate cert;

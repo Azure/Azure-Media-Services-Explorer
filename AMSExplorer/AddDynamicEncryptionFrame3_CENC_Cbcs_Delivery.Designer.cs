@@ -38,6 +38,12 @@
             this.labelCertificateFile = new System.Windows.Forms.Label();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.panelExternalFairPlay = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButtonIVBase64 = new System.Windows.Forms.RadioButton();
+            this.radioButtonIVHex = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxIV = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.textBoxFairPlayLAurl = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,19 +53,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.radioButtonIVBase64 = new System.Windows.Forms.RadioButton();
-            this.radioButtonIVHex = new System.Windows.Forms.RadioButton();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxIV = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.radioButtonSkd = new System.Windows.Forms.RadioButton();
+            this.radioButtonHttps = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
             this.panelExternalFairPlay.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -119,18 +122,21 @@
             this.groupBoxFairPlay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFairPlay.Location = new System.Drawing.Point(12, 87);
             this.groupBoxFairPlay.Name = "groupBoxFairPlay";
-            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 409);
+            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 450);
             this.groupBoxFairPlay.TabIndex = 52;
             this.groupBoxFairPlay.TabStop = false;
             this.groupBoxFairPlay.Text = "Apple FairPlay Streaming";
             // 
             // panelFairPlayFromAMS
             // 
+            this.panelFairPlayFromAMS.Controls.Add(this.label6);
+            this.panelFairPlayFromAMS.Controls.Add(this.radioButtonHttps);
+            this.panelFairPlayFromAMS.Controls.Add(this.radioButtonSkd);
             this.panelFairPlayFromAMS.Controls.Add(this.labelCertificateFile);
             this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
             this.panelFairPlayFromAMS.Location = new System.Drawing.Point(41, 63);
             this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
-            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 59);
+            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 142);
             this.panelFairPlayFromAMS.TabIndex = 85;
             // 
             // labelCertificateFile
@@ -163,117 +169,10 @@
             this.panelExternalFairPlay.Controls.Add(this.label7);
             this.panelExternalFairPlay.Controls.Add(this.label3);
             this.panelExternalFairPlay.Enabled = false;
-            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 179);
+            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 248);
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
             this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 171);
             this.panelExternalFairPlay.TabIndex = 81;
-            // 
-            // textBoxFairPlayLAurl
-            // 
-            this.textBoxFairPlayLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFairPlayLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFairPlayLAurl.Location = new System.Drawing.Point(26, 33);
-            this.textBoxFairPlayLAurl.Name = "textBoxFairPlayLAurl";
-            this.textBoxFairPlayLAurl.Size = new System.Drawing.Size(419, 23);
-            this.textBoxFairPlayLAurl.TabIndex = 78;
-            this.textBoxFairPlayLAurl.TextChanged += new System.EventHandler(this.textBoxFairPlayLAurl_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(453, 36);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 15);
-            this.label7.TabIndex = 79;
-            this.label7.Text = "(Url)";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 15);
-            this.label3.TabIndex = 77;
-            this.label3.Text = "License Acquisition Url :";
-            // 
-            // radioButtonDeliverPRfromAMS
-            // 
-            this.radioButtonDeliverPRfromAMS.AutoSize = true;
-            this.radioButtonDeliverPRfromAMS.Checked = true;
-            this.radioButtonDeliverPRfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDeliverPRfromAMS.Location = new System.Drawing.Point(41, 34);
-            this.radioButtonDeliverPRfromAMS.Name = "radioButtonDeliverPRfromAMS";
-            this.radioButtonDeliverPRfromAMS.Size = new System.Drawing.Size(193, 19);
-            this.radioButtonDeliverPRfromAMS.TabIndex = 63;
-            this.radioButtonDeliverPRfromAMS.TabStop = true;
-            this.radioButtonDeliverPRfromAMS.Text = "From Azure Media Services with";
-            this.radioButtonDeliverPRfromAMS.UseVisualStyleBackColor = true;
-            this.radioButtonDeliverPRfromAMS.CheckedChanged += new System.EventHandler(this.radioButtonDeliverPRfromAMS_CheckedChanged);
-            // 
-            // radioButtonExternalFairPlayServer
-            // 
-            this.radioButtonExternalFairPlayServer.AutoSize = true;
-            this.radioButtonExternalFairPlayServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 157);
-            this.radioButtonExternalFairPlayServer.Name = "radioButtonExternalFairPlayServer";
-            this.radioButtonExternalFairPlayServer.Size = new System.Drawing.Size(201, 19);
-            this.radioButtonExternalFairPlayServer.TabIndex = 62;
-            this.radioButtonExternalFairPlayServer.Text = "An external FairPlay server is used";
-            this.radioButtonExternalFairPlayServer.UseVisualStyleBackColor = true;
-            this.radioButtonExternalFairPlayServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalPRServer_CheckedChanged);
-            // 
-            // numericUpDownNbOptionsPlayReady
-            // 
-            this.numericUpDownNbOptionsPlayReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownNbOptionsPlayReady.Location = new System.Drawing.Point(240, 34);
-            this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownNbOptionsPlayReady.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownNbOptionsPlayReady.Name = "numericUpDownNbOptionsPlayReady";
-            this.numericUpDownNbOptionsPlayReady.Size = new System.Drawing.Size(54, 23);
-            this.numericUpDownNbOptionsPlayReady.TabIndex = 64;
-            this.numericUpDownNbOptionsPlayReady.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(300, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
-            this.label2.TabIndex = 65;
-            this.label2.Text = "option(s)";
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(50, 566);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(574, 42);
-            this.label8.TabIndex = 69;
-            this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
-    "ens, or want to deliver various FairPlay licenses based on token claims.";
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // panel3
             // 
@@ -346,6 +245,147 @@
             this.label5.TabIndex = 93;
             this.label5.Text = "Initialization Vector :";
             // 
+            // textBoxFairPlayLAurl
+            // 
+            this.textBoxFairPlayLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFairPlayLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFairPlayLAurl.Location = new System.Drawing.Point(26, 33);
+            this.textBoxFairPlayLAurl.Name = "textBoxFairPlayLAurl";
+            this.textBoxFairPlayLAurl.Size = new System.Drawing.Size(419, 23);
+            this.textBoxFairPlayLAurl.TabIndex = 78;
+            this.textBoxFairPlayLAurl.TextChanged += new System.EventHandler(this.textBoxFairPlayLAurl_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Location = new System.Drawing.Point(453, 36);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 15);
+            this.label7.TabIndex = 79;
+            this.label7.Text = "(Url)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(23, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 15);
+            this.label3.TabIndex = 77;
+            this.label3.Text = "License Acquisition Url :";
+            // 
+            // radioButtonDeliverPRfromAMS
+            // 
+            this.radioButtonDeliverPRfromAMS.AutoSize = true;
+            this.radioButtonDeliverPRfromAMS.Checked = true;
+            this.radioButtonDeliverPRfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonDeliverPRfromAMS.Location = new System.Drawing.Point(41, 34);
+            this.radioButtonDeliverPRfromAMS.Name = "radioButtonDeliverPRfromAMS";
+            this.radioButtonDeliverPRfromAMS.Size = new System.Drawing.Size(193, 19);
+            this.radioButtonDeliverPRfromAMS.TabIndex = 63;
+            this.radioButtonDeliverPRfromAMS.TabStop = true;
+            this.radioButtonDeliverPRfromAMS.Text = "From Azure Media Services with";
+            this.radioButtonDeliverPRfromAMS.UseVisualStyleBackColor = true;
+            this.radioButtonDeliverPRfromAMS.CheckedChanged += new System.EventHandler(this.radioButtonDeliverPRfromAMS_CheckedChanged);
+            // 
+            // radioButtonExternalFairPlayServer
+            // 
+            this.radioButtonExternalFairPlayServer.AutoSize = true;
+            this.radioButtonExternalFairPlayServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 226);
+            this.radioButtonExternalFairPlayServer.Name = "radioButtonExternalFairPlayServer";
+            this.radioButtonExternalFairPlayServer.Size = new System.Drawing.Size(201, 19);
+            this.radioButtonExternalFairPlayServer.TabIndex = 62;
+            this.radioButtonExternalFairPlayServer.Text = "An external FairPlay server is used";
+            this.radioButtonExternalFairPlayServer.UseVisualStyleBackColor = true;
+            this.radioButtonExternalFairPlayServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalPRServer_CheckedChanged);
+            // 
+            // numericUpDownNbOptionsPlayReady
+            // 
+            this.numericUpDownNbOptionsPlayReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownNbOptionsPlayReady.Location = new System.Drawing.Point(240, 34);
+            this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownNbOptionsPlayReady.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownNbOptionsPlayReady.Name = "numericUpDownNbOptionsPlayReady";
+            this.numericUpDownNbOptionsPlayReady.Size = new System.Drawing.Size(54, 23);
+            this.numericUpDownNbOptionsPlayReady.TabIndex = 64;
+            this.numericUpDownNbOptionsPlayReady.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(300, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.TabIndex = 65;
+            this.label2.Text = "option(s)";
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(50, 566);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(574, 42);
+            this.label8.TabIndex = 69;
+            this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
+    "ens, or want to deliver various FairPlay licenses based on token claims.";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // radioButtonSkd
+            // 
+            this.radioButtonSkd.AutoSize = true;
+            this.radioButtonSkd.Checked = true;
+            this.radioButtonSkd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSkd.Location = new System.Drawing.Point(29, 78);
+            this.radioButtonSkd.Name = "radioButtonSkd";
+            this.radioButtonSkd.Size = new System.Drawing.Size(56, 19);
+            this.radioButtonSkd.TabIndex = 72;
+            this.radioButtonSkd.TabStop = true;
+            this.radioButtonSkd.Text = "skd://";
+            this.radioButtonSkd.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonHttps
+            // 
+            this.radioButtonHttps.AutoSize = true;
+            this.radioButtonHttps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonHttps.Location = new System.Drawing.Point(29, 103);
+            this.radioButtonHttps.Name = "radioButtonHttps";
+            this.radioButtonHttps.Size = new System.Drawing.Size(65, 19);
+            this.radioButtonHttps.TabIndex = 73;
+            this.radioButtonHttps.Text = "https://";
+            this.radioButtonHttps.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(26, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(177, 15);
+            this.label6.TabIndex = 78;
+            this.label6.Text = "License Acquisition Url scheme :";
+            // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -367,12 +407,13 @@
             this.groupBoxFairPlay.ResumeLayout(false);
             this.groupBoxFairPlay.PerformLayout();
             this.panelFairPlayFromAMS.ResumeLayout(false);
+            this.panelFairPlayFromAMS.PerformLayout();
             this.panelExternalFairPlay.ResumeLayout(false);
             this.panelExternalFairPlay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,5 +445,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxIV;
         public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton radioButtonHttps;
+        private System.Windows.Forms.RadioButton radioButtonSkd;
     }
 }
