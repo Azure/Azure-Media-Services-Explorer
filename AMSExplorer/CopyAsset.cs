@@ -39,7 +39,8 @@ namespace AMSExplorer
         CredentialsEntry SelectedCredentials;
         private CloudMediaContext _context;
         private CopyAssetBoxMode Mode;
-
+        bool ErrorConnectingAMS = false;
+        bool ErrorConnectingStorage = false;
 
         public CredentialsEntry DestinationLoginCredentials
         {
@@ -256,20 +257,22 @@ namespace AMSExplorer
                         listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
                     }
                     labelWarningStorage.Text = "";
+                    ErrorConnectingAMS = false;
                 }
                 catch
                 {
                     labelWarningStorage.Text = "Error when connecting to account.";
+                    ErrorConnectingAMS = true;
                 }
                 finally
                 {
                     this.Cursor = Cursors.Arrow;
                 }
-
+                UpdateStatusButtonOk();
             }
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonSpecify_CheckedChanged(object sender, EventArgs e)
         {
             listBoxStorage.Enabled = radioButtonSpecifyStorage.Checked;
 
@@ -283,10 +286,12 @@ namespace AMSExplorer
                     {
                         listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
                     }
+                    ErrorConnectingAMS = false;
                 }
                 catch
                 {
                     labelWarningStorage.Text = "Error when connecting to account.";
+                    ErrorConnectingAMS = true;
                 }
                 finally
                 {
@@ -297,6 +302,13 @@ namespace AMSExplorer
             {
                 listBoxStorage.Items.Clear();
             }
+
+            UpdateStatusButtonOk();
+        }
+
+        private void UpdateStatusButtonOk()
+        {
+            buttonOk.Enabled = !ErrorConnectingAMS && !ErrorConnectingStorage;
         }
 
         private void listBoxStorage_SelectedIndexChanged(object sender, EventArgs e)

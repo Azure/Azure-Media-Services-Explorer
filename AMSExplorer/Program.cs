@@ -2258,7 +2258,8 @@ namespace AMSExplorer
         public static string GetAssetType(IAsset asset)
         {
             string type = asset.AssetType.ToString();
-            int assetfilescount = asset.AssetFiles.Count();
+            var AssetFiles = asset.AssetFiles.ToList();
+            int assetfilescount = AssetFiles.Count;
             int number = assetfilescount;
 
             switch (asset.AssetType)
@@ -2271,18 +2272,23 @@ namespace AMSExplorer
                     break;
 
                 case AssetType.MultiBitrateMP4:
-                    var mp4files = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    var mp4files = AssetFiles.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = mp4files.Count();
                     type = number == 1 ? "Single Bitrate MP4" : "Multi Bitrate MP4";
                     break;
 
                 case AssetType.SmoothStreaming:
                     type = "Smooth Streaming";
-                    var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    var cfffiles = AssetFiles.Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = cfffiles.Count();
-                    if (number == 0 && asset.AssetFiles.Count() > 2)
+                    //if (number == 0 && asset.AssetFiles.Count() > 2)
+
+                    if (number == 0
+                        && AssetFiles.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).Count() == 2
+                        && (AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count() == AssetFiles.Count - 2)
+                        )
                     {
-                        number = asset.AssetFiles.Count() - 2;  // tracks - 2 manifest files
+                        number = AssetFiles.Count - 2;  // tracks - 2 manifest files
                         type = Type_LiveArchive;
                     }
                     break;
@@ -2296,16 +2302,11 @@ namespace AMSExplorer
                     if (assetfilescount == 1)
                     {
                         number = 1;
-                        ext = Path.GetExtension(asset.AssetFiles.FirstOrDefault().Name.ToUpper());
+                        ext = Path.GetExtension(AssetFiles.FirstOrDefault().Name.ToUpper());
                         if (!string.IsNullOrEmpty(ext)) ext = ext.Substring(1);
                         switch (ext)
                         {
-                            case "KAYAK":
-                            case "GRAPH":
-                            case "XENIO":
-                            case "ZENIUM":
                             case "WORKFLOW":
-                            case "BLUEPRINT":
                                 type = Type_Workflow;
                                 break;
 
@@ -2316,7 +2317,6 @@ namespace AMSExplorer
                     }
                     else
                     { // multi files in asset
-                        var AssetFiles = asset.AssetFiles.ToList();
                         var ThumbnailsAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)).ToArray();
                         var XMLAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).ToArray();
                         int nonThumbnailFilesCount = AssetFiles.Count - ThumbnailsAssetFiles.Count();

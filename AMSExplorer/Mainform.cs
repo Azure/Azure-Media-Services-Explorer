@@ -2811,28 +2811,69 @@ namespace AMSExplorer
 
         private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false)
         {
+
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
-
-            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
-            IAsset TargetAsset = DestinationContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
-
-            // let's backup the primary file from the first asset to set it to the copied/merged asset
-            var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
-
             bool ErrorCopyAsset = false;
+            CloudMediaContext DestinationContext;
+            IAsset TargetAsset;
+            CloudStorageAccount DestinationCloudStorageAccount;
+            CloudBlobClient DestinationCloudBlobClient;
+            IAccessPolicy writePolicy;
+            ILocator DestinationLocator;
+            IAssetFile[] ismAssetFile;
 
-            TextBoxLogWriteLine("Starting the asset copy process.");
+            try
+            {
+                DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error", true);
+                TextBoxLogWriteLine(ex);
+                DoGridTransferDeclareError(index, ex);
+                return;
+            }
 
-            // let's get cloudblobcontainer for target
-            CloudStorageAccount DestinationCloudStorageAccount =
-                (DestinationStorageAccount == null) ?
-                new CloudStorageAccount(new StorageCredentials(DestinationContext.DefaultStorageAccount.Name, storagekeys[DestinationContext.DefaultStorageAccount.Name]), DestinationCredentialsEntry.ReturnStorageSuffix(), true) :
-                new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), DestinationCredentialsEntry.ReturnStorageSuffix(), true);
+            try
+            {
+                TargetAsset = DestinationContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error", true);
+                TextBoxLogWriteLine(ex);
+                DoGridTransferDeclareError(index, ex);
+                return;
+            }
 
-            var DestinationCloudBlobClient = DestinationCloudStorageAccount.CreateCloudBlobClient();
-            IAccessPolicy writePolicy = DestinationContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-            ILocator DestinationLocator = DestinationContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
+            try
+            {
+                // let's backup the primary file from the first asset to set it to the copied/merged asset
+                ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
+
+                TextBoxLogWriteLine("Starting the asset copy process.");
+
+                // let's get cloudblobcontainer for target
+                DestinationCloudStorageAccount =
+                   (DestinationStorageAccount == null) ?
+                   new CloudStorageAccount(new StorageCredentials(DestinationContext.DefaultStorageAccount.Name, storagekeys[DestinationContext.DefaultStorageAccount.Name]), DestinationCredentialsEntry.ReturnStorageSuffix(), true) :
+                   new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), DestinationCredentialsEntry.ReturnStorageSuffix(), true);
+
+                DestinationCloudBlobClient = DestinationCloudStorageAccount.CreateCloudBlobClient();
+                writePolicy = DestinationContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
+                DestinationLocator = DestinationContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
+            }
+
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error", true);
+                TextBoxLogWriteLine(ex);
+                DoGridTransferDeclareError(index, ex);
+                TargetAsset.Delete();
+                return;
+            }
+
 
             // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
             Uri targetUri = new Uri(DestinationLocator.Path);
@@ -2842,15 +2883,37 @@ namespace AMSExplorer
             {
                 if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
                 {
-                    // let's get cloudblobcontainer for source
-                    CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
-                    var SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
-                    IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                    ILocator SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+                    CloudStorageAccount SourceCloudStorageAccount;
+                    CloudBlobClient SourceCloudBlobClient;
+                    IAccessPolicy readpolicy;
+                    ILocator SourceLocator;
+                    Uri sourceUri;
+                    CloudBlobContainer SourceCloudBlobContainer;
 
-                    // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                    Uri sourceUri = new Uri(SourceLocator.Path);
-                    CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+                    try
+                    {
+                        // let's get cloudblobcontainer for source
+                        SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
+                        SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
+                        readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
+                        SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+
+                        // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+                        sourceUri = new Uri(SourceLocator.Path);
+                        SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error", true);
+                        TextBoxLogWriteLine(ex);
+                        DoGridTransferDeclareError(index, ex);
+                        DestinationLocator.Delete();
+                        writePolicy.Delete();
+                        TargetAsset.Delete();
+                        return;
+                    }
+
 
                     ErrorCopyAsset = false;
                     CloudBlockBlob sourceCloudBlockBlob, destinationCloudBlockBlob;
@@ -11434,6 +11497,14 @@ namespace AMSExplorer
         private async void DoCopyAssetToAnotherAMSAccount()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
+            {
+                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline
+                    + "It is not recommended to copy such live asset with this command. While the copied asset will be streamable, you could have issues to download it or run a processor on it because some asset files will not be tagged as fragments containers." + Constants.endline + Constants.endline
+                    + "It is recommended to use subclipping (all bitrates) and then to copy the multiple MP4 files asset with this command." + Constants.endline
+                    , "Live archive asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             CopyAsset form = new CopyAsset(_context, SelectedAssets.Count, CopyAssetBoxMode.CopyAsset)
             {

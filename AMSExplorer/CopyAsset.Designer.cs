@@ -179,7 +179,7 @@
             this.radioButtonSpecifyStorage.TabIndex = 63;
             this.radioButtonSpecifyStorage.Text = "Specify :";
             this.radioButtonSpecifyStorage.UseVisualStyleBackColor = true;
-            this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButtonSpecify_CheckedChanged);
             // 
             // labelWarningStorage
             // 
