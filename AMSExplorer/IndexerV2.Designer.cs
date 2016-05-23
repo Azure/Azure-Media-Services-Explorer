@@ -50,6 +50,7 @@
             this.labelPreview = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBoxCopyToInput = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -174,7 +175,7 @@
             // buttonGenOptions
             // 
             this.buttonGenOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenOptions.Location = new System.Drawing.Point(177, 149);
+            this.buttonGenOptions.Location = new System.Drawing.Point(181, 149);
             this.buttonGenOptions.Name = "buttonGenOptions";
             this.buttonGenOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonGenOptions.TabIndex = 69;
@@ -258,6 +259,16 @@
             this.pictureBox1.TabIndex = 83;
             this.pictureBox1.TabStop = false;
             // 
+            // checkBoxCopyToInput
+            // 
+            this.checkBoxCopyToInput.AutoSize = true;
+            this.checkBoxCopyToInput.Location = new System.Drawing.Point(360, 154);
+            this.checkBoxCopyToInput.Name = "checkBoxCopyToInput";
+            this.checkBoxCopyToInput.Size = new System.Drawing.Size(199, 19);
+            this.checkBoxCopyToInput.TabIndex = 84;
+            this.checkBoxCopyToInput.Text = "Copy subtitles files to input asset";
+            this.checkBoxCopyToInput.UseVisualStyleBackColor = true;
+            // 
             // IndexerV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -265,6 +276,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 414);
+            this.Controls.Add(this.checkBoxCopyToInput);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelPreview);
@@ -316,5 +328,6 @@
         public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox checkBoxCopyToInput;
     }
 }

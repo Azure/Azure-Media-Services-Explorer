@@ -55,6 +55,7 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBoxCopyToInput = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -317,6 +318,16 @@
             this.pictureBox1.TabIndex = 82;
             this.pictureBox1.TabStop = false;
             // 
+            // checkBoxCopyToInput
+            // 
+            this.checkBoxCopyToInput.AutoSize = true;
+            this.checkBoxCopyToInput.Location = new System.Drawing.Point(339, 156);
+            this.checkBoxCopyToInput.Name = "checkBoxCopyToInput";
+            this.checkBoxCopyToInput.Size = new System.Drawing.Size(199, 19);
+            this.checkBoxCopyToInput.TabIndex = 83;
+            this.checkBoxCopyToInput.Text = "Copy subtitles files to input asset";
+            this.checkBoxCopyToInput.UseVisualStyleBackColor = true;
+            // 
             // Indexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -324,6 +335,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 614);
+            this.Controls.Add(this.checkBoxCopyToInput);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -380,5 +392,6 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label labelProcessorVersion;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox checkBoxCopyToInput;
     }
 }

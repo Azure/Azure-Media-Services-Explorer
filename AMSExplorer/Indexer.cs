@@ -46,6 +46,16 @@ namespace AMSExplorer
             }
 
         }
+
+        public bool CopySubtitlesFilesToInputAsset
+        {
+            get
+            {
+                return checkBoxCopyToInput.Checked; ;
+            }
+
+        }
+
         public string IndexerInputAssetName
         {
             get

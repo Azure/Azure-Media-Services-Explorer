@@ -269,7 +269,14 @@ namespace AMSExplorer
                 foreach (IAssetFile file in myAsset.AssetFiles)
                 {
                     ListViewItem item = new ListViewItem(file.Name, 0);
-                    if (file.IsPrimary) item.ForeColor = Color.Blue;
+                    if (file.IsPrimary)
+                    {
+                        item.ForeColor = Color.Blue;
+                    }
+                    if (file.AssetFileOptions== AssetFileOptions.Fragmented)
+                    {
+                        item.ForeColor = Color.DarkGoldenrod;
+                    }
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     listViewFiles.Items.Add(item);
                     size += file.ContentFileSize;

@@ -76,7 +76,10 @@ namespace AMSExplorer
                 foreach (IAssetFile file in overlayfiles)
                 {
                     ListViewItem item = new ListViewItem(file.Name, 0);
-                    if (file.IsPrimary) item.ForeColor = Color.Blue;
+                    if (file.IsPrimary)
+                    {
+                        item.ForeColor = Color.Blue;
+                    }
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     listViewFiles.Items.Add(item);
                 }

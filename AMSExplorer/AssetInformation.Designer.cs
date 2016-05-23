@@ -89,6 +89,7 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
             this.buttonGetTestToken = new System.Windows.Forms.Button();
@@ -98,6 +99,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripAuthPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.getTestTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAuthorizationPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
             this.listViewKeys = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -127,9 +130,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
-            this.removeOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAuthorizationPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -478,6 +478,7 @@
             this.ListViewFilesName,
             this.ListViewFilesSize});
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
+            this.listViewFiles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
             this.listViewFiles.Location = new System.Drawing.Point(10, 7);
@@ -811,6 +812,18 @@
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // buttonRemoveAuthPolOption
+            // 
+            this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveAuthPolOption.Enabled = false;
+            this.buttonRemoveAuthPolOption.Location = new System.Drawing.Point(402, 469);
+            this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
+            this.buttonRemoveAuthPolOption.Size = new System.Drawing.Size(103, 27);
+            this.buttonRemoveAuthPolOption.TabIndex = 44;
+            this.buttonRemoveAuthPolOption.Text = "Remove option";
+            this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
+            this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
+            // 
             // buttonRemoveAuthPol
             // 
             this.buttonRemoveAuthPol.Enabled = false;
@@ -912,9 +925,23 @@
             // getTestTokenToolStripMenuItem
             // 
             this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
-            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.getTestTokenToolStripMenuItem.Text = "Get Test Token...";
             this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
+            // 
+            // removeOptionToolStripMenuItem
+            // 
+            this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
+            this.removeOptionToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeOptionToolStripMenuItem.Text = "Remove option...";
+            this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
+            // 
+            // removeAuthorizationPolicyToolStripMenuItem
+            // 
+            this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
+            this.removeAuthorizationPolicyToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeAuthorizationPolicyToolStripMenuItem.Text = "Remove authorization policy...";
+            this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
             // 
             // dataGridViewKeys
             // 
@@ -1251,32 +1278,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
-            // 
-            // buttonRemoveAuthPolOption
-            // 
-            this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemoveAuthPolOption.Enabled = false;
-            this.buttonRemoveAuthPolOption.Location = new System.Drawing.Point(402, 469);
-            this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
-            this.buttonRemoveAuthPolOption.Size = new System.Drawing.Size(103, 27);
-            this.buttonRemoveAuthPolOption.TabIndex = 44;
-            this.buttonRemoveAuthPolOption.Text = "Remove option";
-            this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
-            this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
-            // 
-            // removeOptionToolStripMenuItem
-            // 
-            this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
-            this.removeOptionToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.removeOptionToolStripMenuItem.Text = "Remove option...";
-            this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
-            // 
-            // removeAuthorizationPolicyToolStripMenuItem
-            // 
-            this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
-            this.removeAuthorizationPolicyToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.removeAuthorizationPolicyToolStripMenuItem.Text = "Remove authorization policy...";
-            this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
             // 
             // AssetInformation
             // 

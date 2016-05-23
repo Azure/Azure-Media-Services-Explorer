@@ -880,6 +880,11 @@ namespace AMSExplorer
             tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
 
+        public void DoPurgeAssetInfoFromCache(IAsset asset)
+        {
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
+        }
+
         private void DoRefreshGridJobV(bool firstime)
         {
             if (firstime)
@@ -2151,7 +2156,7 @@ namespace AMSExplorer
 
         private void DoDeleteAssets(List<IAsset> SelectedAssets)
         {
-          
+
             if (SelectedAssets.Count > 0)
             {
                 string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
@@ -2163,7 +2168,7 @@ namespace AMSExplorer
                         try
                         {
                             //Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
-                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context,a)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a)).ToArray();
                             TextBoxLogWriteLine("Deleting asset(s)");
                             /*
                            foreach (var asset in SelectedAssets)
@@ -4402,7 +4407,7 @@ namespace AMSExplorer
         }
 
 
-        public void LaunchJobs_OneJobPerInputAssetWithSpecificConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
+        public void LaunchJobs_OneJobPerInputAssetWithSpecificConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "", bool copySubtitlesToInput = false)
         {
             // a job per asset, one task per job, but each task has a specific config
             Task.Factory.StartNew(() =>
@@ -4455,7 +4460,7 @@ namespace AMSExplorer
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitted.", jobnameloc);
-                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob));
+                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob, copySubtitlesToInput));
                     }
                     TextBoxLogWriteLine();
                 }
@@ -4588,7 +4593,8 @@ namespace AMSExplorer
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
                             form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected
+                            form.JobOptions.StorageSelected,
+                            copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
                                 );
 
             }
@@ -4646,7 +4652,8 @@ namespace AMSExplorer
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
                             form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected
+                            form.JobOptions.StorageSelected,
+                            copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
                                 );
             }
         }
@@ -10351,7 +10358,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
 
         private void DoRemoveKeys()
@@ -15927,7 +15934,7 @@ namespace AMSExplorer
 
 
 
-        public void DoJobProgress(IJob job)
+        public void DoJobProgress(IJob job, bool CopySubtitlesToSourceAsset = false)
         {
             var tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
@@ -16039,10 +16046,47 @@ namespace AMSExplorer
                                    {
                                        _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
                                        Mainform myform = (Mainform)this.FindForm();
+
+                                       // For indexer, there is an option to copy subtitles files to input asset
+                                       if (CopySubtitlesToSourceAsset && JobRefreshed.State == JobState.Finished && JobRefreshed.Tasks.Count == 1)
+                                       {
+                                           var subtitlesFiles = JobRefreshed.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.Name.EndsWith(".vtt", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ttml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".smi", StringComparison.OrdinalIgnoreCase));
+                                           var inputAsset = JobRefreshed.Tasks.FirstOrDefault().InputAssets.FirstOrDefault();
+                                           foreach (var file in subtitlesFiles)
+                                           {
+                                               string filePath = Path.Combine(System.IO.Path.GetTempPath(), file.Name);
+
+                                               if (File.Exists(filePath))
+                                               {
+                                                   File.Delete(filePath);
+                                               }
+
+                                               try
+                                               {
+                                                   file.Download(filePath);
+                                                   IAssetFile InputAssetFile = inputAsset.AssetFiles.Create(file.Name);
+                                                   InputAssetFile.Upload(filePath);
+                                               }
+                                               catch
+                                               {
+                                               }
+
+                                               if (File.Exists(filePath))
+                                               {
+                                                   File.Delete(filePath);
+                                               }
+                                           }
+                                           myform.BeginInvoke(new Action(() =>
+                                           {
+                                               myform.DoPurgeAssetInfoFromCache(inputAsset);
+                                           }));
+                                       }
+
                                        string status = Enum.GetName(typeof(JobState), JobRefreshed.State).ToLower();
 
                                        myform.BeginInvoke(new Action(() =>
                                        {
+
                                            myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
                                            myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
                                            if (JobRefreshed.State == JobState.Error)
