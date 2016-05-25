@@ -9941,7 +9941,7 @@ namespace AMSExplorer
             bool ErrorCreationKey = false;
             string aeskey = string.Empty;
             bool firstkeycreation = true;
-            Uri aeslaurl = null;
+            Uri aeslaurl = form3_AES.AESLaUrl; 
             IContentKey formerkey = null;
             bool reusekey = false;
 
@@ -9951,7 +9951,7 @@ namespace AMSExplorer
             if (ManualForceKeyData)  // user want to manually enter the cryptography data and key if provided
             {
                 aeskey = form2.AESContentKey;
-                aeslaurl = form3_AES.AESLaUrl;
+                //aeslaurl = form3_AES.AESLaUrl;
             }
 
 
@@ -16121,7 +16121,6 @@ namespace AMSExplorer
             }, token);
 
         }
-
 
         static IJob GetJob(string jobId)
         {

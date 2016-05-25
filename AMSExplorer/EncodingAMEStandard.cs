@@ -1168,6 +1168,13 @@ namespace AMSExplorer
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
+
+        private void numericUpDownThWidthPNG_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // TO DO
+           // NumericUpDown nud = (NumericUpDown)sender;
+           // if (sender.val)
+        }
     }
 
     enum TypeConfig

@@ -190,7 +190,7 @@ namespace AMSExplorer
                 checkBoxProtocolDASH.Visible = true;
                 checkBoxProtocolHLS.Visible = true;
                 checkBoxProtocolHLS.Checked = true;
-                checkBoxProtocolHLS.Enabled = false;
+                checkBoxProtocolHLS.Enabled = true;
                 checkBoxProtocolSmooth.Visible = true;
 
                 checkBoxEnableDynEnc.Visible = true;

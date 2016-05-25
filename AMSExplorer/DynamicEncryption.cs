@@ -565,8 +565,6 @@ namespace AMSExplorer
                 new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
             {
                 {AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString()}
-                //{AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString()},
-                //{AssetDeliveryPolicyConfigurationKey.EnvelopeEncryptionIVAsBase64, envelopeEncryptionIV}
             };
 
             IAssetDeliveryPolicy assetDeliveryPolicy =

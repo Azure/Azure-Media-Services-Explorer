@@ -36,7 +36,7 @@ namespace AMSExplorer
             get
             {
                 Uri myuri = null;
-                if (textBoxLAURL.Enabled)
+                if (!string.IsNullOrWhiteSpace(textBoxLAURL.Text))
                 {
                     try
                     {
@@ -96,7 +96,34 @@ namespace AMSExplorer
         private void radioButtonDefineAuthPol_CheckedChanged(object sender, EventArgs e)
         {
             buttonOk.Text = radioButtonDefineAuthPol.Checked ? "Next" : "Ok";
-            textBoxLAURL.Enabled = labelkeylaurl.Enabled = !radioButtonDefineAuthPol.Checked;
+            ValidateButtonOk();
+        }
+
+        private void textBoxLAURL_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(textBoxLAURL.Text))
+                {
+                    Uri myuri = new Uri(textBoxLAURL.Text);
+                }
+                errorProvider1.SetError(textBoxLAURL, String.Empty);
+            }
+            catch
+            {
+                errorProvider1.SetError(textBoxLAURL, "The key acquisition URL must be a valid URL");
+            }
+            ValidateButtonOk();
+        }
+
+
+        private void ValidateButtonOk()
+        {
+            buttonOk.Enabled = (errorProvider1.GetError(textBoxLAURL) == string.Empty)
+                && 
+                (radioButtonDefineAuthPol.Checked 
+                ||
+                (radioButtonNoAuthPolicy.Checked && !string.IsNullOrWhiteSpace(textBoxLAURL.Text))) ;
         }
     }
 }
