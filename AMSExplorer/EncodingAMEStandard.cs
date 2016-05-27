@@ -235,7 +235,6 @@ namespace AMSExplorer
             }
             else // Thumbnail mode only
             {
-                textBoxConfiguration.Text = "{}";
                 tabControl1.SelectedTab = tabPageThPNG;
             }
 
@@ -290,11 +289,18 @@ namespace AMSExplorer
             {
                 textBoxConfiguration.Text = jsondata;
             }
-            else if (mode == TypeConfig.JSON) // JSON
+            else if (mode == TypeConfig.JSON || mode == TypeConfig.Empty) // JSON
             {
-                dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
+               
                 if (checkBoxAddAutomatic.Checked)
                 {
+                    if (mode == TypeConfig.Empty)
+                    {
+                        jsondata = @"{""Version"": 1.0}";
+                    }
+
+                    dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
+
                     ////////////////////////////
                     // Cleaning of JSON
                     ////////////////////////////
@@ -307,7 +313,7 @@ namespace AMSExplorer
                     // clean deinterlace filter
                     // clean overlay
 
-                    
+
                     if (obj.Sources != null)
                     {
                         var listDelete = new List<dynamic>();
@@ -745,8 +751,8 @@ namespace AMSExplorer
                                             textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked, radioButtonPixelsBMP.Checked);
                         }
                     }
+                    textBoxConfiguration.Text = obj.ToString();
                 }
-                textBoxConfiguration.Text = obj.ToString();
             }
             else // no xml and no Json !
             {
@@ -1171,9 +1177,9 @@ namespace AMSExplorer
 
         private void numericUpDownThWidthPNG_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TO DO
-           // NumericUpDown nud = (NumericUpDown)sender;
-           // if (sender.val)
+            
+            NumericUpDown nud = (NumericUpDown)sender;
+            var v = nud.Value;
         }
     }
 
@@ -1181,6 +1187,7 @@ namespace AMSExplorer
     {
         JSON,
         XML,
+        Empty,
         Other
     }
 }

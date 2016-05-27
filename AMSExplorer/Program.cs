@@ -281,6 +281,10 @@ namespace AMSExplorer
         public static TypeConfig AnalyseConfigurationString(string config)
         {
             config = config.Trim();
+            if (string.IsNullOrEmpty(config))
+            {
+                return TypeConfig.Empty;
+            }
             if (config.StartsWith("<")) // XML data
             {
                 return TypeConfig.XML;
