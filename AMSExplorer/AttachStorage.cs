@@ -118,7 +118,7 @@ namespace AMSExplorer
             }
 
             UpdateEndPointURL();
-        
+
         }
 
 
@@ -160,23 +160,33 @@ namespace AMSExplorer
         {
             if (openFileDialogLoadSubFile.ShowDialog() == DialogResult.OK)
             {
-               
                 try
                 {
                     var doc = new XDocument();
                     doc = XDocument.Load(openFileDialogLoadSubFile.FileName);
+                    var subs = doc.Element("PublishData").Element("PublishProfile").Elements("Subscription");
 
-                    var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
+                    if (subs.Count() == 0)
+                    {
+                        MessageBox.Show("No Subscription data in the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
 
-                    textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
-                    textBoxSubId.Text = subscription.Attribute("Id").Value;
-                    textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
+                        if (subs.Count() > 1)
+                        {
+                            MessageBox.Show(string.Format("There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.", subscription.Attribute("Name").Value), "Several subscriptions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
+                        textBoxSubId.Text = subscription.Attribute("Id").Value;
+                        textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message);
+                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-              
             }
         }
     }
