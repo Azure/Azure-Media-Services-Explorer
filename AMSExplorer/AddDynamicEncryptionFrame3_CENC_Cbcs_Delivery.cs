@@ -32,6 +32,33 @@ namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery : Form
     {
+        public byte[] FairPlayASK
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxASK.Text))
+                {
+                    return null;
+                }
+                try
+                {
+                    if (radioButtonASKHex.Checked)
+                    {
+                        return DynamicEncryption.HexStringToByteArray(textBoxASK.Text);
+                    }
+
+                    else // Base 64
+                    {
+                        return Convert.FromBase64String(textBoxASK.Text);
+                    }
+                }
+
+                catch
+                {
+                    return null;
+                }
+            }
+        }
         public string FairPlayLAurl
         {
             get
@@ -66,7 +93,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonDeliverPRfromAMS.Checked || string.IsNullOrEmpty(textBoxIV.Text)) return null;
+                if (radioButtonDeliverFairPlayfromAMS.Checked || string.IsNullOrEmpty(textBoxIV.Text)) return null;
 
                 try
                 {
@@ -100,7 +127,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    return (int)numericUpDownNbOptionsPlayReady.Value;
+                    return (int)numericUpDownNbOptionsFairPlay.Value;
                 }
             }
         }
@@ -114,7 +141,7 @@ namespace AMSExplorer
         }
 
         private CloudMediaContext _context;
-        private PFXCertificate cert;
+        private PFXCertificate cert = new PFXCertificate();
 
         public AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(CloudMediaContext context)
         {
@@ -141,7 +168,7 @@ namespace AMSExplorer
         {
             panelExternalFairPlay.Enabled = radioButtonExternalFairPlayServer.Checked;
             panelFairPlayFromAMS.Enabled = !radioButtonExternalFairPlayServer.Checked;
-            numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalFairPlayServer.Checked;
+            numericUpDownNbOptionsFairPlay.Enabled = !radioButtonExternalFairPlayServer.Checked;
             ValidateButtonOk();
         }
 
@@ -155,8 +182,10 @@ namespace AMSExplorer
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled = (radioButtonDeliverPRfromAMS.Checked && cert.Certificate != null)
-                || (radioButtonExternalFairPlayServer.Checked && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty);
+            buttonOk.Enabled = 
+                (radioButtonDeliverFairPlayfromAMS.Checked && cert.Certificate != null && FairPlayASK != null)
+                || 
+                (radioButtonExternalFairPlayServer.Checked && !string.IsNullOrWhiteSpace(textBoxFairPlayLAurl.Text) && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty);
         }
 
         private void textBoxFairPlayLAurl_TextChanged(object sender, EventArgs e)
@@ -175,7 +204,6 @@ namespace AMSExplorer
 
         private void radioButtonDeliverPRfromAMS_CheckedChanged(object sender, EventArgs e)
         {
-            ValidateButtonOk();
         }
 
         private void radioButtonIVBase64_CheckedChanged(object sender, EventArgs e)
@@ -237,5 +265,48 @@ namespace AMSExplorer
                 buttonOk.Enabled = true;
             }
         }
+
+        private void textBoxASK_TextChanged(object sender, EventArgs e)
+        {
+            if (FairPlayASK == null)
+            {
+                errorProvider1.SetError(textBoxASK, "The key must be a 16 bytes (128 bit) value");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxASK, String.Empty);
+            }
+        }
+
+        private void radioButtonASKBase64_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonASKBase64.Checked)
+            {
+                try
+                {
+                    textBoxASK.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxASK.Text));
+                }
+                catch
+                {
+                    textBoxASK.Text = string.Empty;
+                }
+            }
+        }
+
+        private void radioButtonASKHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonASKHex.Checked)
+            {
+                try
+                {
+                    textBoxASK.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxASK.Text));
+                }
+                catch
+                {
+                    textBoxASK.Text = string.Empty;
+                }
+            }
+        }
     }
+   
 }

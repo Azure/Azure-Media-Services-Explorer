@@ -9762,6 +9762,8 @@ namespace AMSExplorer
             }
 
 
+            IAssetDeliveryPolicy DelPol = null; // if not null, it means it has been created so we reuse for multiple assets
+
 
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
@@ -9806,129 +9808,145 @@ namespace AMSExplorer
                         (currentAssetKey.AuthorizationPolicyId == null  /*contentKeyAuthorizationPolicy == null*/) // If the user want to reuse the key, then no need to recreate the Aut Policy if already created
                         )
                     {
-                        // let's create the Authorization Policy
-                        contentKeyAuthorizationPolicy = _context.
-                                       ContentKeyAuthorizationPolicies.
-                                       CreateAsync("Authorization Policy").Result;
+                        if (contentKeyAuthorizationPolicy != null) // authorization policy already created so we use it
+                        {
+                            // Associate the content key authorization policy with the content key.
+                            currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                            currentAssetKey = currentAssetKey.UpdateAsync().Result;
+                            TextBoxLogWriteLine("Attached authorization policy to key '{0}' for asset '{1}'.", currentAssetKey.Id, AssetToProcess.Name);
+                        }
+                        else // authorization policy to create
+                        {
+                            // let's create the Authorization Policy
+                            contentKeyAuthorizationPolicy = _context.
+                                           ContentKeyAuthorizationPolicies.
+                                           CreateAsync("Authorization Policy").Result;
 
-                        // Associate the content key authorization policy with the content key.
-                        currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
-                        currentAssetKey = currentAssetKey.UpdateAsync().Result;
+                            // Associate the content key authorization policy with the content key.
+                            currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                            currentAssetKey = currentAssetKey.UpdateAsync().Result;
 
-                        string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form2_CENC_cbcs.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
+                            string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form3_CENC.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
 
-                        foreach (var form4 in form4list)
-                        { // for each option
+                            foreach (var form4 in form4list)
+                            { // for each option
 
-                            IContentKeyAuthorizationPolicyOption policyOption = null;
-                            try
-                            {
-                                string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
-                                string FairPlayPolicyName = string.Format("{0}{1} FairPlay Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, form4list.IndexOf(form4) + 1);
-
-                                switch (form4.GetKeyRestrictionType)
+                                IContentKeyAuthorizationPolicyOption policyOption = null;
+                                try
                                 {
-                                    case ContentKeyRestrictionType.Open:
+                                    string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                    string FairPlayPolicyName = string.Format("{0}{1} FairPlay Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, form4list.IndexOf(form4) + 1);
 
-                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, currentAssetKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
-                                        TextBoxLogWriteLine("Created PlayReady Open authorization policy for the key '{0}' ", currentAssetKey.Id);
-                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                                    switch (form4.GetKeyRestrictionType)
+                                    {
+                                        case ContentKeyRestrictionType.Open:
 
-                                        break;
+                                            policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, currentAssetKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
+                                            TextBoxLogWriteLine("Created PlayReady Open authorization policy for the key '{0}' ", currentAssetKey.Id);
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                    case ContentKeyRestrictionType.TokenRestricted:
-                                        TokenVerificationKey mytokenverifkey = null;
-                                        string OpenIdDoc = null;
-                                        switch (form4.GetDetailedTokenType)
-                                        {
-                                            case ExplorerTokenType.SWT:
-                                            case ExplorerTokenType.JWTSym:
-                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
-                                                break;
+                                            break;
 
-                                            case ExplorerTokenType.JWTOpenID:
-                                                OpenIdDoc = form4.GetOpenIdDiscoveryDocument;
-                                                break;
-
-                                            case ExplorerTokenType.JWTX509:
-                                                mytokenverifkey = new X509CertTokenVerificationKey(form4.GetX509Certificate);
-                                                break;
-                                        }
-
-                                        policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(FairPlayPolicyName, ContentKeyDeliveryType.FairPlay, currentAssetKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, FairPlayLicenseDeliveryConfig, OpenIdDoc);
-                                        TextBoxLogWriteLine("Created Token PlayReady authorization policy for the key '{0}'.", currentAssetKey.Id);
-
-                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
-
-                                        if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
-                                        {
-                                            // let display a test token
-                                            X509SigningCredentials signingcred = null;
-                                            if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                        case ContentKeyRestrictionType.TokenRestricted:
+                                            TokenVerificationKey mytokenverifkey = null;
+                                            string OpenIdDoc = null;
+                                            switch (form4.GetDetailedTokenType)
                                             {
-                                                signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.JWTSym:
+                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
+                                                    break;
+
+                                                case ExplorerTokenType.JWTOpenID:
+                                                    OpenIdDoc = form4.GetOpenIdDiscoveryDocument;
+                                                    break;
+
+                                                case ExplorerTokenType.JWTX509:
+                                                    mytokenverifkey = new X509CertTokenVerificationKey(form4.GetX509Certificate);
+                                                    break;
                                             }
 
-                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form4list.IndexOf(form4), form4.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
-                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
-                                        }
-                                        break;
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(FairPlayPolicyName, ContentKeyDeliveryType.FairPlay, currentAssetKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, FairPlayLicenseDeliveryConfig, OpenIdDoc);
+                                            TextBoxLogWriteLine("Created Token FairPlay authorization policy for the key '{0}'.", currentAssetKey.Id);
 
-                                    default:
-                                        break;
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+                                            if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
+                                            {
+                                                // let display a test token
+                                                X509SigningCredentials signingcred = null;
+                                                if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                                {
+                                                    signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                                }
+
+                                                _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form4list.IndexOf(form4), form4.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                            }
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
                                 }
-                            }
-                            catch (Exception e)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the authorization policy for key '{0}'.", currentAssetKey.Id, true);
-                                TextBoxLogWriteLine(e);
-                                ErrorCreationKey = true;
-                            }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the authorization policy for key '{0}'.", currentAssetKey.Id, true);
+                                    TextBoxLogWriteLine(e);
+                                    ErrorCreationKey = true;
+                                }
 
+                            }
+                            contentKeyAuthorizationPolicy.Update();
                         }
-                        contentKeyAuthorizationPolicy.Update();
                     }
-
 
 
                     // Let's create the Asset Delivery Policy now
                     if (form1.EnableDynEnc)
                     {
-                        IAssetDeliveryPolicy DelPol = null;
-                        var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
-
-                        string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
-                        ErrorCreationKey = false;
-
-                        string myIV = null;
-                        if (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay == 0 && form3_CENC.FairPlayIV != null)
+                        if (DelPol != null) // already created
                         {
-                            myIV = DynamicEncryption.ByteArrayToHexString(form3_CENC.FairPlayIV);
+                            AssetToProcess.DeliveryPolicies.Add(DelPol);
+                            TextBoxLogWriteLine("Attached asset delivery policy '{0}' to asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                         }
-
-                        try
+                        else
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(
-                                AssetToProcess,
-                               currentAssetKey,
-                                form1,
-                                name,
-                                _context,
-                                fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
-                                iv_if_externalserver: myIV,
-                                UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
-                                   );
+                            var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
 
-                            TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
-                        }
-                        catch (Exception e)
-                        {
-                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                            TextBoxLogWriteLine(e);
-                            ErrorCreationKey = true;
+                            string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), assetDeliveryProtocol.ToString());
+                            ErrorCreationKey = false;
+
+                            string myIV = null;
+                            if (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay == 0 && form3_CENC.FairPlayIV != null)
+                            {
+                                myIV = DynamicEncryption.ByteArrayToHexString(form3_CENC.FairPlayIV);
+                            }
+
+                            try
+                            {
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(
+                                    AssetToProcess,
+                                   currentAssetKey,
+                                    form1,
+                                    name,
+                                    _context,
+                                    fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
+                                    iv_if_externalserver: myIV,
+                                    UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
+                                       );
+
+                                TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                            }
+                            catch (Exception e)
+                            {
+                                TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
                         }
                     }
                 }
@@ -9941,7 +9959,7 @@ namespace AMSExplorer
             bool ErrorCreationKey = false;
             string aeskey = string.Empty;
             bool firstkeycreation = true;
-            Uri aeslaurl = form3_AES.AESLaUrl; 
+            Uri aeslaurl = form3_AES.AESLaUrl;
             IContentKey formerkey = null;
             bool reusekey = false;
 

@@ -33,32 +33,7 @@ namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig : Form
     {
-
-
-        public byte[] FairPlayASK
-        {
-            get
-            {
-                try
-                {
-                    if (radioButtonASKHex.Checked)
-                    {
-                        return DynamicEncryption.HexStringToByteArray(textBoxASK.Text);
-                    }
-
-                    else // (radioButtonContentKeyBase64.Checked)
-                    {
-                        return Convert.FromBase64String(textBoxASK.Text);
-                    }
-                }
-
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
+        
         public byte[] FairPlayContentKey
         {
             get
@@ -117,9 +92,7 @@ namespace AMSExplorer
                 textBoxkeyid.Text = value.ToString();
             }
         }
-
-      
-
+        
 
         public AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig()
         {
@@ -132,7 +105,6 @@ namespace AMSExplorer
         {
             radioButtonKeyIDGuid.Checked = true;
             textBoxkeyid.Text = Guid.NewGuid().ToString();
-            radioButtonASKBase64.Checked = true;
         }
 
 
@@ -174,53 +146,6 @@ namespace AMSExplorer
                 {
                     textBoxkeyid.Text = string.Empty;
                 }
-
-            }
-        }
-
-
-        private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonASKBase64.Checked)
-            {
-                try
-                {
-                    textBoxASK.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxASK.Text));
-                }
-                catch
-                {
-                    textBoxASK.Text = string.Empty;
-                }
-            }
-        }
-
-        private void radioButtonContentKeyHex_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonASKHex.Checked)
-            {
-                try
-                {
-                    textBoxASK.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxASK.Text));
-                }
-                catch
-                {
-                    textBoxASK.Text = string.Empty;
-                }
-            }
-        }
-
-        private void textBoxASK_TextChanged(object sender, EventArgs e)
-        {
-            if (FairPlayASK == null)
-            {
-                errorProvider1.SetError(textBoxASK, "The key must be a 16 bytes (128 bits) value");
-                buttonOk.Enabled = false;
-            }
-            else
-            {
-                errorProvider1.SetError(textBoxASK, String.Empty);
-                buttonOk.Enabled = true;
-
             }
         }
 

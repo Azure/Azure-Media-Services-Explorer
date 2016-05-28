@@ -35,6 +35,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxFairPlay = new System.Windows.Forms.GroupBox();
             this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.radioButtonHttps = new System.Windows.Forms.RadioButton();
+            this.radioButtonSkd = new System.Windows.Forms.RadioButton();
             this.labelCertificateFile = new System.Windows.Forms.Label();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.panelExternalFairPlay = new System.Windows.Forms.Panel();
@@ -47,22 +50,25 @@
             this.textBoxFairPlayLAurl = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.radioButtonDeliverPRfromAMS = new System.Windows.Forms.RadioButton();
+            this.radioButtonDeliverFairPlayfromAMS = new System.Windows.Forms.RadioButton();
             this.radioButtonExternalFairPlayServer = new System.Windows.Forms.RadioButton();
-            this.numericUpDownNbOptionsPlayReady = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownNbOptionsFairPlay = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.radioButtonSkd = new System.Windows.Forms.RadioButton();
-            this.radioButtonHttps = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxASK = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonASKBase64 = new System.Windows.Forms.RadioButton();
+            this.radioButtonASKHex = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
             this.panelExternalFairPlay.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsFairPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -76,7 +82,6 @@
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Next";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -115,20 +120,23 @@
             // 
             this.groupBoxFairPlay.Controls.Add(this.panelFairPlayFromAMS);
             this.groupBoxFairPlay.Controls.Add(this.panelExternalFairPlay);
-            this.groupBoxFairPlay.Controls.Add(this.radioButtonDeliverPRfromAMS);
+            this.groupBoxFairPlay.Controls.Add(this.radioButtonDeliverFairPlayfromAMS);
             this.groupBoxFairPlay.Controls.Add(this.radioButtonExternalFairPlayServer);
-            this.groupBoxFairPlay.Controls.Add(this.numericUpDownNbOptionsPlayReady);
+            this.groupBoxFairPlay.Controls.Add(this.numericUpDownNbOptionsFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.label2);
             this.groupBoxFairPlay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFairPlay.Location = new System.Drawing.Point(12, 87);
             this.groupBoxFairPlay.Name = "groupBoxFairPlay";
-            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 450);
+            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 562);
             this.groupBoxFairPlay.TabIndex = 52;
             this.groupBoxFairPlay.TabStop = false;
             this.groupBoxFairPlay.Text = "Apple FairPlay Streaming";
             // 
             // panelFairPlayFromAMS
             // 
+            this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
+            this.panelFairPlayFromAMS.Controls.Add(this.panel2);
+            this.panelFairPlayFromAMS.Controls.Add(this.label9);
             this.panelFairPlayFromAMS.Controls.Add(this.label6);
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonHttps);
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonSkd);
@@ -136,8 +144,42 @@
             this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
             this.panelFairPlayFromAMS.Location = new System.Drawing.Point(41, 63);
             this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
-            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 142);
+            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 230);
             this.panelFairPlayFromAMS.TabIndex = 85;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(26, 148);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(177, 15);
+            this.label6.TabIndex = 78;
+            this.label6.Text = "License Acquisition Url scheme :";
+            // 
+            // radioButtonHttps
+            // 
+            this.radioButtonHttps.AutoSize = true;
+            this.radioButtonHttps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonHttps.Location = new System.Drawing.Point(29, 191);
+            this.radioButtonHttps.Name = "radioButtonHttps";
+            this.radioButtonHttps.Size = new System.Drawing.Size(65, 19);
+            this.radioButtonHttps.TabIndex = 73;
+            this.radioButtonHttps.Text = "https://";
+            this.radioButtonHttps.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSkd
+            // 
+            this.radioButtonSkd.AutoSize = true;
+            this.radioButtonSkd.Checked = true;
+            this.radioButtonSkd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSkd.Location = new System.Drawing.Point(29, 166);
+            this.radioButtonSkd.Name = "radioButtonSkd";
+            this.radioButtonSkd.Size = new System.Drawing.Size(56, 19);
+            this.radioButtonSkd.TabIndex = 72;
+            this.radioButtonSkd.TabStop = true;
+            this.radioButtonSkd.Text = "skd://";
+            this.radioButtonSkd.UseVisualStyleBackColor = true;
             // 
             // labelCertificateFile
             // 
@@ -169,7 +211,7 @@
             this.panelExternalFairPlay.Controls.Add(this.label7);
             this.panelExternalFairPlay.Controls.Add(this.label3);
             this.panelExternalFairPlay.Enabled = false;
-            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 248);
+            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 342);
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
             this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 171);
             this.panelExternalFairPlay.TabIndex = 81;
@@ -250,9 +292,9 @@
             this.textBoxFairPlayLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFairPlayLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFairPlayLAurl.Location = new System.Drawing.Point(26, 33);
+            this.textBoxFairPlayLAurl.Location = new System.Drawing.Point(29, 33);
             this.textBoxFairPlayLAurl.Name = "textBoxFairPlayLAurl";
-            this.textBoxFairPlayLAurl.Size = new System.Drawing.Size(419, 23);
+            this.textBoxFairPlayLAurl.Size = new System.Drawing.Size(416, 23);
             this.textBoxFairPlayLAurl.TabIndex = 78;
             this.textBoxFairPlayLAurl.TextChanged += new System.EventHandler(this.textBoxFairPlayLAurl_TextChanged);
             // 
@@ -272,7 +314,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 13);
+            this.label3.Location = new System.Drawing.Point(26, 15);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 15);
             this.label3.TabIndex = 77;
@@ -280,23 +322,22 @@
             // 
             // radioButtonDeliverPRfromAMS
             // 
-            this.radioButtonDeliverPRfromAMS.AutoSize = true;
-            this.radioButtonDeliverPRfromAMS.Checked = true;
-            this.radioButtonDeliverPRfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDeliverPRfromAMS.Location = new System.Drawing.Point(41, 34);
-            this.radioButtonDeliverPRfromAMS.Name = "radioButtonDeliverPRfromAMS";
-            this.radioButtonDeliverPRfromAMS.Size = new System.Drawing.Size(193, 19);
-            this.radioButtonDeliverPRfromAMS.TabIndex = 63;
-            this.radioButtonDeliverPRfromAMS.TabStop = true;
-            this.radioButtonDeliverPRfromAMS.Text = "From Azure Media Services with";
-            this.radioButtonDeliverPRfromAMS.UseVisualStyleBackColor = true;
-            this.radioButtonDeliverPRfromAMS.CheckedChanged += new System.EventHandler(this.radioButtonDeliverPRfromAMS_CheckedChanged);
+            this.radioButtonDeliverFairPlayfromAMS.AutoSize = true;
+            this.radioButtonDeliverFairPlayfromAMS.Checked = true;
+            this.radioButtonDeliverFairPlayfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonDeliverFairPlayfromAMS.Location = new System.Drawing.Point(41, 34);
+            this.radioButtonDeliverFairPlayfromAMS.Name = "radioButtonDeliverPRfromAMS";
+            this.radioButtonDeliverFairPlayfromAMS.Size = new System.Drawing.Size(193, 19);
+            this.radioButtonDeliverFairPlayfromAMS.TabIndex = 63;
+            this.radioButtonDeliverFairPlayfromAMS.TabStop = true;
+            this.radioButtonDeliverFairPlayfromAMS.Text = "From Azure Media Services with";
+            this.radioButtonDeliverFairPlayfromAMS.UseVisualStyleBackColor = true;
             // 
             // radioButtonExternalFairPlayServer
             // 
             this.radioButtonExternalFairPlayServer.AutoSize = true;
             this.radioButtonExternalFairPlayServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 226);
+            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 320);
             this.radioButtonExternalFairPlayServer.Name = "radioButtonExternalFairPlayServer";
             this.radioButtonExternalFairPlayServer.Size = new System.Drawing.Size(201, 19);
             this.radioButtonExternalFairPlayServer.TabIndex = 62;
@@ -306,22 +347,22 @@
             // 
             // numericUpDownNbOptionsPlayReady
             // 
-            this.numericUpDownNbOptionsPlayReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownNbOptionsPlayReady.Location = new System.Drawing.Point(240, 34);
-            this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
+            this.numericUpDownNbOptionsFairPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownNbOptionsFairPlay.Location = new System.Drawing.Point(240, 34);
+            this.numericUpDownNbOptionsFairPlay.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownNbOptionsPlayReady.Minimum = new decimal(new int[] {
+            this.numericUpDownNbOptionsFairPlay.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNbOptionsPlayReady.Name = "numericUpDownNbOptionsPlayReady";
-            this.numericUpDownNbOptionsPlayReady.Size = new System.Drawing.Size(54, 23);
-            this.numericUpDownNbOptionsPlayReady.TabIndex = 64;
-            this.numericUpDownNbOptionsPlayReady.Value = new decimal(new int[] {
+            this.numericUpDownNbOptionsFairPlay.Name = "numericUpDownNbOptionsPlayReady";
+            this.numericUpDownNbOptionsFairPlay.Size = new System.Drawing.Size(54, 23);
+            this.numericUpDownNbOptionsFairPlay.TabIndex = 64;
+            this.numericUpDownNbOptionsFairPlay.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -341,7 +382,7 @@
             // 
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(50, 566);
+            this.label8.Location = new System.Drawing.Point(50, 630);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(574, 42);
             this.label8.TabIndex = 69;
@@ -352,39 +393,66 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // radioButtonSkd
+            // textBoxASK
             // 
-            this.radioButtonSkd.AutoSize = true;
-            this.radioButtonSkd.Checked = true;
-            this.radioButtonSkd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSkd.Location = new System.Drawing.Point(29, 78);
-            this.radioButtonSkd.Name = "radioButtonSkd";
-            this.radioButtonSkd.Size = new System.Drawing.Size(56, 19);
-            this.radioButtonSkd.TabIndex = 72;
-            this.radioButtonSkd.TabStop = true;
-            this.radioButtonSkd.Text = "skd://";
-            this.radioButtonSkd.UseVisualStyleBackColor = true;
+            this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxASK.Location = new System.Drawing.Point(29, 93);
+            this.textBoxASK.Name = "textBoxASK";
+            this.textBoxASK.Size = new System.Drawing.Size(416, 23);
+            this.textBoxASK.TabIndex = 89;
+            this.textBoxASK.TextChanged += new System.EventHandler(this.textBoxASK_TextChanged);
             // 
-            // radioButtonHttps
+            // panel2
             // 
-            this.radioButtonHttps.AutoSize = true;
-            this.radioButtonHttps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonHttps.Location = new System.Drawing.Point(29, 103);
-            this.radioButtonHttps.Name = "radioButtonHttps";
-            this.radioButtonHttps.Size = new System.Drawing.Size(65, 19);
-            this.radioButtonHttps.TabIndex = 73;
-            this.radioButtonHttps.Text = "https://";
-            this.radioButtonHttps.UseVisualStyleBackColor = true;
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.radioButtonASKBase64);
+            this.panel2.Controls.Add(this.radioButtonASKHex);
+            this.panel2.Location = new System.Drawing.Point(466, 75);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(87, 55);
+            this.panel2.TabIndex = 90;
             // 
-            // label6
+            // radioButtonASKBase64
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 60);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(177, 15);
-            this.label6.TabIndex = 78;
-            this.label6.Text = "License Acquisition Url scheme :";
+            this.radioButtonASKBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonASKBase64.AutoSize = true;
+            this.radioButtonASKBase64.Checked = true;
+            this.radioButtonASKBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonASKBase64.Location = new System.Drawing.Point(9, 7);
+            this.radioButtonASKBase64.Name = "radioButtonASKBase64";
+            this.radioButtonASKBase64.Size = new System.Drawing.Size(61, 19);
+            this.radioButtonASKBase64.TabIndex = 68;
+            this.radioButtonASKBase64.TabStop = true;
+            this.radioButtonASKBase64.Text = "Base64";
+            this.radioButtonASKBase64.UseVisualStyleBackColor = true;
+            this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.radioButtonASKBase64_CheckedChanged);
+            // 
+            // radioButtonASKHex
+            // 
+            this.radioButtonASKHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonASKHex.AutoSize = true;
+            this.radioButtonASKHex.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonASKHex.Location = new System.Drawing.Point(9, 32);
+            this.radioButtonASKHex.Name = "radioButtonASKHex";
+            this.radioButtonASKHex.Size = new System.Drawing.Size(45, 19);
+            this.radioButtonASKHex.TabIndex = 69;
+            this.radioButtonASKHex.Text = "Hex";
+            this.radioButtonASKHex.UseVisualStyleBackColor = true;
+            this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.radioButtonASKHex_CheckedChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(26, 75);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(163, 15);
+            this.label9.TabIndex = 88;
+            this.label9.Text = "Application Secret Key (ASK) :";
             // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
@@ -412,8 +480,10 @@
             this.panelExternalFairPlay.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsFairPlay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -427,8 +497,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBoxFairPlay;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsPlayReady;
-        private System.Windows.Forms.RadioButton radioButtonDeliverPRfromAMS;
+        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsFairPlay;
+        private System.Windows.Forms.RadioButton radioButtonDeliverFairPlayfromAMS;
         private System.Windows.Forms.RadioButton radioButtonExternalFairPlayServer;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxFairPlayLAurl;
@@ -448,5 +518,10 @@
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton radioButtonHttps;
         private System.Windows.Forms.RadioButton radioButtonSkd;
+        private System.Windows.Forms.TextBox textBoxASK;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonASKBase64;
+        private System.Windows.Forms.RadioButton radioButtonASKHex;
+        public System.Windows.Forms.Label label9;
     }
 }
