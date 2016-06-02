@@ -11321,7 +11321,7 @@ namespace AMSExplorer
 
                 IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
-                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
+                string tasknameloc = taskname ?? Constants.stringNull;//.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
 
                 ITask task = job.Tasks.AddNew(
                             tasknameloc,

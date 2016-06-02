@@ -157,7 +157,7 @@ namespace AMSExplorer
             {
                 foreach (ITask task in MyJob.Tasks)
                 {
-                    listBoxTasks.Items.Add(task.Name);
+                    listBoxTasks.Items.Add(task.Name ?? Constants.stringNull);
 
                     for (int i = 0; i < task.ErrorDetails.Count(); i++)
                     {
