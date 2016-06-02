@@ -3036,7 +3036,7 @@ namespace AMSExplorer
         }
 
         // copy a directory of the same container to another container
-        public static List<Task> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+        public static List<Task> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
         {
 
             List<Task> mylistresults = new List<Task>();
@@ -3057,7 +3057,7 @@ namespace AMSExplorer
                     destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
 
                 // copy using src blob as SAS
-                mylistresults.Add(destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken)));
+                mylistresults.Add(destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token));
             }
 
             return mylistresults;

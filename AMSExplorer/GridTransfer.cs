@@ -55,6 +55,12 @@ using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
+    public class TransferEntryResponse
+    {
+        public int index;
+        public CancellationToken token;
+    }
+
     public class TransferEntry : INotifyPropertyChanged
     {
         private string _Name;
@@ -191,6 +197,9 @@ namespace AMSExplorer
 
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
 
+        public CancellationTokenSource tokenSource { get; set; }
+        public int index { get; set; }
+
         private string _ErrorDescription;
         public string ErrorDescription
         {
@@ -240,6 +249,8 @@ namespace AMSExplorer
             dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
             dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
             dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
+            dataGridViewTransfer.Columns["tokenSource"].Visible = false;
+            dataGridViewTransfer.Columns["index"].Visible = false;
 
             dataGridViewTransfer.Columns["SubmitTime"].Width = 140;
             dataGridViewTransfer.Columns["SubmitTime"].HeaderText = "Submit time";
@@ -259,7 +270,7 @@ namespace AMSExplorer
 
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", 0)));
         }
-        public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
+        public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
         {
             TransferEntry myTE = new TransferEntry()
             {
@@ -274,11 +285,11 @@ namespace AMSExplorer
 
             }
                 ));
-            int indexloc = _MyListTransfer.IndexOf(myTE);
+            myTE.index = _MyListTransfer.IndexOf(myTE);
 
             if (PutInTheQueue)
             {
-                _MyListTransferQueue.Add(indexloc);
+                _MyListTransferQueue.Add(myTE.index);
                 myTE.processedinqueue = true;
                 myTE.State = TransferState.Queued;
 
@@ -292,8 +303,22 @@ namespace AMSExplorer
 
             // refresh number in tab
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", _MyListTransfer.Count())));
-            return indexloc;
+
+            // to cancel task if needed
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken tokenloc = tokenSource.Token;
+            myTE.tokenSource = tokenSource;
+
+            return new TransferEntryResponse() { index = myTE.index, token = tokenloc };
         }
+            
+
+        public void DoGridTransferCancelTask(int index)
+        {
+            _MyListTransfer[index].tokenSource.Cancel();
+            _MyListTransfer[index].State = TransferState.Cancelling;
+        }
+
         private void DoGridTransferUpdateProgressText(string progresstext, double progress, int index)
         {
             _MyListTransfer[index].ProgressText = progresstext;
@@ -308,26 +333,40 @@ namespace AMSExplorer
                 DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                 _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString("G") + " ?";
             }
-
-            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
 
         private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
         {
-            _MyListTransfer[index].Progress = 101d;
-            _MyListTransfer[index].State = TransferState.Finished;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].DestLocation = DestLocation;
-            _MyListTransfer[index].ProgressText = string.Empty;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+          
+                _MyListTransfer[index].Progress = 101d;
+                _MyListTransfer[index].State = TransferState.Finished;
+                _MyListTransfer[index].EndTime = DateTime.Now.ToString();
+                _MyListTransfer[index].DestLocation = DestLocation;
+                _MyListTransfer[index].ProgressText = string.Empty;
+                if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
+                    this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
+                }));
+           
+        }
+
+        private void DoGridTransferDeclareCancelled(int index)  // Process is completed
+        {
+                _MyListTransfer[index].Progress = 101d;
+                _MyListTransfer[index].State = TransferState.Cancelled;
+                _MyListTransfer[index].EndTime = DateTime.Now.ToString();
+                _MyListTransfer[index].ProgressText = string.Empty;
+                if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
 
             this.BeginInvoke(new Action(() =>
             {
-                this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' cancelled by user.", _MyListTransfer[index].Name), true);
             }));
-
         }
+
 
         private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
         {
