@@ -276,6 +276,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(textBoxASK, String.Empty);
             }
+            ValidateButtonOk();
         }
 
         private void radioButtonASKBase64_CheckedChanged(object sender, EventArgs e)
