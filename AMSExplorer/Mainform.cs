@@ -1605,9 +1605,10 @@ namespace AMSExplorer
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        JobInformation form = new JobInformation(_context)
+                        JobInformation form = new JobInformation(this, _context)
                         {
-                            MyJob = job
+                            MyJob = job,
+                            MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
                         };
                         dialogResult = form.ShowDialog(this);
                     }
@@ -12677,7 +12678,6 @@ namespace AMSExplorer
                 dataGridViewAssetsV.PurgeCacheAsset(selasset);
                 dataGridViewAssetsV.AnalyzeItemsInBackground();
             }
-
         }
 
         private void duplicateToolStripMenuItem1_Click(object sender, EventArgs e)
