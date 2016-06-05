@@ -34,7 +34,6 @@ namespace AMSExplorer
     public partial class Hyperlapse : Form
     {
         private CloudMediaContext _context;
-        const int maxframe = 10000; // In public preview, limited to 10 000 frames
         private string _processorVersion;
 
         public string HyperlapseInputAssetName
@@ -129,7 +128,6 @@ namespace AMSExplorer
             _context = context;
             _processorVersion = processorVersion;
             buttonJobOptions.Initialize(_context);
-
         }
 
 
@@ -194,7 +192,7 @@ namespace AMSExplorer
                 double speed = (double)numericUpDownSpeed.Value;
 
                 TimeSpan tsstart = TimeSpan.FromSeconds(((double)numericUpDownStartFrame.Value) / framerate);
-                TimeSpan tsduration = TimeSpan.FromSeconds((Math.Min(maxframe, (double)numericUpDownNumFrames.Value)) / framerate);
+                TimeSpan tsduration = TimeSpan.FromSeconds(((double)numericUpDownNumFrames.Value) / framerate);
                 TimeSpan tsoutputduration = TimeSpan.FromSeconds(tsduration.TotalSeconds / speed);
 
                 textBoxSourceStartTime.Text = tsstart.ToString("g");
@@ -216,18 +214,6 @@ namespace AMSExplorer
         private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
-        }
-
-        private void numericUpDownNumFrames_Validating(object sender, CancelEventArgs e)
-        {
-            if (numericUpDownNumFrames.Value > maxframe)
-            {
-                errorProvider1.SetError(numericUpDownNumFrames, "In Preview, only the first 10000 frames will be processed");
-            }
-            else
-            {
-                errorProvider1.SetError(numericUpDownNumFrames, String.Empty);
-            }
         }
     }
 }

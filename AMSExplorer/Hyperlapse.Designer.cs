@@ -290,7 +290,6 @@
             0,
             0});
             this.numericUpDownNumFrames.ValueChanged += new System.EventHandler(this.numericUpDownNumFrames_ValueChanged);
-            this.numericUpDownNumFrames.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDownNumFrames_Validating);
             // 
             // numericUpDownStartFrame
             // 
