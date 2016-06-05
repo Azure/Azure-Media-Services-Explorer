@@ -90,13 +90,6 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerLanguage
-        {
-            get
-            {
-                return (string)comboBoxLanguage.SelectedValue;
-            }
-        }
 
         public JobOptionsVar JobOptions
         {

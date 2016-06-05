@@ -88,7 +88,7 @@ namespace AMSExplorer
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
         private bool AMIndexerV2Present = true;
-
+        private bool AMVideoOCRPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -277,6 +277,12 @@ namespace AMSExplorer
                 AMIndexerV2Present = false;
                 toolStripMenuItemIndexv2.Visible = false;
                 toolStripMenuItem38Indexer2.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
+            {
+                AMVideoOCRPresent = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -4811,6 +4817,74 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuVideoOCR()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+
+            // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
+
+            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version)
+            {
+                OCRJobName = "Video OCR of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - OCR",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for video OCR."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for OCR.",
+            };
+
+            string taskname = "Video OCR of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(
+                                    MediaAnalyticsVideoOCR.LoadAndUpdateVideoOCRConfiguration(
+                                                                                Path.Combine(_configurationXMLFiles, @"VideoOCR.xml"),
+                                                                                "",
+                                                                                "",
+                                                                                form.OCRLanguage,
+                                                                                form.TimeInterval,
+                                                                                form.OutputTxt ,
+                                                                                form.OutputXml
+                                                                                )
+                                                                                );
+
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.OCRJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
+
         private void DoMenuHyperlapseAssets()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -6776,6 +6850,13 @@ namespace AMSExplorer
             {
                 toolStripMenuItemIndexv2.Enabled = false;
                 toolStripMenuItem38Indexer2.Enabled = false;
+            }
+
+            // let's disable Video OCR if not present
+            if (!AMVideoOCRPresent)
+            {
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Enabled = false;
             }
 
             // let's disable AME Std if not present
@@ -14144,6 +14225,16 @@ namespace AMSExplorer
         private void cancelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCancelTransfer();
+        }
+
+        private void processAssetsWithAzureMediaOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
+        }
+
+        private void processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
         }
     }
 }

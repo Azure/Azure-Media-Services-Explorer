@@ -87,6 +87,7 @@
             this.toolStripMenuItemMotionDetector = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStabilizer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemVideoThumbnails = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedProcessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem39 = new System.Windows.Forms.ToolStripMenuItem();
@@ -525,6 +526,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -961,7 +963,8 @@
             this.toolStripMenuItemRedactor,
             this.toolStripMenuItemMotionDetector,
             this.toolStripMenuItemStabilizer,
-            this.toolStripMenuItemVideoThumbnails});
+            this.toolStripMenuItemVideoThumbnails,
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem});
             this.mediaIntelligenceToolStripMenuItem.Name = "mediaIntelligenceToolStripMenuItem";
             this.mediaIntelligenceToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
             this.mediaIntelligenceToolStripMenuItem.Text = "Media Analytics";
@@ -1031,6 +1034,14 @@
             this.toolStripMenuItemVideoThumbnails.Size = new System.Drawing.Size(359, 22);
             this.toolStripMenuItemVideoThumbnails.Text = "Process asset(s) with Azure Media Video Thumbnails...";
             this.toolStripMenuItemVideoThumbnails.Click += new System.EventHandler(this.toolStripMenuItemVideoThumbnails_Click);
+            // 
+            // processAssetsWithAzureMediaOCRToolStripMenuItem
+            // 
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Name = "processAssetsWithAzureMediaOCRToolStripMenuItem";
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Size = new System.Drawing.Size(359, 22);
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Text = "Process asset(s) with Azure Media Video OCR...";
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaOCRToolStripMenuItem_Click);
             // 
             // advancedProcessingToolStripMenuItem
             // 
@@ -1885,7 +1896,8 @@
             this.ProcessRedactortoolStripMenuItem,
             this.ProcessMotionDetectortoolStripMenuItem,
             this.ProcessStabilizertoolStripMenuItem,
-            this.ProcessVideoThumbnailstoolStripMenuItem});
+            this.ProcessVideoThumbnailstoolStripMenuItem,
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem});
             this.mediaAnalyticsToolStripMenuItem.Name = "mediaAnalyticsToolStripMenuItem";
             this.mediaAnalyticsToolStripMenuItem.Size = new System.Drawing.Size(419, 22);
             this.mediaAnalyticsToolStripMenuItem.Text = "Media Analytics";
@@ -5334,6 +5346,14 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // processAssetsWithAzureMediaVideoOCRToolStripMenuItem
+            // 
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoOCRToolStripMenuItem";
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Text = "Process asset(s) with Azure Media Video OCR...";
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5898,6 +5918,8 @@
         private System.Windows.Forms.ToolStripMenuItem fixSystemBitrateInManifestjan15FixToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaOCRToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoOCRToolStripMenuItem;
     }
 }
 
