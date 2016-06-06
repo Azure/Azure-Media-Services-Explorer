@@ -722,6 +722,7 @@
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />
     <Content Include="IconsPNG\bulk_ingest.png" />
+    <None Include="IconsPNG\contentmoderation.png" />
     <Content Include="IconsPNG\copy_to_clipboard.png" />
     <Content Include="IconsPNG\face_detector.png" />
     <None Include="IconsPNG\filters.png" />

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14228,7 +14228,7 @@ namespace AMSExplorer
 
         private void DoMenuContentModerator()
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.motion_detector, Constants.LinkMoreInfoContentModeration, "sdv=true");
+            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "sdv=true");
         }
 
         private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click(object sender, EventArgs e)
