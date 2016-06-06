@@ -166,7 +166,9 @@ namespace AMSExplorer
             this.Columns["CDN"].Width = 100;
             this.Columns["Description"].Width = 230;
             this.Columns["ScaleUnits"].Width = 100;
+            this.Columns["ScaleUnits"].HeaderText = "Streaming Units";
             this.Columns["LastModified"].Width = 150;
+            this.Columns["LastModified"].HeaderText = "Last modified";
 
             WorkerRefreshStreamingEndpoints = new BackgroundWorker();
             WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;

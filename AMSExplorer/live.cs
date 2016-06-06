@@ -236,6 +236,8 @@ namespace AMSExplorer
             this.Columns[_encodedPreset].Width = 100;
 
             this.Columns["LastModified"].Width = 140;
+            this.Columns["LastModified"].HeaderText = "Last modified";
+
             this.Columns["State"].Width = 75;
             this.Columns["Description"].Width = 110;
 
@@ -658,8 +660,11 @@ namespace AMSExplorer
             this.Columns[_published].DefaultCellStyle.NullValue = null;
             this.Columns[_published].HeaderText = _published;
             this.Columns["LastModified"].Width = 130;
+            this.Columns["LastModified"].HeaderText = "Last modified";
             this.Columns["Description"].Width = 150;
             this.Columns["ArchiveWindowLength"].Width = 130;
+            this.Columns["ArchiveWindowLength"].HeaderText = "Archive window";
+            this.Columns["ChannelName"].HeaderText = "Channel name";
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;

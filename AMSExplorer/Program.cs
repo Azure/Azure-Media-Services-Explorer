@@ -265,13 +265,13 @@ namespace AMSExplorer
             {
                 case ReservedUnitType.Basic:
                 default:
-                    return "S1 (Basic)";
+                    return "S1";
 
                 case ReservedUnitType.Standard:
-                    return "S2 (Standard)";
+                    return "S2";
 
                 case ReservedUnitType.Premium:
-                    return "S3 (Premium)";
+                    return "S3";
 
             }
         }

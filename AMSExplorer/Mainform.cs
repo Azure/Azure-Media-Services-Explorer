@@ -301,7 +301,7 @@ namespace AMSExplorer
             try
             {
                 if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1 (Basic).", true); // Warning
+                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
             }
             catch // can occur on test account
             {
@@ -11520,7 +11520,7 @@ namespace AMSExplorer
             if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Value != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
             // user selected 0 with a non S1 hardware...
             {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1 (Basic). Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                 {
                     oktocontinue = false;
                 }
@@ -11563,7 +11563,7 @@ namespace AMSExplorer
 
         private void RUEncodingUpdateControls()
         {
-            // If RU is set to 0, let's switch to S1 (Basic)
+            // If RU is set to 0, let's switch to S1
             if (trackBarEncodingRU.Value == 0)
             {
                 foreach (var it in comboBoxEncodingRU.Items)
@@ -11573,7 +11573,6 @@ namespace AMSExplorer
                         comboBoxEncodingRU.SelectedItem = it;
                     }
                 }
-                //  comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
             }
         }
 
@@ -15922,7 +15921,9 @@ namespace AMSExplorer
             this.Columns["Priority"].Width = 50;
             this.Columns["State"].Width = 80;
             this.Columns["StartTime"].Width = 150;
+            this.Columns["StartTime"].HeaderText = "Start time";
             this.Columns["EndTime"].Width = 150;
+            this.Columns["EndTime"].HeaderText = "End time";
             this.Columns["Duration"].Width = 90;
 
             _initialized = true;

@@ -510,7 +510,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
             this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
@@ -5116,7 +5115,6 @@
             // tabPageProcessors
             // 
             this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageProcessors.Controls.Add(this.label13);
             this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
             this.tabPageProcessors.Location = new System.Drawing.Point(4, 24);
             this.tabPageProcessors.Name = "tabPageProcessors";
@@ -5124,19 +5122,6 @@
             this.tabPageProcessors.Size = new System.Drawing.Size(1006, 441);
             this.tabPageProcessors.TabIndex = 4;
             this.tabPageProcessors.Text = "Processors";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label13.Location = new System.Drawing.Point(6, 420);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(994, 18);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "Media Reserved Unit management is now in the jobs tab";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dataGridViewProcessors
             // 
@@ -5153,7 +5138,7 @@
             this.dataGridViewProcessors.ReadOnly = true;
             this.dataGridViewProcessors.RowHeadersVisible = false;
             this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 411);
+            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 429);
             this.dataGridViewProcessors.TabIndex = 33;
             this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewProcessors.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
@@ -5847,7 +5832,6 @@
         private System.Windows.Forms.Label labelnbunits;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadToLocal;
         private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem;
