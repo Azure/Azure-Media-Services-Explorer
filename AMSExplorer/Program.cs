@@ -813,7 +813,6 @@ namespace AMSExplorer
 
     public class Constants
     {
-        //public const string GitHubAMSEVersion = "file://c://temp//version.xml";
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
@@ -832,7 +831,7 @@ namespace AMSExplorer
         public const string AzureMediaStabilizer = "Azure Media Stabilizer";
         public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
         public const string AzureMediaVideoOCR = "Azure Media OCR";
-
+        public const string AzureMediaContentModerator = "Azure Media Content Moderator";
 
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
@@ -982,6 +981,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
         public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
         public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
+        public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
