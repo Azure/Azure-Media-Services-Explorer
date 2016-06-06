@@ -52,6 +52,7 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
+            this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
@@ -390,6 +391,7 @@
             // 
             // tabPageEncoding
             // 
+            this.tabPageEncoding.Controls.Add(this.checkBoxIgnore708);
             this.tabPageEncoding.Controls.Add(this.groupBoxVideoStream);
             this.tabPageEncoding.Controls.Add(this.labelChannelMustBeStopped);
             this.tabPageEncoding.Controls.Add(this.groupBoxEncoding);
@@ -401,6 +403,18 @@
             this.tabPageEncoding.Text = "Live Encoding";
             this.tabPageEncoding.UseVisualStyleBackColor = true;
             // 
+            // checkBoxIgnore708
+            // 
+            this.checkBoxIgnore708.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxIgnore708.AutoSize = true;
+            this.checkBoxIgnore708.Location = new System.Drawing.Point(25, 489);
+            this.checkBoxIgnore708.Name = "checkBoxIgnore708";
+            this.checkBoxIgnore708.Size = new System.Drawing.Size(193, 19);
+            this.checkBoxIgnore708.TabIndex = 103;
+            this.checkBoxIgnore708.Text = "Ignore CEA-708 closed captions";
+            this.checkBoxIgnore708.UseVisualStyleBackColor = true;
+            this.checkBoxIgnore708.CheckedChanged += new System.EventHandler(this.checkBoxIgnore708_CheckedChanged);
+            // 
             // groupBoxVideoStream
             // 
             this.groupBoxVideoStream.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -409,7 +423,7 @@
             this.groupBoxVideoStream.Controls.Add(this.numericUpDownVideoStreamIndex);
             this.groupBoxVideoStream.Location = new System.Drawing.Point(25, 405);
             this.groupBoxVideoStream.Name = "groupBoxVideoStream";
-            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 100);
+            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 81);
             this.groupBoxVideoStream.TabIndex = 81;
             this.groupBoxVideoStream.TabStop = false;
             this.groupBoxVideoStream.Text = "Video Stream";
@@ -919,6 +933,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPageEncoding.ResumeLayout(false);
+            this.tabPageEncoding.PerformLayout();
             this.groupBoxVideoStream.ResumeLayout(false);
             this.groupBoxVideoStream.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
@@ -1012,5 +1027,6 @@
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBoxIgnore708;
     }
 }

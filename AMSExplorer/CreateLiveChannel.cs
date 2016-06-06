@@ -68,7 +68,8 @@ namespace AMSExplorer
                 ChannelEncoding encodingoption = new ChannelEncoding()
                 {
                     SystemPreset = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
-                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value))
+                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                    IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
                 };
                 if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP

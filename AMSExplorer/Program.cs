@@ -721,7 +721,7 @@ namespace AMSExplorer
                     break;
 
                 case StreamingProtocol.RTPMPEG2TS:
-                    name = "RTP (MPEG-TS)";
+                    name = "RTP/MPEG-2 Transport Stream";
                     break;
             }
             return name;

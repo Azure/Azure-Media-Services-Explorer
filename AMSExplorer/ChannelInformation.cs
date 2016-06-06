@@ -44,7 +44,7 @@ namespace AMSExplorer
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
         public bool MultipleSelection = false;
-        public ExplorerChannelModifications Modifications= new ExplorerChannelModifications();
+        public ExplorerChannelModifications Modifications = new ExplorerChannelModifications();
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
@@ -118,6 +118,14 @@ namespace AMSExplorer
             get
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+            }
+        }
+
+        public bool Ignore708Captions
+        {
+            get
+            {
+                return checkBoxIgnore708.Checked;
             }
         }
 
@@ -317,11 +325,13 @@ namespace AMSExplorer
                         radioButtonCustomPreset.Checked = true;
                         textBoxCustomPreset.Text = MyChannel.Encoding.SystemPreset;
                     }
+                    checkBoxIgnore708.Checked = MyChannel.Encoding.IgnoreCea708ClosedCaptions;
                 }
                 if (MyChannel.State != ChannelState.Stopped)
                 {
                     groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
                     groupBoxVideoStream.Enabled = false;
+                    checkBoxIgnore708.Enabled = false;
                     labelChannelMustBeStopped.Visible = true;
                     labelIndexesChannelMustBeStopped.Visible = true;
                     panelStreamIndexes.Enabled = false; // encoding settings cannot be edited
@@ -489,7 +499,8 @@ namespace AMSExplorer
                 KeyFrameInterval = false,
                 PreviewIPAllowList = false,
                 SystemPreset = false,
-                VideoStreams = false
+                VideoStreams = false,
+                Ignore708Captions = false
             };
         }
 
@@ -812,6 +823,11 @@ namespace AMSExplorer
         {
             Modifications.CrossDomainPolicy = true;
         }
+
+        private void checkBoxIgnore708_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.Ignore708Captions = true;
+        }
     }
 
     public class ExplorerAudioStream
@@ -833,5 +849,6 @@ namespace AMSExplorer
         public bool PreviewIPAllowList { get; set; }
         public bool ClientAccessPolicy { get; set; }
         public bool CrossDomainPolicy { get; set; }
+        public bool Ignore708Captions { get; set; }
     }
 }
