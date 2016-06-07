@@ -39,6 +39,7 @@ namespace AMSExplorer
         private string _version;
 
         public readonly List<Item> VideOCRLanguages = new List<Item> {
+            new Item("Undefined", ""),
             new Item("Arabic", "Arabic"),
             new Item("Chinese Simplified", "Chinese Simplified"),
             new Item("Chinese Traditional", "ZhCn"),
@@ -68,6 +69,14 @@ namespace AMSExplorer
         };
 
 
+        public readonly List<Item> TextOrientations = new List<Item> {
+            new Item("Undefined", ""),
+            new Item("Up", "Up"),
+            new Item("Down", "Down"),
+            new Item("Left", "Left"),
+            new Item("Right", "Right")
+        };
+
         public string IndexerInputAssetName
         {
             get
@@ -89,14 +98,6 @@ namespace AMSExplorer
             set
             {
                 textboxoutputassetname.Text = value;
-            }
-        }
-
-        public string OCRLanguage
-        {
-            get
-            {
-                return ((Item)comboBoxLanguage.SelectedItem).Value as string;
             }
         }
 
@@ -124,30 +125,6 @@ namespace AMSExplorer
             }
         }
 
-        public bool OutputTxt
-        {
-            get
-            {
-                return checkBoxTxt.Checked;
-            }
-        }
-
-        public bool OutputXml
-        {
-            get
-            {
-                return checkBoxXml.Checked;
-            }
-        }
-
-        public decimal TimeInterval
-        {
-            get
-            {
-                return numericUpDownTimeInterval.Value;
-            }
-        }
-
         public MediaAnalyticsVideoOCR(CloudMediaContext context, string version)
         {
             InitializeComponent();
@@ -162,43 +139,94 @@ namespace AMSExplorer
         {
             comboBoxLanguage.Items.AddRange(VideOCRLanguages.ToArray());
             comboBoxLanguage.SelectedIndex = 0;
+            comboBoxOrientation.Items.AddRange(TextOrientations.ToArray());
+            comboBoxOrientation.SelectedIndex = 0;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoOCR));
         }
 
-        public static string LoadAndUpdateVideoOCRConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, decimal timeInterval, bool optionTXT, bool optionXML)
-        {
-            // Prepare the encryption task template
-            XDocument doc = XDocument.Load(xmlFileName);
 
-            var inputxml = doc.Element("configuration").Element("input");
+
+        public string JsonConfig()
+        {
+            // Example of config :
+
             /*
-            if (proposedfile != null)
             {
-                inputxml.Add(new XAttribute("name", proposedfile));
+              "Version": "1.0",
+              "Options": {
+                "Language": "English",
+                "TimeInterval": "00:00:01.5",
+                "DetectRegions": [
+                  {
+                    "Left": "1",
+                    "Top": "1",
+                    "Width": "1",
+                    "Height": "1"
+                  },
+                  {
+                    "Left": "2",
+                    "Top": "2",
+                    "Width": "2",
+                    "Height": "2"
+                  }
+                ],
+                "TextOrientation": "Up"
+              }
             }
-            if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
-            if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
             */
 
-            var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
-            settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
-            settings.Add(new XElement("add", new XAttribute("key", "TimeInterval"), new XAttribute("value", timeInterval.ToString())));
+            dynamic obj = new JObject();
+            obj.Version = "1.0";
 
-            string separator = optionTXT && optionXML ? "|" : "";
-            string cformats = optionTXT ? "txt" + separator : string.Empty;
-            cformats += optionXML ? "xml" : string.Empty;
-            settings.Add(new XElement("add", new XAttribute("key", "OutputFormats"), new XAttribute("value", cformats)));
+            string language = ((Item)comboBoxLanguage.SelectedItem).Value as string;
+            string orientation = ((Item)comboBoxOrientation.SelectedItem).Value as string;
 
-            return doc.Declaration.ToString() + doc.ToString();
+            if (!string.IsNullOrEmpty(language) || checkBoxTimeInterval.Checked || checkBoxRestrictDetection.Checked || !string.IsNullOrEmpty(orientation))
+            {
+                obj.Options = new JObject();
+                if (!string.IsNullOrEmpty(language))
+                {
+                    obj.Options.Language = language;
+                }
+                if (checkBoxTimeInterval.Checked)
+                {
+                    obj.Options.TimeInterval = TimeSpan.FromSeconds((double)numericUpDownTimeInterval.Value);
+                }
+                if (checkBoxRestrictDetection.Checked)
+                {
+                    obj.Options.DetectRegions = new JArray() as dynamic;
+                    dynamic region = new JObject();
+                    region.Left = numericUpDownRegionX.Value.ToString("F0");
+                    region.Top = numericUpDownRegionY.Value.ToString("F0");
+                    region.Width = numericUpDownRegionW.Value.ToString("F0");
+                    region.Height = numericUpDownRegionH.Value.ToString("F0");
+                    obj.Options.DetectRegions.Add(region);
+                }
+                if (!string.IsNullOrEmpty(orientation))
+                {
+                    obj.Options.TextOrientation = orientation;
+                }
+            }
+
+            return JsonConvert.SerializeObject(obj);
         }
-
 
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void checkBoxTimeInterval_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownTimeInterval.Enabled = checkBoxTimeInterval.Checked;
+        }
+
+        private void checkBoxOverlayResize_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
         }
     }
 }

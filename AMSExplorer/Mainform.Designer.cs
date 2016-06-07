@@ -601,7 +601,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1049,6 +1049,7 @@
             // 
             // processAssetsWithAzureMediaContentModeratorToolStripMenuItem1
             // 
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1";
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Size = new System.Drawing.Size(365, 22);
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Text = "Process asset(s) with Azure Media Content Moderator...";
@@ -1998,6 +1999,7 @@
             // 
             // processAssetsWithAzureMediaContentModeratorToolStripMenuItem
             // 
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem";
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Text = "Process asset(s) with Azure Media Content Moderator...";
@@ -3357,7 +3359,7 @@
             this.cancelToolStripMenuItem,
             this.clearToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
-            this.contextMenuStripTransfers.Size = new System.Drawing.Size(210, 114);
+            this.contextMenuStripTransfers.Size = new System.Drawing.Size(210, 92);
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
             // 
             // ContextMenuItemTransferOpenDest
