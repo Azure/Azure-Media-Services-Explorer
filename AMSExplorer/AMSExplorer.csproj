@@ -218,6 +218,12 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.Designer.cs">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaAnalyticsPickVideoFileInAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -685,6 +691,7 @@
     <None Include="BitmapsPNG\06-emotion.png" />
     <None Include="BitmapsPNG\01-indexer.png" />
     <None Include="BitmapsPNG\encoding-large.png" />
+    <None Include="BitmapsPNG\OCR.png" />
     <Content Include="Configurations\Hyperlapse.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -692,6 +699,10 @@
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />
+    <Content Include="Configurations\VideoOCR.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="HelpFiles\MediaServices.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -711,6 +722,7 @@
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />
     <Content Include="IconsPNG\bulk_ingest.png" />
+    <None Include="IconsPNG\contentmoderation.png" />
     <Content Include="IconsPNG\copy_to_clipboard.png" />
     <Content Include="IconsPNG\face_detector.png" />
     <None Include="IconsPNG\filters.png" />
@@ -799,6 +811,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsVideoOCR.resx">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaAnalyticsPickVideoFileInAsset.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>

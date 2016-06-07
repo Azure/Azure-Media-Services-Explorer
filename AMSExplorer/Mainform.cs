@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -81,14 +81,14 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
-        private bool AMEStandardPresent = true;
         private bool AMFaceDetectorPresent = true;
         private bool AMRedactorPresent = true;
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
         private bool AMIndexerV2Present = true;
-
+        private bool AMVideoOCRPresent = true;
+        private bool AMContentModerator = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -223,21 +223,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard) == null)
-            {
-                AMEStandardPresent = false;
-                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
-                toolStripSeparator35.Visible = false;
-                toolStripSeparator32.Visible = false;
-
-                // subclipping
-                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
-                subclipProgramsToolStripMenuItem.Visible = false;
-                subclipToolStripMenuItem.Visible = false;
-            }
-
             if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
             {
                 AMFaceDetectorPresent = false;
@@ -277,6 +262,18 @@ namespace AMSExplorer
                 AMIndexerV2Present = false;
                 toolStripMenuItemIndexv2.Visible = false;
                 toolStripMenuItem38Indexer2.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
+            {
+                AMVideoOCRPresent = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
+            {
+                AMContentModerator = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -4298,7 +4295,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo)
+        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -4313,7 +4310,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true, urlMoreInfo)
+                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, preview, urlMoreInfo)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4332,7 +4329,7 @@ namespace AMSExplorer
                         form.JobOptions.Priority,
                         taskname,
                         form.MIOutputAssetName,
-                        new List<string> { @"{'Version':'1.0'}" },
+                        preset == null ? new List<string> { @"{'Version':'1.0'}" } : new List<string> { preset },
                         form.JobOptions.OutputAssetsCreationOptions,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
@@ -4810,6 +4807,74 @@ namespace AMSExplorer
                                 );
             }
         }
+
+        private void DoMenuVideoOCR()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+
+            // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
+
+            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version)
+            {
+                OCRJobName = "Video OCR of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - OCR",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for video OCR."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for OCR.",
+            };
+
+            string taskname = "Video OCR of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(
+                                    MediaAnalyticsVideoOCR.LoadAndUpdateVideoOCRConfiguration(
+                                                                                Path.Combine(_configurationXMLFiles, @"VideoOCR.xml"),
+                                                                                "",
+                                                                                "",
+                                                                                form.OCRLanguage,
+                                                                                form.TimeInterval,
+                                                                                form.OutputTxt,
+                                                                                form.OutputXml
+                                                                                )
+                                                                                );
+
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.OCRJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
 
         private void DoMenuHyperlapseAssets()
         {
@@ -6778,18 +6843,18 @@ namespace AMSExplorer
                 toolStripMenuItem38Indexer2.Enabled = false;
             }
 
-            // let's disable AME Std if not present
-            if (!AMEStandardPresent)
+            // let's disable Video OCR if not present
+            if (!AMVideoOCRPresent)
             {
-                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
-                toolStripSeparator35.Visible = false;
-                toolStripSeparator32.Visible = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Enabled = false;
+            }
 
-                // subclipping
-                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
-                subclipProgramsToolStripMenuItem.Visible = false;
-                subclipToolStripMenuItem.Visible = false;
+            // let's disable Video OCR if not present
+            if (!AMContentModerator)
+            {
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -14148,6 +14213,46 @@ namespace AMSExplorer
         private void cancelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCancelTransfer();
+        }
+
+        private void processAssetsWithAzureMediaOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
+        }
+
+        private void processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
+        }
+
+        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuContentModerator();
+        }
+
+        private void DoMenuContentModerator()
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "sdv=true");
+        }
+
+        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuContentModerator();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoClearTransferts();
+        }
+
+        private void DoClearTransferts()
+        {
+            DoGridTransferClearCompletedTransfers();
+        }
+
+        private void clearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGridTransferClearCompletedTransfers();
         }
     }
 }

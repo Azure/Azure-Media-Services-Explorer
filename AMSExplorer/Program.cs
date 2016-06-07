@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -813,7 +813,6 @@ namespace AMSExplorer
 
     public class Constants
     {
-        //public const string GitHubAMSEVersion = "file://c://temp//version.xml";
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
@@ -831,6 +830,8 @@ namespace AMSExplorer
         public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
         public const string AzureMediaStabilizer = "Azure Media Stabilizer";
         public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
+        public const string AzureMediaVideoOCR = "Azure Media OCR";
+        public const string AzureMediaContentModerator = "Azure Media Content Moderator";
 
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
@@ -966,6 +967,7 @@ namespace AMSExplorer
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
         public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
+        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/blog/ocr-on-azure-media-analytics/";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
@@ -979,6 +981,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
         public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
         public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
+        public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
@@ -3685,9 +3688,9 @@ namespace AMSExplorer
         public bool TTML { get; set; }
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
-
     }
 
+   
     public class JobOptionsVar
     {
         public int Priority { get; set; }

@@ -27,34 +27,46 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml.Linq;
 using System.Security;
-
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
-    public partial class Indexer : Form
+    public partial class MediaAnalyticsVideoOCR : Form
     {
         private CloudMediaContext _context;
-        private IndexerOptions formOptions = new IndexerOptions();
-        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
+        private IndexerOptions formOptions = new IndexerOptions(true);
         private string _version;
 
-        public IndexerOptionsVar IndexerGenerationOptions
-        {
-            get
-            {
-                return optionsVar;
-            }
+        public readonly List<Item> VideOCRLanguages = new List<Item> {
+            new Item("Arabic", "Arabic"),
+            new Item("Chinese Simplified", "Chinese Simplified"),
+            new Item("Chinese Traditional", "ZhCn"),
+            new Item("Czech", "Czech"),
+            new Item("Danish", "Danish"),
+            new Item("Dutch", "Dutch"),
+            new Item("English", "English"),
+            new Item("Finnish", "Finnish"),
+            new Item("French", "French"),
+            new Item("German", "German"),
+            new Item("Greek", "Greek"),
+            new Item("Hungarian", "Hungarian"),
+            new Item("Italian", "Italian"),
+            new Item("Japanese", "Japanese"),
+            new Item("Korean", "Korean"),
+            new Item("Norwegian", "Norwegian"),
+            new Item("Polish", "Polish"),
+            new Item("Portuguese", "Portuguese"),
+            new Item("Romanian", "Romanian"),
+            new Item("Russian", "Russian"),
+            new Item("Serbian Cyrillic", "Serbian Cyrillic"),
+            new Item("Serbian Latin", "Serbian Latin"),
+            new Item("Slovak", "Slovak"),
+            new Item("Spanish", "Spanish"),
+            new Item("Swedish", "Swedish"),
+            new Item("Turkish", "Turkish")
+        };
 
-        }
-
-        public bool CopySubtitlesFilesToInputAsset
-        {
-            get
-            {
-                return checkBoxCopyToInput.Checked; ;
-            }
-
-        }
 
         public string IndexerInputAssetName
         {
@@ -67,6 +79,7 @@ namespace AMSExplorer
                 labelAssetName.Text = value;
             }
         }
+
         public string IndexerOutputAssetName
         {
             get
@@ -79,13 +92,12 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerLanguage
+        public string OCRLanguage
         {
             get
             {
-                return comboBoxLanguage.Text;
+                return ((Item)comboBoxLanguage.SelectedItem).Value as string;
             }
-
         }
 
         public JobOptionsVar JobOptions
@@ -100,7 +112,7 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerJobName
+        public string OCRJobName
         {
             get
             {
@@ -112,30 +124,31 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerTitle
+        public bool OutputTxt
         {
             get
             {
-                return textBoxTitle.Text;
-            }
-            set
-            {
-                textBoxTitle.Text = value;
-            }
-        }
-        public string IndexerDescription
-        {
-            get
-            {
-                return textBoxDescription.Text.Replace(Constants.endline, " ");
-            }
-            set
-            {
-                textBoxDescription.Text = value;
+                return checkBoxTxt.Checked;
             }
         }
 
-        public Indexer(CloudMediaContext context, string version)
+        public bool OutputXml
+        {
+            get
+            {
+                return checkBoxXml.Checked;
+            }
+        }
+
+        public decimal TimeInterval
+        {
+            get
+            {
+                return numericUpDownTimeInterval.Value;
+            }
+        }
+
+        public MediaAnalyticsVideoOCR(CloudMediaContext context, string version)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -145,47 +158,42 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
         }
 
-        private void Indexer_Load(object sender, EventArgs e)
+        private void MediaAnalyticsVideoOCR_Load(object sender, EventArgs e)
         {
+            comboBoxLanguage.Items.AddRange(VideOCRLanguages.ToArray());
             comboBoxLanguage.SelectedIndex = 0;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexer));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoOCR));
         }
 
-        private void buttonGenOptions_Click(object sender, EventArgs e)
-        {
-            formOptions.IndexerGenerationOptions = optionsVar;
-            if (formOptions.ShowDialog() == DialogResult.OK)
-            {
-                optionsVar = formOptions.IndexerGenerationOptions;
-            }
-        }
-
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar, string proposedfile = null)
+        public static string LoadAndUpdateVideoOCRConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, decimal timeInterval, bool optionTXT, bool optionXML)
         {
             // Prepare the encryption task template
             XDocument doc = XDocument.Load(xmlFileName);
 
             var inputxml = doc.Element("configuration").Element("input");
+            /*
             if (proposedfile != null)
             {
                 inputxml.Add(new XAttribute("name", proposedfile));
             }
             if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
             if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
+            */
 
             var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
             settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
+            settings.Add(new XElement("add", new XAttribute("key", "TimeInterval"), new XAttribute("value", timeInterval.ToString())));
 
-            string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
-            cformats += optionsVar.SAMI ? "sami;" : string.Empty;
-            cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
-            settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
+            string separator = optionTXT && optionXML ? "|" : "";
+            string cformats = optionTXT ? "txt" + separator : string.Empty;
+            cformats += optionXML ? "xml" : string.Empty;
+            settings.Add(new XElement("add", new XAttribute("key", "OutputFormats"), new XAttribute("value", cformats)));
 
             return doc.Declaration.ToString() + doc.ToString();
         }
+
+
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

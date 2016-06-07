@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration version="2.0">
+  <input>
+    <metadata key="title" value="" />
+    <metadata key="description" value="" />
+  </input>
+  <features>
+    <feature name="ocr">
+      <settings>
+      </settings>
+    </feature>
+  </features>
+  <settings>
+  </settings>
+</configuration>
