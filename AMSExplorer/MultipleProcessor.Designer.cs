@@ -394,6 +394,11 @@
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
             this.numericUpDownPriority.TabIndex = 75;
+            this.numericUpDownPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label6
             // 

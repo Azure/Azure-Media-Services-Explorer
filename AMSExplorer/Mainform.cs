@@ -4846,18 +4846,7 @@ namespace AMSExplorer
                 var ListConfig = new List<string>();
                 foreach (var asset in SelectedAssets)
                 {
-                    ListConfig.Add(
-                                    MediaAnalyticsVideoOCR.LoadAndUpdateVideoOCRConfiguration(
-                                                                                Path.Combine(_configurationXMLFiles, @"VideoOCR.xml"),
-                                                                                "",
-                                                                                "",
-                                                                                form.OCRLanguage,
-                                                                                form.TimeInterval,
-                                                                                form.OutputTxt,
-                                                                                form.OutputXml
-                                                                                )
-                                                                                );
-
+                    ListConfig.Add(form.JsonConfig());
                 }
                 LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
                             processor,
