@@ -14235,6 +14235,21 @@ namespace AMSExplorer
         {
             DoMenuContentModerator();
         }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoClearTransferts();
+        }
+
+        private void DoClearTransferts()
+        {
+            DoGridTransferClearCompletedTransfers();
+        }
+
+        private void clearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGridTransferClearCompletedTransfers();
+        }
     }
 }
 

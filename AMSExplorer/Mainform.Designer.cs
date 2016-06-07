@@ -174,6 +174,7 @@
             this.openDestinationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayErrorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearCompletedTransfersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetWithAMEStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateThumbnailsForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -350,6 +351,7 @@
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
             this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripPrograms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
@@ -1752,7 +1754,8 @@
             this.toolStripSeparator44,
             this.openDestinationToolStripMenuItem,
             this.displayErrorToolStripMenuItem1,
-            this.cancelToolStripMenuItem1});
+            this.cancelToolStripMenuItem1,
+            this.clearCompletedTransfersToolStripMenuItem});
             this.transferToolStripMenuItem.Enabled = false;
             this.transferToolStripMenuItem.Name = "transferToolStripMenuItem";
             this.transferToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -1819,6 +1822,13 @@
             this.cancelToolStripMenuItem1.Size = new System.Drawing.Size(278, 22);
             this.cancelToolStripMenuItem1.Text = "Cancel";
             this.cancelToolStripMenuItem1.Click += new System.EventHandler(this.cancelToolStripMenuItem1_Click);
+            // 
+            // clearCompletedTransfersToolStripMenuItem
+            // 
+            this.clearCompletedTransfersToolStripMenuItem.Name = "clearCompletedTransfersToolStripMenuItem";
+            this.clearCompletedTransfersToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
+            this.clearCompletedTransfersToolStripMenuItem.Text = "Clear completed transfers";
+            this.clearCompletedTransfersToolStripMenuItem.Click += new System.EventHandler(this.clearCompletedTransfersToolStripMenuItem_Click);
             // 
             // processToolStripMenuItem
             // 
@@ -3345,9 +3355,10 @@
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuItemTransferOpenDest,
             this.displayErrorToolStripMenuItem,
-            this.cancelToolStripMenuItem});
+            this.cancelToolStripMenuItem,
+            this.clearToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
-            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 70);
+            this.contextMenuStripTransfers.Size = new System.Drawing.Size(210, 114);
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
             // 
             // ContextMenuItemTransferOpenDest
@@ -3355,7 +3366,7 @@
             this.ContextMenuItemTransferOpenDest.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemTransferOpenDest.Image")));
             this.ContextMenuItemTransferOpenDest.Name = "ContextMenuItemTransferOpenDest";
             this.ContextMenuItemTransferOpenDest.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.ContextMenuItemTransferOpenDest.Size = new System.Drawing.Size(206, 22);
+            this.ContextMenuItemTransferOpenDest.Size = new System.Drawing.Size(209, 22);
             this.ContextMenuItemTransferOpenDest.Text = "Open destination";
             this.ContextMenuItemTransferOpenDest.Click += new System.EventHandler(this.toolStripMenuItemOpenDest_Click);
             // 
@@ -3363,7 +3374,7 @@
             // 
             this.displayErrorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.help;
             this.displayErrorToolStripMenuItem.Name = "displayErrorToolStripMenuItem";
-            this.displayErrorToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.displayErrorToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.displayErrorToolStripMenuItem.Text = "Display error";
             this.displayErrorToolStripMenuItem.Click += new System.EventHandler(this.displayErrorToolStripMenuItem_Click);
             // 
@@ -3371,9 +3382,16 @@
             // 
             this.cancelToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.cancel;
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.cancelToolStripMenuItem.Text = "Cancel";
             this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.clearToolStripMenuItem.Text = "Clear completed transfers";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // contextMenuStripPrograms
             // 
@@ -5940,6 +5958,8 @@
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoOCRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaContentModeratorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaContentModeratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearCompletedTransfersToolStripMenuItem;
     }
 }
 

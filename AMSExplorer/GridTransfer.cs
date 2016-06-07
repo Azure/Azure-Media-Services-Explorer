@@ -311,7 +311,7 @@ namespace AMSExplorer
 
             return new TransferEntryResponse() { index = myTE.index, token = tokenloc };
         }
-            
+
 
         public void DoGridTransferCancelTask(int index)
         {
@@ -337,29 +337,29 @@ namespace AMSExplorer
 
         private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
         {
-          
-                _MyListTransfer[index].Progress = 101d;
-                _MyListTransfer[index].State = TransferState.Finished;
-                _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-                _MyListTransfer[index].DestLocation = DestLocation;
-                _MyListTransfer[index].ProgressText = string.Empty;
-                if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
 
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
-                    this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
-                }));
-           
+            _MyListTransfer[index].Progress = 101d;
+            _MyListTransfer[index].State = TransferState.Finished;
+            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
+            _MyListTransfer[index].DestLocation = DestLocation;
+            _MyListTransfer[index].ProgressText = string.Empty;
+            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+
+            this.BeginInvoke(new Action(() =>
+            {
+                this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
+            }));
+
         }
 
         private void DoGridTransferDeclareCancelled(int index)  // Process is completed
         {
-                _MyListTransfer[index].Progress = 101d;
-                _MyListTransfer[index].State = TransferState.Cancelled;
-                _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-                _MyListTransfer[index].ProgressText = string.Empty;
-                if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+            _MyListTransfer[index].Progress = 101d;
+            _MyListTransfer[index].State = TransferState.Cancelled;
+            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
+            _MyListTransfer[index].ProgressText = string.Empty;
+            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
 
             this.BeginInvoke(new Action(() =>
             {
@@ -395,6 +395,15 @@ namespace AMSExplorer
                 this.TextBoxLogWriteLine(ErrorDesc, true);
 
             }));
+        }
+
+        private void DoGridTransferClearCompletedTransfers()
+        {
+            var list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
+            foreach (var l in list)
+            {
+                _MyListTransfer.Remove(l);
+            }
         }
 
         private void DoGridTransferDeclareTransferStarted(int index)  // Process is started
