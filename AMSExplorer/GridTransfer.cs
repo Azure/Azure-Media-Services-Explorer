@@ -57,7 +57,7 @@ namespace AMSExplorer
 {
     public class TransferEntryResponse
     {
-        public int index;
+        public Guid Id;
         public CancellationToken token;
     }
 
@@ -198,7 +198,7 @@ namespace AMSExplorer
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
 
         public CancellationTokenSource tokenSource { get; set; }
-        public int index { get; set; }
+        public Guid Id { get; set; }
 
         private string _ErrorDescription;
         public string ErrorDescription
@@ -227,14 +227,14 @@ namespace AMSExplorer
     public partial class Mainform : Form
     {
         private static BindingList<TransferEntry> _MyListTransfer; // list of upload/download
-        private static List<int> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
+        private static List<Guid> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
 
         private void DoGridTransferInit()
         {
             const string labelProgress = "Progress";
 
             _MyListTransfer = new BindingList<TransferEntry>();
-            _MyListTransferQueue = new List<int>();
+            _MyListTransferQueue = new List<Guid>();
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
@@ -250,7 +250,7 @@ namespace AMSExplorer
             dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
             dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
             dataGridViewTransfer.Columns["tokenSource"].Visible = false;
-            dataGridViewTransfer.Columns["index"].Visible = false;
+            dataGridViewTransfer.Columns["Id"].Visible = false;
 
             dataGridViewTransfer.Columns["SubmitTime"].Width = 140;
             dataGridViewTransfer.Columns["SubmitTime"].HeaderText = "Submit time";
@@ -285,11 +285,11 @@ namespace AMSExplorer
 
             }
                 ));
-            myTE.index = _MyListTransfer.IndexOf(myTE);
+            myTE.Id = Guid.NewGuid();             // _MyListTransfer.IndexOf(myTE);
 
             if (PutInTheQueue)
             {
-                _MyListTransferQueue.Add(myTE.index);
+                _MyListTransferQueue.Add(myTE.Id);
                 myTE.processedinqueue = true;
                 myTE.State = TransferState.Queued;
 
@@ -309,89 +309,101 @@ namespace AMSExplorer
             CancellationToken tokenloc = tokenSource.Token;
             myTE.tokenSource = tokenSource;
 
-            return new TransferEntryResponse() { index = myTE.index, token = tokenloc };
+            return new TransferEntryResponse() { Id = myTE.Id, token = tokenloc };
         }
 
 
-        public void DoGridTransferCancelTask(int index)
+        public void DoGridTransferCancelTask(Guid guid)
         {
-            _MyListTransfer[index].tokenSource.Cancel();
-            _MyListTransfer[index].State = TransferState.Cancelling;
+            TransferEntry transfer = ReturnTransfer(guid);
+            transfer.tokenSource.Cancel();
+            transfer.State = TransferState.Cancelling;
         }
 
-        private void DoGridTransferUpdateProgressText(string progresstext, double progress, int index)
+        private void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
         {
-            _MyListTransfer[index].ProgressText = progresstext;
-            DoGridTransferUpdateProgress(progress, index);
+            TransferEntry transfer = ReturnTransfer(guid);
+            transfer.ProgressText = progresstext;
+            DoGridTransferUpdateProgress(progress, guid);
         }
-        private void DoGridTransferUpdateProgress(double progress, int index)
+        private void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
-            _MyListTransfer[index].Progress = progress;
-            if (progress > 3 && _MyListTransfer[index].StartTime != null)
+            TransferEntry transfer = ReturnTransfer(guid);
+
+            transfer.Progress = progress;
+            if (progress > 3 && transfer.StartTime != null)
             {
-                TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)_MyListTransfer[index].StartTime).ToUniversalTime());
+                TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)transfer.StartTime).ToUniversalTime());
                 DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
-                _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString("G") + " ?";
+                transfer.EndTime = ETA.ToLocalTime().ToString("G") + " ?";
             }
         }
 
-        private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
+        private TransferEntry ReturnTransfer(Guid guid)
         {
+            return _MyListTransfer.Where(t => t.Id == guid).FirstOrDefault();
+        }
+        private void DoGridTransferDeclareCompleted(Guid guid, string DestLocation)  // Process is completed
+        {
+            TransferEntry transfer = ReturnTransfer(guid);
 
-            _MyListTransfer[index].Progress = 101d;
-            _MyListTransfer[index].State = TransferState.Finished;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].DestLocation = DestLocation;
-            _MyListTransfer[index].ProgressText = string.Empty;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+            transfer.Progress = 101d;
+            transfer.State = TransferState.Finished;
+            transfer.EndTime = DateTime.Now.ToString();
+            transfer.DestLocation = DestLocation;
+            transfer.ProgressText = string.Empty;
+            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
-                this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
+                this.Notify("Transfer completed", string.Format("{0}", transfer.Name));
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", transfer.Name));
             }));
 
         }
 
-        private void DoGridTransferDeclareCancelled(int index)  // Process is completed
+        private void DoGridTransferDeclareCancelled(Guid guid)  // Process is completed
         {
-            _MyListTransfer[index].Progress = 101d;
-            _MyListTransfer[index].State = TransferState.Cancelled;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].ProgressText = string.Empty;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+            TransferEntry transfer = ReturnTransfer(guid);
+
+            transfer.Progress = 101d;
+            transfer.State = TransferState.Cancelled;
+            transfer.EndTime = DateTime.Now.ToString();
+            transfer.ProgressText = string.Empty;
+            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' cancelled by user.", _MyListTransfer[index].Name), true);
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' cancelled by user.", transfer.Name), true);
             }));
         }
 
 
-        private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
+        private void DoGridTransferDeclareError(Guid guid, Exception e)  // Process is completed
         {
             string message = e.Message;
             if (e.InnerException != null)
             {
                 message = message + Constants.endline + Program.GetErrorMessage(e);
             }
-            DoGridTransferDeclareError(index, message);
+            DoGridTransferDeclareError(guid, message);
         }
 
-        private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
+        private void DoGridTransferDeclareError(Guid guid, string ErrorDesc = "")  // Process is completed
         {
-            _MyListTransfer[index].Progress = 101d;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].State = TransferState.Error;
-            _MyListTransfer[index].ProgressText = "Error: " + ErrorDesc;
-            _MyListTransfer[index].ErrorDescription = ErrorDesc;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            TransferEntry transfer = ReturnTransfer(guid);
+
+            transfer.Progress = 101d;
+            transfer.EndTime = DateTime.Now.ToString();
+            transfer.State = TransferState.Error;
+            transfer.ProgressText = "Error: " + ErrorDesc;
+            transfer.ErrorDescription = ErrorDesc;
+            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
-                this.Notify("Transfer Error", string.Format("{0}", _MyListTransfer[index].Name), true);
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}': Error", _MyListTransfer[index].Name), true);
+                this.Notify("Transfer Error", string.Format("{0}", transfer.Name), true);
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}': Error", transfer.Name), true);
                 this.TextBoxLogWriteLine(ErrorDesc, true);
 
             }));
@@ -406,36 +418,37 @@ namespace AMSExplorer
             }
         }
 
-        private void DoGridTransferDeclareTransferStarted(int index)  // Process is started
+        private void DoGridTransferDeclareTransferStarted(Guid guid)  // Process is started
         {
-            _MyListTransfer[index].Progress = 0;
-            _MyListTransfer[index].State = TransferState.Processing;
-            _MyListTransfer[index].StartTime = DateTime.Now;
-            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-            this.TextBoxLogWriteLine(string.Format("Transfer '{0}': started", _MyListTransfer[index].Name));
+            TransferEntry transfer = ReturnTransfer(guid);
+
+            transfer.Progress = 0;
+            transfer.State = TransferState.Processing;
+            transfer.StartTime = DateTime.Now;
+            this.TextBoxLogWriteLine(string.Format("Transfer '{0}': started", transfer.Name));
         }
 
-        private bool DoGridTransferQueueOurTurn(int index)  // Return true if this is out turn
+        private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
-            return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == index) : true;
+            return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == guid) : true;
         }
 
-        private bool DoGridTransferIsQueueRequested(int index)  // Return true trasfer is managed in the queue
+        private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true trasfer is managed in the queue
         {
-            return (_MyListTransfer[index].processedinqueue);
+            return (ReturnTransfer(guid).processedinqueue);
         }
 
-        private void DoGridTransferWaitIfNeeded(int index)
+        private void DoGridTransferWaitIfNeeded(Guid guid)
         {
             // If upload in the queue, let's wait our turn
-            if (DoGridTransferIsQueueRequested(index))
+            if (DoGridTransferIsQueueRequested(guid))
             {
-                while (!DoGridTransferQueueOurTurn(index))
+                while (!DoGridTransferQueueOurTurn(guid))
                 {
-                    Debug.Print("wait " + index);
+                    Debug.Print("wait " + guid.ToString());
                     Thread.Sleep(500);
                 }
-                DoGridTransferDeclareTransferStarted(index);
+                DoGridTransferDeclareTransferStarted(guid);
             }
         }
     }

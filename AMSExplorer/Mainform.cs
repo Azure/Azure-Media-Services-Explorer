@@ -346,13 +346,13 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index, CancellationToken token)
+        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -413,7 +413,7 @@ namespace AMSExplorer
                             {
                                 double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
 
-                                DoGridTransferUpdateProgress(percentComplete, index);
+                                DoGridTransferUpdateProgress(percentComplete, guidTransfer);
 
                                 if (copyStatus.Status != CopyStatus.Pending)
                                 {
@@ -452,7 +452,7 @@ namespace AMSExplorer
                     // make the file primary
                     AssetInfo.SetFileAsPrimary(asset, assetFile.Name);
 
-                    DoGridTransferDeclareCompleted(index, asset.Id);
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                     DoRefreshGridAssetV(false);
                 }
                 else if (Canceled)
@@ -464,12 +464,12 @@ namespace AMSExplorer
                     }
                     catch { }
 
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                     DoRefreshGridAssetV(false);
                 }
                 else // Error!
                 {
-                    DoGridTransferDeclareError(index, "Error during import. " + ErrorMessage);
+                    DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
                     try
                     {
                         destinationLocator.Delete();
@@ -484,7 +484,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(index, ex);
+                DoGridTransferDeclareError(guidTransfer, ex);
 
                 if (destinationLocator != null)
                 {
@@ -512,13 +512,13 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFromFolder(object folderPath, int index, AssetCreationOptions assetcreationoption, CancellationToken token, string storageaccount = null)
+        private async Task ProcessUploadFromFolder(object folderPath, Guid guidTransfer, AssetCreationOptions assetcreationoption, CancellationToken token, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -547,7 +547,7 @@ namespace AMSExplorer
                                                                (af, p) =>
                                                                {
                                                                    progress[af.Name] = p.Progress;
-                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
+                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), guidTransfer);
                                                                }, token
                                                                );
                 asset = await tasset;
@@ -556,18 +556,18 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index, e);
+                DoGridTransferDeclareError(guidTransfer, e);
                 TextBoxLogWriteLine("Error when uploading from {0}", folderPath, true);
             }
             if (!Error)
             {
                 if (!token.IsCancellationRequested)
                 {
-                    DoGridTransferDeclareCompleted(index, asset.Id);
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                 }
                 else
                 {
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                 }
             }
             DoRefreshGridAssetV(false);
@@ -990,7 +990,7 @@ namespace AMSExplorer
                 {
                     var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.index, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
                 catch (Exception ex)
@@ -1004,13 +1004,13 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessUploadFileAndMore(object name, int index, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(object name, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -1027,7 +1027,7 @@ namespace AMSExplorer
                                                       assetcreationoptions,
                                                       (af, p) =>
                                                       {
-                                                          DoGridTransferUpdateProgress(p.Progress, index);
+                                                          DoGridTransferUpdateProgress(p.Progress, guidTransfer);
                                                       },
                                                       token
                                                       );
@@ -1036,7 +1036,7 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index, e);
+                DoGridTransferDeclareError(guidTransfer, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
                 TextBoxLogWriteLine(e);
                 if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
@@ -1047,7 +1047,7 @@ namespace AMSExplorer
             }
             if (!Error && !token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCompleted(index, asset.Id);
+                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                 if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //user checked the box "delete the file"
                 {
                     try
@@ -1197,20 +1197,20 @@ namespace AMSExplorer
             }
             else if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
             }
             DoRefreshGridAssetV(false);
         }
 
 
 
-        private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, int index, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
+        private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, Guid guidTransfer, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
         {
             // If download in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -1261,7 +1261,7 @@ namespace AMSExplorer
                                                                                          (af, p) =>
                                                                                          {
                                                                                              progress[af.Name] = p.Progress;
-                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
+                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), guidTransfer);
                                                                                          },
                                                                                          token
                                                                                         );
@@ -1272,7 +1272,7 @@ namespace AMSExplorer
                         Error = true;
                         TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
                         TextBoxLogWriteLine(e);
-                        DoGridTransferDeclareError(index, e);
+                        DoGridTransferDeclareError(guidTransfer, e);
                     }
 
 
@@ -1287,11 +1287,11 @@ namespace AMSExplorer
             {
                 if (!token.IsCancellationRequested)
                 {
-                    DoGridTransferDeclareCompleted(index, folder.ToString());
+                    DoGridTransferDeclareCompleted(guidTransfer, folder.ToString());
                 }
                 else
                 {
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                 }
             }
         }
@@ -1299,10 +1299,10 @@ namespace AMSExplorer
         public void DoDownloadFileFromAsset(IAsset asset, IAssetFile File, object folder, TransferEntryResponse response)
         {
             // If download is in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -1335,17 +1335,17 @@ namespace AMSExplorer
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
                     TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(response.index, e);
+                    DoGridTransferDeclareError(response.Id, e);
                 }
                 if (!Error)
                 {
                     if (!response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, folder.ToString());
+                        DoGridTransferDeclareCompleted(response.Id, folder.ToString());
                     }
                     else
                     {
-                        DoGridTransferDeclareCancelled(response.index);
+                        DoGridTransferDeclareCancelled(response.Id);
                     }
                 }
             }, response.token);
@@ -1382,7 +1382,7 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
                           SelectedPath,
-                          response.index,
+                          response.Id,
                           Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                           response.token
                           ), response.token);
@@ -1422,7 +1422,7 @@ namespace AMSExplorer
                 {
                     var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.index, response.token), response.token);
+                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
@@ -1784,7 +1784,7 @@ namespace AMSExplorer
 
                     var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does downloading.
-                    var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.index, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
+                    var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
@@ -2418,10 +2418,10 @@ namespace AMSExplorer
             bool Error = false;
 
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2537,19 +2537,19 @@ namespace AMSExplorer
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                 destinationBlob.FetchAttributes();
                                 percentComplete = (Convert.ToDouble(assetindex + 1) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                DoGridTransferUpdateProgress(percentComplete, response.index);
+                                DoGridTransferUpdateProgress(percentComplete, response.Id);
                             }
 
                             if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                             {
-                                DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
 
                             if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                             {
-                                DoGridTransferDeclareCancelled(response.index);
+                                DoGridTransferDeclareCancelled(response.Id);
                                 Error = true;
                                 break;
                             }
@@ -2561,14 +2561,14 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                            DoGridTransferDeclareError(response.index, ex);
+                            DoGridTransferDeclareError(response.Id, ex);
                             Error = true;
                             break;
 
                         }
                         BytesCopied += sourceCloudBlob.Properties.Length;
                         percentComplete = 100d * BytesCopied / Length;
-                        if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                        if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
                     }
                 }
                 else // all files in the same asset
@@ -2607,19 +2607,19 @@ namespace AMSExplorer
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                     destinationBlob.FetchAttributes();
                                     percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.index);
+                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2631,14 +2631,14 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 Error = true;
                                 break;
 
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
 
                         }
                     }
@@ -2667,11 +2667,11 @@ namespace AMSExplorer
             {
                 if (CreateOneAssetPerFile)
                 {
-                    DoGridTransferDeclareCompleted(response.index, "");
+                    DoGridTransferDeclareCompleted(response.Id, "");
                 }
                 else
                 {
-                    DoGridTransferDeclareCompleted(response.index, assets[0].Id);
+                    DoGridTransferDeclareCompleted(response.Id, assets[0].Id);
                 }
             }
 
@@ -2683,10 +2683,10 @@ namespace AMSExplorer
         private async void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, TransferEntryResponse response)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2716,7 +2716,7 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        DoGridTransferDeclareError(response.index, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
+                        DoGridTransferDeclareError(response.Id, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
                         Error = true;
                     }
                 }
@@ -2747,7 +2747,7 @@ namespace AMSExplorer
 
                         if (sourceCloudBlob.Properties.Length > 0)
                         {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.index);
+                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
                             try
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
@@ -2762,19 +2762,19 @@ namespace AMSExplorer
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                     blob.FetchAttributes();
                                     percentComplete = (long)100 * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress((int)percentComplete, response.index);
+                                    DoGridTransferUpdateProgress((int)percentComplete, response.Id);
                                 }
 
                                 if (blob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, blob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (blob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2783,7 +2783,7 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    DoGridTransferDeclareError(response.index, "Error during blob copy.");
+                                    DoGridTransferDeclareError(response.Id, "Error during blob copy.");
                                     Error = true;
                                     break;
                                 }
@@ -2791,12 +2791,12 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 Error = true;
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = (long)100 * (long)BytesCopied / (long)Length;
-                            if (!Error) DoGridTransferUpdateProgress((int)percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress((int)percentComplete, response.Id);
                         }
                     }
 
@@ -2804,7 +2804,7 @@ namespace AMSExplorer
 
                     if (!Error && !response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, TargetContainer.Uri.AbsoluteUri);
+                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -2846,7 +2846,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}' ", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(response.index, e);
+                        DoGridTransferDeclareError(response.Id, e);
                         Error = true;
                     }
                 }
@@ -2877,7 +2877,7 @@ namespace AMSExplorer
 
                         if (sourceCloudBlob.Properties.Length > 0)
                         {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.index);
+                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
                             try
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
@@ -2889,19 +2889,19 @@ namespace AMSExplorer
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                     destinationBlob.FetchAttributes();
                                     percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.index);
+                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2910,7 +2910,7 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    DoGridTransferDeclareError(response.index, string.Format("Failed to copy file '{0}'", file.Name));
+                                    DoGridTransferDeclareError(response.Id, string.Format("Failed to copy file '{0}'", file.Name));
                                     Error = true;
                                     break;
                                 }
@@ -2918,13 +2918,13 @@ namespace AMSExplorer
                             catch (Exception e)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, e);
+                                DoGridTransferDeclareError(response.Id, e);
                                 Error = true;
                             }
 
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
                         }
                     }
                     sourcelocator.Delete();
@@ -2932,7 +2932,7 @@ namespace AMSExplorer
 
                     if (!Error && !response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, TargetContainer.Uri.AbsoluteUri);
+                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -2943,10 +2943,10 @@ namespace AMSExplorer
         {
 
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2967,7 +2967,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
 
@@ -2979,7 +2979,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
 
@@ -3005,7 +3005,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 TargetAsset.Delete();
                 return;
             }
@@ -3045,7 +3045,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error", true);
                         TextBoxLogWriteLine(ex);
-                        DoGridTransferDeclareError(response.index, ex);
+                        DoGridTransferDeclareError(response.Id, ex);
                         DestinationLocator.Delete();
                         writePolicy.Delete();
                         TargetAsset.Delete();
@@ -3139,12 +3139,12 @@ namespace AMSExplorer
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
                                             blob.FetchAttributes();
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, response.index);
+                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, response.Id);
                                         }
 
                                         if (blob.CopyState.Status == CopyStatus.Failed)
                                         {
-                                            DoGridTransferDeclareError(response.index, blob.CopyState.StatusDescription);
+                                            DoGridTransferDeclareError(response.Id, blob.CopyState.StatusDescription);
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3152,7 +3152,7 @@ namespace AMSExplorer
 
                                         if (blob.CopyState.Status == CopyStatus.Aborted)
                                         {
-                                            DoGridTransferDeclareCancelled(response.index);
+                                            DoGridTransferDeclareCancelled(response.Id);
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3165,7 +3165,7 @@ namespace AMSExplorer
 
                                         if (sourceCloudBlockBlob.Properties.Length != destinationCloudBlockBlob.Properties.Length)
                                         {
-                                            DoGridTransferDeclareError(response.index, "Error during blob copy.");
+                                            DoGridTransferDeclareError(response.Id, "Error during blob copy.");
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3185,7 +3185,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 ErrorCopyAsset = true;
                                 ErrorCopyAssetFile = true;
                             }
@@ -3199,7 +3199,7 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.AccountName), 0, response.index);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.AccountName), 0, response.Id);
                         try
                         {
                             var mediablobs = SourceCloudBlobContainer.ListBlobs();
@@ -3241,7 +3241,7 @@ namespace AMSExplorer
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
                                             percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
-                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, response.index);
+                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, response.Id);
                                         }
                                     }
                                     ind++;
@@ -3254,7 +3254,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Failed to copy live fragblobs", true);
                             TextBoxLogWriteLine(ex);
-                            DoGridTransferDeclareError(response.index, ex);
+                            DoGridTransferDeclareError(response.Id, ex);
                             ErrorCopyAsset = true;
                         }
                     }
@@ -3326,11 +3326,11 @@ namespace AMSExplorer
                 if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
                 TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", DestinationCredentialsEntry.AccountName);
                 TextBoxLogWriteLine(TargetAsset.Id);
-                DoGridTransferDeclareCompleted(response.index, DestinationCloudBlobContainer.Uri.AbsoluteUri);
+                DoGridTransferDeclareCompleted(response.Id, DestinationCloudBlobContainer.Uri.AbsoluteUri);
             }
             else if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
             }
 
             DoRefreshGridAssetV(false);
@@ -6687,7 +6687,7 @@ namespace AMSExplorer
                         // Start a worker thread that does uploading.
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                               path,
-                              response.index,
+                              response.Id,
                               Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                               response.token,
                               MyWatchFolderSettings),
@@ -9257,7 +9257,7 @@ namespace AMSExplorer
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
                             var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.index, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
                             MyTasks.Add(myTask);
                         }
 
@@ -9266,7 +9266,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                                   file,
-                                  response.index,
+                                  response.Id,
                                   Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                   response.token,
                                   null,
@@ -14204,8 +14204,8 @@ namespace AMSExplorer
             {
                 foreach (DataGridViewRow selRow in dataGridViewTransfer.SelectedRows)
                 {
-                    int index = (int)selRow.Cells[dataGridViewTransfer.Columns["index"].Index].Value;
-                    DoGridTransferCancelTask(index);
+                    Guid guid = (Guid)selRow.Cells[dataGridViewTransfer.Columns["Id"].Index].Value;
+                    DoGridTransferCancelTask(guid);
                 }
             }
         }
