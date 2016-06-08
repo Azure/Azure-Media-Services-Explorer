@@ -122,5 +122,8 @@
     <Setting Name="IndexingPricePerMin" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.05</Value>
     </Setting>
+    <Setting Name="ShowLivePremiumChannel" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -82,6 +82,7 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -328,6 +329,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxShowPremiumLiveEncoding);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
@@ -342,7 +344,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 305);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(560, 201);
+            this.groupBox2.Size = new System.Drawing.Size(560, 231);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
@@ -751,6 +753,17 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
+            // checkBoxShowPremiumLiveEncoding
+            // 
+            this.checkBoxShowPremiumLiveEncoding.AutoSize = true;
+            this.checkBoxShowPremiumLiveEncoding.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxShowPremiumLiveEncoding.Location = new System.Drawing.Point(49, 194);
+            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
+            this.checkBoxShowPremiumLiveEncoding.Size = new System.Drawing.Size(222, 19);
+            this.checkBoxShowPremiumLiveEncoding.TabIndex = 56;
+            this.checkBoxShowPremiumLiveEncoding.Text = "Show Premium Live Encoding option";
+            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -848,5 +861,6 @@
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
+        private System.Windows.Forms.CheckBox checkBoxShowPremiumLiveEncoding;
     }
 }

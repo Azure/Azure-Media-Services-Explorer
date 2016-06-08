@@ -39,7 +39,7 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
-            Properties.Settings.Default.DisplayAssetAltIDinGrid= checkBoxDisplayAssetAltId.Checked;
+            Properties.Settings.Default.DisplayAssetAltIDinGrid = checkBoxDisplayAssetAltId.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
             Properties.Settings.Default.DisplayIngestManifestIDinGrid = checkBoxDisplayBulkContId.Checked;
             Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
@@ -60,6 +60,7 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
+            Properties.Settings.Default.ShowLivePremiumChannel = checkBoxShowPremiumLiveEncoding.Checked;
             Properties.Settings.Default.AMEPrice = numericUpDownMESPrice.Value;
             Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownPremiumWorkflowPrice.Value;
             Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
@@ -88,6 +89,7 @@ namespace AMSExplorer
             checkBoxUseProtectedConfig.Checked = false;
             checkBoxUseStorageEncryption.Checked = false;
             checkBoxOneUpDownload.Checked = true;
+            checkBoxShowPremiumLiveEncoding.Checked = false;
 
             int indexc = comboBoxNbItems.Items.IndexOf("50");
             if (indexc == -1) indexc = 1; // not found!
@@ -147,6 +149,7 @@ namespace AMSExplorer
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
+            checkBoxShowPremiumLiveEncoding.Checked = Properties.Settings.Default.ShowLivePremiumChannel;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownMESPrice.Value = Properties.Settings.Default.AMEPrice;

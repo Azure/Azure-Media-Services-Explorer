@@ -232,7 +232,10 @@ namespace AMSExplorer
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
             comboBoxEncodingType.Items.Add(new Item("None", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
             comboBoxEncodingType.Items.Add(new Item("Standard", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
-            comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+            if (Properties.Settings.Default.ShowLivePremiumChannel)
+            {
+                comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+            }
             comboBoxEncodingType.SelectedIndex = 0;
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);

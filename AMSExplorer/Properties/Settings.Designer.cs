@@ -502,5 +502,17 @@ namespace AMSExplorer.Properties {
                 this["IndexingPricePerMin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowLivePremiumChannel {
+            get {
+                return ((bool)(this["ShowLivePremiumChannel"]));
+            }
+            set {
+                this["ShowLivePremiumChannel"] = value;
+            }
+        }
     }
 }
