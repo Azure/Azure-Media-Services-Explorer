@@ -15,6 +15,7 @@ Version 3.41.0.0 brings the following features and improvements :
 * Support for custom AES key delivery URL when key is delivered by AMS
    * used by some customers in order to cache the key with a CDN
 * Adds support for Ignore708Captions setting for live channels
+* Critical performance improvement in the live tab when listing programs related to channel
 * New features for transfers : transfers can be cancelled, and completed transfers can be cleared
 * Fixed some issues with live archive copy. Better displays and manages the fragmented flag, and displays some warning when doing live archive copy
 * Reorganization of the asset menu
