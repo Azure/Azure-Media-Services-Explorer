@@ -72,6 +72,13 @@ namespace AMSExplorer
             }
         }
 
+        public bool AESFinalLAurl
+        {
+            get
+            {
+                return checkBoxFinalExtURL.Checked;
+            }
+        }
 
 
         private CloudMediaContext _context;

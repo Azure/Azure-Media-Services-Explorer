@@ -115,6 +115,13 @@ namespace AMSExplorer
             }
         }
 
+        public bool WidevineFinalLAurl
+        {
+            get
+            {
+                return checkBoxWidevineFinalExtURL.Checked;
+            }
+        }
 
 
         private CloudMediaContext _context;

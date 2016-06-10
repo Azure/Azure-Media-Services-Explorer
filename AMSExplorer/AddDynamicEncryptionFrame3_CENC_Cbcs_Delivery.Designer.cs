@@ -61,6 +61,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -264,6 +265,7 @@
             // 
             this.panelExternalFairPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelExternalFairPlay.Controls.Add(this.checkBoxFinalExtURL);
             this.panelExternalFairPlay.Controls.Add(this.panel3);
             this.panelExternalFairPlay.Controls.Add(this.label4);
             this.panelExternalFairPlay.Controls.Add(this.textBoxIV);
@@ -282,7 +284,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.radioButtonIVBase64);
             this.panel3.Controls.Add(this.radioButtonIVHex);
-            this.panel3.Location = new System.Drawing.Point(466, 88);
+            this.panel3.Location = new System.Drawing.Point(466, 105);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(87, 55);
             this.panel3.TabIndex = 92;
@@ -321,7 +323,7 @@
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(145, 88);
+            this.label4.Location = new System.Drawing.Point(145, 105);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(267, 15);
             this.label4.TabIndex = 95;
@@ -332,7 +334,7 @@
             this.textBoxIV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxIV.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxIV.Location = new System.Drawing.Point(29, 106);
+            this.textBoxIV.Location = new System.Drawing.Point(29, 123);
             this.textBoxIV.Name = "textBoxIV";
             this.textBoxIV.Size = new System.Drawing.Size(416, 23);
             this.textBoxIV.TabIndex = 94;
@@ -342,7 +344,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(26, 88);
+            this.label5.Location = new System.Drawing.Point(26, 105);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(113, 15);
             this.label5.TabIndex = 93;
@@ -454,6 +456,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // checkBoxFinalExtURL
+            // 
+            this.checkBoxFinalExtURL.AutoSize = true;
+            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(29, 63);
+            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
+            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(548, 19);
+            this.checkBoxFinalExtURL.TabIndex = 96;
+            this.checkBoxFinalExtURL.Text = "Final URL (the keyid and the initialisation vector will not be added to URL by th" +
+    "e dynamic packager)";
+            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
+            // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -523,5 +537,6 @@
         private System.Windows.Forms.RadioButton radioButtonASKBase64;
         private System.Windows.Forms.RadioButton radioButtonASKHex;
         public System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBoxFinalExtURL;
     }
 }

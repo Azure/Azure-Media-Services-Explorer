@@ -80,6 +80,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool FairPlayFinalLAurl
+        {
+            get
+            {
+                return checkBoxFinalExtURL.Checked;
+            }
+        }
+
 
         public PFXCertificate FairPlayCertificate
         {
@@ -182,9 +190,9 @@ namespace AMSExplorer
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled = 
+            buttonOk.Enabled =
                 (radioButtonDeliverFairPlayfromAMS.Checked && cert.Certificate != null && FairPlayASK != null)
-                || 
+                ||
                 (radioButtonExternalFairPlayServer.Checked && !string.IsNullOrWhiteSpace(textBoxFairPlayLAurl.Text) && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty);
         }
 
@@ -309,5 +317,5 @@ namespace AMSExplorer
             }
         }
     }
-   
+
 }

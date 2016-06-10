@@ -9703,11 +9703,14 @@ namespace AMSExplorer
                                         TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
                                     }
                                 }
-                                else // no seed given, so content key has been setup
+                                else // no seed given, so content key has been setup or not (if external server)
                                 {
+                                    Guid keyid = (form2_CENC.KeyId == null) ? Guid.NewGuid() : (Guid)form2_CENC.KeyId;
+                                    byte[] bytecontentkey = (string.IsNullOrWhiteSpace(form2_CENC.CENCContentKey)) ? DynamicEncryption.GetRandomBuffer(16) : Convert.FromBase64String(form2_CENC.CENCContentKey);
+
                                     try
                                     {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey));
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, keyid, bytecontentkey);
                                     }
                                     catch (Exception e)
                                     {
@@ -9943,7 +9946,8 @@ namespace AMSExplorer
                                     _context,
                                     playreadyAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0 ? null : form3_CENC.PlayReadyLAurl,
                                     playreadyEncodeLAURLForSilverlight: form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0 ? false : form3_CENC.PlayReadyLAurlEncodeForSL,
-                                    widevineAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? null : form3_CENC.WidevineLAurl
+                                    widevineAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? null : form3_CENC.WidevineLAurl,
+                                    widevineAcquisitionURLFinal: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? false : form3_CENC.WidevineFinalLAurl
                                     );
 
                                 TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -10221,6 +10225,7 @@ namespace AMSExplorer
                                     name,
                                     _context,
                                     fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
+                                    fairplayAcquisitionURLFinal: form3_CENC.FairPlayFinalLAurl,
                                     iv_if_externalserver: myIV,
                                     UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
                                        );
@@ -10246,6 +10251,7 @@ namespace AMSExplorer
             string aeskey = string.Empty;
             bool firstkeycreation = true;
             Uri aeslaurl = form3_AES.AESLaUrl;
+            bool aesFinalUrl = form3_AES.AESFinalLAurl;
             IContentKey formerkey = null;
             bool reusekey = false;
 
@@ -10506,7 +10512,7 @@ namespace AMSExplorer
 
                         try
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, aeslaurl);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, aeslaurl, aesFinalUrl);
                             TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                         }
                         catch (Exception e)

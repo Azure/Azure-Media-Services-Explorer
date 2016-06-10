@@ -120,7 +120,7 @@
   <data name="label3.Text" xml:space="preserve">
     <value>Keep this field empty if keys are delivered from AMS, except if you want to force another URL.
 
-Do not specify the key Id in the URL. The Dynamic Encryption service will automatically add the correct key Id to the Url when it generates the Envelope encrypted content manifest.</value>
+Do not specify the key Id in the URL. The Dynamic Encryption service will automatically add the correct key Id to the Url when it generates the Envelope encrypted content manifest, except if you check the box below.</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
