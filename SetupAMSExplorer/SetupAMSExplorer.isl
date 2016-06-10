@@ -343,21 +343,6 @@
 		<row><td>AMSExplorer.Content_Files</td><td>{04463C80-BB0F-4F62-B8D4-301A651D3765}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AMSExplorer.Primary_output</td><td>{A8A30D9B-9784-4332-A6E9-091FBE177DE3}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{AF646F6F-208B-49D0-8051-43F8DB7D2BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.Edm.dll</td><td>{061CE4BB-2324-40DF-9656-12D7C76BB6AB}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.edm.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.OData.dll</td><td>{0BCC1315-3F7E-426F-81C0-63A86C12586A}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.odata.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Data.Services.Client.dll</td><td>{49369441-F4C2-405F-B232-97BE65A2385C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.data.services.clie</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>{FFC2E118-872A-402F-B2D2-7C4A578E6BFD}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.practices.transien</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>{17DD7C1F-332E-4858-B4BF-C45A63FCCE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAPICodePack.dll</td><td>{75E2F317-1237-4DD7-9540-C730521CC00D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td>{7B965600-3449-4105-B187-0750ACF42042}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.confi</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>{D23AFCA6-2764-4B28-A8C4-2D19A17391A7}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>{B2B6F7F1-7291-4A1E-8536-BE390B064357}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>{AE371922-5F35-4397-A87A-32AAC4339C84}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media3</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>{AD9DABEB-EAC3-4C5B-8B90-7E252C596798}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td>{A29AF771-6E35-4757-A174-E693081ACF3C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.stora</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll</td><td>{79D6C8E7-78C4-4FED-9B5F-E2D5ADCCFB2F}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>System.IdentityModel.Tokens.Jwt.dll</td><td>{1A4684DC-F82E-4EA8-B22A-15AFCA2CAC9F}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.identitymodel.tokens.</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>System.Spatial.dll</td><td>{DB74728E-ECA7-4D1A-94DA-9B4FE18FEB16}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.spatial.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1070,21 +1055,6 @@
 		<row><td>INSTALLDIR</td><td>AMSExplorer.Content_Files</td></row>
 		<row><td>INSTALLDIR</td><td>AMSExplorer.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.Edm.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.OData.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Data.Services.Client.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>INSTALLDIR</td><td>System.IdentityModel.Tokens.Jwt.dll</td></row>
-		<row><td>INSTALLDIR</td><td>System.Spatial.dll</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1905,21 +1875,6 @@
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.Edm.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.OData.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Data.Services.Client.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>AlwaysInstall</td><td>System.IdentityModel.Tokens.Jwt.dll</td></row>
-		<row><td>AlwaysInstall</td><td>System.Spatial.dll</td></row>
 	</table>
 
 	<table name="File">
@@ -1936,21 +1891,6 @@
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
-		<row><td>microsoft.data.edm.dll</td><td>Microsoft.Data.Edm.dll</td><td>MICROS~1.DLL|Microsoft.Data.Edm.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.Data.Edm.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.data.odata.dll</td><td>Microsoft.Data.OData.dll</td><td>MICROS~1.DLL|Microsoft.Data.OData.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.Data.OData.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.data.services.clie</td><td>Microsoft.Data.Services.Client.dll</td><td>MICROS~1.DLL|Microsoft.Data.Services.Client.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.Data.Services.Client.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.practices.transien</td><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>MICROS~1.DLL|Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.Practices.TransientFaultHandling.Core.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsapicodepack</td><td>Microsoft.WindowsAPICodePack.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsapicodepack1</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.Shell.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.confi</td><td>Microsoft.WindowsAzure.Configuration.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Configuration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Configuration.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media1</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media2</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media3</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.stora</td><td>Microsoft.WindowsAzure.Storage.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Storage.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Storage.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>system.identitymodel.tokens.</td><td>System.IdentityModel.Tokens.Jwt.dll</td><td>SYSTEM~1.DLL|System.IdentityModel.Tokens.Jwt.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.IdentityModel.Tokens.Jwt.dll</td><td>1</td><td/></row>
-		<row><td>system.spatial.dll</td><td>System.Spatial.dll</td><td>SYSTEM~1.DLL|System.Spatial.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Spatial.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2097,21 +2037,6 @@
 		<row><td>AMSExplorer.Content_Files</td><td/><td/><td>_4FD9FB6F_F617_4E33_95BB_3CEC79D96BF8_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AMSExplorer.Primary_output</td><td/><td/><td>_5E35A225_779A_4C02_B4C1_A1BF4B642E81_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_CEED99D2_1C48_4F57_BEC4_3289CF013B45_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.Edm.dll</td><td/><td/><td>_0106E3F9_DE71_4593_84C7_AE694A9452B2_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.OData.dll</td><td/><td/><td>_8E11E7C5_E93D_48B3_9FEC_748D5CC06AA8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Data.Services.Client.dll</td><td/><td/><td>_5019A071_1478_497B_94AD_873D67C5695A_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Practices.TransientFaultHandling.Core.dll</td><td/><td/><td>_C36D29E0_BA3B_42A7_A26F_9F8EBBB0F9D1_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td/><td/><td>_15478500_5E6C_44F1_B8D1_F9BF88094BC5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAPICodePack.dll</td><td/><td/><td>_58828D9A_3DAC_4D60_B609_B1D989A4310D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td/><td/><td>_C558F2DB_450C_4149_9AD0_1294DDF26E2E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td/><td/><td>_F5470073_A3D8_4165_9CF1_E83FF68AB6F8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td/><td/><td>_2C0669E2_04D5_4A3A_93CB_4352282D0900_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td/><td/><td>_FCC02041_4566_4BEF_AB58_527C91A524B5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td/><td/><td>_B51CF298_25ED_453A_95A3_E7089F23ECE6_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td/><td/><td>_9A9176E6_0AFA_4C5B_9047_EFD9EBAE5186_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_EE741963_9C16_48B7_A84B_3B497332C71E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>System.IdentityModel.Tokens.Jwt.dll</td><td/><td/><td>_7147A8AD_D5CF_4FF3_927A_D0BAE4781303_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>System.Spatial.dll</td><td/><td/><td>_BB44995C_93B9_4C4D_BB6E_63AA82E0FB4D_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -4036,7 +3961,7 @@
 		<row><td>RegisterUser</td><td/><td>6000</td><td>RegisterUser</td><td/></row>
 		<row><td>RemoveDuplicateFiles</td><td/><td>3400</td><td>RemoveDuplicateFiles</td><td/></row>
 		<row><td>RemoveEnvironmentStrings</td><td/><td>3300</td><td>RemoveEnvironmentStrings</td><td/></row>
-		<row><td>RemoveExistingProducts</td><td/><td>1410</td><td>RemoveExistingProducts</td><td/></row>
+		<row><td>RemoveExistingProducts</td><td/><td>6601</td><td>RemoveExistingProducts</td><td/></row>
 		<row><td>RemoveFiles</td><td/><td>3500</td><td>RemoveFiles</td><td/></row>
 		<row><td>RemoveFolders</td><td/><td>3600</td><td>RemoveFolders</td><td/></row>
 		<row><td>RemoveIniValues</td><td/><td>3100</td><td>RemoveIniValues</td><td/></row>
@@ -4469,7 +4394,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{456574F2-5B84-407B-BF7D-5D08A9978539}</td><td/></row>
+		<row><td>ProductCode</td><td>{9E93FE34-F5BB-438B-A752-E9A0F6399C9D}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
 		<row><td>ProductVersion</td><td>3.41.0.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
