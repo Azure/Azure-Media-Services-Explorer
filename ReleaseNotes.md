@@ -1,3 +1,5 @@
+**Notice : do not update to v3.41.0.0 if you use an Media Services account in Azure China or Azure Government. These instances need to be updated to support the latest SDK.**
+
 Version 3.41.0.0 brings the following features and improvements :
 
 * Support for **Apple FairPlay** content protection
