@@ -97,6 +97,7 @@
             this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -856,7 +857,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(779, 12);
+            this.buttonClose.Location = new System.Drawing.Point(762, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(124, 27);
             this.buttonClose.TabIndex = 41;
@@ -867,7 +868,7 @@
             // 
             this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Location = new System.Drawing.Point(587, 12);
+            this.buttonUpdateClose.Location = new System.Drawing.Point(570, 12);
             this.buttonUpdateClose.Name = "buttonUpdateClose";
             this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
             this.buttonUpdateClose.TabIndex = 40;
@@ -884,7 +885,7 @@
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(922, 55);
+            this.panel1.Size = new System.Drawing.Size(905, 55);
             this.panel1.TabIndex = 58;
             // 
             // labelChannelStoppedOrStartedSettings
@@ -905,6 +906,15 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(890, 595);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(27, 37);
+            this.panel2.TabIndex = 77;
+            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -913,11 +923,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ChannelInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Channel Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
@@ -1028,5 +1040,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
+        private System.Windows.Forms.Panel panel2;
     }
 }

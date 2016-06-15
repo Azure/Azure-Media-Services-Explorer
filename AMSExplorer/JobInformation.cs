@@ -66,7 +66,9 @@ namespace AMSExplorer
         public void DoJobStats()
         {
             JobInfo JR = new JobInfo(MyJob);
-            JR.CopyStatsToClipBoard();
+            StringBuilder SB = JR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void JobInformation_Load(object sender, EventArgs e)

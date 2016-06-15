@@ -273,7 +273,7 @@ namespace AMSExplorer
                     {
                         item.ForeColor = Color.Blue;
                     }
-                    if (file.AssetFileOptions== AssetFileOptions.Fragmented)
+                    if (file.AssetFileOptions == AssetFileOptions.Fragmented)
                     {
                         item.ForeColor = Color.DarkGoldenrod;
                     }
@@ -1011,13 +1011,15 @@ namespace AMSExplorer
 
         private void buttonCopyStats_Click(object sender, EventArgs e)
         {
-            DoAssetStats();
+            DoDisplayAssetStats();
         }
 
-        private void DoAssetStats()
+        private void DoDisplayAssetStats()
         {
             AssetInfo MyAssetReport = new AssetInfo(myAsset);
-            MyAssetReport.CopyStatsToClipBoard();
+            StringBuilder SB = MyAssetReport.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void buttonCreateMail_Click(object sender, EventArgs e)

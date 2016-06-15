@@ -46,6 +46,7 @@
             this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.labelCloneFilters = new System.Windows.Forms.Label();
             this.checkBoxCloneAssetFilters = new System.Windows.Forms.CheckBox();
             this.labelCloneLocators = new System.Windows.Forms.Label();
             this.checkBoxCloneLocators = new System.Windows.Forms.CheckBox();
@@ -54,7 +55,7 @@
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
             this.labelAssetCopy = new System.Windows.Forms.Label();
-            this.labelCloneFilters = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelStorageAccount.SuspendLayout();
@@ -65,7 +66,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(541, 14);
+            this.buttonOk.Location = new System.Drawing.Point(528, 14);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(112, 27);
             this.buttonOk.TabIndex = 4;
@@ -76,7 +77,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(660, 14);
+            this.buttonCancel.Location = new System.Drawing.Point(647, 14);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(112, 27);
             this.buttonCancel.TabIndex = 5;
@@ -112,7 +113,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 507);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(787, 55);
+            this.panel1.Size = new System.Drawing.Size(774, 55);
             this.panel1.TabIndex = 60;
             // 
             // listBoxAccounts
@@ -272,6 +273,15 @@
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
             // 
+            // labelCloneFilters
+            // 
+            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneFilters.Location = new System.Drawing.Point(19, 218);
+            this.labelCloneFilters.Name = "labelCloneFilters";
+            this.labelCloneFilters.Size = new System.Drawing.Size(204, 23);
+            this.labelCloneFilters.TabIndex = 73;
+            this.labelCloneFilters.Text = "Start and end times will be removed";
+            // 
             // checkBoxCloneAssetFilters
             // 
             this.checkBoxCloneAssetFilters.Checked = true;
@@ -360,14 +370,14 @@
             this.labelAssetCopy.TabIndex = 71;
             this.labelAssetCopy.Text = "Asset Copy";
             // 
-            // labelCloneFilters
+            // panel2
             // 
-            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelCloneFilters.Location = new System.Drawing.Point(19, 218);
-            this.labelCloneFilters.Name = "labelCloneFilters";
-            this.labelCloneFilters.Size = new System.Drawing.Size(204, 23);
-            this.labelCloneFilters.TabIndex = 73;
-            this.labelCloneFilters.Text = "Start and end times will be removed";
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 507);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(24, 41);
+            this.panel2.TabIndex = 77;
             // 
             // CopyAsset
             // 
@@ -377,6 +387,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.labelExplanation);
             this.Controls.Add(this.groupBoxOptions);
@@ -387,6 +398,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "CopyAsset";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Copy asset(s)";
             this.Load += new System.EventHandler(this.CopyAsset_Load);
@@ -431,5 +443,6 @@
         private System.Windows.Forms.Label labelAssetCopy;
         private System.Windows.Forms.CheckBox checkBoxCloneAssetFilters;
         private System.Windows.Forms.Label labelCloneFilters;
+        private System.Windows.Forms.Panel panel2;
     }
 }

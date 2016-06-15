@@ -2515,7 +2515,7 @@ namespace AMSExplorer
         }
 
 
-        private StringBuilder GetStats()
+        public StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
 

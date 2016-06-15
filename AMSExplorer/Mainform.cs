@@ -210,7 +210,7 @@ namespace AMSExplorer
 
             try // as this is the first call to MPs
             {
-                if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
+                if (/*(GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && */(GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
                 {
                     AMEPremiumWorkflowPresent = false;
                     encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
@@ -5966,10 +5966,12 @@ namespace AMSExplorer
             JR.CreateOutlookMail();
         }
 
-        private void DoCopyJobReportToClipboard()
+        private void DoDisplayJobReport()
         {
             JobInfo JR = new JobInfo(ReturnSelectedJobs());
-            JR.CopyStatsToClipBoard();
+            StringBuilder SB = JR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6396,10 +6398,12 @@ namespace AMSExplorer
             AR.CreateOutlookMail();
         }
 
-        private void DoCopyAssetReportToClipboard()
+        private void DoDisplayAssetReport()
         {
             AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
-            AR.CopyStatsToClipBoard();
+            StringBuilder SB = AR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -13050,7 +13054,7 @@ namespace AMSExplorer
 
         private void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyJobReportToClipboard();
+            DoDisplayJobReport();
         }
 
         private void toolStripMenuItem28_Click_1(object sender, EventArgs e)
@@ -13060,12 +13064,12 @@ namespace AMSExplorer
 
         private void copyToClipboardToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyJobReportToClipboard();
+            DoDisplayJobReport();
         }
 
         private void copyToClipboardToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoCopyAssetReportToClipboard();
+            DoDisplayAssetReport();
         }
 
         private void toolStripMenuItem29_Click(object sender, EventArgs e)
@@ -13080,7 +13084,7 @@ namespace AMSExplorer
 
         private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoCopyAssetReportToClipboard();
+            DoDisplayAssetReport();
         }
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)

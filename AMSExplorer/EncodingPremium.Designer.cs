@@ -49,6 +49,7 @@
             this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(658, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(645, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
@@ -155,7 +156,7 @@
             this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(486, 15);
+            this.buttonOk.Location = new System.Drawing.Point(473, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(164, 27);
             this.buttonOk.TabIndex = 5;
@@ -240,7 +241,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-3, 606);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(788, 55);
+            this.panel1.Size = new System.Drawing.Size(775, 55);
             this.panel1.TabIndex = 66;
             // 
             // buttonPremiumXMLData
@@ -279,6 +280,15 @@
             this.listViewWorkflows.View = System.Windows.Forms.View.Details;
             this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listViewWorkflows_SelectedIndexChanged);
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 606);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 76;
+            // 
             // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
@@ -287,6 +297,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonPremiumXMLData);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
@@ -307,6 +318,7 @@
             this.Controls.Add(this.label31);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "EncodingPremium";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Media Encoder Premium Workflow";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
@@ -340,5 +352,6 @@
         private ListViewWorkflows listViewWorkflows;
         private ButtonJobOptions buttonJobOptions;
         private ButtonPremiumXMLData buttonPremiumXMLData;
+        private System.Windows.Forms.Panel panel2;
     }
 }

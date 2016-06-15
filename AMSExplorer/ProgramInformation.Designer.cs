@@ -50,6 +50,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
@@ -269,7 +270,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(659, 15);
+            this.buttonClose.Location = new System.Drawing.Point(645, 15);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(115, 27);
             this.buttonClose.TabIndex = 41;
@@ -280,7 +281,7 @@
             // 
             this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Location = new System.Drawing.Point(466, 15);
+            this.buttonUpdateClose.Location = new System.Drawing.Point(452, 15);
             this.buttonUpdateClose.Name = "buttonUpdateClose";
             this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
             this.buttonUpdateClose.TabIndex = 40;
@@ -296,8 +297,17 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(-5, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(791, 55);
+            this.panel1.Size = new System.Drawing.Size(777, 55);
             this.panel1.TabIndex = 63;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(761, 506);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(27, 42);
+            this.panel2.TabIndex = 77;
             // 
             // ProgramInformation
             // 
@@ -307,12 +317,14 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProgramInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Program Information";
             this.Load += new System.EventHandler(this.ProgramInformation_Load);
@@ -356,5 +368,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel2;
     }
 }

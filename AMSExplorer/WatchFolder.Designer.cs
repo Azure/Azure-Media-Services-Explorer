@@ -58,6 +58,7 @@
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -73,7 +74,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(583, 15);
+            this.buttonOk.Location = new System.Drawing.Point(570, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(115, 27);
             this.buttonOk.TabIndex = 17;
@@ -84,7 +85,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(706, 14);
+            this.buttonCancel.Location = new System.Drawing.Point(693, 14);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -221,7 +222,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 661);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(836, 55);
+            this.panel1.Size = new System.Drawing.Size(823, 55);
             this.panel1.TabIndex = 64;
             // 
             // pictureBox3
@@ -424,6 +425,15 @@
             this.label13.TabIndex = 78;
             this.label13.Text = "Watch Folder";
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(812, 661);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(23, 44);
+            this.panel2.TabIndex = 79;
+            // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
@@ -432,6 +442,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);
@@ -452,6 +463,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WatchFolder";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Watch Folder";
             this.Load += new System.EventHandler(this.WatchFolder_Load);
@@ -505,5 +517,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panel2;
     }
 }

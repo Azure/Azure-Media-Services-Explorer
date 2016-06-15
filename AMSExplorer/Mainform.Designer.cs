@@ -216,8 +216,8 @@
             this.inputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createReportEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.priorityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -601,7 +601,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1419,8 +1419,8 @@
             // createOutlookReportEmailToolStripMenuItem1
             // 
             this.createOutlookReportEmailToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem29,
-            this.copyToClipboardToolStripMenuItem2});
+            this.copyToClipboardToolStripMenuItem2,
+            this.toolStripMenuItem29});
             this.createOutlookReportEmailToolStripMenuItem1.Name = "createOutlookReportEmailToolStripMenuItem1";
             this.createOutlookReportEmailToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.createOutlookReportEmailToolStripMenuItem1.Text = "Report";
@@ -1429,7 +1429,7 @@
             // 
             this.toolStripMenuItem29.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem29.Image")));
             this.toolStripMenuItem29.Name = "toolStripMenuItem29";
-            this.toolStripMenuItem29.Size = new System.Drawing.Size(243, 22);
+            this.toolStripMenuItem29.Size = new System.Drawing.Size(205, 22);
             this.toolStripMenuItem29.Text = "Create Outlook email";
             this.toolStripMenuItem29.Click += new System.EventHandler(this.toolStripMenuItem29_Click);
             // 
@@ -1438,8 +1438,8 @@
             this.copyToClipboardToolStripMenuItem2.Name = "copyToClipboardToolStripMenuItem2";
             this.copyToClipboardToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.A)));
-            this.copyToClipboardToolStripMenuItem2.Size = new System.Drawing.Size(243, 22);
-            this.copyToClipboardToolStripMenuItem2.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem2.Size = new System.Drawing.Size(205, 22);
+            this.copyToClipboardToolStripMenuItem2.Text = "Display it...";
             this.copyToClipboardToolStripMenuItem2.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem2_Click);
             // 
             // renameToolStripMenuItem
@@ -2183,29 +2183,29 @@
             // createReportEmailToolStripMenuItem
             // 
             this.createReportEmailToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem28,
-            this.copyToClipboardToolStripMenuItem1});
+            this.copyToClipboardToolStripMenuItem1,
+            this.toolStripMenuItem28});
             this.createReportEmailToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createReportEmailToolStripMenuItem.Image")));
             this.createReportEmailToolStripMenuItem.Name = "createReportEmailToolStripMenuItem";
             this.createReportEmailToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.createReportEmailToolStripMenuItem.Text = "Report";
-            // 
-            // toolStripMenuItem28
-            // 
-            this.toolStripMenuItem28.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem28.Image")));
-            this.toolStripMenuItem28.Name = "toolStripMenuItem28";
-            this.toolStripMenuItem28.Size = new System.Drawing.Size(239, 22);
-            this.toolStripMenuItem28.Text = "Create Outlook email";
-            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click_1);
             // 
             // copyToClipboardToolStripMenuItem1
             // 
             this.copyToClipboardToolStripMenuItem1.Name = "copyToClipboardToolStripMenuItem1";
             this.copyToClipboardToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.J)));
-            this.copyToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
-            this.copyToClipboardToolStripMenuItem1.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
+            this.copyToClipboardToolStripMenuItem1.Text = "Display it...";
             this.copyToClipboardToolStripMenuItem1.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem28
+            // 
+            this.toolStripMenuItem28.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem28.Image")));
+            this.toolStripMenuItem28.Name = "toolStripMenuItem28";
+            this.toolStripMenuItem28.Size = new System.Drawing.Size(201, 22);
+            this.toolStripMenuItem28.Text = "Create Outlook email";
+            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click_1);
             // 
             // toolStripSeparator11
             // 
@@ -3205,8 +3205,8 @@
             // ContextMenuItemJobCreateOutlookReportEmail
             // 
             this.ContextMenuItemJobCreateOutlookReportEmail.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem27,
-            this.copyReportToClipboardToolStripMenuItem});
+            this.copyReportToClipboardToolStripMenuItem,
+            this.toolStripMenuItem27});
             this.ContextMenuItemJobCreateOutlookReportEmail.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobCreateOutlookReportEmail.Image")));
             this.ContextMenuItemJobCreateOutlookReportEmail.Name = "ContextMenuItemJobCreateOutlookReportEmail";
             this.ContextMenuItemJobCreateOutlookReportEmail.Size = new System.Drawing.Size(226, 22);
@@ -3216,7 +3216,7 @@
             // 
             this.toolStripMenuItem27.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem27.Image")));
             this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItem27.Size = new System.Drawing.Size(201, 22);
             this.toolStripMenuItem27.Text = "Create Outlook email";
             this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click_1);
             // 
@@ -3225,8 +3225,8 @@
             this.copyReportToClipboardToolStripMenuItem.Name = "copyReportToClipboardToolStripMenuItem";
             this.copyReportToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.J)));
-            this.copyReportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.copyReportToClipboardToolStripMenuItem.Text = "Copy to clipboard";
+            this.copyReportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.copyReportToClipboardToolStripMenuItem.Text = "Display it...";
             this.copyReportToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
