@@ -899,6 +899,7 @@ namespace AMSExplorer
         public const string AMPWidevineToken = "&widevinetoken={0}";
         public const string AMPAes = "&aes={0}";
         public const string AMPAesToken = "&aestoken={0}";
+        public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
         public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.1.1/samples/dash-if-reference-player/index.html?url={0}";
@@ -2829,11 +2830,6 @@ namespace AMSExplorer
                 {
                     case PlayerType.AzureMediaPlayer:
                     case PlayerType.AzureMediaPlayerFrame:
-                        /*
-                         string playerurl = typeplayer == PlayerType.AzureMediaPlayer ?
-                             Constants.PlayerAMPToLaunch
-                             : Constants.PlayerAMPIFrameToLaunch;
-                            */
                         string playerurl = "";
 
                         if (keytype != AssetProtectionType.None)
@@ -2950,8 +2946,21 @@ namespace AMSExplorer
                             }
                         }
 
-                        //FullPlayBackLink = string.Format(playerurl, HttpUtility.UrlEncode(Urlstr));
-                        //FullPlayBackLink = HttpUtility.UrlEncode(string.Format(playerurl, Urlstr));
+                        if (myasset != null) // wtt subtitles files
+                        {
+                            var subtitles = myasset.AssetFiles.ToList().Where(f => f.Name.ToLower().EndsWith(".vtt")).ToList();
+                            if (subtitles.Count > 0)
+                            {
+                                var urlasset = new Uri(Urlstr);
+                                string baseurlwith = urlasset.GetLeftPart(UriPartial.Authority) + urlasset.Segments[0] + urlasset.Segments[1];
+                                var listsub = new List<string>();
+                                foreach (var s in subtitles)
+                                {
+                                    listsub.Add(Path.GetFileNameWithoutExtension(s.Name) + ",und," + HttpUtility.UrlEncode(baseurlwith + s.Name));
+                                }
+                                playerurl += string.Format(Constants.AMPSubtitles, string.Join(";", listsub));
+                            }
+                        }
 
                         string playerurlbase = typeplayer == PlayerType.AzureMediaPlayer ?
                                                 Constants.PlayerAMPToLaunch
