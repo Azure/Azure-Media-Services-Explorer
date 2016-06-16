@@ -373,8 +373,10 @@ namespace AMSExplorer
         public static ManifestGenerated LoadAndUpdateManifestTemplate(IAsset asset)
         {
             var mp4AssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var m4aAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var mediaAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mp4AssetFiles.Count() != 0)
+            if (mp4AssetFiles.Count() != 0 || m4aAssetFiles.Count() != 0)
             {
                 // Prepare the manifest
                 XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
@@ -392,21 +394,30 @@ namespace AMSExplorer
                     switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
                 }
 
-                // audio track
-                var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
-                                                            (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
-                                                            ||
-                                                            (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
-                                                            );
+                // audio tracks (m4a)
+                foreach (var file in m4aAssetFiles)
+                {
+                    switchxml.Add(new XElement(ns + "audio", new XAttribute("src", file.Name), new XAttribute("title", Path.GetFileNameWithoutExtension(file.Name))));
+                }
 
-                var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
+                if (m4aAssetFiles.Count() == 0)
+                {
+                    // audio track
+                    var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
+                                                                (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
+                                                                ||
+                                                                (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
+                                                                );
 
-                string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+                    var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
 
-                switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+                    string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+
+                    switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+                }
 
                 // manifest filename
-                string name = CommonPrefix(mp4AssetFiles.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToArray());
+                string name = CommonPrefix(mediaAssetFiles.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToArray());
                 if (string.IsNullOrEmpty(name))
                 {
                     name = "manifest";
@@ -876,7 +887,6 @@ namespace AMSExplorer
         public const string PlayerAMPinOptions = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
         public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
-        //public const string PlayerAMPToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer.html?url={0}";
 
         public const string PlayerAMPIFrameToLaunch = @"http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
@@ -890,9 +900,8 @@ namespace AMSExplorer
         public const string AMPAes = "&aes={0}";
         public const string AMPAesToken = "&aestoken={0}";
 
-
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v1.6.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.1.1/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerDASHAzure = @"http://dashplayer.azurewebsites.net";
         public const string PlayerDASHAzureToLaunch = @"http://dashplayer.azurewebsites.net?url={0}";
@@ -999,7 +1008,6 @@ namespace AMSExplorer
         public const string SlateJPGExtension = ".jpg";
 
         public const string stringNull = "(null)"; // To display null is textbox
-
 
         public const string FaceDetectionFaces = "Faces";
         public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
@@ -3690,7 +3698,7 @@ namespace AMSExplorer
         public bool Keywords { get; set; }
     }
 
-   
+
     public class JobOptionsVar
     {
         public int Priority { get; set; }
