@@ -25,6 +25,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Xml.Linq;
+using System.IO;
 
 namespace AMSExplorer
 {
@@ -46,6 +48,7 @@ namespace AMSExplorer
                     JobTemplate = checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null,
                     SendEmailToRecipient = checkBoxSendEMail.Checked ? textBoxEMail.Text : null,
                     PublishOutputAssets = checkBoxPublishOAssets.Checked,
+                    ProcessRohzetXML = checkBoxProcessXMLRohzet.Checked
                 };
 
 
@@ -104,7 +107,7 @@ namespace AMSExplorer
             _context = context;
             _WatchFolderSettings = watchfoldersettings;
             _SelectedAssets = selectedassets;
-           
+
         }
 
         private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)
@@ -114,19 +117,22 @@ namespace AMSExplorer
 
         private void WatchFolder_Load(object sender, EventArgs e)
         {
-        
+
             // folder
             textBoxFolder.Text = _WatchFolderSettings.FolderPath;
-   
+
             // activation
             radioButtonON.Checked = _WatchFolderSettings.IsOn;
 
             // delete file
             checkBoxDeleteFile.Checked = _WatchFolderSettings.DeleteFile;
 
+            // Rohzet xml file
+            checkBoxProcessXMLRohzet.Checked = _WatchFolderSettings.ProcessRohzetXML;
+
             // process asset
             checkBoxRunJobTemplate.Checked = (_WatchFolderSettings.JobTemplate != null);
-         
+
             // add asset(s) to process
             if (_WatchFolderSettings.TypeInputExtraInput != TypeInputExtraInput.None)
             {
@@ -144,7 +150,7 @@ namespace AMSExplorer
             // publish
             checkBoxPublishOAssets.Checked = _WatchFolderSettings.PublishOutputAssets;
             checkBoxPublishOAssets.Text = string.Format(checkBoxPublishOAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
-        
+
             // send email
             checkBoxSendEMail.Checked = _WatchFolderSettings.SendEmailToRecipient != null;
             textBoxEMail.Text = _WatchFolderSettings.SendEmailToRecipient;
@@ -242,6 +248,39 @@ namespace AMSExplorer
         private void radioButtonInsertSelectedAssets_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public class RohzetAsset
+        {
+            public string Type { get; set; }
+            public string URI { get; set; }
+        }
+
+
+        public static List<RohzetAsset> GetListFilesFromRohzetXML(string filenameWithPath)
+        {
+            var list = new List<RohzetAsset>();
+            try
+            {
+                var doc = new XDocument();
+                doc = XDocument.Load(filenameWithPath);
+                var assets = doc.Element("TemplateExXML").Element("WorkflowParams").Element("Source").Element("AssetGroup").Element("Location").Elements("AssetItem");
+
+                if (assets.Count() > 0)
+                {
+                    foreach (var a in assets)
+                    {
+                        bool relative = bool.Parse(a.Element("IsRelativeURI").Value);
+                        string filename = relative ? Path.Combine(Path.GetDirectoryName(filenameWithPath), a.Element("URI").Value)  : a.Element("URI").Value;
+                        list.Add(new RohzetAsset() { Type = a.Element("Type").Value, URI = filename });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return list;
         }
     }
 }
