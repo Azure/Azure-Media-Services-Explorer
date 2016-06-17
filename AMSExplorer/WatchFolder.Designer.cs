@@ -208,7 +208,7 @@
             // checkBoxRunJobTemplate
             // 
             this.checkBoxRunJobTemplate.AutoSize = true;
-            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 302);
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 281);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
             this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
             this.checkBoxRunJobTemplate.TabIndex = 51;
@@ -232,7 +232,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 593);
+            this.pictureBox3.Location = new System.Drawing.Point(26, 587);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -243,7 +243,7 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 594);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 588);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
             this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
             this.checkBoxPublishOAssets.TabIndex = 65;
@@ -331,7 +331,7 @@
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
             this.groupBoxProcess.Enabled = false;
-            this.groupBoxProcess.Location = new System.Drawing.Point(61, 329);
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 308);
             this.groupBoxProcess.Name = "groupBoxProcess";
             this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
             this.groupBoxProcess.TabIndex = 74;
@@ -377,7 +377,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
+            this.pictureBox5.Location = new System.Drawing.Point(26, 282);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(16, 16);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -415,7 +415,7 @@
             this.groupBoxOptions.Size = new System.Drawing.Size(557, 100);
             this.groupBoxOptions.TabIndex = 80;
             this.groupBoxOptions.TabStop = false;
-            this.groupBoxOptions.Text = "Source Options";
+            this.groupBoxOptions.Text = "Upload Options";
             // 
             // checkBoxProcessXMLRohzet
             // 
@@ -424,7 +424,7 @@
             this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
             this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
             this.checkBoxProcessXMLRohzet.TabIndex = 51;
-            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rohzet) for multi files asset upload";
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
             this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
             // 
             // listViewWorkflows1

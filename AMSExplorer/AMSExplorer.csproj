@@ -699,7 +699,7 @@
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />
-    <Content Include="Configurations\SampleSemaphoreRohzet.xml">
+    <Content Include="Configurations\SampleSemaphoreRhozet.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Configurations\VideoOCR.xml">
