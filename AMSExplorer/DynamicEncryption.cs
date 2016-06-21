@@ -355,7 +355,7 @@ namespace AMSExplorer
             if (openFileDialogCert.ShowDialog() == DialogResult.OK)
             {
 
-                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
+                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password, true) == DialogResult.OK)
                 {
                     try
                     {

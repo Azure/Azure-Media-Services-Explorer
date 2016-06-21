@@ -390,8 +390,8 @@ namespace AMSExplorer
                 blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
                 TextBoxLogWriteLine("Created a reference for block blob in Azure....");
 
-
-                await blockBlob.StartCopyAsync(ObjectUrl, token);
+                string stringOperation = await blockBlob.StartCopyAsync(ObjectUrl, token);
+                bool Cancelled = false;
 
                 DateTime startTime = DateTime.UtcNow;
 
@@ -399,39 +399,34 @@ namespace AMSExplorer
 
                 while (continueLoop)// && !token.IsCancellationRequested)
                 {
-                    IEnumerable<IListBlobItem> blobsList = mediaBlobContainer.ListBlobs(null, true, BlobListingDetails.Copy);
-                    foreach (var blob in blobsList)
+                    if (token.IsCancellationRequested && !Cancelled)
                     {
-                        var tempBlockBlob = (CloudBlockBlob)blob;
-                        var destBlob = blob as CloudBlockBlob;
+                        await blockBlob.AbortCopyAsync(stringOperation);
+                        Cancelled = true;
+                    }
 
-                        if (tempBlockBlob.Name == fileName)
+                    blockBlob.FetchAttributes();
+                    var copyStatus = blockBlob.CopyState;
+                    if (copyStatus != null)
+                    {
+                        double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
+
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+
+                        if (copyStatus.Status != CopyStatus.Pending)
                         {
-                            tempBlockBlob.FetchAttributes();
-                            var copyStatus = tempBlockBlob.CopyState;
-                            if (copyStatus != null)
+                            continueLoop = false;
+                            if (copyStatus.Status == CopyStatus.Failed)
                             {
-                                double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
-
-                                DoGridTransferUpdateProgress(percentComplete, guidTransfer);
-
-                                if (copyStatus.Status != CopyStatus.Pending)
-                                {
-                                    continueLoop = false;
-                                    if (copyStatus.Status == CopyStatus.Failed)
-                                    {
-                                        Error = true;
-                                        ErrorMessage = copyStatus.StatusDescription;
-                                    }
-                                    if (copyStatus.Status == CopyStatus.Aborted)
-                                    {
-                                        Canceled = true;
-                                    }
-                                }
+                                Error = true;
+                                ErrorMessage = copyStatus.StatusDescription;
+                            }
+                            if (copyStatus.Status == CopyStatus.Aborted)
+                            {
+                                Canceled = true;
                             }
                         }
                     }
-
                     System.Threading.Thread.Sleep(1000);
                 }
                 DateTime endTime = DateTime.UtcNow;
@@ -1407,7 +1402,7 @@ namespace AMSExplorer
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
 
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -2365,7 +2360,7 @@ namespace AMSExplorer
 
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -2530,7 +2525,8 @@ namespace AMSExplorer
                             destinationBlob = assetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                            string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                            bool Cancelled = false;
 
                             while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                             {
@@ -2538,6 +2534,12 @@ namespace AMSExplorer
                                 destinationBlob.FetchAttributes();
                                 percentComplete = (Convert.ToDouble(assetindex + 1) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
                                 DoGridTransferUpdateProgress(percentComplete, response.Id);
+
+                                if (response.token.IsCancellationRequested && !Cancelled)
+                                {
+                                    await destinationBlob.AbortCopyAsync(copyOperation);
+                                    Cancelled = true;
+                                }
                             }
 
                             if (destinationBlob.CopyState.Status == CopyStatus.Failed)
@@ -2600,7 +2602,9 @@ namespace AMSExplorer
                                 {
 
                                 }
-                                await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+
+                                string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                bool Cancelled = false;
 
                                 while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
@@ -2608,6 +2612,13 @@ namespace AMSExplorer
                                     destinationBlob.FetchAttributes();
                                     percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
                                     DoGridTransferUpdateProgress(percentComplete, response.Id);
+
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(copyOperation);
+                                        Cancelled = true;
+                                    }
+
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Failed)
@@ -2752,7 +2763,8 @@ namespace AMSExplorer
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                await destinationBlob.StartCopyAsync(sourceCloudBlob, response.token);
+                                string stringOperation = await destinationBlob.StartCopyAsync(sourceCloudBlob, response.token);
+                                bool Cancelled = false;
 
                                 CloudBlockBlob blob;
                                 blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
@@ -2760,6 +2772,11 @@ namespace AMSExplorer
                                 while (blob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(stringOperation);
+                                        Cancelled = true;
+                                    }
                                     blob.FetchAttributes();
                                     percentComplete = (long)100 * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
                                     DoGridTransferUpdateProgress((int)percentComplete, response.Id);
@@ -2882,11 +2899,19 @@ namespace AMSExplorer
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                await destinationBlob.StartCopyAsync(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                string stringOperation = await destinationBlob.StartCopyAsync(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                bool Cancelled = false;
 
                                 while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(stringOperation);
+                                        Cancelled = true;
+                                    }
+
                                     destinationBlob.FetchAttributes();
                                     percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
                                     DoGridTransferUpdateProgress(percentComplete, response.Id);
@@ -3129,7 +3154,8 @@ namespace AMSExplorer
                                         {
                                             // exception if Blob does not exist, which is fine
                                         }
-                                        await destinationCloudBlockBlob.StartCopyAsync(file.GetSasUri(), response.token);
+                                        string stringOperation = await destinationCloudBlockBlob.StartCopyAsync(file.GetSasUri(), response.token);
+                                        bool Cancelled = false;
 
                                         CloudBlockBlob blob;
                                         blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
@@ -3137,6 +3163,12 @@ namespace AMSExplorer
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
+
+                                            if (response.token.IsCancellationRequested && !Cancelled)
+                                            {
+                                                await destinationCloudBlockBlob.AbortCopyAsync(stringOperation);
+                                                Cancelled = true;
+                                            }
                                             blob.FetchAttributes();
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                             DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, response.Id);
@@ -6511,7 +6543,7 @@ namespace AMSExplorer
             {
                 if (!havestoragecredentials)
                 { // No blob credentials. Let's ask the user
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                     {
                         _credentials.StorageKey = valuekey;
                         havestoragecredentials = true;
@@ -11921,7 +11953,7 @@ namespace AMSExplorer
                 if (!storagekeys.ContainsKey(asset.StorageAccountName))
                 {
                     string valuekey = "";
-                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey, true) == DialogResult.OK)
                     {
                         storagekeys.Add(asset.StorageAccountName, valuekey);
                     }
@@ -11937,7 +11969,7 @@ namespace AMSExplorer
             if (DestinationOtherStorage != null)
             {
                 string valuekey = "";
-                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", DestinationOtherStorage), ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", DestinationOtherStorage), ref valuekey, true) == DialogResult.OK)
                 {
                     storagekeys.Add(DestinationOtherStorage, valuekey);
                 }
@@ -11964,7 +11996,7 @@ namespace AMSExplorer
                     {
 
                         string valuekey = "";
-                        if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key of the destination storage account ('{0}') : ", newcontext.DefaultStorageAccount.Name), ref valuekey) == DialogResult.OK)
+                        if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key of the destination storage account ('{0}') : ", newcontext.DefaultStorageAccount.Name), ref valuekey, true) == DialogResult.OK)
                         {
                             storagekeys.Add(newcontext.DefaultStorageAccount.Name, valuekey);
                         }
@@ -12970,7 +13002,7 @@ namespace AMSExplorer
             if ((!havestoragecredentials && storageName == _context.DefaultStorageAccount.Name) || (storageName != _context.DefaultStorageAccount.Name))
             { // No blob credentials. Let's ask the user
                 StorageKeyKnown = false;
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     StorageKeyKnown = true;
                     if (storageName == _context.DefaultStorageAccount.Name)

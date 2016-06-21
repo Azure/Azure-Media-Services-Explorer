@@ -582,7 +582,7 @@ namespace AMSExplorer
         }
 
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
+        public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
             Button buttonOk = new Button()
             {
@@ -618,7 +618,8 @@ namespace AMSExplorer
             };
             TextBox textBox = new TextBox()
             {
-                Text = value
+                Text = value,
+                UseSystemPasswordChar = passwordWildcard
             };
 
             label.SetBounds(9, 20, 372, 13);

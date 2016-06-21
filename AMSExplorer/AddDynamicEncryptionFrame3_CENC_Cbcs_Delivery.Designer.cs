@@ -46,6 +46,7 @@
             this.labelCertificateFile = new System.Windows.Forms.Label();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.panelExternalFairPlay = new System.Windows.Forms.Panel();
+            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radioButtonIVBase64 = new System.Windows.Forms.RadioButton();
             this.radioButtonIVHex = new System.Windows.Forms.RadioButton();
@@ -61,7 +62,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -119,6 +119,8 @@
             // 
             // groupBoxFairPlay
             // 
+            this.groupBoxFairPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFairPlay.Controls.Add(this.panelFairPlayFromAMS);
             this.groupBoxFairPlay.Controls.Add(this.panelExternalFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.radioButtonDeliverFairPlayfromAMS);
@@ -135,6 +137,8 @@
             // 
             // panelFairPlayFromAMS
             // 
+            this.panelFairPlayFromAMS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
             this.panelFairPlayFromAMS.Controls.Add(this.panel2);
             this.panelFairPlayFromAMS.Controls.Add(this.label9);
@@ -174,13 +178,11 @@
             this.radioButtonASKBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonASKBase64.AutoSize = true;
-            this.radioButtonASKBase64.Checked = true;
             this.radioButtonASKBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonASKBase64.Location = new System.Drawing.Point(9, 7);
             this.radioButtonASKBase64.Name = "radioButtonASKBase64";
             this.radioButtonASKBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonASKBase64.TabIndex = 68;
-            this.radioButtonASKBase64.TabStop = true;
             this.radioButtonASKBase64.Text = "Base64";
             this.radioButtonASKBase64.UseVisualStyleBackColor = true;
             this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.radioButtonASKBase64_CheckedChanged);
@@ -190,11 +192,13 @@
             this.radioButtonASKHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonASKHex.AutoSize = true;
+            this.radioButtonASKHex.Checked = true;
             this.radioButtonASKHex.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonASKHex.Location = new System.Drawing.Point(9, 32);
             this.radioButtonASKHex.Name = "radioButtonASKHex";
             this.radioButtonASKHex.Size = new System.Drawing.Size(45, 19);
             this.radioButtonASKHex.TabIndex = 69;
+            this.radioButtonASKHex.TabStop = true;
             this.radioButtonASKHex.Text = "Hex";
             this.radioButtonASKHex.UseVisualStyleBackColor = true;
             this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.radioButtonASKHex_CheckedChanged);
@@ -245,6 +249,8 @@
             // 
             // labelCertificateFile
             // 
+            this.labelCertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCertificateFile.Location = new System.Drawing.Point(259, 23);
             this.labelCertificateFile.Name = "labelCertificateFile";
             this.labelCertificateFile.Size = new System.Drawing.Size(335, 21);
@@ -278,6 +284,18 @@
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
             this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 171);
             this.panelExternalFairPlay.TabIndex = 81;
+            // 
+            // checkBoxFinalExtURL
+            // 
+            this.checkBoxFinalExtURL.AutoSize = true;
+            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(29, 63);
+            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
+            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(548, 19);
+            this.checkBoxFinalExtURL.TabIndex = 96;
+            this.checkBoxFinalExtURL.Text = "Final URL (the keyid and the initialisation vector will not be added to URL by th" +
+    "e dynamic packager)";
+            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -455,18 +473,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // checkBoxFinalExtURL
-            // 
-            this.checkBoxFinalExtURL.AutoSize = true;
-            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(29, 63);
-            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
-            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(548, 19);
-            this.checkBoxFinalExtURL.TabIndex = 96;
-            this.checkBoxFinalExtURL.Text = "Final URL (the keyid and the initialisation vector will not be added to URL by th" +
-    "e dynamic packager)";
-            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
             // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
