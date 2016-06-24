@@ -56,6 +56,7 @@
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
+            this.filesToSelectedAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,8 +129,8 @@
             this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayParentJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOutlookReportEmailToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToClipboardToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editAlternateIdToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,6 +144,7 @@
             this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadFromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filesToSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromMultipleFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupAWatchFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -331,8 +333,8 @@
             this.ContextMenuItemJobInputAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyReportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobChangePriority = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCancel = new System.Windows.Forms.ToolStripMenuItem();
@@ -756,6 +758,7 @@
             // 
             this.toolStripMenuItem17.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem18,
+            this.filesToSelectedAssetsToolStripMenuItem1,
             this.toolStripMenuItem19,
             this.toolStripMenuItem20,
             this.toolStripMenuItem21});
@@ -768,17 +771,24 @@
             // 
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
             this.toolStripMenuItem18.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.toolStripMenuItem18.Size = new System.Drawing.Size(364, 22);
-            this.toolStripMenuItem18.Text = "From local files (single file assets)...";
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(405, 22);
+            this.toolStripMenuItem18.Text = "Upload file(s) to new single file asset(s)...";
             this.toolStripMenuItem18.Click += new System.EventHandler(this.toolStripMenuItem18_Click);
+            // 
+            // filesToSelectedAssetsToolStripMenuItem1
+            // 
+            this.filesToSelectedAssetsToolStripMenuItem1.Name = "filesToSelectedAssetsToolStripMenuItem1";
+            this.filesToSelectedAssetsToolStripMenuItem1.Size = new System.Drawing.Size(405, 22);
+            this.filesToSelectedAssetsToolStripMenuItem1.Text = "Upload file(s) to selected asset(s)...";
+            this.filesToSelectedAssetsToolStripMenuItem1.Click += new System.EventHandler(this.filesToSelectedAssetsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem19
             // 
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
             this.toolStripMenuItem19.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.toolStripMenuItem19.Size = new System.Drawing.Size(364, 22);
-            this.toolStripMenuItem19.Text = "From a local folder (multiple files asset)...";
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(405, 22);
+            this.toolStripMenuItem19.Text = "Upload local folder to a new multiple files asset...";
             this.toolStripMenuItem19.Click += new System.EventHandler(this.toolStripMenuItem19_Click);
             // 
             // toolStripMenuItem20
@@ -787,7 +797,7 @@
             this.toolStripMenuItem20.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(364, 22);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(405, 22);
             this.toolStripMenuItem20.Text = "Batch upload...";
             this.toolStripMenuItem20.Click += new System.EventHandler(this.toolStripMenuItem20_Click);
             // 
@@ -796,7 +806,7 @@
             this.toolStripMenuItem21.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem21.Image")));
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
             this.toolStripMenuItem21.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(364, 22);
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(405, 22);
             this.toolStripMenuItem21.Text = "Setup a watch folder";
             this.toolStripMenuItem21.Click += new System.EventHandler(this.toolStripMenuItem21_Click);
             // 
@@ -1425,14 +1435,6 @@
             this.createOutlookReportEmailToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.createOutlookReportEmailToolStripMenuItem1.Text = "Report";
             // 
-            // toolStripMenuItem29
-            // 
-            this.toolStripMenuItem29.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem29.Image")));
-            this.toolStripMenuItem29.Name = "toolStripMenuItem29";
-            this.toolStripMenuItem29.Size = new System.Drawing.Size(205, 22);
-            this.toolStripMenuItem29.Text = "Create Outlook email";
-            this.toolStripMenuItem29.Click += new System.EventHandler(this.toolStripMenuItem29_Click);
-            // 
             // copyToClipboardToolStripMenuItem2
             // 
             this.copyToClipboardToolStripMenuItem2.Name = "copyToClipboardToolStripMenuItem2";
@@ -1441,6 +1443,14 @@
             this.copyToClipboardToolStripMenuItem2.Size = new System.Drawing.Size(205, 22);
             this.copyToClipboardToolStripMenuItem2.Text = "Display it...";
             this.copyToClipboardToolStripMenuItem2.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem29
+            // 
+            this.toolStripMenuItem29.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem29.Image")));
+            this.toolStripMenuItem29.Name = "toolStripMenuItem29";
+            this.toolStripMenuItem29.Size = new System.Drawing.Size(205, 22);
+            this.toolStripMenuItem29.Text = "Create Outlook email";
+            this.toolStripMenuItem29.Click += new System.EventHandler(this.toolStripMenuItem29_Click);
             // 
             // renameToolStripMenuItem
             // 
@@ -1535,6 +1545,7 @@
             // 
             this.uploadFromASingleFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fromASingleFileToolStripMenuItem,
+            this.filesToSelectedAssetsToolStripMenuItem,
             this.fromMultipleFilesToolStripMenuItem,
             this.batchUploadToolStripMenuItem,
             this.setupAWatchFolderToolStripMenuItem,
@@ -1548,17 +1559,24 @@
             // 
             this.fromASingleFileToolStripMenuItem.Name = "fromASingleFileToolStripMenuItem";
             this.fromASingleFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
-            this.fromASingleFileToolStripMenuItem.Text = "From local files (single file assets)...";
+            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
+            this.fromASingleFileToolStripMenuItem.Text = "Upload file(s) to new single file asset(s)...";
             this.fromASingleFileToolStripMenuItem.Click += new System.EventHandler(this.fromASingleFileToolStripMenuItem_Click);
+            // 
+            // filesToSelectedAssetsToolStripMenuItem
+            // 
+            this.filesToSelectedAssetsToolStripMenuItem.Name = "filesToSelectedAssetsToolStripMenuItem";
+            this.filesToSelectedAssetsToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
+            this.filesToSelectedAssetsToolStripMenuItem.Text = "Upload file(s) to selected asset(s)...";
+            this.filesToSelectedAssetsToolStripMenuItem.Click += new System.EventHandler(this.filesToSelectedAssetsToolStripMenuItem_Click);
             // 
             // fromMultipleFilesToolStripMenuItem
             // 
             this.fromMultipleFilesToolStripMenuItem.Name = "fromMultipleFilesToolStripMenuItem";
             this.fromMultipleFilesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
-            this.fromMultipleFilesToolStripMenuItem.Text = "From a local folder (multiple files asset)...";
+            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
+            this.fromMultipleFilesToolStripMenuItem.Text = "Upload local folder to a new multiple files asset...";
             this.fromMultipleFilesToolStripMenuItem.Click += new System.EventHandler(this.fromMultipleFilesToolStripMenuItem_Click);
             // 
             // batchUploadToolStripMenuItem
@@ -1567,7 +1585,7 @@
             this.batchUploadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
             this.batchUploadToolStripMenuItem.Text = "Batch upload...";
             this.batchUploadToolStripMenuItem.Click += new System.EventHandler(this.batchUploadToolStripMenuItem_Click);
             // 
@@ -1576,14 +1594,14 @@
             this.setupAWatchFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("setupAWatchFolderToolStripMenuItem.Image")));
             this.setupAWatchFolderToolStripMenuItem.Name = "setupAWatchFolderToolStripMenuItem";
             this.setupAWatchFolderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
             this.setupAWatchFolderToolStripMenuItem.Text = "Setup a watch folder";
             this.setupAWatchFolderToolStripMenuItem.Click += new System.EventHandler(this.setupAWatchFolderToolStripMenuItem_Click);
             // 
             // withAnExternalAsperaSignantAzCopyToolStripMenuItem
             // 
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name = "withAnExternalAsperaSignantAzCopyToolStripMenuItem";
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "Bulk upload (for external upload)...";
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Click += new System.EventHandler(this.withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click);
             // 
@@ -3212,14 +3230,6 @@
             this.ContextMenuItemJobCreateOutlookReportEmail.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobCreateOutlookReportEmail.Text = "Job report";
             // 
-            // toolStripMenuItem27
-            // 
-            this.toolStripMenuItem27.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem27.Image")));
-            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Size = new System.Drawing.Size(201, 22);
-            this.toolStripMenuItem27.Text = "Create Outlook email";
-            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click_1);
-            // 
             // copyReportToClipboardToolStripMenuItem
             // 
             this.copyReportToClipboardToolStripMenuItem.Name = "copyReportToClipboardToolStripMenuItem";
@@ -3228,6 +3238,14 @@
             this.copyReportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.copyReportToClipboardToolStripMenuItem.Text = "Display it...";
             this.copyReportToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem27
+            // 
+            this.toolStripMenuItem27.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem27.Image")));
+            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
+            this.toolStripMenuItem27.Size = new System.Drawing.Size(201, 22);
+            this.toolStripMenuItem27.Text = "Create Outlook email";
+            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click_1);
             // 
             // toolStripSeparator12
             // 
@@ -5946,6 +5964,8 @@
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaContentModeratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearCompletedTransfersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem1;
     }
 }
 

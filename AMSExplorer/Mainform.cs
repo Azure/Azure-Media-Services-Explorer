@@ -845,13 +845,6 @@ namespace AMSExplorer
             if (asset.AssetFiles.Count() == 1)
             {
                 return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-            /*
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-    */
             );
             }
             else
@@ -859,7 +852,6 @@ namespace AMSExplorer
                 return false;
             }
         }
-
 
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -1197,6 +1189,88 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
+
+        private void DoMenuUploadFileToAsset_Step1()
+        {
+            var assets = ReturnSelectedAssets();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, assets);
+            }
+        }
+
+        private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<IAsset> assets)
+        {
+            foreach (var asset in assets)
+            {
+                try
+                {
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+        }
+
+
+        private async Task ProcessUploadFilesToAsset(string[] FileNames, IAsset asset, Guid guidTransfer, CancellationToken token)
+        {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(guidTransfer);
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+
+            bool Error = false;
+
+            foreach (var myfile in FileNames)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    TextBoxLogWriteLine("Upload cancelled by the user.", true);
+                    break;
+                }
+                TextBoxLogWriteLine("Starting upload of file '{0}' to asset '{1}'", myfile, asset.Name);
+
+                try
+                {
+                     IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(myfile), token);
+
+                    UploadedAssetFile.UploadProgressChanged+= (af, p) =>
+                    {
+                        DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                    };
+
+                     UploadedAssetFile.Upload(myfile);
+                    
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", myfile, true);
+                    TextBoxLogWriteLine(e);
+                }
+            }
+            if (!Error && !token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+            }
+          
+            DoRefreshGridAssetV(false);
+        }
 
 
         private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, Guid guidTransfer, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
@@ -5845,7 +5919,7 @@ namespace AMSExplorer
                 bool warning = (bool)cell1.Value;
                 if (warning) e.CellStyle.ForeColor = Color.Red;
             }
-          
+
 
 
             if (e.ColumnIndex == indexlocalexp)  // locator expiration,
@@ -14297,6 +14371,16 @@ namespace AMSExplorer
         private void clearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoGridTransferClearCompletedTransfers();
+        }
+
+        private void filesToSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFileToAsset_Step1();
+        }
+
+        private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFileToAsset_Step1();
         }
     }
 }
