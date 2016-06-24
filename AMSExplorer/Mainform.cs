@@ -210,7 +210,7 @@ namespace AMSExplorer
 
             try // as this is the first call to MPs
             {
-                if (/*(GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && */(GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
+                if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null)
                 {
                     AMEPremiumWorkflowPresent = false;
                     encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
@@ -3916,16 +3916,13 @@ namespace AMSExplorer
                 }
             }
 
-            List<IMediaProcessor> Encoders;
-            Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
-            Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow);
 
             string taskname = "Premium Workflow Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
             this.Cursor = Cursors.WaitCursor;
-            EncodingPremium form = new EncodingPremium(_context)
+            EncodingPremium form = new EncodingPremium(_context, processor.Version)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
-                EncodingProcessorsList = Encoders,
                 EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded",
                 EncodingNumberOfInputAssets = SelectedAssets.Count,
@@ -3959,7 +3956,7 @@ namespace AMSExplorer
 
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
-                                   form.EncodingProcessorSelected,
+                                   processor,
                                    form.XMLData,
                                    form.JobOptions.TasksOptionsSetting
                                    );
@@ -5815,8 +5812,9 @@ namespace AMSExplorer
             int indextype = dataGridViewAssetsV.Columns["Type"].Index;//2
             int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
+            int indexassetwarning = dataGridViewAssetsV.Columns[dataGridViewAssetsV._assetwarning].Index;
 
-            //Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
+            /*
 
             var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
@@ -5826,13 +5824,29 @@ namespace AMSExplorer
                 else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
             }
 
-
             var cell2 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexsize];  //Size
             if (cell2.Value != null)
             {
                 string TypeStr = (string)cell2.Value;
                 if (TypeStr.Equals("0 B")) e.CellStyle.ForeColor = Color.Red;
             }
+
+            */
+            var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
+            if (cell.Value != null)
+            {
+                string TypeStr = (string)cell.Value;
+                if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
+            }
+
+            var cell1 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexassetwarning];  // warning
+            if (cell1.Value != null)
+            {
+                bool warning = (bool)cell1.Value;
+                if (warning) e.CellStyle.ForeColor = Color.Red;
+            }
+          
+
 
             if (e.ColumnIndex == indexlocalexp)  // locator expiration,
             {
@@ -5848,7 +5862,6 @@ namespace AMSExplorer
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
             {
-
                 var cell3 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value != null)
                     cell3.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value.ToString();
@@ -14649,6 +14662,7 @@ namespace AMSExplorer
 
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
+        public string _assetwarning = "AssetWarning";
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
@@ -14846,6 +14860,7 @@ namespace AMSExplorer
             this.Columns[_filterMouseOver].Visible = false;
 
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
+            this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
@@ -14921,9 +14936,11 @@ namespace AMSExplorer
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
+                        var assetfiles = asset.AssetFiles.ToList();
                         AE.Type = AssetInfo.GetAssetType(asset);
-                        AE.SizeLong = myAssetInfo.GetSize();
+                        AE.SizeLong = assetfiles.Sum(f => f.ContentFileSize);
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+                        AE.AssetWarning = (AE.SizeLong == 0 || assetfiles.Any(f => f.ContentFileSize == 0));
 
                         assetBitmapAndText = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;

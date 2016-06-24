@@ -39,25 +39,8 @@ namespace AMSExplorer
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
         private CloudMediaContext _context;
-
-        public List<IMediaProcessor> EncodingProcessorsList
-        {
-            set
-            {
-                foreach (IMediaProcessor pr in value)
-                    comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2}", pr.Vendor, pr.Name, pr.Version));
-                comboBoxProcessor.SelectedIndex = 0;
-                Procs = value;
-            }
-        }
-
-        public IMediaProcessor EncodingProcessorSelected
-        {
-            get
-            {
-                return Procs[comboBoxProcessor.SelectedIndex];
-            }
-        }
+        private string _processorVersion;
+              
 
         public string XMLData
         {
@@ -123,7 +106,7 @@ namespace AMSExplorer
             }
         }
 
-        public EncodingPremium(CloudMediaContext context)
+        public EncodingPremium(CloudMediaContext context, string processorVersion)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -131,6 +114,7 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
             buttonPremiumXMLData.Initialize();
             pictureBoxJob.Image = bitmap_multitasksmultijobs;
+            _processorVersion = processorVersion;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -165,6 +149,8 @@ namespace AMSExplorer
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
+
             listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
         }

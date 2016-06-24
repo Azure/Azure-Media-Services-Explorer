@@ -34,7 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxFairPlay = new System.Windows.Forms.GroupBox();
+            this.moreinfoFairPlaylink = new System.Windows.Forms.LinkLabel();
             this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.TextBoxCertificateFile = new System.Windows.Forms.TextBox();
             this.textBoxASK = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButtonASKBase64 = new System.Windows.Forms.RadioButton();
@@ -43,7 +45,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonHttps = new System.Windows.Forms.RadioButton();
             this.radioButtonSkd = new System.Windows.Forms.RadioButton();
-            this.labelCertificateFile = new System.Windows.Forms.Label();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.panelExternalFairPlay = new System.Windows.Forms.Panel();
             this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
@@ -121,6 +122,7 @@
             // 
             this.groupBoxFairPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxFairPlay.Controls.Add(this.moreinfoFairPlaylink);
             this.groupBoxFairPlay.Controls.Add(this.panelFairPlayFromAMS);
             this.groupBoxFairPlay.Controls.Add(this.panelExternalFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.radioButtonDeliverFairPlayfromAMS);
@@ -135,22 +137,47 @@
             this.groupBoxFairPlay.TabStop = false;
             this.groupBoxFairPlay.Text = "Apple FairPlay Streaming";
             // 
+            // moreinfoFairPlaylink
+            // 
+            this.moreinfoFairPlaylink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoFairPlaylink.AutoSize = true;
+            this.moreinfoFairPlaylink.Location = new System.Drawing.Point(482, 19);
+            this.moreinfoFairPlaylink.Name = "moreinfoFairPlaylink";
+            this.moreinfoFairPlaylink.Size = new System.Drawing.Size(153, 15);
+            this.moreinfoFairPlaylink.TabIndex = 92;
+            this.moreinfoFairPlaylink.TabStop = true;
+            this.moreinfoFairPlaylink.Text = "Media Services and FairPlay";
+            this.moreinfoFairPlaylink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoFairPlaylink_LinkClicked);
+            // 
             // panelFairPlayFromAMS
             // 
             this.panelFairPlayFromAMS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFairPlayFromAMS.Controls.Add(this.TextBoxCertificateFile);
             this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
             this.panelFairPlayFromAMS.Controls.Add(this.panel2);
             this.panelFairPlayFromAMS.Controls.Add(this.label9);
             this.panelFairPlayFromAMS.Controls.Add(this.label6);
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonHttps);
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonSkd);
-            this.panelFairPlayFromAMS.Controls.Add(this.labelCertificateFile);
             this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
             this.panelFairPlayFromAMS.Location = new System.Drawing.Point(41, 63);
             this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
             this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 230);
             this.panelFairPlayFromAMS.TabIndex = 85;
+            // 
+            // TextBoxCertificateFile
+            // 
+            this.TextBoxCertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBoxCertificateFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxCertificateFile.Location = new System.Drawing.Point(262, 17);
+            this.TextBoxCertificateFile.Multiline = true;
+            this.TextBoxCertificateFile.Name = "TextBoxCertificateFile";
+            this.TextBoxCertificateFile.ReadOnly = true;
+            this.TextBoxCertificateFile.Size = new System.Drawing.Size(315, 37);
+            this.TextBoxCertificateFile.TabIndex = 91;
+            this.TextBoxCertificateFile.Text = "(no file selected)";
             // 
             // textBoxASK
             // 
@@ -246,16 +273,6 @@
             this.radioButtonSkd.TabStop = true;
             this.radioButtonSkd.Text = "skd://";
             this.radioButtonSkd.UseVisualStyleBackColor = true;
-            // 
-            // labelCertificateFile
-            // 
-            this.labelCertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelCertificateFile.Location = new System.Drawing.Point(259, 23);
-            this.labelCertificateFile.Name = "labelCertificateFile";
-            this.labelCertificateFile.Size = new System.Drawing.Size(335, 21);
-            this.labelCertificateFile.TabIndex = 71;
-            this.labelCertificateFile.Text = "(no file selected)";
             // 
             // buttonImportPFX
             // 
@@ -526,7 +543,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panelExternalFairPlay;
         private System.Windows.Forms.Button buttonImportPFX;
-        private System.Windows.Forms.Label labelCertificateFile;
         private System.Windows.Forms.Panel panelFairPlayFromAMS;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel3;
@@ -544,5 +560,7 @@
         private System.Windows.Forms.RadioButton radioButtonASKHex;
         public System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBoxFinalExtURL;
+        private System.Windows.Forms.TextBox TextBoxCertificateFile;
+        private System.Windows.Forms.LinkLabel moreinfoFairPlaylink;
     }
 }

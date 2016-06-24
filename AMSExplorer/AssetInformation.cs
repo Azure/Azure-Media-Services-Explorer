@@ -273,6 +273,10 @@ namespace AMSExplorer
                     {
                         item.ForeColor = Color.Blue;
                     }
+                    if (file.ContentFileSize == 0)
+                    {
+                        item.ForeColor = Color.Red;
+                    }
                     if (file.AssetFileOptions == AssetFileOptions.Fragmented)
                     {
                         item.ForeColor = Color.DarkGoldenrod;

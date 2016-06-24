@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -156,21 +157,17 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-
         }
-
 
         private void AddDynamicEncryptionFrame3_Load(object sender, EventArgs e)
         {
+            moreinfoFairPlaylink.Links.Add(new LinkLabel.Link(0, moreinfoFairPlaylink.Text.Length, Constants.LinkMoreInfoFairPlay));
         }
-
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
         }
-
-
 
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
@@ -184,7 +181,7 @@ namespace AMSExplorer
         {
             cert = DynamicEncryption.GetCertificateFromFile(false, X509KeyStorageFlags.Exportable);
 
-            labelCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
+            TextBoxCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
             ValidateButtonOk();
         }
 
@@ -315,6 +312,11 @@ namespace AMSExplorer
                     textBoxASK.Text = string.Empty;
                 }
             }
+        }
+
+        private void moreinfoFairPlaylink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 

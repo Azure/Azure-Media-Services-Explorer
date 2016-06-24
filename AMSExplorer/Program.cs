@@ -833,7 +833,6 @@ namespace AMSExplorer
         public const string AzureMediaEncoder = "Azure Media Encoder";
         public const string AzureMediaEncoderStandard = "Media Encoder Standard";
         public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
-        public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
         public const string AzureMediaIndexer2Preview = "Azure Media Indexer 2 Preview";
         public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
@@ -987,6 +986,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
+        public const string LinkMoreInfoFairPlay = "https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/";
 
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
         public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
@@ -1904,22 +1904,6 @@ namespace AMSExplorer
             return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
         }
 
-
-        public long GetSize()
-        {
-            return GetSize(0);
-        }
-
-        public long GetSize(int index)
-        {
-            if (index >= SelectedAssets.Count) return -1;
-
-            long size = 0;
-            foreach (IAssetFile objFile in SelectedAssets[index].AssetFiles)
-            { size += objFile.ContentFileSize; }
-            return size;
-        }
-
         public static long GetSize(IAsset asset)
         {
             long size = 0;
@@ -1927,8 +1911,6 @@ namespace AMSExplorer
             { size += objFile.ContentFileSize; }
             return size;
         }
-
-
 
         public static string GetDynamicEncryptionType(IAsset asset)
         {
@@ -3357,6 +3339,22 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private bool _AssetWarning;
+        public bool AssetWarning
+        {
+            get
+            { return _AssetWarning; }
+            set
+            {
+                if (value != _AssetWarning)
+                {
+                    _AssetWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
