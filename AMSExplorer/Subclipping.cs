@@ -575,10 +575,18 @@ namespace AMSExplorer
                 Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
                 if (myuri == null)
                 {
-                    _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
-                    myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                    try
+                    {
+                        _tempLocator = null;
+                        _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
+                        myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                if (myuri != null)
+                if (myuri != null && _tempLocator != null)
                 {
                     string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview.Url = new Uri(myurl);

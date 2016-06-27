@@ -1657,17 +1657,26 @@ namespace AMSExplorer
         public static ILocator CreatedTemporaryOnDemandLocator(IAsset asset)
         {
             ILocator tempLocator = null;
+
             try
             {
                 var locatorTask = Task.Factory.StartNew(() =>
                 {
-                    tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                    try
+                    {
+                        tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception();
+                    }
                 });
                 locatorTask.Wait();
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
 
             return tempLocator;
