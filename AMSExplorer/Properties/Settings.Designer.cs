@@ -108,18 +108,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool useTransferQueue {
-            get {
-                return ((bool)(this["useTransferQueue"]));
-            }
-            set {
-                this["useTransferQueue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int NbItemsDisplayedInGrid {
             get {
@@ -512,6 +500,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["ShowLivePremiumChannel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ConcurrentTransfers {
+            get {
+                return ((int)(this["ConcurrentTransfers"]));
+            }
+            set {
+                this["ConcurrentTransfers"] = value;
             }
         }
     }

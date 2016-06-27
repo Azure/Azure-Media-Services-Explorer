@@ -23,9 +23,6 @@
     <Setting Name="useProtectedConfiguration" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="useTransferQueue" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="NbItemsDisplayedInGrid" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
@@ -124,6 +121,9 @@
     </Setting>
     <Setting Name="ShowLivePremiumChannel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ConcurrentTransfers" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

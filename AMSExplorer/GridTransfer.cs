@@ -270,7 +270,7 @@ namespace AMSExplorer
 
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", 0)));
         }
-        public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
+        public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
             TransferEntry myTE = new TransferEntry()
             {
@@ -287,7 +287,7 @@ namespace AMSExplorer
                 ));
             myTE.Id = Guid.NewGuid();             // _MyListTransfer.IndexOf(myTE);
 
-            if (PutInTheQueue)
+            if (CanBePutInTheQueue && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
             {
                 _MyListTransferQueue.Add(myTE.Id);
                 myTE.processedinqueue = true;

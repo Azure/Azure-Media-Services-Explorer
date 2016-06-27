@@ -975,7 +975,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -1209,7 +1209,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -1446,7 +1446,7 @@ namespace AMSExplorer
                 if (SelectedPath != null)
                 {
                     _backuprootfolderupload = SelectedPath;
-                    var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
@@ -1489,7 +1489,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -1851,7 +1851,7 @@ namespace AMSExplorer
                     string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
                     if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
 
-                    var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
                     // Start a worker thread that does downloading.
                     var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -2472,7 +2472,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, response), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -6642,7 +6642,7 @@ namespace AMSExplorer
                     {
                         if (CopyAssetToAzure(ref UseDefaultStorage, ref containername, ref otherstoragename, ref otherstoragekey, ref SelectedFiles, ref CreateNewContainer, SelectedAssets.FirstOrDefault()) == DialogResult.OK)
                         {
-                            var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
                             // Start a worker thread that does copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, response), response.token);
                             DotabControlMainSwitch(Constants.TabTransfers);
@@ -6795,7 +6795,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                        var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                               path,
@@ -9368,14 +9368,14 @@ namespace AMSExplorer
                         List<Task> MyTasks = new List<Task>();
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
-                            var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
                             MyTasks.Add(myTask);
                         }
 
                         foreach (string file in form2.BatchSelectedFiles)
                         {
-                            var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                                   file,
                                   response.Id,
@@ -11999,7 +11999,7 @@ namespace AMSExplorer
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
                             ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters), response.token);
@@ -12013,7 +12013,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
                             ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, form.DeleteSourceAsset), response.token);

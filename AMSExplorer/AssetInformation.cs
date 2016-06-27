@@ -998,7 +998,7 @@ namespace AMSExplorer
                     {
                         foreach (var assetfile in SelectedAssetFiles)
                         {
-                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, true);
                             // Start a worker thread that does downloading.
                             myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
                         }

@@ -33,7 +33,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
             this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
-            this.checkBoxOneUpDownload = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxNbItems = new System.Windows.Forms.ComboBox();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -49,6 +48,7 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -82,7 +82,6 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -147,17 +146,6 @@
             this.checkBoxUseProtectedConfig.TabIndex = 9;
             this.checkBoxUseProtectedConfig.Text = "Use protected configuration for new tasks";
             this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOneUpDownload
-            // 
-            this.checkBoxOneUpDownload.AutoSize = true;
-            this.checkBoxOneUpDownload.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxOneUpDownload.Location = new System.Drawing.Point(49, 80);
-            this.checkBoxOneUpDownload.Name = "checkBoxOneUpDownload";
-            this.checkBoxOneUpDownload.Size = new System.Drawing.Size(214, 19);
-            this.checkBoxOneUpDownload.TabIndex = 10;
-            this.checkBoxOneUpDownload.Text = "One transfer at a time (use a queue)";
-            this.checkBoxOneUpDownload.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -340,7 +328,6 @@
             this.groupBox2.Controls.Add(this.checkBoxUseStorageEncryption);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
-            this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 305);
             this.groupBox2.Name = "groupBox2";
@@ -348,6 +335,17 @@
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
+            // 
+            // checkBoxShowPremiumLiveEncoding
+            // 
+            this.checkBoxShowPremiumLiveEncoding.AutoSize = true;
+            this.checkBoxShowPremiumLiveEncoding.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxShowPremiumLiveEncoding.Location = new System.Drawing.Point(49, 194);
+            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
+            this.checkBoxShowPremiumLiveEncoding.Size = new System.Drawing.Size(222, 19);
+            this.checkBoxShowPremiumLiveEncoding.TabIndex = 56;
+            this.checkBoxShowPremiumLiveEncoding.Text = "Show Premium Live Encoding option";
+            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -753,17 +751,6 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
-            // checkBoxShowPremiumLiveEncoding
-            // 
-            this.checkBoxShowPremiumLiveEncoding.AutoSize = true;
-            this.checkBoxShowPremiumLiveEncoding.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxShowPremiumLiveEncoding.Location = new System.Drawing.Point(49, 194);
-            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
-            this.checkBoxShowPremiumLiveEncoding.Size = new System.Drawing.Size(222, 19);
-            this.checkBoxShowPremiumLiveEncoding.TabIndex = 56;
-            this.checkBoxShowPremiumLiveEncoding.Text = "Show Premium Live Encoding option";
-            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
-            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -812,7 +799,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
         private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
-        private System.Windows.Forms.CheckBox checkBoxOneUpDownload;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxNbItems;
         public System.Windows.Forms.Button buttonReset;

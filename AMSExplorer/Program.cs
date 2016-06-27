@@ -1017,6 +1017,8 @@ namespace AMSExplorer
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";
         public const string VideoThumbnailsOutputBoth = "both";
+
+        public const int MaxTransfersAsUnlimited = 5;
     }
 
 
