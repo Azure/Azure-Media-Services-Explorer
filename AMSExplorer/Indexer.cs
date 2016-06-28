@@ -184,7 +184,7 @@ namespace AMSExplorer
             cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
             settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
 
-            return doc.Declaration.ToString() + doc.ToString();
+            return doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
         }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

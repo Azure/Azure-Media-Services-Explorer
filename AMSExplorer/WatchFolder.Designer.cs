@@ -60,6 +60,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
+            this.buttonSeeRhozetExample = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -427,6 +428,7 @@
             // 
             // groupBoxOptions
             // 
+            this.groupBoxOptions.Controls.Add(this.buttonSeeRhozetExample);
             this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
             this.groupBoxOptions.Controls.Add(this.pictureBox2);
@@ -446,6 +448,16 @@
             this.checkBoxProcessXMLRohzet.TabIndex = 51;
             this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
             this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
+            // 
+            // buttonSeeRhozetExample
+            // 
+            this.buttonSeeRhozetExample.Location = new System.Drawing.Point(409, 59);
+            this.buttonSeeRhozetExample.Name = "buttonSeeRhozetExample";
+            this.buttonSeeRhozetExample.Size = new System.Drawing.Size(113, 23);
+            this.buttonSeeRhozetExample.TabIndex = 52;
+            this.buttonSeeRhozetExample.Text = "See an example";
+            this.buttonSeeRhozetExample.UseVisualStyleBackColor = true;
+            this.buttonSeeRhozetExample.Click += new System.EventHandler(this.buttonSeeRhozetExample_Click);
             // 
             // WatchFolder
             // 
@@ -532,5 +544,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.CheckBox checkBoxProcessXMLRohzet;
+        private System.Windows.Forms.Button buttonSeeRhozetExample;
     }
 }

@@ -155,7 +155,7 @@ namespace AMSExplorer
             var speedxml = presetxml.Element(ns + "Options").Element(ns + "Speed");
             speedxml.SetValue(speed);
 
-            return doc.Declaration.ToString() + doc.ToString();
+            return doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
         }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

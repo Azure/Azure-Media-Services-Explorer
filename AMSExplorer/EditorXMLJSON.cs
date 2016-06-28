@@ -104,18 +104,8 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            string myxml =
-@"<?xml version = ""1.0"" encoding = ""utf-8"" ?>
-<transcodeRequest>
-<transcodeSource>
-</transcodeSource>
-<!--set runtime properties-->
-<setRuntimeProperties>
-<property propertyPath = ""Text To Image Converter/text"" value = ""Value""/>
-</setRuntimeProperties></transcodeRequest>";
-
-            XDocument doc = XDocument.Parse(myxml);
-            textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+            XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+            textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)

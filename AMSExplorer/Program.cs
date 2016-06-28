@@ -58,7 +58,6 @@ namespace AMSExplorer
         /// </summary>
         /// 
 
-
         [STAThread]
         static void Main()
         {
@@ -428,7 +427,7 @@ namespace AMSExplorer
                 }
                 name = name + ".ism";
 
-                return new ManifestGenerated() { Content = doc.Declaration.ToString() + doc.ToString(), FileName = name };
+                return new ManifestGenerated() { Content = doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), FileName = name };
 
             }
             else

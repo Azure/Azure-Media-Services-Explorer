@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<transcodeRequest>
+  <transcodeSource>
+  </transcodeSource>
+  <!--set runtime properties-->
+  <setRuntimeProperties>
+    <property propertyPath = "Text To Image Converter/text" value = "Value"/>
+  </setRuntimeProperties>
+</transcodeRequest>

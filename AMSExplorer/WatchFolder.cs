@@ -256,7 +256,7 @@ namespace AMSExplorer
                     foreach (var a in assets)
                     {
                         bool relative = bool.Parse(a.Element("IsRelativeURI").Value);
-                        string filename = relative ? Path.Combine(Path.GetDirectoryName(filenameWithPath), a.Element("URI").Value)  : a.Element("URI").Value;
+                        string filename = relative ? Path.Combine(Path.GetDirectoryName(filenameWithPath), a.Element("URI").Value) : a.Element("URI").Value;
                         list.Add(new RohzetAsset() { Type = a.Element("Type").Value, URI = filename });
                     }
                 }
@@ -266,6 +266,24 @@ namespace AMSExplorer
                 throw ex;
             }
             return list;
+        }
+
+        private void buttonSeeRhozetExample_Click(object sender, EventArgs e)
+        {
+            SeeRhozetExample();
+        }
+
+        private void SeeRhozetExample()
+        {
+            try
+            {
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleSemaphoreRhozet.xml"));
+                var tokenDisplayForm = new EditorXMLJSON("Sample Semaphore file", doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), false, false, false);
+                tokenDisplayForm.Display();
+            }
+            catch
+            {
+            }
         }
     }
 }

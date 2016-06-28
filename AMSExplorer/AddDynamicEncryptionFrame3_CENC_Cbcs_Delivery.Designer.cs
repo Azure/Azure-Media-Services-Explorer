@@ -63,6 +63,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -143,16 +144,17 @@
             this.moreinfoFairPlaylink.AutoSize = true;
             this.moreinfoFairPlaylink.Location = new System.Drawing.Point(482, 19);
             this.moreinfoFairPlaylink.Name = "moreinfoFairPlaylink";
-            this.moreinfoFairPlaylink.Size = new System.Drawing.Size(153, 15);
+            this.moreinfoFairPlaylink.Size = new System.Drawing.Size(156, 15);
             this.moreinfoFairPlaylink.TabIndex = 92;
             this.moreinfoFairPlaylink.TabStop = true;
-            this.moreinfoFairPlaylink.Text = "Media Services and FairPlay";
+            this.moreinfoFairPlaylink.Text = "FairPlay with Media Services";
             this.moreinfoFairPlaylink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoFairPlaylink_LinkClicked);
             // 
             // panelFairPlayFromAMS
             // 
             this.panelFairPlayFromAMS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFairPlayFromAMS.Controls.Add(this.label10);
             this.panelFairPlayFromAMS.Controls.Add(this.TextBoxCertificateFile);
             this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
             this.panelFairPlayFromAMS.Controls.Add(this.panel2);
@@ -184,7 +186,7 @@
             this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxASK.Location = new System.Drawing.Point(29, 93);
+            this.textBoxASK.Location = new System.Drawing.Point(29, 105);
             this.textBoxASK.Name = "textBoxASK";
             this.textBoxASK.Size = new System.Drawing.Size(416, 23);
             this.textBoxASK.TabIndex = 89;
@@ -195,7 +197,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.radioButtonASKBase64);
             this.panel2.Controls.Add(this.radioButtonASKHex);
-            this.panel2.Location = new System.Drawing.Point(466, 75);
+            this.panel2.Location = new System.Drawing.Point(466, 87);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(87, 55);
             this.panel2.TabIndex = 90;
@@ -234,7 +236,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(26, 75);
+            this.label9.Location = new System.Drawing.Point(26, 87);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(163, 15);
             this.label9.TabIndex = 88;
@@ -491,6 +493,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(223, 57);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(354, 15);
+            this.label10.TabIndex = 97;
+            this.label10.Text = "Read the online documentation to learn how to create the PFX file";
+            // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -562,5 +576,6 @@
         private System.Windows.Forms.CheckBox checkBoxFinalExtURL;
         private System.Windows.Forms.TextBox TextBoxCertificateFile;
         private System.Windows.Forms.LinkLabel moreinfoFairPlaylink;
+        private System.Windows.Forms.Label label10;
     }
 }

@@ -333,7 +333,7 @@ namespace AMSExplorer
             // let's initialize the trackbar and text for nb of transfers
             trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
             UpdateLabelConcurrentTransfers();
-            
+
             ApplySettingsOptions(true);
         }
 
@@ -1012,7 +1012,7 @@ namespace AMSExplorer
             var listfiles = new List<WatchFolder.RohzetAsset>();
 
 
-            if (watchfoldersettings!=null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
             {
                 try
                 {
@@ -1025,7 +1025,7 @@ namespace AMSExplorer
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
-                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f=>f.URI).ToList()));
+                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
                 try
                 {
                     asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
@@ -1257,9 +1257,9 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer,int indexfile, int nbfiles)
+        private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer, int indexfile, int nbfiles)
         {
-            double progress = 100*(double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
+            double progress = 100 * (double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
             DoGridTransferUpdateProgress(progress, guidTransfer);
         }
 
@@ -1319,15 +1319,15 @@ namespace AMSExplorer
 
                 try
                 {
-                     IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(myfile), token);
+                    IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(myfile), token);
 
-                    UploadedAssetFile.UploadProgressChanged+= (af, p) =>
-                    {
-                        DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                    };
+                    UploadedAssetFile.UploadProgressChanged += (af, p) =>
+                     {
+                         DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                     };
 
-                     UploadedAssetFile.Upload(myfile);
-                    
+                    UploadedAssetFile.Upload(myfile);
+
                 }
                 catch (Exception e)
                 {
@@ -1341,7 +1341,7 @@ namespace AMSExplorer
             {
                 DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
             }
-          
+
             DoRefreshGridAssetV(false);
         }
 
@@ -6758,7 +6758,6 @@ namespace AMSExplorer
         private void DoWatchFolder()
         {
             WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings);
-            
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -6772,7 +6771,6 @@ namespace AMSExplorer
                         MyWatchFolderSettings.Watcher = null;
                     }
                     toolStripStatusLabelWatchFolder.Visible = false;
-
                 }
                 else // User wants to active the watch folder
                 {
@@ -13968,7 +13966,7 @@ namespace AMSExplorer
 
                                     // let's create new manifest in temp folder
                                     StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
-                                    outfile.Write(doc.Declaration.ToString() + doc.ToString());
+                                    outfile.Write(doc.Declaration.ToString() + Environment.NewLine + doc.ToString());
                                     outfile.Close();
 
                                     // let's deleyte file online
@@ -14458,7 +14456,7 @@ namespace AMSExplorer
 
         private void UpdateLabelConcurrentTransfers()
         {
-            labelConcurrentTransfers.Text = string.Format(Constants.strTransfers, trackBarConcurrentTransfers.Value == Constants.MaxTransfersAsUnlimited ? "Unlimited": "Limited to " + trackBarConcurrentTransfers.Value.ToString(), trackBarConcurrentTransfers.Value > 1 ? "s" : string.Empty);
+            labelConcurrentTransfers.Text = string.Format(Constants.strTransfers, trackBarConcurrentTransfers.Value == Constants.MaxTransfersAsUnlimited ? "Unlimited" : "Limited to " + trackBarConcurrentTransfers.Value.ToString(), trackBarConcurrentTransfers.Value > 1 ? "s" : string.Empty);
             Properties.Settings.Default.ConcurrentTransfers = trackBarConcurrentTransfers.Value;
             Program.SaveAndProtectUserConfig();
         }

@@ -159,7 +159,7 @@ namespace AMSExplorer
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+                    textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
