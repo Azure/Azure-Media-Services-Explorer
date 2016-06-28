@@ -1003,35 +1003,85 @@ namespace AMSExplorer
 
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
-            TextBoxLogWriteLine("Starting upload of file '{0}'", name);
             bool Error = false;
             IAsset asset = null;
-            try
-            {
-                asset = await _context.Assets.CreateFromFileAsync(
-                                                      name as string,
-                                                      storageaccount,
-                                                      assetcreationoptions,
-                                                      (af, p) =>
-                                                      {
-                                                          DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                                                      },
-                                                      token
-                                                      );
-                AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
-            }
-            catch (Exception e)
-            {
-                Error = true;
-                DoGridTransferDeclareError(guidTransfer, e);
-                TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                TextBoxLogWriteLine(e);
-                if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
-                {
-                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
-                }
+            var listfiles = new List<WatchFolder.RohzetAsset>();
 
+
+            if (watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            {
+                try
+                {
+                    listfiles = WatchFolder.GetListFilesFromRohzetXML(name as string);
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine("Error when reading xml file '{0}'", name as string, true);
+                    TextBoxLogWriteLine(e);
+                    DoGridTransferDeclareError(guidTransfer);
+                    Error = true;
+                }
+                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f=>f.URI).ToList()));
+                try
+                {
+                    asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
+                                                          storageaccount,
+                                                          assetcreationoptions,
+                                                          token);
+
+                    foreach (var file in listfiles)
+                    {
+                        IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
+                        if (token.IsCancellationRequested) return;
+                        UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
+                        UploadedAssetFile.Upload(file.URI);
+                    }
+
+                    AssetInfo.SetAFileAsPrimary(asset);
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                    TextBoxLogWriteLine(e);
+                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                    {
+                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                    }
+                }
             }
+            else // normal case
+            {
+                TextBoxLogWriteLine("Starting upload of file '{0}'", name);
+                try
+                {
+                    asset = await _context.Assets.CreateFromFileAsync(
+                                                          name as string,
+                                                          storageaccount,
+                                                          assetcreationoptions,
+                                                          (af, p) =>
+                                                          {
+                                                              DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                                                          },
+                                                          token
+                                                          );
+                    AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                    TextBoxLogWriteLine(e);
+                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                    {
+                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                    }
+                }
+            }
+
+
             if (!Error && !token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
@@ -1046,6 +1096,20 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
                         if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+                    }
+
+                    try
+                    {
+                        if (listfiles.Count > 0)
+                        {
+                            listfiles.ForEach(f => File.Delete(f.URI));
+                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()), true);
+                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message);
                     }
                 }
 
@@ -1189,6 +1253,11 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
+        private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer,int indexfile, int nbfiles)
+        {
+            double progress = 100*(double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
+            DoGridTransferUpdateProgress(progress, guidTransfer);
+        }
 
         private void DoMenuUploadFileToAsset_Step1()
         {
@@ -6776,7 +6845,7 @@ namespace AMSExplorer
             // written by repeatedly attempting to open it
             // for exclusive access.
             var path = (string)threadContext;
-
+            Thread.Sleep(111);
 
             //detect whether its a directory or file
 

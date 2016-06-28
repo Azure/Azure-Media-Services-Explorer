@@ -53,12 +53,14 @@
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
-            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
-            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
+            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
+            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -68,6 +70,7 @@
             this.groupBoxProcess.SuspendLayout();
             this.panelInsertAsset.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -133,9 +136,9 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
-            this.groupBox4.Location = new System.Drawing.Point(20, 143);
+            this.groupBox4.Location = new System.Drawing.Point(61, 153);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(783, 99);
+            this.groupBox4.Size = new System.Drawing.Size(156, 99);
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Activation";
@@ -174,7 +177,7 @@
             // checkBoxUseQueue
             // 
             this.checkBoxUseQueue.AutoSize = true;
-            this.checkBoxUseQueue.Location = new System.Drawing.Point(61, 249);
+            this.checkBoxUseQueue.Location = new System.Drawing.Point(37, 22);
             this.checkBoxUseQueue.Name = "checkBoxUseQueue";
             this.checkBoxUseQueue.Size = new System.Drawing.Size(211, 19);
             this.checkBoxUseQueue.TabIndex = 48;
@@ -185,7 +188,7 @@
             // checkBoxDeleteFile
             // 
             this.checkBoxDeleteFile.AutoSize = true;
-            this.checkBoxDeleteFile.Location = new System.Drawing.Point(61, 276);
+            this.checkBoxDeleteFile.Location = new System.Drawing.Point(37, 47);
             this.checkBoxDeleteFile.Name = "checkBoxDeleteFile";
             this.checkBoxDeleteFile.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteFile.TabIndex = 49;
@@ -195,7 +198,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.delete;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 276);
+            this.pictureBox2.Location = new System.Drawing.Point(15, 47);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -205,7 +208,7 @@
             // checkBoxRunJobTemplate
             // 
             this.checkBoxRunJobTemplate.AutoSize = true;
-            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 302);
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 281);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
             this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
             this.checkBoxRunJobTemplate.TabIndex = 51;
@@ -229,7 +232,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 593);
+            this.pictureBox3.Location = new System.Drawing.Point(26, 587);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -240,7 +243,7 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 594);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 588);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
             this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
             this.checkBoxPublishOAssets.TabIndex = 65;
@@ -328,7 +331,7 @@
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
             this.groupBoxProcess.Enabled = false;
-            this.groupBoxProcess.Location = new System.Drawing.Point(61, 329);
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 308);
             this.groupBoxProcess.Name = "groupBoxProcess";
             this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
             this.groupBoxProcess.TabIndex = 74;
@@ -359,22 +362,6 @@
             this.panelInsertAsset.Size = new System.Drawing.Size(723, 126);
             this.panelInsertAsset.TabIndex = 75;
             // 
-            // listViewWorkflows1
-            // 
-            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewWorkflows1.Enabled = false;
-            this.listViewWorkflows1.FullRowSelect = true;
-            this.listViewWorkflows1.HideSelection = false;
-            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
-            this.listViewWorkflows1.MultiSelect = false;
-            this.listViewWorkflows1.Name = "listViewWorkflows1";
-            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
-            this.listViewWorkflows1.TabIndex = 61;
-            this.listViewWorkflows1.Tag = -1;
-            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
-            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
-            // 
             // checkBoAddAssetsToInput
             // 
             this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -387,27 +374,10 @@
             this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
             this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
             // 
-            // listViewTemplates
-            // 
-            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewTemplates.FullRowSelect = true;
-            this.listViewTemplates.HideSelection = false;
-            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
-            this.listViewTemplates.MultiSelect = false;
-            this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
-            this.listViewTemplates.TabIndex = 61;
-            this.listViewTemplates.Tag = -1;
-            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
-            this.listViewTemplates.View = System.Windows.Forms.View.Details;
-            this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
-            // 
             // pictureBox5
             // 
             this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
+            this.pictureBox5.Location = new System.Drawing.Point(26, 282);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(16, 16);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -434,6 +404,62 @@
             this.panel2.Size = new System.Drawing.Size(23, 44);
             this.panel2.TabIndex = 79;
             // 
+            // groupBoxOptions
+            // 
+            this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
+            this.groupBoxOptions.Controls.Add(this.checkBoxUseQueue);
+            this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
+            this.groupBoxOptions.Controls.Add(this.pictureBox2);
+            this.groupBoxOptions.Location = new System.Drawing.Point(245, 153);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Size = new System.Drawing.Size(557, 100);
+            this.groupBoxOptions.TabIndex = 80;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Upload Options";
+            // 
+            // checkBoxProcessXMLRohzet
+            // 
+            this.checkBoxProcessXMLRohzet.AutoSize = true;
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 73);
+            this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
+            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
+            this.checkBoxProcessXMLRohzet.TabIndex = 51;
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
+            this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
+            // 
+            // listViewWorkflows1
+            // 
+            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows1.Enabled = false;
+            this.listViewWorkflows1.FullRowSelect = true;
+            this.listViewWorkflows1.HideSelection = false;
+            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
+            this.listViewWorkflows1.MultiSelect = false;
+            this.listViewWorkflows1.Name = "listViewWorkflows1";
+            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
+            this.listViewWorkflows1.TabIndex = 61;
+            this.listViewWorkflows1.Tag = -1;
+            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
+            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
+            // 
+            // listViewTemplates
+            // 
+            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewTemplates.FullRowSelect = true;
+            this.listViewTemplates.HideSelection = false;
+            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
+            this.listViewTemplates.MultiSelect = false;
+            this.listViewTemplates.Name = "listViewTemplates";
+            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
+            this.listViewTemplates.TabIndex = 61;
+            this.listViewTemplates.Tag = -1;
+            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
+            this.listViewTemplates.View = System.Windows.Forms.View.Details;
+            this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
+            // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
@@ -442,6 +468,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.pictureBox5);
@@ -454,9 +481,6 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.checkBoxPublishOAssets);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.checkBoxDeleteFile);
-            this.Controls.Add(this.checkBoxUseQueue);
             this.Controls.Add(this.textBoxFolder);
             this.Controls.Add(this.buttonSelFolder);
             this.Controls.Add(this.groupBox4);
@@ -480,6 +504,8 @@
             this.panelInsertAsset.ResumeLayout(false);
             this.panelInsertAsset.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -518,5 +544,7 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
+        private System.Windows.Forms.CheckBox checkBoxProcessXMLRohzet;
     }
 }
