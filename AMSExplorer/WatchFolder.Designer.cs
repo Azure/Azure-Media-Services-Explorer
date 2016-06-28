@@ -37,7 +37,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonSelFolder = new System.Windows.Forms.Button();
             this.textBoxFolder = new System.Windows.Forms.TextBox();
-            this.checkBoxUseQueue = new System.Windows.Forms.CheckBox();
             this.checkBoxDeleteFile = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.checkBoxRunJobTemplate = new System.Windows.Forms.CheckBox();
@@ -53,14 +52,14 @@
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
+            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
+            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
-            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
-            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -174,21 +173,10 @@
             this.textBoxFolder.TabIndex = 45;
             this.textBoxFolder.TextChanged += new System.EventHandler(this.textBoxFolder_TextChanged);
             // 
-            // checkBoxUseQueue
-            // 
-            this.checkBoxUseQueue.AutoSize = true;
-            this.checkBoxUseQueue.Location = new System.Drawing.Point(37, 22);
-            this.checkBoxUseQueue.Name = "checkBoxUseQueue";
-            this.checkBoxUseQueue.Size = new System.Drawing.Size(211, 19);
-            this.checkBoxUseQueue.TabIndex = 48;
-            this.checkBoxUseQueue.Text = "One upload at a time (use a queue)";
-            this.checkBoxUseQueue.UseVisualStyleBackColor = true;
-            this.checkBoxUseQueue.CheckedChanged += new System.EventHandler(this.checkBoxParallel_CheckedChanged);
-            // 
             // checkBoxDeleteFile
             // 
             this.checkBoxDeleteFile.AutoSize = true;
-            this.checkBoxDeleteFile.Location = new System.Drawing.Point(37, 47);
+            this.checkBoxDeleteFile.Location = new System.Drawing.Point(37, 34);
             this.checkBoxDeleteFile.Name = "checkBoxDeleteFile";
             this.checkBoxDeleteFile.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteFile.TabIndex = 49;
@@ -198,7 +186,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.delete;
-            this.pictureBox2.Location = new System.Drawing.Point(15, 47);
+            this.pictureBox2.Location = new System.Drawing.Point(15, 34);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -362,6 +350,22 @@
             this.panelInsertAsset.Size = new System.Drawing.Size(723, 126);
             this.panelInsertAsset.TabIndex = 75;
             // 
+            // listViewWorkflows1
+            // 
+            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows1.Enabled = false;
+            this.listViewWorkflows1.FullRowSelect = true;
+            this.listViewWorkflows1.HideSelection = false;
+            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
+            this.listViewWorkflows1.MultiSelect = false;
+            this.listViewWorkflows1.Name = "listViewWorkflows1";
+            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
+            this.listViewWorkflows1.TabIndex = 61;
+            this.listViewWorkflows1.Tag = -1;
+            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
+            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
+            // 
             // checkBoAddAssetsToInput
             // 
             this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -373,6 +377,23 @@
             this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
             this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
             this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
+            // 
+            // listViewTemplates
+            // 
+            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewTemplates.FullRowSelect = true;
+            this.listViewTemplates.HideSelection = false;
+            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
+            this.listViewTemplates.MultiSelect = false;
+            this.listViewTemplates.Name = "listViewTemplates";
+            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
+            this.listViewTemplates.TabIndex = 61;
+            this.listViewTemplates.Tag = -1;
+            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
+            this.listViewTemplates.View = System.Windows.Forms.View.Details;
+            this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
             // 
             // pictureBox5
             // 
@@ -407,7 +428,6 @@
             // groupBoxOptions
             // 
             this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
-            this.groupBoxOptions.Controls.Add(this.checkBoxUseQueue);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
             this.groupBoxOptions.Controls.Add(this.pictureBox2);
             this.groupBoxOptions.Location = new System.Drawing.Point(245, 153);
@@ -420,45 +440,12 @@
             // checkBoxProcessXMLRohzet
             // 
             this.checkBoxProcessXMLRohzet.AutoSize = true;
-            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 73);
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 60);
             this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
             this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
             this.checkBoxProcessXMLRohzet.TabIndex = 51;
             this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
             this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
-            // 
-            // listViewWorkflows1
-            // 
-            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewWorkflows1.Enabled = false;
-            this.listViewWorkflows1.FullRowSelect = true;
-            this.listViewWorkflows1.HideSelection = false;
-            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
-            this.listViewWorkflows1.MultiSelect = false;
-            this.listViewWorkflows1.Name = "listViewWorkflows1";
-            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
-            this.listViewWorkflows1.TabIndex = 61;
-            this.listViewWorkflows1.Tag = -1;
-            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
-            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
-            // 
-            // listViewTemplates
-            // 
-            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewTemplates.FullRowSelect = true;
-            this.listViewTemplates.HideSelection = false;
-            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
-            this.listViewTemplates.MultiSelect = false;
-            this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
-            this.listViewTemplates.TabIndex = 61;
-            this.listViewTemplates.Tag = -1;
-            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
-            this.listViewTemplates.View = System.Windows.Forms.View.Details;
-            this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
             // 
             // WatchFolder
             // 
@@ -518,7 +505,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button buttonSelFolder;
         private System.Windows.Forms.TextBox textBoxFolder;
-        private System.Windows.Forms.CheckBox checkBoxUseQueue;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBoxDeleteFile;
         private System.Windows.Forms.PictureBox pictureBox2;

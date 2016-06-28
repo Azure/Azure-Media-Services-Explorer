@@ -330,6 +330,10 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
             }
 
+            // let's initialize the trackbar and text for nb of transfers
+            trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
+            UpdateLabelConcurrentTransfers();
+            
             ApplySettingsOptions(true);
         }
 
@@ -1008,7 +1012,7 @@ namespace AMSExplorer
             var listfiles = new List<WatchFolder.RohzetAsset>();
 
 
-            if (watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            if (watchfoldersettings!=null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
             {
                 try
                 {
@@ -6753,17 +6757,12 @@ namespace AMSExplorer
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings)
-            {
-                WatchUseQueue = Properties.Settings.Default.useTransferQueue,
-            };
+            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings);
+            
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 MyWatchFolderSettings = form.WatchFolderGetSettings;
-                Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
-                Program.SaveAndProtectUserConfig();
-
 
                 if (!MyWatchFolderSettings.IsOn) // user want to stop the watch folder (if if exists)
                 {
@@ -14450,6 +14449,18 @@ namespace AMSExplorer
         private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoMenuUploadFileToAsset_Step1();
+        }
+
+        private void trackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
+        {
+            UpdateLabelConcurrentTransfers();
+        }
+
+        private void UpdateLabelConcurrentTransfers()
+        {
+            labelConcurrentTransfers.Text = string.Format(Constants.strTransfers, trackBarConcurrentTransfers.Value == Constants.MaxTransfersAsUnlimited ? "Unlimited": "Limited to " + trackBarConcurrentTransfers.Value.ToString(), trackBarConcurrentTransfers.Value > 1 ? "s" : string.Empty);
+            Properties.Settings.Default.ConcurrentTransfers = trackBarConcurrentTransfers.Value;
+            Program.SaveAndProtectUserConfig();
         }
     }
 }

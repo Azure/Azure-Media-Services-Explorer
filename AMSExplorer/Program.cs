@@ -1019,6 +1019,7 @@ namespace AMSExplorer
         public const string VideoThumbnailsOutputBoth = "both";
 
         public const int MaxTransfersAsUnlimited = 5;
+        public const string strTransfers = "{0} concurrent transfer{1}";
     }
 
 

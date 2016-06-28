@@ -85,21 +85,6 @@ namespace AMSExplorer
         }
 
 
-
-
-        public bool WatchUseQueue
-        {
-            get
-            {
-                return checkBoxUseQueue.Checked;
-            }
-            set
-            {
-                checkBoxUseQueue.Checked = value;
-            }
-        }
-
-
         public WatchFolder(CloudMediaContext context, IEnumerable<IAsset> selectedassets, WatchFolderSettings watchfoldersettings)
         {
             InitializeComponent();

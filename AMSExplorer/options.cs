@@ -51,7 +51,6 @@ namespace AMSExplorer
 
             Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
             Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
-            Properties.Settings.Default.useTransferQueue = checkBoxOneUpDownload.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
 
             Properties.Settings.Default.CustomPlayerUrl = textBoxCustomPlayer.Text;
@@ -88,7 +87,6 @@ namespace AMSExplorer
 
             checkBoxUseProtectedConfig.Checked = false;
             checkBoxUseStorageEncryption.Checked = false;
-            checkBoxOneUpDownload.Checked = true;
             checkBoxShowPremiumLiveEncoding.Checked = false;
 
             int indexc = comboBoxNbItems.Items.IndexOf("50");
@@ -140,7 +138,6 @@ namespace AMSExplorer
 
             checkBoxUseProtectedConfig.Checked = Properties.Settings.Default.useProtectedConfiguration;
             checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
-            checkBoxOneUpDownload.Checked = Properties.Settings.Default.useTransferQueue;
 
             textBoxCustomPlayer.Text = Properties.Settings.Default.CustomPlayerUrl;
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;
@@ -160,7 +157,6 @@ namespace AMSExplorer
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
 
             amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
-
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)

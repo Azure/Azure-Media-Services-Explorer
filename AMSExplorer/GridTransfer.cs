@@ -287,7 +287,7 @@ namespace AMSExplorer
                 ));
             myTE.Id = Guid.NewGuid();             // _MyListTransfer.IndexOf(myTE);
 
-            if (CanBePutInTheQueue && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
+            if (CanBePutInTheQueue)
             {
                 _MyListTransferQueue.Add(myTE.Id);
                 myTE.processedinqueue = true;
@@ -352,7 +352,6 @@ namespace AMSExplorer
             transfer.EndTime = DateTime.Now.ToString();
             transfer.DestLocation = DestLocation;
             transfer.ProgressText = string.Empty;
-            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
@@ -370,7 +369,6 @@ namespace AMSExplorer
             transfer.State = TransferState.Cancelled;
             transfer.EndTime = DateTime.Now.ToString();
             transfer.ProgressText = string.Empty;
-            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
@@ -398,7 +396,6 @@ namespace AMSExplorer
             transfer.State = TransferState.Error;
             transfer.ProgressText = "Error: " + ErrorDesc;
             transfer.ErrorDescription = ErrorDesc;
-            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
             this.BeginInvoke(new Action(() =>
             {
@@ -420,8 +417,9 @@ namespace AMSExplorer
 
         private void DoGridTransferDeclareTransferStarted(Guid guid)  // Process is started
         {
-            TransferEntry transfer = ReturnTransfer(guid);
+            if (DoGridTransferIsQueueRequested(guid)) _MyListTransferQueue.Remove(guid);
 
+            TransferEntry transfer = ReturnTransfer(guid);
             transfer.Progress = 0;
             transfer.State = TransferState.Processing;
             transfer.StartTime = DateTime.Now;
@@ -430,7 +428,18 @@ namespace AMSExplorer
 
         private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
-            return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == guid) : true;
+            var runningTransfers = _MyListTransfer.Where(t => t.processedinqueue && t.State == TransferState.Processing);
+
+            if (runningTransfers.Count() < Properties.Settings.Default.ConcurrentTransfers && _MyListTransferQueue[0] == guid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+           // return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == guid) : true;
         }
 
         private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true trasfer is managed in the queue
@@ -443,7 +452,7 @@ namespace AMSExplorer
             // If upload in the queue, let's wait our turn
             if (DoGridTransferIsQueueRequested(guid))
             {
-                while (!DoGridTransferQueueOurTurn(guid))
+                while (!DoGridTransferQueueOurTurn(guid) && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
                 {
                     Debug.Print("wait " + guid.ToString());
                     Thread.Sleep(500);

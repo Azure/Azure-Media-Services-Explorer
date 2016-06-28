@@ -463,6 +463,8 @@
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
+            this.trackBarConcurrentTransfers = new System.Windows.Forms.TrackBar();
+            this.labelConcurrentTransfers = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
@@ -532,8 +534,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trackBarConcurrentTransfers = new System.Windows.Forms.TrackBar();
-            this.label1ConcurrentTransfers = new System.Windows.Forms.Label();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -556,6 +556,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilters.SuspendLayout();
             this.tabPageTransfers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarConcurrentTransfers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).BeginInit();
             this.contextMenuStripIngestManifests.SuspendLayout();
@@ -575,7 +576,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarConcurrentTransfers)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStripAssets
@@ -4475,7 +4475,7 @@
             // 
             this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
             this.tabPageTransfers.Controls.Add(this.trackBarConcurrentTransfers);
-            this.tabPageTransfers.Controls.Add(this.label1ConcurrentTransfers);
+            this.tabPageTransfers.Controls.Add(this.labelConcurrentTransfers);
             this.tabPageTransfers.Controls.Add(this.label8);
             this.tabPageTransfers.Controls.Add(this.label7);
             this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
@@ -4486,6 +4486,32 @@
             this.tabPageTransfers.Size = new System.Drawing.Size(1006, 441);
             this.tabPageTransfers.TabIndex = 2;
             this.tabPageTransfers.Text = "Transfers";
+            // 
+            // trackBarConcurrentTransfers
+            // 
+            this.trackBarConcurrentTransfers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.trackBarConcurrentTransfers.Location = new System.Drawing.Point(6, 393);
+            this.trackBarConcurrentTransfers.Maximum = 5;
+            this.trackBarConcurrentTransfers.Minimum = 1;
+            this.trackBarConcurrentTransfers.Name = "trackBarConcurrentTransfers";
+            this.trackBarConcurrentTransfers.Size = new System.Drawing.Size(155, 45);
+            this.trackBarConcurrentTransfers.TabIndex = 41;
+            this.trackBarConcurrentTransfers.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarConcurrentTransfers.Value = 1;
+            this.trackBarConcurrentTransfers.Scroll += new System.EventHandler(this.trackBarConcurrentTransfers_Scroll);
+            // 
+            // labelConcurrentTransfers
+            // 
+            this.labelConcurrentTransfers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelConcurrentTransfers.AutoSize = true;
+            this.labelConcurrentTransfers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConcurrentTransfers.Location = new System.Drawing.Point(167, 406);
+            this.labelConcurrentTransfers.Name = "labelConcurrentTransfers";
+            this.labelConcurrentTransfers.Size = new System.Drawing.Size(139, 15);
+            this.labelConcurrentTransfers.TabIndex = 40;
+            this.labelConcurrentTransfers.Tag = "";
+            this.labelConcurrentTransfers.Text = "{0} concurrent transfer{1}";
+            this.labelConcurrentTransfers.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label8
             // 
@@ -4522,7 +4548,7 @@
             this.dataGridViewTransfer.ReadOnly = true;
             this.dataGridViewTransfer.RowHeadersVisible = false;
             this.dataGridViewTransfer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 226);
+            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 251);
             this.dataGridViewTransfer.TabIndex = 32;
             this.dataGridViewTransfer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransfer_CellContentClick);
             this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
@@ -4647,7 +4673,7 @@
             // 
             this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEncodingRU.Location = new System.Drawing.Point(347, 393);
+            this.trackBarEncodingRU.Location = new System.Drawing.Point(268, 393);
             this.trackBarEncodingRU.Maximum = 25;
             this.trackBarEncodingRU.Name = "trackBarEncodingRU";
             this.trackBarEncodingRU.Size = new System.Drawing.Size(573, 45);
@@ -4681,10 +4707,10 @@
             // 
             // labelnbunits
             // 
-            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelnbunits.AutoSize = true;
             this.labelnbunits.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelnbunits.Location = new System.Drawing.Point(282, 406);
+            this.labelnbunits.Location = new System.Drawing.Point(847, 405);
             this.labelnbunits.Name = "labelnbunits";
             this.labelnbunits.Size = new System.Drawing.Size(59, 15);
             this.labelnbunits.TabIndex = 36;
@@ -5400,32 +5426,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // trackBarConcurrentTransfers
-            // 
-            this.trackBarConcurrentTransfers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarConcurrentTransfers.Location = new System.Drawing.Point(170, 390);
-            this.trackBarConcurrentTransfers.Maximum = 5;
-            this.trackBarConcurrentTransfers.Minimum = 1;
-            this.trackBarConcurrentTransfers.Name = "trackBarConcurrentTransfers";
-            this.trackBarConcurrentTransfers.Size = new System.Drawing.Size(155, 45);
-            this.trackBarConcurrentTransfers.TabIndex = 41;
-            this.trackBarConcurrentTransfers.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarConcurrentTransfers.Value = 1;
-            // 
-            // label1ConcurrentTransfers
-            // 
-            this.label1ConcurrentTransfers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1ConcurrentTransfers.AutoSize = true;
-            this.label1ConcurrentTransfers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1ConcurrentTransfers.Location = new System.Drawing.Point(6, 405);
-            this.label1ConcurrentTransfers.Name = "label1ConcurrentTransfers";
-            this.label1ConcurrentTransfers.Size = new System.Drawing.Size(139, 15);
-            this.label1ConcurrentTransfers.TabIndex = 40;
-            this.label1ConcurrentTransfers.Tag = "";
-            this.label1ConcurrentTransfers.Text = "{0} concurrent transfer{1}";
-            this.label1ConcurrentTransfers.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5471,6 +5471,7 @@
             this.contextMenuStripFilters.ResumeLayout(false);
             this.tabPageTransfers.ResumeLayout(false);
             this.tabPageTransfers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarConcurrentTransfers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).EndInit();
             this.contextMenuStripIngestManifests.ResumeLayout(false);
@@ -5494,7 +5495,6 @@
             this.tabPageChart.ResumeLayout(false);
             this.tabPageChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarConcurrentTransfers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5999,7 +5999,7 @@
         private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem1;
         private System.Windows.Forms.TrackBar trackBarConcurrentTransfers;
-        private System.Windows.Forms.Label label1ConcurrentTransfers;
+        private System.Windows.Forms.Label labelConcurrentTransfers;
     }
 }
 
