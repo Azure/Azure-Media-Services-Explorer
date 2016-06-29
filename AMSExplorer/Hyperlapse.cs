@@ -27,7 +27,9 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -127,6 +129,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _processorVersion = processorVersion;
+
             buttonJobOptions.Initialize(_context);
         }
 
@@ -139,23 +142,74 @@ namespace AMSExplorer
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
         }
 
-        public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, int startFrame, int numFrames, int speed)
+        public string JsonConfig()
         {
-            // Prepare the Hyperlapse xml
-            XDocument doc = XDocument.Load(xmlFileName);
+            if (string.IsNullOrWhiteSpace(textBoxConfiguration.Text))
+            {
+                return JsonInternalConfig();
+            }
+            else
+            {
+                return textBoxConfiguration.Text;
+            }
+        }
 
+
+        /*
+        private string HyperlapseInternalConfiguration()
+        {
             XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
 
-            var presetxml = doc.Element(ns + "Preset");
+            var presetxml = _templateXML.Element(ns + "Preset");
 
             var sourcexml = presetxml.Element(ns + "Sources").Element(ns + "Source");
-            sourcexml.Attribute("StartFrame").SetValue(startFrame);
-            sourcexml.Attribute("NumFrames").SetValue(numFrames);
+            sourcexml.Attribute("StartFrame").SetValue(HyperlapseStartFrame);
+            sourcexml.Attribute("NumFrames").SetValue(HyperlapseNumFrames);
 
             var speedxml = presetxml.Element(ns + "Options").Element(ns + "Speed");
-            speedxml.SetValue(speed);
+            speedxml.SetValue(HyperlapseSpeed);
 
-            return doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
+            return _templateXML.Declaration.ToString() + Environment.NewLine + _templateXML.ToString();
+        }
+        */
+
+        private string JsonInternalConfig()
+        {
+            // Example of config
+            /*
+         {
+    "Version":1.0,
+    "Sources": [
+        {
+            "StartFrame":0,
+            "NumFrames":2147483647
+        }
+    ],
+    "Options": {
+        "Speed":1,
+        "Stabilize":false
+    }
+}
+         */
+            dynamic obj = new JObject();
+            obj.Version = "1.0";
+
+            dynamic Sources = new JArray() as dynamic;
+            dynamic Source = new JObject();
+            Source.StartFrame = HyperlapseStartFrame;
+            if (checkBoxLimitNbFrames.Checked)
+            {
+                Source.NumFrames = HyperlapseNumFrames;
+            }
+            Sources.Add(Source);
+            obj.Sources = Sources;
+
+            dynamic Options = new JObject();
+            Options.Speed = HyperlapseSpeed;
+            //Options.Stabilize = false;
+            obj.Options = Options;
+
+            return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
         }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -170,24 +224,15 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void checkBoxDisplayTime_CheckedChanged(object sender, EventArgs e)
-        {
-            comboBoxFrameRate.Visible = labelSourceFrameRate.Visible = panelTimes.Visible = checkBoxDisplayTime.Checked;
-            if (checkBoxDisplayTime.Checked)
-            {
-                DisplayTime();
-            }
-        }
-
         private void numericUpDownStartFrame_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
+            UpdateJSONData();
         }
 
         private void DisplayTime()
         {
-            if (checkBoxDisplayTime.Checked)
-            {
+           
                 double framerate = Convert.ToDouble(comboBoxFrameRate.Text);
                 double speed = (double)numericUpDownSpeed.Value;
 
@@ -198,22 +243,78 @@ namespace AMSExplorer
                 textBoxSourceStartTime.Text = tsstart.ToString("g");
                 textBoxSourceDurationTime.Text = tsduration.ToString("g");
                 textBoxOutputDuration.Text = tsoutputduration.ToString("g");
-            }
+            
         }
 
         private void numericUpDownNumFrames_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
+            UpdateJSONData();
         }
 
         private void comboBoxFrameRate_SelectedIndexChanged(object sender, EventArgs e)
         {
             DisplayTime();
+            UpdateJSONData();
         }
 
         private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
+            UpdateJSONData();
+        }
+
+
+        private void UpdateJSONData()
+        {
+            textBoxConfiguration.Text = JsonInternalConfig();
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            bool Error = false;
+            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    Error = true;
+                }
+            }
+            else if (type == TypeConfig.XML) // XML 
+            {
+                try
+                {
+                    var xml = XElement.Load(new StringReader(textBoxConfiguration.Text));
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
+                    Error = true;
+                }
+            }
+            labelWarningJSON.Visible = Error;
+        }
+
+        private void control_changed(object sender, EventArgs e)
+        {
+            UpdateJSONData();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+           numericUpDownNumFrames.Enabled = checkBoxLimitNbFrames.Checked;
         }
     }
 }
+

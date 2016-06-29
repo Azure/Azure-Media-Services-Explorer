@@ -75,6 +75,7 @@
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMergeTimeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameSampling)).BeginInit();
@@ -114,7 +115,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(518, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(506, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -157,7 +158,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.motion_detector;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(341, 15);
+            this.buttonOk.Location = new System.Drawing.Point(329, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(170, 27);
             this.buttonOk.TabIndex = 17;
@@ -186,7 +187,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 452);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(647, 55);
+            this.panel1.Size = new System.Drawing.Size(635, 55);
             this.panel1.TabIndex = 66;
             // 
             // numericUpDownMergeTimeHours
@@ -594,7 +595,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(601, 156);
+            this.tabPage3.Size = new System.Drawing.Size(601, 169);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Region";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -650,6 +651,15 @@
             this.label7.TabIndex = 79;
             this.label7.Text = "JSON or XML (editable) :";
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(625, 452);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 108;
+            // 
             // MediaAnalyticsMotionDetection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -657,6 +667,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 508);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelPreview);
@@ -672,6 +683,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "MediaAnalyticsMotionDetection";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Motion Detection";
             this.Load += new System.EventHandler(this.MediaAnalyticsMotionDetection_Load);
@@ -745,5 +757,6 @@
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel panel2;
     }
 }

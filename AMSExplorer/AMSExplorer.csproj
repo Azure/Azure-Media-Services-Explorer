@@ -698,10 +698,6 @@
     <None Include="BitmapsPNG\01-indexer.png" />
     <None Include="BitmapsPNG\encoding-large.png" />
     <None Include="BitmapsPNG\OCR.png" />
-    <Content Include="Configurations\Hyperlapse.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />

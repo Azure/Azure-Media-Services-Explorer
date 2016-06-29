@@ -5123,13 +5123,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configHyperlapse = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
-                Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
-                form.HyperlapseStartFrame,
-                form.HyperlapseNumFrames,
-                form.HyperlapseSpeed
-                );
-
+                string configHyperlapse = form.JsonConfig();
                 LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }

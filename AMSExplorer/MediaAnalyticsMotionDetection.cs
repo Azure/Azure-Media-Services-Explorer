@@ -271,11 +271,7 @@ namespace AMSExplorer
             numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
             UpdateJSONData();
         }
-
-        private void tabPageConfig_Enter(object sender, EventArgs e)
-        {
-            UpdateJSONData();
-        }
+             
 
         private void UpdateJSONData()
         {

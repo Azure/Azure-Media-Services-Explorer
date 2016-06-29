@@ -29,6 +29,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace AMSExplorer
 {
@@ -87,9 +88,19 @@ namespace AMSExplorer
                 buttonJobOptions.SetSettings(value);
             }
         }
-
-
         public string JsonConfig()
+        {
+            if (string.IsNullOrWhiteSpace(textBoxConfiguration.Text))
+            {
+                return JsonInternalConfig();
+            }
+            else
+            {
+                return textBoxConfiguration.Text;
+            }
+        }
+
+        private string JsonInternalConfig()
         {
             // Example of config
             // @"{'Version':'1.0', 'Options': {'OutputType':'video', 'MaxStaticThumbnailCount':'0', 'MaxMotionThumbnailDurationInSecs':'0.0', 'OutputAudio':'true', 'FadeInFadeOut':'true'}}" 
@@ -118,7 +129,7 @@ namespace AMSExplorer
             }
 
             obj.Options = Options;
-            return JsonConvert.SerializeObject(obj);
+            return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
         }
 
         public MediaAnalyticsVideoThumbnails(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
@@ -156,11 +167,13 @@ namespace AMSExplorer
         private void checkBoxVideoDurationAuto_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownVideoDuration.Enabled = !checkBoxVideoDurationAuto.Checked;
+            UpdateJSONData();
         }
 
         private void checkBoxImageCountAuto_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownImageCount.Enabled = !checkBoxImageCountAuto.Checked;
+            UpdateJSONData();
         }
 
         private void checkBoxOutputImage_CheckedChanged(object sender, EventArgs e)
@@ -168,6 +181,53 @@ namespace AMSExplorer
             panelVideoSettings.Enabled = checkBoxOutputVideo.Checked;
             panelImageSettings.Enabled = checkBoxOutputImage.Checked;
             buttonOk.Enabled = checkBoxOutputVideo.Checked || checkBoxOutputImage.Checked;
+            UpdateJSONData();
+        }
+
+        private void UpdateJSONData()
+        {
+            textBoxConfiguration.Text = JsonInternalConfig();
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            bool Error = false;
+            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    Error = true;
+                }
+            }
+            else if (type == TypeConfig.XML) // XML 
+            {
+                try
+                {
+                    var xml = XElement.Load(new StringReader(textBoxConfiguration.Text));
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
+                    Error = true;
+                }
+            }
+            labelWarningJSON.Visible = Error;
+        }
+
+        private void control_changed(object sender, EventArgs e)
+        {
+            UpdateJSONData();
         }
     }
 }

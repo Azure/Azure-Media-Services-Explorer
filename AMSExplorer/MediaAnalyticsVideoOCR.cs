@@ -29,6 +29,7 @@ using System.Xml.Linq;
 using System.Security;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace AMSExplorer
 {
@@ -37,6 +38,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions(true);
         private string _version;
+        private bool initPhase = true;
 
         public readonly List<Item> VideOCRLanguages = new List<Item> {
             new Item("Undefined", ""),
@@ -143,12 +145,24 @@ namespace AMSExplorer
             comboBoxOrientation.SelectedIndex = 0;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoOCR));
+            initPhase = false;
         }
-
-
 
         public string JsonConfig()
         {
+            if (string.IsNullOrWhiteSpace(textBoxConfiguration.Text))
+            {
+                return JsonInternalConfig();
+            }
+            else
+            {
+                return textBoxConfiguration.Text;
+            }
+        }
+
+        public string JsonInternalConfig()
+        {
+            if (initPhase) return "";
             // Example of config :
 
             /*
@@ -209,7 +223,7 @@ namespace AMSExplorer
                 }
             }
 
-            return JsonConvert.SerializeObject(obj);
+            return JsonConvert.SerializeObject(obj, Formatting.Indented);
         }
 
 
@@ -222,11 +236,59 @@ namespace AMSExplorer
         private void checkBoxTimeInterval_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownTimeInterval.Enabled = checkBoxTimeInterval.Checked;
+            UpdateJSONData();
         }
 
         private void checkBoxOverlayResize_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
+            UpdateJSONData();
+        }
+
+        private void UpdateJSONData()
+        {
+            textBoxConfiguration.Text = JsonInternalConfig();
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
+            bool Error = false;
+            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    Error = true;
+                }
+            }
+            else if (type == TypeConfig.XML) // XML 
+            {
+                try
+                {
+                    var xml = XElement.Load(new StringReader(textBoxConfiguration.Text));
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
+                    Error = true;
+                }
+            }
+            labelWarningJSON.Visible = Error;
+        }
+
+        private void control_changed(object sender, EventArgs e)
+        {
+            UpdateJSONData();
         }
     }
 }
