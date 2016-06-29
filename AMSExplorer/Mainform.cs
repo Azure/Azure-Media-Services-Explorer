@@ -5040,6 +5040,62 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuMotionDetection()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+
+            // Get the SDK extension method to get a reference to the Azure Media Media Detector.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
+
+            var form = new MediaAnalyticsMotionDetection(_context, processor.Version)
+            {
+                OCRJobName = "Motion detection of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - Motion detected",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for motion detection."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for motion detection.",
+            };
+
+            string taskname = "Motion detection of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(form.JsonConfig());
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.OCRJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
 
         private void DoMenuHyperlapseAssets()
         {
@@ -13740,7 +13796,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
+            DoMenuMotionDetection();
         }
 
         private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
@@ -14349,7 +14405,7 @@ namespace AMSExplorer
 
         private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
+            DoMenuMotionDetection();
         }
 
         private void ProcessStabilizertoolStripMenuItem_Click_1(object sender, EventArgs e)

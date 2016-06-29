@@ -54,19 +54,28 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON = new System.Windows.Forms.Label();
+            this.textBoxConfiguration = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxAggregateSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAggregateWindow)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPageConfig.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 339);
+            this.label3.Location = new System.Drawing.Point(14, 359);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -76,7 +85,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 358);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 378);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(418, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -118,7 +127,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 302);
+            this.textBoxJobName.Location = new System.Drawing.Point(17, 322);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(418, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -127,7 +136,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 284);
+            this.label5.Location = new System.Drawing.Point(14, 304);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -203,9 +212,9 @@
             this.groupBoxAggregateSettings.Controls.Add(this.numericUpDownAggregateWindow);
             this.groupBoxAggregateSettings.Enabled = false;
             this.groupBoxAggregateSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxAggregateSettings.Location = new System.Drawing.Point(277, 159);
+            this.groupBoxAggregateSettings.Location = new System.Drawing.Point(285, 25);
             this.groupBoxAggregateSettings.Name = "groupBoxAggregateSettings";
-            this.groupBoxAggregateSettings.Size = new System.Drawing.Size(350, 109);
+            this.groupBoxAggregateSettings.Size = new System.Drawing.Size(281, 109);
             this.groupBoxAggregateSettings.TabIndex = 76;
             this.groupBoxAggregateSettings.TabStop = false;
             this.groupBoxAggregateSettings.Text = "Aggregate mode settings";
@@ -253,6 +262,7 @@
             0,
             0,
             0});
+            this.numericUpDownAggregateInterval.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // numericUpDownAggregateWindow
             // 
@@ -277,6 +287,7 @@
             0,
             0,
             0});
+            this.numericUpDownAggregateWindow.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // radioButtonFaceDetection
             // 
@@ -311,9 +322,9 @@
             this.groupBox1.Controls.Add(this.radioButtonFaceDetection);
             this.groupBox1.Controls.Add(this.radioButtonAggregateEmotionDetection);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 159);
+            this.groupBox1.Location = new System.Drawing.Point(20, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 109);
+            this.groupBox1.Size = new System.Drawing.Size(246, 109);
             this.groupBox1.TabIndex = 80;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mode";
@@ -321,7 +332,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(467, 302);
+            this.buttonJobOptions.Location = new System.Drawing.Point(467, 322);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
@@ -343,10 +354,86 @@
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._04_face_detection;
             this.pictureBox1.Location = new System.Drawing.Point(14, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(250, 125);
+            this.pictureBox1.Size = new System.Drawing.Size(161, 92);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 81;
             this.pictureBox1.TabStop = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPageConfig);
+            this.tabControl1.Location = new System.Drawing.Point(17, 111);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(609, 185);
+            this.tabControl1.TabIndex = 108;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.groupBoxAggregateSettings);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(601, 157);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPageConfig
+            // 
+            this.tabPageConfig.Controls.Add(this.labelWarningJSON);
+            this.tabPageConfig.Controls.Add(this.textBoxConfiguration);
+            this.tabPageConfig.Controls.Add(this.label9);
+            this.tabPageConfig.Location = new System.Drawing.Point(4, 24);
+            this.tabPageConfig.Name = "tabPageConfig";
+            this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConfig.Size = new System.Drawing.Size(601, 157);
+            this.tabPageConfig.TabIndex = 1;
+            this.tabPageConfig.Text = "Generated JSON configuration";
+            this.tabPageConfig.UseVisualStyleBackColor = true;
+            this.tabPageConfig.Enter += new System.EventHandler(this.control_changed);
+            // 
+            // labelWarningJSON
+            // 
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON.Location = new System.Drawing.Point(143, 7);
+            this.labelWarningJSON.Name = "labelWarningJSON";
+            this.labelWarningJSON.Size = new System.Drawing.Size(452, 19);
+            this.labelWarningJSON.TabIndex = 80;
+            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
+            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.Visible = false;
+            // 
+            // textBoxConfiguration
+            // 
+            this.textBoxConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfiguration.Location = new System.Drawing.Point(6, 29);
+            this.textBoxConfiguration.Multiline = true;
+            this.textBoxConfiguration.Name = "textBoxConfiguration";
+            this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxConfiguration.Size = new System.Drawing.Size(589, 122);
+            this.textBoxConfiguration.TabIndex = 78;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(2, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(135, 15);
+            this.label9.TabIndex = 79;
+            this.label9.Text = "JSON or XML (editable) :";
             // 
             // MediaAnalyticsFaceDetection
             // 
@@ -356,9 +443,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 479);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBoxAggregateSettings);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -383,6 +469,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPageConfig.ResumeLayout(false);
+            this.tabPageConfig.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,5 +505,11 @@
         private System.Windows.Forms.RadioButton radioButtonFaceDetection;
         private System.Windows.Forms.RadioButton radioButtonAggregateEmotionDetection;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageConfig;
+        private System.Windows.Forms.Label labelWarningJSON;
+        private System.Windows.Forms.TextBox textBoxConfiguration;
+        public System.Windows.Forms.Label label9;
     }
 }

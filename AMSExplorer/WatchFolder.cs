@@ -51,8 +51,6 @@ namespace AMSExplorer
                     ProcessRohzetXML = checkBoxProcessXMLRohzet.Checked
                 };
 
-
-
                 if (checkBoAddAssetsToInput.Checked)
                 {
                     settings.ExtraInputAssets = new List<IAsset>();
@@ -69,7 +67,6 @@ namespace AMSExplorer
                 {
                     settings.ExtraInputAssets = null;
                 }
-
 
                 if (checkBoAddAssetsToInput.Checked)
                 {
@@ -92,17 +89,11 @@ namespace AMSExplorer
             _context = context;
             _WatchFolderSettings = watchfoldersettings;
             _SelectedAssets = selectedassets;
-
         }
-
-        private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void WatchFolder_Load(object sender, EventArgs e)
         {
-
             // folder
             textBoxFolder.Text = _WatchFolderSettings.FolderPath;
 
@@ -187,7 +178,6 @@ namespace AMSExplorer
         {
             textBoxEMail.Enabled = buttonTestEmail.Enabled = checkBoxSendEMail.Checked;
         }
-
 
 
         private void listViewTemplates_SelectedIndexChanged(object sender, EventArgs e)

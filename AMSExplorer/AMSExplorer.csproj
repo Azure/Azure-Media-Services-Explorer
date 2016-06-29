@@ -218,6 +218,12 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.Designer.cs">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaAnalyticsVideoOCR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -817,6 +823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsMotionDetection.resx">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaAnalyticsVideoOCR.resx">
       <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
