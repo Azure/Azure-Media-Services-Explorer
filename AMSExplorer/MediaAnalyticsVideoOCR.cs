@@ -205,7 +205,7 @@ namespace AMSExplorer
                 }
                 if (checkBoxTimeInterval.Checked)
                 {
-                    obj.Options.TimeInterval = TimeSpan.FromSeconds((double)numericUpDownTimeInterval.Value);
+                    obj.Options.TimeInterval = TimeSpan.FromSeconds((double)numericUpDownTimeInterval.Value).ToString(@"hh\:mm\:ss\.fff");
                 }
                 if (checkBoxRestrictDetection.Checked)
                 {
