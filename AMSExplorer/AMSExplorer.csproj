@@ -242,6 +242,12 @@
     <Compile Include="IndexerV2.Designer.cs">
       <DependentUpon>IndexerV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegionEditor\RegionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionEditor\RegionEditor.Designer.cs">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -707,6 +713,10 @@
     <Content Include="Configurations\SampleMPWESetRunTime.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Configurations\AssetAnalysis.json">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Configurations\VideoOCR.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -834,6 +844,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionEditor\RegionEditor.resx">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>

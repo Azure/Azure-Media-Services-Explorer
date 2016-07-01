@@ -5060,7 +5060,7 @@ namespace AMSExplorer
             // Get the SDK extension method to get a reference to the Azure Media Media Detector.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
 
-            var form = new MediaAnalyticsMotionDetection(_context, processor.Version)
+            var form = new MediaAnalyticsMotionDetection(_context, processor.Version, SelectedAssets.FirstOrDefault())
             {
                 OCRJobName = "Motion detection of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - Motion detected",
@@ -14509,6 +14509,38 @@ namespace AMSExplorer
             labelConcurrentTransfers.Text = string.Format(Constants.strTransfers, trackBarConcurrentTransfers.Value == Constants.MaxTransfersAsUnlimited ? "Unlimited" : "Limited to " + trackBarConcurrentTransfers.Value.ToString(), trackBarConcurrentTransfers.Value > 1 ? "s" : string.Empty);
             Properties.Settings.Default.ConcurrentTransfers = trackBarConcurrentTransfers.Value;
             Program.SaveAndProtectUserConfig();
+        }
+
+        private void analyzeAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAnalyzeAssets(ReturnSelectedAssets());
+        }
+
+        private void DoAnalyzeAssets(List<IAsset> assets)
+        {
+            var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+            StreamReader r = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "AssetAnalysis.json"));
+            string json = r.ReadToEnd();
+
+            foreach (var asset in assets)
+            {
+                string taskname = string.Format("Analysis of asset '{0}'", asset.Name);
+                string jobname = string.Format("Analysis of asset '{0}'", asset.Name);
+                string outputname = string.Format("{0} (metadata and thumbnail)", asset.Name);
+                string jsonwithid = json.Replace("{Basename}", asset.Id.Substring(Constants.AssetIdPrefix.Length));
+
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
+                   processor,
+                   assets,
+                   jobname,
+                   Properties.Settings.Default.DefaultJobPriority,
+                   taskname,
+                   outputname,
+                   new List<string>() { jsonwithid },
+                  AssetCreationOptions.None,
+                  Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+                   _context.DefaultStorageAccount.Name);
+            }
         }
     }
 }

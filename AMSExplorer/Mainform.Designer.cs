@@ -534,6 +534,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.analyzeAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -606,7 +607,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -722,6 +723,7 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.analyzeAssetsToolStripMenuItem,
             this.toolStripMenuItem43,
             this.toolStripMenuItem41,
             this.toolStripMenuItem42});
@@ -5426,6 +5428,13 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // analyzeAssetsToolStripMenuItem
+            // 
+            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
+            this.analyzeAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.analyzeAssetsToolStripMenuItem.Text = "Analyze asset(s)...";
+            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6000,6 +6009,7 @@
         private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem1;
         private System.Windows.Forms.TrackBar trackBarConcurrentTransfers;
         private System.Windows.Forms.Label labelConcurrentTransfers;
+        private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem;
     }
 }
 

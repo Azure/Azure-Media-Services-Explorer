@@ -76,6 +76,7 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMergeTimeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameSampling)).BeginInit();
@@ -582,6 +583,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.buttonRegionEditor);
             this.tabPage3.Controls.Add(this.label35);
             this.tabPage3.Controls.Add(this.numericUpDownRegionY);
             this.tabPage3.Controls.Add(this.numericUpDownRegionW);
@@ -659,6 +661,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 108;
+            // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Location = new System.Drawing.Point(228, 100);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(132, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Select region(s)";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
             // MediaAnalyticsMotionDetection
             // 
@@ -758,5 +769,6 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel2;
+        private ButtonRegionEditor buttonRegionEditor;
     }
 }

@@ -44,6 +44,7 @@ namespace AMSExplorer
             new Item("Medium", "medium"),
             new Item("High", "high")
         };
+        private IAsset _firstAsset;
 
         public string IndexerInputAssetName
         {
@@ -101,13 +102,14 @@ namespace AMSExplorer
             }
         }
 
-        public MediaAnalyticsMotionDetection(CloudMediaContext context, string version)
+        public MediaAnalyticsMotionDetection(CloudMediaContext context, string version, IAsset firstAsset)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _version = version;
-
+            _firstAsset = firstAsset;
+            buttonRegionEditor.Initialize(_firstAsset);
             buttonJobOptions.Initialize(_context);
         }
 
@@ -228,31 +230,35 @@ namespace AMSExplorer
             if (checkBoxRestrictDetection.Checked)
             {
                 obj.Options.DetectionZones = new JArray() as dynamic;
-                dynamic zone = new JArray() as dynamic;
+                foreach (var rect in buttonRegionEditor.GetRectanglesDecimalMode())
+                {
+                    dynamic zone = new JArray() as dynamic;
 
-                dynamic point1 = new JObject();
-                dynamic point2 = new JObject();
-                dynamic point3 = new JObject();
-                dynamic point4 = new JObject();
+                    dynamic point1 = new JObject();
+                    dynamic point2 = new JObject();
+                    dynamic point3 = new JObject();
+                    dynamic point4 = new JObject();
 
-                point1.x = numericUpDownRegionX.Value / 100;
-                point1.y = numericUpDownRegionY.Value / 100;
+                    point1.x = rect.X;
+                    point1.y = rect.Y;
 
-                point2.x = (numericUpDownRegionX.Value + numericUpDownRegionW.Value) / 100;
-                point2.y = numericUpDownRegionY.Value / 100;
+                    point2.x = rect.X + rect.Width;
+                    point2.y = rect.Y;
 
-                point3.x = (numericUpDownRegionX.Value + numericUpDownRegionW.Value) / 100;
-                point3.y = (numericUpDownRegionY.Value + numericUpDownRegionH.Value) / 100;
+                    point3.x = rect.X + rect.Width;
+                    point3.y = rect.Y + rect.Height;
 
-                point4.x = numericUpDownRegionX.Value / 100;
-                point4.y = (numericUpDownRegionY.Value + numericUpDownRegionH.Value) / 100;
+                    point4.x = rect.X;
+                    point4.y = rect.Y + rect.Height;
 
-                zone.Add(point1);
-                zone.Add(point2);
-                zone.Add(point3);
-                zone.Add(point4);
+                    zone.Add(point1);
+                    zone.Add(point2);
+                    zone.Add(point3);
+                    zone.Add(point4);
 
-                obj.Options.DetectionZones.Add(zone);
+                    obj.Options.DetectionZones.Add(zone);
+                }
+                
             }
 
             return JsonConvert.SerializeObject(obj, Formatting.Indented);

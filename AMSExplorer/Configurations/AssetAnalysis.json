@@ -1,0 +1,41 @@
+﻿{
+  "Version": 1.0,
+  "Codecs": [
+    {
+      "Start": "{Best}",
+      "Type": "JpgImage",
+      "JpgLayers": [
+        {
+          "Quality": 90,
+          "Type": "JpgLayer",
+          "Width": "100%",
+          "Height": "100%"
+        }
+      ]
+    },
+    {
+      "Start": "{Best}",
+      "Type": "PngImage",
+      "PngLayers": [
+        {
+          "Type": "PngLayer",
+          "Width": 320
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "FileName": "{Basename}_OriginalRes_{Index}{Extension}",
+      "Format": {
+        "Type": "JpgFormat"
+      }
+    },
+    {
+      "FileName": "{Basename}_LowRes_{Index}{Extension}",
+      "Format": {
+        "Type": "PngFormat"
+      }
+    }
+  ]
+}
