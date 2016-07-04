@@ -186,7 +186,6 @@
             this.myPictureBox1.TabIndex = 83;
             this.myPictureBox1.TabStop = false;
             this.myPictureBox1.SizeChanged += new System.EventHandler(this.myPictureBox1_SizeChanged);
-            this.myPictureBox1.DoubleClick += new System.EventHandler(this.myPictureBox1_DoubleClick);
             this.myPictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.myPictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.myPictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);

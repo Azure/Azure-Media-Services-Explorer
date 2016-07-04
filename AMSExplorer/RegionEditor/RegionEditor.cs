@@ -101,7 +101,7 @@ namespace AMSExplorer
 
         private void buttonFormat_Click(object sender, EventArgs e)
         {
-            myPictureBox1.DeleteLastRectangle();
+            myPictureBox1.DeleteLastPolygone();
 
         }
 
@@ -187,10 +187,32 @@ namespace AMSExplorer
             }
             else
             {
-                _canDraw = true;
-                myPictureBox1.AddScreenPoint(e.X, e.Y);
+                if (e.Button == MouseButtons.Left)
+                {
+                    _canDraw = true;
+                    myPictureBox1.AddScreenPoint(e.X, e.Y);
+
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    EndOfPolygonalDrawing();
+
+                }
+
             }
 
+        }
+
+        private void EndOfPolygonalDrawing()
+        {
+            if (polygonalMode)
+            {
+                //The system is no longer allowed to draw rectangles
+                _canDraw = false;
+
+                myPictureBox1.DrawingPolygoneIsFinal();
+                toolStripStatusLabelXYRect.Visible = false;
+            }
         }
 
         private void myPictureBox1_SizeChanged(object sender, EventArgs e)
@@ -208,40 +230,33 @@ namespace AMSExplorer
                 myPictureBox1.DrawingRectangleIsFinal();
                 toolStripStatusLabelXYRect.Visible = false;
             }
-            
+
         }
 
-        internal List<RectangleDecimalMode> GetRectanglesDecimalMode()
+        internal List<PolygoneDecimalMode> GetPolygonesDecimalMode()
         {
-            return myPictureBox1.GetRectanglesDecimalMode;
+            return myPictureBox1.GetPolygonesDecimalMode;
         }
 
         private void buttonClearAllRegions_Click(object sender, EventArgs e)
         {
-            myPictureBox1.DeleteAllRectangles();
+            myPictureBox1.DeleteAllPolygones();
         }
 
         private void radioButtonPolygonal_CheckedChanged(object sender, EventArgs e)
         {
             polygonalMode = radioButtonPolygonal.Checked;
+            myPictureBox1.ResetCurrentDrawings();
+            _canDraw = false;
+            Refresh();
         }
 
         private void myPictureBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (polygonalMode)
-            {
-                //The system is no longer allowed to draw rectangles
-                _canDraw = false;
 
-                myPictureBox1.DrawingPolygoneIsFinal();
-                toolStripStatusLabelXYRect.Visible = false;
-            }
         }
 
-        internal List<Rectangle> GetRectanglesResolutionMode()
-        {
-            return myPictureBox1.GetRectanglesResolutionMode;
-        }
+
     }
 
     class RectangleDecimalMode
@@ -286,6 +301,10 @@ namespace AMSExplorer
             };
         }
 
+        public PolygoneDecimalMode ToPolygone()
+        {
+            return new PolygoneDecimalMode(this);
+        }
     }
 
     class Polygone
@@ -324,6 +343,15 @@ namespace AMSExplorer
             }
         }
 
+        public PolygoneDecimalMode(RectangleDecimalMode rect)
+        {
+            PointF p1 = new PointF((float)rect.X, (float)rect.Y);
+            PointF p2 = new PointF((float)(rect.X + rect.Width), (float)rect.Y);
+            PointF p3 = new PointF((float)(rect.X + rect.Width), (float)(rect.Y + rect.Height));
+            PointF p4 = new PointF((float)rect.X, (float)(rect.Y + rect.Height));
+            _points = new List<PointF>() { p1, p2, p3, p4 };
+        }
+
         public Polygone ToPolygone(int imageWidth, int imageheight, int addmarginleft = 0, int addmargintop = 0)
         {
             var poly = new Polygone();
@@ -352,11 +380,21 @@ namespace AMSExplorer
             return poly.ToArray();
         }
 
+        public PointF[] ToDecimalPoints()
+        {
+            return _points.ToArray();
+        }
+
         public void AddPoint(Point p, int imageWidth, int imageheight)
         {
             float x = ((float)p.X / imageWidth);
             float y = ((float)p.Y / imageheight);
             _points.Add(new PointF(x, y));
+        }
+
+        public void RemoveLastPoint()
+        {
+            if (_points.Count > 0) _points.RemoveAt(_points.Count - 1);
         }
 
         public void SetCurrentPoint(Point p, int imageWidth, int imageheight)
@@ -369,10 +407,11 @@ namespace AMSExplorer
 
     class myPictureBox : PictureBox
     {
-        private List<RectangleDecimalMode> _rectangles = new List<RectangleDecimalMode>();
+        private List<PolygoneDecimalMode> _polygones = new List<PolygoneDecimalMode>();
+
+        //private List<RectangleDecimalMode> _rectangles = new List<RectangleDecimalMode>();
         private RectangleDecimalMode _rect;
 
-        private List<PolygoneDecimalMode> _polygones = new List<PolygoneDecimalMode>();
         private PolygoneDecimalMode _poly;
 
         public Image VideoImage = null;
@@ -383,39 +422,28 @@ namespace AMSExplorer
         public int VideoImageOriginalWidth = 0;
         public int VideoImageOriginalHeight = 0;
 
-        public List<RectangleDecimalMode> GetRectanglesDecimalMode
+        public List<PolygoneDecimalMode> GetPolygonesDecimalMode
         {
             get
             {
-                return _rectangles;
+                return _polygones;
             }
         }
 
-        public List<Rectangle> GetRectanglesResolutionMode
-        {
-            get
-            {
-                List<Rectangle> rectanglesDec = new List<Rectangle>();
-                foreach (var rec in _rectangles)
-                {
-                    rectanglesDec.Add(rec.ToRectangle(VideoImage.Width, VideoImage.Height));
-                }
-                return rectanglesDec;
-            }
-        }
-
-        public List<Polygone> GetPolygoneResolutionMode
+        public List<Polygone> GetPolygonesResolutionMode
         {
             get
             {
                 List<Polygone> polygonesDec = new List<Polygone>();
-                foreach (var pol in _polygones)
+                foreach (var poly in _polygones)
                 {
-                    polygonesDec.Add(pol.ToPolygone(VideoImage.Width, VideoImage.Height));
+                    polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
                 }
                 return polygonesDec;
             }
         }
+
+
 
         public void SetScreenDrawingRectangle(int x, int y, int width, int height)
         {
@@ -427,25 +455,12 @@ namespace AMSExplorer
             _poly.SetCurrentPoint(new Point(x - marginLeft, y - marginTop), VideoImageDisplayedWidth, VideoImageDisplayedHeight);
         }
 
-        public void DeleteAllRectangles()
-        {
-            _rectangles = new List<RectangleDecimalMode>();
-            Refresh();
-        }
+
 
         public void DeleteAllPolygones()
         {
             _polygones = new List<PolygoneDecimalMode>();
             Refresh();
-        }
-
-        public void DeleteLastRectangle()
-        {
-            if (_rectangles.Count > 0)
-            {
-                _rectangles.RemoveAt(_rectangles.Count - 1);
-                Refresh();
-            }
         }
 
         public void DeleteLastPolygone()
@@ -493,9 +508,10 @@ namespace AMSExplorer
                 e.Graphics.DrawRectangle(new Pen(Color.Yellow, 1), marginLeft, marginTop, VideoImageDisplayedWidth - 1, VideoImageDisplayedHeight - 1);
 
                 int index = 0;
+                /*
                 foreach (var recdec in _rectangles)
                 {
-                   var r = recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                    var r = recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
 
                     Point[] p = { new Point(r.Left, r.Top), new Point(r.Right, r.Top), new Point(r.Right, r.Bottom), new Point(r.Left, r.Bottom) };
                     e.Graphics.DrawRectangle(pen, r);
@@ -503,6 +519,7 @@ namespace AMSExplorer
                     e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), r);
                     index++;
                 }
+                */
                 if (_rect != null)
                 {
                     var rect = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
@@ -533,13 +550,18 @@ namespace AMSExplorer
 
         public void DrawingRectangleIsFinal()
         {
-            if (_rect != null) _rectangles.Add(_rect);
+            if (_rect != null) _polygones.Add(_rect.ToPolygone());
             _rect = null;
         }
 
         public void DrawingPolygoneIsFinal()
         {
-            if (_poly != null) _polygones.Add(_poly);
+            if (_poly != null && _poly.ToDecimalPoints().Count() > 3)
+            {
+                _poly.RemoveLastPoint();
+                _polygones.Add(_poly);
+            }
+
             _poly = null;
         }
 
@@ -571,7 +593,11 @@ namespace AMSExplorer
 
         }
 
-
+        public void ResetCurrentDrawings()
+        {
+            _poly = null;
+            _rect = null;
+        }
     }
 
 
@@ -601,10 +627,10 @@ namespace AMSExplorer
             myRegionEditor.Display();
         }
 
-        public List<RectangleDecimalMode> GetRectanglesDecimalMode()
+        public List<PolygoneDecimalMode> GetPolygonesDecimalMode()
         {
             //return myRegionEditor.TextData;
-            return myRegionEditor.GetRectanglesDecimalMode();
+            return myRegionEditor.GetPolygonesDecimalMode();
         }
 
         static Image ReturnOriginResolution(IAsset asset) // null if not existing

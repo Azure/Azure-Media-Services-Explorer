@@ -230,32 +230,16 @@ namespace AMSExplorer
             if (checkBoxRestrictDetection.Checked)
             {
                 obj.Options.DetectionZones = new JArray() as dynamic;
-                foreach (var rect in buttonRegionEditor.GetRectanglesDecimalMode())
+                foreach (var poly in buttonRegionEditor.GetPolygonesDecimalMode())
                 {
                     dynamic zone = new JArray() as dynamic;
-
-                    dynamic point1 = new JObject();
-                    dynamic point2 = new JObject();
-                    dynamic point3 = new JObject();
-                    dynamic point4 = new JObject();
-
-                    point1.x = rect.X;
-                    point1.y = rect.Y;
-
-                    point2.x = rect.X + rect.Width;
-                    point2.y = rect.Y;
-
-                    point3.x = rect.X + rect.Width;
-                    point3.y = rect.Y + rect.Height;
-
-                    point4.x = rect.X;
-                    point4.y = rect.Y + rect.Height;
-
-                    zone.Add(point1);
-                    zone.Add(point2);
-                    zone.Add(point3);
-                    zone.Add(point4);
-
+                    foreach (var p in poly.ToDecimalPoints())
+                    {
+                        dynamic point = new JObject();
+                        point.x = p.X;
+                        point.y = p.Y;
+                        zone.Add(point);
+                    }
                     obj.Options.DetectionZones.Add(zone);
                 }
                 
