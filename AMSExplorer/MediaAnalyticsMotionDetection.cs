@@ -274,7 +274,7 @@ namespace AMSExplorer
 
         private void checkBoxOverlayResize_CheckedChanged(object sender, EventArgs e)
         {
-            numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
+           // numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
             UpdateJSONData();
         }
              

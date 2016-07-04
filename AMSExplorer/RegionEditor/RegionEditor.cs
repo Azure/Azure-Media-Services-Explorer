@@ -40,11 +40,19 @@ namespace AMSExplorer
         private bool _canDraw;
         private int _startX, _startY;
 
+        private const string infoMouse = "{0}, {1}";
+        private const string infoMouseDrawRectangle = "{0} x {1}";
+
+        // toolStripStatusLabelMouseInfo
+
+
         public Image Picture
         {
             set
             {
                 myPictureBox1.VideoImage = value;
+                myPictureBox1.VideoImageOriginalWidth = value.Width;
+                myPictureBox1.VideoImageOriginalHeight = value.Height;
             }
         }
 
@@ -66,7 +74,7 @@ namespace AMSExplorer
             }
 
             labelWarningJSON.Text = string.Empty;
-            buttonFormat.Visible = DisplayFormatButton;
+            buttonClearLastRegion.Visible = DisplayFormatButton;
 
             if (infoText != null)
             {
@@ -91,6 +99,8 @@ namespace AMSExplorer
 
         private void buttonFormat_Click(object sender, EventArgs e)
         {
+            myPictureBox1.DeleteLastRectangle();
+
         }
 
 
@@ -114,7 +124,17 @@ namespace AMSExplorer
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             //If we are not allowed to draw, simply return and disregard the rest of the code
-            if (!_canDraw) return;
+
+            if (!_canDraw)
+            {
+
+                if (myPictureBox1.VideoImageDisplayedWidth > 0 && myPictureBox1.VideoImageDisplayedHeight > 0)
+                {
+                    toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(e.X), myPictureBox1.GetOriginalYValue(e.Y));
+                }
+
+                return;
+            }
 
             //The x-value of our rectangle should be the minimum between the start x-value and the current x-position
             int x = Math.Min(_startX, e.X);
@@ -127,11 +147,16 @@ namespace AMSExplorer
 
             //For the hight value, it's basically the same thing as above, but now with the y-values:
             int height = Math.Max(_startY, e.Y) - Math.Min(_startY, e.Y);
-            myPictureBox1._rect = new RectangleDec(x - myPictureBox1.marginLeft, y - myPictureBox1.marginTop, width, height, myPictureBox1.VideoImageDisplayedWidth, myPictureBox1.VideoImageDisplayedHeight);
             //Refresh the form and draw the rectangle
+
+            // myPictureBox1.ScreenDrawingRectangle = new RectangleDec(x - myPictureBox1.marginLeft, y - myPictureBox1.marginTop, width, height, myPictureBox1.VideoImageDisplayedWidth, myPictureBox1.VideoImageDisplayedHeight);
+            myPictureBox1.SetScreenDrawingRectangle(x, y, width, height);
+
+            // let's update the textbox info
+            toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(x), myPictureBox1.GetOriginalYValue(y));
+            toolStripStatusLabelXYRect.Text = string.Format(infoMouseDrawRectangle, myPictureBox1.GetOriginalWidthValue(width), myPictureBox1.GetOriginalWidthValue(height));
+
             Refresh();
-
-
         }
 
 
@@ -144,7 +169,7 @@ namespace AMSExplorer
             _startX = e.X;
             _startY = e.Y;
 
-
+            toolStripStatusLabelXYRect.Visible = true;
         }
 
         private void myPictureBox1_SizeChanged(object sender, EventArgs e)
@@ -157,13 +182,18 @@ namespace AMSExplorer
             //The system is no longer allowed to draw rectangles
             _canDraw = false;
 
-            myPictureBox1._rectangles.Add(myPictureBox1._rect);
-
+            myPictureBox1.DrawingRectangleIsFinal();
+            toolStripStatusLabelXYRect.Visible = false;
         }
 
-        internal List<RectangleDec> GetRectanglesDecimalMode()
+        internal List<RectangleDecimalMode> GetRectanglesDecimalMode()
         {
             return myPictureBox1.GetRectanglesDecimalMode;
+        }
+
+        private void buttonClearAllRegions_Click(object sender, EventArgs e)
+        {
+            myPictureBox1.DeleteAllRectangles();
         }
 
         internal List<Rectangle> GetRectanglesResolutionMode()
@@ -172,7 +202,7 @@ namespace AMSExplorer
         }
     }
 
-    class RectangleDec
+    class RectangleDecimalMode
     {
 
         public decimal X;
@@ -180,12 +210,12 @@ namespace AMSExplorer
         public decimal Width;
         public decimal Height;
 
-        public RectangleDec()
+        public RectangleDecimalMode()
         {
             X = Y = Width = Height = 0;
         }
 
-        public RectangleDec(Rectangle rect, int imageWidth, int imageheight)
+        public RectangleDecimalMode(Rectangle rect, int imageWidth, int imageheight)
         {
             X = ((decimal)rect.X / imageWidth);
             Y = ((decimal)rect.Y / imageheight);
@@ -194,7 +224,7 @@ namespace AMSExplorer
         }
 
 
-        public RectangleDec(int x, int y, int width, int height, int imageWidth, int imageheight)
+        public RectangleDecimalMode(int x, int y, int width, int height, int imageWidth, int imageheight)
         {
             X = ((decimal)x / imageWidth);
             Y = ((decimal)y / imageheight);
@@ -218,16 +248,17 @@ namespace AMSExplorer
 
     class myPictureBox : PictureBox
     {
-        public List<RectangleDec> _rectangles = new List<RectangleDec>();
-        public RectangleDec _rect;
+        private List<RectangleDecimalMode> _rectangles = new List<RectangleDecimalMode>();
+        private RectangleDecimalMode _rect;
         public Image VideoImage = null;
         public int marginLeft = 0;
         public int marginTop = 0;
         public int VideoImageDisplayedWidth = 0;
         public int VideoImageDisplayedHeight = 0;
+        public int VideoImageOriginalWidth = 0;
+        public int VideoImageOriginalHeight = 0;
 
-
-        public List<RectangleDec> GetRectanglesDecimalMode
+        public List<RectangleDecimalMode> GetRectanglesDecimalMode
         {
             get
             {
@@ -245,6 +276,26 @@ namespace AMSExplorer
                     rectanglesDec.Add(rec.ToRectangle(VideoImage.Width, VideoImage.Height));
                 }
                 return rectanglesDec;
+            }
+        }
+
+        public void SetScreenDrawingRectangle (int x, int y, int width, int height)
+        {
+                _rect = new RectangleDecimalMode(x - marginLeft, y - marginTop, width, height, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
+        }
+
+        public void DeleteAllRectangles()
+        {
+            _rectangles = new List<RectangleDecimalMode>();
+            Refresh();
+        }
+
+        public void DeleteLastRectangle()
+        {
+            if (_rectangles.Count > 0)
+            {
+                _rectangles.RemoveAt(_rectangles.Count - 1);
+                Refresh();
             }
         }
 
@@ -278,24 +329,54 @@ namespace AMSExplorer
             //Create a new 'pen' to draw our rectangle with, give it the color red and a width of 2
             using (Pen pen = new Pen(Color.Red, 2))
             {
-                Debug.Print(string.Format("controlwidth : {0}, controlheight : {1}", this.Width, this.Height));
-                Debug.Print(string.Format("picturewidth : {0}, pictureheight : {1}", VideoImageDisplayedWidth, VideoImageDisplayedHeight));
-                Debug.Print(string.Format("marginleft   : {0}, margintop     : {1}", marginLeft, marginTop));
-
                 //Draw the rectangle on our form with the pen
-                e.Graphics.Clear(Color.WhiteSmoke);
+                e.Graphics.Clear(SystemColors.Window);
                 e.Graphics.DrawImage(VideoImage, marginLeft, marginTop, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
+                e.Graphics.DrawRectangle(new Pen(Color.Yellow, 1), marginLeft, marginTop, VideoImageDisplayedWidth - 1, VideoImageDisplayedHeight - 1);
+
+                int index = 0;
                 foreach (var recdec in _rectangles)
                 {
-                    e.Graphics.DrawRectangle(pen, recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop));
+                    var rect = recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                    e.Graphics.DrawRectangle(pen, rect);
+                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), rect);
+                    index++;
                 }
                 if (_rect != null)
                 {
-                    var r = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                    e.Graphics.DrawRectangle(pen, _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop));
+                    var rect = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                    e.Graphics.DrawRectangle(pen, rect);
+                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), rect);
                 }
             }
         }
+
+        public void DrawingRectangleIsFinal()
+        {
+            if (_rect != null) _rectangles.Add(_rect);
+            _rect = null;
+        }
+
+        public int GetOriginalXValue(int screenX)
+        {
+            return (int)((decimal)VideoImageOriginalWidth * (screenX - marginLeft) / VideoImageDisplayedWidth);
+        }
+
+        public int GetOriginalYValue(int screenY)
+        {
+            return (int)((decimal)VideoImageOriginalHeight * (screenY - marginTop) / VideoImageDisplayedHeight);
+        }
+
+        public int GetOriginalWidthValue(int screenWidth)
+        {
+            return (int)((decimal)VideoImageOriginalWidth * (screenWidth) / VideoImageDisplayedWidth);
+        }
+
+        public int GetOriginalHeightValue(int screenHeight)
+        {
+            return (int)((decimal)VideoImageOriginalHeight * (screenHeight) / VideoImageDisplayedHeight);
+        }
+
     }
 
 
@@ -325,7 +406,7 @@ namespace AMSExplorer
             myRegionEditor.Display();
         }
 
-        public List<RectangleDec> GetRectanglesDecimalMode()
+        public List<RectangleDecimalMode> GetRectanglesDecimalMode()
         {
             //return myRegionEditor.TextData;
             return myRegionEditor.GetRectanglesDecimalMode();

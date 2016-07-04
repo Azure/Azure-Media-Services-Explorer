@@ -741,6 +741,8 @@
     <None Include="IconsPNG\face_detector.png" />
     <None Include="IconsPNG\filters.png" />
     <None Include="IconsPNG\hyperlapse.png" />
+    <None Include="IconsPNG\XY.png" />
+    <None Include="IconsPNG\XYRect.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
