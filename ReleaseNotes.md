@@ -14,5 +14,4 @@ Version 3.42.0.0 brings the following features and improvements :
 * New option to upload file(s) to asset(s) from the asset menus
 * Adds a resize anchor to several Windows
 * Adds support for manifest generation with m4a files
-* InstallShield settings change (librairies install order)
 * Bug fixes and improvements
