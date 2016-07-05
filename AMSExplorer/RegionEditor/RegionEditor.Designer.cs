@@ -39,13 +39,18 @@
             this.toolStripStatusLabelMouseInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelXYRect = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonClearAllRegions = new System.Windows.Forms.Button();
+            this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
+            this.radioButtonPolygon = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.myPictureBox1 = new AMSExplorer.myPictureBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
-            this.radioButtonPolygonal = new System.Windows.Forms.RadioButton();
+            this.buttonPreviousImage = new System.Windows.Forms.Button();
+            this.buttonNextImage = new System.Windows.Forms.Button();
+            this.labelIndexThumbnail = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +64,7 @@
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOk
             // 
@@ -71,6 +77,7 @@
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // panel1
             // 
@@ -89,7 +96,7 @@
             this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(694, 439);
+            this.labelWarningJSON.Location = new System.Drawing.Point(626, 277);
             this.labelWarningJSON.Name = "labelWarningJSON";
             this.labelWarningJSON.Size = new System.Drawing.Size(78, 21);
             this.labelWarningJSON.TabIndex = 78;
@@ -126,7 +133,7 @@
             this.labelInfoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.labelInfoText.ForeColor = System.Drawing.Color.Black;
-            this.labelInfoText.Location = new System.Drawing.Point(626, 107);
+            this.labelInfoText.Location = new System.Drawing.Point(626, 187);
             this.labelInfoText.Name = "labelInfoText";
             this.labelInfoText.Size = new System.Drawing.Size(149, 80);
             this.labelInfoText.TabIndex = 82;
@@ -174,12 +181,50 @@
             this.buttonClearAllRegions.UseVisualStyleBackColor = true;
             this.buttonClearAllRegions.Click += new System.EventHandler(this.buttonClearAllRegions_Click);
             // 
+            // radioButtonRectangle
+            // 
+            this.radioButtonRectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonRectangle.AutoSize = true;
+            this.radioButtonRectangle.Checked = true;
+            this.radioButtonRectangle.Location = new System.Drawing.Point(21, 22);
+            this.radioButtonRectangle.Name = "radioButtonRectangle";
+            this.radioButtonRectangle.Size = new System.Drawing.Size(77, 19);
+            this.radioButtonRectangle.TabIndex = 86;
+            this.radioButtonRectangle.TabStop = true;
+            this.radioButtonRectangle.Text = "Rectangle";
+            this.radioButtonRectangle.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPolygon
+            // 
+            this.radioButtonPolygon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonPolygon.AutoSize = true;
+            this.radioButtonPolygon.Location = new System.Drawing.Point(21, 47);
+            this.radioButtonPolygon.Name = "radioButtonPolygon";
+            this.radioButtonPolygon.Size = new System.Drawing.Size(69, 19);
+            this.radioButtonPolygon.TabIndex = 87;
+            this.radioButtonPolygon.Text = "Polygon";
+            this.radioButtonPolygon.UseVisualStyleBackColor = true;
+            this.radioButtonPolygon.CheckedChanged += new System.EventHandler(this.radioButtonPolygonal_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.radioButtonRectangle);
+            this.groupBox1.Controls.Add(this.radioButtonPolygon);
+            this.groupBox1.Location = new System.Drawing.Point(626, 100);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(149, 84);
+            this.groupBox1.TabIndex = 88;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Shape";
+            // 
             // myPictureBox1
             // 
             this.myPictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.myPictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.myPictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.myPictureBox1.Location = new System.Drawing.Point(12, 13);
             this.myPictureBox1.Name = "myPictureBox1";
             this.myPictureBox1.Size = new System.Drawing.Size(608, 465);
@@ -200,30 +245,37 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // radioButtonRectangle
+            // buttonPreviousImage
             // 
-            this.radioButtonRectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonRectangle.AutoSize = true;
-            this.radioButtonRectangle.Checked = true;
-            this.radioButtonRectangle.Location = new System.Drawing.Point(645, 220);
-            this.radioButtonRectangle.Name = "radioButtonRectangle";
-            this.radioButtonRectangle.Size = new System.Drawing.Size(77, 19);
-            this.radioButtonRectangle.TabIndex = 86;
-            this.radioButtonRectangle.TabStop = true;
-            this.radioButtonRectangle.Text = "Rectangle";
-            this.radioButtonRectangle.UseVisualStyleBackColor = true;
+            this.buttonPreviousImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPreviousImage.Location = new System.Drawing.Point(629, 455);
+            this.buttonPreviousImage.Name = "buttonPreviousImage";
+            this.buttonPreviousImage.Size = new System.Drawing.Size(26, 23);
+            this.buttonPreviousImage.TabIndex = 89;
+            this.buttonPreviousImage.Text = "←";
+            this.buttonPreviousImage.UseVisualStyleBackColor = true;
+            this.buttonPreviousImage.Click += new System.EventHandler(this.buttonPreviousImage_Click);
             // 
-            // radioButtonPolygonal
+            // buttonNextImage
             // 
-            this.radioButtonPolygonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonPolygonal.AutoSize = true;
-            this.radioButtonPolygonal.Location = new System.Drawing.Point(645, 245);
-            this.radioButtonPolygonal.Name = "radioButtonPolygonal";
-            this.radioButtonPolygonal.Size = new System.Drawing.Size(78, 19);
-            this.radioButtonPolygonal.TabIndex = 87;
-            this.radioButtonPolygonal.Text = "Polygonal";
-            this.radioButtonPolygonal.UseVisualStyleBackColor = true;
-            this.radioButtonPolygonal.CheckedChanged += new System.EventHandler(this.radioButtonPolygonal_CheckedChanged);
+            this.buttonNextImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNextImage.Location = new System.Drawing.Point(749, 455);
+            this.buttonNextImage.Name = "buttonNextImage";
+            this.buttonNextImage.Size = new System.Drawing.Size(26, 23);
+            this.buttonNextImage.TabIndex = 90;
+            this.buttonNextImage.Text = "→";
+            this.buttonNextImage.UseVisualStyleBackColor = true;
+            this.buttonNextImage.Click += new System.EventHandler(this.buttonNextImage_Click);
+            // 
+            // labelIndexThumbnail
+            // 
+            this.labelIndexThumbnail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelIndexThumbnail.Location = new System.Drawing.Point(661, 459);
+            this.labelIndexThumbnail.Name = "labelIndexThumbnail";
+            this.labelIndexThumbnail.Size = new System.Drawing.Size(82, 19);
+            this.labelIndexThumbnail.TabIndex = 91;
+            this.labelIndexThumbnail.Text = "thumbnail 1/2";
+            this.labelIndexThumbnail.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // RegionEditor
             // 
@@ -232,8 +284,10 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.radioButtonPolygonal);
-            this.Controls.Add(this.radioButtonRectangle);
+            this.Controls.Add(this.labelIndexThumbnail);
+            this.Controls.Add(this.buttonNextImage);
+            this.Controls.Add(this.buttonPreviousImage);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonClearAllRegions);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.myPictureBox1);
@@ -246,11 +300,13 @@
             this.Name = "RegionEditor";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Regions";
+            this.Text = "Regions Editor";
             this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -274,6 +330,10 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelXYRect;
         private System.Windows.Forms.Button buttonClearAllRegions;
         private System.Windows.Forms.RadioButton radioButtonRectangle;
-        private System.Windows.Forms.RadioButton radioButtonPolygonal;
+        private System.Windows.Forms.RadioButton radioButtonPolygon;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonPreviousImage;
+        private System.Windows.Forms.Button buttonNextImage;
+        private System.Windows.Forms.Label labelIndexThumbnail;
     }
 }

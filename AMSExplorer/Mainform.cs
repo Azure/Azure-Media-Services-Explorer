@@ -5060,7 +5060,7 @@ namespace AMSExplorer
             // Get the SDK extension method to get a reference to the Azure Media Media Detector.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
 
-            var form = new MediaAnalyticsMotionDetection(_context, processor.Version, SelectedAssets.FirstOrDefault())
+            var form = new MediaAnalyticsMotionDetection(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
             {
                 OCRJobName = "Motion detection of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - Motion detected",
@@ -14516,7 +14516,7 @@ namespace AMSExplorer
             DoAnalyzeAssets(ReturnSelectedAssets());
         }
 
-        private void DoAnalyzeAssets(List<IAsset> assets)
+        public void DoAnalyzeAssets(List<IAsset> assets)
         {
             var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
             StreamReader r = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "AssetAnalysis.json"));

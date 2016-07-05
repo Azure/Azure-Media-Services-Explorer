@@ -102,15 +102,23 @@ namespace AMSExplorer
             }
         }
 
-        public MediaAnalyticsMotionDetection(CloudMediaContext context, string version, IAsset firstAsset)
+        public MediaAnalyticsMotionDetection(CloudMediaContext context, string version, IAsset firstAsset, Mainform main)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _version = version;
             _firstAsset = firstAsset;
-            buttonRegionEditor.Initialize(_firstAsset);
+
+            buttonRegionEditor.Initialize(_firstAsset, main);
+            buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
+
             buttonJobOptions.Initialize(_context);
+        }
+
+        private void buttonRegionEditor_RegionsChanged(object sender, EventArgs e)
+        {
+            UpdateJSONData();
         }
 
         private void MediaAnalyticsMotionDetection_Load(object sender, EventArgs e)
@@ -227,10 +235,10 @@ namespace AMSExplorer
             obj.Options.FrameSamplingValue = (int)numericUpDownFrameSampling.Value;
             obj.Options.DetectLightChange = checkBoxDetectLightChange.Checked.ToString();
             obj.Options.MergeTimeThreshold = new TimeSpan((int)numericUpDownMergeTimeHours.Value, (int)numericUpDownMergeTimeMinutes.Value, (int)numericUpDownMergeTimeSeconds.Value).ToString("c");
-            if (checkBoxRestrictDetection.Checked)
+            if (checkBoxRestrictDetection.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
             {
                 obj.Options.DetectionZones = new JArray() as dynamic;
-                foreach (var poly in buttonRegionEditor.GetPolygonesDecimalMode())
+                foreach (var poly in buttonRegionEditor.GetSavedPolygonesDecimalMode())
                 {
                     dynamic zone = new JArray() as dynamic;
                     foreach (var p in poly.ToDecimalPoints())
@@ -242,7 +250,7 @@ namespace AMSExplorer
                     }
                     obj.Options.DetectionZones.Add(zone);
                 }
-                
+
             }
 
             return JsonConvert.SerializeObject(obj, Formatting.Indented);
@@ -256,12 +264,13 @@ namespace AMSExplorer
         }
 
 
-        private void checkBoxOverlayResize_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxRestrictDetection_CheckedChanged(object sender, EventArgs e)
         {
-           // numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
+            // numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
             UpdateJSONData();
+            panelSelectRegions.Enabled = checkBoxRestrictDetection.Checked;
         }
-             
+
 
         private void UpdateJSONData()
         {

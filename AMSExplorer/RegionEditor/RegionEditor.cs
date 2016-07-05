@@ -29,6 +29,7 @@ using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 using System.IO;
 using System.Threading;
+using System.Net;
 
 namespace AMSExplorer
 {
@@ -40,42 +41,69 @@ namespace AMSExplorer
 
         private const string infoMouse = "{0}, {1}";
         private const string infoMouseDrawRectangle = "{0} x {1}";
+        private const string infothumbnail = "thumbnail {0}/{1}";
 
-        public Image Picture
+        private List<Image> listPictures;
+        private int pictureIndex = 0;
+        private IAsset _asset;
+
+        public List<Image> SetPictures
         {
             set
             {
-                myPictureBox1.VideoImage = value;
-                myPictureBox1.VideoImageOriginalWidth = value.Width;
-                myPictureBox1.VideoImageOriginalHeight = value.Height;
+                listPictures = value;
+                SetCurrentPicture(listPictures.FirstOrDefault());
+                pictureIndex = 0;
             }
         }
 
-        public RegionEditor(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
+        private void SetCurrentPicture(Image picture)
+        {
+            myPictureBox1.VideoImage = picture;
+            myPictureBox1.VideoImageOriginalWidth = picture.Width;
+            myPictureBox1.VideoImageOriginalHeight = picture.Height;
+            Refresh();
+            UpdateLabelIndex();
+        }
+
+        public void DisplayNextPicture()
+        {
+            if (pictureIndex < listPictures.Count - 1)
+            {
+                pictureIndex++;
+                SetCurrentPicture(listPictures[pictureIndex]);
+            }
+        }
+
+        public void DisplayPreviousPicture()
+        {
+            if (pictureIndex > 0)
+            {
+                pictureIndex--;
+                SetCurrentPicture(listPictures[pictureIndex]);
+            }
+        }
+
+        public RegionEditor(IAsset asset, string title = null, string text = null, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             if (title != null) this.Text = title;
 
-            if (editMode)
-            {
-                buttonOk.Text = "Save";
-            }
-            else // readonly mode
-            {
-                buttonCancel.Text = "Close";
-                buttonOk.Visible = false;
-
-            }
-
             labelWarningJSON.Text = string.Empty;
-            buttonClearLastRegion.Visible = DisplayFormatButton;
 
             if (infoText != null)
             {
                 labelInfoText.Text = infoText;
                 labelInfoText.Visible = true;
             }
+
+            _asset = asset;
+        }
+
+        private void UpdateLabelIndex()
+        {
+            labelIndexThumbnail.Text = string.Format(infothumbnail, pictureIndex + 1, listPictures.Count);
         }
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
@@ -87,6 +115,60 @@ namespace AMSExplorer
         {
         }
 
+        static List<Image> ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
+        {
+            List<Image> list = new List<Image>();
+
+            string filename = asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_000001.jpg";
+            string path = Path.GetTempPath();
+            string pathandfile = Path.Combine(path, filename);
+            //c7508b75-a451-4887-9435-4a5b39f88c5f_OriginalRes_000001.jpg
+            var files = asset.GetMediaContext().Files.Where(f => f.Name == filename).OrderBy(f => f.LastModified);
+            var file = files.FirstOrDefault();
+
+            if (file != null)
+            {
+                ILocator saslocator = null;
+
+                try
+                {
+                    // The duration for the locator's access policy.
+                    var policy = asset.GetMediaContext().AccessPolicies.Create("AP AMSE", new TimeSpan(0, 15, 0), AccessPermissions.Read);
+                    saslocator = asset.GetMediaContext().Locators.CreateLocator(LocatorType.Sas, file.Asset, policy, DateTime.UtcNow.AddMinutes(-5));
+                    var assett = file.Asset;
+                    IEnumerable<IAssetFile> Thumbnails = file.Asset.AssetFiles.ToList().Where(f => f.Name.StartsWith(asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_") && f.Name.EndsWith(".jpg")).OrderBy(f => f.Name);
+
+                    // Generate the Progressive Download URLs for each file. 
+                    List<Uri> ProgressiveDownloadUris = Thumbnails.Select(af => af.GetSasUri()).ToList();
+
+                    foreach (var urli in ProgressiveDownloadUris)
+                    {
+                        var request = WebRequest.Create(urli.AbsoluteUri);
+
+                        using (var response = request.GetResponse())
+                        using (var stream = response.GetResponseStream())
+                        {
+                            list.Add(Bitmap.FromStream(stream));
+                        }
+                    }
+
+
+                }
+                catch (Exception e)
+                { }
+
+
+                try
+                {
+                    if (saslocator != null) saslocator.Delete();
+                }
+
+                catch (Exception e)
+                { }
+            }
+
+            return list;
+        }
 
         private void buttonFormat_Click(object sender, EventArgs e)
         {
@@ -96,17 +178,17 @@ namespace AMSExplorer
 
         public DialogResult Display()
         {
+            SetPictures = ReturnOriginResolutionThumbnailsForAsset(_asset);
+
+            myPictureBox1.LoadSavedRegions();
+
             DialogResult DR = this.ShowDialog();
-            /*
+
             if (DR == DialogResult.OK)
             {
-                savedConfig = textBoxConfiguration.Text;
+                myPictureBox1.SaveRegions();
             }
-            else // let's reset the controls to default
-            {
-                textBoxConfiguration.Text = savedConfig;
-            }
-            */
+
             return DR;
         }
 
@@ -207,9 +289,9 @@ namespace AMSExplorer
 
 
 
-        internal List<PolygoneDecimalMode> GetPolygonesDecimalMode()
+        internal List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode()
         {
-            return myPictureBox1.GetPolygonesDecimalMode;
+            return myPictureBox1.GetSavedPolygonesDecimalMode;
         }
 
         private void buttonClearAllRegions_Click(object sender, EventArgs e)
@@ -219,10 +301,30 @@ namespace AMSExplorer
 
         private void radioButtonPolygonal_CheckedChanged(object sender, EventArgs e)
         {
-            polygonalMode = radioButtonPolygonal.Checked;
+            polygonalMode = radioButtonPolygon.Checked;
             myPictureBox1.ResetCurrentDrawings();
             _canDraw = false;
             Refresh();
+        }
+
+        private void buttonPreviousImage_Click(object sender, EventArgs e)
+        {
+            DisplayPreviousPicture();
+        }
+
+        private void buttonNextImage_Click(object sender, EventArgs e)
+        {
+            DisplayNextPicture();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void myPictureBox1_DoubleClick(object sender, EventArgs e)
@@ -384,11 +486,9 @@ namespace AMSExplorer
 
     class myPictureBox : PictureBox
     {
-        private List<PolygoneDecimalMode> _polygones = new List<PolygoneDecimalMode>();
-
-        //private List<RectangleDecimalMode> _rectangles = new List<RectangleDecimalMode>();
+        private List<PolygoneDecimalMode> _savedPolygons = new List<PolygoneDecimalMode>();
+        private List<PolygoneDecimalMode> _polygons = new List<PolygoneDecimalMode>(); // working list
         private RectangleDecimalMode _rect;
-
         private PolygoneDecimalMode _poly;
 
         public Image VideoImage = null;
@@ -402,11 +502,11 @@ namespace AMSExplorer
         const int neighbour = 5; // 5 pixels or less
 
 
-        public List<PolygoneDecimalMode> GetPolygonesDecimalMode
+        public List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode
         {
             get
             {
-                return _polygones;
+                return _savedPolygons;
             }
         }
 
@@ -415,7 +515,7 @@ namespace AMSExplorer
             get
             {
                 List<Polygone> polygonesDec = new List<Polygone>();
-                foreach (var poly in _polygones)
+                foreach (var poly in _polygons)
                 {
                     polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
                 }
@@ -436,15 +536,15 @@ namespace AMSExplorer
 
         public void DeleteAllPolygones()
         {
-            _polygones = new List<PolygoneDecimalMode>();
+            _polygons = new List<PolygoneDecimalMode>();
             Refresh();
         }
 
         public void DeleteLastPolygone()
         {
-            if (_polygones.Count > 0)
+            if (_polygons.Count > 0)
             {
-                _polygones.RemoveAt(_polygones.Count - 1);
+                _polygons.RemoveAt(_polygons.Count - 1);
                 Refresh();
             }
         }
@@ -493,7 +593,7 @@ namespace AMSExplorer
                 e.Graphics.DrawRectangle(penRed, rect);
             }
 
-            foreach (var polydec in _polygones)
+            foreach (var polydec in _polygons)
             {
                 var poly = polydec.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
                 e.Graphics.DrawPolygon(penGreen, poly);
@@ -510,7 +610,7 @@ namespace AMSExplorer
 
         public void DrawingRectangleIsFinal()
         {
-            if (_rect != null) _polygones.Add(_rect.ToPolygone());
+            if (_rect != null) _polygons.Add(_rect.ToPolygone());
             _rect = null;
         }
 
@@ -519,7 +619,7 @@ namespace AMSExplorer
             if (_poly != null && _poly.PointsCount > 3)
             {
                 _poly.RemoveLastPoint();
-                _polygones.Add(_poly);
+                _polygons.Add(_poly);
             }
 
             _poly = null;
@@ -574,66 +674,104 @@ namespace AMSExplorer
             }
             return false;
         }
+
+        internal void SaveRegions()
+        {
+            _savedPolygons = new List<PolygoneDecimalMode>() ;
+            _savedPolygons.AddRange(_polygons);
+        }
+
+        internal void LoadSavedRegions()
+        {
+            _polygons = new List<PolygoneDecimalMode>();
+            _polygons.AddRange(_savedPolygons);
+        }
     }
 
 
     class ButtonRegionEditor : Button
     {
         RegionEditor myRegionEditor;
+        private IAsset _asset;
+        private Mainform _main;
+        private bool analysisJobSubmitted = false;
+
+        public delegate void ChangedEventHandler(object sender, EventArgs e);
+        // An event that clients can use to be notified whenever the
+        // regions have been changed.
+        public event ChangedEventHandler RegionsChanged;
+
+        protected virtual void OnChanged(EventArgs e)
+        {
+            if (RegionsChanged != null)
+                RegionsChanged(this, e);
+        }
 
         public ButtonRegionEditor()
         {
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset)
+        public void Initialize(IAsset asset, Mainform main)
         {
-            var assetImage = ReturnOriginResolution(asset);
-            this.Enabled = assetImage != null;
-            myRegionEditor = new RegionEditor(editMode: true, showSamplePremium: true);
-
-            if (assetImage != null)
-            {
-                myRegionEditor.Picture = assetImage;
-            }
+            myRegionEditor = new RegionEditor(asset);
+            _asset = asset;
+            _main = main;
         }
 
         void ButtonXML_Click(object sender, EventArgs e)
         {
-            myRegionEditor.Display();
+            bool thumbnailsexist = ThumbnailsAvailable(_asset);
+            if (!thumbnailsexist)
+            {
+                if (analysisJobSubmitted)
+                {
+                    MessageBox.Show("Please wait for the analysis job to complete", "Thumbnails", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (MessageBox.Show("There is no detected thumbnails for this asset.\n\nDo you want to submit an analysis job now to generate the thumbnails and metadata ?", "No thumbnails", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _main.DoAnalyzeAssets(new List<IAsset>() { _asset });
+                    analysisJobSubmitted = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                analysisJobSubmitted = false;
+                myRegionEditor.Display();
+                OnChanged(EventArgs.Empty);
+            }
+
+
         }
 
-        public List<PolygoneDecimalMode> GetPolygonesDecimalMode()
+        public List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode()
         {
-            //return myRegionEditor.TextData;
-            return myRegionEditor.GetPolygonesDecimalMode();
+            return myRegionEditor.GetSavedPolygonesDecimalMode();
         }
 
-        static Image ReturnOriginResolution(IAsset asset) // null if not existing
+        static bool ThumbnailsAvailable(IAsset asset) // false
         {
-            Image im = null;
-
             string filename = asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_000001.jpg";
             string path = Path.GetTempPath();
             string pathandfile = Path.Combine(path, filename);
             //c7508b75-a451-4887-9435-4a5b39f88c5f_OriginalRes_000001.jpg
-            var file = asset.GetMediaContext().Files.Where(f => f.Name == filename).FirstOrDefault();
+            var files = asset.GetMediaContext().Files.Where(f => f.Name == filename).OrderBy(f => f.LastModified);
+            var file = files.FirstOrDefault();
 
             if (file != null)
             {
-                try
-                {
-                    if (File.Exists(pathandfile)) File.Delete(pathandfile);
-                    file.Download(pathandfile);
-                    im = Image.FromFile(pathandfile);
-                    File.Delete(pathandfile);
-                }
-                catch (Exception e)
-                { }
+                return true;
             }
-
-            return im;
+            else
+            {
+                return false;
+            }
         }
-
     }
 }

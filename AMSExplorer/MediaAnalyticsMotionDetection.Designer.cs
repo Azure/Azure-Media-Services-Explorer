@@ -59,15 +59,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelSelectRegions = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMergeTimeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameSampling)).BeginInit();
@@ -78,6 +79,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
+            this.panelSelectRegions.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -329,7 +331,7 @@
             this.checkBoxRestrictDetection.TabIndex = 65;
             this.checkBoxRestrictDetection.Text = "Restrict detection to regions";
             this.checkBoxRestrictDetection.UseVisualStyleBackColor = true;
-            this.checkBoxRestrictDetection.CheckedChanged += new System.EventHandler(this.checkBoxOverlayResize_CheckedChanged);
+            this.checkBoxRestrictDetection.CheckedChanged += new System.EventHandler(this.checkBoxRestrictDetection_CheckedChanged);
             // 
             // pictureBox1
             // 
@@ -439,7 +441,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.buttonRegionEditor);
+            this.tabPage3.Controls.Add(this.panelSelectRegions);
             this.tabPage3.Controls.Add(this.checkBoxRestrictDetection);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -448,6 +450,15 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Regions";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Location = new System.Drawing.Point(10, 23);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Select...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
             // tabPageConfig
             // 
@@ -509,15 +520,6 @@
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 108;
             // 
-            // buttonRegionEditor
-            // 
-            this.buttonRegionEditor.Location = new System.Drawing.Point(199, 45);
-            this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
-            this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Select...";
-            this.buttonRegionEditor.UseVisualStyleBackColor = true;
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -537,6 +539,15 @@
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // panelSelectRegions
+            // 
+            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
+            this.panelSelectRegions.Enabled = false;
+            this.panelSelectRegions.Location = new System.Drawing.Point(189, 22);
+            this.panelSelectRegions.Name = "panelSelectRegions";
+            this.panelSelectRegions.Size = new System.Drawing.Size(406, 100);
+            this.panelSelectRegions.TabIndex = 107;
             // 
             // MediaAnalyticsMotionDetection
             // 
@@ -578,6 +589,7 @@
             this.tabPage3.PerformLayout();
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
+            this.panelSelectRegions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -624,5 +636,6 @@
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel2;
         private ButtonRegionEditor buttonRegionEditor;
+        private System.Windows.Forms.Panel panelSelectRegions;
     }
 }

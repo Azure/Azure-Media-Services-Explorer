@@ -2,7 +2,9 @@
   "Version": 1.0,
   "Codecs": [
     {
-      "Start": "{Best}",
+      "Start": "20%",
+      "Step": "20%",
+      "Range": "81%",
       "Type": "JpgImage",
       "JpgLayers": [
         {

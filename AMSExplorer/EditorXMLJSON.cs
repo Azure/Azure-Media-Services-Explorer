@@ -73,11 +73,6 @@ namespace AMSExplorer
             }
         }
 
-        private void EditorXMLJSON_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public DialogResult Display()
         {
             DialogResult DR = this.ShowDialog();
