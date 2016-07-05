@@ -34,19 +34,12 @@ namespace AMSExplorer
 {
     public partial class RegionEditor : Form
     {
-        string savedConfig;
-        string defaultConfig;
-
         private bool _canDraw;
         private int _startX, _startY;
         private bool polygonalMode = false;
-        private Point _point;
 
         private const string infoMouse = "{0}, {1}";
         private const string infoMouseDrawRectangle = "{0} x {1}";
-
-        // toolStripStatusLabelMouseInfo
-
 
         public Image Picture
         {
@@ -87,22 +80,17 @@ namespace AMSExplorer
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
         {
-
         }
-
 
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-
         }
-
 
 
         private void buttonFormat_Click(object sender, EventArgs e)
         {
             myPictureBox1.DeleteLastPolygone();
-
         }
 
 
@@ -123,6 +111,29 @@ namespace AMSExplorer
         }
 
 
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            _canDraw = true;
+            //Initialize and keep track of the start position
+            _startX = e.X;
+            _startY = e.Y;
+            toolStripStatusLabelXYRect.Visible = true;
+
+            if (polygonalMode)
+            {
+                if (myPictureBox1.IsPointClosedToFirst(e.X, e.Y))
+                {
+                    EndOfPolygonalDrawing();
+                    Refresh();
+                }
+                else
+                {
+                    myPictureBox1.AddScreenPoint(e.X, e.Y);
+                }
+            }
+        }
+
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             //If we are not allowed to draw, simply return and disregard the rest of the code
@@ -134,73 +145,47 @@ namespace AMSExplorer
                 {
                     toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(e.X), myPictureBox1.GetOriginalYValue(e.Y));
                 }
-
                 return;
             }
 
+            //The x-value of our rectangle should be the minimum between the start x-value and the current x-position
+            int x = Math.Min(_startX, e.X);
+            //The y-value of our rectangle should also be the minimum between the start y-value and current y-value
+            int y = Math.Min(_startY, e.Y);
+
+            //The width of our rectangle should be the maximum between the start x-position and current x-position minus
+            //the minimum of start x-position and current x-position
+            int width = Math.Max(_startX, e.X) - Math.Min(_startX, e.X);
+
+            //For the hight value, it's basically the same thing as above, but now with the y-values:
+            int height = Math.Max(_startY, e.Y) - Math.Min(_startY, e.Y);
+
             if (!polygonalMode)
             {
-                //The x-value of our rectangle should be the minimum between the start x-value and the current x-position
-                int x = Math.Min(_startX, e.X);
-                //The y-value of our rectangle should also be the minimum between the start y-value and current y-value
-                int y = Math.Min(_startY, e.Y);
-
-                //The width of our rectangle should be the maximum between the start x-position and current x-position minus
-                //the minimum of start x-position and current x-position
-                int width = Math.Max(_startX, e.X) - Math.Min(_startX, e.X);
-
-                //For the hight value, it's basically the same thing as above, but now with the y-values:
-                int height = Math.Max(_startY, e.Y) - Math.Min(_startY, e.Y);
-                //Refresh the form and draw the rectangle
-
-                // myPictureBox1.ScreenDrawingRectangle = new RectangleDec(x - myPictureBox1.marginLeft, y - myPictureBox1.marginTop, width, height, myPictureBox1.VideoImageDisplayedWidth, myPictureBox1.VideoImageDisplayedHeight);
                 myPictureBox1.SetScreenDrawingRectangle(x, y, width, height);
-
-                // let's update the textbox info
-                toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(x), myPictureBox1.GetOriginalYValue(y));
-                toolStripStatusLabelXYRect.Text = string.Format(infoMouseDrawRectangle, myPictureBox1.GetOriginalWidthValue(width), myPictureBox1.GetOriginalWidthValue(height));
-
             }
             else
             {
                 myPictureBox1.UpdateScreenDrawingPolygone(e.X, e.Y);
             }
 
-
+            toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(x), myPictureBox1.GetOriginalYValue(y));
+            toolStripStatusLabelXYRect.Text = string.Format(infoMouseDrawRectangle, myPictureBox1.GetOriginalWidthValue(width), myPictureBox1.GetOriginalWidthValue(height));
 
             Refresh();
         }
 
-
-
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!polygonalMode) // rectangle
+            if (!polygonalMode)
             {
-                //The system is now allowed to draw rectangles
-                _canDraw = true;
-                //Initialize and keep track of the start position
-                _startX = e.X;
-                _startY = e.Y;
+                //The system is no longer allowed to draw rectangles
+                _canDraw = false;
 
-                toolStripStatusLabelXYRect.Visible = true;
+                myPictureBox1.DrawingRectangleIsFinal();
+                toolStripStatusLabelXYRect.Visible = false;
+                Refresh();
             }
-            else
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    _canDraw = true;
-                    myPictureBox1.AddScreenPoint(e.X, e.Y);
-
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    EndOfPolygonalDrawing();
-
-                }
-
-            }
-
         }
 
         private void EndOfPolygonalDrawing()
@@ -220,18 +205,7 @@ namespace AMSExplorer
             Refresh();
         }
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (!polygonalMode)
-            {
-                //The system is no longer allowed to draw rectangles
-                _canDraw = false;
 
-                myPictureBox1.DrawingRectangleIsFinal();
-                toolStripStatusLabelXYRect.Visible = false;
-            }
-
-        }
 
         internal List<PolygoneDecimalMode> GetPolygonesDecimalMode()
         {
@@ -255,13 +229,10 @@ namespace AMSExplorer
         {
 
         }
-
-
     }
 
     class RectangleDecimalMode
     {
-
         public decimal X;
         public decimal Y;
         public decimal Width;
@@ -280,7 +251,6 @@ namespace AMSExplorer
             Height = ((decimal)rect.Height / imageheight);
         }
 
-
         public RectangleDecimalMode(int x, int y, int width, int height, int imageWidth, int imageheight)
         {
             X = ((decimal)x / imageWidth);
@@ -288,7 +258,6 @@ namespace AMSExplorer
             Width = ((decimal)width / imageWidth);
             Height = ((decimal)height / imageheight);
         }
-
 
         public Rectangle ToRectangle(int imageWidth, int imageheight, int addmarginleft = 0, int addmargintop = 0)
         {
@@ -350,6 +319,14 @@ namespace AMSExplorer
             PointF p3 = new PointF((float)(rect.X + rect.Width), (float)(rect.Y + rect.Height));
             PointF p4 = new PointF((float)rect.X, (float)(rect.Y + rect.Height));
             _points = new List<PointF>() { p1, p2, p3, p4 };
+        }
+
+        public int PointsCount
+        {
+            get
+            {
+                return _points.Count;
+            }
         }
 
         public Polygone ToPolygone(int imageWidth, int imageheight, int addmarginleft = 0, int addmargintop = 0)
@@ -422,6 +399,9 @@ namespace AMSExplorer
         public int VideoImageOriginalWidth = 0;
         public int VideoImageOriginalHeight = 0;
 
+        const int neighbour = 5; // 5 pixels or less
+
+
         public List<PolygoneDecimalMode> GetPolygonesDecimalMode
         {
             get
@@ -444,7 +424,6 @@ namespace AMSExplorer
         }
 
 
-
         public void SetScreenDrawingRectangle(int x, int y, int width, int height)
         {
             _rect = new RectangleDecimalMode(x - marginLeft, y - marginTop, width, height, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
@@ -454,8 +433,6 @@ namespace AMSExplorer
         {
             _poly.SetCurrentPoint(new Point(x - marginLeft, y - marginTop), VideoImageDisplayedWidth, VideoImageDisplayedHeight);
         }
-
-
 
         public void DeleteAllPolygones()
         {
@@ -500,52 +477,35 @@ namespace AMSExplorer
             }
 
             //Create a new 'pen' to draw our rectangle with, give it the color red and a width of 2
-            using (Pen pen = new Pen(Color.Red, 2))
+            var penRed = new Pen(Color.Red, 2);
+            var penGreen = new Pen(Color.Green, 2);
+
+
+            //Draw the rectangle on our form with the pen
+            e.Graphics.Clear(SystemColors.Window);
+            e.Graphics.DrawImage(VideoImage, marginLeft, marginTop, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
+            e.Graphics.DrawRectangle(new Pen(Color.Yellow, 1), marginLeft, marginTop, VideoImageDisplayedWidth - 1, VideoImageDisplayedHeight - 1);
+
+            int index = 0;
+            if (_rect != null)
             {
-                //Draw the rectangle on our form with the pen
-                e.Graphics.Clear(SystemColors.Window);
-                e.Graphics.DrawImage(VideoImage, marginLeft, marginTop, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
-                e.Graphics.DrawRectangle(new Pen(Color.Yellow, 1), marginLeft, marginTop, VideoImageDisplayedWidth - 1, VideoImageDisplayedHeight - 1);
-
-                int index = 0;
-                /*
-                foreach (var recdec in _rectangles)
-                {
-                    var r = recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-
-                    Point[] p = { new Point(r.Left, r.Top), new Point(r.Right, r.Top), new Point(r.Right, r.Bottom), new Point(r.Left, r.Bottom) };
-                    e.Graphics.DrawRectangle(pen, r);
-                    //e.Graphics.DrawPolygon(pen, p);
-                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), r);
-                    index++;
-                }
-                */
-                if (_rect != null)
-                {
-                    var rect = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                    e.Graphics.DrawRectangle(pen, rect);
-                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), rect);
-                }
-
-
-                foreach (var polydec in _polygones)
-                {
-                    //var r = recdec.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-
-                    //Point[] p = { new Point(r.Left, r.Top), new Point(r.Right, r.Top), new Point(r.Right, r.Bottom), new Point(r.Left, r.Bottom) };
-                    //e.Graphics.DrawRectangle(pen, r);
-                    var poly = polydec.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                    e.Graphics.DrawPolygon(pen, poly);
-                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), poly[0].X, poly[0].Y);
-                    index++;
-                }
-                if (_poly != null)
-                {
-                    var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                    e.Graphics.DrawPolygon(pen, poly);
-                    e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Red), poly[0].X, poly[0].Y);
-                }
+                var rect = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                e.Graphics.DrawRectangle(penRed, rect);
             }
+
+            foreach (var polydec in _polygones)
+            {
+                var poly = polydec.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                e.Graphics.DrawPolygon(penGreen, poly);
+                e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Green), poly[0].X, poly[0].Y);
+                index++;
+            }
+            if (_poly != null)
+            {
+                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                e.Graphics.DrawLines(penRed, poly);
+            }
+
         }
 
         public void DrawingRectangleIsFinal()
@@ -556,7 +516,7 @@ namespace AMSExplorer
 
         public void DrawingPolygoneIsFinal()
         {
-            if (_poly != null && _poly.ToDecimalPoints().Count() > 3)
+            if (_poly != null && _poly.PointsCount > 3)
             {
                 _poly.RemoveLastPoint();
                 _polygones.Add(_poly);
@@ -589,7 +549,7 @@ namespace AMSExplorer
         {
             if (_poly == null) _poly = new PolygoneDecimalMode();
             _poly.AddPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)), VideoImageOriginalWidth, VideoImageOriginalHeight);
-            _poly.AddPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)), VideoImageOriginalWidth, VideoImageOriginalHeight); // for current point
+            if (_poly.PointsCount == 1) _poly.AddPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)), VideoImageOriginalWidth, VideoImageOriginalHeight); // for first point
 
         }
 
@@ -597,6 +557,22 @@ namespace AMSExplorer
         {
             _poly = null;
             _rect = null;
+        }
+
+        internal bool IsPointClosedToFirst(int x, int y)
+        {
+            if (_poly != null)
+            {
+                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                if (poly.Count() > 0)
+                {
+                    if (Math.Abs(poly[0].X - x) < neighbour && (Math.Abs(poly[0].Y - y) < neighbour))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
