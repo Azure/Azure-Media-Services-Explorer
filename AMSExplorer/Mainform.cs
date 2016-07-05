@@ -5004,7 +5004,7 @@ namespace AMSExplorer
             // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
 
-            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version)
+            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
             {
                 OCRJobName = "Video OCR of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - OCR",

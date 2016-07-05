@@ -49,16 +49,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxTimeInterval = new System.Windows.Forms.CheckBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.numericUpDownRegionY = new System.Windows.Forms.NumericUpDown();
-            this.label43 = new System.Windows.Forms.Label();
-            this.numericUpDownRegionX = new System.Windows.Forms.NumericUpDown();
             this.checkBoxRestrictDetection = new System.Windows.Forms.CheckBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.numericUpDownRegionH = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownRegionW = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -70,17 +61,16 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
+            this.panelSelectRegions = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionH)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionW)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
+            this.panelSelectRegions.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -311,148 +301,17 @@
             this.checkBoxTimeInterval.UseVisualStyleBackColor = true;
             this.checkBoxTimeInterval.CheckedChanged += new System.EventHandler(this.checkBoxTimeInterval_CheckedChanged);
             // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label35.Location = new System.Drawing.Point(474, 77);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(33, 13);
-            this.label35.TabIndex = 105;
-            this.label35.Text = "pixels";
-            // 
-            // numericUpDownRegionY
-            // 
-            this.numericUpDownRegionY.Enabled = false;
-            this.numericUpDownRegionY.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownRegionY.Location = new System.Drawing.Point(176, 73);
-            this.numericUpDownRegionY.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionY.Name = "numericUpDownRegionY";
-            this.numericUpDownRegionY.Size = new System.Drawing.Size(80, 23);
-            this.numericUpDownRegionY.TabIndex = 46;
-            this.numericUpDownRegionY.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionY.ValueChanged += new System.EventHandler(this.control_changed);
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label43.Location = new System.Drawing.Point(173, 55);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(20, 15);
-            this.label43.TabIndex = 45;
-            this.label43.Text = "Y :";
-            // 
-            // numericUpDownRegionX
-            // 
-            this.numericUpDownRegionX.Enabled = false;
-            this.numericUpDownRegionX.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownRegionX.Location = new System.Drawing.Point(70, 74);
-            this.numericUpDownRegionX.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionX.Name = "numericUpDownRegionX";
-            this.numericUpDownRegionX.Size = new System.Drawing.Size(80, 23);
-            this.numericUpDownRegionX.TabIndex = 44;
-            this.numericUpDownRegionX.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionX.ValueChanged += new System.EventHandler(this.control_changed);
-            // 
             // checkBoxRestrictDetection
             // 
             this.checkBoxRestrictDetection.AutoSize = true;
             this.checkBoxRestrictDetection.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxRestrictDetection.Location = new System.Drawing.Point(12, 20);
             this.checkBoxRestrictDetection.Name = "checkBoxRestrictDetection";
-            this.checkBoxRestrictDetection.Size = new System.Drawing.Size(138, 19);
+            this.checkBoxRestrictDetection.Size = new System.Drawing.Size(174, 19);
             this.checkBoxRestrictDetection.TabIndex = 65;
-            this.checkBoxRestrictDetection.Text = "Restrict detection to :";
+            this.checkBoxRestrictDetection.Text = "Restrict detection to regions";
             this.checkBoxRestrictDetection.UseVisualStyleBackColor = true;
             this.checkBoxRestrictDetection.CheckedChanged += new System.EventHandler(this.checkBoxOverlayResize_CheckedChanged);
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label44.Location = new System.Drawing.Point(67, 55);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(20, 15);
-            this.label44.TabIndex = 43;
-            this.label44.Text = "X :";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label40.Location = new System.Drawing.Point(279, 56);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(45, 15);
-            this.label40.TabIndex = 67;
-            this.label40.Text = "Width :";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label41.Location = new System.Drawing.Point(385, 55);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(49, 15);
-            this.label41.TabIndex = 49;
-            this.label41.Text = "Height :";
-            // 
-            // numericUpDownRegionH
-            // 
-            this.numericUpDownRegionH.Enabled = false;
-            this.numericUpDownRegionH.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownRegionH.Location = new System.Drawing.Point(388, 73);
-            this.numericUpDownRegionH.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionH.Name = "numericUpDownRegionH";
-            this.numericUpDownRegionH.Size = new System.Drawing.Size(80, 23);
-            this.numericUpDownRegionH.TabIndex = 50;
-            this.numericUpDownRegionH.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionH.ValueChanged += new System.EventHandler(this.control_changed);
-            // 
-            // numericUpDownRegionW
-            // 
-            this.numericUpDownRegionW.Enabled = false;
-            this.numericUpDownRegionW.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownRegionW.Location = new System.Drawing.Point(282, 73);
-            this.numericUpDownRegionW.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionW.Name = "numericUpDownRegionW";
-            this.numericUpDownRegionW.Size = new System.Drawing.Size(80, 23);
-            this.numericUpDownRegionW.TabIndex = 48;
-            this.numericUpDownRegionW.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownRegionW.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // tabControl1
             // 
@@ -486,22 +345,14 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label35);
-            this.tabPage3.Controls.Add(this.numericUpDownRegionW);
-            this.tabPage3.Controls.Add(this.numericUpDownRegionY);
-            this.tabPage3.Controls.Add(this.numericUpDownRegionH);
-            this.tabPage3.Controls.Add(this.label43);
-            this.tabPage3.Controls.Add(this.label41);
-            this.tabPage3.Controls.Add(this.numericUpDownRegionX);
-            this.tabPage3.Controls.Add(this.label40);
+            this.tabPage3.Controls.Add(this.panelSelectRegions);
             this.tabPage3.Controls.Add(this.checkBoxRestrictDetection);
-            this.tabPage3.Controls.Add(this.label44);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(601, 169);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Region";
+            this.tabPage3.Text = "Regions";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPageConfig
@@ -584,6 +435,24 @@
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 109;
             // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Location = new System.Drawing.Point(3, 14);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Select...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
+            // 
+            // panelSelectRegions
+            // 
+            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
+            this.panelSelectRegions.Enabled = false;
+            this.panelSelectRegions.Location = new System.Drawing.Point(192, 6);
+            this.panelSelectRegions.Name = "panelSelectRegions";
+            this.panelSelectRegions.Size = new System.Drawing.Size(370, 100);
+            this.panelSelectRegions.TabIndex = 109;
+            // 
             // MediaAnalyticsVideoOCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -614,10 +483,6 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionH)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRegionW)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -625,6 +490,7 @@
             this.tabPage3.PerformLayout();
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
+            this.panelSelectRegions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -653,16 +519,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeInterval;
         private System.Windows.Forms.CheckBox checkBoxTimeInterval;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.NumericUpDown numericUpDownRegionY;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.NumericUpDown numericUpDownRegionX;
         private System.Windows.Forms.CheckBox checkBoxRestrictDetection;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.NumericUpDown numericUpDownRegionH;
-        private System.Windows.Forms.NumericUpDown numericUpDownRegionW;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxOrientation;
         private System.Windows.Forms.TabControl tabControl1;
@@ -673,5 +530,7 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelSelectRegions;
+        private ButtonRegionEditor buttonRegionEditor;
     }
 }

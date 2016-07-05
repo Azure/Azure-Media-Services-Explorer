@@ -84,7 +84,7 @@ namespace AMSExplorer
             }
         }
 
-        public RegionEditor(IAsset asset, string title = null, string text = null, string infoText = null)
+        public RegionEditor(IAsset asset, bool polygonsEnabled, string title = null, string text = null, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -96,6 +96,11 @@ namespace AMSExplorer
             {
                 labelInfoText.Text = infoText;
                 labelInfoText.Visible = true;
+            }
+
+            if (!polygonsEnabled)
+            {
+                groupBoxShape.Visible = false;
             }
 
             _asset = asset;
@@ -292,6 +297,11 @@ namespace AMSExplorer
         internal List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode()
         {
             return myPictureBox1.GetSavedPolygonesDecimalMode;
+        }
+
+        internal List<Polygone> GetSavedPolygonesResolutionMode()
+        {
+            return myPictureBox1.GetSavedPolygonesResolutionMode;
         }
 
         private void buttonClearAllRegions_Click(object sender, EventArgs e)
@@ -510,12 +520,12 @@ namespace AMSExplorer
             }
         }
 
-        public List<Polygone> GetPolygonesResolutionMode
+        public List<Polygone> GetSavedPolygonesResolutionMode
         {
             get
             {
                 List<Polygone> polygonesDec = new List<Polygone>();
-                foreach (var poly in _polygons)
+                foreach (var poly in _savedPolygons)
                 {
                     polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
                 }
@@ -677,7 +687,7 @@ namespace AMSExplorer
 
         internal void SaveRegions()
         {
-            _savedPolygons = new List<PolygoneDecimalMode>() ;
+            _savedPolygons = new List<PolygoneDecimalMode>();
             _savedPolygons.AddRange(_polygons);
         }
 
@@ -712,9 +722,9 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled)
         {
-            myRegionEditor = new RegionEditor(asset);
+            myRegionEditor = new RegionEditor(asset, polygonsEnabled);
             _asset = asset;
             _main = main;
         }
@@ -754,6 +764,33 @@ namespace AMSExplorer
         {
             return myRegionEditor.GetSavedPolygonesDecimalMode();
         }
+
+        public List<Polygone> GetSavedPolygonesResolutionMode()
+        {
+            return myRegionEditor.GetSavedPolygonesResolutionMode();
+        }
+
+        public List<Rectangle> GetSavedPolygonesAsRectangleResolutionMode()
+        {
+            var polys = myRegionEditor.GetSavedPolygonesResolutionMode();
+            List<Rectangle> listRect = new List<Rectangle>();
+            foreach (var poly in polys)
+            {
+                if (poly.points.Count==4)
+                {
+                    var xmin = Math.Min(Math.Min(poly.points[0].X, poly.points[1].X), Math.Min(poly.points[2].X, poly.points[3].X));
+                    var xmax = Math.Max(Math.Max(poly.points[0].X, poly.points[1].X), Math.Max(poly.points[2].X, poly.points[3].X));
+
+                    var ymin = Math.Min(Math.Min(poly.points[0].Y, poly.points[1].Y), Math.Min(poly.points[2].Y, poly.points[3].Y));
+                    var ymax = Math.Max(Math.Max(poly.points[0].Y, poly.points[1].Y), Math.Max(poly.points[2].Y, poly.points[3].Y));
+
+                    listRect.Add(new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin));
+                }
+            }
+            return listRect;
+        }
+
+
 
         static bool ThumbnailsAvailable(IAsset asset) // false
         {

@@ -110,7 +110,7 @@ namespace AMSExplorer
             _version = version;
             _firstAsset = firstAsset;
 
-            buttonRegionEditor.Initialize(_firstAsset, main);
+            buttonRegionEditor.Initialize(_firstAsset, main, true);
             buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
 
             buttonJobOptions.Initialize(_context);
@@ -250,7 +250,6 @@ namespace AMSExplorer
                     }
                     obj.Options.DetectionZones.Add(zone);
                 }
-
             }
 
             return JsonConvert.SerializeObject(obj, Formatting.Indented);
@@ -266,7 +265,6 @@ namespace AMSExplorer
 
         private void checkBoxRestrictDetection_CheckedChanged(object sender, EventArgs e)
         {
-            // numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
             UpdateJSONData();
             panelSelectRegions.Enabled = checkBoxRestrictDetection.Checked;
         }

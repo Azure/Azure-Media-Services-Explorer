@@ -41,7 +41,7 @@
             this.buttonClearAllRegions = new System.Windows.Forms.Button();
             this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
             this.radioButtonPolygon = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxShape = new System.Windows.Forms.GroupBox();
             this.myPictureBox1 = new AMSExplorer.myPictureBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +50,7 @@
             this.labelIndexThumbnail = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxShape.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -208,15 +208,15 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.radioButtonRectangle);
-            this.groupBox1.Controls.Add(this.radioButtonPolygon);
-            this.groupBox1.Location = new System.Drawing.Point(626, 100);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(149, 84);
-            this.groupBox1.TabIndex = 88;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Shape";
+            this.groupBoxShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxShape.Controls.Add(this.radioButtonRectangle);
+            this.groupBoxShape.Controls.Add(this.radioButtonPolygon);
+            this.groupBoxShape.Location = new System.Drawing.Point(626, 100);
+            this.groupBoxShape.Name = "groupBox1";
+            this.groupBoxShape.Size = new System.Drawing.Size(149, 84);
+            this.groupBoxShape.TabIndex = 88;
+            this.groupBoxShape.TabStop = false;
+            this.groupBoxShape.Text = "Shape";
             // 
             // myPictureBox1
             // 
@@ -287,7 +287,7 @@
             this.Controls.Add(this.labelIndexThumbnail);
             this.Controls.Add(this.buttonNextImage);
             this.Controls.Add(this.buttonPreviousImage);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxShape);
             this.Controls.Add(this.buttonClearAllRegions);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.myPictureBox1);
@@ -305,8 +305,8 @@
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxShape.ResumeLayout(false);
+            this.groupBoxShape.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -331,7 +331,7 @@
         private System.Windows.Forms.Button buttonClearAllRegions;
         private System.Windows.Forms.RadioButton radioButtonRectangle;
         private System.Windows.Forms.RadioButton radioButtonPolygon;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxShape;
         private System.Windows.Forms.Button buttonPreviousImage;
         private System.Windows.Forms.Button buttonNextImage;
         private System.Windows.Forms.Label labelIndexThumbnail;

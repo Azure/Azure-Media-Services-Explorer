@@ -78,6 +78,7 @@ namespace AMSExplorer
             new Item("Left", "Left"),
             new Item("Right", "Right")
         };
+        private IAsset _firstAsset;
 
         public string IndexerInputAssetName
         {
@@ -127,14 +128,23 @@ namespace AMSExplorer
             }
         }
 
-        public MediaAnalyticsVideoOCR(CloudMediaContext context, string version)
+        public MediaAnalyticsVideoOCR(CloudMediaContext context, string version, IAsset firstAsset, Mainform main)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _version = version;
+            _firstAsset = firstAsset;
+
+            buttonRegionEditor.Initialize(_firstAsset, main, false);
+            buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
 
             buttonJobOptions.Initialize(_context);
+        }
+
+        private void buttonRegionEditor_RegionsChanged(object sender, EventArgs e)
+        {
+            UpdateJSONData();
         }
 
         private void MediaAnalyticsVideoOCR_Load(object sender, EventArgs e)
@@ -207,15 +217,20 @@ namespace AMSExplorer
                 {
                     obj.Options.TimeInterval = TimeSpan.FromSeconds((double)numericUpDownTimeInterval.Value).ToString(@"hh\:mm\:ss\.fff");
                 }
-                if (checkBoxRestrictDetection.Checked)
+                
+                if (checkBoxRestrictDetection.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
                 {
                     obj.Options.DetectRegions = new JArray() as dynamic;
-                    dynamic region = new JObject();
-                    region.Left = numericUpDownRegionX.Value.ToString("F0");
-                    region.Top = numericUpDownRegionY.Value.ToString("F0");
-                    region.Width = numericUpDownRegionW.Value.ToString("F0");
-                    region.Height = numericUpDownRegionH.Value.ToString("F0");
-                    obj.Options.DetectRegions.Add(region);
+                    foreach (var rect in buttonRegionEditor.GetSavedPolygonesAsRectangleResolutionMode())
+                    {
+                        dynamic region = new JObject();
+                        region.Left = rect.Left;
+                        region.Top = rect.Top;
+                        region.Width = rect.Width;
+                        region.Height = rect.Height;
+
+                        obj.Options.DetectRegions.Add(region);
+                    }
                 }
                 if (!string.IsNullOrEmpty(orientation))
                 {
@@ -241,8 +256,9 @@ namespace AMSExplorer
 
         private void checkBoxOverlayResize_CheckedChanged(object sender, EventArgs e)
         {
-            numericUpDownRegionX.Enabled = numericUpDownRegionY.Enabled = numericUpDownRegionH.Enabled = numericUpDownRegionW.Enabled = checkBoxRestrictDetection.Checked;
             UpdateJSONData();
+            panelSelectRegions.Enabled = checkBoxRestrictDetection.Checked;
+
         }
 
         private void UpdateJSONData()
