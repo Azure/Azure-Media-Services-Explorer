@@ -301,7 +301,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Regions Editor";
-            this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
+            this.Load += new System.EventHandler(this.RegionEditor_Load);
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

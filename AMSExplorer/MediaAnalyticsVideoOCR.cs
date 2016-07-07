@@ -136,7 +136,7 @@ namespace AMSExplorer
             _version = version;
             _firstAsset = firstAsset;
 
-            buttonRegionEditor.Initialize(_firstAsset, main, false);
+            buttonRegionEditor.Initialize(_firstAsset, main, false, 8);
             buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
 
             buttonJobOptions.Initialize(_context);
@@ -217,7 +217,7 @@ namespace AMSExplorer
                 {
                     obj.Options.TimeInterval = TimeSpan.FromSeconds((double)numericUpDownTimeInterval.Value).ToString(@"hh\:mm\:ss\.fff");
                 }
-                
+
                 if (checkBoxRestrictDetection.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
                 {
                     obj.Options.DetectRegions = new JArray() as dynamic;

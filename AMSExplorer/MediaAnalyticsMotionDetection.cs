@@ -110,7 +110,7 @@ namespace AMSExplorer
             _version = version;
             _firstAsset = firstAsset;
 
-            buttonRegionEditor.Initialize(_firstAsset, main, true);
+            buttonRegionEditor.Initialize(_firstAsset, main, true,8);
             buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
 
             buttonJobOptions.Initialize(_context);

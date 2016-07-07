@@ -46,6 +46,7 @@ namespace AMSExplorer
         private List<Image> listPictures;
         private int pictureIndex = 0;
         private IAsset _asset;
+        private int _nbOfRegionsMax;
 
         public List<Image> SetPictures
         {
@@ -84,7 +85,7 @@ namespace AMSExplorer
             }
         }
 
-        public RegionEditor(IAsset asset, bool polygonsEnabled, string title = null, string text = null, string infoText = null)
+        public RegionEditor(IAsset asset, bool polygonsEnabled, int nbOfRegionsMax, string title = null, string text = null, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -104,6 +105,7 @@ namespace AMSExplorer
             }
 
             _asset = asset;
+            _nbOfRegionsMax = nbOfRegionsMax;
         }
 
         private void UpdateLabelIndex()
@@ -111,7 +113,7 @@ namespace AMSExplorer
             labelIndexThumbnail.Text = string.Format(infothumbnail, pictureIndex + 1, listPictures.Count);
         }
 
-        private void EditorXMLJSON_Load(object sender, EventArgs e)
+        private void RegionEditor_Load(object sender, EventArgs e)
         {
         }
 
@@ -156,8 +158,6 @@ namespace AMSExplorer
                             list.Add(Bitmap.FromStream(stream));
                         }
                     }
-
-
                 }
                 catch (Exception e)
                 { }
@@ -177,7 +177,7 @@ namespace AMSExplorer
 
         private void buttonFormat_Click(object sender, EventArgs e)
         {
-            myPictureBox1.DeleteLastPolygone();
+            myPictureBox1.DeleteLastRegion();
         }
 
 
@@ -201,6 +201,19 @@ namespace AMSExplorer
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (myPictureBox1.RegionsCount == _nbOfRegionsMax)
+            {
+                if (_nbOfRegionsMax == 1) // cropping mode
+                {
+                    myPictureBox1.DeleteLastRegion();
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("You reached the maximum number of regions allowed ({0}).", _nbOfRegionsMax), "Limit", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+
             _canDraw = true;
             //Initialize and keep track of the start position
             _startX = e.X;
@@ -209,7 +222,7 @@ namespace AMSExplorer
 
             if (polygonalMode)
             {
-                if (myPictureBox1.IsPointClosedToFirst(e.X, e.Y))
+                if (myPictureBox1.IsPointClosedToFirst(e.X, e.Y) || myPictureBox1.ReachedMaxSegments())
                 {
                     EndOfPolygonalDrawing();
                     Refresh();
@@ -227,7 +240,6 @@ namespace AMSExplorer
 
             if (!_canDraw)
             {
-
                 if (myPictureBox1.VideoImageDisplayedWidth > 0 && myPictureBox1.VideoImageDisplayedHeight > 0)
                 {
                     toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(e.X), myPictureBox1.GetOriginalYValue(e.Y));
@@ -292,23 +304,20 @@ namespace AMSExplorer
             Refresh();
         }
 
-
-
         internal List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode()
         {
-            return myPictureBox1.GetSavedPolygonesDecimalMode;
+            return myPictureBox1.GetSavedRegionsDecimalMode;
         }
 
         internal List<Polygone> GetSavedPolygonesResolutionMode()
         {
-            return myPictureBox1.GetSavedPolygonesResolutionMode;
+            return myPictureBox1.GetSavedRegionsResolutionMode;
         }
 
         private void buttonClearAllRegions_Click(object sender, EventArgs e)
         {
-            myPictureBox1.DeleteAllPolygones();
+            myPictureBox1.DeleteAllRegions();
         }
-
         private void radioButtonPolygonal_CheckedChanged(object sender, EventArgs e)
         {
             polygonalMode = radioButtonPolygon.Checked;
@@ -510,9 +519,9 @@ namespace AMSExplorer
         public int VideoImageOriginalHeight = 0;
 
         const int neighbour = 5; // 5 pixels or less
+        private int _maxNumberSegments = 10; // 10 segments max per polygon
 
-
-        public List<PolygoneDecimalMode> GetSavedPolygonesDecimalMode
+        public List<PolygoneDecimalMode> GetSavedRegionsDecimalMode
         {
             get
             {
@@ -520,7 +529,7 @@ namespace AMSExplorer
             }
         }
 
-        public List<Polygone> GetSavedPolygonesResolutionMode
+        public List<Polygone> GetSavedRegionsResolutionMode
         {
             get
             {
@@ -530,6 +539,14 @@ namespace AMSExplorer
                     polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
                 }
                 return polygonesDec;
+            }
+        }
+
+        public int RegionsCount
+        {
+            get
+            {
+                return _polygons.Count;
             }
         }
 
@@ -544,13 +561,13 @@ namespace AMSExplorer
             _poly.SetCurrentPoint(new Point(x - marginLeft, y - marginTop), VideoImageDisplayedWidth, VideoImageDisplayedHeight);
         }
 
-        public void DeleteAllPolygones()
+        public void DeleteAllRegions()
         {
             _polygons = new List<PolygoneDecimalMode>();
             Refresh();
         }
 
-        public void DeleteLastPolygone()
+        public void DeleteLastRegion()
         {
             if (_polygons.Count > 0)
             {
@@ -685,6 +702,21 @@ namespace AMSExplorer
             return false;
         }
 
+
+        internal bool ReachedMaxSegments()
+        {
+            if (_poly != null)
+            {
+                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                if (poly.Count() == _maxNumberSegments + 1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         internal void SaveRegions()
         {
             _savedPolygons = new List<PolygoneDecimalMode>();
@@ -722,9 +754,9 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax)
         {
-            myRegionEditor = new RegionEditor(asset, polygonsEnabled);
+            myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax);
             _asset = asset;
             _main = main;
         }
@@ -776,7 +808,7 @@ namespace AMSExplorer
             List<Rectangle> listRect = new List<Rectangle>();
             foreach (var poly in polys)
             {
-                if (poly.points.Count==4)
+                if (poly.points.Count == 4)
                 {
                     var xmin = Math.Min(Math.Min(poly.points[0].X, poly.points[1].X), Math.Min(poly.points[2].X, poly.points[3].X));
                     var xmax = Math.Max(Math.Max(poly.points[0].X, poly.points[1].X), Math.Max(poly.points[2].X, poly.points[3].X));
