@@ -47,6 +47,7 @@ namespace AMSExplorer
         private int pictureIndex = 0;
         private IAsset _asset;
         private int _nbOfRegionsMax;
+        private bool _croppingMode;
 
         public List<Image> SetPictures
         {
@@ -85,7 +86,7 @@ namespace AMSExplorer
             }
         }
 
-        public RegionEditor(IAsset asset, bool polygonsEnabled, int nbOfRegionsMax, string title = null, string text = null, string infoText = null)
+        public RegionEditor(IAsset asset, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode ,  string title = null, string text = null, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -106,6 +107,9 @@ namespace AMSExplorer
 
             _asset = asset;
             _nbOfRegionsMax = nbOfRegionsMax;
+
+            buttonClearAllRegions.Visible = buttonClearLastRegion.Visible = !croppingMode;
+            _croppingMode = croppingMode;
         }
 
         private void UpdateLabelIndex()
@@ -262,6 +266,13 @@ namespace AMSExplorer
             if (!polygonalMode)
             {
                 myPictureBox1.SetScreenDrawingRectangle(x, y, width, height);
+                if (_croppingMode)
+                {
+                    numericUpDownX.Value = myPictureBox1.GetOriginalXValue(x);
+                    numericUpDownY.Value = myPictureBox1.GetOriginalYValue(y);
+                    numericUpDownW.Value = myPictureBox1.GetOriginalYValue(width);
+                    numericUpDownH.Value = myPictureBox1.GetOriginalYValue(height);
+                }
             }
             else
             {
@@ -284,6 +295,15 @@ namespace AMSExplorer
                 myPictureBox1.DrawingRectangleIsFinal();
                 toolStripStatusLabelXYRect.Visible = false;
                 Refresh();
+
+                if (_croppingMode)
+                {
+                    var rect = myPictureBox1.LastRegionResolutionMode;
+                    numericUpDownX.Value = rect.X;
+                    numericUpDownY.Value = rect.Y;
+                    numericUpDownW.Value = rect.Width;
+                    numericUpDownH.Value = rect.Height;
+                }
             }
         }
 
@@ -409,6 +429,24 @@ namespace AMSExplorer
         public void Add(Point point)
         {
             points.Add(point);
+        }
+
+        public Rectangle ToRectangle()
+        {
+            if (points.Count == 4)
+            {
+                var xmin = Math.Min(Math.Min(points[0].X, points[1].X), Math.Min(points[2].X, points[3].X));
+                var xmax = Math.Max(Math.Max(points[0].X, points[1].X), Math.Max(points[2].X, points[3].X));
+
+                var ymin = Math.Min(Math.Min(points[0].Y, points[1].Y), Math.Min(points[2].Y, points[3].Y));
+                var ymax = Math.Max(Math.Max(points[0].Y, points[1].Y), Math.Max(points[2].Y, points[3].Y));
+
+                return new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
+            }
+            else
+            {
+                return new Rectangle();
+            }
         }
     }
 
@@ -539,6 +577,15 @@ namespace AMSExplorer
                     polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
                 }
                 return polygonesDec;
+            }
+        }
+
+        public Rectangle LastRegionResolutionMode
+        {
+            get
+            {
+                var poly = _polygons.LastOrDefault();
+                return poly.ToPolygone(VideoImage.Width, VideoImage.Height).ToRectangle();
             }
         }
 
@@ -754,9 +801,9 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax,  bool croppingMode)
         {
-            myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax);
+            myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax, croppingMode);
             _asset = asset;
             _main = main;
         }
@@ -808,16 +855,7 @@ namespace AMSExplorer
             List<Rectangle> listRect = new List<Rectangle>();
             foreach (var poly in polys)
             {
-                if (poly.points.Count == 4)
-                {
-                    var xmin = Math.Min(Math.Min(poly.points[0].X, poly.points[1].X), Math.Min(poly.points[2].X, poly.points[3].X));
-                    var xmax = Math.Max(Math.Max(poly.points[0].X, poly.points[1].X), Math.Max(poly.points[2].X, poly.points[3].X));
-
-                    var ymin = Math.Min(Math.Min(poly.points[0].Y, poly.points[1].Y), Math.Min(poly.points[2].Y, poly.points[3].Y));
-                    var ymax = Math.Max(Math.Max(poly.points[0].Y, poly.points[1].Y), Math.Max(poly.points[2].Y, poly.points[3].Y));
-
-                    listRect.Add(new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin));
-                }
+                listRect.Add(poly.ToRectangle());
             }
             return listRect;
         }

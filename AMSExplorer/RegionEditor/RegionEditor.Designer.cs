@@ -48,10 +48,24 @@
             this.buttonPreviousImage = new System.Windows.Forms.Button();
             this.buttonNextImage = new System.Windows.Forms.Button();
             this.labelIndexThumbnail = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownX = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownY = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownW = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownH = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBoxShape.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -96,7 +110,7 @@
             this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(626, 277);
+            this.labelWarningJSON.Location = new System.Drawing.Point(626, 420);
             this.labelWarningJSON.Name = "labelWarningJSON";
             this.labelWarningJSON.Size = new System.Drawing.Size(78, 21);
             this.labelWarningJSON.TabIndex = 78;
@@ -133,7 +147,7 @@
             this.labelInfoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.labelInfoText.ForeColor = System.Drawing.Color.Black;
-            this.labelInfoText.Location = new System.Drawing.Point(626, 187);
+            this.labelInfoText.Location = new System.Drawing.Point(626, 342);
             this.labelInfoText.Name = "labelInfoText";
             this.labelInfoText.Size = new System.Drawing.Size(149, 80);
             this.labelInfoText.TabIndex = 82;
@@ -206,13 +220,13 @@
             this.radioButtonPolygon.UseVisualStyleBackColor = true;
             this.radioButtonPolygon.CheckedChanged += new System.EventHandler(this.radioButtonPolygonal_CheckedChanged);
             // 
-            // groupBox1
+            // groupBoxShape
             // 
             this.groupBoxShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxShape.Controls.Add(this.radioButtonRectangle);
             this.groupBoxShape.Controls.Add(this.radioButtonPolygon);
             this.groupBoxShape.Location = new System.Drawing.Point(626, 100);
-            this.groupBoxShape.Name = "groupBox1";
+            this.groupBoxShape.Name = "groupBoxShape";
             this.groupBoxShape.Size = new System.Drawing.Size(149, 84);
             this.groupBoxShape.TabIndex = 88;
             this.groupBoxShape.TabStop = false;
@@ -277,6 +291,108 @@
             this.labelIndexThumbnail.Text = "thumbnail 1/2";
             this.labelIndexThumbnail.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.numericUpDownH);
+            this.groupBox1.Controls.Add(this.numericUpDownW);
+            this.groupBox1.Controls.Add(this.numericUpDownY);
+            this.groupBox1.Controls.Add(this.numericUpDownX);
+            this.groupBox1.Location = new System.Drawing.Point(627, 191);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(148, 147);
+            this.groupBox1.TabIndex = 92;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Rectangle";
+            // 
+            // numericUpDownX
+            // 
+            this.numericUpDownX.Location = new System.Drawing.Point(63, 22);
+            this.numericUpDownX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownX.Name = "numericUpDownX";
+            this.numericUpDownX.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownX.TabIndex = 0;
+            // 
+            // numericUpDownY
+            // 
+            this.numericUpDownY.Location = new System.Drawing.Point(63, 51);
+            this.numericUpDownY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownY.Name = "numericUpDownY";
+            this.numericUpDownY.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownY.TabIndex = 1;
+            // 
+            // numericUpDownW
+            // 
+            this.numericUpDownW.Location = new System.Drawing.Point(63, 80);
+            this.numericUpDownW.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownW.Name = "numericUpDownW";
+            this.numericUpDownW.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownW.TabIndex = 2;
+            // 
+            // numericUpDownH
+            // 
+            this.numericUpDownH.Location = new System.Drawing.Point(63, 109);
+            this.numericUpDownH.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownH.Name = "numericUpDownH";
+            this.numericUpDownH.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownH.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 15);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "X :";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 15);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Y :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Width :";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 111);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 15);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Height :";
+            // 
             // RegionEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -284,6 +400,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelIndexThumbnail);
             this.Controls.Add(this.buttonNextImage);
             this.Controls.Add(this.buttonPreviousImage);
@@ -308,6 +425,12 @@
             this.groupBoxShape.ResumeLayout(false);
             this.groupBoxShape.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -335,5 +458,14 @@
         private System.Windows.Forms.Button buttonPreviousImage;
         private System.Windows.Forms.Button buttonNextImage;
         private System.Windows.Forms.Label labelIndexThumbnail;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDownH;
+        private System.Windows.Forms.NumericUpDown numericUpDownW;
+        private System.Windows.Forms.NumericUpDown numericUpDownY;
+        private System.Windows.Forms.NumericUpDown numericUpDownX;
     }
 }

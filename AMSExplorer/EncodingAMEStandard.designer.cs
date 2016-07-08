@@ -188,6 +188,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panelSelectRegion = new System.Windows.Forms.Panel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
+            this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -219,6 +223,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.panelSelectRegion.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -456,6 +462,7 @@
             this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThBMP);
             this.tabControl1.Controls.Add(this.tabPageOverlay);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(24, 97);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -2111,6 +2118,48 @@
             this.panel2.Size = new System.Drawing.Size(24, 42);
             this.panel2.TabIndex = 85;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.panelSelectRegion);
+            this.tabPage1.Controls.Add(this.checkBoxCropVideo);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(724, 361);
+            this.tabPage1.TabIndex = 7;
+            this.tabPage1.Text = "Video Cropping";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panelSelectRegion
+            // 
+            this.panelSelectRegion.Controls.Add(this.buttonRegionEditor);
+            this.panelSelectRegion.Enabled = false;
+            this.panelSelectRegion.Location = new System.Drawing.Point(187, 12);
+            this.panelSelectRegion.Name = "panelSelectRegion";
+            this.panelSelectRegion.Size = new System.Drawing.Size(406, 100);
+            this.panelSelectRegion.TabIndex = 109;
+            // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Location = new System.Drawing.Point(10, 23);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Select...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCropVideo
+            // 
+            this.checkBoxCropVideo.AutoSize = true;
+            this.checkBoxCropVideo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxCropVideo.Location = new System.Drawing.Point(17, 38);
+            this.checkBoxCropVideo.Name = "checkBoxCropVideo";
+            this.checkBoxCropVideo.Size = new System.Drawing.Size(157, 19);
+            this.checkBoxCropVideo.TabIndex = 108;
+            this.checkBoxCropVideo.Text = "Crop video to this region";
+            this.checkBoxCropVideo.UseVisualStyleBackColor = true;
+            this.checkBoxCropVideo.CheckedChanged += new System.EventHandler(this.checkBoxCropVideo_CheckedChanged);
+            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2185,6 +2234,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.panelSelectRegion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2350,5 +2402,9 @@
         private System.Windows.Forms.CheckBox checkBoxUseEDL;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel panelSelectRegion;
+        private ButtonRegionEditor buttonRegionEditor;
+        private System.Windows.Forms.CheckBox checkBoxCropVideo;
     }
 }
