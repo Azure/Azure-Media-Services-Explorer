@@ -14510,6 +14510,11 @@ namespace AMSExplorer
             Properties.Settings.Default.ConcurrentTransfers = trackBarConcurrentTransfers.Value;
             Program.SaveAndProtectUserConfig();
         }
+
+        private void toolStripMenuItem15_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromHttp();
+        }
     }
 }
 
