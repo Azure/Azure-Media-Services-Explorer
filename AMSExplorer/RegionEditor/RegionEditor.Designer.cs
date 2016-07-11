@@ -49,23 +49,24 @@
             this.buttonNextImage = new System.Windows.Forms.Button();
             this.labelIndexThumbnail = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownX = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownY = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownW = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownH = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownH = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownW = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownY = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownX = new System.Windows.Forms.NumericUpDown();
+            this.toolStripStatusLabelImSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBoxShape.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -159,6 +160,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelImSize,
             this.toolStripStatusLabelMouseInfo,
             this.toolStripStatusLabelXYRect});
             this.statusStrip1.Location = new System.Drawing.Point(0, 539);
@@ -239,6 +241,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.myPictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.myPictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.myPictureBox1.LastRectangle = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.myPictureBox1.Location = new System.Drawing.Point(12, 13);
             this.myPictureBox1.Name = "myPictureBox1";
             this.myPictureBox1.Size = new System.Drawing.Size(608, 465);
@@ -309,41 +312,41 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rectangle";
             // 
-            // numericUpDownX
+            // label4
             // 
-            this.numericUpDownX.Location = new System.Drawing.Point(63, 22);
-            this.numericUpDownX.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownX.Name = "numericUpDownX";
-            this.numericUpDownX.Size = new System.Drawing.Size(79, 23);
-            this.numericUpDownX.TabIndex = 0;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 111);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 15);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Height :";
             // 
-            // numericUpDownY
+            // label3
             // 
-            this.numericUpDownY.Location = new System.Drawing.Point(63, 51);
-            this.numericUpDownY.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownY.Name = "numericUpDownY";
-            this.numericUpDownY.Size = new System.Drawing.Size(79, 23);
-            this.numericUpDownY.TabIndex = 1;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Width :";
             // 
-            // numericUpDownW
+            // label2
             // 
-            this.numericUpDownW.Location = new System.Drawing.Point(63, 80);
-            this.numericUpDownW.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownW.Name = "numericUpDownW";
-            this.numericUpDownW.Size = new System.Drawing.Size(79, 23);
-            this.numericUpDownW.TabIndex = 2;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 15);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Y :";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 15);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "X :";
             // 
             // numericUpDownH
             // 
@@ -356,42 +359,72 @@
             this.numericUpDownH.Name = "numericUpDownH";
             this.numericUpDownH.Size = new System.Drawing.Size(79, 23);
             this.numericUpDownH.TabIndex = 3;
+            this.numericUpDownH.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownH.ValueChanged += new System.EventHandler(this.numericUpDownREct_ValueChanged);
             // 
-            // label1
+            // numericUpDownW
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "X :";
+            this.numericUpDownW.Location = new System.Drawing.Point(63, 80);
+            this.numericUpDownW.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownW.Name = "numericUpDownW";
+            this.numericUpDownW.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownW.TabIndex = 2;
+            this.numericUpDownW.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownW.ValueChanged += new System.EventHandler(this.numericUpDownREct_ValueChanged);
             // 
-            // label2
+            // numericUpDownY
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Y :";
+            this.numericUpDownY.Location = new System.Drawing.Point(63, 51);
+            this.numericUpDownY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownY.Name = "numericUpDownY";
+            this.numericUpDownY.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownY.TabIndex = 1;
+            this.numericUpDownY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownY.ValueChanged += new System.EventHandler(this.numericUpDownREct_ValueChanged);
             // 
-            // label3
+            // numericUpDownX
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 15);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Width :";
+            this.numericUpDownX.Location = new System.Drawing.Point(63, 22);
+            this.numericUpDownX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownX.Name = "numericUpDownX";
+            this.numericUpDownX.Size = new System.Drawing.Size(79, 23);
+            this.numericUpDownX.TabIndex = 0;
+            this.numericUpDownX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownX.ValueChanged += new System.EventHandler(this.numericUpDownREct_ValueChanged);
             // 
-            // label4
+            // toolStripStatusLabelImSize
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 15);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Height :";
+            this.toolStripStatusLabelImSize.Name = "toolStripStatusLabelImSize";
+            this.toolStripStatusLabelImSize.Size = new System.Drawing.Size(100, 17);
+            this.toolStripStatusLabelImSize.Text = "Image size 20 x 20";
             // 
             // RegionEditor
             // 
@@ -427,10 +460,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -467,5 +500,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownW;
         private System.Windows.Forms.NumericUpDown numericUpDownY;
         private System.Windows.Forms.NumericUpDown numericUpDownX;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelImSize;
     }
 }

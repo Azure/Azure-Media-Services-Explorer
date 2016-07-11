@@ -48,6 +48,7 @@ namespace AMSExplorer
         private IAsset _asset;
         private int _nbOfRegionsMax;
         private bool _croppingMode;
+        private bool _updateNumericUpDownByMouse = true;
 
         public List<Image> SetPictures
         {
@@ -55,7 +56,6 @@ namespace AMSExplorer
             {
                 listPictures = value;
                 SetCurrentPicture(listPictures.FirstOrDefault());
-                pictureIndex = 0;
             }
         }
 
@@ -64,6 +64,15 @@ namespace AMSExplorer
             myPictureBox1.VideoImage = picture;
             myPictureBox1.VideoImageOriginalWidth = picture.Width;
             myPictureBox1.VideoImageOriginalHeight = picture.Height;
+
+            if (_croppingMode)
+            {
+                numericUpDownX.Maximum = picture.Width;
+                numericUpDownY.Maximum = picture.Height;
+                numericUpDownW.Maximum = picture.Width;
+                numericUpDownH.Maximum = picture.Height;
+            }
+            toolStripStatusLabelImSize.Text = string.Format("Image size {0} x {1}", picture.Width, picture.Height);
             Refresh();
             UpdateLabelIndex();
         }
@@ -86,7 +95,7 @@ namespace AMSExplorer
             }
         }
 
-        public RegionEditor(IAsset asset, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode ,  string title = null, string text = null, string infoText = null)
+        public RegionEditor(IAsset asset, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode, string title = null, string text = null, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -110,6 +119,8 @@ namespace AMSExplorer
 
             buttonClearAllRegions.Visible = buttonClearLastRegion.Visible = !croppingMode;
             _croppingMode = croppingMode;
+            myPictureBox1.CroppingMode =  croppingMode;
+
         }
 
         private void UpdateLabelIndex()
@@ -124,6 +135,16 @@ namespace AMSExplorer
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
+            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            MyThread.SetApartmentState(ApartmentState.STA);
+            MyThread.IsBackground = true;
+            MyThread.Start(myPictureBox1.vi);
+
+        }
+
+        public void DoCopyClipboard(object image)
+        {
+            Clipboard.SetImage((Image)image);
         }
 
         static List<Image> ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
@@ -220,22 +241,26 @@ namespace AMSExplorer
 
             _canDraw = true;
             //Initialize and keep track of the start position
-            _startX = e.X;
-            _startY = e.Y;
+            int currentX = myPictureBox1.ReturnXInsideVideo(e.X);
+            int currentY = myPictureBox1.ReturnYInsideVideo(e.Y);
+
+            _startX = currentX;
+            _startY = currentY;
             toolStripStatusLabelXYRect.Visible = true;
 
             if (polygonalMode)
             {
-                if (myPictureBox1.IsPointClosedToFirst(e.X, e.Y) || myPictureBox1.ReachedMaxSegments())
+                if (myPictureBox1.IsPointClosedToFirst(currentX, currentY) || myPictureBox1.ReachedMaxSegments())
                 {
                     EndOfPolygonalDrawing();
                     Refresh();
                 }
                 else
                 {
-                    myPictureBox1.AddScreenPoint(e.X, e.Y);
+                    myPictureBox1.AddScreenPoint(currentX, currentY);
                 }
             }
+
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -251,38 +276,44 @@ namespace AMSExplorer
                 return;
             }
 
+            int currentX = myPictureBox1.ReturnXInsideVideo(e.X);
+            int currentY = myPictureBox1.ReturnYInsideVideo(e.Y);
+
             //The x-value of our rectangle should be the minimum between the start x-value and the current x-position
-            int x = Math.Min(_startX, e.X);
+            int x = Math.Min(_startX, currentX);
             //The y-value of our rectangle should also be the minimum between the start y-value and current y-value
-            int y = Math.Min(_startY, e.Y);
+            int y = Math.Min(_startY, currentY);
 
             //The width of our rectangle should be the maximum between the start x-position and current x-position minus
             //the minimum of start x-position and current x-position
-            int width = Math.Max(_startX, e.X) - Math.Min(_startX, e.X);
+            int width = Math.Max(_startX, currentX) - Math.Min(_startX, currentX);
 
             //For the hight value, it's basically the same thing as above, but now with the y-values:
-            int height = Math.Max(_startY, e.Y) - Math.Min(_startY, e.Y);
+            int height = Math.Max(_startY, currentY) - Math.Min(_startY, currentY);
 
             if (!polygonalMode)
             {
-                myPictureBox1.SetScreenDrawingRectangle(x, y, width, height);
+                var rect = myPictureBox1.SetScreenDrawingRectangle(x, y, width, height);
                 if (_croppingMode)
                 {
-                    numericUpDownX.Value = myPictureBox1.GetOriginalXValue(x);
-                    numericUpDownY.Value = myPictureBox1.GetOriginalYValue(y);
-                    numericUpDownW.Value = myPictureBox1.GetOriginalYValue(width);
-                    numericUpDownH.Value = myPictureBox1.GetOriginalYValue(height);
+                    _updateNumericUpDownByMouse = true;
+                    numericUpDownX.Value = rect.X;
+                    numericUpDownY.Value = rect.Y;
+                    numericUpDownW.Value = rect.Width;
+                    numericUpDownH.Value = rect.Height;
+                    _updateNumericUpDownByMouse = false;
                 }
             }
             else
             {
-                myPictureBox1.UpdateScreenDrawingPolygone(e.X, e.Y);
+                myPictureBox1.UpdateScreenDrawingPolygone(currentX, currentY);
             }
 
-            toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(x), myPictureBox1.GetOriginalYValue(y));
+            toolStripStatusLabelMouseInfo.Text = string.Format(infoMouse, myPictureBox1.GetOriginalXValue(currentX), myPictureBox1.GetOriginalYValue(currentY));
             toolStripStatusLabelXYRect.Text = string.Format(infoMouseDrawRectangle, myPictureBox1.GetOriginalWidthValue(width), myPictureBox1.GetOriginalWidthValue(height));
 
             Refresh();
+
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -329,7 +360,7 @@ namespace AMSExplorer
             return myPictureBox1.GetSavedRegionsDecimalMode;
         }
 
-        internal List<Polygone> GetSavedPolygonesResolutionMode()
+        internal List<Polygon> GetSavedPolygonesResolutionMode()
         {
             return myPictureBox1.GetSavedRegionsResolutionMode;
         }
@@ -361,12 +392,19 @@ namespace AMSExplorer
 
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void numericUpDownREct_ValueChanged(object sender, EventArgs e)
         {
+            if (!_updateNumericUpDownByMouse)
+            {
+                myPictureBox1.LastRectangle = new Rectangle((int)numericUpDownX.Value, (int)numericUpDownY.Value, (int)numericUpDownW.Value, (int)numericUpDownH.Value);
+                Refresh();
+            }
+            numericUpDownW.Maximum = myPictureBox1.VideoImageOriginalWidth - numericUpDownX.Value;
+            numericUpDownH.Maximum = myPictureBox1.VideoImageOriginalHeight - numericUpDownY.Value;
 
         }
 
-        private void myPictureBox1_DoubleClick(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
 
         }
@@ -417,29 +455,31 @@ namespace AMSExplorer
         }
     }
 
-    class Polygone
-    {
-        public List<Point> points;
 
-        public Polygone()
+
+    class Polygon
+    {
+        public List<Point> _points;
+
+        public Polygon()
         {
-            points = new List<Point>();
+            _points = new List<Point>();
         }
 
         public void Add(Point point)
         {
-            points.Add(point);
+            _points.Add(point);
         }
 
         public Rectangle ToRectangle()
         {
-            if (points.Count == 4)
+            if (_points.Count == 4)
             {
-                var xmin = Math.Min(Math.Min(points[0].X, points[1].X), Math.Min(points[2].X, points[3].X));
-                var xmax = Math.Max(Math.Max(points[0].X, points[1].X), Math.Max(points[2].X, points[3].X));
+                var xmin = Math.Min(Math.Min(_points[0].X, _points[1].X), Math.Min(_points[2].X, _points[3].X));
+                var xmax = Math.Max(Math.Max(_points[0].X, _points[1].X), Math.Max(_points[2].X, _points[3].X));
 
-                var ymin = Math.Min(Math.Min(points[0].Y, points[1].Y), Math.Min(points[2].Y, points[3].Y));
-                var ymax = Math.Max(Math.Max(points[0].Y, points[1].Y), Math.Max(points[2].Y, points[3].Y));
+                var ymin = Math.Min(Math.Min(_points[0].Y, _points[1].Y), Math.Min(_points[2].Y, _points[3].Y));
+                var ymax = Math.Max(Math.Max(_points[0].Y, _points[1].Y), Math.Max(_points[2].Y, _points[3].Y));
 
                 return new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
             }
@@ -447,6 +487,40 @@ namespace AMSExplorer
             {
                 return new Rectangle();
             }
+        }
+
+        public void RemoveLastPoint()
+        {
+            if (_points.Count > 0) _points.RemoveAt(_points.Count - 1);
+        }
+
+        public int PointsCount
+        {
+            get
+            {
+                return _points.Count;
+            }
+        }
+
+        public Point[] ToPoints()
+        {
+            return _points.ToArray();
+        }
+
+        public void SetCurrentPoint(Point p)
+        {
+            _points[_points.Count - 1] = new Point(p.X, p.Y);
+        }
+
+        public PolygoneDecimalMode ToPolygoneDecimalMode(int imageWidth, int imageheight)
+        {
+            var poly = new PolygoneDecimalMode();
+            foreach (var p in _points)
+            {
+                poly.AddPoint(new Point(p.X, p.Y), imageWidth, imageheight);
+            }
+
+            return poly;
         }
     }
 
@@ -488,9 +562,9 @@ namespace AMSExplorer
             }
         }
 
-        public Polygone ToPolygone(int imageWidth, int imageheight, int addmarginleft = 0, int addmargintop = 0)
+        public Polygon ToPolygone(int imageWidth, int imageheight, int addmarginleft = 0, int addmargintop = 0)
         {
-            var poly = new Polygone();
+            var poly = new Polygon();
             foreach (var p in _points)
             {
                 int x = (int)(p.X * imageWidth) + addmarginleft;
@@ -543,10 +617,10 @@ namespace AMSExplorer
 
     class myPictureBox : PictureBox
     {
-        private List<PolygoneDecimalMode> _savedPolygons = new List<PolygoneDecimalMode>();
-        private List<PolygoneDecimalMode> _polygons = new List<PolygoneDecimalMode>(); // working list
-        private RectangleDecimalMode _rect;
-        private PolygoneDecimalMode _poly;
+        private List<Polygon> _savedPolygons = new List<Polygon>();
+        private List<Polygon> _polygons = new List<Polygon>(); // working list
+        private Rectangle _rect;
+        private Polygon _poly;
 
         public Image VideoImage = null;
         public int marginLeft = 0;
@@ -559,7 +633,28 @@ namespace AMSExplorer
         const int neighbour = 5; // 5 pixels or less
         private int _maxNumberSegments = 10; // 10 segments max per polygon
 
+
+        public Rectangle LastRectangle
+        {
+            get
+            {
+                return (_polygons.Count > 0) ? _polygons.LastOrDefault().ToRectangle() : new Rectangle();
+            }
+            set
+            {
+                if (_polygons.Count > 0) _polygons[_polygons.Count - 1] = ToPolygon(value);
+            }
+        }
+
         public List<PolygoneDecimalMode> GetSavedRegionsDecimalMode
+        {
+            get
+            {
+                return _savedPolygons.Select(p => p.ToPolygoneDecimalMode(VideoImageOriginalWidth, VideoImageOriginalHeight)).ToList();
+            }
+        }
+
+        public List<Polygon> GetSavedRegionsResolutionMode
         {
             get
             {
@@ -567,25 +662,11 @@ namespace AMSExplorer
             }
         }
 
-        public List<Polygone> GetSavedRegionsResolutionMode
-        {
-            get
-            {
-                List<Polygone> polygonesDec = new List<Polygone>();
-                foreach (var poly in _savedPolygons)
-                {
-                    polygonesDec.Add(poly.ToPolygone(VideoImage.Width, VideoImage.Height));
-                }
-                return polygonesDec;
-            }
-        }
-
         public Rectangle LastRegionResolutionMode
         {
             get
             {
-                var poly = _polygons.LastOrDefault();
-                return poly.ToPolygone(VideoImage.Width, VideoImage.Height).ToRectangle();
+                return _polygons.LastOrDefault().ToRectangle();
             }
         }
 
@@ -597,20 +678,22 @@ namespace AMSExplorer
             }
         }
 
+        public bool CroppingMode { get; internal set; }
 
-        public void SetScreenDrawingRectangle(int x, int y, int width, int height)
+        public Rectangle SetScreenDrawingRectangle(int x, int y, int width, int height)
         {
-            _rect = new RectangleDecimalMode(x - marginLeft, y - marginTop, width, height, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
+            _rect = new Rectangle(GetOriginalXValue(x), GetOriginalYValue(y), GetOriginalWidthValue(width), GetOriginalHeightValue(height));
+            return _rect;
         }
 
         public void UpdateScreenDrawingPolygone(int x, int y)
         {
-            _poly.SetCurrentPoint(new Point(x - marginLeft, y - marginTop), VideoImageDisplayedWidth, VideoImageDisplayedHeight);
+            _poly.SetCurrentPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)));
         }
 
         public void DeleteAllRegions()
         {
-            _polygons = new List<PolygoneDecimalMode>();
+            _polygons = new List<Polygon>();
             Refresh();
         }
 
@@ -654,7 +737,6 @@ namespace AMSExplorer
             var penRed = new Pen(Color.Red, 2);
             var penGreen = new Pen(Color.Green, 2);
 
-
             //Draw the rectangle on our form with the pen
             e.Graphics.Clear(SystemColors.Window);
             e.Graphics.DrawImage(VideoImage, marginLeft, marginTop, VideoImageDisplayedWidth, VideoImageDisplayedHeight);
@@ -663,29 +745,26 @@ namespace AMSExplorer
             int index = 0;
             if (_rect != null)
             {
-                var rect = _rect.ToRectangle(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                e.Graphics.DrawRectangle(penRed, rect);
+                e.Graphics.DrawRectangle(penRed, GetScaledValue(_rect));
             }
 
-            foreach (var polydec in _polygons)
+            foreach (var polyg in _polygons)
             {
-                var poly = polydec.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                var poly = GetScaledValue(polyg);
                 e.Graphics.DrawPolygon(penGreen, poly);
-                e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Green), poly[0].X, poly[0].Y);
+                if (!CroppingMode) e.Graphics.DrawString(index.ToString(), new Font("Segoe UI", 9), new SolidBrush(Color.Green), poly[0].X, poly[0].Y);
                 index++;
             }
             if (_poly != null)
             {
-                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
-                e.Graphics.DrawLines(penRed, poly);
+                e.Graphics.DrawLines(penRed, GetScaledValue(_poly));
             }
-
         }
 
         public void DrawingRectangleIsFinal()
         {
-            if (_rect != null) _polygons.Add(_rect.ToPolygone());
-            _rect = null;
+            if (_rect != null) _polygons.Add(ToPolygon(_rect));
+            _rect = new Rectangle();
         }
 
         public void DrawingPolygoneIsFinal()
@@ -699,9 +778,40 @@ namespace AMSExplorer
             _poly = null;
         }
 
+        public Polygon ToPolygon(Rectangle rect)
+        {
+            var poly = new Polygon();
+
+            poly.Add(new Point(rect.X, rect.Y));
+            poly.Add(new Point(rect.X + rect.Width, rect.Y));
+            poly.Add(new Point(rect.X + rect.Width, rect.Y + rect.Height));
+            poly.Add(new Point(rect.X, rect.Y + rect.Height));
+
+            return poly;
+        }
+
+        public Rectangle GetScaledValue(Rectangle r)
+        {
+            return new Rectangle(GetScaledXValue(r.X), GetScaledYValue(r.Y), GetScaledWidthValue(r.Width), GetScaledHeightValue(r.Height));
+        }
+
+        public Point[] GetScaledValue(Polygon poly)
+        {
+            return poly.ToPoints().Select(p => new Point(GetScaledXValue(p.X), GetScaledYValue(p.Y))).ToArray();
+        }
+
+        public int GetScaledXValue(int x)
+        {
+            return (int)(((decimal)x / VideoImageOriginalWidth) * VideoImageDisplayedWidth + marginLeft);
+        }
+
         public int GetOriginalXValue(int screenX)
         {
             return (int)((decimal)VideoImageOriginalWidth * (screenX - marginLeft) / VideoImageDisplayedWidth);
+        }
+        public int GetScaledYValue(int y)
+        {
+            return (int)(((decimal)y / VideoImageOriginalHeight) * VideoImageDisplayedHeight + marginTop);
         }
 
         public int GetOriginalYValue(int screenY)
@@ -709,9 +819,18 @@ namespace AMSExplorer
             return (int)((decimal)VideoImageOriginalHeight * (screenY - marginTop) / VideoImageDisplayedHeight);
         }
 
+        public int GetScaledWidthValue(int width)
+        {
+            return (int)(((decimal)width / VideoImageOriginalWidth) * VideoImageDisplayedWidth);
+        }
+
         public int GetOriginalWidthValue(int screenWidth)
         {
             return (int)((decimal)VideoImageOriginalWidth * (screenWidth) / VideoImageDisplayedWidth);
+        }
+        public int GetScaledHeightValue(int height)
+        {
+            return (int)(((decimal)height / VideoImageOriginalHeight) * VideoImageDisplayedHeight);
         }
 
         public int GetOriginalHeightValue(int screenHeight)
@@ -721,23 +840,22 @@ namespace AMSExplorer
 
         public void AddScreenPoint(int x, int y)
         {
-            if (_poly == null) _poly = new PolygoneDecimalMode();
-            _poly.AddPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)), VideoImageOriginalWidth, VideoImageOriginalHeight);
-            if (_poly.PointsCount == 1) _poly.AddPoint(new Point(GetOriginalXValue(x), GetOriginalYValue(y)), VideoImageOriginalWidth, VideoImageOriginalHeight); // for first point
-
+            if (_poly == null) _poly = new Polygon();
+            _poly.Add(new Point(GetOriginalXValue(x), GetOriginalYValue(y)));
+            if (_poly.PointsCount == 1) _poly.Add(new Point(GetOriginalXValue(x), GetOriginalYValue(y))); // for first point
         }
 
         public void ResetCurrentDrawings()
         {
             _poly = null;
-            _rect = null;
+            _rect = new Rectangle();
         }
 
         internal bool IsPointClosedToFirst(int x, int y)
         {
             if (_poly != null)
             {
-                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                var poly = GetScaledValue(_poly);
                 if (poly.Count() > 0)
                 {
                     if (Math.Abs(poly[0].X - x) < neighbour && (Math.Abs(poly[0].Y - y) < neighbour))
@@ -749,12 +867,30 @@ namespace AMSExplorer
             return false;
         }
 
+        internal bool IsInsideVideo(int x, int y)
+        {
+            return (GetOriginalXValue(x) >= 0 && GetOriginalXValue(x) < VideoImageOriginalWidth && GetOriginalYValue(y) >= 0 && GetOriginalYValue(y) < VideoImageOriginalHeight);
+        }
+
+        internal int ReturnXInsideVideo(int x)
+        {
+            if (x < marginLeft) return marginLeft;
+            else if (x > marginLeft + VideoImageDisplayedWidth) return marginLeft + VideoImageDisplayedWidth;
+            else return x;
+        }
+
+        internal int ReturnYInsideVideo(int y)
+        {
+            if (y < marginTop) return marginTop;
+            else if (y > marginTop + VideoImageDisplayedHeight) return marginTop + VideoImageDisplayedHeight;
+            else return y;
+        }
 
         internal bool ReachedMaxSegments()
         {
             if (_poly != null)
             {
-                var poly = _poly.ToPoints(VideoImageDisplayedWidth, VideoImageDisplayedHeight, marginLeft, marginTop);
+                var poly = GetScaledValue(_poly);
                 if (poly.Count() == _maxNumberSegments + 1)
                 {
                     return true;
@@ -766,13 +902,13 @@ namespace AMSExplorer
 
         internal void SaveRegions()
         {
-            _savedPolygons = new List<PolygoneDecimalMode>();
+            _savedPolygons = new List<Polygon>();
             _savedPolygons.AddRange(_polygons);
         }
 
         internal void LoadSavedRegions()
         {
-            _polygons = new List<PolygoneDecimalMode>();
+            _polygons = new List<Polygon>();
             _polygons.AddRange(_savedPolygons);
         }
     }
@@ -801,7 +937,7 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax,  bool croppingMode)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode)
         {
             myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax, croppingMode);
             _asset = asset;
@@ -844,11 +980,6 @@ namespace AMSExplorer
             return myRegionEditor.GetSavedPolygonesDecimalMode();
         }
 
-        public List<Polygone> GetSavedPolygonesResolutionMode()
-        {
-            return myRegionEditor.GetSavedPolygonesResolutionMode();
-        }
-
         public List<Rectangle> GetSavedPolygonesAsRectangleResolutionMode()
         {
             var polys = myRegionEditor.GetSavedPolygonesResolutionMode();
@@ -859,8 +990,6 @@ namespace AMSExplorer
             }
             return listRect;
         }
-
-
 
         static bool ThumbnailsAvailable(IAsset asset) // false
         {
