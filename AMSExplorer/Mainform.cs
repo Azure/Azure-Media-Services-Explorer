@@ -3111,7 +3111,8 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
+
         {
 
             // If upload in the queue, let's wait our turn
@@ -3241,7 +3242,7 @@ namespace AMSExplorer
                     // do the copy
                     int nbblob = 0;
 
-                    // For LIve archive, the folder for chiks are returnbed as files. So we detect this case and don't try to copy the folders as asset files
+                    // For Live archive, the folder for chunks are returned as files. So we detect this case and don't try to copy the folders as asset files
                     List<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
                     if (
                         assetFilesToCopy.Where(af => af.Name.Contains(".")).Count() == 2
@@ -3497,6 +3498,38 @@ namespace AMSExplorer
                 }
             }
 
+            // Clone streaming locators
+            if (CloneStreamingLocators && !ErrorCopyAsset && SourceAssets.FirstOrDefault().Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 && !response.token.IsCancellationRequested)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Cloning streaming locator(s) to cloned asset '{0}'", SourceAssets.FirstOrDefault().Name);
+
+                    var sourceLocators = SourceAssets.FirstOrDefault().Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Select(l => new { l.Id, l.Name, l.StartTime, l.ExpirationDateTime }).ToList();
+
+                    if (UnpublishSourceAsset)
+                    {
+                        sourceLocators.ForEach(sl => _context.Locators.Where(l => l.Id == sl.Id).FirstOrDefault().Delete());
+
+                        TextBoxLogWriteLine(string.Format("Source locator(s) for asset {0} deleted.", SourceAssets.FirstOrDefault().Name));
+                    }
+
+                    foreach (var streamLocator in sourceLocators)
+                    {
+                        IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + SourceAssets.FirstOrDefault().Name, (streamLocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
+                        var newLoc= DestinationContext.Locators.CreateLocator(streamLocator.Id, LocatorType.OnDemandOrigin, TargetAsset, policy, streamLocator.StartTime, streamLocator.Name);
+                        TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", newLoc.Id));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when cloning locator(s) to the asset '{0}'.", TargetAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            // end of copy
             DestinationLocator.Delete();
             writePolicy.Delete();
 
@@ -3832,7 +3865,7 @@ namespace AMSExplorer
                     foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
                     {
                         IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, (streamlocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
-                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime);
+                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime, streamlocator.Name);
                         TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
                     }
                 }
@@ -12118,7 +12151,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters), response.token);
+                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset), response.token);
                         }
                     }
                     else // merge all assets into a single asset
