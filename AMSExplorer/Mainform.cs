@@ -3510,14 +3510,14 @@ namespace AMSExplorer
                     if (UnpublishSourceAsset)
                     {
                         sourceLocators.ForEach(sl => _context.Locators.Where(l => l.Id == sl.Id).FirstOrDefault().Delete());
-
                         TextBoxLogWriteLine(string.Format("Source locator(s) for asset {0} deleted.", SourceAssets.FirstOrDefault().Name));
+                        Thread.Sleep(1000); // to make sure tables are updated before new locators are created
                     }
 
                     foreach (var streamLocator in sourceLocators)
                     {
                         IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + SourceAssets.FirstOrDefault().Name, (streamLocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
-                        var newLoc= DestinationContext.Locators.CreateLocator(streamLocator.Id, LocatorType.OnDemandOrigin, TargetAsset, policy, streamLocator.StartTime, streamLocator.Name);
+                        var newLoc = DestinationContext.Locators.CreateLocator(streamLocator.Id, LocatorType.OnDemandOrigin, TargetAsset, policy, streamLocator.StartTime, streamLocator.Name);
                         TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", newLoc.Id));
                     }
                 }
