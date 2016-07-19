@@ -53,6 +53,9 @@ namespace AMSExplorer
             Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
 
+            Properties.Settings.Default.AssetAnalysisStart = (int) numericUpDownAssetAnalysisStart.Value;
+            Properties.Settings.Default.AssetAnalysisStep = (int) numericUpDownAssetAnalysisStep.Value;
+
             Properties.Settings.Default.CustomPlayerUrl = textBoxCustomPlayer.Text;
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
@@ -104,6 +107,9 @@ namespace AMSExplorer
             numericUpDownPremiumWorkflowPrice.Value = ((decimal)3.99);
             numericUpDownIndexingPrice.Value = ((decimal)0.05);
 
+            numericUpDownAssetAnalysisStart.Value = 10;
+            numericUpDownAssetAnalysisStep.Value = 20;
+
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
 
@@ -147,6 +153,9 @@ namespace AMSExplorer
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
             checkBoxShowPremiumLiveEncoding.Checked = Properties.Settings.Default.ShowLivePremiumChannel;
+
+            numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;
+            numericUpDownAssetAnalysisStep.Value = Properties.Settings.Default.AssetAnalysisStep;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownMESPrice.Value = Properties.Settings.Default.AMEPrice;

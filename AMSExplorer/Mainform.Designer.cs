@@ -50,6 +50,7 @@
             this.deleteVisibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzeAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem43 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem41 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem42 = new System.Windows.Forms.ToolStripMenuItem();
@@ -534,7 +535,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.analyzeAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzeAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -607,7 +608,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -730,6 +731,13 @@
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // analyzeAssetsToolStripMenuItem
+            // 
+            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
+            this.analyzeAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.analyzeAssetsToolStripMenuItem.Text = "Analyze asset(s)...";
+            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem43
             // 
@@ -1511,6 +1519,7 @@
             // toolsToolStripMenuItem1
             // 
             this.toolsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.analyzeAssetsToolStripMenuItem1,
             this.mergeSelectedAssetsToolStripMenuItem,
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1,
             this.fixSystemBitrateInManifestjan15FixToolStripMenuItem});
@@ -5428,12 +5437,12 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // analyzeAssetsToolStripMenuItem
+            // analyzeAssetsToolStripMenuItem1
             // 
-            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
-            this.analyzeAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.analyzeAssetsToolStripMenuItem.Text = "Analyze asset(s)...";
-            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem_Click);
+            this.analyzeAssetsToolStripMenuItem1.Name = "analyzeAssetsToolStripMenuItem1";
+            this.analyzeAssetsToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.analyzeAssetsToolStripMenuItem1.Text = "Analyze asset(s)...";
+            this.analyzeAssetsToolStripMenuItem1.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem1_Click);
             // 
             // Mainform
             // 
@@ -6010,6 +6019,7 @@
         private System.Windows.Forms.TrackBar trackBarConcurrentTransfers;
         private System.Windows.Forms.Label labelConcurrentTransfers;
         private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem1;
     }
 }
 

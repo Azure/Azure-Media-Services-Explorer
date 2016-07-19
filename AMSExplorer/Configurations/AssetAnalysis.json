@@ -2,9 +2,8 @@
   "Version": 1.0,
   "Codecs": [
     {
-      "Start": "20%",
-      "Step": "20%",
-      "Range": "81%",
+      "Start": "{AssetAnalysisStart}%",
+      "Step": "{AssetAnalysisStep}%",
       "Type": "JpgImage",
       "JpgLayers": [
         {

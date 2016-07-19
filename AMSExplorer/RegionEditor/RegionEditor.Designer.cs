@@ -32,10 +32,10 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelWarningJSON = new System.Windows.Forms.Label();
-            this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.buttonClearLastRegion = new System.Windows.Forms.Button();
             this.labelInfoText = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelImSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelMouseInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelXYRect = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonClearAllRegions = new System.Windows.Forms.Button();
@@ -57,7 +57,6 @@
             this.numericUpDownW = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownY = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownX = new System.Windows.Forms.NumericUpDown();
-            this.toolStripStatusLabelImSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBoxShape.SuspendLayout();
@@ -119,23 +118,10 @@
             this.labelWarningJSON.Text = "XML Syntax error. {0}";
             this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // buttonCopyClipboard
-            // 
-            this.buttonCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCopyClipboard.Image = global::AMSExplorer.Bitmaps.copy_to_clipboard;
-            this.buttonCopyClipboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(626, 13);
-            this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(149, 23);
-            this.buttonCopyClipboard.TabIndex = 80;
-            this.buttonCopyClipboard.Text = "Copy to clipboard";
-            this.buttonCopyClipboard.UseVisualStyleBackColor = true;
-            this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
-            // 
             // buttonClearLastRegion
             // 
             this.buttonClearLastRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClearLastRegion.Location = new System.Drawing.Point(626, 71);
+            this.buttonClearLastRegion.Location = new System.Drawing.Point(627, 42);
             this.buttonClearLastRegion.Name = "buttonClearLastRegion";
             this.buttonClearLastRegion.Size = new System.Drawing.Size(149, 23);
             this.buttonClearLastRegion.TabIndex = 81;
@@ -148,7 +134,7 @@
             this.labelInfoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.labelInfoText.ForeColor = System.Drawing.Color.Black;
-            this.labelInfoText.Location = new System.Drawing.Point(626, 342);
+            this.labelInfoText.Location = new System.Drawing.Point(626, 334);
             this.labelInfoText.Name = "labelInfoText";
             this.labelInfoText.Size = new System.Drawing.Size(149, 80);
             this.labelInfoText.TabIndex = 82;
@@ -168,6 +154,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(784, 22);
             this.statusStrip1.TabIndex = 84;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelImSize
+            // 
+            this.toolStripStatusLabelImSize.Name = "toolStripStatusLabelImSize";
+            this.toolStripStatusLabelImSize.Size = new System.Drawing.Size(100, 17);
+            this.toolStripStatusLabelImSize.Text = "Image size 20 x 20";
             // 
             // toolStripStatusLabelMouseInfo
             // 
@@ -189,7 +181,7 @@
             // buttonClearAllRegions
             // 
             this.buttonClearAllRegions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClearAllRegions.Location = new System.Drawing.Point(626, 42);
+            this.buttonClearAllRegions.Location = new System.Drawing.Point(627, 13);
             this.buttonClearAllRegions.Name = "buttonClearAllRegions";
             this.buttonClearAllRegions.Size = new System.Drawing.Size(149, 23);
             this.buttonClearAllRegions.TabIndex = 85;
@@ -202,7 +194,7 @@
             this.radioButtonRectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonRectangle.AutoSize = true;
             this.radioButtonRectangle.Checked = true;
-            this.radioButtonRectangle.Location = new System.Drawing.Point(21, 22);
+            this.radioButtonRectangle.Location = new System.Drawing.Point(19, 22);
             this.radioButtonRectangle.Name = "radioButtonRectangle";
             this.radioButtonRectangle.Size = new System.Drawing.Size(77, 19);
             this.radioButtonRectangle.TabIndex = 86;
@@ -214,7 +206,7 @@
             // 
             this.radioButtonPolygon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonPolygon.AutoSize = true;
-            this.radioButtonPolygon.Location = new System.Drawing.Point(21, 47);
+            this.radioButtonPolygon.Location = new System.Drawing.Point(19, 47);
             this.radioButtonPolygon.Name = "radioButtonPolygon";
             this.radioButtonPolygon.Size = new System.Drawing.Size(69, 19);
             this.radioButtonPolygon.TabIndex = 87;
@@ -227,9 +219,9 @@
             this.groupBoxShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxShape.Controls.Add(this.radioButtonRectangle);
             this.groupBoxShape.Controls.Add(this.radioButtonPolygon);
-            this.groupBoxShape.Location = new System.Drawing.Point(626, 100);
+            this.groupBoxShape.Location = new System.Drawing.Point(629, 83);
             this.groupBoxShape.Name = "groupBoxShape";
-            this.groupBoxShape.Size = new System.Drawing.Size(149, 84);
+            this.groupBoxShape.Size = new System.Drawing.Size(147, 84);
             this.groupBoxShape.TabIndex = 88;
             this.groupBoxShape.TabStop = false;
             this.groupBoxShape.Text = "Shape";
@@ -305,9 +297,9 @@
             this.groupBox1.Controls.Add(this.numericUpDownW);
             this.groupBox1.Controls.Add(this.numericUpDownY);
             this.groupBox1.Controls.Add(this.numericUpDownX);
-            this.groupBox1.Location = new System.Drawing.Point(627, 191);
+            this.groupBox1.Location = new System.Drawing.Point(629, 173);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(148, 147);
+            this.groupBox1.Size = new System.Drawing.Size(147, 147);
             this.groupBox1.TabIndex = 92;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rectangle";
@@ -420,12 +412,6 @@
             0});
             this.numericUpDownX.ValueChanged += new System.EventHandler(this.numericUpDownREct_ValueChanged);
             // 
-            // toolStripStatusLabelImSize
-            // 
-            this.toolStripStatusLabelImSize.Name = "toolStripStatusLabelImSize";
-            this.toolStripStatusLabelImSize.Size = new System.Drawing.Size(100, 17);
-            this.toolStripStatusLabelImSize.Text = "Image size 20 x 20";
-            // 
             // RegionEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -443,7 +429,6 @@
             this.Controls.Add(this.myPictureBox1);
             this.Controls.Add(this.labelInfoText);
             this.Controls.Add(this.buttonClearLastRegion);
-            this.Controls.Add(this.buttonCopyClipboard);
             this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -477,7 +462,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelWarningJSON;
-        private System.Windows.Forms.Button buttonCopyClipboard;
         private System.Windows.Forms.Button buttonClearLastRegion;
         private System.Windows.Forms.Label labelInfoText;
         private myPictureBox myPictureBox1;

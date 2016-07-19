@@ -8888,7 +8888,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true, main:this)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true, main: this)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -14514,14 +14514,20 @@ namespace AMSExplorer
 
         private void analyzeAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoAnalyzeAssets(ReturnSelectedAssets());
+            DoAnalyzeAssets(ReturnSelectedAssets(), true);
         }
 
-        public void DoAnalyzeAssets(List<IAsset> assets)
+        public void DoAnalyzeAssets(List<IAsset> assets, bool displayMessage)
         {
+            if (displayMessage && MessageBox.Show("A thumbnails creation job will be created for each asset.\nThumbnails are used to setup regions with Media OCR, Motion Detector and MES Video Cropping.\nMetadata file provides technical information on the source.\n\nDo you want to submit the job(s) ?", "Asset(s) Analysis", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+            {
+                return;
+            }
+
             var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
             StreamReader r = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "AssetAnalysis.json"));
             string json = r.ReadToEnd();
+            json = json.Replace("{AssetAnalysisStart}", Properties.Settings.Default.AssetAnalysisStart.ToString()).Replace("{AssetAnalysisStep}", Properties.Settings.Default.AssetAnalysisStep.ToString());
 
             foreach (var asset in assets)
             {
@@ -14542,6 +14548,11 @@ namespace AMSExplorer
                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
                    _context.DefaultStorageAccount.Name);
             }
+        }
+
+        private void analyzeAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoAnalyzeAssets(ReturnSelectedAssets(), true);
         }
     }
 }

@@ -514,5 +514,29 @@ namespace AMSExplorer.Properties {
                 this["ConcurrentTransfers"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int AssetAnalysisStart {
+            get {
+                return ((int)(this["AssetAnalysisStart"]));
+            }
+            set {
+                this["AssetAnalysisStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int AssetAnalysisStep {
+            get {
+                return ((int)(this["AssetAnalysisStep"]));
+            }
+            set {
+                this["AssetAnalysisStep"] = value;
+            }
+        }
     }
 }

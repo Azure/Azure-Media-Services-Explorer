@@ -132,21 +132,7 @@ namespace AMSExplorer
         {
         }
 
-
-        private void buttonCopyClipboard_Click(object sender, EventArgs e)
-        {
-            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-            MyThread.SetApartmentState(ApartmentState.STA);
-            MyThread.IsBackground = true;
-            MyThread.Start(myPictureBox1.vi);
-
-        }
-
-        public void DoCopyClipboard(object image)
-        {
-            Clipboard.SetImage((Image)image);
-        }
-
+        
         static List<Image> ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
         {
             List<Image> list = new List<Image>();
@@ -957,7 +943,7 @@ namespace AMSExplorer
 
                 if (MessageBox.Show("There is no detected thumbnails for this asset.\n\nDo you want to submit an analysis job now to generate the thumbnails and metadata ?", "No thumbnails", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _main.DoAnalyzeAssets(new List<IAsset>() { _asset });
+                    _main.DoAnalyzeAssets(new List<IAsset>() { _asset }, false);
                     analysisJobSubmitted = true;
                 }
                 else
@@ -968,7 +954,9 @@ namespace AMSExplorer
             else
             {
                 analysisJobSubmitted = false;
+                this.Cursor = Cursors.WaitCursor;
                 myRegionEditor.Display();
+                this.Cursor = Cursors.Arrow;
                 OnChanged(EventArgs.Empty);
             }
 
