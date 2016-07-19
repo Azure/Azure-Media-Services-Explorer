@@ -171,7 +171,7 @@ namespace AMSExplorer
             _disableOverlay = disableOverlay;
             _disableSourceTrimming = disableSourceTrimming;
             _main = main;
-          
+
         }
 
 
@@ -195,9 +195,8 @@ namespace AMSExplorer
             buttonShowEDL.Initialize();
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
 
-            buttonRegionEditor.Initialize(_firstAsset, _main, false, 1, true);
+            buttonRegionEditor.Initialize(_firstAsset, _main, false, 1, true, "Cropping Editor");
             buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
-
 
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
@@ -231,7 +230,7 @@ namespace AMSExplorer
                 else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
                 {
                     checkBoxUseEDL.Checked = true;
-                    buttonShowEDL.EDLEntries = _subclipConfig.InOutForReencode;
+                    buttonShowEDL.SetEDLEntries(_subclipConfig.InOutForReencode);
                 }
 
                 _disableOverlay = true;
@@ -335,9 +334,9 @@ namespace AMSExplorer
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
-                        { 
+                        {
                             listDelete.Add(source);
-                            
+
                         }
                         listDelete.ForEach(c => c.Remove());
                         if (obj.Sources.Count == 0)
@@ -414,7 +413,7 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             dynamic time = new JObject();
                             time.StartTime = entry.Start + buttonShowEDL.Offset;
@@ -653,9 +652,9 @@ namespace AMSExplorer
                     }
 
                     // Video Cropping
-                        if (checkBoxCropVideo.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
+                    if (checkBoxCropVideo.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
 
-                        {
+                    {
                         /*
                        {
 "Version": 1.0,
@@ -1280,7 +1279,12 @@ namespace AMSExplorer
 
         private void checkBoxCropVideo_CheckedChanged(object sender, EventArgs e)
         {
-            panelSelectRegion.Enabled = checkBoxCropVideo.Checked;
+            buttonRegionEditor.Enabled = checkBoxCropVideo.Checked;
+        }
+
+        private void buttonShowEDL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

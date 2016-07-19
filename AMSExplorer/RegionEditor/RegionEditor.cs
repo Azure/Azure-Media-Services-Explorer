@@ -923,9 +923,9 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode, string title=null)
         {
-            myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax, croppingMode);
+            myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax, croppingMode, title);
             _asset = asset;
             _main = main;
         }

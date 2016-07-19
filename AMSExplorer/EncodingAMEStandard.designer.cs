@@ -54,19 +54,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panelEDL = new System.Windows.Forms.Panel();
-            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
-            this.labelOffset = new System.Windows.Forms.Label();
-            this.textBoxOffset = new System.Windows.Forms.TextBox();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
-            this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
-            this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
             this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
             this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
@@ -182,22 +169,33 @@
             this.textBoxOverlayDuration = new System.Windows.Forms.TextBox();
             this.label49 = new System.Windows.Forms.Label();
             this.checkBoxOverlay = new System.Windows.Forms.CheckBox();
+            this.tabPageTrimCrop = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelEDL = new System.Windows.Forms.Panel();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
+            this.labelOffset = new System.Windows.Forms.Label();
+            this.textBoxOffset = new System.Windows.Forms.TextBox();
+            this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
+            this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panelSelectRegion = new System.Windows.Forms.Panel();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
-            this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
             this.TabPageFeatures.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.panelEDL.SuspendLayout();
             this.tabPageThPNG.SuspendLayout();
             this.panelThumbnailsPNG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThHeightPNG)).BeginInit();
@@ -221,10 +219,12 @@
             this.groupBoxFade.SuspendLayout();
             this.panelFade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).BeginInit();
+            this.tabPageTrimCrop.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panelEDL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            this.panelSelectRegion.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -376,7 +376,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 174);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 166);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -458,11 +458,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.TabPagePreset);
             this.tabControl1.Controls.Add(this.TabPageFeatures);
+            this.tabControl1.Controls.Add(this.tabPageTrimCrop);
+            this.tabControl1.Controls.Add(this.tabPageOverlay);
             this.tabControl1.Controls.Add(this.tabPageThPNG);
             this.tabControl1.Controls.Add(this.tabPageThJPG);
             this.tabControl1.Controls.Add(this.tabPageThBMP);
-            this.tabControl1.Controls.Add(this.tabPageOverlay);
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(24, 97);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -491,7 +491,6 @@
             // 
             // TabPageFeatures
             // 
-            this.TabPageFeatures.Controls.Add(this.groupBox1);
             this.TabPageFeatures.Controls.Add(this.linkLabelMoreInfoPreserveResRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxPreserveResAfterRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
@@ -505,170 +504,10 @@
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.panelEDL);
-            this.groupBox1.Controls.Add(this.labelOffset);
-            this.groupBox1.Controls.Add(this.textBoxOffset);
-            this.groupBox1.Controls.Add(this.timeControlEndTime);
-            this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingEnd);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.timeControlStartTime);
-            this.groupBox1.Controls.Add(this.textBoxSourceDurationTime);
-            this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingStart);
-            this.groupBox1.Location = new System.Drawing.Point(16, 17);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(691, 190);
-            this.groupBox1.TabIndex = 94;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Source Trimming";
-            // 
-            // panelEDL
-            // 
-            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
-            this.panelEDL.Controls.Add(this.buttonShowEDL);
-            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
-            this.panelEDL.Location = new System.Drawing.Point(9, 139);
-            this.panelEDL.Name = "panelEDL";
-            this.panelEDL.Size = new System.Drawing.Size(508, 34);
-            this.panelEDL.TabIndex = 136;
-            // 
-            // buttonAddEDLEntry
-            // 
-            this.buttonAddEDLEntry.Enabled = false;
-            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
-            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
-            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
-            this.buttonAddEDLEntry.TabIndex = 137;
-            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
-            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
-            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
-            // 
-            // buttonShowEDL
-            // 
-            this.buttonShowEDL.Enabled = false;
-            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
-            this.buttonShowEDL.TabIndex = 138;
-            this.buttonShowEDL.Text = "Show EDL...";
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUseEDL
-            // 
-            this.checkBoxUseEDL.AutoSize = true;
-            this.checkBoxUseEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxUseEDL.Location = new System.Drawing.Point(3, 8);
-            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
-            this.checkBoxUseEDL.Size = new System.Drawing.Size(185, 19);
-            this.checkBoxUseEDL.TabIndex = 139;
-            this.checkBoxUseEDL.Text = "Use Editing Decision List (EDL)";
-            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
-            this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
-            // 
-            // labelOffset
-            // 
-            this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(506, 24);
-            this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(45, 15);
-            this.labelOffset.TabIndex = 94;
-            this.labelOffset.Text = "Offset :";
-            this.labelOffset.Visible = false;
-            // 
-            // textBoxOffset
-            // 
-            this.textBoxOffset.Location = new System.Drawing.Point(509, 42);
-            this.textBoxOffset.Name = "textBoxOffset";
-            this.textBoxOffset.ReadOnly = true;
-            this.textBoxOffset.Size = new System.Drawing.Size(158, 23);
-            this.textBoxOffset.TabIndex = 95;
-            this.textBoxOffset.Visible = false;
-            // 
-            // timeControlEndTime
-            // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
-            // 
-            // checkBoxSourceTrimmingEnd
-            // 
-            this.checkBoxSourceTrimmingEnd.AutoSize = true;
-            this.checkBoxSourceTrimmingEnd.Location = new System.Drawing.Point(12, 97);
-            this.checkBoxSourceTrimmingEnd.Name = "checkBoxSourceTrimmingEnd";
-            this.checkBoxSourceTrimmingEnd.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxSourceTrimmingEnd.TabIndex = 93;
-            this.checkBoxSourceTrimmingEnd.UseVisualStyleBackColor = true;
-            this.checkBoxSourceTrimmingEnd.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(506, 75);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 15);
-            this.label7.TabIndex = 82;
-            this.label7.Text = "Duration :";
-            // 
-            // timeControlStartTime
-            // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
-            // textBoxSourceDurationTime
-            // 
-            this.textBoxSourceDurationTime.Enabled = false;
-            this.textBoxSourceDurationTime.Location = new System.Drawing.Point(509, 93);
-            this.textBoxSourceDurationTime.Name = "textBoxSourceDurationTime";
-            this.textBoxSourceDurationTime.ReadOnly = true;
-            this.textBoxSourceDurationTime.Size = new System.Drawing.Size(158, 23);
-            this.textBoxSourceDurationTime.TabIndex = 88;
-            // 
-            // checkBoxSourceTrimmingStart
-            // 
-            this.checkBoxSourceTrimmingStart.AutoSize = true;
-            this.checkBoxSourceTrimmingStart.Location = new System.Drawing.Point(12, 42);
-            this.checkBoxSourceTrimmingStart.Name = "checkBoxSourceTrimmingStart";
-            this.checkBoxSourceTrimmingStart.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxSourceTrimmingStart.TabIndex = 5;
-            this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
-            this.checkBoxSourceTrimmingStart.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
-            // 
             // linkLabelMoreInfoPreserveResRotation
             // 
             this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
-            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(211, 277);
+            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(227, 80);
             this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
             this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
             this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
@@ -679,7 +518,7 @@
             // checkBoxPreserveResAfterRotation
             // 
             this.checkBoxPreserveResAfterRotation.AutoSize = true;
-            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(16, 276);
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(32, 79);
             this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
             this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
             this.checkBoxPreserveResAfterRotation.TabIndex = 91;
@@ -690,7 +529,7 @@
             // checkBoxDisableAutoDeinterlacing
             // 
             this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(16, 251);
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(32, 54);
             this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
             this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
             this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
@@ -701,7 +540,7 @@
             // checkBoxInsertSilentAudioTrack
             // 
             this.checkBoxInsertSilentAudioTrack.AutoSize = true;
-            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(16, 226);
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(32, 29);
             this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
             this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
             this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
@@ -714,11 +553,12 @@
             this.checkBoxAddAutomatic.AutoSize = true;
             this.checkBoxAddAutomatic.Checked = true;
             this.checkBoxAddAutomatic.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddAutomatic.Location = new System.Drawing.Point(16, 336);
+            this.checkBoxAddAutomatic.Location = new System.Drawing.Point(32, 336);
             this.checkBoxAddAutomatic.Name = "checkBoxAddAutomatic";
-            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(459, 19);
+            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(572, 19);
             this.checkBoxAddAutomatic.TabIndex = 4;
-            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for features, thumbnails and overlay";
+            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for features, trimming, cropping, ove" +
+    "rlay and thumbnails ";
             this.checkBoxAddAutomatic.UseVisualStyleBackColor = true;
             this.checkBoxAddAutomatic.CheckedChanged += new System.EventHandler(this.checkBoxAddAutomatic_CheckedChanged);
             // 
@@ -2063,6 +1903,151 @@
             this.checkBoxOverlay.UseVisualStyleBackColor = true;
             this.checkBoxOverlay.CheckedChanged += new System.EventHandler(this.checkBoxOverlay_CheckedChanged);
             // 
+            // tabPageTrimCrop
+            // 
+            this.tabPageTrimCrop.Controls.Add(this.groupBox3);
+            this.tabPageTrimCrop.Controls.Add(this.groupBox1);
+            this.tabPageTrimCrop.Location = new System.Drawing.Point(4, 24);
+            this.tabPageTrimCrop.Name = "tabPageTrimCrop";
+            this.tabPageTrimCrop.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTrimCrop.Size = new System.Drawing.Size(724, 361);
+            this.tabPageTrimCrop.TabIndex = 7;
+            this.tabPageTrimCrop.Text = "Trimming and Cropping";
+            this.tabPageTrimCrop.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonRegionEditor);
+            this.groupBox3.Controls.Add(this.checkBoxCropVideo);
+            this.groupBox3.Location = new System.Drawing.Point(17, 231);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(691, 100);
+            this.groupBox3.TabIndex = 110;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Video Cropping";
+            // 
+            // checkBoxCropVideo
+            // 
+            this.checkBoxCropVideo.AutoSize = true;
+            this.checkBoxCropVideo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxCropVideo.Location = new System.Drawing.Point(12, 22);
+            this.checkBoxCropVideo.Name = "checkBoxCropVideo";
+            this.checkBoxCropVideo.Size = new System.Drawing.Size(84, 19);
+            this.checkBoxCropVideo.TabIndex = 108;
+            this.checkBoxCropVideo.Text = "Crop video";
+            this.checkBoxCropVideo.UseVisualStyleBackColor = true;
+            this.checkBoxCropVideo.CheckedChanged += new System.EventHandler(this.checkBoxCropVideo_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.panelEDL);
+            this.groupBox1.Controls.Add(this.labelOffset);
+            this.groupBox1.Controls.Add(this.textBoxOffset);
+            this.groupBox1.Controls.Add(this.timeControlEndTime);
+            this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingEnd);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.timeControlStartTime);
+            this.groupBox1.Controls.Add(this.textBoxSourceDurationTime);
+            this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingStart);
+            this.groupBox1.Location = new System.Drawing.Point(17, 17);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(691, 190);
+            this.groupBox1.TabIndex = 94;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Source Trimming";
+            // 
+            // panelEDL
+            // 
+            this.panelEDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEDL.Controls.Add(this.buttonShowEDL);
+            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
+            this.panelEDL.Location = new System.Drawing.Point(9, 139);
+            this.panelEDL.Name = "panelEDL";
+            this.panelEDL.Size = new System.Drawing.Size(508, 34);
+            this.panelEDL.TabIndex = 136;
+            // 
+            // buttonAddEDLEntry
+            // 
+            this.buttonAddEDLEntry.Enabled = false;
+            this.buttonAddEDLEntry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEDLEntry.Location = new System.Drawing.Point(303, 3);
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.Size = new System.Drawing.Size(196, 27);
+            this.buttonAddEDLEntry.TabIndex = 137;
+            this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // checkBoxUseEDL
+            // 
+            this.checkBoxUseEDL.AutoSize = true;
+            this.checkBoxUseEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxUseEDL.Location = new System.Drawing.Point(3, 8);
+            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
+            this.checkBoxUseEDL.Size = new System.Drawing.Size(185, 19);
+            this.checkBoxUseEDL.TabIndex = 139;
+            this.checkBoxUseEDL.Text = "Use Editing Decision List (EDL)";
+            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
+            this.checkBoxUseEDL.CheckedChanged += new System.EventHandler(this.checkBoxUseEDL_CheckedChanged);
+            // 
+            // labelOffset
+            // 
+            this.labelOffset.AutoSize = true;
+            this.labelOffset.Location = new System.Drawing.Point(506, 24);
+            this.labelOffset.Name = "labelOffset";
+            this.labelOffset.Size = new System.Drawing.Size(45, 15);
+            this.labelOffset.TabIndex = 94;
+            this.labelOffset.Text = "Offset :";
+            this.labelOffset.Visible = false;
+            // 
+            // textBoxOffset
+            // 
+            this.textBoxOffset.Location = new System.Drawing.Point(509, 42);
+            this.textBoxOffset.Name = "textBoxOffset";
+            this.textBoxOffset.ReadOnly = true;
+            this.textBoxOffset.Size = new System.Drawing.Size(158, 23);
+            this.textBoxOffset.TabIndex = 95;
+            this.textBoxOffset.Visible = false;
+            // 
+            // checkBoxSourceTrimmingEnd
+            // 
+            this.checkBoxSourceTrimmingEnd.AutoSize = true;
+            this.checkBoxSourceTrimmingEnd.Location = new System.Drawing.Point(12, 97);
+            this.checkBoxSourceTrimmingEnd.Name = "checkBoxSourceTrimmingEnd";
+            this.checkBoxSourceTrimmingEnd.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxSourceTrimmingEnd.TabIndex = 93;
+            this.checkBoxSourceTrimmingEnd.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimmingEnd.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(506, 75);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 15);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Duration :";
+            // 
+            // textBoxSourceDurationTime
+            // 
+            this.textBoxSourceDurationTime.Enabled = false;
+            this.textBoxSourceDurationTime.Location = new System.Drawing.Point(509, 93);
+            this.textBoxSourceDurationTime.Name = "textBoxSourceDurationTime";
+            this.textBoxSourceDurationTime.ReadOnly = true;
+            this.textBoxSourceDurationTime.Size = new System.Drawing.Size(158, 23);
+            this.textBoxSourceDurationTime.TabIndex = 88;
+            // 
+            // checkBoxSourceTrimmingStart
+            // 
+            this.checkBoxSourceTrimmingStart.AutoSize = true;
+            this.checkBoxSourceTrimmingStart.Location = new System.Drawing.Point(12, 42);
+            this.checkBoxSourceTrimmingStart.Name = "checkBoxSourceTrimmingStart";
+            this.checkBoxSourceTrimmingStart.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxSourceTrimmingStart.TabIndex = 5;
+            this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimmingStart.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
             // labelsummaryjob
             // 
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -2099,6 +2084,15 @@
             this.pictureBox1.TabIndex = 84;
             this.pictureBox1.TabStop = false;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(766, 606);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(24, 42);
+            this.panel2.TabIndex = 85;
+            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2109,56 +2103,66 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(766, 606);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(24, 42);
-            this.panel2.TabIndex = 85;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.panelSelectRegion);
-            this.tabPage1.Controls.Add(this.checkBoxCropVideo);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(724, 361);
-            this.tabPage1.TabIndex = 7;
-            this.tabPage1.Text = "Video Cropping";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // panelSelectRegion
-            // 
-            this.panelSelectRegion.Controls.Add(this.buttonRegionEditor);
-            this.panelSelectRegion.Enabled = false;
-            this.panelSelectRegion.Location = new System.Drawing.Point(187, 12);
-            this.panelSelectRegion.Name = "panelSelectRegion";
-            this.panelSelectRegion.Size = new System.Drawing.Size(406, 100);
-            this.panelSelectRegion.TabIndex = 109;
-            // 
             // buttonRegionEditor
             // 
-            this.buttonRegionEditor.Location = new System.Drawing.Point(10, 23);
+            this.buttonRegionEditor.Enabled = false;
+            this.buttonRegionEditor.Location = new System.Drawing.Point(102, 18);
             this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
+            this.buttonRegionEditor.Size = new System.Drawing.Size(203, 23);
             this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Select...";
+            this.buttonRegionEditor.Text = "Define Cropping Rectangle...";
             this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
-            // checkBoxCropVideo
+            // buttonShowEDL
             // 
-            this.checkBoxCropVideo.AutoSize = true;
-            this.checkBoxCropVideo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxCropVideo.Location = new System.Drawing.Point(17, 38);
-            this.checkBoxCropVideo.Name = "checkBoxCropVideo";
-            this.checkBoxCropVideo.Size = new System.Drawing.Size(157, 19);
-            this.checkBoxCropVideo.TabIndex = 108;
-            this.checkBoxCropVideo.Text = "Crop video to this region";
-            this.checkBoxCropVideo.UseVisualStyleBackColor = true;
-            this.checkBoxCropVideo.CheckedChanged += new System.EventHandler(this.checkBoxCropVideo_CheckedChanged);
+            this.buttonShowEDL.Enabled = false;
+            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
+            this.buttonShowEDL.TabIndex = 138;
+            this.buttonShowEDL.Text = "Show EDL...";
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            this.buttonShowEDL.Click += new System.EventHandler(this.buttonShowEDL_Click);
+            // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // EncodingAMEStandard
             // 
@@ -2194,10 +2198,6 @@
             this.TabPagePreset.PerformLayout();
             this.TabPageFeatures.ResumeLayout(false);
             this.TabPageFeatures.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panelEDL.ResumeLayout(false);
-            this.panelEDL.PerformLayout();
             this.tabPageThPNG.ResumeLayout(false);
             this.tabPageThPNG.PerformLayout();
             this.panelThumbnailsPNG.ResumeLayout(false);
@@ -2232,11 +2232,15 @@
             this.panelFade.ResumeLayout(false);
             this.panelFade.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlayLoop)).EndInit();
+            this.tabPageTrimCrop.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panelEDL.ResumeLayout(false);
+            this.panelEDL.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.panelSelectRegion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2402,9 +2406,9 @@
         private System.Windows.Forms.CheckBox checkBoxUseEDL;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Panel panelSelectRegion;
+        private System.Windows.Forms.TabPage tabPageTrimCrop;
         private ButtonRegionEditor buttonRegionEditor;
         private System.Windows.Forms.CheckBox checkBoxCropVideo;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

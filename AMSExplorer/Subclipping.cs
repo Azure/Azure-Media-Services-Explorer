@@ -257,7 +257,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
                 {
-                    foreach (var entry in buttonShowEDL.EDLEntries)
+                    foreach (var entry in buttonShowEDL.GetEDLEntries())
                     {
                         dynamic sourceEntry = new JObject() as dynamic;
                         sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
@@ -332,7 +332,7 @@ namespace AMSExplorer
 
                     if (checkBoxUseEDL.Checked) // EDL
                     {
-                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End });
                         }
