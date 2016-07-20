@@ -109,18 +109,13 @@ namespace AMSExplorer
                 labelInfoText.Visible = true;
             }
 
-            if (!polygonsEnabled)
-            {
-                groupBoxShape.Visible = false;
-            }
+            groupBoxShape.Visible = polygonsEnabled;
+
+            _croppingMode = groupBoxRectangleData.Visible = myPictureBox1.CroppingMode = croppingMode;
+            buttonClearAllRegions.Visible = buttonClearLastRegion.Visible = !croppingMode;
 
             _asset = asset;
             _nbOfRegionsMax = nbOfRegionsMax;
-
-            buttonClearAllRegions.Visible = buttonClearLastRegion.Visible = !croppingMode;
-            _croppingMode = croppingMode;
-            myPictureBox1.CroppingMode =  croppingMode;
-
         }
 
         private void UpdateLabelIndex()
@@ -128,11 +123,7 @@ namespace AMSExplorer
             labelIndexThumbnail.Text = string.Format(infothumbnail, pictureIndex + 1, listPictures.Count);
         }
 
-        private void RegionEditor_Load(object sender, EventArgs e)
-        {
-        }
 
-        
         static List<Image> ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
         {
             List<Image> list = new List<Image>();
@@ -923,7 +914,7 @@ namespace AMSExplorer
             this.Click += ButtonXML_Click;
         }
 
-        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode, string title=null)
+        public void Initialize(IAsset asset, Mainform main, bool polygonsEnabled, int nbOfRegionsMax, bool croppingMode, string title = null)
         {
             myRegionEditor = new RegionEditor(asset, polygonsEnabled, nbOfRegionsMax, croppingMode, title);
             _asset = asset;

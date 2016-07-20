@@ -48,7 +48,7 @@
             this.buttonPreviousImage = new System.Windows.Forms.Button();
             this.buttonNextImage = new System.Windows.Forms.Button();
             this.labelIndexThumbnail = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxRectangleData = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,7 +61,7 @@
             this.statusStrip1.SuspendLayout();
             this.groupBoxShape.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxRectangleData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).BeginInit();
@@ -286,23 +286,23 @@
             this.labelIndexThumbnail.Text = "thumbnail 1/2";
             this.labelIndexThumbnail.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // groupBox1
+            // groupBoxRectangleData
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numericUpDownH);
-            this.groupBox1.Controls.Add(this.numericUpDownW);
-            this.groupBox1.Controls.Add(this.numericUpDownY);
-            this.groupBox1.Controls.Add(this.numericUpDownX);
-            this.groupBox1.Location = new System.Drawing.Point(629, 173);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(147, 147);
-            this.groupBox1.TabIndex = 92;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Rectangle";
+            this.groupBoxRectangleData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxRectangleData.Controls.Add(this.label4);
+            this.groupBoxRectangleData.Controls.Add(this.label3);
+            this.groupBoxRectangleData.Controls.Add(this.label2);
+            this.groupBoxRectangleData.Controls.Add(this.label1);
+            this.groupBoxRectangleData.Controls.Add(this.numericUpDownH);
+            this.groupBoxRectangleData.Controls.Add(this.numericUpDownW);
+            this.groupBoxRectangleData.Controls.Add(this.numericUpDownY);
+            this.groupBoxRectangleData.Controls.Add(this.numericUpDownX);
+            this.groupBoxRectangleData.Location = new System.Drawing.Point(629, 173);
+            this.groupBoxRectangleData.Name = "groupBoxRectangleData";
+            this.groupBoxRectangleData.Size = new System.Drawing.Size(147, 147);
+            this.groupBoxRectangleData.TabIndex = 92;
+            this.groupBoxRectangleData.TabStop = false;
+            this.groupBoxRectangleData.Text = "Rectangle";
             // 
             // label4
             // 
@@ -419,7 +419,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxRectangleData);
             this.Controls.Add(this.labelIndexThumbnail);
             this.Controls.Add(this.buttonNextImage);
             this.Controls.Add(this.buttonPreviousImage);
@@ -436,15 +436,14 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Regions Editor";
-            this.Load += new System.EventHandler(this.RegionEditor_Load);
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBoxShape.ResumeLayout(false);
             this.groupBoxShape.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myPictureBox1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxRectangleData.ResumeLayout(false);
+            this.groupBoxRectangleData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownH)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownY)).EndInit();
@@ -475,7 +474,7 @@
         private System.Windows.Forms.Button buttonPreviousImage;
         private System.Windows.Forms.Button buttonNextImage;
         private System.Windows.Forms.Label labelIndexThumbnail;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxRectangleData;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
