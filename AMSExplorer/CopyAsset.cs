@@ -116,6 +116,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool UnpublishSourceAsset
+        {
+            get
+            {
+                return checkBoxUnPublishSourceAsset.Checked;
+            }
+        }
+
         public bool RewriteLAURL
         {
             get
@@ -149,10 +157,9 @@ namespace AMSExplorer
                     checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, s);
                     checkBoxTargetSingleAsset.Enabled = numberofobjectselected > 1;
                     checkBoxCopyDynEnc.Checked = false;
-                    checkBoxCloneLocators.Visible = false;
-                    labelCloneLocators.Visible = false;
+                    checkBoxCloneLocators.Checked = false;
                     checkBoxCloneAssetFilters.Checked = false;
-                    labelCloneFilters.Visible = false; // optioon to clone filter is displayed but we don't want to display that start and end times are removed. This is not the case for asset copy.
+                    labelCloneFilters.Visible = false; // option to clone filter is displayed but we don't want to display that start and end times are removed. This is not the case for asset copy.
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
@@ -175,6 +182,9 @@ namespace AMSExplorer
                     copyassetname.Visible = false;
                     checkBoxDeleteSource.Visible = false;
                     checkBoxTargetSingleAsset.Visible = false;
+                    checkBoxUnPublishSourceAsset.Visible = false;
+                    labelCloneLocatorForPrograms.Visible = true;
+                    labelCloneLocators.Visible = false;
                     break;
 
                 default:
@@ -324,7 +334,12 @@ namespace AMSExplorer
 
         private void checkBoxTargetSingleAsset_CheckedChanged(object sender, EventArgs e)
         {
-            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = checkBoxCloneAssetFilters.Enabled = !checkBoxTargetSingleAsset.Checked;
+            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = checkBoxCloneAssetFilters.Enabled = checkBoxCloneLocators.Enabled = checkBoxUnPublishSourceAsset.Enabled = !checkBoxTargetSingleAsset.Checked;
+        }
+
+        private void checkBoxCloneLocators_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxUnPublishSourceAsset.Enabled = checkBoxCloneLocators.Checked;
         }
     }
 
