@@ -962,7 +962,8 @@ namespace AMSExplorer
         public const string LinkThumbnailsMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-dotnet-generate-thumbnail-with-mes/";
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
         public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
-
+        public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
+        
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
         public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";

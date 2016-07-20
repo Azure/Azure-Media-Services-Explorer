@@ -201,9 +201,10 @@ namespace AMSExplorer
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
+            linkLabelInfoCropping.Links.Add(new LinkLabel.Link(0, linkLabelInfoCropping.Text.Length, Constants.LinkCroppingMES));
             linkLabelThumbnail1.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
-            linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
-            linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail2.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
 
@@ -1030,7 +1031,7 @@ namespace AMSExplorer
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+
         }
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
