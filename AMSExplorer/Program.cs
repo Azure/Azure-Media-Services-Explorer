@@ -216,6 +216,7 @@ namespace AMSExplorer
             {
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.StorageKey), credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
+                cloudBlobClient.ListBlobs("testamseexplorer"); // just to test connection
                 return true;
             }
             catch (Exception e)
