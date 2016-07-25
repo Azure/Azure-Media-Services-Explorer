@@ -713,10 +713,10 @@
     <Content Include="Configurations\SampleMPWESetRunTime.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Configurations\AssetAnalysis.json">
+    <Content Include="Configurations\AssetAnalysis.json">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="HelpFiles\MediaServices.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
