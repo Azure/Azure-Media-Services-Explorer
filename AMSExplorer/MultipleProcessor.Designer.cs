@@ -126,6 +126,7 @@
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxSingleOutputAsset = new System.Windows.Forms.CheckBox();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -351,6 +352,7 @@
             // 
             // tabPageJobs
             // 
+            this.tabPageJobs.Controls.Add(this.checkBoxSingleOutputAsset);
             this.tabPageJobs.Controls.Add(this.pictureBox2);
             this.tabPageJobs.Controls.Add(this.label5);
             this.tabPageJobs.Controls.Add(this.numericUpDownPriority);
@@ -1149,6 +1151,17 @@
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 77;
             // 
+            // checkBoxSingleOutputAsset
+            // 
+            this.checkBoxSingleOutputAsset.AutoSize = true;
+            this.checkBoxSingleOutputAsset.Enabled = false;
+            this.checkBoxSingleOutputAsset.Location = new System.Drawing.Point(37, 403);
+            this.checkBoxSingleOutputAsset.Name = "checkBoxSingleOutputAsset";
+            this.checkBoxSingleOutputAsset.Size = new System.Drawing.Size(126, 19);
+            this.checkBoxSingleOutputAsset.TabIndex = 78;
+            this.checkBoxSingleOutputAsset.Text = "Single output asset";
+            this.checkBoxSingleOutputAsset.UseVisualStyleBackColor = true;
+            // 
             // MultipleProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1294,5 +1307,6 @@
         private System.Windows.Forms.Label labelWarningJSON5;
         private System.Windows.Forms.RadioButton radioButtonOneJobPerVisibleAsset;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBoxSingleOutputAsset;
     }
 }

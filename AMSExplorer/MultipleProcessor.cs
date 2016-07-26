@@ -160,6 +160,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool SingleOutputAsset
+        {
+            get
+            {
+                return numericUpDownTasks.Value > 1 ? checkBoxSingleOutputAsset.Checked : false;
+            }
+        }
+
         public List<GenericTask> GetGenericTasks
         {
             get
@@ -489,6 +497,8 @@ namespace AMSExplorer
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            checkBoxSingleOutputAsset.Enabled = numericUpDownTasks.Value > 1;
+
             if (numericUpDownTasks.Value > numberoftasks) // increase
             {
                 for (int i = numberoftasks + 1; i <= numericUpDownTasks.Value; i++)

@@ -5712,6 +5712,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var gentasks = form.GetGenericTasks;
+                IAsset OutputAsset = null;
 
                 if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset || form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
                 // a job for each input asset
@@ -5729,7 +5730,6 @@ namespace AMSExplorer
                         foreach (var usertask in gentasks)
                         // let's create all tasks and output assets
                         {
-
                             string assetname = string.Empty;
                             switch (usertask.InputAssetType)
                             {
@@ -5752,8 +5752,15 @@ namespace AMSExplorer
                                  );
                             task.Priority = usertask.TaskOptions.Priority;
 
-                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                            task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+                            if (form.SingleOutputAsset && OutputAsset != null)
+                            {
+                                task.OutputAssets.Add(OutputAsset);
+                            }
+                            else
+                            {
+                                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
+                                OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+                            }
                         }
                         // let(s branch the input assets
                         foreach (var usertask in gentasks)
@@ -5793,7 +5800,7 @@ namespace AMSExplorer
                         dataGridViewJobsV.DoJobProgress(job);
                     }
                 }
-                else if (form.EncodingCreationMode == TaskJobCreationMode.SingleJobForAllInputAssets) // Create one job for all inp
+                else if (form.EncodingCreationMode == TaskJobCreationMode.SingleJobForAllInputAssets) // Create one job for all input
                 {
                     string inputasssetname = SelectedAssets.Count == 1 ? SelectedAssets.FirstOrDefault().Name : "multiple assets";
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
@@ -5826,8 +5833,16 @@ namespace AMSExplorer
                            );
 
                         task.Priority = usertask.TaskOptions.Priority;
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+
+                        if (form.SingleOutputAsset && OutputAsset != null)
+                        {
+                            task.OutputAssets.Add(OutputAsset);
+                        }
+                        else
+                        {
+                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
+                            OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+                        }
                     }
                     // let(s branch the input assets
                     foreach (var usertask in gentasks)
@@ -16708,21 +16723,23 @@ namespace AMSExplorer
                IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
 
                // let's cancel monitor task of non visible jobs
+               List<string> listToCancel = new List<string>();
                foreach (var jobmonitored in _MyListJobsMonitored)
                {
                    if (ActiveAndVisibleJobs.Where(j => j.Id == jobmonitored.Key).FirstOrDefault() == null)
                    {
                        jobmonitored.Value.Cancel();
-                       _MyListJobsMonitored.Remove(jobmonitored.Key);
+                       listToCancel.Add(jobmonitored.Key);
                    }
                }
+               listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
 
                // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
                // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
                JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
 
                // let's monitor job that are not yet monitored
-               foreach (IJob job in ActiveAndVisibleJobs)
+               foreach (IJob job in ActiveAndVisibleJobs.ToList())
                {
                    if (!_MyListJobsMonitored.ContainsKey(job.Id))
                    {
