@@ -42,6 +42,8 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelJobOptions = new System.Windows.Forms.Label();
+            this.checkBoxDoNotDeleteOutputAssetOnFailure = new System.Windows.Forms.CheckBox();
+            this.checkBoxDoNotCancelOnJobFailure = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -78,7 +80,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 232);
+            this.panel1.Location = new System.Drawing.Point(-2, 272);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(403, 55);
             this.panel1.TabIndex = 66;
@@ -130,7 +132,7 @@
             // checkBoxUseStorageEncryption
             // 
             this.checkBoxUseStorageEncryption.AutoSize = true;
-            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(45, 190);
+            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(45, 236);
             this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
             this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(210, 19);
             this.checkBoxUseStorageEncryption.TabIndex = 72;
@@ -150,7 +152,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 190);
+            this.pictureBox1.Location = new System.Drawing.Point(14, 236);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -174,9 +176,29 @@
             this.labelJobOptions.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelJobOptions.Location = new System.Drawing.Point(12, 9);
             this.labelJobOptions.Name = "labelJobOptions";
-            this.labelJobOptions.Size = new System.Drawing.Size(88, 20);
+            this.labelJobOptions.Size = new System.Drawing.Size(164, 20);
             this.labelJobOptions.TabIndex = 75;
-            this.labelJobOptions.Text = "Job Options";
+            this.labelJobOptions.Text = "Job and Task(s) Options";
+            // 
+            // checkBoxDoNotDeleteOutputAssetOnFailure
+            // 
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.AutoSize = true;
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.Location = new System.Drawing.Point(45, 186);
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.Name = "checkBoxDoNotDeleteOutputAssetOnFailure";
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.Size = new System.Drawing.Size(218, 19);
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.TabIndex = 76;
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.Text = "Do not delete output asset on failure";
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDoNotCancelOnJobFailure
+            // 
+            this.checkBoxDoNotCancelOnJobFailure.AutoSize = true;
+            this.checkBoxDoNotCancelOnJobFailure.Location = new System.Drawing.Point(45, 211);
+            this.checkBoxDoNotCancelOnJobFailure.Name = "checkBoxDoNotCancelOnJobFailure";
+            this.checkBoxDoNotCancelOnJobFailure.Size = new System.Drawing.Size(209, 19);
+            this.checkBoxDoNotCancelOnJobFailure.TabIndex = 77;
+            this.checkBoxDoNotCancelOnJobFailure.Text = "Do not cancel task(s) on job failure";
+            this.checkBoxDoNotCancelOnJobFailure.UseVisualStyleBackColor = true;
             // 
             // JobOptions
             // 
@@ -185,7 +207,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(400, 288);
+            this.ClientSize = new System.Drawing.Size(400, 328);
+            this.Controls.Add(this.checkBoxDoNotCancelOnJobFailure);
+            this.Controls.Add(this.checkBoxDoNotDeleteOutputAssetOnFailure);
             this.Controls.Add(this.labelJobOptions);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -199,7 +223,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "JobOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Job Options";
+            this.Text = "Options";
             this.Load += new System.EventHandler(this.JobOptions_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
@@ -226,5 +250,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelJobOptions;
+        private System.Windows.Forms.CheckBox checkBoxDoNotDeleteOutputAssetOnFailure;
+        private System.Windows.Forms.CheckBox checkBoxDoNotCancelOnJobFailure;
     }
 }
