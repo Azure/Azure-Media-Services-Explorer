@@ -293,6 +293,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DRM_protection_Cbcs {
+            get {
+                object obj = ResourceManager.GetObject("DRM_protection_Cbcs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap encoding {
             get {
                 object obj = ResourceManager.GetObject("encoding", resourceCulture);

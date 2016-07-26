@@ -14980,7 +14980,8 @@ namespace AMSExplorer
         static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
         static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
         static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
-        static Bitmap commonencryptedimage = Bitmaps.DRM_protection;
+        static Bitmap CENCencryptedimage = Bitmaps.DRM_protection;
+        static Bitmap CENCcbcsEncryptedImage = Bitmaps.DRM_protection_Cbcs;
         static Bitmap unsupportedencryptedimage = Bitmaps.help;
         static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
@@ -16100,7 +16101,7 @@ namespace AMSExplorer
                     break;
 
                 case AssetCreationOptions.CommonEncryptionProtected:
-                    ABT.bitmap = commonencryptedimage;
+                    ABT.bitmap = CENCencryptedimage;
                     ABT.MouseOverDesc = "CENC encrypted";
                     break;
 
@@ -16155,8 +16156,13 @@ namespace AMSExplorer
             switch (assetEncryptionState)
             {
                 case AssetEncryptionState.DynamicCommonEncryption:
-                    ABT.bitmap = commonencryptedimage;
+                    ABT.bitmap = CENCencryptedimage;
                     ABT.MouseOverDesc = "Dynamic Common Encryption (CENC)";
+                    break;
+
+                case AssetEncryptionState.DynamicCommonEncryptionCbcs:
+                    ABT.bitmap = CENCcbcsEncryptedImage;
+                    ABT.MouseOverDesc = "Dynamic Common Encryption (Cbcs)";
                     break;
 
                 case AssetEncryptionState.DynamicEnvelopeEncryption:
@@ -16174,21 +16180,48 @@ namespace AMSExplorer
                     AssetEncryptionState assetEncryptionStateSmooth = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming);
                     AssetEncryptionState assetEncryptionStateDash = asset.GetEncryptionState(AssetDeliveryProtocol.Dash);
                     bool CENCEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicCommonEncryption);
+                    bool CENCCbcsEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryptionCbcs);
                     bool EnvelopeEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicEnvelopeEncryption);
+                    int count = (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);
+                    ABT.bitmap = new Bitmap((envelopeencryptedimage.Width * count), envelopeencryptedimage.Height);
+                    int x = 0;
 
+                    using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
+                    {
+                        if (EnvelopeEnable)
+                        {
+                            graphicsObject.DrawImage(envelopeencryptedimage, new Point(x, 0));
+                            x += envelopeencryptedimage.Width;
+                        }
+
+                        if (CENCEnable)
+                        {
+                            graphicsObject.DrawImage(CENCencryptedimage, new Point(x, 0));
+                            x += CENCencryptedimage.Width;
+                        }
+
+                        if (CENCCbcsEnable)
+                        {
+                            graphicsObject.DrawImage(CENCcbcsEncryptedImage, new Point(x, 0));
+                            x += CENCcbcsEncryptedImage.Width;
+                        }
+                    }
+
+                    /*
                     if (CENCEnable && EnvelopeEnable)
                     {
-                        ABT.bitmap = new Bitmap((envelopeencryptedimage.Width + commonencryptedimage.Width), envelopeencryptedimage.Height);
+                        ABT.bitmap = new Bitmap((envelopeencryptedimage.Width + CENCencryptedimage.Width), envelopeencryptedimage.Height);
                         using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
                         {
                             graphicsObject.DrawImage(envelopeencryptedimage, new Point(0, 0));
-                            graphicsObject.DrawImage(commonencryptedimage, new Point(envelopeencryptedimage.Width, 0));
+                            graphicsObject.DrawImage(CENCencryptedimage, new Point(envelopeencryptedimage.Width, 0));
                         }
                     }
                     else
                     {
-                        ABT.bitmap = CENCEnable ? commonencryptedimage : envelopeencryptedimage;
+                        ABT.bitmap = CENCEnable ? CENCencryptedimage : envelopeencryptedimage;
                     }
+                    */
                     ABT.MouseOverDesc = "Multiple policies";
                     break;
 
