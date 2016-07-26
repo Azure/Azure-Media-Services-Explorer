@@ -3657,6 +3657,7 @@ namespace AMSExplorer
     public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
+        public FirstQuality Firstquality { get; set; }
         public PresentationTimeRange Presentationtimerange { get; set; }
         public IList<FilterTrackSelectStatement> Trackconditions { get; set; }
 

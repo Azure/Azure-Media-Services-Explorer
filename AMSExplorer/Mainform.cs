@@ -12756,7 +12756,7 @@ namespace AMSExplorer
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                    _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions, filterinfo.Firstquality);
                     TextBoxLogWriteLine("Global filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
@@ -12804,6 +12804,7 @@ namespace AMSExplorer
                     filterinfotoupdate = form.GetFilterInfo;
                     filter.PresentationTimeRange = filterinfotoupdate.Presentationtimerange;
                     filter.Tracks = filterinfotoupdate.Trackconditions;
+                    filter.FirstQuality = filterinfotoupdate.Firstquality;
                     filter.Update();
                     TextBoxLogWriteLine("Global filter '{0}' updated.", filter.Name);
                 }
@@ -13034,7 +13035,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        _context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
+                        _context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks, sourcefilter.FirstQuality);
                     }
                     catch (Exception e)
                     {

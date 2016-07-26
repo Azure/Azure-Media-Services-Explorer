@@ -2126,6 +2126,7 @@ namespace AMSExplorer
                         filtertoupdate = form.GetFilterInfo;
                         filter.PresentationTimeRange = filtertoupdate.Presentationtimerange;
                         filter.Tracks = filtertoupdate.Trackconditions;
+                        filter.FirstQuality = filtertoupdate.Firstquality;
                         filter.Update();
                         myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
                     }

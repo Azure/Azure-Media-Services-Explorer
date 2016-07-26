@@ -59,8 +59,6 @@ namespace AMSExplorer
             _filterToDisplay = filterToDisplay;
             _parentAsset = parentAsset;
             _subclipconfig = subclipconfig;
-
-
         }
 
         private void FillComboBoxImportFilters(IAsset asset)
@@ -145,6 +143,12 @@ namespace AMSExplorer
                 timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
                 TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
                 numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+
+                if (_filterToDisplay.FirstQuality != null)
+                {
+                    checkBoxFirstQualityBitrate.Checked = true;
+                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                }
             }
 
 
@@ -296,6 +300,12 @@ namespace AMSExplorer
                 timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
                 TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
                 numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+
+                if (_filterToDisplay.FirstQuality != null)
+                {
+                    checkBoxFirstQualityBitrate.Checked = true;
+                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                }
             }
 
             // Common code
@@ -378,6 +388,7 @@ namespace AMSExplorer
                 DGInfo.Rows.Add("Id", assetfilter.Id);
                 DGInfo.Rows.Add("Parent asset Id", assetfilter.ParentAssetId);
             }
+            DGInfo.Rows.Add("First Quality Bitrate", _filterToDisplay.FirstQuality == null ? Constants.stringNull : _filterToDisplay.FirstQuality.Bitrate.ToString());
             DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
             DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
             DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
@@ -507,7 +518,7 @@ namespace AMSExplorer
             {
                 FilterCreationInfo filterinfo = new FilterCreationInfo();
                 filterinfo.Name = newfilter ? textBoxFilterName.Text : _filter_name;
-
+                filterinfo.Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null;
                 if (checkBoxRawMode.Checked) // RAW Mode
                 {
                     try
@@ -1069,6 +1080,11 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
+        }
+
+        private void checkBoxFirstQualityBitrate_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownFirstQualityBitrate.Enabled = checkBoxFirstQualityBitrate.Checked;
         }
     }
 
