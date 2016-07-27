@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -90,6 +90,7 @@ namespace AMSExplorer
         private bool _ThumbnailsModeOnly;
         private bool _disableOverlay;
         private bool _disableSourceTrimming;
+        private Mainform _main;
 
         public List<IAsset> SelectedAssets
         {
@@ -157,7 +158,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, Mainform main, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -169,7 +170,18 @@ namespace AMSExplorer
             _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
             _disableOverlay = disableOverlay;
             _disableSourceTrimming = disableSourceTrimming;
+            _main = main;
+
         }
+
+
+
+        private void buttonRegionEditor_RegionsChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+
 
 
         private void EncodingAMEStandard_Shown(object sender, EventArgs e)
@@ -183,12 +195,16 @@ namespace AMSExplorer
             buttonShowEDL.Initialize();
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
 
+            buttonRegionEditor.Initialize(_firstAsset, _main, false, 1, true, "Cropping Editor");
+            buttonRegionEditor.RegionsChanged += buttonRegionEditor_RegionsChanged;
+
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
+            linkLabelInfoCropping.Links.Add(new LinkLabel.Link(0, linkLabelInfoCropping.Text.Length, Constants.LinkCroppingMES));
             linkLabelThumbnail1.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
-            linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
-            linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail2.Text.Length, Constants.LinkThumbnailsMES));
+            linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
 
@@ -215,7 +231,7 @@ namespace AMSExplorer
                 else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
                 {
                     checkBoxUseEDL.Checked = true;
-                    buttonShowEDL.EDLEntries = _subclipConfig.InOutForReencode;
+                    buttonShowEDL.SetEDLEntries(_subclipConfig.InOutForReencode);
                 }
 
                 _disableOverlay = true;
@@ -291,7 +307,7 @@ namespace AMSExplorer
             }
             else if (mode == TypeConfig.JSON || mode == TypeConfig.Empty) // JSON
             {
-               
+
                 if (checkBoxAddAutomatic.Checked)
                 {
                     if (mode == TypeConfig.Empty)
@@ -312,22 +328,16 @@ namespace AMSExplorer
                     // clean trimming
                     // clean deinterlace filter
                     // clean overlay
+                    // clean cropping
 
 
                     if (obj.Sources != null)
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
-                        { /*
-                            if (
-                                (source.StartTime != null)
-                                || (source.Duration != null)
-                                || (source.Filters != null && source.Filters.Deinterlace != null)
-                                || (source.Filters != null && source.Filters.VideoOverlay != null)
-                                )
-                            {*/
-                                listDelete.Add(source);
-                            //}
+                        {
+                            listDelete.Add(source);
+
                         }
                         listDelete.ForEach(c => c.Remove());
                         if (obj.Sources.Count == 0)
@@ -335,7 +345,7 @@ namespace AMSExplorer
                             obj.Sources.Parent.Remove();
                         }
                     }
-                    
+
 
                     // Clean Insert silent audio track
                     if (obj.Codecs != null)
@@ -404,7 +414,7 @@ namespace AMSExplorer
                             obj.Sources = new JArray() as dynamic;
                         }
 
-                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             dynamic time = new JObject();
                             time.StartTime = entry.Start + buttonShowEDL.Offset;
@@ -641,6 +651,92 @@ namespace AMSExplorer
                             }
                         }
                     }
+
+                    // Video Cropping
+                    if (checkBoxCropVideo.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
+
+                    {
+                        /*
+                       {
+"Version": 1.0,
+"Sources": [
+{
+  "Streams": [],
+  "Filters": {
+    "Crop": {
+        "X": 240,
+        "Y": 0,
+        "Width": 1440,
+        "Height": 1080
+    }
+  },
+  "Pad": true
+}
+],
+"Codecs": [
+{
+
+    */
+
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+
+                        // let's prepare objects
+                        dynamic CropEntry = new JObject();
+                        dynamic Crop = new JObject();
+                        CropEntry.Crop = Crop;
+
+                        var CroppingRectangle = buttonRegionEditor.GetSavedPolygonesAsRectangleResolutionMode().FirstOrDefault();
+                        Crop.X = CroppingRectangle.X;
+                        Crop.Y = CroppingRectangle.Y;
+                        Crop.Width = CroppingRectangle.Width;
+                        Crop.Height = CroppingRectangle.Height;
+
+                        // now we put these objects in the preset
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                if (entry.Filters != null)
+                                {
+                                    entry.Filters.Add(CropEntry);
+                                }
+                                else
+                                {
+                                    entry.Filters = CropEntry;
+
+                                }
+
+                                if (entry.Streams == null)
+                                {
+                                    entry.Streams = new JArray() as dynamic;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dynamic Source = new JObject();
+                            obj.Sources.Add(Source);
+
+                            if (Source.Filters != null)
+                            {
+                                Source.Filters.Add(CropEntry);
+                            }
+                            else
+                            {
+                                Source.Filters = CropEntry;
+                            }
+
+                            if (Source.Streams == null)
+                            {
+                                Source.Streams = new JArray() as dynamic;
+                            }
+                        }
+                    }
+
 
                     // Insert silent audio track
                     if (checkBoxInsertSilentAudioTrack.Checked)
@@ -935,7 +1031,7 @@ namespace AMSExplorer
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+
         }
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
@@ -1177,9 +1273,19 @@ namespace AMSExplorer
 
         private void numericUpDownThWidthPNG_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
             NumericUpDown nud = (NumericUpDown)sender;
             var v = nud.Value;
+        }
+
+        private void checkBoxCropVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonRegionEditor.Enabled = checkBoxCropVideo.Checked;
+        }
+
+        private void buttonShowEDL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

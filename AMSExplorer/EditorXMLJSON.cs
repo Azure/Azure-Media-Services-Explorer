@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -73,11 +73,6 @@ namespace AMSExplorer
             }
         }
 
-        private void EditorXMLJSON_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public DialogResult Display()
         {
             DialogResult DR = this.ShowDialog();
@@ -104,23 +99,12 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            string myxml =
-@"<?xml version = ""1.0"" encoding = ""utf-8"" ?>
-<transcodeRequest>
-<transcodeSource>
-</transcodeSource>
-<!--set runtime properties-->
-<setRuntimeProperties>
-<property propertyPath = ""Text To Image Converter/text"" value = ""Value""/>
-</setRuntimeProperties></transcodeRequest>";
-
-            XDocument doc = XDocument.Parse(myxml);
-            textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+            XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+            textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            //Clipboard.SetText(textBoxConfiguration.Text);
             System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
             MyThread.SetApartmentState(ApartmentState.STA);
             MyThread.IsBackground = true;

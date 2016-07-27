@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -68,7 +68,8 @@ namespace AMSExplorer
                 ChannelEncoding encodingoption = new ChannelEncoding()
                 {
                     SystemPreset = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
-                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value))
+                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                    IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
                 };
                 if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP
@@ -231,7 +232,10 @@ namespace AMSExplorer
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
             comboBoxEncodingType.Items.Add(new Item("None", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
             comboBoxEncodingType.Items.Add(new Item("Standard", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
-            comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+            if (Properties.Settings.Default.ShowLivePremiumChannel)
+            {
+                comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+            }
             comboBoxEncodingType.SelectedIndex = 0;
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);

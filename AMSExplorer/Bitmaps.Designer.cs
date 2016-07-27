@@ -65,7 +65,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap _01_indexer {
             get {
-                object obj = ResourceManager.GetObject("01-indexer", resourceCulture);
+                object obj = ResourceManager.GetObject("_01_indexer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap _02_hyperlapse {
             get {
-                object obj = ResourceManager.GetObject("02-hyperlapse", resourceCulture);
+                object obj = ResourceManager.GetObject("_02_hyperlapse", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap _03_motion_detection {
             get {
-                object obj = ResourceManager.GetObject("03-motion-detection", resourceCulture);
+                object obj = ResourceManager.GetObject("_03_motion_detection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +95,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap _04_face_detection {
             get {
-                object obj = ResourceManager.GetObject("04-face-detection", resourceCulture);
+                object obj = ResourceManager.GetObject("_04_face_detection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +105,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap _06_emotion {
             get {
-                object obj = ResourceManager.GetObject("06-emotion", resourceCulture);
+                object obj = ResourceManager.GetObject("_06_emotion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +186,16 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap change_priority {
             get {
                 object obj = ResourceManager.GetObject("change_priority", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap contentmoderation {
+            get {
+                object obj = ResourceManager.GetObject("contentmoderation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -295,7 +305,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap encoding_large {
             get {
-                object obj = ResourceManager.GetObject("encoding-large", resourceCulture);
+                object obj = ResourceManager.GetObject("encoding_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -643,6 +653,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OCR {
+            get {
+                object obj = ResourceManager.GetObject("OCR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap options {
             get {
                 object obj = ResourceManager.GetObject("options", resourceCulture);
@@ -806,6 +826,26 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap watch_folder {
             get {
                 object obj = ResourceManager.GetObject("watch_folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XY {
+            get {
+                object obj = ResourceManager.GetObject("XY", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XYRect {
+            get {
+                object obj = ResourceManager.GetObject("XYRect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

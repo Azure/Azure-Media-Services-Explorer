@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -166,7 +166,9 @@ namespace AMSExplorer
             this.Columns["CDN"].Width = 100;
             this.Columns["Description"].Width = 230;
             this.Columns["ScaleUnits"].Width = 100;
+            this.Columns["ScaleUnits"].HeaderText = "Streaming Units";
             this.Columns["LastModified"].Width = 150;
+            this.Columns["LastModified"].HeaderText = "Last modified";
 
             WorkerRefreshStreamingEndpoints = new BackgroundWorker();
             WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;

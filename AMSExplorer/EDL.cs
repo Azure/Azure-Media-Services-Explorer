@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
-        private void EDL_Load(object sender, EventArgs e)
+        public void EDL_Load(object sender, EventArgs e)
         {
             dataGridViewEDL.DataSource = TimeCodeList;
 
@@ -67,16 +67,17 @@ namespace AMSExplorer
             OnChanged(EventArgs.Empty);
         }
 
-        public List<ExplorerEDLEntryInOut> EDLEntries
+        public List<ExplorerEDLEntryInOut> GetEDLEntries()
         {
-            get
-            {
-                return TimeCodeList.ToList();
-            }
-            set
-            {
-                TimeCodeList = new BindingList<ExplorerEDLEntryInOut>(value);
-            }
+
+            return TimeCodeList.ToList();
+        }
+
+        public void SetEDLEntries(List<ExplorerEDLEntryInOut> list)
+        {
+
+            TimeCodeList = new BindingList<ExplorerEDLEntryInOut>(list);
+
         }
 
         private void buttonUp_Click(object sender, EventArgs e)
@@ -179,17 +180,15 @@ namespace AMSExplorer
         {
             myEDL.AddEDLEntry(entry);
         }
-
-        public List<ExplorerEDLEntryInOut> EDLEntries
+        
+        public List<ExplorerEDLEntryInOut> GetEDLEntries()
         {
-            get
-            {
-                return myEDL.EDLEntries;
-            }
-            set
-            {
-                myEDL.EDLEntries = value;
-            }
+            return myEDL.GetEDLEntries();
+        }
+
+        public void SetEDLEntries(List<ExplorerEDLEntryInOut> list)
+        {
+            myEDL.SetEDLEntries(list);
         }
 
         public TimeSpan Offset { get; set; }

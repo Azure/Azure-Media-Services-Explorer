@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -77,6 +78,14 @@ namespace AMSExplorer
             set
             {
                 textBoxFairPlayLAurl.Text = value.ToString();
+            }
+        }
+
+        public bool FairPlayFinalLAurl
+        {
+            get
+            {
+                return checkBoxFinalExtURL.Checked;
             }
         }
 
@@ -148,21 +157,17 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-
         }
-
 
         private void AddDynamicEncryptionFrame3_Load(object sender, EventArgs e)
         {
+            moreinfoFairPlaylink.Links.Add(new LinkLabel.Link(0, moreinfoFairPlaylink.Text.Length, Constants.LinkMoreInfoFairPlay));
         }
-
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
         }
-
-
 
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
@@ -176,15 +181,15 @@ namespace AMSExplorer
         {
             cert = DynamicEncryption.GetCertificateFromFile(false, X509KeyStorageFlags.Exportable);
 
-            labelCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
+            TextBoxCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
             ValidateButtonOk();
         }
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled = 
+            buttonOk.Enabled =
                 (radioButtonDeliverFairPlayfromAMS.Checked && cert.Certificate != null && FairPlayASK != null)
-                || 
+                ||
                 (radioButtonExternalFairPlayServer.Checked && !string.IsNullOrWhiteSpace(textBoxFairPlayLAurl.Text) && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty);
         }
 
@@ -276,6 +281,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(textBoxASK, String.Empty);
             }
+            ValidateButtonOk();
         }
 
         private void radioButtonASKBase64_CheckedChanged(object sender, EventArgs e)
@@ -307,6 +313,11 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private void moreinfoFairPlaylink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
     }
-   
+
 }

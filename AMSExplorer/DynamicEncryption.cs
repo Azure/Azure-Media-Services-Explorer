@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -355,7 +355,7 @@ namespace AMSExplorer
             if (openFileDialogCert.ShowDialog() == DialogResult.OK)
             {
 
-                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
+                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password, true) == DialogResult.OK)
                 {
                     try
                     {
@@ -542,7 +542,7 @@ namespace AMSExplorer
             return MyResult;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri keyAcquisitionUri)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri keyAcquisitionUri, bool finalAcquisitionUrl)
         {
             // if user does not specify a custom LA URL, let's use the AES key server from Azure Media Services
             if (keyAcquisitionUri == null)
@@ -564,7 +564,7 @@ namespace AMSExplorer
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
                 new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
             {
-                {AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString()}
+                {finalAcquisitionUrl ? AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl: AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString()}
             };
 
             IAssetDeliveryPolicy assetDeliveryPolicy =
@@ -593,7 +593,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, string fairplayAcquisitionUrl = null, string iv_if_externalserver = null, bool UseSKDForAMSLAURL = true)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, bool widevineAcquisitionURLFinal = false, string fairplayAcquisitionUrl = null, bool fairplayAcquisitionURLFinal = false, string iv_if_externalserver = null, bool UseSKDForAMSLAURL = true)
         {
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
@@ -626,16 +626,22 @@ namespace AMSExplorer
             // Widevine
             if (form1.WidevinePackaging) // let's add Widevine
             {
+                bool finalUrl = false;
                 if (widevineAcquisitionUrl == null)
                 {
                     widevineAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine).ToString();
-                }
-                // let's get the url without the key id parameter
-                UriBuilder uriBuilder = new UriBuilder(widevineAcquisitionUrl);
-                uriBuilder.Query = String.Empty;
-                widevineAcquisitionUrl = uriBuilder.Uri.ToString();
 
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl, widevineAcquisitionUrl);
+                    // let's get the url without the key id parameter
+                    UriBuilder uriBuilder = new UriBuilder(widevineAcquisitionUrl);
+                    uriBuilder.Query = String.Empty;
+                    widevineAcquisitionUrl = uriBuilder.Uri.ToString();
+                }
+                else
+                {
+                    finalUrl = widevineAcquisitionURLFinal;
+                }
+
+                assetDeliveryPolicyConfiguration.Add(finalUrl ? AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl : AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
 
@@ -678,7 +684,7 @@ namespace AMSExplorer
                         // user wants it to be auto generated
                         iv_if_externalserver = DynamicEncryption.ByteArrayToHexString(Guid.NewGuid().ToByteArray());
                     }
-                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
+                    assetDeliveryPolicyConfiguration.Add(fairplayAcquisitionURLFinal ? AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl : AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
                 }
             }

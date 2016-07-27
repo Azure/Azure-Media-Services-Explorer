@@ -94,8 +94,8 @@
       <HintPath>..\packages\Windows7APICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -218,6 +218,18 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.Designer.cs">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.Designer.cs">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaAnalyticsPickVideoFileInAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +241,12 @@
     </Compile>
     <Compile Include="IndexerV2.Designer.cs">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegionEditor\RegionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionEditor\RegionEditor.Designer.cs">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsSelection.cs">
       <SubType>Form</SubType>
@@ -685,13 +703,20 @@
     <None Include="BitmapsPNG\06-emotion.png" />
     <None Include="BitmapsPNG\01-indexer.png" />
     <None Include="BitmapsPNG\encoding-large.png" />
-    <Content Include="Configurations\Hyperlapse.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="BitmapsPNG\OCR.png" />
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />
+    <Content Include="Configurations\SampleSemaphoreRhozet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\SampleMPWESetRunTime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\AssetAnalysis.json">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="HelpFiles\MediaServices.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -710,11 +735,14 @@
     <None Include="IconsPNG\filter.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />
-    <Content Include="IconsPNG\bulk_ingest.png" />
-    <Content Include="IconsPNG\copy_to_clipboard.png" />
-    <Content Include="IconsPNG\face_detector.png" />
+    <None Include="IconsPNG\bulk_ingest.png" />
+    <None Include="IconsPNG\contentmoderation.png" />
+    <None Include="IconsPNG\copy_to_clipboard.png" />
+    <None Include="IconsPNG\face_detector.png" />
     <None Include="IconsPNG\filters.png" />
-    <Content Include="IconsPNG\hyperlapse.png" />
+    <None Include="IconsPNG\hyperlapse.png" />
+    <None Include="IconsPNG\XY.png" />
+    <None Include="IconsPNG\XYRect.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -754,10 +782,10 @@
     <None Include="Resources\media-services-trim-filter.png" />
     <None Include="Resources\media-services-subclips-filter.png" />
     <None Include="Resources\media-services-rendition-filter2.png" />
-    <Content Include="IconsPNG\media_redactor.png" />
-    <Content Include="IconsPNG\media_stabilizer.png" />
-    <Content Include="IconsPNG\motion_detector.png" />
-    <Content Include="IconsPNG\subclipping.png" />
+    <None Include="IconsPNG\media_redactor.png" />
+    <None Include="IconsPNG\media_stabilizer.png" />
+    <None Include="IconsPNG\motion_detector.png" />
+    <None Include="IconsPNG\subclipping.png" />
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -800,6 +828,12 @@
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsMotionDetection.resx">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsVideoOCR.resx">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MediaAnalyticsPickVideoFileInAsset.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </EmbeddedResource>
@@ -808,6 +842,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionEditor\RegionEditor.resx">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>
@@ -983,15 +1020,15 @@
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Azure Explorer_ico.ico" />
-    <Content Include="BitmapsPNG\8-12-2014-13-20-04.png" />
-    <Content Include="BitmapsPNG\Azure Explorer.png" />
-    <Content Include="BitmapsPNG\Azure Explorer_ico.ico" />
+    <None Include="BitmapsPNG\8-12-2014-13-20-04.png" />
+    <None Include="BitmapsPNG\Azure Explorer.png" />
+    <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\AzureMedia_Full-Color-64-opaque.png" />
-    <Content Include="BitmapsPNG\modeltaskxenio1.png" />
-    <Content Include="BitmapsPNG\modeltaskxenio2.png" />
-    <Content Include="BitmapsPNG\modetaskjob1.png" />
-    <Content Include="BitmapsPNG\modetaskjob2.png" />
-    <Content Include="BitmapsPNG\modetaskjob3.png" />
+    <None Include="BitmapsPNG\modeltaskxenio1.png" />
+    <None Include="BitmapsPNG\modeltaskxenio2.png" />
+    <None Include="BitmapsPNG\modetaskjob1.png" />
+    <None Include="BitmapsPNG\modetaskjob2.png" />
+    <None Include="BitmapsPNG\modetaskjob3.png" />
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

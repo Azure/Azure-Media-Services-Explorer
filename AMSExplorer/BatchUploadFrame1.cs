@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -92,9 +92,6 @@ namespace AMSExplorer
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            checkBoxOneUpDownload.Checked = Properties.Settings.Default.useTransferQueue;
-            //checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
-
             comboBoxEncryption.Items.Add(new Item("None (no encryption before upload)", AssetCreationOptions.None.ToString()));
             comboBoxEncryption.Items.Add(new Item("Storage encryption (content will be encrypted locally to AES 256 before upload)", AssetCreationOptions.StorageEncrypted.ToString()));
             comboBoxEncryption.Items.Add(new Item("Common encryption (content is already encrypted with PlayReady)", AssetCreationOptions.CommonEncryptionProtected.ToString()));
@@ -106,7 +103,6 @@ namespace AMSExplorer
             {
                 comboBoxEncryption.SelectedIndex = 0;
             }
-
         }
 
         private void buttonNext_Click(object sender, EventArgs e)

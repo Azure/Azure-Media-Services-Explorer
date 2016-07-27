@@ -61,6 +61,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -72,7 +73,7 @@
             this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExport.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonExport.Enabled = false;
-            this.buttonExport.Location = new System.Drawing.Point(588, 15);
+            this.buttonExport.Location = new System.Drawing.Point(576, 15);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(87, 27);
             this.buttonExport.TabIndex = 2;
@@ -84,7 +85,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(682, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(670, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(87, 27);
             this.buttonCancel.TabIndex = 10;
@@ -414,8 +415,17 @@
             this.panel1.Controls.Add(this.buttonExport);
             this.panel1.Location = new System.Drawing.Point(0, 606);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 55);
+            this.panel1.Size = new System.Drawing.Size(772, 55);
             this.panel1.TabIndex = 62;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 606);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 77;
             // 
             // ExportAssetToAzureStorage
             // 
@@ -425,6 +435,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.groupBox3);
@@ -432,6 +443,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ExportAssetToAzureStorage";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export Asset File(s) to Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
@@ -482,5 +494,6 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Label labelContName;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

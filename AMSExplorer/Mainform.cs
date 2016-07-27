@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -81,14 +81,14 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
-        private bool AMEStandardPresent = true;
         private bool AMFaceDetectorPresent = true;
         private bool AMRedactorPresent = true;
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
         private bool AMIndexerV2Present = true;
-
+        private bool AMVideoOCRPresent = true;
+        private bool AMContentModerator = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -210,7 +210,7 @@ namespace AMSExplorer
 
             try // as this is the first call to MPs
             {
-                if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
+                if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null)
                 {
                     AMEPremiumWorkflowPresent = false;
                     encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
@@ -221,21 +221,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Error message :\n" + ex.Message + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
-            }
-
-
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard) == null)
-            {
-                AMEStandardPresent = false;
-                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
-                toolStripSeparator35.Visible = false;
-                toolStripSeparator32.Visible = false;
-
-                // subclipping
-                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
-                subclipProgramsToolStripMenuItem.Visible = false;
-                subclipToolStripMenuItem.Visible = false;
             }
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
@@ -278,6 +263,18 @@ namespace AMSExplorer
                 toolStripMenuItemIndexv2.Visible = false;
                 toolStripMenuItem38Indexer2.Visible = false;
             }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
+            {
+                AMVideoOCRPresent = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
+            {
+                AMContentModerator = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
+            }
 
             // Timer Auto Refresh
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
@@ -301,7 +298,7 @@ namespace AMSExplorer
             try
             {
                 if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1 (Basic).", true); // Warning
+                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
             }
             catch // can occur on test account
             {
@@ -333,6 +330,10 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
             }
 
+            // let's initialize the trackbar and text for nb of transfers
+            trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
+            UpdateLabelConcurrentTransfers();
+
             ApplySettingsOptions(true);
         }
 
@@ -349,13 +350,13 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index, CancellationToken token)
+        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -393,8 +394,8 @@ namespace AMSExplorer
                 blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
                 TextBoxLogWriteLine("Created a reference for block blob in Azure....");
 
-
-                await blockBlob.StartCopyAsync(ObjectUrl, token);
+                string stringOperation = await blockBlob.StartCopyAsync(ObjectUrl, token);
+                bool Cancelled = false;
 
                 DateTime startTime = DateTime.UtcNow;
 
@@ -402,39 +403,34 @@ namespace AMSExplorer
 
                 while (continueLoop)// && !token.IsCancellationRequested)
                 {
-                    IEnumerable<IListBlobItem> blobsList = mediaBlobContainer.ListBlobs(null, true, BlobListingDetails.Copy);
-                    foreach (var blob in blobsList)
+                    if (token.IsCancellationRequested && !Cancelled)
                     {
-                        var tempBlockBlob = (CloudBlockBlob)blob;
-                        var destBlob = blob as CloudBlockBlob;
+                        await blockBlob.AbortCopyAsync(stringOperation);
+                        Cancelled = true;
+                    }
 
-                        if (tempBlockBlob.Name == fileName)
+                    blockBlob.FetchAttributes();
+                    var copyStatus = blockBlob.CopyState;
+                    if (copyStatus != null)
+                    {
+                        double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
+
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+
+                        if (copyStatus.Status != CopyStatus.Pending)
                         {
-                            tempBlockBlob.FetchAttributes();
-                            var copyStatus = tempBlockBlob.CopyState;
-                            if (copyStatus != null)
+                            continueLoop = false;
+                            if (copyStatus.Status == CopyStatus.Failed)
                             {
-                                double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
-
-                                DoGridTransferUpdateProgress(percentComplete, index);
-
-                                if (copyStatus.Status != CopyStatus.Pending)
-                                {
-                                    continueLoop = false;
-                                    if (copyStatus.Status == CopyStatus.Failed)
-                                    {
-                                        Error = true;
-                                        ErrorMessage = copyStatus.StatusDescription;
-                                    }
-                                    if (copyStatus.Status == CopyStatus.Aborted)
-                                    {
-                                        Canceled = true;
-                                    }
-                                }
+                                Error = true;
+                                ErrorMessage = copyStatus.StatusDescription;
+                            }
+                            if (copyStatus.Status == CopyStatus.Aborted)
+                            {
+                                Canceled = true;
                             }
                         }
                     }
-
                     System.Threading.Thread.Sleep(1000);
                 }
                 DateTime endTime = DateTime.UtcNow;
@@ -455,7 +451,7 @@ namespace AMSExplorer
                     // make the file primary
                     AssetInfo.SetFileAsPrimary(asset, assetFile.Name);
 
-                    DoGridTransferDeclareCompleted(index, asset.Id);
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                     DoRefreshGridAssetV(false);
                 }
                 else if (Canceled)
@@ -467,12 +463,12 @@ namespace AMSExplorer
                     }
                     catch { }
 
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                     DoRefreshGridAssetV(false);
                 }
                 else // Error!
                 {
-                    DoGridTransferDeclareError(index, "Error during import. " + ErrorMessage);
+                    DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
                     try
                     {
                         destinationLocator.Delete();
@@ -487,7 +483,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(index, ex);
+                DoGridTransferDeclareError(guidTransfer, ex);
 
                 if (destinationLocator != null)
                 {
@@ -515,13 +511,13 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFromFolder(object folderPath, int index, AssetCreationOptions assetcreationoption, CancellationToken token, string storageaccount = null)
+        private async Task ProcessUploadFromFolder(object folderPath, Guid guidTransfer, AssetCreationOptions assetcreationoption, CancellationToken token, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -550,7 +546,7 @@ namespace AMSExplorer
                                                                (af, p) =>
                                                                {
                                                                    progress[af.Name] = p.Progress;
-                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
+                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), guidTransfer);
                                                                }, token
                                                                );
                 asset = await tasset;
@@ -559,18 +555,18 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index, e);
+                DoGridTransferDeclareError(guidTransfer, e);
                 TextBoxLogWriteLine("Error when uploading from {0}", folderPath, true);
             }
             if (!Error)
             {
                 if (!token.IsCancellationRequested)
                 {
-                    DoGridTransferDeclareCompleted(index, asset.Id);
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                 }
                 else
                 {
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                 }
             }
             DoRefreshGridAssetV(false);
@@ -853,13 +849,6 @@ namespace AMSExplorer
             if (asset.AssetFiles.Count() == 1)
             {
                 return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-            /*
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-            || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-    */
             );
             }
             else
@@ -867,7 +856,6 @@ namespace AMSExplorer
                 return false;
             }
         }
-
 
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -991,9 +979,9 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.index, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
                 catch (Exception ex)
@@ -1007,50 +995,100 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessUploadFileAndMore(object name, int index, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(object name, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
-            TextBoxLogWriteLine("Starting upload of file '{0}'", name);
             bool Error = false;
             IAsset asset = null;
-            try
-            {
-                asset = await _context.Assets.CreateFromFileAsync(
-                                                      name as string,
-                                                      storageaccount,
-                                                      assetcreationoptions,
-                                                      (af, p) =>
-                                                      {
-                                                          DoGridTransferUpdateProgress(p.Progress, index);
-                                                      },
-                                                      token
-                                                      );
-                AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
-            }
-            catch (Exception e)
-            {
-                Error = true;
-                DoGridTransferDeclareError(index, e);
-                TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                TextBoxLogWriteLine(e);
-                if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
-                {
-                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
-                }
+            var listfiles = new List<WatchFolder.RohzetAsset>();
 
+
+            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            {
+                try
+                {
+                    listfiles = WatchFolder.GetListFilesFromRohzetXML(name as string);
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine("Error when reading xml file '{0}'", name as string, true);
+                    TextBoxLogWriteLine(e);
+                    DoGridTransferDeclareError(guidTransfer);
+                    Error = true;
+                }
+                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                try
+                {
+                    asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
+                                                          storageaccount,
+                                                          assetcreationoptions,
+                                                          token);
+
+                    foreach (var file in listfiles)
+                    {
+                        IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
+                        if (token.IsCancellationRequested) return;
+                        UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
+                        UploadedAssetFile.Upload(file.URI);
+                    }
+
+                    AssetInfo.SetAFileAsPrimary(asset);
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                    TextBoxLogWriteLine(e);
+                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                    {
+                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                    }
+                }
             }
+            else // normal case
+            {
+                TextBoxLogWriteLine("Starting upload of file '{0}'", name);
+                try
+                {
+                    asset = await _context.Assets.CreateFromFileAsync(
+                                                          name as string,
+                                                          storageaccount,
+                                                          assetcreationoptions,
+                                                          (af, p) =>
+                                                          {
+                                                              DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                                                          },
+                                                          token
+                                                          );
+                    AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                    TextBoxLogWriteLine(e);
+                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                    {
+                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                    }
+                }
+            }
+
+
             if (!Error && !token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCompleted(index, asset.Id);
+                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                 if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //user checked the box "delete the file"
                 {
                     try
@@ -1062,6 +1100,20 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
                         if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+                    }
+
+                    try
+                    {
+                        if (listfiles.Count > 0)
+                        {
+                            listfiles.ForEach(f => File.Delete(f.URI));
+                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()), true);
+                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message);
                     }
                 }
 
@@ -1200,20 +1252,107 @@ namespace AMSExplorer
             }
             else if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
             }
             DoRefreshGridAssetV(false);
         }
 
-
-
-        private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, int index, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
+        private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer, int indexfile, int nbfiles)
         {
-            // If download in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(index);
+            double progress = 100 * (double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
+            DoGridTransferUpdateProgress(progress, guidTransfer);
+        }
+
+        private void DoMenuUploadFileToAsset_Step1()
+        {
+            var assets = ReturnSelectedAssets();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, assets);
+            }
+        }
+
+        private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<IAsset> assets)
+        {
+            foreach (var asset in assets)
+            {
+                try
+                {
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+        }
+
+
+        private async Task ProcessUploadFilesToAsset(string[] FileNames, IAsset asset, Guid guidTransfer, CancellationToken token)
+        {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(guidTransfer);
             if (token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(index);
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+
+            bool Error = false;
+
+            foreach (var myfile in FileNames)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    TextBoxLogWriteLine("Upload cancelled by the user.", true);
+                    break;
+                }
+                TextBoxLogWriteLine("Starting upload of file '{0}' to asset '{1}'", myfile, asset.Name);
+
+                try
+                {
+                    IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(myfile), token);
+
+                    UploadedAssetFile.UploadProgressChanged += (af, p) =>
+                     {
+                         DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                     };
+
+                    UploadedAssetFile.Upload(myfile);
+
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'", myfile, true);
+                    TextBoxLogWriteLine(e);
+                }
+            }
+            if (!Error && !token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+            }
+
+            DoRefreshGridAssetV(false);
+        }
+
+
+        private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, Guid guidTransfer, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
+        {
+            // If download in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(guidTransfer);
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
 
@@ -1264,7 +1403,7 @@ namespace AMSExplorer
                                                                                          (af, p) =>
                                                                                          {
                                                                                              progress[af.Name] = p.Progress;
-                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
+                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), guidTransfer);
                                                                                          },
                                                                                          token
                                                                                         );
@@ -1275,7 +1414,7 @@ namespace AMSExplorer
                         Error = true;
                         TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
                         TextBoxLogWriteLine(e);
-                        DoGridTransferDeclareError(index, e);
+                        DoGridTransferDeclareError(guidTransfer, e);
                     }
 
 
@@ -1290,11 +1429,11 @@ namespace AMSExplorer
             {
                 if (!token.IsCancellationRequested)
                 {
-                    DoGridTransferDeclareCompleted(index, folder.ToString());
+                    DoGridTransferDeclareCompleted(guidTransfer, folder.ToString());
                 }
                 else
                 {
-                    DoGridTransferDeclareCancelled(index);
+                    DoGridTransferDeclareCancelled(guidTransfer);
                 }
             }
         }
@@ -1302,10 +1441,10 @@ namespace AMSExplorer
         public void DoDownloadFileFromAsset(IAsset asset, IAssetFile File, object folder, TransferEntryResponse response)
         {
             // If download is in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -1338,17 +1477,17 @@ namespace AMSExplorer
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
                     TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(response.index, e);
+                    DoGridTransferDeclareError(response.Id, e);
                 }
                 if (!Error)
                 {
                     if (!response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, folder.ToString());
+                        DoGridTransferDeclareCompleted(response.Id, folder.ToString());
                     }
                     else
                     {
-                        DoGridTransferDeclareCancelled(response.index);
+                        DoGridTransferDeclareCancelled(response.Id);
                     }
                 }
             }, response.token);
@@ -1380,12 +1519,12 @@ namespace AMSExplorer
                 if (SelectedPath != null)
                 {
                     _backuprootfolderupload = SelectedPath;
-                    var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
                           SelectedPath,
-                          response.index,
+                          response.Id,
                           Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                           response.token
                           ), response.token);
@@ -1410,7 +1549,7 @@ namespace AMSExplorer
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
 
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -1423,9 +1562,9 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.index, response.token), response.token);
+                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
@@ -1786,9 +1925,9 @@ namespace AMSExplorer
                     string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
                     if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
 
-                    var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
                     // Start a worker thread that does downloading.
-                    var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.index, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
+                    var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
@@ -2369,7 +2508,7 @@ namespace AMSExplorer
 
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -2407,7 +2546,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, Properties.Settings.Default.useTransferQueue);
+                    var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, response), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -2422,10 +2561,10 @@ namespace AMSExplorer
             bool Error = false;
 
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2534,26 +2673,33 @@ namespace AMSExplorer
                             destinationBlob = assetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                            string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                            bool Cancelled = false;
 
                             while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                 destinationBlob.FetchAttributes();
                                 percentComplete = (Convert.ToDouble(assetindex + 1) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                DoGridTransferUpdateProgress(percentComplete, response.index);
+                                DoGridTransferUpdateProgress(percentComplete, response.Id);
+
+                                if (response.token.IsCancellationRequested && !Cancelled)
+                                {
+                                    await destinationBlob.AbortCopyAsync(copyOperation);
+                                    Cancelled = true;
+                                }
                             }
 
                             if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                             {
-                                DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
 
                             if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                             {
-                                DoGridTransferDeclareCancelled(response.index);
+                                DoGridTransferDeclareCancelled(response.Id);
                                 Error = true;
                                 break;
                             }
@@ -2565,14 +2711,14 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                            DoGridTransferDeclareError(response.index, ex);
+                            DoGridTransferDeclareError(response.Id, ex);
                             Error = true;
                             break;
 
                         }
                         BytesCopied += sourceCloudBlob.Properties.Length;
                         percentComplete = 100d * BytesCopied / Length;
-                        if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                        if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
                     }
                 }
                 else // all files in the same asset
@@ -2604,26 +2750,35 @@ namespace AMSExplorer
                                 {
 
                                 }
-                                await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+
+                                string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                bool Cancelled = false;
 
                                 while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                     destinationBlob.FetchAttributes();
                                     percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.index);
+                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
+
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(copyOperation);
+                                        Cancelled = true;
+                                    }
+
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2635,14 +2790,14 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 Error = true;
                                 break;
 
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
 
                         }
                     }
@@ -2671,11 +2826,11 @@ namespace AMSExplorer
             {
                 if (CreateOneAssetPerFile)
                 {
-                    DoGridTransferDeclareCompleted(response.index, "");
+                    DoGridTransferDeclareCompleted(response.Id, "");
                 }
                 else
                 {
-                    DoGridTransferDeclareCompleted(response.index, assets[0].Id);
+                    DoGridTransferDeclareCompleted(response.Id, assets[0].Id);
                 }
             }
 
@@ -2687,10 +2842,10 @@ namespace AMSExplorer
         private async void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, TransferEntryResponse response)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2720,7 +2875,7 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        DoGridTransferDeclareError(response.index, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
+                        DoGridTransferDeclareError(response.Id, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
                         Error = true;
                     }
                 }
@@ -2751,12 +2906,13 @@ namespace AMSExplorer
 
                         if (sourceCloudBlob.Properties.Length > 0)
                         {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.index);
+                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
                             try
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                await destinationBlob.StartCopyAsync(sourceCloudBlob, response.token);
+                                string stringOperation = await destinationBlob.StartCopyAsync(sourceCloudBlob, response.token);
+                                bool Cancelled = false;
 
                                 CloudBlockBlob blob;
                                 blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
@@ -2764,21 +2920,26 @@ namespace AMSExplorer
                                 while (blob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(stringOperation);
+                                        Cancelled = true;
+                                    }
                                     blob.FetchAttributes();
                                     percentComplete = (long)100 * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress((int)percentComplete, response.index);
+                                    DoGridTransferUpdateProgress((int)percentComplete, response.Id);
                                 }
 
                                 if (blob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, blob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (blob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2787,7 +2948,7 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    DoGridTransferDeclareError(response.index, "Error during blob copy.");
+                                    DoGridTransferDeclareError(response.Id, "Error during blob copy.");
                                     Error = true;
                                     break;
                                 }
@@ -2795,12 +2956,12 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 Error = true;
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = (long)100 * (long)BytesCopied / (long)Length;
-                            if (!Error) DoGridTransferUpdateProgress((int)percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress((int)percentComplete, response.Id);
                         }
                     }
 
@@ -2808,7 +2969,7 @@ namespace AMSExplorer
 
                     if (!Error && !response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, TargetContainer.Uri.AbsoluteUri);
+                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -2850,7 +3011,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}' ", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(response.index, e);
+                        DoGridTransferDeclareError(response.Id, e);
                         Error = true;
                     }
                 }
@@ -2881,31 +3042,39 @@ namespace AMSExplorer
 
                         if (sourceCloudBlob.Properties.Length > 0)
                         {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.index);
+                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
                             try
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                await destinationBlob.StartCopyAsync(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                string stringOperation = await destinationBlob.StartCopyAsync(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken), response.token);
+                                bool Cancelled = false;
 
                                 while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+
+                                    if (response.token.IsCancellationRequested && !Cancelled)
+                                    {
+                                        await destinationBlob.AbortCopyAsync(stringOperation);
+                                        Cancelled = true;
+                                    }
+
                                     destinationBlob.FetchAttributes();
                                     percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.index);
+                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(response.index, destinationBlob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
 
                                 if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
                                 {
-                                    DoGridTransferDeclareCancelled(response.index);
+                                    DoGridTransferDeclareCancelled(response.Id);
                                     Error = true;
                                     break;
                                 }
@@ -2914,7 +3083,7 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    DoGridTransferDeclareError(response.index, string.Format("Failed to copy file '{0}'", file.Name));
+                                    DoGridTransferDeclareError(response.Id, string.Format("Failed to copy file '{0}'", file.Name));
                                     Error = true;
                                     break;
                                 }
@@ -2922,13 +3091,13 @@ namespace AMSExplorer
                             catch (Exception e)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, e);
+                                DoGridTransferDeclareError(response.Id, e);
                                 Error = true;
                             }
 
                             BytesCopied += sourceCloudBlob.Properties.Length;
                             percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.index);
+                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
                         }
                     }
                     sourcelocator.Delete();
@@ -2936,21 +3105,22 @@ namespace AMSExplorer
 
                     if (!Error && !response.token.IsCancellationRequested)
                     {
-                        DoGridTransferDeclareCompleted(response.index, TargetContainer.Uri.AbsoluteUri);
+                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
+
         {
 
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.index);
+            DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -2971,7 +3141,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
 
@@ -2983,7 +3153,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
 
@@ -3009,7 +3179,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.index, ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 TargetAsset.Delete();
                 return;
             }
@@ -3049,7 +3219,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error", true);
                         TextBoxLogWriteLine(ex);
-                        DoGridTransferDeclareError(response.index, ex);
+                        DoGridTransferDeclareError(response.Id, ex);
                         DestinationLocator.Delete();
                         writePolicy.Delete();
                         TargetAsset.Delete();
@@ -3073,7 +3243,7 @@ namespace AMSExplorer
                     // do the copy
                     int nbblob = 0;
 
-                    // For LIve archive, the folder for chiks are returnbed as files. So we detect this case and don't try to copy the folders as asset files
+                    // For Live archive, the folder for chunks are returned as files. So we detect this case and don't try to copy the folders as asset files
                     List<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
                     if (
                         assetFilesToCopy.Where(af => af.Name.Contains(".")).Count() == 2
@@ -3133,7 +3303,8 @@ namespace AMSExplorer
                                         {
                                             // exception if Blob does not exist, which is fine
                                         }
-                                        await destinationCloudBlockBlob.StartCopyAsync(file.GetSasUri(), response.token);
+                                        string stringOperation = await destinationCloudBlockBlob.StartCopyAsync(file.GetSasUri(), response.token);
+                                        bool Cancelled = false;
 
                                         CloudBlockBlob blob;
                                         blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
@@ -3141,14 +3312,20 @@ namespace AMSExplorer
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
+
+                                            if (response.token.IsCancellationRequested && !Cancelled)
+                                            {
+                                                await destinationCloudBlockBlob.AbortCopyAsync(stringOperation);
+                                                Cancelled = true;
+                                            }
                                             blob.FetchAttributes();
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, response.index);
+                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, response.Id);
                                         }
 
                                         if (blob.CopyState.Status == CopyStatus.Failed)
                                         {
-                                            DoGridTransferDeclareError(response.index, blob.CopyState.StatusDescription);
+                                            DoGridTransferDeclareError(response.Id, blob.CopyState.StatusDescription);
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3156,7 +3333,7 @@ namespace AMSExplorer
 
                                         if (blob.CopyState.Status == CopyStatus.Aborted)
                                         {
-                                            DoGridTransferDeclareCancelled(response.index);
+                                            DoGridTransferDeclareCancelled(response.Id);
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3169,7 +3346,7 @@ namespace AMSExplorer
 
                                         if (sourceCloudBlockBlob.Properties.Length != destinationCloudBlockBlob.Properties.Length)
                                         {
-                                            DoGridTransferDeclareError(response.index, "Error during blob copy.");
+                                            DoGridTransferDeclareError(response.Id, "Error during blob copy.");
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
                                             break;
@@ -3189,7 +3366,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.index, ex);
+                                DoGridTransferDeclareError(response.Id, ex);
                                 ErrorCopyAsset = true;
                                 ErrorCopyAssetFile = true;
                             }
@@ -3203,7 +3380,7 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.AccountName), 0, response.index);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.AccountName), 0, response.Id);
                         try
                         {
                             var mediablobs = SourceCloudBlobContainer.ListBlobs();
@@ -3245,7 +3422,7 @@ namespace AMSExplorer
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
                                             percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
-                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, response.index);
+                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, response.Id);
                                         }
                                     }
                                     ind++;
@@ -3258,7 +3435,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Failed to copy live fragblobs", true);
                             TextBoxLogWriteLine(ex);
-                            DoGridTransferDeclareError(response.index, ex);
+                            DoGridTransferDeclareError(response.Id, ex);
                             ErrorCopyAsset = true;
                         }
                     }
@@ -3322,6 +3499,38 @@ namespace AMSExplorer
                 }
             }
 
+            // Clone streaming locators
+            if (CloneStreamingLocators && !ErrorCopyAsset && SourceAssets.FirstOrDefault().Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 && !response.token.IsCancellationRequested)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Cloning streaming locator(s) to cloned asset '{0}'", SourceAssets.FirstOrDefault().Name);
+
+                    var sourceLocators = SourceAssets.FirstOrDefault().Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Select(l => new { l.Id, l.Name, l.StartTime, l.ExpirationDateTime }).ToList();
+
+                    if (UnpublishSourceAsset)
+                    {
+                        sourceLocators.ForEach(sl => _context.Locators.Where(l => l.Id == sl.Id).FirstOrDefault().Delete());
+                        TextBoxLogWriteLine(string.Format("Source locator(s) for asset {0} deleted.", SourceAssets.FirstOrDefault().Name));
+                        Thread.Sleep(1000); // to make sure tables are updated before new locators are created
+                    }
+
+                    foreach (var streamLocator in sourceLocators)
+                    {
+                        IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + SourceAssets.FirstOrDefault().Name, (streamLocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
+                        var newLoc = DestinationContext.Locators.CreateLocator(streamLocator.Id, LocatorType.OnDemandOrigin, TargetAsset, policy, streamLocator.StartTime, streamLocator.Name);
+                        TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", newLoc.Id));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when cloning locator(s) to the asset '{0}'.", TargetAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            // end of copy
             DestinationLocator.Delete();
             writePolicy.Delete();
 
@@ -3330,11 +3539,11 @@ namespace AMSExplorer
                 if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
                 TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", DestinationCredentialsEntry.AccountName);
                 TextBoxLogWriteLine(TargetAsset.Id);
-                DoGridTransferDeclareCompleted(response.index, DestinationCloudBlobContainer.Uri.AbsoluteUri);
+                DoGridTransferDeclareCompleted(response.Id, DestinationCloudBlobContainer.Uri.AbsoluteUri);
             }
             else if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(response.index);
+                DoGridTransferDeclareCancelled(response.Id);
             }
 
             DoRefreshGridAssetV(false);
@@ -3657,7 +3866,7 @@ namespace AMSExplorer
                     foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
                     {
                         IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, (streamlocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
-                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime);
+                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime, streamlocator.Name);
                         TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
                     }
                 }
@@ -3888,16 +4097,13 @@ namespace AMSExplorer
                 }
             }
 
-            List<IMediaProcessor> Encoders;
-            Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
-            Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow);
 
             string taskname = "Premium Workflow Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
             this.Cursor = Cursors.WaitCursor;
-            EncodingPremium form = new EncodingPremium(_context)
+            EncodingPremium form = new EncodingPremium(_context, processor.Version)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
-                EncodingProcessorsList = Encoders,
                 EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded",
                 EncodingNumberOfInputAssets = SelectedAssets.Count,
@@ -3931,7 +4137,7 @@ namespace AMSExplorer
 
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
-                                   form.EncodingProcessorSelected,
+                                   processor,
                                    form.XMLData,
                                    form.JobOptions.TasksOptionsSetting
                                    );
@@ -4299,7 +4505,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo)
+        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -4314,7 +4520,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, true, urlMoreInfo)
+                var form = new MediaAnalyticsGeneric(_context, processor, processorImage, preview, urlMoreInfo)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -4333,7 +4539,7 @@ namespace AMSExplorer
                         form.JobOptions.Priority,
                         taskname,
                         form.MIOutputAssetName,
-                        new List<string> { @"{'Version':'1.0'}" },
+                        preset == null ? new List<string> { @"{'Version':'1.0'}" } : new List<string> { preset },
                         form.JobOptions.OutputAssetsCreationOptions,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
@@ -4812,6 +5018,119 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuVideoOCR()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+
+            // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
+
+            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
+            {
+                OCRJobName = "Video OCR of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - OCR",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for video OCR."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for OCR.",
+            };
+
+            string taskname = "Video OCR of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(form.JsonConfig());
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.OCRJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
+        private void DoMenuMotionDetection()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+
+            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+
+            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+
+            // Get the SDK extension method to get a reference to the Azure Media Media Detector.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
+
+            var form = new MediaAnalyticsMotionDetection(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
+            {
+                OCRJobName = "Motion detection of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - Motion detected",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for motion detection."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for motion detection.",
+            };
+
+            string taskname = "Motion detection of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var ListConfig = new List<string>();
+                foreach (var asset in SelectedAssets)
+                {
+                    ListConfig.Add(form.JsonConfig());
+                }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.OCRJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
+            }
+        }
+
+
         private void DoMenuHyperlapseAssets()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -4838,13 +5157,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configHyperlapse = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
-                Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
-                form.HyperlapseStartFrame,
-                form.HyperlapseNumFrames,
-                form.HyperlapseSpeed
-                );
-
+                string configHyperlapse = form.JsonConfig();
                 LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }
@@ -5730,8 +6043,9 @@ namespace AMSExplorer
             int indextype = dataGridViewAssetsV.Columns["Type"].Index;//2
             int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
+            int indexassetwarning = dataGridViewAssetsV.Columns[dataGridViewAssetsV._assetwarning].Index;
 
-            //Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
+            /*
 
             var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
@@ -5741,13 +6055,29 @@ namespace AMSExplorer
                 else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
             }
 
-
             var cell2 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexsize];  //Size
             if (cell2.Value != null)
             {
                 string TypeStr = (string)cell2.Value;
                 if (TypeStr.Equals("0 B")) e.CellStyle.ForeColor = Color.Red;
             }
+
+            */
+            var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
+            if (cell.Value != null)
+            {
+                string TypeStr = (string)cell.Value;
+                if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
+            }
+
+            var cell1 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexassetwarning];  // warning
+            if (cell1.Value != null)
+            {
+                bool warning = (bool)cell1.Value;
+                if (warning) e.CellStyle.ForeColor = Color.Red;
+            }
+
+
 
             if (e.ColumnIndex == indexlocalexp)  // locator expiration,
             {
@@ -5763,7 +6093,6 @@ namespace AMSExplorer
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
             {
-
                 var cell3 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value != null)
                     cell3.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value.ToString();
@@ -5913,10 +6242,12 @@ namespace AMSExplorer
             JR.CreateOutlookMail();
         }
 
-        private void DoCopyJobReportToClipboard()
+        private void DoDisplayJobReport()
         {
             JobInfo JR = new JobInfo(ReturnSelectedJobs());
-            JR.CopyStatsToClipBoard();
+            StringBuilder SB = JR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6343,10 +6674,12 @@ namespace AMSExplorer
             AR.CreateOutlookMail();
         }
 
-        private void DoCopyAssetReportToClipboard()
+        private void DoDisplayAssetReport()
         {
             AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
-            AR.CopyStatsToClipBoard();
+            StringBuilder SB = AR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -6454,7 +6787,7 @@ namespace AMSExplorer
             {
                 if (!havestoragecredentials)
                 { // No blob credentials. Let's ask the user
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                     {
                         _credentials.StorageKey = valuekey;
                         havestoragecredentials = true;
@@ -6466,7 +6799,7 @@ namespace AMSExplorer
                     {
                         if (CopyAssetToAzure(ref UseDefaultStorage, ref containername, ref otherstoragename, ref otherstoragekey, ref SelectedFiles, ref CreateNewContainer, SelectedAssets.FirstOrDefault()) == DialogResult.OK)
                         {
-                            var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
                             // Start a worker thread that does copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, response), response.token);
                             DotabControlMainSwitch(Constants.TabTransfers);
@@ -6508,17 +6841,11 @@ namespace AMSExplorer
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings)
-            {
-                WatchUseQueue = Properties.Settings.Default.useTransferQueue,
-            };
+            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 MyWatchFolderSettings = form.WatchFolderGetSettings;
-                Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
-                Program.SaveAndProtectUserConfig();
-
 
                 if (!MyWatchFolderSettings.IsOn) // user want to stop the watch folder (if if exists)
                 {
@@ -6528,7 +6855,6 @@ namespace AMSExplorer
                         MyWatchFolderSettings.Watcher = null;
                     }
                     toolStripStatusLabelWatchFolder.Visible = false;
-
                 }
                 else // User wants to active the watch folder
                 {
@@ -6600,7 +6926,7 @@ namespace AMSExplorer
             // written by repeatedly attempting to open it
             // for exclusive access.
             var path = (string)threadContext;
-
+            Thread.Sleep(111);
 
             //detect whether its a directory or file
 
@@ -6619,11 +6945,11 @@ namespace AMSExplorer
 
                     try
                     {
-                        var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                        var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                               path,
-                              response.index,
+                              response.Id,
                               Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                               response.token,
                               MyWatchFolderSettings),
@@ -6779,18 +7105,18 @@ namespace AMSExplorer
                 toolStripMenuItem38Indexer2.Enabled = false;
             }
 
-            // let's disable AME Std if not present
-            if (!AMEStandardPresent)
+            // let's disable Video OCR if not present
+            if (!AMVideoOCRPresent)
             {
-                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
-                toolStripSeparator35.Visible = false;
-                toolStripSeparator32.Visible = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = false;
+                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Enabled = false;
+            }
 
-                // subclipping
-                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
-                subclipProgramsToolStripMenuItem.Visible = false;
-                subclipToolStripMenuItem.Visible = false;
+            // let's disable Video OCR if not present
+            if (!AMContentModerator)
+            {
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -8065,6 +8391,11 @@ namespace AMSExplorer
                                 {
                                     channel.Encoding.VideoStreams = form.VideoStreamList;
                                 }
+
+                                if (modifications.Ignore708Captions) // user modified it
+                                {
+                                    channel.Encoding.IgnoreCea708ClosedCaptions = form.Ignore708Captions;
+                                }
                             }
                             else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)
                             {
@@ -8591,7 +8922,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true, main: this)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -9187,17 +9518,17 @@ namespace AMSExplorer
                         List<Task> MyTasks = new List<Task>();
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
-                            var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.index, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
+                            var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
                             MyTasks.Add(myTask);
                         }
 
                         foreach (string file in form2.BatchSelectedFiles)
                         {
-                            var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                                   file,
-                                  response.index,
+                                  response.Id,
                                   Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                   response.token,
                                   null,
@@ -9645,11 +9976,14 @@ namespace AMSExplorer
                                         TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
                                     }
                                 }
-                                else // no seed given, so content key has been setup
+                                else // no seed given, so content key has been setup or not (if external server)
                                 {
+                                    Guid keyid = (form2_CENC.KeyId == null) ? Guid.NewGuid() : (Guid)form2_CENC.KeyId;
+                                    byte[] bytecontentkey = (string.IsNullOrWhiteSpace(form2_CENC.CENCContentKey)) ? DynamicEncryption.GetRandomBuffer(16) : Convert.FromBase64String(form2_CENC.CENCContentKey);
+
                                     try
                                     {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, (Guid)form2_CENC.KeyId, Convert.FromBase64String(form2_CENC.CENCContentKey));
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKeyAndAttachAsset(AssetToProcess, _context, keyid, bytecontentkey);
                                     }
                                     catch (Exception e)
                                     {
@@ -9885,7 +10219,8 @@ namespace AMSExplorer
                                     _context,
                                     playreadyAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0 ? null : form3_CENC.PlayReadyLAurl,
                                     playreadyEncodeLAURLForSilverlight: form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0 ? false : form3_CENC.PlayReadyLAurlEncodeForSL,
-                                    widevineAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? null : form3_CENC.WidevineLAurl
+                                    widevineAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? null : form3_CENC.WidevineLAurl,
+                                    widevineAcquisitionURLFinal: form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0 ? false : form3_CENC.WidevineFinalLAurl
                                     );
 
                                 TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -10163,6 +10498,7 @@ namespace AMSExplorer
                                     name,
                                     _context,
                                     fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
+                                    fairplayAcquisitionURLFinal: form3_CENC.FairPlayFinalLAurl,
                                     iv_if_externalserver: myIV,
                                     UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
                                        );
@@ -10188,6 +10524,7 @@ namespace AMSExplorer
             string aeskey = string.Empty;
             bool firstkeycreation = true;
             Uri aeslaurl = form3_AES.AESLaUrl;
+            bool aesFinalUrl = form3_AES.AESFinalLAurl;
             IContentKey formerkey = null;
             bool reusekey = false;
 
@@ -10448,7 +10785,7 @@ namespace AMSExplorer
 
                         try
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, aeslaurl);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, aeslaurl, aesFinalUrl);
                             TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                         }
                         catch (Exception e)
@@ -11516,7 +11853,7 @@ namespace AMSExplorer
             if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Value != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
             // user selected 0 with a non S1 hardware...
             {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1 (Basic). Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                 {
                     oktocontinue = false;
                 }
@@ -11559,7 +11896,7 @@ namespace AMSExplorer
 
         private void RUEncodingUpdateControls()
         {
-            // If RU is set to 0, let's switch to S1 (Basic)
+            // If RU is set to 0, let's switch to S1
             if (trackBarEncodingRU.Value == 0)
             {
                 foreach (var it in comboBoxEncodingRU.Items)
@@ -11569,7 +11906,6 @@ namespace AMSExplorer
                         comboBoxEncodingRU.SelectedItem = it;
                     }
                 }
-                //  comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
             }
         }
 
@@ -11813,10 +12149,10 @@ namespace AMSExplorer
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters), response.token);
+                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset), response.token);
                         }
                     }
                     else // merge all assets into a single asset
@@ -11827,7 +12163,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
                             ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, form.DeleteSourceAsset), response.token);
@@ -11854,7 +12190,7 @@ namespace AMSExplorer
                 if (!storagekeys.ContainsKey(asset.StorageAccountName))
                 {
                     string valuekey = "";
-                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey, true) == DialogResult.OK)
                     {
                         storagekeys.Add(asset.StorageAccountName, valuekey);
                     }
@@ -11870,7 +12206,7 @@ namespace AMSExplorer
             if (DestinationOtherStorage != null)
             {
                 string valuekey = "";
-                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", DestinationOtherStorage), ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", DestinationOtherStorage), ref valuekey, true) == DialogResult.OK)
                 {
                     storagekeys.Add(DestinationOtherStorage, valuekey);
                 }
@@ -11897,7 +12233,7 @@ namespace AMSExplorer
                     {
 
                         string valuekey = "";
-                        if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key of the destination storage account ('{0}') : ", newcontext.DefaultStorageAccount.Name), ref valuekey) == DialogResult.OK)
+                        if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key of the destination storage account ('{0}') : ", newcontext.DefaultStorageAccount.Name), ref valuekey, true) == DialogResult.OK)
                         {
                             storagekeys.Add(newcontext.DefaultStorageAccount.Name, valuekey);
                         }
@@ -12521,7 +12857,8 @@ namespace AMSExplorer
 
             EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version,
                 disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
-                disableSourceTrimming: LiveArchiveAsset)
+                disableSourceTrimming: LiveArchiveAsset,
+                main: this)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -12902,7 +13239,7 @@ namespace AMSExplorer
             if ((!havestoragecredentials && storageName == _context.DefaultStorageAccount.Name) || (storageName != _context.DefaultStorageAccount.Name))
             { // No blob credentials. Let's ask the user
                 StorageKeyKnown = false;
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     StorageKeyKnown = true;
                     if (storageName == _context.DefaultStorageAccount.Name)
@@ -12986,7 +13323,7 @@ namespace AMSExplorer
 
         private void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopyJobReportToClipboard();
+            DoDisplayJobReport();
         }
 
         private void toolStripMenuItem28_Click_1(object sender, EventArgs e)
@@ -12996,12 +13333,12 @@ namespace AMSExplorer
 
         private void copyToClipboardToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCopyJobReportToClipboard();
+            DoDisplayJobReport();
         }
 
         private void copyToClipboardToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoCopyAssetReportToClipboard();
+            DoDisplayAssetReport();
         }
 
         private void toolStripMenuItem29_Click(object sender, EventArgs e)
@@ -13016,7 +13353,7 @@ namespace AMSExplorer
 
         private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoCopyAssetReportToClipboard();
+            DoDisplayAssetReport();
         }
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
@@ -13487,7 +13824,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
+            DoMenuMotionDetection();
         }
 
         private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
@@ -13713,7 +14050,7 @@ namespace AMSExplorer
 
                                     // let's create new manifest in temp folder
                                     StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
-                                    outfile.Write(doc.Declaration.ToString() + doc.ToString());
+                                    outfile.Write(doc.Declaration.ToString() + Environment.NewLine + doc.ToString());
                                     outfile.Close();
 
                                     // let's deleyte file online
@@ -14096,7 +14433,7 @@ namespace AMSExplorer
 
         private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector, Constants.LinkMoreInfoMotionDetection);
+            DoMenuMotionDetection();
         }
 
         private void ProcessStabilizertoolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -14135,8 +14472,8 @@ namespace AMSExplorer
             {
                 foreach (DataGridViewRow selRow in dataGridViewTransfer.SelectedRows)
                 {
-                    int index = (int)selRow.Cells[dataGridViewTransfer.Columns["index"].Index].Value;
-                    DoGridTransferCancelTask(index);
+                    Guid guid = (Guid)selRow.Cells[dataGridViewTransfer.Columns["Id"].Index].Value;
+                    DoGridTransferCancelTask(guid);
                 }
             }
         }
@@ -14144,6 +14481,116 @@ namespace AMSExplorer
         private void cancelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCancelTransfer();
+        }
+
+        private void processAssetsWithAzureMediaOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
+        }
+
+        private void processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoOCR();
+        }
+
+        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuContentModerator();
+        }
+
+        private void DoMenuContentModerator()
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "sdv=true");
+        }
+
+        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuContentModerator();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoClearTransferts();
+        }
+
+        private void DoClearTransferts()
+        {
+            DoGridTransferClearCompletedTransfers();
+        }
+
+        private void clearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGridTransferClearCompletedTransfers();
+        }
+
+        private void filesToSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFileToAsset_Step1();
+        }
+
+        private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFileToAsset_Step1();
+        }
+
+        private void trackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
+        {
+            UpdateLabelConcurrentTransfers();
+        }
+
+        private void UpdateLabelConcurrentTransfers()
+        {
+            labelConcurrentTransfers.Text = string.Format(Constants.strTransfers, trackBarConcurrentTransfers.Value == Constants.MaxTransfersAsUnlimited ? "Unlimited" : "Limited to " + trackBarConcurrentTransfers.Value.ToString(), trackBarConcurrentTransfers.Value > 1 ? "s" : string.Empty);
+            Properties.Settings.Default.ConcurrentTransfers = trackBarConcurrentTransfers.Value;
+            Program.SaveAndProtectUserConfig();
+        }
+
+        private void analyzeAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAnalyzeAssets(ReturnSelectedAssets(), true);
+        }
+
+        public void DoAnalyzeAssets(List<IAsset> assets, bool displayMessage)
+        {
+            if (displayMessage && MessageBox.Show("A thumbnails creation job will be created for each asset.\nThumbnails are used to setup regions with Media OCR, Motion Detector and MES Video Cropping.\nMetadata file provides technical information on the source.\n\nDo you want to submit the job(s) ?", "Asset(s) Analysis", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+            StreamReader r = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "AssetAnalysis.json"));
+            string json = r.ReadToEnd();
+            json = json.Replace("{AssetAnalysisStart}", Properties.Settings.Default.AssetAnalysisStart.ToString()).Replace("{AssetAnalysisStep}", Properties.Settings.Default.AssetAnalysisStep.ToString());
+
+            foreach (var asset in assets)
+            {
+                string taskname = string.Format("Analysis of asset '{0}'", asset.Name);
+                string jobname = string.Format("Analysis of asset '{0}'", asset.Name);
+                string outputname = string.Format("{0} (metadata and thumbnail)", asset.Name);
+                string jsonwithid = json.Replace("{Basename}", asset.Id.Substring(Constants.AssetIdPrefix.Length));
+
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
+                   processor,
+                   assets,
+                   jobname,
+                   Properties.Settings.Default.DefaultJobPriority,
+                   taskname,
+                   outputname,
+                   new List<string>() { jsonwithid },
+                  AssetCreationOptions.None,
+                  Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+                   _context.DefaultStorageAccount.Name);
+            }
+        }
+
+        private void analyzeAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoAnalyzeAssets(ReturnSelectedAssets(), true);
+        }
+
+        private void toolStripMenuItem15_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromHttp();
         }
     }
 }
@@ -14509,6 +14956,7 @@ namespace AMSExplorer
 
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
+        public string _assetwarning = "AssetWarning";
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
@@ -14706,6 +15154,7 @@ namespace AMSExplorer
             this.Columns[_filterMouseOver].Visible = false;
 
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
+            this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
@@ -14781,9 +15230,11 @@ namespace AMSExplorer
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
+                        var assetfiles = asset.AssetFiles.ToList();
                         AE.Type = AssetInfo.GetAssetType(asset);
-                        AE.SizeLong = myAssetInfo.GetSize();
+                        AE.SizeLong = assetfiles.Sum(f => f.ContentFileSize);
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+                        AE.AssetWarning = (AE.SizeLong == 0 || assetfiles.Any(f => f.ContentFileSize == 0));
 
                         assetBitmapAndText = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
@@ -15917,7 +16368,9 @@ namespace AMSExplorer
             this.Columns["Priority"].Width = 50;
             this.Columns["State"].Width = 80;
             this.Columns["StartTime"].Width = 150;
+            this.Columns["StartTime"].HeaderText = "Start time";
             this.Columns["EndTime"].Width = 150;
+            this.Columns["EndTime"].HeaderText = "End time";
             this.Columns["Duration"].Width = 90;
 
             _initialized = true;

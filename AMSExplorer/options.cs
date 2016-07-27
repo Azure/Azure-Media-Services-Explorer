@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
-            Properties.Settings.Default.DisplayAssetAltIDinGrid= checkBoxDisplayAssetAltId.Checked;
+            Properties.Settings.Default.DisplayAssetAltIDinGrid = checkBoxDisplayAssetAltId.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
             Properties.Settings.Default.DisplayIngestManifestIDinGrid = checkBoxDisplayBulkContId.Checked;
             Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
@@ -51,8 +51,10 @@ namespace AMSExplorer
 
             Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
             Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
-            Properties.Settings.Default.useTransferQueue = checkBoxOneUpDownload.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
+
+            Properties.Settings.Default.AssetAnalysisStart = (int) numericUpDownAssetAnalysisStart.Value;
+            Properties.Settings.Default.AssetAnalysisStep = (int) numericUpDownAssetAnalysisStep.Value;
 
             Properties.Settings.Default.CustomPlayerUrl = textBoxCustomPlayer.Text;
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
@@ -60,6 +62,7 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
+            Properties.Settings.Default.ShowLivePremiumChannel = checkBoxShowPremiumLiveEncoding.Checked;
             Properties.Settings.Default.AMEPrice = numericUpDownMESPrice.Value;
             Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownPremiumWorkflowPrice.Value;
             Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
@@ -87,7 +90,7 @@ namespace AMSExplorer
 
             checkBoxUseProtectedConfig.Checked = false;
             checkBoxUseStorageEncryption.Checked = false;
-            checkBoxOneUpDownload.Checked = true;
+            checkBoxShowPremiumLiveEncoding.Checked = false;
 
             int indexc = comboBoxNbItems.Items.IndexOf("50");
             if (indexc == -1) indexc = 1; // not found!
@@ -103,6 +106,9 @@ namespace AMSExplorer
             numericUpDownMESPrice.Value = ((decimal)1.99);
             numericUpDownPremiumWorkflowPrice.Value = ((decimal)3.99);
             numericUpDownIndexingPrice.Value = ((decimal)0.05);
+
+            numericUpDownAssetAnalysisStart.Value = 10;
+            numericUpDownAssetAnalysisStep.Value = 20;
 
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
@@ -138,7 +144,6 @@ namespace AMSExplorer
 
             checkBoxUseProtectedConfig.Checked = Properties.Settings.Default.useProtectedConfiguration;
             checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
-            checkBoxOneUpDownload.Checked = Properties.Settings.Default.useTransferQueue;
 
             textBoxCustomPlayer.Text = Properties.Settings.Default.CustomPlayerUrl;
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;
@@ -147,6 +152,10 @@ namespace AMSExplorer
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
+            checkBoxShowPremiumLiveEncoding.Checked = Properties.Settings.Default.ShowLivePremiumChannel;
+
+            numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;
+            numericUpDownAssetAnalysisStep.Value = Properties.Settings.Default.AssetAnalysisStep;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownMESPrice.Value = Properties.Settings.Default.AMEPrice;
@@ -157,7 +166,6 @@ namespace AMSExplorer
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
 
             amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
-
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)

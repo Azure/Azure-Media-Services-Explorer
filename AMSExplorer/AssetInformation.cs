@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -273,7 +273,11 @@ namespace AMSExplorer
                     {
                         item.ForeColor = Color.Blue;
                     }
-                    if (file.AssetFileOptions== AssetFileOptions.Fragmented)
+                    if (file.ContentFileSize == 0)
+                    {
+                        item.ForeColor = Color.Red;
+                    }
+                    if (file.AssetFileOptions == AssetFileOptions.Fragmented)
                     {
                         item.ForeColor = Color.DarkGoldenrod;
                     }
@@ -287,7 +291,7 @@ namespace AMSExplorer
             }
 
             // Generate manifest button
-            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase));
+            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase));
             var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase));
             buttonGenerateManifest.Enabled = (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0);
 
@@ -994,7 +998,7 @@ namespace AMSExplorer
                     {
                         foreach (var assetfile in SelectedAssetFiles)
                         {
-                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, true);
                             // Start a worker thread that does downloading.
                             myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
                         }
@@ -1011,13 +1015,15 @@ namespace AMSExplorer
 
         private void buttonCopyStats_Click(object sender, EventArgs e)
         {
-            DoAssetStats();
+            DoDisplayAssetStats();
         }
 
-        private void DoAssetStats()
+        private void DoDisplayAssetStats()
         {
             AssetInfo MyAssetReport = new AssetInfo(myAsset);
-            MyAssetReport.CopyStatsToClipBoard();
+            StringBuilder SB = MyAssetReport.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void buttonCreateMail_Click(object sender, EventArgs e)

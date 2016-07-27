@@ -108,18 +108,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool useTransferQueue {
-            get {
-                return ((bool)(this["useTransferQueue"]));
-            }
-            set {
-                this["useTransferQueue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int NbItemsDisplayedInGrid {
             get {
@@ -500,6 +488,54 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["IndexingPricePerMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowLivePremiumChannel {
+            get {
+                return ((bool)(this["ShowLivePremiumChannel"]));
+            }
+            set {
+                this["ShowLivePremiumChannel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ConcurrentTransfers {
+            get {
+                return ((int)(this["ConcurrentTransfers"]));
+            }
+            set {
+                this["ConcurrentTransfers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int AssetAnalysisStart {
+            get {
+                return ((int)(this["AssetAnalysisStart"]));
+            }
+            set {
+                this["AssetAnalysisStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int AssetAnalysisStep {
+            get {
+                return ((int)(this["AssetAnalysisStep"]));
+            }
+            set {
+                this["AssetAnalysisStep"] = value;
             }
         }
     }

@@ -52,6 +52,7 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
+            this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
@@ -96,6 +97,7 @@
             this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -390,6 +392,7 @@
             // 
             // tabPageEncoding
             // 
+            this.tabPageEncoding.Controls.Add(this.checkBoxIgnore708);
             this.tabPageEncoding.Controls.Add(this.groupBoxVideoStream);
             this.tabPageEncoding.Controls.Add(this.labelChannelMustBeStopped);
             this.tabPageEncoding.Controls.Add(this.groupBoxEncoding);
@@ -401,6 +404,18 @@
             this.tabPageEncoding.Text = "Live Encoding";
             this.tabPageEncoding.UseVisualStyleBackColor = true;
             // 
+            // checkBoxIgnore708
+            // 
+            this.checkBoxIgnore708.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxIgnore708.AutoSize = true;
+            this.checkBoxIgnore708.Location = new System.Drawing.Point(25, 489);
+            this.checkBoxIgnore708.Name = "checkBoxIgnore708";
+            this.checkBoxIgnore708.Size = new System.Drawing.Size(193, 19);
+            this.checkBoxIgnore708.TabIndex = 103;
+            this.checkBoxIgnore708.Text = "Ignore CEA-708 closed captions";
+            this.checkBoxIgnore708.UseVisualStyleBackColor = true;
+            this.checkBoxIgnore708.CheckedChanged += new System.EventHandler(this.checkBoxIgnore708_CheckedChanged);
+            // 
             // groupBoxVideoStream
             // 
             this.groupBoxVideoStream.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -409,7 +424,7 @@
             this.groupBoxVideoStream.Controls.Add(this.numericUpDownVideoStreamIndex);
             this.groupBoxVideoStream.Location = new System.Drawing.Point(25, 405);
             this.groupBoxVideoStream.Name = "groupBoxVideoStream";
-            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 100);
+            this.groupBoxVideoStream.Size = new System.Drawing.Size(510, 81);
             this.groupBoxVideoStream.TabIndex = 81;
             this.groupBoxVideoStream.TabStop = false;
             this.groupBoxVideoStream.Text = "Video Stream";
@@ -842,7 +857,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(779, 12);
+            this.buttonClose.Location = new System.Drawing.Point(762, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(124, 27);
             this.buttonClose.TabIndex = 41;
@@ -853,7 +868,7 @@
             // 
             this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Location = new System.Drawing.Point(587, 12);
+            this.buttonUpdateClose.Location = new System.Drawing.Point(570, 12);
             this.buttonUpdateClose.Name = "buttonUpdateClose";
             this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
             this.buttonUpdateClose.TabIndex = 40;
@@ -870,7 +885,7 @@
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(922, 55);
+            this.panel1.Size = new System.Drawing.Size(905, 55);
             this.panel1.TabIndex = 58;
             // 
             // labelChannelStoppedOrStartedSettings
@@ -891,6 +906,15 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(890, 595);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(27, 37);
+            this.panel2.TabIndex = 77;
+            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -899,11 +923,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ChannelInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Channel Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
@@ -919,6 +945,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPageEncoding.ResumeLayout(false);
+            this.tabPageEncoding.PerformLayout();
             this.groupBoxVideoStream.ResumeLayout(false);
             this.groupBoxVideoStream.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
@@ -1012,5 +1039,7 @@
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBoxIgnore708;
+        private System.Windows.Forms.Panel panel2;
     }
 }

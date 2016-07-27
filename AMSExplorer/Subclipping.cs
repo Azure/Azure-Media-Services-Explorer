@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -257,7 +257,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
                 {
-                    foreach (var entry in buttonShowEDL.EDLEntries)
+                    foreach (var entry in buttonShowEDL.GetEDLEntries())
                     {
                         dynamic sourceEntry = new JObject() as dynamic;
                         sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
@@ -332,7 +332,7 @@ namespace AMSExplorer
 
                     if (checkBoxUseEDL.Checked) // EDL
                     {
-                        foreach (var entry in buttonShowEDL.EDLEntries)
+                        foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End });
                         }
@@ -575,8 +575,16 @@ namespace AMSExplorer
                 Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
                 if (myuri == null)
                 {
-                    _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
-                    myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                    try
+                    {
+                        _tempLocator = null;
+                        _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
+                        myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 if (myuri != null)
                 {
@@ -604,7 +612,7 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, subclipConfig, disableOverlay: true)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, _mainform, subclipConfig, disableOverlay: true)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)

@@ -145,9 +145,6 @@
   <data name="upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\upload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="03-motion-detection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\03-motion-detection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="modeltaskxenio11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modeltaskxenio1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -286,9 +283,6 @@
   <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="02-hyperlapse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\02-hyperlapse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="modetaskjob2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modetaskjob2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -303,12 +297,6 @@
   </data>
   <data name="storage_encryption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\storage_encryption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="06-emotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\06-emotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="04-face-detection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\04-face-detection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="subclipping" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\subclipping.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -337,10 +325,34 @@
   <data name="media_services_dvr_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-dvr-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="01-indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="OCR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\OCR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="contentmoderation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\contentmoderation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="encoding_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\encoding-large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_01_indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\01-indexer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="encoding-large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\encoding-large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_02_hyperlapse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\02-hyperlapse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_03_motion_detection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\03-motion-detection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_04_face_detection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\04-face-detection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_06_emotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\06-emotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\XY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XYRect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\XYRect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

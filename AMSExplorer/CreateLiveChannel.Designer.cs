@@ -48,6 +48,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
+            this.labelRTPWarning = new System.Windows.Forms.Label();
             this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
@@ -100,7 +101,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
-            this.labelRTPWarning = new System.Windows.Forms.Label();
+            this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
@@ -324,6 +325,18 @@
             this.TabSettings.Text = "Channel Settings";
             this.TabSettings.UseVisualStyleBackColor = true;
             // 
+            // labelRTPWarning
+            // 
+            this.labelRTPWarning.AutoSize = true;
+            this.labelRTPWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelRTPWarning.Location = new System.Drawing.Point(253, 79);
+            this.labelRTPWarning.Name = "labelRTPWarning";
+            this.labelRTPWarning.Size = new System.Drawing.Size(181, 45);
+            this.labelRTPWarning.TabIndex = 64;
+            this.labelRTPWarning.Text = "RTP is not recommended.\r\nThis protocol could be unreliable\r\nover certain network " +
+    "conditions.\r\n";
+            this.labelRTPWarning.Visible = false;
+            // 
             // moreinfoLiveStreamingProfilelink
             // 
             this.moreinfoLiveStreamingProfilelink.AutoSize = true;
@@ -388,6 +401,7 @@
             // 
             // tabPageLiveEncoding
             // 
+            this.tabPageLiveEncoding.Controls.Add(this.checkBoxIgnore708);
             this.tabPageLiveEncoding.Controls.Add(this.panelDisplayEncProfile);
             this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
@@ -522,12 +536,12 @@
             this.panelRTP.Controls.Add(this.label7);
             this.panelRTP.Location = new System.Drawing.Point(3, 301);
             this.panelRTP.Name = "panelRTP";
-            this.panelRTP.Size = new System.Drawing.Size(476, 66);
+            this.panelRTP.Size = new System.Drawing.Size(476, 57);
             this.panelRTP.TabIndex = 70;
             // 
             // numericUpDownVideoStreamIndex
             // 
-            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(19, 36);
+            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(19, 27);
             this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
             this.numericUpDownVideoStreamIndex.ReadOnly = true;
             this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(140, 23);
@@ -537,7 +551,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 17);
+            this.label7.Location = new System.Drawing.Point(15, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(114, 15);
             this.label7.TabIndex = 71;
@@ -874,17 +888,16 @@
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // labelRTPWarning
+            // checkBoxIgnore708
             // 
-            this.labelRTPWarning.AutoSize = true;
-            this.labelRTPWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelRTPWarning.Location = new System.Drawing.Point(253, 79);
-            this.labelRTPWarning.Name = "labelRTPWarning";
-            this.labelRTPWarning.Size = new System.Drawing.Size(181, 45);
-            this.labelRTPWarning.TabIndex = 64;
-            this.labelRTPWarning.Text = "RTP is not recommended.\r\nThis protocol could be unreliable\r\nover certain network " +
-    "conditions.\r\n";
-            this.labelRTPWarning.Visible = false;
+            this.checkBoxIgnore708.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxIgnore708.AutoSize = true;
+            this.checkBoxIgnore708.Location = new System.Drawing.Point(21, 358);
+            this.checkBoxIgnore708.Name = "checkBoxIgnore708";
+            this.checkBoxIgnore708.Size = new System.Drawing.Size(193, 19);
+            this.checkBoxIgnore708.TabIndex = 79;
+            this.checkBoxIgnore708.Text = "Ignore CEA-708 closed captions";
+            this.checkBoxIgnore708.UseVisualStyleBackColor = true;
             // 
             // listViewJPG1
             // 
@@ -1031,5 +1044,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.Label labelRTPWarning;
+        private System.Windows.Forms.CheckBox checkBoxIgnore708;
     }
 }

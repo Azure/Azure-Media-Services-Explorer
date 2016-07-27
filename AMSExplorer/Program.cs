@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -57,7 +57,6 @@ namespace AMSExplorer
         /// The main entry point for the application.
         /// </summary>
         /// 
-
 
         [STAThread]
         static void Main()
@@ -217,6 +216,7 @@ namespace AMSExplorer
             {
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.StorageKey), credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
+                cloudBlobClient.ListBlobs("testamseexplorer"); // just to test connection
                 return true;
             }
             catch (Exception e)
@@ -265,13 +265,13 @@ namespace AMSExplorer
             {
                 case ReservedUnitType.Basic:
                 default:
-                    return "S1 (Basic)";
+                    return "S1";
 
                 case ReservedUnitType.Standard:
-                    return "S2 (Standard)";
+                    return "S2";
 
                 case ReservedUnitType.Premium:
-                    return "S3 (Premium)";
+                    return "S3";
 
             }
         }
@@ -373,8 +373,10 @@ namespace AMSExplorer
         public static ManifestGenerated LoadAndUpdateManifestTemplate(IAsset asset)
         {
             var mp4AssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var m4aAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var mediaAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mp4AssetFiles.Count() != 0)
+            if (mp4AssetFiles.Count() != 0 || m4aAssetFiles.Count() != 0)
             {
                 // Prepare the manifest
                 XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
@@ -392,21 +394,30 @@ namespace AMSExplorer
                     switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
                 }
 
-                // audio track
-                var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
-                                                            (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
-                                                            ||
-                                                            (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
-                                                            );
+                // audio tracks (m4a)
+                foreach (var file in m4aAssetFiles)
+                {
+                    switchxml.Add(new XElement(ns + "audio", new XAttribute("src", file.Name), new XAttribute("title", Path.GetFileNameWithoutExtension(file.Name))));
+                }
 
-                var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
+                if (m4aAssetFiles.Count() == 0)
+                {
+                    // audio track
+                    var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
+                                                                (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
+                                                                ||
+                                                                (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
+                                                                );
 
-                string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+                    var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
 
-                switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+                    string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
+
+                    switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+                }
 
                 // manifest filename
-                string name = CommonPrefix(mp4AssetFiles.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToArray());
+                string name = CommonPrefix(mediaAssetFiles.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToArray());
                 if (string.IsNullOrEmpty(name))
                 {
                     name = "manifest";
@@ -417,7 +428,7 @@ namespace AMSExplorer
                 }
                 name = name + ".ism";
 
-                return new ManifestGenerated() { Content = doc.Declaration.ToString() + doc.ToString(), FileName = name };
+                return new ManifestGenerated() { Content = doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), FileName = name };
 
             }
             else
@@ -571,7 +582,7 @@ namespace AMSExplorer
         }
 
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
+        public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
             Button buttonOk = new Button()
             {
@@ -607,7 +618,8 @@ namespace AMSExplorer
             };
             TextBox textBox = new TextBox()
             {
-                Text = value
+                Text = value,
+                UseSystemPasswordChar = passwordWildcard
             };
 
             label.SetBounds(9, 20, 372, 13);
@@ -721,7 +733,7 @@ namespace AMSExplorer
                     break;
 
                 case StreamingProtocol.RTPMPEG2TS:
-                    name = "RTP (MPEG-TS)";
+                    name = "RTP/MPEG-2 Transport Stream";
                     break;
             }
             return name;
@@ -813,7 +825,6 @@ namespace AMSExplorer
 
     public class Constants
     {
-        //public const string GitHubAMSEVersion = "file://c://temp//version.xml";
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
@@ -822,7 +833,6 @@ namespace AMSExplorer
         public const string AzureMediaEncoder = "Azure Media Encoder";
         public const string AzureMediaEncoderStandard = "Media Encoder Standard";
         public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
-        public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
         public const string AzureMediaIndexer2Preview = "Azure Media Indexer 2 Preview";
         public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
@@ -831,6 +841,8 @@ namespace AMSExplorer
         public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
         public const string AzureMediaStabilizer = "Azure Media Stabilizer";
         public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
+        public const string AzureMediaVideoOCR = "Azure Media OCR";
+        public const string AzureMediaContentModerator = "Azure Media Content Moderator";
 
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
@@ -875,7 +887,6 @@ namespace AMSExplorer
         public const string PlayerAMPinOptions = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
         public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
-        //public const string PlayerAMPToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer.html?url={0}";
 
         public const string PlayerAMPIFrameToLaunch = @"http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
@@ -888,10 +899,10 @@ namespace AMSExplorer
         public const string AMPWidevineToken = "&widevinetoken={0}";
         public const string AMPAes = "&aes={0}";
         public const string AMPAesToken = "&aestoken={0}";
-
+        public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v1.6.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.1.1/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerDASHAzure = @"http://dashplayer.azurewebsites.net";
         public const string PlayerDASHAzureToLaunch = @"http://dashplayer.azurewebsites.net?url={0}";
@@ -952,7 +963,8 @@ namespace AMSExplorer
         public const string LinkThumbnailsMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-dotnet-generate-thumbnail-with-mes/";
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
         public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
-
+        public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
+        
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
         public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";
@@ -966,6 +978,7 @@ namespace AMSExplorer
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
         public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
+        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/blog/announcing-video-ocr-public-preview-new-config/";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
@@ -974,11 +987,13 @@ namespace AMSExplorer
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
+        public const string LinkMoreInfoFairPlay = "https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/";
 
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
         public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
         public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
         public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
+        public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
@@ -997,13 +1012,15 @@ namespace AMSExplorer
 
         public const string stringNull = "(null)"; // To display null is textbox
 
-
         public const string FaceDetectionFaces = "Faces";
         public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
 
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";
         public const string VideoThumbnailsOutputBoth = "both";
+
+        public const int MaxTransfersAsUnlimited = 5;
+        public const string strTransfers = "{0} concurrent transfer{1}";
     }
 
 
@@ -1644,17 +1661,26 @@ namespace AMSExplorer
         public static ILocator CreatedTemporaryOnDemandLocator(IAsset asset)
         {
             ILocator tempLocator = null;
+
             try
             {
                 var locatorTask = Task.Factory.StartNew(() =>
                 {
-                    tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                    try
+                    {
+                        tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception();
+                    }
                 });
                 locatorTask.Wait();
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
 
             return tempLocator;
@@ -1891,22 +1917,6 @@ namespace AMSExplorer
             return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
         }
 
-
-        public long GetSize()
-        {
-            return GetSize(0);
-        }
-
-        public long GetSize(int index)
-        {
-            if (index >= SelectedAssets.Count) return -1;
-
-            long size = 0;
-            foreach (IAssetFile objFile in SelectedAssets[index].AssetFiles)
-            { size += objFile.ContentFileSize; }
-            return size;
-        }
-
         public static long GetSize(IAsset asset)
         {
             long size = 0;
@@ -1914,8 +1924,6 @@ namespace AMSExplorer
             { size += objFile.ContentFileSize; }
             return size;
         }
-
-
 
         public static string GetDynamicEncryptionType(IAsset asset)
         {
@@ -2359,6 +2367,62 @@ namespace AMSExplorer
                     }
                 }
             }
+                    }
+
+        static public void SetAFileAsPrimary(IAsset asset)
+        {
+            var files= asset.AssetFiles.ToList();
+            var ismAssetFiles = files.
+                Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            var mp4AssetFiles = files.
+            Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (ismAssetFiles.Count() != 0)
+            {
+                if (ismAssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
+                {
+                    try
+                    {
+                        ismAssetFiles.First().IsPrimary = true;
+                        ismAssetFiles.First().Update();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
+            else if (mp4AssetFiles.Count() != 0)
+            {
+                if (mp4AssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
+                {
+                    try
+                    {
+                        mp4AssetFiles.First().IsPrimary = true;
+                        mp4AssetFiles.First().Update();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
+            else
+            {
+                if (files.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
+                {
+                    try
+                    {
+                        files.First().IsPrimary = true;
+                        files.First().Update();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
         }
 
         static public void SetFileAsPrimary(IAsset asset, string assetfilename)
@@ -2512,7 +2576,7 @@ namespace AMSExplorer
         }
 
 
-        private StringBuilder GetStats()
+        public StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -2818,11 +2882,6 @@ namespace AMSExplorer
                 {
                     case PlayerType.AzureMediaPlayer:
                     case PlayerType.AzureMediaPlayerFrame:
-                        /*
-                         string playerurl = typeplayer == PlayerType.AzureMediaPlayer ?
-                             Constants.PlayerAMPToLaunch
-                             : Constants.PlayerAMPIFrameToLaunch;
-                            */
                         string playerurl = "";
 
                         if (keytype != AssetProtectionType.None)
@@ -2939,8 +2998,21 @@ namespace AMSExplorer
                             }
                         }
 
-                        //FullPlayBackLink = string.Format(playerurl, HttpUtility.UrlEncode(Urlstr));
-                        //FullPlayBackLink = HttpUtility.UrlEncode(string.Format(playerurl, Urlstr));
+                        if (myasset != null) // wtt subtitles files
+                        {
+                            var subtitles = myasset.AssetFiles.ToList().Where(f => f.Name.ToLower().EndsWith(".vtt")).ToList();
+                            if (subtitles.Count > 0)
+                            {
+                                var urlasset = new Uri(Urlstr);
+                                string baseurlwith = urlasset.GetLeftPart(UriPartial.Authority) + urlasset.Segments[0] + urlasset.Segments[1];
+                                var listsub = new List<string>();
+                                foreach (var s in subtitles)
+                                {
+                                    listsub.Add(Path.GetFileNameWithoutExtension(s.Name) + ",und," + HttpUtility.UrlEncode(baseurlwith + s.Name));
+                                }
+                                playerurl += string.Format(Constants.AMPSubtitles, string.Join(";", listsub));
+                            }
+                        }
 
                         string playerurlbase = typeplayer == PlayerType.AzureMediaPlayer ?
                                                 Constants.PlayerAMPToLaunch
@@ -3337,6 +3409,22 @@ namespace AMSExplorer
             }
         }
 
+        private bool _AssetWarning;
+        public bool AssetWarning
+        {
+            get
+            { return _AssetWarning; }
+            set
+            {
+                if (value != _AssetWarning)
+                {
+                    _AssetWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String p = "")
@@ -3525,6 +3613,7 @@ namespace AMSExplorer
         public TypeInputExtraInput TypeInputExtraInput { get; set; }
         public FileSystemWatcher Watcher { get; set; }
         public INotificationEndPoint NotificationEndPoint { get; set; }
+        public bool ProcessRohzetXML { get; set; }
 
         public WatchFolderSettings()
         {
@@ -3536,6 +3625,7 @@ namespace AMSExplorer
             JobTemplate = null;
             ExtraInputAssets = null;
             TypeInputExtraInput = TypeInputExtraInput.None;
+            ProcessRohzetXML = false;
         }
     }
 
@@ -3685,8 +3775,8 @@ namespace AMSExplorer
         public bool TTML { get; set; }
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
-
     }
+
 
     public class JobOptionsVar
     {

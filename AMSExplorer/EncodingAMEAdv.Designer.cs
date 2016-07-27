@@ -102,6 +102,7 @@
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -140,7 +141,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(655, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(643, 13);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -926,7 +927,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(483, 13);
+            this.buttonOk.Location = new System.Drawing.Point(471, 13);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(166, 27);
             this.buttonOk.TabIndex = 17;
@@ -956,7 +957,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-1, 608);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(785, 55);
+            this.panel1.Size = new System.Drawing.Size(773, 55);
             this.panel1.TabIndex = 64;
             // 
             // moreinfoame
@@ -986,6 +987,15 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 608);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 40);
+            this.panel2.TabIndex = 72;
+            // 
             // EncodingAMEAdv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -993,6 +1003,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.panel1);
@@ -1007,6 +1018,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "EncodingAMEAdv";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Azure Media Encoder - Advanced Mode";
             this.Load += new System.EventHandler(this.EncodingCustom_Load);
@@ -1109,5 +1121,6 @@
         private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.Button buttonSaveXML;
         private System.Windows.Forms.SaveFileDialog saveFileDialogPreset;
+        private System.Windows.Forms.Panel panel2;
     }
 }

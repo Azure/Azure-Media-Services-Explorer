@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -70,7 +70,9 @@ namespace AMSExplorer
         public void DoJobStats()
         {
             JobInfo JR = new JobInfo(MyJob);
-            JR.CopyStatsToClipBoard();
+            StringBuilder SB = JR.GetStats();
+            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
+            tokenDisplayForm.Display();
         }
 
         private void JobInformation_Load(object sender, EventArgs e)

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TemplateExXML>
+  <WorkflowParams>
+    <Source>
+      <AssetGroup>
+        <Location>
+          <AssetItem>
+            <Type>Video</Type>
+            <URI>c:\temp\manifest.ism</URI>
+            <IsRelativeURI>false</IsRelativeURI>
+          </AssetItem>
+          <AssetItem>
+            <Type>Video</Type>
+            <URI>c:\temp\video1.mp4</URI>
+            <IsRelativeURI>false</IsRelativeURI>
+          </AssetItem>
+          <AssetItem>
+            <Type>Video</Type>
+            <URI>c:\temp\video2.mp4</URI>
+            <IsRelativeURI>false</IsRelativeURI>
+          </AssetItem>
+        </Location>
+      </AssetGroup>
+    </Source>
+  </WorkflowParams>
+</TemplateExXML>

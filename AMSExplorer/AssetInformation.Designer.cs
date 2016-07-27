@@ -130,6 +130,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -192,7 +193,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(813, 14);
+            this.buttonClose.Location = new System.Drawing.Point(800, 14);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(87, 27);
             this.buttonClose.TabIndex = 3;
@@ -415,7 +416,7 @@
             this.buttonCopyStats.Name = "buttonCopyStats";
             this.buttonCopyStats.Size = new System.Drawing.Size(121, 27);
             this.buttonCopyStats.TabIndex = 24;
-            this.buttonCopyStats.Text = "Copy to clipboard";
+            this.buttonCopyStats.Text = "Display it";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
             this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
@@ -1276,8 +1277,17 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(0, 593);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(916, 55);
+            this.panel1.Size = new System.Drawing.Size(903, 55);
             this.panel1.TabIndex = 36;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(893, 593);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(29, 42);
+            this.panel2.TabIndex = 77;
             // 
             // AssetInformation
             // 
@@ -1287,11 +1297,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AssetInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
@@ -1427,5 +1439,6 @@
         private System.Windows.Forms.Button buttonRemoveAuthPolOption;
         private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -60,6 +60,13 @@
             this.groupBoxImageSettings = new System.Windows.Forms.GroupBox();
             this.panelImageSettings = new System.Windows.Forms.Panel();
             this.checkBoxImageCountAuto = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON = new System.Windows.Forms.Label();
+            this.textBoxConfiguration = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBoxVideoSettings.SuspendLayout();
@@ -68,13 +75,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageCount)).BeginInit();
             this.groupBoxImageSettings.SuspendLayout();
             this.panelImageSettings.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPageConfig.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 344);
+            this.label3.Location = new System.Drawing.Point(14, 350);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -84,7 +94,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 363);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 369);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(418, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -104,7 +114,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(518, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(506, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -116,7 +126,7 @@
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetName.Location = new System.Drawing.Point(14, 66);
+            this.labelAssetName.Location = new System.Drawing.Point(14, 39);
             this.labelAssetName.Name = "labelAssetName";
             this.labelAssetName.Size = new System.Drawing.Size(495, 35);
             this.labelAssetName.TabIndex = 50;
@@ -126,7 +136,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 307);
+            this.textBoxJobName.Location = new System.Drawing.Point(17, 313);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(418, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -135,7 +145,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 289);
+            this.label5.Location = new System.Drawing.Point(14, 295);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -147,7 +157,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.hyperlapse;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(341, 15);
+            this.buttonOk.Location = new System.Drawing.Point(329, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(170, 27);
             this.buttonOk.TabIndex = 17;
@@ -175,7 +185,7 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 415);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(647, 55);
+            this.panel1.Size = new System.Drawing.Size(635, 55);
             this.panel1.TabIndex = 66;
             // 
             // moreinfoprofilelink
@@ -212,9 +222,9 @@
             this.groupBoxVideoSettings.Controls.Add(this.panelVideoSettings);
             this.groupBoxVideoSettings.Controls.Add(this.checkBoxOutputVideo);
             this.groupBoxVideoSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxVideoSettings.Location = new System.Drawing.Point(17, 106);
+            this.groupBoxVideoSettings.Location = new System.Drawing.Point(16, 6);
             this.groupBoxVideoSettings.Name = "groupBoxVideoSettings";
-            this.groupBoxVideoSettings.Size = new System.Drawing.Size(227, 169);
+            this.groupBoxVideoSettings.Size = new System.Drawing.Size(264, 160);
             this.groupBoxVideoSettings.TabIndex = 76;
             this.groupBoxVideoSettings.TabStop = false;
             this.groupBoxVideoSettings.Text = "Video Summarization";
@@ -267,6 +277,7 @@
             this.checkBoxVideoFade.TabIndex = 87;
             this.checkBoxVideoFade.Text = "Fade in/fade out";
             this.checkBoxVideoFade.UseVisualStyleBackColor = true;
+            this.checkBoxVideoFade.CheckedChanged += new System.EventHandler(this.control_changed);
             // 
             // numericUpDownVideoDuration
             // 
@@ -288,6 +299,7 @@
             0,
             0,
             0});
+            this.numericUpDownVideoDuration.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // checkBoxOutputAudio
             // 
@@ -301,6 +313,7 @@
             this.checkBoxOutputAudio.TabIndex = 86;
             this.checkBoxOutputAudio.Text = "Output audio";
             this.checkBoxOutputAudio.UseVisualStyleBackColor = true;
+            this.checkBoxOutputAudio.CheckedChanged += new System.EventHandler(this.control_changed);
             // 
             // checkBoxOutputVideo
             // 
@@ -345,6 +358,7 @@
             0,
             0,
             0});
+            this.numericUpDownImageCount.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // checkBoxOutputImage
             // 
@@ -361,7 +375,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(467, 307);
+            this.buttonJobOptions.Location = new System.Drawing.Point(467, 313);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
@@ -383,9 +397,9 @@
             this.groupBoxImageSettings.Controls.Add(this.checkBoxOutputImage);
             this.groupBoxImageSettings.Controls.Add(this.panelImageSettings);
             this.groupBoxImageSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxImageSettings.Location = new System.Drawing.Point(265, 109);
+            this.groupBoxImageSettings.Location = new System.Drawing.Point(318, 9);
             this.groupBoxImageSettings.Name = "groupBoxImageSettings";
-            this.groupBoxImageSettings.Size = new System.Drawing.Size(227, 166);
+            this.groupBoxImageSettings.Size = new System.Drawing.Size(264, 157);
             this.groupBoxImageSettings.TabIndex = 88;
             this.groupBoxImageSettings.TabStop = false;
             this.groupBoxImageSettings.Text = "Thumbnails (Images)";
@@ -398,7 +412,7 @@
             this.panelImageSettings.Enabled = false;
             this.panelImageSettings.Location = new System.Drawing.Point(30, 46);
             this.panelImageSettings.Name = "panelImageSettings";
-            this.panelImageSettings.Size = new System.Drawing.Size(178, 111);
+            this.panelImageSettings.Size = new System.Drawing.Size(178, 73);
             this.panelImageSettings.TabIndex = 90;
             // 
             // checkBoxImageCountAuto
@@ -415,6 +429,91 @@
             this.checkBoxImageCountAuto.UseVisualStyleBackColor = true;
             this.checkBoxImageCountAuto.CheckedChanged += new System.EventHandler(this.checkBoxImageCountAuto_CheckedChanged);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPageConfig);
+            this.tabControl1.Location = new System.Drawing.Point(17, 75);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(609, 209);
+            this.tabControl1.TabIndex = 108;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBoxVideoSettings);
+            this.tabPage1.Controls.Add(this.groupBoxImageSettings);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(601, 181);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPageConfig
+            // 
+            this.tabPageConfig.Controls.Add(this.labelWarningJSON);
+            this.tabPageConfig.Controls.Add(this.textBoxConfiguration);
+            this.tabPageConfig.Controls.Add(this.label9);
+            this.tabPageConfig.Location = new System.Drawing.Point(4, 24);
+            this.tabPageConfig.Name = "tabPageConfig";
+            this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConfig.Size = new System.Drawing.Size(601, 181);
+            this.tabPageConfig.TabIndex = 1;
+            this.tabPageConfig.Text = "Generated JSON configuration";
+            this.tabPageConfig.UseVisualStyleBackColor = true;
+            this.tabPageConfig.Enter += new System.EventHandler(this.control_changed);
+            // 
+            // labelWarningJSON
+            // 
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON.Location = new System.Drawing.Point(143, 7);
+            this.labelWarningJSON.Name = "labelWarningJSON";
+            this.labelWarningJSON.Size = new System.Drawing.Size(452, 19);
+            this.labelWarningJSON.TabIndex = 80;
+            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
+            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.Visible = false;
+            // 
+            // textBoxConfiguration
+            // 
+            this.textBoxConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfiguration.Location = new System.Drawing.Point(6, 29);
+            this.textBoxConfiguration.Multiline = true;
+            this.textBoxConfiguration.Name = "textBoxConfiguration";
+            this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxConfiguration.Size = new System.Drawing.Size(589, 146);
+            this.textBoxConfiguration.TabIndex = 78;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(2, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(135, 15);
+            this.label9.TabIndex = 79;
+            this.label9.Text = "JSON or XML (editable) :";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(625, 415);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 109;
+            // 
             // MediaAnalyticsVideoThumbnails
             // 
             this.AcceptButton = this.buttonOk;
@@ -423,8 +522,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 471);
-            this.Controls.Add(this.groupBoxImageSettings);
-            this.Controls.Add(this.groupBoxVideoSettings);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -438,6 +537,7 @@
             this.Controls.Add(this.labelProcessorVersion);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "MediaAnalyticsVideoThumbnails";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Processor";
             this.Load += new System.EventHandler(this.MediaAnalyticsVideoThumbnails_Load);
@@ -453,6 +553,10 @@
             this.groupBoxImageSettings.PerformLayout();
             this.panelImageSettings.ResumeLayout(false);
             this.panelImageSettings.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPageConfig.ResumeLayout(false);
+            this.tabPageConfig.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -491,5 +595,12 @@
         private System.Windows.Forms.CheckBox checkBoxOutputVideo;
         private System.Windows.Forms.Panel panelImageSettings;
         private System.Windows.Forms.Panel panelVideoSettings;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageConfig;
+        private System.Windows.Forms.Label labelWarningJSON;
+        private System.Windows.Forms.TextBox textBoxConfiguration;
+        public System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel2;
     }
 }
