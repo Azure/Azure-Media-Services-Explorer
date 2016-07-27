@@ -32,11 +32,15 @@ namespace AMSExplorer
     {
         public IJob MyJob;
         private CloudMediaContext _context;
-        public JobInformation(CloudMediaContext context)
+        private Mainform _mainform;
+        public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
+
+        public JobInformation(Mainform mainform, CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _mainform = mainform;
         }
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -103,43 +107,6 @@ namespace AMSExplorer
             DGJob.Rows.Add("Last Modified", ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
             DGJob.Rows.Add("Template Id", MyJob.TemplateId);
 
-            string sid = "";
-
-            try
-            {
-                var iassets = MyJob.InputMediaAssets; // exception if input asset was deleted
-
-                if (MyJob.InputMediaAssets.Count() > 1) sid = " #{0}"; else sid = "";
-                for (int i = 0; i < MyJob.InputMediaAssets.Count(); i++)
-                {
-                    DGJob.Rows.Add("Input asset" + string.Format(sid, i) + " Name", MyJob.InputMediaAssets[i].Name);
-                    DGJob.Rows.Add("Input asset" + string.Format(sid, i) + " Id", MyJob.InputMediaAssets[i].Id);
-                }
-            }
-
-            catch
-            {
-                DGJob.Rows.Add("Input asset(s)", "<error, deleted?>");
-            }
-
-
-            try
-            {
-                var oassets = MyJob.OutputMediaAssets; // exception if output asset was deleted
-
-                if (MyJob.OutputMediaAssets.Count() > 1) sid = " #{0}"; else sid = "";
-                for (int i = 0; i < MyJob.OutputMediaAssets.Count(); i++)
-                {
-                    DGJob.Rows.Add("Output asset" + string.Format(sid, i) + " Name", MyJob.OutputMediaAssets[i].Name);
-                    DGJob.Rows.Add("Output asset" + string.Format(sid, i) + " Id", MyJob.OutputMediaAssets[i].Id);
-                }
-            }
-            catch
-            {
-                DGJob.Rows.Add("Output asset(s)", "<error, deleted?>");
-            }
-
-
             TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
             {
@@ -169,7 +136,50 @@ namespace AMSExplorer
                 }
                 listBoxTasks.SelectedIndex = 0;
             }
+
+            ListJobAssets();
         }
+
+        private void ListJobAssets()
+        {
+            listViewInputAssets.BeginUpdate();
+            try
+            {
+                foreach (IAsset asset in MyJob.InputMediaAssets)
+                {
+                    ListViewItem item = new ListViewItem(asset.Name, 0);
+                    item.SubItems.Add(AssetInfo.GetAssetType(asset));
+                    listViewInputAssets.Items.Add(item);
+                }
+            }
+            catch
+            {
+                ListViewItem item = new ListViewItem("<error, deleted?>", 0);
+                listViewInputAssets.Items.Add(item);
+            }
+            listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewInputAssets.EndUpdate();
+
+            listViewOutputAssets.BeginUpdate();
+            try
+            {
+                foreach (IAsset asset in MyJob.OutputMediaAssets)
+                {
+                    ListViewItem item = new ListViewItem(asset.Name, 0);
+                    item.SubItems.Add(AssetInfo.GetAssetType(asset));
+                    listViewOutputAssets.Items.Add(item);
+                }
+            }
+            catch
+            {
+                ListViewItem item = new ListViewItem("<error, deleted?>", 0);
+                listViewOutputAssets.Items.Add(item);
+            }
+            listViewOutputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewOutputAssets.EndUpdate();
+        }
+
+
 
         private void buttonCreateMail_Click(object sender, EventArgs e)
         {
@@ -283,6 +293,41 @@ namespace AMSExplorer
         {
             var editform = new EditorXMLJSON(dataname, key, false, false);
             editform.Display();
+        }
+
+        private void assetInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayAssetInfo(true);
+        }
+
+        private void DisplayAssetInfo(bool input)
+        {
+            IAsset asset;
+
+            if (input)
+            {
+                var index = listViewInputAssets.SelectedIndices[0];
+                asset = MyJob.InputMediaAssets[index];
+            }
+            else
+            {
+                var index = listViewOutputAssets.SelectedIndices[0];
+                asset = MyJob.OutputMediaAssets[index];
+            }
+
+            AssetInformation form = new AssetInformation( _mainform, _context)
+            {
+                myAsset = asset,
+                myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
+            };
+            DialogResult dialogResult = form.ShowDialog(this);
+
+            
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DisplayAssetInfo(false);
         }
     }
 }
