@@ -73,6 +73,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageTF = new System.Windows.Forms.TabPage();
+            this.numericUpDownFirstQualityBitrate = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxFirstQualityBitrate = new System.Windows.Forms.CheckBox();
+            this.label40 = new System.Windows.Forms.Label();
             this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -124,9 +127,6 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.checkBoxFirstQualityBitrate = new System.Windows.Forms.CheckBox();
-            this.numericUpDownFirstQualityBitrate = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -136,6 +136,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPageTRRaw.SuspendLayout();
             this.tabPageTF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
@@ -143,7 +144,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).BeginInit();
             this.contextMenuStripInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -677,6 +677,43 @@
             this.tabPageTF.TabIndex = 1;
             this.tabPageTF.Text = "Track filtering";
             this.tabPageTF.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownFirstQualityBitrate
+            // 
+            this.numericUpDownFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDownFirstQualityBitrate.Enabled = false;
+            this.numericUpDownFirstQualityBitrate.Location = new System.Drawing.Point(189, 516);
+            this.numericUpDownFirstQualityBitrate.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownFirstQualityBitrate.Name = "numericUpDownFirstQualityBitrate";
+            this.numericUpDownFirstQualityBitrate.Size = new System.Drawing.Size(81, 23);
+            this.numericUpDownFirstQualityBitrate.TabIndex = 126;
+            // 
+            // checkBoxFirstQualityBitrate
+            // 
+            this.checkBoxFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxFirstQualityBitrate.AutoSize = true;
+            this.checkBoxFirstQualityBitrate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBoxFirstQualityBitrate.Location = new System.Drawing.Point(22, 517);
+            this.checkBoxFirstQualityBitrate.Name = "checkBoxFirstQualityBitrate";
+            this.checkBoxFirstQualityBitrate.Size = new System.Drawing.Size(165, 19);
+            this.checkBoxFirstQualityBitrate.TabIndex = 125;
+            this.checkBoxFirstQualityBitrate.Text = "First Quality Bitrate (HLS) :";
+            this.checkBoxFirstQualityBitrate.UseVisualStyleBackColor = true;
+            this.checkBoxFirstQualityBitrate.CheckedChanged += new System.EventHandler(this.checkBoxFirstQualityBitrate_CheckedChanged);
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label40.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label40.Location = new System.Drawing.Point(276, 518);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(45, 18);
+            this.label40.TabIndex = 124;
+            this.label40.Text = "bps";
             // 
             // comboBoxLocatorsFilters
             // 
@@ -1324,43 +1361,6 @@
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
             // 
-            // label40
-            // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label40.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label40.Location = new System.Drawing.Point(256, 518);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(45, 18);
-            this.label40.TabIndex = 124;
-            this.label40.Text = "bps";
-            // 
-            // checkBoxFirstQualityBitrate
-            // 
-            this.checkBoxFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxFirstQualityBitrate.AutoSize = true;
-            this.checkBoxFirstQualityBitrate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxFirstQualityBitrate.Location = new System.Drawing.Point(22, 517);
-            this.checkBoxFirstQualityBitrate.Name = "checkBoxFirstQualityBitrate";
-            this.checkBoxFirstQualityBitrate.Size = new System.Drawing.Size(132, 19);
-            this.checkBoxFirstQualityBitrate.TabIndex = 125;
-            this.checkBoxFirstQualityBitrate.Text = "First Quality Bitrate :";
-            this.checkBoxFirstQualityBitrate.UseVisualStyleBackColor = true;
-            this.checkBoxFirstQualityBitrate.CheckedChanged += new System.EventHandler(this.checkBoxFirstQualityBitrate_CheckedChanged);
-            // 
-            // numericUpDownFirstQualityBitrate
-            // 
-            this.numericUpDownFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownFirstQualityBitrate.Enabled = false;
-            this.numericUpDownFirstQualityBitrate.Location = new System.Drawing.Point(169, 516);
-            this.numericUpDownFirstQualityBitrate.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDownFirstQualityBitrate.Name = "numericUpDownFirstQualityBitrate";
-            this.numericUpDownFirstQualityBitrate.Size = new System.Drawing.Size(81, 23);
-            this.numericUpDownFirstQualityBitrate.TabIndex = 126;
-            // 
             // DynManifestFilter
             // 
             this.AcceptButton = this.buttonOk;
@@ -1402,6 +1402,7 @@
             this.tabPageTRRaw.PerformLayout();
             this.tabPageTF.ResumeLayout(false);
             this.tabPageTF.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
@@ -1409,7 +1410,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).EndInit();
             this.contextMenuStripInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
