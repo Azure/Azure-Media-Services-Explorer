@@ -538,5 +538,17 @@ namespace AMSExplorer.Properties {
                 this["AssetAnalysisStep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public string useTransferQueue {
+            get {
+                return ((string)(this["useTransferQueue"]));
+            }
+            set {
+                this["useTransferQueue"] = value;
+            }
+        }
     }
 }
