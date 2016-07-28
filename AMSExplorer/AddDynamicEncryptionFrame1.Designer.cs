@@ -62,7 +62,6 @@
             this.checkBoxEnableDynEnc = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -126,7 +125,6 @@
             // 
             this.groupBoxKeyType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxKeyType.Controls.Add(this.label9);
             this.groupBoxKeyType.Controls.Add(this.label8);
             this.groupBoxKeyType.Controls.Add(this.label3);
             this.groupBoxKeyType.Controls.Add(this.label2);
@@ -484,16 +482,6 @@
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(269, 85);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 15);
-            this.label9.TabIndex = 89;
-            this.label9.Text = "Preview";
-            // 
             // AddDynamicEncryptionFrame1
             // 
             this.AcceptButton = this.buttonOk;
@@ -567,6 +555,5 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label9;
     }
 }
