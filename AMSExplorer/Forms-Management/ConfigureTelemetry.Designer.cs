@@ -66,7 +66,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(115, 27);
             this.buttonOk.TabIndex = 17;
-            this.buttonOk.Text = "Ok";
+            this.buttonOk.Text = "Configure";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
