@@ -3487,6 +3487,8 @@ namespace AMSExplorer
         public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
         public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
+        public static readonly string TableStorage = ".table.core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
+
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
@@ -3787,6 +3789,19 @@ namespace AMSExplorer
         public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
 
+    }
+
+    public class MonitorComponent
+    {
+        public bool Monitored { get; set; }
+        public MonitoringLevel MonitoringLevelSetting { get; set; }
+    }
+
+    public class ConfigTelemetryVar
+    {
+        public string StorageSelected { get; set; }
+        public MonitorComponent MonitorChannel { get; set; }
+        public MonitorComponent MonitorStreamingEndpoint { get; set; }
     }
 
 

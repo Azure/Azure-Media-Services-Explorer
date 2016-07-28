@@ -14608,6 +14608,69 @@ namespace AMSExplorer
         {
             DoMenuImportFromHttp();
         }
+
+        private void configureTelemetryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult res = DialogResult.Yes;
+
+            if (_context.MonitoringConfigurations.FirstOrDefault() != null)
+            {
+                res = MessageBox.Show("Telemetry is already configured.\n\nDo you want to replace the configuration with a new one ?", "Telemetry",  MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+
+            if (res != DialogResult.Yes)
+            {
+                return;
+            }
+
+            var form = new ConfigureTelemetry(_context);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var config = form.Config;
+
+                string SampleStorageURLTemplate = (_credentials.UseOtherAPI == true.ToString()) ?
+              CredentialsEntry.TableStorage + _credentials.OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
+              CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
+
+                var list = new List<ComponentMonitoringSetting>();
+
+                if (config.MonitorChannel.Monitored)
+                {
+                    list.Add(new ComponentMonitoringSetting(MonitoringComponent.Channel, config.MonitorChannel.MonitoringLevelSetting));
+                }
+                if (config.MonitorStreamingEndpoint.Monitored)
+                {
+                    list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorStreamingEndpoint.MonitoringLevelSetting));
+                }
+
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        TextBoxLogWriteLine("Telemetry configuration...");
+
+                        INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, "https://" + config.StorageSelected + SampleStorageURLTemplate);
+
+                        TextBoxLogWriteLine("notificationEndpoint created...");
+
+                        if (_context.MonitoringConfigurations.FirstOrDefault() != null)
+                        {
+                            _context.MonitoringConfigurations.FirstOrDefault().Delete();
+                        }
+                        IMonitoringConfiguration monitoringConfiguration = _context.MonitoringConfigurations.Create(notificationEndPoint.Id, list);
+
+                        TextBoxLogWriteLine("Telemetry configured.");
+                    }
+
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when configuring Telemetry.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                });
+            }
+        }
     }
 }
 

@@ -139,6 +139,7 @@
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzeAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkIntegrityOfLiveArchiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fixSystemBitrateInManifestjan15FixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -295,6 +296,7 @@
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureManagementPortalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configureTelemetryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -535,7 +537,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.analyzeAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -608,7 +609,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1527,6 +1528,13 @@
             this.toolsToolStripMenuItem1.Name = "toolsToolStripMenuItem1";
             this.toolsToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.toolsToolStripMenuItem1.Text = "Tools";
+            // 
+            // analyzeAssetsToolStripMenuItem1
+            // 
+            this.analyzeAssetsToolStripMenuItem1.Name = "analyzeAssetsToolStripMenuItem1";
+            this.analyzeAssetsToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.analyzeAssetsToolStripMenuItem1.Text = "Analyze asset(s)...";
+            this.analyzeAssetsToolStripMenuItem1.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem1_Click);
             // 
             // mergeSelectedAssetsToolStripMenuItem
             // 
@@ -2875,7 +2883,8 @@
             // 
             this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureManagementPortalToolStripMenuItem1,
-            this.attachAnotherStoragheAccountToolStripMenuItem});
+            this.attachAnotherStoragheAccountToolStripMenuItem,
+            this.configureTelemetryToolStripMenuItem});
             this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
             this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.managementToolStripMenuItem.Text = "Management";
@@ -2894,6 +2903,13 @@
             this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
             this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
+            // 
+            // configureTelemetryToolStripMenuItem
+            // 
+            this.configureTelemetryToolStripMenuItem.Name = "configureTelemetryToolStripMenuItem";
+            this.configureTelemetryToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.configureTelemetryToolStripMenuItem.Text = "Configure Telemetry...";
+            this.configureTelemetryToolStripMenuItem.Click += new System.EventHandler(this.configureTelemetryToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -5438,13 +5454,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // analyzeAssetsToolStripMenuItem1
-            // 
-            this.analyzeAssetsToolStripMenuItem1.Name = "analyzeAssetsToolStripMenuItem1";
-            this.analyzeAssetsToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
-            this.analyzeAssetsToolStripMenuItem1.Text = "Analyze asset(s)...";
-            this.analyzeAssetsToolStripMenuItem1.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem1_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6021,6 +6030,7 @@
         private System.Windows.Forms.Label labelConcurrentTransfers;
         private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem configureTelemetryToolStripMenuItem;
     }
 }
 
