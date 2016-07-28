@@ -39,10 +39,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonDeleteConfig = new System.Windows.Forms.Button();
             this.textBoxTableURL = new System.Windows.Forms.TextBox();
-            this.checkBoxChannels = new System.Windows.Forms.CheckBox();
-            this.checkBoxSEs = new System.Windows.Forms.CheckBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,30 +162,6 @@
             this.textBoxTableURL.TabIndex = 80;
             this.textBoxTableURL.Visible = false;
             // 
-            // checkBoxChannels
-            // 
-            this.checkBoxChannels.AutoSize = true;
-            this.checkBoxChannels.Checked = true;
-            this.checkBoxChannels.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxChannels.Location = new System.Drawing.Point(45, 165);
-            this.checkBoxChannels.Name = "checkBoxChannels";
-            this.checkBoxChannels.Size = new System.Drawing.Size(75, 19);
-            this.checkBoxChannels.TabIndex = 71;
-            this.checkBoxChannels.Text = "Channels";
-            this.checkBoxChannels.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSEs
-            // 
-            this.checkBoxSEs.AutoSize = true;
-            this.checkBoxSEs.Checked = true;
-            this.checkBoxSEs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSEs.Location = new System.Drawing.Point(45, 203);
-            this.checkBoxSEs.Name = "checkBoxSEs";
-            this.checkBoxSEs.Size = new System.Drawing.Size(136, 19);
-            this.checkBoxSEs.TabIndex = 76;
-            this.checkBoxSEs.Text = "Streaming endpoints";
-            this.checkBoxSEs.UseVisualStyleBackColor = true;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Key";
@@ -196,6 +172,24 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(42, 166);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 15);
+            this.label2.TabIndex = 81;
+            this.label2.Text = "Channels :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(42, 202);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 15);
+            this.label3.TabIndex = 82;
+            this.label3.Text = "Streaming endpoints :";
+            // 
             // ConfigureTelemetry
             // 
             this.AcceptButton = this.buttonOk;
@@ -204,12 +198,12 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(400, 328);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxLevelSE);
             this.Controls.Add(this.comboBoxLevelChannel);
-            this.Controls.Add(this.checkBoxSEs);
             this.Controls.Add(this.labelTelemetryUI);
-            this.Controls.Add(this.checkBoxChannels);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
@@ -240,7 +234,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Button buttonDeleteConfig;
         private System.Windows.Forms.TextBox textBoxTableURL;
-        private System.Windows.Forms.CheckBox checkBoxChannels;
-        private System.Windows.Forms.CheckBox checkBoxSEs;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

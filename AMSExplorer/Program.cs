@@ -964,7 +964,7 @@ namespace AMSExplorer
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
         public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
         public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
-        
+
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
         public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";
@@ -2367,11 +2367,11 @@ namespace AMSExplorer
                     }
                 }
             }
-                    }
+        }
 
         static public void SetAFileAsPrimary(IAsset asset)
         {
-            var files= asset.AssetFiles.ToList();
+            var files = asset.AssetFiles.ToList();
             var ismAssetFiles = files.
                 Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
@@ -3791,17 +3791,13 @@ namespace AMSExplorer
 
     }
 
-    public class MonitorComponent
-    {
-        public bool Monitored { get; set; }
-        public MonitoringLevel MonitoringLevelSetting { get; set; }
-    }
+   
 
     public class ConfigTelemetryVar
     {
         public string StorageSelected { get; set; }
-        public MonitorComponent MonitorChannel { get; set; }
-        public MonitorComponent MonitorStreamingEndpoint { get; set; }
+        public MonitoringLevel MonitorLevelChannel { get; set; }
+        public MonitoringLevel MonitorLevelStreamingEndpoint { get; set; }
     }
 
 

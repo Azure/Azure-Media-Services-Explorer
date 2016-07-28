@@ -14630,15 +14630,9 @@ namespace AMSExplorer
               CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
 
                 var list = new List<ComponentMonitoringSetting>();
+                list.Add(new ComponentMonitoringSetting(MonitoringComponent.Channel, config.MonitorLevelChannel));
+                list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorLevelStreamingEndpoint));
 
-                if (config.MonitorChannel.Monitored)
-                {
-                    list.Add(new ComponentMonitoringSetting(MonitoringComponent.Channel, config.MonitorChannel.MonitoringLevelSetting));
-                }
-                if (config.MonitorStreamingEndpoint.Monitored)
-                {
-                    list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorStreamingEndpoint.MonitoringLevelSetting));
-                }
 
                 if (currentConfig == null) // creation of telemetry configuration
                 {

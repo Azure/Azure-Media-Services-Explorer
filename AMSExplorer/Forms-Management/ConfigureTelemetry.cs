@@ -41,9 +41,8 @@ namespace AMSExplorer
                 return new ConfigTelemetryVar()
                 {
                     StorageSelected = comboBoxStorage.SelectedItem != null ? ((Item)comboBoxStorage.SelectedItem).Value : null,
-                    MonitorChannel = new MonitorComponent() { Monitored = checkBoxChannels.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelChannel.SelectedItem)) },
-                    MonitorStreamingEndpoint = new MonitorComponent() { Monitored = checkBoxSEs.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelSE.SelectedItem)) }
-
+                    MonitorLevelChannel = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelChannel.SelectedItem)),
+                    MonitorLevelStreamingEndpoint = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelSE.SelectedItem))
                 };
             }
 
@@ -91,18 +90,11 @@ namespace AMSExplorer
                 buttonOk.Text = "Update";
                 labelTelemetryUI.Text = "Current Telemetry Settings";
 
-                checkBoxChannels.Checked = _monitorconfig.Settings.ToList().Any(s => s.Component == MonitoringComponent.Channel);
-                if (checkBoxChannels.Checked)
-                {
-                    var level = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.Channel).FirstOrDefault().Level;
-                    comboBoxLevelChannel.Text = level.ToString();
-                }
-                checkBoxSEs.Checked = _monitorconfig.Settings.ToList().Any(s => s.Component == MonitoringComponent.StreamingEndpoint);
-                if (checkBoxSEs.Checked)
-                {
-                    var level = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.StreamingEndpoint).FirstOrDefault().Level;
-                    comboBoxLevelSE.Text = level.ToString();
-                }
+                var settingCh = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.Channel).FirstOrDefault(); ;
+                if (settingCh != null) comboBoxLevelChannel.Text = settingCh.Level.ToString();
+
+                var settingSE = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.StreamingEndpoint).FirstOrDefault();
+                if (settingSE != null) comboBoxLevelSE.Text = settingSE.Level.ToString();
             }
         }
 
