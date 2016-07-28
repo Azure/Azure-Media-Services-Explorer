@@ -31,8 +31,8 @@ namespace AMSExplorer
 {
     public partial class ConfigureTelemetry : Form
     {
-        CloudMediaContext context;
-     
+        CloudMediaContext _context;
+        private IMonitoringConfiguration _monitorconfig;
 
         public ConfigTelemetryVar Config
         {
@@ -40,52 +40,78 @@ namespace AMSExplorer
             {
                 return new ConfigTelemetryVar()
                 {
-                    StorageSelected = ((Item)comboBoxStorage.SelectedItem).Value,
-                    MonitorChannel = new MonitorComponent() { Monitored = checkBoxChannels.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)(comboBoxLevelChannel.SelectedItem as Item).Value)) },
-                    MonitorStreamingEndpoint = new MonitorComponent() { Monitored = checkBoxSEs.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)(comboBoxLevelSE.SelectedItem as Item).Value)) }
+                    StorageSelected = comboBoxStorage.SelectedItem != null ? ((Item)comboBoxStorage.SelectedItem).Value : null,
+                    MonitorChannel = new MonitorComponent() { Monitored = checkBoxChannels.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelChannel.SelectedItem)) },
+                    MonitorStreamingEndpoint = new MonitorComponent() { Monitored = checkBoxSEs.Checked, MonitoringLevelSetting = (MonitoringLevel)(Enum.Parse(typeof(MonitoringLevel), (string)comboBoxLevelSE.SelectedItem)) }
+
                 };
             }
-           
+
         }
 
 
-        public ConfigureTelemetry(CloudMediaContext myContext)
+        public ConfigureTelemetry(CloudMediaContext myContext, IMonitoringConfiguration monitorconfig)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
-            context = myContext;
-          
-            ControlsResetToDefault();
-            
+            _context = myContext;
+            _monitorconfig = monitorconfig;
+
+            PrepareControls();
+
         }
 
-        private void ControlsResetToDefault()
+        private void PrepareControls()
         {
-            comboBoxStorage.Items.Clear();
-            foreach (var storage in context.StorageAccounts)
-            {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
-
             comboBoxLevelChannel.Items.Clear();
             comboBoxLevelSE.Items.Clear();
 
-            comboBoxLevelChannel.Items.Add(new Item("Normal", Enum.GetName(typeof(MonitoringLevel), MonitoringLevel.Normal)));
-            comboBoxLevelChannel.Items.Add(new Item("Verbose", Enum.GetName(typeof(MonitoringLevel), MonitoringLevel.Verbose)));
-            comboBoxLevelChannel.SelectedIndex = 0;
-            comboBoxLevelSE.Items.Add(new Item("Normal", Enum.GetName(typeof(MonitoringLevel), MonitoringLevel.Normal)));
-            comboBoxLevelSE.Items.Add(new Item("Verbose", Enum.GetName(typeof(MonitoringLevel), MonitoringLevel.Verbose)));
-            comboBoxLevelSE.SelectedIndex = 0;
+            comboBoxLevelChannel.Items.AddRange(Enum.GetNames(typeof(MonitoringLevel)));
+            comboBoxLevelSE.Items.AddRange(Enum.GetNames(typeof(MonitoringLevel)));
+
+            if (_monitorconfig == null) // new telemetry config
+            {
+                comboBoxStorage.Items.Clear();
+                foreach (var storage in _context.StorageAccounts)
+                {
+                    comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                    if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
+
+                comboBoxLevelChannel.Text = comboBoxLevelSE.Text = MonitoringLevel.Normal.ToString();
+            }
+            else // current telemetry config is displayed
+            {
+                var currentConfig = _context.NotificationEndPoints.Where(n => n.Id == _monitorconfig.NotificationEndPointId).FirstOrDefault();
+                textBoxTableURL.Text = currentConfig.EndPointAddress;
+                textBoxTableURL.Visible = true;
+                comboBoxStorage.Visible = false;
+                buttonDeleteConfig.Visible = true;
+                buttonOk.Text = "Update";
+                labelTelemetryUI.Text = "Current Telemetry Settings";
+
+                checkBoxChannels.Checked = _monitorconfig.Settings.ToList().Any(s => s.Component == MonitoringComponent.Channel);
+                if (checkBoxChannels.Checked)
+                {
+                    var level = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.Channel).FirstOrDefault().Level;
+                    comboBoxLevelChannel.Text = level.ToString();
+                }
+                checkBoxSEs.Checked = _monitorconfig.Settings.ToList().Any(s => s.Component == MonitoringComponent.StreamingEndpoint);
+                if (checkBoxSEs.Checked)
+                {
+                    var level = _monitorconfig.Settings.ToList().Where(s => s.Component == MonitoringComponent.StreamingEndpoint).FirstOrDefault().Level;
+                    comboBoxLevelSE.Text = level.ToString();
+                }
+            }
         }
 
 
         private void ConfigureTelemetry_Load(object sender, EventArgs e)
         {
-           
+
         }
-     
+
     }
-   
+
 }

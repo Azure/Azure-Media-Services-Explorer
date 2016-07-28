@@ -14611,21 +14611,17 @@ namespace AMSExplorer
 
         private void configureTelemetryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult res = DialogResult.Yes;
+            DoConfigureTelemetry();
+        }
 
-            if (_context.MonitoringConfigurations.FirstOrDefault() != null)
-            {
-                res = MessageBox.Show("Telemetry is already configured.\n\nDo you want to replace the configuration with a new one ?", "Telemetry",  MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            }
+        private void DoConfigureTelemetry()
+        {
+            var currentConfig = _context.MonitoringConfigurations.FirstOrDefault();
 
-            if (res != DialogResult.Yes)
-            {
-                return;
-            }
+            var form = new ConfigureTelemetry(_context, currentConfig);
+            var DR = form.ShowDialog();
 
-            var form = new ConfigureTelemetry(_context);
-
-            if (form.ShowDialog() == DialogResult.OK)
+            if (DR == DialogResult.OK) // new or update
             {
                 var config = form.Config;
 
@@ -14644,28 +14640,72 @@ namespace AMSExplorer
                     list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorStreamingEndpoint.MonitoringLevelSetting));
                 }
 
+                if (currentConfig == null) // creation of telemetry configuration
+                {
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            TextBoxLogWriteLine("Telemetry configuration...");
+
+                            INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, "https://" + config.StorageSelected + SampleStorageURLTemplate);
+
+                            TextBoxLogWriteLine("notificationEndpoint created...");
+
+                            IMonitoringConfiguration monitoringConfiguration = _context.MonitoringConfigurations.Create(notificationEndPoint.Id, list);
+
+                            TextBoxLogWriteLine("Telemetry configured.");
+                        }
+
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when configuring Telemetry.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
+                    });
+                }
+                else // existing telemetry setup - to update now
+                {
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            TextBoxLogWriteLine("Telemetry configuration update...");
+                            currentConfig.Settings = list.ToArray();
+                            currentConfig.Update();
+                            TextBoxLogWriteLine("Telemetry updated.");
+                        }
+
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when updating Telemetry.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
+                    });
+
+                }
+
+            }
+            else if (DR == DialogResult.Abort) // delete the config
+            {
                 Task.Run(() =>
                 {
                     try
                     {
-                        TextBoxLogWriteLine("Telemetry configuration...");
+                        TextBoxLogWriteLine("Telemetry configuration deletion...");
 
-                        INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, "https://" + config.StorageSelected + SampleStorageURLTemplate);
-
-                        TextBoxLogWriteLine("notificationEndpoint created...");
 
                         if (_context.MonitoringConfigurations.FirstOrDefault() != null)
                         {
                             _context.MonitoringConfigurations.FirstOrDefault().Delete();
                         }
-                        IMonitoringConfiguration monitoringConfiguration = _context.MonitoringConfigurations.Create(notificationEndPoint.Id, list);
 
-                        TextBoxLogWriteLine("Telemetry configured.");
+                        TextBoxLogWriteLine("Telemetry configuration deleted.");
                     }
 
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine("Error when configuring Telemetry.", true);
+                        TextBoxLogWriteLine("Error when deleting telemetry configuration.", true);
                         TextBoxLogWriteLine(ex);
                     }
                 });
