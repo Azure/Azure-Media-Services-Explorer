@@ -51,6 +51,10 @@ namespace AMSExplorer
         private DateTime _timerangeStart = DateTime.UtcNow.AddHours(-5);
         private string _storagePassword = "";
         private bool boolSavedStoragePassword = false;
+        private bool channelMode = true;
+        private int overlapCountCol;
+        private int discontCountCol;
+        private int resultCodeCol;
 
         public DisplayTelemetry(Mainform mainform, object entity, CloudMediaContext context, CredentialsEntry credentials)
         {
@@ -180,9 +184,14 @@ namespace AMSExplorer
 
         private void DoLoadTelemetry(object myobject)
         {
+            labelTimeRange.Text = string.Format("Display data from {0} to {1}", 
+                _timerangeStart.ToLocalTime().ToString("G"), 
+                _timerangeEnd==null? "now":((DateTime) _timerangeEnd).ToLocalTime().ToString("G"));
+
             this.Cursor = Cursors.WaitCursor;
             if (_entity is IStreamingEndpoint)
             {
+                channelMode = false;
                 DoLoadTelemetry((IStreamingEndpoint)_entity);
             }
             else if (_entity is IChannel)
@@ -208,6 +217,8 @@ namespace AMSExplorer
                 dataGridViewTelemetry.Columns[6].HeaderText = "RowKey";
                 dataGridViewTelemetry.Columns[7].HeaderText = "ServerLatency";
                 dataGridViewTelemetry.Columns[8].HeaderText = "StatusCode";
+
+                resultCodeCol = 5;
 
                 labelTelemetryUI.Text = string.Format("Telemetry for Streaming Endpoint '{0}'", streamingEndpoint.Name);
 
@@ -278,6 +289,9 @@ namespace AMSExplorer
                 dataGridViewTelemetry.Columns[6].HeaderText = "Discontinuity count";
                 dataGridViewTelemetry.Columns[7].HeaderText = "Last timestamp";
                 dataGridViewTelemetry.Columns[8].HeaderText = "Custom attributes";
+
+                overlapCountCol = 5;
+                discontCountCol = 6;
 
                 labelTelemetryUI.Text = string.Format("Telemetry for channel '{0}'", channel.Name);
 
@@ -355,6 +369,67 @@ namespace AMSExplorer
         {
             DoLoadTelemetry(_entity);
 
+        }
+
+        private void dataGridViewTelemetry_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // on line on two is blue
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+        }
+
+        private void dataGridViewTelemetry_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (!channelMode)
+            {
+                var celljobstatevalue = dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[resultCodeCol].Index].Value;
+
+                if (celljobstatevalue != null)
+                {
+                    string status = (string)celljobstatevalue;
+                    Color mycolor;
+
+                    switch (status)
+                    {
+                        case "S_OK":
+                            mycolor = Color.Black;
+                            break;
+                        /*   case JobState.Canceled:
+                               mycolor = Color.Blue;
+                               break;
+                           case JobState.Canceling:
+                               mycolor = Color.Blue;
+                               break;
+                           case JobState.Processing:
+                               mycolor = Color.DarkGreen;
+                               break;
+                           case JobState.Queued:
+                               mycolor = Color.Green;
+                               break;*/
+                        default:
+                            mycolor = Color.Red;
+                            break;
+                    }
+                    e.CellStyle.ForeColor = mycolor;
+                }
+            }
+            else
+            {
+                int celloverlap =(int) dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[overlapCountCol].Index].Value;
+                int celldisc = (int) dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[discontCountCol].Index].Value;
+
+                if  (celloverlap>0 || celldisc>0)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Black;
+                }
+
+            }
         }
     }
 }

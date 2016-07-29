@@ -42,6 +42,7 @@
             this.dataGridViewTelemetry = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.labelTimeRange = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -134,10 +135,12 @@
             this.dataGridViewTelemetry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTelemetry.Size = new System.Drawing.Size(885, 489);
             this.dataGridViewTelemetry.TabIndex = 77;
+            this.dataGridViewTelemetry.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTelemetry_CellFormatting);
+            this.dataGridViewTelemetry.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTelemetry_RowPostPaint);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(140, 52);
+            this.button1.Location = new System.Drawing.Point(151, 52);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 27);
             this.button1.TabIndex = 78;
@@ -159,6 +162,15 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // labelTimeRange
+            // 
+            this.labelTimeRange.AutoSize = true;
+            this.labelTimeRange.Location = new System.Drawing.Point(287, 58);
+            this.labelTimeRange.Name = "labelTimeRange";
+            this.labelTimeRange.Size = new System.Drawing.Size(76, 15);
+            this.labelTimeRange.TabIndex = 80;
+            this.labelTimeRange.Text = "From .... to ...";
+            // 
             // DisplayTelemetry
             // 
             this.AcceptButton = this.buttonClose;
@@ -167,6 +179,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.labelTimeRange);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridViewTelemetry);
@@ -203,5 +216,6 @@
         private System.Windows.Forms.DataGridView dataGridViewTelemetry;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Label labelTimeRange;
     }
 }
