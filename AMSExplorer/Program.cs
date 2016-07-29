@@ -3476,7 +3476,7 @@ namespace AMSExplorer
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
         public string OtherManagementPortal { get; set; }
-
+        public string AccountId { get; set; }
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";

@@ -14701,6 +14701,21 @@ namespace AMSExplorer
                 });
             }
         }
+
+
+
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new DisplayTelemetry(this, ReturnSelectedStreamingEndpoints().FirstOrDefault(), _context, _credentials);
+            form.Show();
+        }
+
+        private void loadMetricsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new DisplayTelemetry(this, ReturnSelectedChannels().FirstOrDefault(), _context, _credentials);
+            form.Show();
+        }
     }
 }
 
