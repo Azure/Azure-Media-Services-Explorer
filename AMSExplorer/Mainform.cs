@@ -14625,10 +14625,6 @@ namespace AMSExplorer
             {
                 var config = form.Config;
 
-                string SampleStorageURLTemplate = (_credentials.UseOtherAPI == true.ToString()) ?
-              CredentialsEntry.TableStorage + _credentials.OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
-              CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
-
                 var list = new List<ComponentMonitoringSetting>();
                 list.Add(new ComponentMonitoringSetting(MonitoringComponent.Channel, config.MonitorLevelChannel));
                 list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorLevelStreamingEndpoint));
@@ -14642,7 +14638,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Telemetry configuration...");
 
-                            INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, "https://" + config.StorageSelected + SampleStorageURLTemplate);
+                            INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, _credentials.GetTableEndPoint(config.StorageSelected));
 
                             TextBoxLogWriteLine("notificationEndpoint created...");
 

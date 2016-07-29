@@ -57,6 +57,10 @@ namespace AMSExplorer
                 listPictures = value;
                 SetCurrentPicture(listPictures.FirstOrDefault());
             }
+            get
+            {
+                return listPictures;
+            }
         }
 
         private void SetCurrentPicture(Image picture)
@@ -185,16 +189,29 @@ namespace AMSExplorer
 
         public DialogResult Display()
         {
-            SetPictures = ReturnOriginResolutionThumbnailsForAsset(_asset);
-
-            myPictureBox1.LoadSavedRegions();
-
-            DialogResult DR = this.ShowDialog();
-
-            if (DR == DialogResult.OK)
+            DialogResult DR= DialogResult.Cancel;
+            try
             {
-                myPictureBox1.SaveRegions();
+                if (SetPictures==null)
+                {
+                    SetPictures = ReturnOriginResolutionThumbnailsForAsset(_asset);
+                }
+
+                myPictureBox1.LoadSavedRegions();
+
+                 DR = this.ShowDialog();
+
+                if (DR == DialogResult.OK)
+                {
+                    myPictureBox1.SaveRegions();
+                }
             }
+
+            catch
+            {
+
+            }
+           
 
             return DR;
         }

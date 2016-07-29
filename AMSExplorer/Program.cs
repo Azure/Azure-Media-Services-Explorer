@@ -3508,6 +3508,16 @@ namespace AMSExplorer
             OtherManagementPortal = managementportal;
         }
 
+        public string GetTableEndPoint(string mediaServicesStorageAccountName)
+        {
+            string SampleStorageURLTemplate = (UseOtherAPI == true.ToString()) ?
+            CredentialsEntry.TableStorage + OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
+            CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
+
+            return "https://" + mediaServicesStorageAccountName + SampleStorageURLTemplate;
+        }
+
+
         public string[] ToArray()
         {
             string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
