@@ -44,41 +44,47 @@ namespace AMSExplorer
         private const string infothumbnail = "thumbnail {0}/{1}";
 
         private List<Image> listPictures;
+        private Size originalSize;
         private int pictureIndex = 0;
         private IAsset _asset;
         private int _nbOfRegionsMax;
         private bool _croppingMode;
         private bool _updateNumericUpDownByMouse = true;
 
-        public List<Image> SetPictures
+        public ResultAnalysisAsset SetPictures
         {
             set
             {
-                listPictures = value;
+                listPictures = value.Images;
+                originalSize = value.OriginalSize;
+                SetPictureOriginalSize(originalSize);
                 SetCurrentPicture(listPictures.FirstOrDefault());
             }
             get
             {
-                return listPictures;
+                return new ResultAnalysisAsset() { Images = listPictures, OriginalSize = originalSize };
             }
+        }
+        private void SetPictureOriginalSize(Size originalSize)
+        {
+            myPictureBox1.VideoImageOriginalWidth = originalSize.Width;
+            myPictureBox1.VideoImageOriginalHeight = originalSize.Height;
+
+            if (_croppingMode)
+            {
+                numericUpDownX.Maximum = originalSize.Width;
+                numericUpDownY.Maximum = originalSize.Height;
+                numericUpDownW.Maximum = originalSize.Width;
+                numericUpDownH.Maximum = originalSize.Height;
+            }
+            toolStripStatusLabelImSize.Text = string.Format("Image size {0} x {1}", originalSize.Width, originalSize.Height);
+            UpdateLabelIndex();
         }
 
         private void SetCurrentPicture(Image picture)
         {
             myPictureBox1.VideoImage = picture;
-            myPictureBox1.VideoImageOriginalWidth = picture.Width;
-            myPictureBox1.VideoImageOriginalHeight = picture.Height;
-
-            if (_croppingMode)
-            {
-                numericUpDownX.Maximum = picture.Width;
-                numericUpDownY.Maximum = picture.Height;
-                numericUpDownW.Maximum = picture.Width;
-                numericUpDownH.Maximum = picture.Height;
-            }
-            toolStripStatusLabelImSize.Text = string.Format("Image size {0} x {1}", picture.Width, picture.Height);
             Refresh();
-            UpdateLabelIndex();
         }
 
         public void DisplayNextPicture()
@@ -128,57 +134,85 @@ namespace AMSExplorer
         }
 
 
-        static List<Image> ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
+        static ResultAnalysisAsset ReturnOriginResolutionThumbnailsForAsset(IAsset asset) // null if not existing
         {
-            List<Image> list = new List<Image>();
+            var result = new ResultAnalysisAsset();
 
-            string filename = asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_000001.jpg";
+
+            string filenameJPG = asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_000001.jpg";
             string path = Path.GetTempPath();
-            string pathandfile = Path.Combine(path, filename);
+            string pathandfile = Path.Combine(path, filenameJPG);
             //c7508b75-a451-4887-9435-4a5b39f88c5f_OriginalRes_000001.jpg
-            var files = asset.GetMediaContext().Files.Where(f => f.Name == filename).OrderBy(f => f.LastModified);
-            var file = files.FirstOrDefault();
+            //c7508b75-a451-4887-9435-4a5b39f88c5f_metadata.xml
+            var filesJPG = asset.GetMediaContext().Files.Where(f => f.Name == filenameJPG).OrderBy(f => f.LastModified);
+            var fileJPG = filesJPG.FirstOrDefault();
 
-            if (file != null)
+            if (fileJPG == null)
             {
-                ILocator saslocator = null;
-
-                try
-                {
-                    // The duration for the locator's access policy.
-                    var policy = asset.GetMediaContext().AccessPolicies.Create("AP AMSE", new TimeSpan(0, 15, 0), AccessPermissions.Read);
-                    saslocator = asset.GetMediaContext().Locators.CreateLocator(LocatorType.Sas, file.Asset, policy, DateTime.UtcNow.AddMinutes(-5));
-                    var assett = file.Asset;
-                    IEnumerable<IAssetFile> Thumbnails = file.Asset.AssetFiles.ToList().Where(f => f.Name.StartsWith(asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_") && f.Name.EndsWith(".jpg")).OrderBy(f => f.Name);
-
-                    // Generate the Progressive Download URLs for each file. 
-                    List<Uri> ProgressiveDownloadUris = Thumbnails.Select(af => af.GetSasUri()).ToList();
-
-                    foreach (var urli in ProgressiveDownloadUris)
-                    {
-                        var request = WebRequest.Create(urli.AbsoluteUri);
-
-                        using (var response = request.GetResponse())
-                        using (var stream = response.GetResponseStream())
-                        {
-                            list.Add(Bitmap.FromStream(stream));
-                        }
-                    }
-                }
-                catch (Exception e)
-                { }
-
-
-                try
-                {
-                    if (saslocator != null) saslocator.Delete();
-                }
-
-                catch (Exception e)
-                { }
+                result.Error = true;
+                return result;
             }
 
-            return list;
+            string filenameMetadata = asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_metadata.xml";
+            var metadataFile = fileJPG.Asset.AssetFiles.Where(f => f.Name == filenameMetadata).FirstOrDefault();
+            if (metadataFile == null)
+            {
+                result.Error = true;
+                return result;
+            }
+
+            ILocator saslocator = null;
+
+            try
+            {
+                // The duration for the locator's access policy.
+                var policy = asset.GetMediaContext().AccessPolicies.Create("AP AMSE", new TimeSpan(0, 15, 0), AccessPermissions.Read);
+                saslocator = asset.GetMediaContext().Locators.CreateLocator(LocatorType.Sas, fileJPG.Asset, policy, DateTime.UtcNow.AddMinutes(-5));
+
+
+                // Get original video size from metadata
+                XDocument doc = XDocument.Load(metadataFile.GetSasUri().ToString());
+
+                XNamespace ns = "http://schemas.microsoft.com/windowsazure/mediaservices/2014/07/mediaencoder/inputmetadata";
+
+                var bodyxml = doc.Element(ns + "AssetFiles").Element(ns + "AssetFile").Element(ns + "VideoTracks").Element(ns + "VideoTrack");
+
+                result.OriginalSize = new Size(int.Parse(bodyxml.Attribute("Width").Value), int.Parse(bodyxml.Attribute("Height").Value));
+
+                // Thumbnails
+                IEnumerable<IAssetFile> Thumbnails = fileJPG.Asset.AssetFiles.ToList().Where(f => f.Name.StartsWith(asset.Id.Substring(Constants.AssetIdPrefix.Length) + "_OriginalRes_") && f.Name.EndsWith(".jpg")).OrderBy(f => f.Name);
+
+                // Generate the Progressive Download URLs for each file. 
+                List<Uri> ProgressiveDownloadUris = Thumbnails.Select(af => af.GetSasUri()).ToList();
+
+                foreach (var urli in ProgressiveDownloadUris)
+                {
+                    var request = WebRequest.Create(urli.AbsoluteUri);
+
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        result.Images.Add(Bitmap.FromStream(stream));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Error = true;
+            }
+
+
+            try
+            {
+                if (saslocator != null) saslocator.Delete();
+            }
+
+            catch (Exception e)
+            { }
+
+
+
+            return result;
         }
 
         private void buttonFormat_Click(object sender, EventArgs e)
@@ -189,17 +223,17 @@ namespace AMSExplorer
 
         public DialogResult Display()
         {
-            DialogResult DR= DialogResult.Cancel;
+            DialogResult DR = DialogResult.Cancel;
             try
             {
-                if (SetPictures==null)
+                if (SetPictures.Images == null)
                 {
                     SetPictures = ReturnOriginResolutionThumbnailsForAsset(_asset);
                 }
 
                 myPictureBox1.LoadSavedRegions();
 
-                 DR = this.ShowDialog();
+                DR = this.ShowDialog();
 
                 if (DR == DialogResult.OK)
                 {
@@ -211,7 +245,7 @@ namespace AMSExplorer
             {
 
             }
-           
+
 
             return DR;
         }
@@ -402,6 +436,13 @@ namespace AMSExplorer
         {
 
         }
+    }
+
+    public class ResultAnalysisAsset
+    {
+        public List<Image> Images = new List<Image>();
+        public Size OriginalSize;
+        public bool Error = false;
     }
 
     class RectangleDecimalMode
