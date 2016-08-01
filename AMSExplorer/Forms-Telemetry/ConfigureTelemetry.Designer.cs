@@ -31,13 +31,13 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonDeleteConfig = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.labelTelemetryUI = new System.Windows.Forms.Label();
             this.comboBoxLevelChannel = new System.Windows.Forms.ComboBox();
             this.comboBoxLevelSE = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonDeleteConfig = new System.Windows.Forms.Button();
             this.textBoxTableURL = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +81,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(403, 55);
             this.panel1.TabIndex = 66;
+            // 
+            // buttonDeleteConfig
+            // 
+            this.buttonDeleteConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDeleteConfig.DialogResult = System.Windows.Forms.DialogResult.Abort;
+            this.buttonDeleteConfig.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonDeleteConfig.Location = new System.Drawing.Point(14, 15);
+            this.buttonDeleteConfig.Name = "buttonDeleteConfig";
+            this.buttonDeleteConfig.Size = new System.Drawing.Size(115, 27);
+            this.buttonDeleteConfig.TabIndex = 18;
+            this.buttonDeleteConfig.Text = "Delete config";
+            this.buttonDeleteConfig.UseVisualStyleBackColor = true;
+            this.buttonDeleteConfig.Visible = false;
             // 
             // label33
             // 
@@ -137,19 +150,6 @@
             this.label1.Size = new System.Drawing.Size(69, 15);
             this.label1.TabIndex = 79;
             this.label1.Text = "Details level";
-            // 
-            // buttonDeleteConfig
-            // 
-            this.buttonDeleteConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteConfig.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.buttonDeleteConfig.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDeleteConfig.Location = new System.Drawing.Point(14, 15);
-            this.buttonDeleteConfig.Name = "buttonDeleteConfig";
-            this.buttonDeleteConfig.Size = new System.Drawing.Size(115, 27);
-            this.buttonDeleteConfig.TabIndex = 18;
-            this.buttonDeleteConfig.Text = "Delete config";
-            this.buttonDeleteConfig.UseVisualStyleBackColor = true;
-            this.buttonDeleteConfig.Visible = false;
             // 
             // textBoxTableURL
             // 

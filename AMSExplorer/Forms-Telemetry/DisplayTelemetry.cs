@@ -54,7 +54,7 @@ namespace AMSExplorer
         private bool channelMode = true;
         private int overlapCountCol;
         private int discontCountCol;
-        private int resultCodeCol;
+        private int statusCodeCol;
 
         public DisplayTelemetry(Mainform mainform, object entity, CloudMediaContext context, CredentialsEntry credentials)
         {
@@ -131,7 +131,7 @@ namespace AMSExplorer
             if (string.IsNullOrWhiteSpace(_credentials.AccountId))
             { // No blob credentials. Let's ask the user
                 string mediaServicesAccountID = "";
-                if (Program.InputBox("AMS Account Id Needed", "Please enter the AMS Account ID for " + _credentials.AccountName + ":", ref mediaServicesAccountID, true) == DialogResult.OK)
+                if (Program.InputBox("AMS Account Id Needed", "Please enter the Media Services Account ID for " + _credentials.AccountName + ":", ref mediaServicesAccountID, true) == DialogResult.OK)
                 {
                     _credentials.AccountId = mediaServicesAccountID;
                 }
@@ -140,9 +140,7 @@ namespace AMSExplorer
                     this.Close();
                     return;
                 }
-
             }
-
         }
 
 
@@ -184,9 +182,9 @@ namespace AMSExplorer
 
         private void DoLoadTelemetry(object myobject)
         {
-            labelTimeRange.Text = string.Format("Display data from {0} to {1}", 
-                _timerangeStart.ToLocalTime().ToString("G"), 
-                _timerangeEnd==null? "now":((DateTime) _timerangeEnd).ToLocalTime().ToString("G"));
+            labelTimeRange.Text = string.Format("Display data from {0} to {1}",
+                _timerangeStart.ToLocalTime().ToString("G"),
+                _timerangeEnd == null ? "now" : ((DateTime)_timerangeEnd).ToLocalTime().ToString("G"));
 
             this.Cursor = Cursors.WaitCursor;
             if (_entity is IStreamingEndpoint)
@@ -218,7 +216,7 @@ namespace AMSExplorer
                 dataGridViewTelemetry.Columns[7].HeaderText = "ServerLatency";
                 dataGridViewTelemetry.Columns[8].HeaderText = "StatusCode";
 
-                resultCodeCol = 5;
+                statusCodeCol = 8;
 
                 labelTelemetryUI.Text = string.Format("Telemetry for Streaming Endpoint '{0}'", streamingEndpoint.Name);
 
@@ -384,49 +382,55 @@ namespace AMSExplorer
         {
             if (!channelMode)
             {
-                var celljobstatevalue = dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[resultCodeCol].Index].Value;
+                var celljobstatusvalue = dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[statusCodeCol].Index].Value;
 
-                if (celljobstatevalue != null)
+                if (celljobstatusvalue != null)
                 {
-                    string status = (string)celljobstatevalue;
+                    int status = (int)celljobstatusvalue;
                     Color mycolor;
 
-                    switch (status)
+                    if (status < 400)
                     {
-                        case "S_OK":
-                            mycolor = Color.Black;
-                            break;
-                        /*   case JobState.Canceled:
-                               mycolor = Color.Blue;
-                               break;
-                           case JobState.Canceling:
-                               mycolor = Color.Blue;
-                               break;
-                           case JobState.Processing:
-                               mycolor = Color.DarkGreen;
-                               break;
-                           case JobState.Queued:
-                               mycolor = Color.Green;
-                               break;*/
-                        default:
-                            mycolor = Color.Red;
-                            break;
+                        mycolor = Color.DarkGreen;
                     }
+                    else if (status < 500)
+                    {
+                        mycolor = Color.DarkOrange;
+                    }
+                    else
+                    {
+                        mycolor = Color.Red;
+                    }
+
+                    /*   case JobState.Canceled:
+                           mycolor = Color.Blue;
+                           break;
+                       case JobState.Canceling:
+                           mycolor = Color.Blue;
+                           break;
+                       case JobState.Processing:
+                           mycolor = Color.DarkGreen;
+                           break;
+                       case JobState.Queued:
+                           mycolor = Color.Green;
+                           break;*/
+
+
                     e.CellStyle.ForeColor = mycolor;
                 }
             }
             else
             {
-                int celloverlap =(int) dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[overlapCountCol].Index].Value;
-                int celldisc = (int) dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[discontCountCol].Index].Value;
+                int celloverlap = (int)dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[overlapCountCol].Index].Value;
+                int celldisc = (int)dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[discontCountCol].Index].Value;
 
-                if  (celloverlap>0 || celldisc>0)
+                if (celloverlap > 0 || celldisc > 0)
                 {
                     e.CellStyle.ForeColor = Color.Red;
                 }
                 else
                 {
-                    e.CellStyle.ForeColor = Color.Black;
+                    e.CellStyle.ForeColor = Color.DarkGreen;
                 }
 
             }
