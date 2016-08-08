@@ -251,7 +251,7 @@ namespace AMSExplorer
                         currentConfig.EndPointAddress,
                         _storagePassword,
                         new Guid(_credentials.AccountId).ToString(),
-                        streamingEndpoint.Id.Substring(12),
+                        streamingEndpoint.Id,
                         _timerangeStart,
                          _timerangeEnd ?? DateTime.UtcNow);
 
@@ -326,7 +326,7 @@ namespace AMSExplorer
               currentConfig.EndPointAddress,
                    _storagePassword,
                    new Guid(_credentials.AccountId).ToString(),
-                   channel.Id.Substring(13),
+                   channel.Id,
                _timerangeStart,
                _timerangeEnd ?? DateTime.UtcNow);
 
