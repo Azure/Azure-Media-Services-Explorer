@@ -163,7 +163,7 @@ namespace AMSExplorer
 
         private void DisplayTelemetry_Shown(object sender, EventArgs e)
         {
-            DoLoadTelemetry(_entity);
+            DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
 
 
         }
@@ -180,7 +180,7 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void DoLoadTelemetry(object myobject)
+        private void DoLoadTelemetry(object myobject, bool showOnlyErrors)
         {
             labelTimeRange.Text = string.Format("Display data from {0} to {1}",
                 _timerangeStart.ToLocalTime().ToString("G"),
@@ -190,17 +190,17 @@ namespace AMSExplorer
             if (_entity is IStreamingEndpoint)
             {
                 channelMode = false;
-                DoLoadTelemetry((IStreamingEndpoint)_entity);
+                DoLoadTelemetry((IStreamingEndpoint)_entity, showOnlyErrors);
             }
             else if (_entity is IChannel)
             {
-                DoLoadTelemetry((IChannel)_entity);
+                DoLoadTelemetry((IChannel)_entity, showOnlyErrors);
             }
             this.Cursor = Cursors.Default;
         }
 
 
-        private void DoLoadTelemetry(IStreamingEndpoint streamingEndpoint)
+        private void DoLoadTelemetry(IStreamingEndpoint streamingEndpoint, bool showErrors)
         {
             if (_firsttime)
             {
@@ -220,6 +220,7 @@ namespace AMSExplorer
 
                 labelTelemetryUI.Text = string.Format("Telemetry for Streaming Endpoint '{0}'", streamingEndpoint.Name);
 
+                dataGridViewTelemetry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 _firsttime = false;
             }
             // Processors tab
@@ -258,7 +259,10 @@ namespace AMSExplorer
 
                 foreach (var log in res)
                 {
-                    dataGridViewTelemetry.Rows.Add(log.ObservedTime.ToLocalTime(), log.BytesSent, log.EndToEndLatency, log.HostName, log.RequestCount, log.ResultCode, log.RowKey, log.ServerLatency, log.StatusCode);
+                    if (!showErrors || (showErrors && (log.StatusCode >= 400)))
+                    {
+                        dataGridViewTelemetry.Rows.Add(log.ObservedTime.ToLocalTime(), log.BytesSent, log.EndToEndLatency, log.HostName, log.RequestCount, log.ResultCode, log.RowKey, log.ServerLatency, log.StatusCode);
+                    }
                 }
             }
 
@@ -272,7 +276,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoLoadTelemetry(IChannel channel)
+        private void DoLoadTelemetry(IChannel channel, bool showErrors)
         {
             if (_firsttime)
             {
@@ -333,7 +337,10 @@ namespace AMSExplorer
 
                 foreach (var cHB in channelMetrics.OrderBy(x => x.ObservedTime))
                 {
-                    dataGridViewTelemetry.Rows.Add(cHB.ObservedTime.ToLocalTime(), cHB.TrackType, cHB.TrackName, cHB.Bitrate, cHB.IncomingBitrate, cHB.OverlapCount, cHB.DiscontinuityCount, cHB.LastTimestamp, cHB.CustomAttributes);
+                    if (!showErrors || (showErrors && (cHB.OverlapCount > 0 || cHB.DiscontinuityCount > 0)))
+                    {
+                        dataGridViewTelemetry.Rows.Add(cHB.ObservedTime.ToLocalTime(), cHB.TrackType, cHB.TrackName, cHB.Bitrate, cHB.IncomingBitrate, cHB.OverlapCount, cHB.DiscontinuityCount, cHB.LastTimestamp, cHB.CustomAttributes);
+                    }
                 }
             }
             catch (Exception ex)
@@ -359,13 +366,13 @@ namespace AMSExplorer
             {
                 _timerangeStart = form.TimeRangeStartDate;
                 _timerangeEnd = form.TimeRangeEndDate;
-                DoLoadTelemetry(_entity);
+                DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
             }
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            DoLoadTelemetry(_entity);
+            DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
 
         }
 
@@ -434,6 +441,11 @@ namespace AMSExplorer
                 }
 
             }
+        }
+
+        private void checkBoxShowOnlyErrors_CheckedChanged(object sender, EventArgs e)
+        {
+            DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
         }
     }
 }

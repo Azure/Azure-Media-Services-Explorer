@@ -43,6 +43,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.labelTimeRange = new System.Windows.Forms.Label();
+            this.checkBoxShowOnlyErrors = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -69,7 +71,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(765, 12);
+            this.buttonClose.Location = new System.Drawing.Point(748, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(124, 27);
             this.buttonClose.TabIndex = 41;
@@ -85,7 +87,7 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(922, 55);
+            this.panel1.Size = new System.Drawing.Size(905, 55);
             this.panel1.TabIndex = 58;
             // 
             // openFileDialogSlate
@@ -100,7 +102,7 @@
             // 
             this.moreinfoLiveEncodingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoLiveEncodingProfilelink.AutoSize = true;
-            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(730, 10);
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(730, 19);
             this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
             this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(171, 15);
             this.moreinfoLiveEncodingProfilelink.TabIndex = 62;
@@ -113,7 +115,7 @@
             this.labelTelemetryUI.AutoSize = true;
             this.labelTelemetryUI.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTelemetryUI.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelTelemetryUI.Location = new System.Drawing.Point(12, 10);
+            this.labelTelemetryUI.Location = new System.Drawing.Point(12, 15);
             this.labelTelemetryUI.Name = "labelTelemetryUI";
             this.labelTelemetryUI.Size = new System.Drawing.Size(170, 20);
             this.labelTelemetryUI.TabIndex = 76;
@@ -128,19 +130,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTelemetry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTelemetry.Location = new System.Drawing.Point(16, 100);
+            this.dataGridViewTelemetry.Location = new System.Drawing.Point(16, 53);
             this.dataGridViewTelemetry.Name = "dataGridViewTelemetry";
             this.dataGridViewTelemetry.ReadOnly = true;
             this.dataGridViewTelemetry.RowHeadersVisible = false;
             this.dataGridViewTelemetry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTelemetry.Size = new System.Drawing.Size(885, 489);
+            this.dataGridViewTelemetry.Size = new System.Drawing.Size(885, 503);
             this.dataGridViewTelemetry.TabIndex = 77;
             this.dataGridViewTelemetry.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTelemetry_CellFormatting);
             this.dataGridViewTelemetry.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTelemetry_RowPostPaint);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(151, 52);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(152, 562);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 27);
             this.button1.TabIndex = 78;
@@ -153,7 +156,7 @@
             this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
             this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRefresh.Location = new System.Drawing.Point(16, 51);
+            this.buttonRefresh.Location = new System.Drawing.Point(408, 12);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(78, 28);
             this.buttonRefresh.TabIndex = 79;
@@ -164,12 +167,34 @@
             // 
             // labelTimeRange
             // 
+            this.labelTimeRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTimeRange.AutoSize = true;
-            this.labelTimeRange.Location = new System.Drawing.Point(287, 58);
+            this.labelTimeRange.Location = new System.Drawing.Point(288, 568);
             this.labelTimeRange.Name = "labelTimeRange";
             this.labelTimeRange.Size = new System.Drawing.Size(76, 15);
             this.labelTimeRange.TabIndex = 80;
             this.labelTimeRange.Text = "From .... to ...";
+            // 
+            // checkBoxShowOnlyErrors
+            // 
+            this.checkBoxShowOnlyErrors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxShowOnlyErrors.AutoSize = true;
+            this.checkBoxShowOnlyErrors.Location = new System.Drawing.Point(16, 567);
+            this.checkBoxShowOnlyErrors.Name = "checkBoxShowOnlyErrors";
+            this.checkBoxShowOnlyErrors.Size = new System.Drawing.Size(114, 19);
+            this.checkBoxShowOnlyErrors.TabIndex = 81;
+            this.checkBoxShowOnlyErrors.Text = "Show errors only";
+            this.checkBoxShowOnlyErrors.UseVisualStyleBackColor = true;
+            this.checkBoxShowOnlyErrors.CheckedChanged += new System.EventHandler(this.checkBoxShowOnlyErrors_CheckedChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(892, 595);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 110;
             // 
             // DisplayTelemetry
             // 
@@ -179,6 +204,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.checkBoxShowOnlyErrors);
             this.Controls.Add(this.labelTimeRange);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.button1);
@@ -188,6 +215,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "DisplayTelemetry";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Telemetry";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChannelAdSlateControl_FormClosed);
@@ -217,5 +245,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Label labelTimeRange;
+        private System.Windows.Forms.CheckBox checkBoxShowOnlyErrors;
+        private System.Windows.Forms.Panel panel2;
     }
 }
