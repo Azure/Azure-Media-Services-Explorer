@@ -37,6 +37,8 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxAccountID = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxBlobKey = new System.Windows.Forms.TextBox();
@@ -113,14 +115,14 @@
             this.listBoxAcounts.ItemHeight = 15;
             this.listBoxAcounts.Location = new System.Drawing.Point(17, 50);
             this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(255, 289);
+            this.listBoxAcounts.Size = new System.Drawing.Size(255, 349);
             this.listBoxAcounts.TabIndex = 10;
-            this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
+            this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAccounts_SelectedIndexChanged);
             // 
             // buttonSaveToList
             // 
             this.buttonSaveToList.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonSaveToList.Location = new System.Drawing.Point(316, 373);
+            this.buttonSaveToList.Location = new System.Drawing.Point(316, 407);
             this.buttonSaveToList.Name = "buttonSaveToList";
             this.buttonSaveToList.Size = new System.Drawing.Size(142, 27);
             this.buttonSaveToList.TabIndex = 14;
@@ -135,7 +137,7 @@
             this.buttonDeleteAccountEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteAccountEntry.Enabled = false;
             this.buttonDeleteAccountEntry.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonDeleteAccountEntry.Location = new System.Drawing.Point(17, 345);
+            this.buttonDeleteAccountEntry.Location = new System.Drawing.Point(17, 407);
             this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
             this.buttonDeleteAccountEntry.Size = new System.Drawing.Size(87, 27);
             this.buttonDeleteAccountEntry.TabIndex = 15;
@@ -146,7 +148,7 @@
             // buttonClear
             // 
             this.buttonClear.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonClear.Location = new System.Drawing.Point(464, 373);
+            this.buttonClear.Location = new System.Drawing.Point(464, 407);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(120, 27);
             this.buttonClear.TabIndex = 19;
@@ -164,12 +166,14 @@
             this.tabControl1.Location = new System.Drawing.Point(292, 51);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(467, 315);
+            this.tabControl1.Size = new System.Drawing.Size(467, 348);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPage1.Controls.Add(this.textBoxAccountID);
+            this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.textBoxDescription);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.textBoxBlobKey);
@@ -181,15 +185,34 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(459, 287);
+            this.tabPage1.Size = new System.Drawing.Size(459, 320);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Credentials";
+            // 
+            // textBoxAccountID
+            // 
+            this.textBoxAccountID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAccountID.Location = new System.Drawing.Point(20, 221);
+            this.textBoxAccountID.Name = "textBoxAccountID";
+            this.textBoxAccountID.Size = new System.Drawing.Size(417, 23);
+            this.textBoxAccountID.TabIndex = 37;
+            this.textBoxAccountID.Validating += new System.ComponentModel.CancelEventHandler(this.CheckTextBoxGuid);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(17, 203);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(311, 15);
+            this.label11.TabIndex = 38;
+            this.label11.Text = "Azure Media Services Account ID (optional, for Telemetry)";
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(20, 227);
+            this.textBoxDescription.Location = new System.Drawing.Point(20, 280);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(417, 23);
             this.textBoxDescription.TabIndex = 3;
@@ -197,7 +220,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 209);
+            this.label2.Location = new System.Drawing.Point(17, 262);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 15);
             this.label2.TabIndex = 36;
@@ -207,7 +230,7 @@
             // 
             this.textBoxBlobKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBlobKey.Location = new System.Drawing.Point(20, 166);
+            this.textBoxBlobKey.Location = new System.Drawing.Point(20, 162);
             this.textBoxBlobKey.Name = "textBoxBlobKey";
             this.textBoxBlobKey.Size = new System.Drawing.Size(417, 23);
             this.textBoxBlobKey.TabIndex = 2;
@@ -216,7 +239,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 148);
+            this.label3.Location = new System.Drawing.Point(17, 144);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(408, 15);
             this.label3.TabIndex = 34;
@@ -226,7 +249,7 @@
             // 
             this.textBoxAccountKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAccountKey.Location = new System.Drawing.Point(20, 105);
+            this.textBoxAccountKey.Location = new System.Drawing.Point(20, 103);
             this.textBoxAccountKey.Name = "textBoxAccountKey";
             this.textBoxAccountKey.Size = new System.Drawing.Size(417, 23);
             this.textBoxAccountKey.TabIndex = 1;
@@ -236,7 +259,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 87);
+            this.label4.Location = new System.Drawing.Point(17, 85);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(188, 15);
             this.label4.TabIndex = 32;
@@ -255,7 +278,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 25);
+            this.label1.Location = new System.Drawing.Point(17, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 15);
             this.label1.TabIndex = 30;
@@ -282,7 +305,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(459, 287);
+            this.tabPage2.Size = new System.Drawing.Size(459, 320);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Endpoint";
             // 
@@ -290,16 +313,16 @@
             // 
             this.textBoxManagementPortal.BackColor = System.Drawing.Color.Pink;
             this.textBoxManagementPortal.Enabled = false;
-            this.textBoxManagementPortal.Location = new System.Drawing.Point(216, 247);
+            this.textBoxManagementPortal.Location = new System.Drawing.Point(36, 291);
             this.textBoxManagementPortal.Name = "textBoxManagementPortal";
-            this.textBoxManagementPortal.Size = new System.Drawing.Size(229, 23);
+            this.textBoxManagementPortal.Size = new System.Drawing.Size(409, 23);
             this.textBoxManagementPortal.TabIndex = 51;
             this.textBoxManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(212, 228);
+            this.label10.Location = new System.Drawing.Point(37, 273);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(112, 15);
             this.label10.TabIndex = 50;
@@ -324,15 +347,15 @@
             this.buttonAddMapping.TabIndex = 48;
             this.buttonAddMapping.Text = "Insert settings";
             this.buttonAddMapping.UseVisualStyleBackColor = true;
-            this.buttonAddMapping.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAddMapping.Click += new System.EventHandler(this.buttonAddMapping_Click);
             // 
             // textBoxAzureEndpoint
             // 
             this.textBoxAzureEndpoint.BackColor = System.Drawing.Color.Pink;
             this.textBoxAzureEndpoint.Enabled = false;
-            this.textBoxAzureEndpoint.Location = new System.Drawing.Point(36, 247);
+            this.textBoxAzureEndpoint.Location = new System.Drawing.Point(36, 246);
             this.textBoxAzureEndpoint.Name = "textBoxAzureEndpoint";
-            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(161, 23);
+            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(409, 23);
             this.textBoxAzureEndpoint.TabIndex = 43;
             this.textBoxAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -349,7 +372,7 @@
             // 
             this.textBoxACSBaseAddress.BackColor = System.Drawing.Color.Pink;
             this.textBoxACSBaseAddress.Enabled = false;
-            this.textBoxACSBaseAddress.Location = new System.Drawing.Point(36, 202);
+            this.textBoxACSBaseAddress.Location = new System.Drawing.Point(36, 201);
             this.textBoxACSBaseAddress.Name = "textBoxACSBaseAddress";
             this.textBoxACSBaseAddress.Size = new System.Drawing.Size(409, 23);
             this.textBoxACSBaseAddress.TabIndex = 41;
@@ -368,7 +391,7 @@
             // 
             this.textBoxScope.BackColor = System.Drawing.Color.Pink;
             this.textBoxScope.Enabled = false;
-            this.textBoxScope.Location = new System.Drawing.Point(36, 157);
+            this.textBoxScope.Location = new System.Drawing.Point(36, 156);
             this.textBoxScope.Name = "textBoxScope";
             this.textBoxScope.Size = new System.Drawing.Size(409, 23);
             this.textBoxScope.TabIndex = 39;
@@ -387,7 +410,7 @@
             // 
             this.textBoxAPIServer.BackColor = System.Drawing.Color.Pink;
             this.textBoxAPIServer.Enabled = false;
-            this.textBoxAPIServer.Location = new System.Drawing.Point(36, 112);
+            this.textBoxAPIServer.Location = new System.Drawing.Point(36, 111);
             this.textBoxAPIServer.Name = "textBoxAPIServer";
             this.textBoxAPIServer.Size = new System.Drawing.Size(409, 23);
             this.textBoxAPIServer.TabIndex = 37;
@@ -450,7 +473,7 @@
             // 
             this.buttonExportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonExportAll.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonExportAll.Location = new System.Drawing.Point(112, 345);
+            this.buttonExportAll.Location = new System.Drawing.Point(112, 407);
             this.buttonExportAll.Name = "buttonExportAll";
             this.buttonExportAll.Size = new System.Drawing.Size(75, 27);
             this.buttonExportAll.TabIndex = 32;
@@ -462,7 +485,7 @@
             // 
             this.buttonImportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonImportAll.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonImportAll.Location = new System.Drawing.Point(194, 345);
+            this.buttonImportAll.Location = new System.Drawing.Point(194, 407);
             this.buttonImportAll.Name = "buttonImportAll";
             this.buttonImportAll.Size = new System.Drawing.Size(79, 27);
             this.buttonImportAll.TabIndex = 33;
@@ -472,13 +495,13 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.DefaultExt = "xml";
-            this.openFileDialog1.Filter = "xml files|*.xml";
+            this.openFileDialog1.DefaultExt = "json";
+            this.openFileDialog1.Filter = "json files|*.json|xml files|*.xml";
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
-            this.saveFileDialog1.Filter = "xml files|*.xml";
+            this.saveFileDialog1.DefaultExt = "json";
+            this.saveFileDialog1.Filter = "json file|*.json";
             // 
             // accountmgtlink
             // 
@@ -511,7 +534,7 @@
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 405);
+            this.panel1.Location = new System.Drawing.Point(-1, 467);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(786, 55);
             this.panel1.TabIndex = 52;
@@ -538,7 +561,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(784, 523);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.accountmgtlink);
@@ -617,5 +640,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.TextBox textBoxAccountID;
+        private System.Windows.Forms.Label label11;
     }
 }

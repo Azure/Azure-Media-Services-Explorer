@@ -11572,7 +11572,7 @@ namespace AMSExplorer
             //  string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
             //     CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
             string PortalUrl;
-            if (_credentials.UseOtherAPI == true.ToString())
+            if (_credentials.UseOtherAPI)
             {
                 PortalUrl = _credentials.OtherManagementPortal;
             }

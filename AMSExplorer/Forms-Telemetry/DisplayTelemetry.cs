@@ -129,11 +129,18 @@ namespace AMSExplorer
             }
 
             if (string.IsNullOrWhiteSpace(_credentials.AccountId))
-            { // No blob credentials. Let's ask the user
+            { // No media service id . Let's ask the user
                 string mediaServicesAccountID = "";
                 if (Program.InputBox("AMS Account Id Needed", "Please enter the Media Services Account ID for " + _credentials.AccountName + ":", ref mediaServicesAccountID, true) == DialogResult.OK)
                 {
-                    _credentials.AccountId = mediaServicesAccountID;
+                    try
+                    {
+                        _credentials.AccountId = mediaServicesAccountID;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Incorrect Media Services ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

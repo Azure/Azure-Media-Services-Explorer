@@ -541,13 +541,25 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public string useTransferQueue {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginListJSON {
             get {
-                return ((string)(this["useTransferQueue"]));
+                return ((string)(this["LoginListJSON"]));
             }
             set {
-                this["useTransferQueue"] = value;
+                this["LoginListJSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MigratedLoginListToJSON {
+            get {
+                return ((bool)(this["MigratedLoginListToJSON"]));
+            }
+            set {
+                this["MigratedLoginListToJSON"] = value;
             }
         }
     }

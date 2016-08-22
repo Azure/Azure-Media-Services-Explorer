@@ -92,7 +92,7 @@ namespace AMSExplorer
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
         {
             CloudMediaContext myContext = null;
-            if (credentials.UsePartnerAPI == true.ToString())
+            if (credentials.UsePartnerAPI)
             {
                 // Get the service context for partner context.
                 try
@@ -113,7 +113,7 @@ namespace AMSExplorer
                     }
                 }
             }
-            else if (credentials.UseOtherAPI == true.ToString())
+            else if (credentials.UseOtherAPI)
             {
                 try
                 {
@@ -179,11 +179,11 @@ namespace AMSExplorer
 
         public static string GetAPIServer(CredentialsEntry credentials)
         {
-            if (credentials.UsePartnerAPI == true.ToString())
+            if (credentials.UsePartnerAPI)
             {
                 return CredentialsEntry.PartnerAPIServer;
             }
-            else if (credentials.UseOtherAPI == true.ToString())
+            else if (credentials.UseOtherAPI)
             {
                 return credentials.OtherAPIServer;
             }
@@ -195,11 +195,11 @@ namespace AMSExplorer
 
         public static string GetACSBaseAddress(CredentialsEntry credentials)
         {
-            if (credentials.UsePartnerAPI == true.ToString())
+            if (credentials.UsePartnerAPI)
             {
                 return CredentialsEntry.PartnerACSBaseAddress;
             }
-            else if (credentials.UseOtherAPI == true.ToString())
+            else if (credentials.UseOtherAPI)
             {
                 return credentials.OtherACSBaseAddress;
             }
@@ -3461,22 +3461,48 @@ namespace AMSExplorer
         AzureGovernment
     }
 
+    /*
+    class CredentialsEntry : IEquatable<CredentialsEntry>
+    {
+        public bool Equals(CredentialsEntry other)
+        {
+            return
+                this.AccountId == other.AccountId
+                && this.AccountKey == other.AccountKey
+                && this.AccountName == other.AccountName
+                && this.Description == other.Description
+                && this.OtherACSBaseAddress == other.OtherACSBaseAddress
+                && this.OtherAPIServer == other.OtherAPIServer
+                && this.OtherAzureEndpoint == other.OtherAzureEndpoint
+                && this.OtherManagementPortal == other.OtherManagementPortal
+                && this.OtherScope == other.OtherScope
+                && this.StorageKey == other.StorageKey
+                 ;
+        }
+    }
+    */
+
+    public class ListCredentials
+    {
+        public decimal Version = 1;
+        public List<CredentialsEntry> MediaServicesAccounts = new List<CredentialsEntry>();
+    }
 
 
-    public class CredentialsEntry
+    public class CredentialsEntry : IEquatable<CredentialsEntry>
     {
         public string AccountName { get; set; }
+        public string AccountId { get; set; }
         public string AccountKey { get; set; }
         public string StorageKey { get; set; }
         public string Description { get; set; }
-        public string UsePartnerAPI { get; set; }
-        public string UseOtherAPI { get; set; }
+        public bool UsePartnerAPI { get; set; }
+        public bool UseOtherAPI { get; set; }
         public string OtherAPIServer { get; set; }
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
         public string OtherManagementPortal { get; set; }
-        public string AccountId { get; set; }
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
@@ -3493,11 +3519,12 @@ namespace AMSExplorer
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
 
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
+        public CredentialsEntry(string accountname, string accountkey, string storagekey, string accountid, string description, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
             AccountName = accountname;
             AccountKey = accountkey;
             StorageKey = storagekey;
+            AccountId = accountid;
             Description = description;
             UsePartnerAPI = usepartnerapi;
             UseOtherAPI = useotherapi;
@@ -3508,9 +3535,25 @@ namespace AMSExplorer
             OtherManagementPortal = managementportal;
         }
 
+        public bool Equals(CredentialsEntry other)
+        {
+            return
+                this.AccountId == other.AccountId
+                && this.AccountKey == other.AccountKey
+                && this.AccountName == other.AccountName
+                && this.Description == other.Description
+                && this.OtherACSBaseAddress == other.OtherACSBaseAddress
+                && this.OtherAPIServer == other.OtherAPIServer
+                && this.OtherAzureEndpoint == other.OtherAzureEndpoint
+                && this.OtherManagementPortal == other.OtherManagementPortal
+                && this.OtherScope == other.OtherScope
+                && this.StorageKey == other.StorageKey
+                 ;
+        }
+
         public string GetTableEndPoint(string mediaServicesStorageAccountName)
         {
-            string SampleStorageURLTemplate = (UseOtherAPI == true.ToString()) ?
+            string SampleStorageURLTemplate = UseOtherAPI ?
             CredentialsEntry.TableStorage + OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
             CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
 
@@ -3520,14 +3563,14 @@ namespace AMSExplorer
 
         public string[] ToArray()
         {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
+            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI.ToString(), UseOtherAPI.ToString(), OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
             return myList;
         }
 
         // return the storage suffix for China, or null for Global Azure
         public string ReturnStorageSuffix()
         {
-            if (UseOtherAPI == true.ToString())
+            if (UseOtherAPI)
                 return CoreStorage + OtherAzureEndpoint;
             else
                 return null;
@@ -3801,7 +3844,7 @@ namespace AMSExplorer
 
     }
 
-   
+
 
     public class ConfigTelemetryVar
     {

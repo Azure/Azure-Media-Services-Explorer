@@ -29,13 +29,14 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using System.Configuration;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
     public partial class CopyAsset : Form
     {
-
-        StringCollection CredentialsList;
+        ListCredentials CredentialList = new ListCredentials();
+        //List<CredentialsEntry> CredentialList = new List<CredentialsEntry>();
         CredentialsEntry SelectedCredentials;
         private CloudMediaContext _context;
         private CopyAssetBoxMode Mode;
@@ -196,17 +197,27 @@ namespace AMSExplorer
 
         private void CopyAsset_Load(object sender, EventArgs e)
         {
-            CredentialsList = Properties.Settings.Default.LoginList;
             labelWarning.Text = "";
             labelWarningStorage.Text = "";
 
-            if (CredentialsList != null)
+            CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
+            CredentialList.MediaServicesAccounts.ForEach(c => listBoxAccounts.Items.Add(c.AccountName));
+
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName.ToLower().Trim() == _context.Credentials.ClientId.ToLower().Trim()).FirstOrDefault();
+            if (entryWithSameName != null)
             {
-                for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
+                listBoxAccounts.SelectedIndex = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
+            }
+
+
+          /*
+            if (CredentialList != null)
+            {
+                for (int i = 0; i < (CredentialList.Count / CredentialsEntry.StringsCount); i++)
                 {
                     {
-                        int index = listBoxAccounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
-                        if (CredentialsList[i * CredentialsEntry.StringsCount] == _context.Credentials.ClientId)
+                        int index = listBoxAccounts.Items.Add(CredentialList[i * CredentialsEntry.StringsCount]);
+                        if (CredentialList[i * CredentialsEntry.StringsCount] == _context.Credentials.ClientId)
                         {
                             listBoxAccounts.SelectedIndex = index;
                         }
@@ -214,6 +225,7 @@ namespace AMSExplorer
                 }
             }
             listBoxAccounts.SelectedItem = _context.DefaultStorageAccount.Name;
+            */
         }
 
         private string ReturnAzureEndpoint(string mystring)
@@ -232,23 +244,26 @@ namespace AMSExplorer
         {
             if (listBoxAccounts.SelectedIndex > -1) // one selected
             {
-                int index = listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount;
-                string[] temp = CredentialsList[index + 9].Split("|".ToCharArray());
-                SelectedCredentials = new CredentialsEntry(
-                   CredentialsList[index],
-                   CredentialsList[index + 1],
-                   CredentialsList[index + 2],
-                   CredentialsList[index + 3],
-                   CredentialsList[index + 4],
-                   CredentialsList[index + 5],
-                   CredentialsList[index + 6],
-                   CredentialsList[index + 7],
-                   CredentialsList[index + 8],
-                   ReturnAzureEndpoint(CredentialsList[index + 9]),
-                   ReturnManagementPortal(CredentialsList[index + 9])
+                int index = listBoxAccounts.SelectedIndex;// * CredentialsEntry.StringsCount;
+               // string[] temp = CredentialList[index + 9].Split("|".ToCharArray());
+                SelectedCredentials = CredentialList.MediaServicesAccounts[index];
+                /*
+                new CredentialsEntry(
+                   CredentialList[index],
+                   CredentialList[index + 1],
+                   CredentialList[index + 2],
+                   CredentialList[index + 3],
+                   CredentialList[index + 4] == true.ToString() ? true : false,
+                   CredentialList[index + 5] == true.ToString() ? true : false,
+                   CredentialList[index + 6],
+                   CredentialList[index + 7],
+                   CredentialList[index + 8],
+                   ReturnAzureEndpoint(CredentialList[index + 9]),
+                   ReturnManagementPortal(CredentialList[index + 9]),
                     );
+                    */
 
-                labelDescription.Text = CredentialsList[listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
+                labelDescription.Text = SelectedCredentials.Description;
 
                 if (Mode == CopyAssetBoxMode.CopyAsset)
                 {
