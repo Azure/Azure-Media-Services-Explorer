@@ -102,6 +102,7 @@ namespace AMSExplorer
         private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
         private const int maxNbAssets = 1000000;
         private const int maxNbJobs = 50000;
+        private bool enableTelemetry = true;
 
         public Mainform()
         {
@@ -305,6 +306,9 @@ namespace AMSExplorer
                 MediaRUFeatureOn = false;
                 TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the jobs tab.", true); // Warning
             }
+
+            // let's check telemetry
+            enableTelemetry = _context.MonitoringConfigurations.FirstOrDefault() != null;
 
             // nb assets limits
             int nbassets = _context.Assets.Count();
@@ -12320,6 +12324,9 @@ namespace AMSExplorer
         {
             // enable Azure CDN operation if one se selected and in stopped state
             ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
+
+            // telemetry
+            loadToolStripMenuItem.Enabled = enableTelemetry;
         }
 
         private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12336,6 +12343,9 @@ namespace AMSExplorer
         {
             // enable Azure CDN operation if one se selected and in stopped state
             ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem1, enableAzureCDNToolStripMenuItem1);
+
+            // telemetry
+            telemetryToolStripMenuItem.Enabled = enableTelemetry;
         }
 
         private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
@@ -12563,6 +12573,9 @@ namespace AMSExplorer
 
             // playback preview
             playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
+
+            // telemetry
+            loadMetricsToolStripMenuItem.Enabled = enableTelemetry;
         }
 
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -12595,6 +12608,9 @@ namespace AMSExplorer
 
             // playback preview
             playbackThePreviewToolStripMenuItem.Enabled = oneOrMore;
+
+            // telemetry
+            telemetryToolStripMenuItem1.Enabled = enableTelemetry;
 
             ////////////
 
@@ -14643,6 +14659,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("notificationEndpoint created...");
 
                             IMonitoringConfiguration monitoringConfiguration = _context.MonitoringConfigurations.Create(notificationEndPoint.Id, list);
+                            enableTelemetry = true;
 
                             TextBoxLogWriteLine("Telemetry configured.");
                         }
@@ -14663,6 +14680,8 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Telemetry configuration update...");
                             currentConfig.Settings = list.ToArray();
                             currentConfig.Update();
+                            enableTelemetry = true;
+
                             TextBoxLogWriteLine("Telemetry updated.");
                         }
 
@@ -14688,9 +14707,14 @@ namespace AMSExplorer
                         if (_context.MonitoringConfigurations.FirstOrDefault() != null)
                         {
                             _context.MonitoringConfigurations.FirstOrDefault().Delete();
+                            TextBoxLogWriteLine("Telemetry configuration deleted.");
                         }
+                        else
+                        {
+                            TextBoxLogWriteLine("Telemetry configuration already deleted.");
+                        }
+                        enableTelemetry = false;
 
-                        TextBoxLogWriteLine("Telemetry configuration deleted.");
                     }
 
                     catch (Exception ex)
@@ -14701,8 +14725,6 @@ namespace AMSExplorer
                 });
             }
         }
-
-
 
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -14716,6 +14738,7 @@ namespace AMSExplorer
             var form = new DisplayTelemetry(this, ReturnSelectedChannels().FirstOrDefault(), _context, _credentials);
             form.Show();
         }
+
     }
 }
 

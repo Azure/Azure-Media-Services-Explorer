@@ -3760,7 +3760,7 @@
             this.ContextMenuItemChannelCopyPreviewURLToClipboard,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 352);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 330);
             this.contextMenuStripChannels.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripChannels_Opening);
             // 
             // refreshToolStripMenuItem3

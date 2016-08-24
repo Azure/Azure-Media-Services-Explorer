@@ -43,6 +43,8 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelPreview = new System.Windows.Forms.Label();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +100,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(42, 67);
+            this.label33.Location = new System.Drawing.Point(42, 76);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(196, 15);
             this.label33.TabIndex = 70;
@@ -108,7 +110,7 @@
             // 
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(43, 85);
+            this.comboBoxStorage.Location = new System.Drawing.Point(43, 94);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(292, 23);
             this.comboBoxStorage.TabIndex = 69;
@@ -155,7 +157,7 @@
             // 
             this.textBoxTableURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTableURL.Location = new System.Drawing.Point(45, 85);
+            this.textBoxTableURL.Location = new System.Drawing.Point(45, 94);
             this.textBoxTableURL.Name = "textBoxTableURL";
             this.textBoxTableURL.ReadOnly = true;
             this.textBoxTableURL.Size = new System.Drawing.Size(292, 23);
@@ -190,6 +192,30 @@
             this.label3.TabIndex = 82;
             this.label3.Text = "Streaming endpoints :";
             // 
+            // labelPreview
+            // 
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPreview.AutoSize = true;
+            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.labelPreview.Location = new System.Drawing.Point(280, 9);
+            this.labelPreview.Name = "labelPreview";
+            this.labelPreview.Size = new System.Drawing.Size(108, 20);
+            this.labelPreview.TabIndex = 83;
+            this.labelPreview.Text = "Private Preview";
+            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.labelProcessorVersion.Location = new System.Drawing.Point(218, 34);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(168, 34);
+            this.labelProcessorVersion.TabIndex = 84;
+            this.labelProcessorVersion.Text = "For selected customers only";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // ConfigureTelemetry
             // 
             this.AcceptButton = this.buttonOk;
@@ -198,6 +224,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(400, 328);
+            this.Controls.Add(this.labelProcessorVersion);
+            this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -236,5 +264,7 @@
         private System.Windows.Forms.TextBox textBoxTableURL;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label labelPreview;
+        private System.Windows.Forms.Label labelProcessorVersion;
     }
 }

@@ -320,7 +320,7 @@ namespace AMSExplorer
             // if found the same name
             if (entryWithSameName == null)  // not found
             {
-                CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = myCredentials;
+                //CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = myCredentials;
                 var result = MessageBox.Show(string.Format("Do you want to save the credentials for {0} ?", textBoxAccountName.Text), "Save credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) // ok to save
                 {

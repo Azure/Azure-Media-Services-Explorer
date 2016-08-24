@@ -204,9 +204,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(17, 203);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(311, 15);
+            this.label11.Size = new System.Drawing.Size(273, 15);
             this.label11.TabIndex = 38;
-            this.label11.Text = "Azure Media Services Account ID (optional, for Telemetry)";
+            this.label11.Text = "Media Service Account ID (optional, for Telemetry)";
             // 
             // textBoxDescription
             // 
@@ -261,9 +261,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(17, 85);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(188, 15);
+            this.label4.Size = new System.Drawing.Size(150, 15);
             this.label4.TabIndex = 32;
-            this.label4.Text = "Azure Media Services Account Key";
+            this.label4.Text = "Media Service Account Key";
             // 
             // textBoxAccountName
             // 
@@ -280,9 +280,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(17, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 15);
+            this.label1.Size = new System.Drawing.Size(163, 15);
             this.label1.TabIndex = 30;
-            this.label1.Text = "Azure Media Services Account Name";
+            this.label1.Text = "Media Service Account Name";
             // 
             // tabPage2
             // 
@@ -465,9 +465,9 @@
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(14, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(276, 20);
+            this.label5.Size = new System.Drawing.Size(270, 20);
             this.label5.TabIndex = 31;
-            this.label5.Text = "Select or enter a Media Services account";
+            this.label5.Text = "Select or enter a Media Service account";
             // 
             // buttonExportAll
             // 
@@ -507,12 +507,12 @@
             // 
             this.accountmgtlink.AutoSize = true;
             this.accountmgtlink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.accountmgtlink.Location = new System.Drawing.Point(338, 19);
+            this.accountmgtlink.Location = new System.Drawing.Point(412, 19);
             this.accountmgtlink.Name = "accountmgtlink";
-            this.accountmgtlink.Size = new System.Drawing.Size(221, 15);
+            this.accountmgtlink.Size = new System.Drawing.Size(147, 15);
             this.accountmgtlink.TabIndex = 34;
             this.accountmgtlink.TabStop = true;
-            this.accountmgtlink.Text = "How to Create a Media Services Account";
+            this.accountmgtlink.Text = "How to Create an Account";
             this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
             // pictureBoxJob
