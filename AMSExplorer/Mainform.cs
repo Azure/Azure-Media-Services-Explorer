@@ -200,7 +200,7 @@ namespace AMSExplorer
             this.Text = string.Format(this.Text, _context.Credentials.ClientId);
 
             // Let's check storage credentials
-            if (string.IsNullOrEmpty(_credentials.StorageKey))
+            if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
             {
                 havestoragecredentials = false;
             }
@@ -378,7 +378,7 @@ namespace AMSExplorer
 
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
@@ -1555,7 +1555,7 @@ namespace AMSExplorer
 
                 if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
-                    _credentials.StorageKey = valuekey;
+                    _credentials.DefaultStorageKey = valuekey;
                     havestoragecredentials = true;
                 }
             }
@@ -1714,7 +1714,7 @@ namespace AMSExplorer
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
-            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset, _credentials.ReturnStorageSuffix())
+            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.DefaultStorageKey, sourceAsset, _credentials.ReturnStorageSuffix())
             {
                 BlobStorageDefault = UseDefaultStorage,
                 BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name,
@@ -2514,13 +2514,13 @@ namespace AMSExplorer
             { // No blob credentials. Let's ask the user
                 if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                 {
-                    _credentials.StorageKey = valuekey;
+                    _credentials.DefaultStorageKey = valuekey;
                     havestoragecredentials = true;
                 }
             }
             if (havestoragecredentials) // if we have the storage credentials
             {
-                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey, _credentials.ReturnStorageSuffix())
+                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.DefaultStorageKey, _credentials.ReturnStorageSuffix())
                 {
                     ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
                     ImportNewAssetName = Constants.NameconvUploadasset,
@@ -2598,7 +2598,7 @@ namespace AMSExplorer
             CloudStorageAccount sourceStorageAccount;
             if (UseDefaultStorage)
             {
-                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
             }
             else
             {
@@ -2651,7 +2651,7 @@ namespace AMSExplorer
 
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
-                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
                 var destBlobStorage = destinationStorageAccount.CreateCloudBlobClient();
 
                 // Get the asset container URI and Blob copy from mediaContainer to assetContainer.
@@ -2859,7 +2859,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the Azure export process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
                 ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SelectedFiles[0].Asset, readpolicy);
@@ -2983,7 +2983,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the blob copy process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
 
                 var SourceCloudBlobClient = SourceStorageAccount.CreateCloudBlobClient();
@@ -6808,7 +6808,7 @@ namespace AMSExplorer
                 { // No blob credentials. Let's ask the user
                     if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
                     {
-                        _credentials.StorageKey = valuekey;
+                        _credentials.DefaultStorageKey = valuekey;
                         havestoragecredentials = true;
                     }
                 }
@@ -12161,7 +12161,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, form.DestinationLoginCredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, form.DestinationStorageAccount);
+                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, form.DestinationLoginCredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
                 if (!usercanceled)
                 {
                     if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
@@ -12248,7 +12248,7 @@ namespace AMSExplorer
                 }
                 if (!ErrorConnect)
                 {
-                    if (string.IsNullOrEmpty(DestinationCredentials.StorageKey)) // but key is not provided
+                    if (string.IsNullOrEmpty(DestinationCredentials.DefaultStorageKey)) // but key is not provided
                     {
 
                         string valuekey = "";
@@ -12266,7 +12266,7 @@ namespace AMSExplorer
                     {
                         if (!storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name))
                         {
-                            storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                            storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.DefaultStorageKey);
                         }
                     }
                 }
@@ -13264,7 +13264,7 @@ namespace AMSExplorer
 
             if (storageName == _context.DefaultStorageAccount.Name && havestoragecredentials)
             {
-                valuekey = _credentials.StorageKey;
+                valuekey = _credentials.DefaultStorageKey;
                 StorageKeyKnown = true;
             }
 
@@ -13276,7 +13276,7 @@ namespace AMSExplorer
                     StorageKeyKnown = true;
                     if (storageName == _context.DefaultStorageAccount.Name)
                     {
-                        _credentials.StorageKey = valuekey;
+                        _credentials.DefaultStorageKey = valuekey;
                         havestoragecredentials = true;
                     }
                 }
@@ -13673,9 +13673,9 @@ namespace AMSExplorer
         private static string GenerateAsperaUrl(IIngestManifest im)
         {
             string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
             {
-                storKey = _credentials.StorageKey;
+                storKey = _credentials.DefaultStorageKey;
             }
             return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
         }
@@ -13683,9 +13683,9 @@ namespace AMSExplorer
         private static string GenerateSigniantCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder, List<string> signantservers, string APIKey)
         {
             string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
             {
-                storKey = _credentials.StorageKey;
+                storKey = _credentials.DefaultStorageKey;
             }
             string server = signantservers[0];
             if (signantservers.Count == 2)
@@ -13727,9 +13727,9 @@ namespace AMSExplorer
         {
             StringBuilder command = new StringBuilder();
             string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
             {
-                storKey = _credentials.StorageKey;
+                storKey = _credentials.DefaultStorageKey;
             }
 
 
@@ -13923,7 +13923,7 @@ namespace AMSExplorer
             if (System.Windows.Forms.MessageBox.Show(question, "Integrity check", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, null);
+                var storagekeys = BuildStorageKeyDictionary(assets, null, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, null);
 
                 if (!usercanceled)
                 {

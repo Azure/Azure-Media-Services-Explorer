@@ -214,7 +214,7 @@ namespace AMSExplorer
         {
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.StorageKey), credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.DefaultStorageKey), credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 cloudBlobClient.ListBlobs("testamseexplorer"); // just to test connection
                 return true;
@@ -3451,7 +3451,6 @@ namespace AMSExplorer
     {
         public string Name { get; set; }
         public string Uri { get; set; }
-
     }
 
     public enum EndPointMappingName
@@ -3460,27 +3459,6 @@ namespace AMSExplorer
         AzureChina,
         AzureGovernment
     }
-
-    /*
-    class CredentialsEntry : IEquatable<CredentialsEntry>
-    {
-        public bool Equals(CredentialsEntry other)
-        {
-            return
-                this.AccountId == other.AccountId
-                && this.AccountKey == other.AccountKey
-                && this.AccountName == other.AccountName
-                && this.Description == other.Description
-                && this.OtherACSBaseAddress == other.OtherACSBaseAddress
-                && this.OtherAPIServer == other.OtherAPIServer
-                && this.OtherAzureEndpoint == other.OtherAzureEndpoint
-                && this.OtherManagementPortal == other.OtherManagementPortal
-                && this.OtherScope == other.OtherScope
-                && this.StorageKey == other.StorageKey
-                 ;
-        }
-    }
-    */
 
     public class ListCredentials
     {
@@ -3494,7 +3472,7 @@ namespace AMSExplorer
         public string AccountName { get; set; }
         public string AccountId { get; set; }
         public string AccountKey { get; set; }
-        public string StorageKey { get; set; }
+        public string DefaultStorageKey { get; set; }
         public string Description { get; set; }
         public bool UsePartnerAPI { get; set; }
         public bool UseOtherAPI { get; set; }
@@ -3515,7 +3493,6 @@ namespace AMSExplorer
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
         public static readonly string TableStorage = ".table.core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
-
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
 
@@ -3523,7 +3500,7 @@ namespace AMSExplorer
         {
             AccountName = accountname;
             AccountKey = accountkey;
-            StorageKey = storagekey;
+            DefaultStorageKey = storagekey;
             AccountId = accountid;
             Description = description;
             UsePartnerAPI = usepartnerapi;
@@ -3547,7 +3524,7 @@ namespace AMSExplorer
                 && this.OtherAzureEndpoint == other.OtherAzureEndpoint
                 && this.OtherManagementPortal == other.OtherManagementPortal
                 && this.OtherScope == other.OtherScope
-                && this.StorageKey == other.StorageKey
+                && this.DefaultStorageKey == other.DefaultStorageKey
                  ;
         }
 
@@ -3558,13 +3535,6 @@ namespace AMSExplorer
             CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
 
             return "https://" + mediaServicesStorageAccountName + SampleStorageURLTemplate;
-        }
-
-
-        public string[] ToArray()
-        {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI.ToString(), UseOtherAPI.ToString(), OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
-            return myList;
         }
 
         // return the storage suffix for China, or null for Global Azure
@@ -3841,7 +3811,6 @@ namespace AMSExplorer
         public TaskOptions TasksOptionsSetting { get; set; }
         public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
-
     }
 
 
@@ -3982,8 +3951,5 @@ namespace AMSExplorer
             ThisListView.ListViewItemSorter = new ListViewItemComparer(e.Column,
                                                               ThisListView.Sorting);
         }
-
     }
-
-
 }

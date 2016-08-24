@@ -267,7 +267,7 @@ namespace AMSExplorer
 
                 if (Mode == CopyAssetBoxMode.CopyAsset)
                 {
-                    labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.StorageKey)) ? "Storage key is empty !" : string.Empty;
+                    labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.DefaultStorageKey)) ? "Storage key is empty !" : string.Empty;
                 }
                 radioButtonDefaultStorage.Checked = true;
                 listBoxStorage.Items.Clear();

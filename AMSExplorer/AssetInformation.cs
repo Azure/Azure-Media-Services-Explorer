@@ -1296,7 +1296,7 @@ namespace AMSExplorer
                             IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
                             CloudMediaContext _context = Mainform._context;
                             CloudStorageAccount storageAccount;
-                            storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), Mainform._credentials.ReturnStorageSuffix(), true);
+                            storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.DefaultStorageKey), Mainform._credentials.ReturnStorageSuffix(), true);
                             var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                             IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
                             ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, myAsset, writePolicy);

@@ -64,7 +64,7 @@
             this.radioButtonPartner = new System.Windows.Forms.RadioButton();
             this.radioButtonProd = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonExportAll = new System.Windows.Forms.Button();
+            this.buttonExport = new System.Windows.Forms.Button();
             this.buttonImportAll = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -469,17 +469,17 @@
             this.label5.TabIndex = 31;
             this.label5.Text = "Select or enter a Media Service account";
             // 
-            // buttonExportAll
+            // buttonExport
             // 
-            this.buttonExportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExportAll.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonExportAll.Location = new System.Drawing.Point(112, 407);
-            this.buttonExportAll.Name = "buttonExportAll";
-            this.buttonExportAll.Size = new System.Drawing.Size(75, 27);
-            this.buttonExportAll.TabIndex = 32;
-            this.buttonExportAll.Text = "Export all";
-            this.buttonExportAll.UseVisualStyleBackColor = true;
-            this.buttonExportAll.Click += new System.EventHandler(this.buttonExportAll_Click);
+            this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExport.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonExport.Location = new System.Drawing.Point(112, 407);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(75, 27);
+            this.buttonExport.TabIndex = 32;
+            this.buttonExport.Text = "Export";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // buttonImportAll
             // 
@@ -496,7 +496,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "json";
-            this.openFileDialog1.Filter = "json files|*.json|xml files|*.xml";
+            this.openFileDialog1.Filter = "Json files|*.json|Xml files|*.xml";
             // 
             // saveFileDialog1
             // 
@@ -566,7 +566,7 @@
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.accountmgtlink);
             this.Controls.Add(this.buttonImportAll);
-            this.Controls.Add(this.buttonExportAll);
+            this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonClear);
@@ -624,7 +624,7 @@
         private System.Windows.Forms.RadioButton radioButtonPartner;
         private System.Windows.Forms.RadioButton radioButtonProd;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonExportAll;
+        private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonImportAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;

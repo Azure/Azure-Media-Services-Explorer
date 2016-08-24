@@ -105,9 +105,9 @@ namespace AMSExplorer
 
             var storagename = (new Uri(currentConfig.EndPointAddress)).Host.Split(".".ToCharArray()).FirstOrDefault(); ;
 
-            if (_context.DefaultStorageAccount.Name == storagename && !string.IsNullOrWhiteSpace(_credentials.StorageKey))
+            if (_context.DefaultStorageAccount.Name == storagename && !string.IsNullOrWhiteSpace(_credentials.DefaultStorageKey))
             {
-                _storagePassword = _credentials.StorageKey;
+                _storagePassword = _credentials.DefaultStorageKey;
             }
             else
             { // Default storage, no blob credentials, or another storage. Let's ask the user
@@ -116,7 +116,7 @@ namespace AMSExplorer
                 {
                     if (_context.DefaultStorageAccount.Name == storagename)
                     {
-                        _credentials.StorageKey = valuekey;
+                        _credentials.DefaultStorageKey = valuekey;
                         _storagePassword = valuekey;
                         boolSavedStoragePassword = true;
                     }
@@ -131,15 +131,16 @@ namespace AMSExplorer
             if (string.IsNullOrWhiteSpace(_credentials.AccountId))
             { // No media service id . Let's ask the user
                 string mediaServicesAccountID = "";
-                if (Program.InputBox("AMS Account Id Needed", "Please enter the Media Services Account ID for " + _credentials.AccountName + ":", ref mediaServicesAccountID, true) == DialogResult.OK)
+                if (Program.InputBox("AMS Account Id Needed", "Please enter the Media Service Account ID for " + _credentials.AccountName + " :", ref mediaServicesAccountID, true) == DialogResult.OK)
                 {
                     try
                     {
+                        var g = new Guid(mediaServicesAccountID);
                         _credentials.AccountId = mediaServicesAccountID;
                     }
                     catch
                     {
-                        MessageBox.Show("Incorrect Media Services ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Incorrect Media Service Account ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -279,7 +280,7 @@ namespace AMSExplorer
                 MessageBox.Show("Error when accessing to telemetry.\n\n" + ex.Message);
                 _storagePassword = "";
                 _credentials.AccountId = "";
-                if (boolSavedStoragePassword) _credentials.StorageKey = "";
+                if (boolSavedStoragePassword) _credentials.DefaultStorageKey = "";
             }
         }
 
@@ -355,7 +356,7 @@ namespace AMSExplorer
                 MessageBox.Show("Error when accessing to telemetry.\n\n" + ex.Message);
                 _storagePassword = "";
                 _credentials.AccountId = "";
-                if (boolSavedStoragePassword) _credentials.StorageKey = "";
+                if (boolSavedStoragePassword) _credentials.DefaultStorageKey = "";
             }
 
         }

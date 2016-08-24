@@ -87,18 +87,16 @@ namespace AMSExplorer
         {
             var CredentialsList = Properties.Settings.Default.LoginList;
 
-
             // OLD MODE. XML properties for account entries
             if (!Properties.Settings.Default.MigratedLoginListToJSON && CredentialsList != null && CredentialsList.Count > 0)
             {
-
                 try
                 {
                     if (CredentialsList != null && CredentialsList.Count > 0)
                     {
                         for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
                             listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
-                        buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
+                        buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
                     }
                     else
                     {
@@ -114,9 +112,7 @@ namespace AMSExplorer
                     listBoxAcounts.Items.Clear();
                 }
 
-                // new code
                 // Migration to JSON
-                //CredentialList = new List<CredentialsEntry>();
 
                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
                 {
@@ -137,14 +133,13 @@ namespace AMSExplorer
                     ));
                 }
 
-
                 var NewCredentialListJSON = JsonConvert.SerializeObject(CredentialList);
                 Properties.Settings.Default.LoginListJSON = NewCredentialListJSON;
                 Properties.Settings.Default.MigratedLoginListToJSON = true;
                 Program.SaveAndProtectUserConfig();
 
             }
-            else
+            else // Standard mode. New installation or migration already done
             {
                 if (!Properties.Settings.Default.MigratedLoginListToJSON)
                 {
@@ -157,10 +152,8 @@ namespace AMSExplorer
                     CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
                     CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
                 }
-
-                buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
+                buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             }
-
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, "http://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/"));
             foreach (var map in Mappings)
@@ -171,13 +164,11 @@ namespace AMSExplorer
 
             // version
             labelVersion.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
-
         }
 
         private string ReturnAzureEndpoint(string mystring)
         {
             return mystring.Split("|".ToCharArray())[0];
-
         }
 
         private string ReturnManagementPortal(string mystring)
@@ -185,7 +176,6 @@ namespace AMSExplorer
             string[] temp = mystring.Split("|".ToCharArray());
             return temp.Count() > 1 ? temp[1] : string.Empty;
         }
-
 
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
@@ -228,9 +218,7 @@ namespace AMSExplorer
             }
             */
 
-
             // New code for JSON
-
             if (string.IsNullOrEmpty(textBoxAccountName.Text))
             {
                 MessageBox.Show("The account name cannot be empty.");
@@ -248,10 +236,8 @@ namespace AMSExplorer
             {
                 CredentialList.MediaServicesAccounts.Add(myCredentials);
             }
-
             Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
             Program.SaveAndProtectUserConfig();
-
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -282,7 +268,6 @@ namespace AMSExplorer
             }
             */
 
-
             int index = listBoxAcounts.SelectedIndex;
             if (index > -1)
             {
@@ -301,13 +286,11 @@ namespace AMSExplorer
                 {
                     buttonDeleteAccountEntry.Enabled = false; // no selected item, so login button not active
                 }
-
             }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrEmpty(textBoxAccountName.Text))
             {
                 MessageBox.Show("The account name cannot be empty.");
@@ -388,7 +371,7 @@ namespace AMSExplorer
             */
 
             buttonDeleteAccountEntry.Enabled = (listBoxAcounts.SelectedIndex > -1); // no selected item, so login button not active
-            buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
+            buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             if (listBoxAcounts.SelectedIndex > -1) // one selected
             {
                 if (CurrentCredential != null)
@@ -407,12 +390,12 @@ namespace AMSExplorer
                     }
                 }
 
-
                 var entry = CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex];
 
                 textBoxAccountName.Text = entry.AccountName;
                 textBoxAccountKey.Text = entry.AccountKey;
-                textBoxBlobKey.Text = entry.StorageKey;
+                textBoxBlobKey.Text = entry.DefaultStorageKey;
+                textBoxAccountID.Text = entry.AccountId;
                 textBoxDescription.Text = entry.Description;
                 radioButtonPartner.Checked = entry.UsePartnerAPI;
                 radioButtonOther.Checked = entry.UseOtherAPI;
@@ -421,10 +404,12 @@ namespace AMSExplorer
                 textBoxACSBaseAddress.Text = entry.OtherACSBaseAddress;
                 textBoxAzureEndpoint.Text = entry.OtherAzureEndpoint;
                 textBoxManagementPortal.Text = entry.OtherManagementPortal;
-                textBoxAccountID.Text = entry.AccountId;
 
                 // if not partner or other, then defaut
-                if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
+                if (!radioButtonPartner.Checked && !radioButtonOther.Checked)
+                {
+                    radioButtonProd.Checked = true;
+                }
 
                 // to clear or set the error
                 CheckTextBox((object)textBoxAccountName);
@@ -459,16 +444,16 @@ namespace AMSExplorer
         private void radioButtonOther_CheckedChanged(object sender, EventArgs e)
         {
             textBoxACSBaseAddress.Enabled =
-                textBoxAPIServer.Enabled =
-                textBoxScope.Enabled =
-                textBoxAzureEndpoint.Enabled =
-                textBoxManagementPortal.Enabled =
-                 buttonAddMapping.Enabled =
-                 comboBoxMappingList.Enabled =
-                radioButtonOther.Checked;
+                                            textBoxAPIServer.Enabled =
+                                            textBoxScope.Enabled =
+                                            textBoxAzureEndpoint.Enabled =
+                                            textBoxManagementPortal.Enabled =
+                                            buttonAddMapping.Enabled =
+                                            comboBoxMappingList.Enabled =
+                                            radioButtonOther.Checked;
         }
 
-        private void buttonExportAll_Click(object sender, EventArgs e)
+        private void buttonExport_Click(object sender, EventArgs e)
         {
             /*     XDocument xmlexport = new XDocument();
                  xmlexport.Add(new XComment("Created by Azure Media Services Explorer"));
@@ -493,12 +478,38 @@ namespace AMSExplorer
                  }
                  */
 
+            bool exportAll = true;
+
+            if (CredentialList.MediaServicesAccounts.Count > 1 && listBoxAcounts.SelectedIndex > -1) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
+            {
+                var diag = System.Windows.Forms.MessageBox.Show("Do you want to export all entries ? \n\nSelect 'Yes' to export all, 'No' to export the selection.", "Export all entries", System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                switch (diag)
+                {
+                    case DialogResult.Yes:
+                        break;
+                    case DialogResult.No:
+                        exportAll = false;
+                        break;
+                    case DialogResult.Cancel:
+                        return;
+                }
+            }
+
             DialogResult diares = saveFileDialog1.ShowDialog();
             if (diares == DialogResult.OK)
             {
                 try
                 {
-                    System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, Newtonsoft.Json.Formatting.Indented));
+                    if (exportAll)
+                    {
+                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, Newtonsoft.Json.Formatting.Indented));
+                    }
+                    else
+                    {
+                        var copyEntry = new ListCredentials();
+                        copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex]);
+                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, Newtonsoft.Json.Formatting.Indented));
+                    }
                 }
                 catch (Exception ex)
 
@@ -514,7 +525,7 @@ namespace AMSExplorer
 
             if (CredentialList.MediaServicesAccounts.Count > 0) // There are entries. Let's ask if user want to delete them or merge
             {
-                if (System.Windows.Forms.MessageBox.Show("There are current entries in the list. Do you want replace them with the new ones or do a merge? Select 'Yes' to replace them, 'No' to merge them.", "Delete existing entries", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                if (System.Windows.Forms.MessageBox.Show("There are current entries in the list. Do you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.", "Import", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                 {
                     mergesentries = true;
                 }
@@ -560,7 +571,7 @@ namespace AMSExplorer
                                 CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
                                         att.Attribute("AccountName").Value.ToString(),
                                         att.Attribute("AccountKey").Value.ToString(),
-                                       att.Attribute("StorageKey").Value.ToString(),
+                                        att.Attribute("StorageKey").Value.ToString(),
                                         string.Empty, // media services id not stored in XML
                                         att.Attribute("Description").Value.ToString(),
                                         att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
@@ -583,7 +594,7 @@ namespace AMSExplorer
                         listBoxAcounts.Items.Clear();
                         DoClearFields();
                         CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
-                        buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
+                        buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
 
                         // let's save the list of credentials in settings
                         Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
@@ -601,7 +612,6 @@ namespace AMSExplorer
 
                     string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
 
-
                     if (!mergesentries)
                     {
                         CredentialList.MediaServicesAccounts.Clear();
@@ -614,7 +624,7 @@ namespace AMSExplorer
                     listBoxAcounts.Items.Clear();
                     DoClearFields();
                     CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
-                    buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
+                    buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
@@ -686,7 +696,6 @@ namespace AMSExplorer
         {
             TextBox tb = (TextBox)sender;
 
-
             try
             {
                 if (!string.IsNullOrWhiteSpace(tb.Text))
@@ -700,7 +709,6 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, "Bad GUID format");
             }
-
         }
 
         private void textBoxAccountKey_Validating(object sender, CancelEventArgs e)
