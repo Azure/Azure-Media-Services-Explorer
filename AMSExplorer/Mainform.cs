@@ -2419,9 +2419,19 @@ namespace AMSExplorer
 
         private void DoDeleteAllAssets()
         {
+
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                Task.Run(async () =>
+                string valuekey = "";
+                if (Program.InputBox("Please confirm", string.Format("To confirm the operation, please type the name of the media service account ({0})", _context.Credentials.ClientId), ref valuekey, false) == DialogResult.OK)
+                {
+                    if (valuekey != _context.Credentials.ClientId)
+                    {
+                        MessageBox.Show("Strings do not match. Operation is aborted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    Task.Run(async () =>
                 {
                     bool Error = false;
                     int skipSize = 0;
@@ -2480,6 +2490,7 @@ namespace AMSExplorer
            );
 
 
+                }
             }
         }
 

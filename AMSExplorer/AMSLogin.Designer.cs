@@ -496,12 +496,12 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "json";
-            this.openFileDialog1.Filter = "Json files|*.json|Xml files|*.xml";
+            this.openFileDialog1.Filter = "Json files (*.json)|*.json|Xml files (*.xml)|*.xml";
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.DefaultExt = "json";
-            this.saveFileDialog1.Filter = "json file|*.json";
+            this.saveFileDialog1.Filter = "json file (*.json)|*.json";
             // 
             // accountmgtlink
             // 

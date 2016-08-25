@@ -102,12 +102,13 @@
             // 
             this.moreinfoLiveEncodingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoLiveEncodingProfilelink.AutoSize = true;
-            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(730, 19);
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(664, 19);
             this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
-            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(171, 15);
+            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(239, 15);
             this.moreinfoLiveEncodingProfilelink.TabIndex = 62;
             this.moreinfoLiveEncodingProfilelink.TabStop = true;
-            this.moreinfoLiveEncodingProfilelink.Text = "More information on telemetry";
+            this.moreinfoLiveEncodingProfilelink.Text = "More information on telemetry NOT VISIBLE";
+            this.moreinfoLiveEncodingProfilelink.Visible = false;
             this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // labelTelemetryUI

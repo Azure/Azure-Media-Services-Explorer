@@ -87,7 +87,7 @@ namespace AMSExplorer
 
         private void DisplayTelemetry_Load(object sender, EventArgs e)
         {
-            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
+            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoTelemetry));
 
             var monitorconfig = _context.MonitoringConfigurations.FirstOrDefault();
             if (monitorconfig == null)
@@ -131,7 +131,7 @@ namespace AMSExplorer
             if (string.IsNullOrWhiteSpace(_credentials.AccountId))
             { // No media service id . Let's ask the user
                 string mediaServicesAccountID = "";
-                if (Program.InputBox("AMS Account Id Needed", "Please enter the Media Service Account ID for " + _credentials.AccountName + " :", ref mediaServicesAccountID, true) == DialogResult.OK)
+                if (Program.InputBox("Account Id Needed", "Please enter the Media Service Account ID for " + _credentials.AccountName + " :", ref mediaServicesAccountID, false) == DialogResult.OK)
                 {
                     try
                     {
@@ -141,6 +141,8 @@ namespace AMSExplorer
                     catch
                     {
                         MessageBox.Show("Incorrect Media Service Account ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                        return;
                     }
                 }
                 else

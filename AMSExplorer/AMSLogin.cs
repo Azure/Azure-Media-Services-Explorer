@@ -525,7 +525,7 @@ namespace AMSExplorer
 
             if (CredentialList.MediaServicesAccounts.Count > 0) // There are entries. Let's ask if user want to delete them or merge
             {
-                if (System.Windows.Forms.MessageBox.Show("There are current entries in the list. Do you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.", "Import", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                if (System.Windows.Forms.MessageBox.Show("There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.", "Import and replace", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                 {
                     mergesentries = true;
                 }
