@@ -1,4 +1,26 @@
-Version 3.42.0.0 brings the following features and improvements :
+Version 3.43.0.0 (August 26, 2016) brings the following features and improvements :
+
+* Support for **Azure Media Telemetry** (Private Preview - activated on selected accounts)
+  * initial configuration, update and deletion (management menu)
+  * loading and displaying telemetry data for Streaming Endpoints and Channels
+  * Media Services Account ID field added to the logon Windows
+* **Video Cropping** with Media Encoder Standard (MES)
+* **Visual Region Editor**
+  * This editor displays the asset thumbnails and provides a way to define the cropping region for MES, and detection regions for Media Analytics OCR and Motion Detection
+  * Supports rectangles and polygones when available
+  * Uses the output of an "asset analysis job" which generates 100% resolution thumbnails. Settings can be changed in options.
+* New **First Quality Bitrate for HLS** setting in filters
+* New tab in job details that displays the input and output assets
+* New **single asset output** option in advanced processing / process asset(s) with multiple processors
+* Locators can be cloned (same ID) when copying an asset between two accounts in two regions
+* Credentials can be exported and imported using **JSON** files
+* Fixes an issue with displayed type of multi MP4 files asset
+* FairPlay support is GA. Specific icon for FairPlay protected assets
+* Updated the Media Services SDK to version 3.7.0.1
+* Bug fixes and improvements 
+
+
+Version 3.42.0.0 (July 5, 2016) brings the following features and improvements :
 
 * Detects **WebVTT subtitles** in the asset and pass them automatically to **Azure Media Player**
 * Support for **semaphore files in the watch folder** mechanism for multi files asset upload.
@@ -14,7 +36,8 @@ Version 3.42.0.0 brings the following features and improvements :
 * Adds support for manifest generation with m4a files
 * Bug fixes and improvements
 
-Version 3.41.0.0 brings the following features and improvements :
+
+Version 3.41.0.0 (June 8, 2016) brings the following features and improvements :
 
 * Support for **Apple FairPlay** content protection
   * See the [announcement](https://azure.microsoft.com/en-us/blog/azure-media-services-expands-multi-drm-offering/)
@@ -38,7 +61,8 @@ Version 3.41.0.0 brings the following features and improvements :
 * Updated the Media Services SDK to version 3.6.0
 * Bug fixes and improvements
 
-Version 3.40.0.0 brings the following features and improvements :
+
+Version 3.40.0.0 (April 14, 2016) brings the following features and improvements :
 
 * **Media Analytics Update**
   * See the [Media Analytics announcement](https://azure.microsoft.com/en-us/blog/introducing-azure-media-analytics/) for NAB2016 
@@ -49,7 +73,8 @@ Version 3.40.0.0 brings the following features and improvements :
   * this allows some basic editing of the source asset when doing encoding or live extraction
 * Other bug fixes and improvements
 
-Version 3.39.0.0 brings the following features and improvements :
+
+Version 3.39.0.0 (April 11, 2016) brings the following features and improvements :
 
 * **Multiple selection to update settings in batch mode**
   * Live channels, programs and streaming endpoints can be updated using multiple selection
@@ -63,7 +88,8 @@ Version 3.39.0.0 brings the following features and improvements :
 * Fixes an issue with job and asset display when a parent asset has been deleted
 * Other bug fixes and improvements
 
-Version 3.38.0.0 brings the following features and improvements :
+
+Version 3.38.0.0 (March 25, 2016) brings the following features and improvements :
 
 * New **Overlay feature** now available for **Media Encoder Standard**
   * Single asset mode (image must be in the source asset)
@@ -76,7 +102,8 @@ Version 3.38.0.0 brings the following features and improvements :
 * Media Services SDK updated to 3.5.3
 * Bug fixes and improvements
 
-Version 3.37.0.0 brings the following features and improvements :
+
+Version 3.37.0.0 (February 24, 2016) brings the following features and improvements :
 
 * A way to change the video index and audio indexes and languages for an **existing encoding live channel (RTP)**
 * Update to **Media Encoder Standard** dialog box
@@ -84,7 +111,8 @@ Version 3.37.0.0 brings the following features and improvements :
   * Support for PreserveResolutionAfterRotation flag
 * Bug fixes and improvements
 
-Version 3.36.0.0 brings the following features and improvements :
+
+Version 3.36.0.0 (February 3, 2016) brings the following features and improvements :
 
 * New **Live Archive Integrity check**. This feature checks the timestamps in the manifest and the segments in the blob storage for a live archive. It will detect timestamps in overlap or gap, and missing segments.
 * Support for **disable auto de-interlacing** setting with Media Encoder Standard (MES)
@@ -97,7 +125,8 @@ Version 3.36.0.0 brings the following features and improvements :
 * Better dialog box for selecting a folder
 * Bug fixes and improvements
 
-Version 3.35.0.0 brings the following features and improvements :
+
+Version 3.35.0.0 (January 6, 2016) brings the following features and improvements :
 
 * New **manifest generation** feature : if an asset contains one or several MP4 files without a manifest (.ISM), user can generate a manifest and review it. New button is located in asset info/files tab.
 * **Bulk ingest** update :
@@ -109,7 +138,8 @@ Version 3.35.0.0 brings the following features and improvements :
 * Live Encoding preset is displayed in the grid for live encoding channels
 * Bug fixes and improvements
 
-Version 3.34.0.0 brings the following features and improvements :
+
+Version 3.34.0.0 (December 10, 2016) brings the following features and improvements :
 
 * **Google Widevine license delivery** update :  packaging is enabled by default, and the JSON license template is visible and editable
 * **Optimizations for large number of jobs running**. Code has been optimized to monitor only visible jobs and increase the job polling time when needed. This should dramatically improve performances for accounts with a large number of running jobs
@@ -120,7 +150,8 @@ Version 3.34.0.0 brings the following features and improvements :
 * Icons update
 * Bug fixes
 
-Version 3.33.0.0 brings the following features and improvements :
+
+Version 3.33.0.0 (November 19, 2015) brings the following features and improvements :
 
 * **Google Widevine license delivery** support (public preview). See [this announcement](https://azure.microsoft.com/en-us/blog/announcing-google-widevine-license-delivery-services-public-preview-in-azure-media-services/). Feature will continue to improve in the coming releases
 * **Dynamic encryption wizard update**. UI has been fully revisited.
@@ -130,7 +161,8 @@ Version 3.33.0.0 brings the following features and improvements :
 * Media Services SDK updated to 3.5.2
 * Bug fixes
 
-Version 3.32.0.0 brings the following features and improvements :
+
+Version 3.32.0.0 (November 9, 2015) brings the following features and improvements :
 
 * **New bulk ingest manifest feature** (in transfers tab). Useful if you want to upload assets with an another client application (like Aspera or Signiant). Upload is decoupled from Azure Media Services asset creation. Any application that copies files to Azure Storage can be used.
   * a new UI to select files or folder to upload, and to organize the destinations assets
@@ -146,7 +178,8 @@ Version 3.32.0.0 brings the following features and improvements :
 * More checks (channel and program names, channel properties, Streaming endpoints creation), file overwrite before download
 * Bug fixes (channel name sorting, PlayReady relative date,  etc)
 
-Version 3.31.0.0 brings the following features and improvements :
+
+Version 3.31.0.0 (October 14, 2015) brings the following features and improvements :
 
 * **New asset download to local** dialog box. The tool can create folders based on the asset name or asset Id and open them when download is completed.
 * **Better performance to display assets details** in the grid (cache in memory)
@@ -164,7 +197,8 @@ Version 3.31.0.0 brings the following features and improvements :
 * Requires .NET 4.6
 * Bug fixes
 
-Version 3.30.0.1 brings the following features and improvements :
+
+Version 3.30.0.1 (September 18, 2015) brings the following features and improvements :
 
 * **Support for Widevine Modular DRM header insertion** for DASH output with Common Encryption. There is now an option in the tool to add a Widevine header when adding a dynamic encryption policy. A license acquisition URL can be optionally specified (a third party service is needed to deliver the licenses, see this [blog post](https://azure.microsoft.com/en-us/blog/azure-media-services-adds-google-widevine-packaging-for-delivering-multi-drm-stream/)).
 * Update to the way Azure Media Player is called for Widevine protected content (protection=widevine or protection=drm)
@@ -172,3 +206,36 @@ Version 3.30.0.1 brings the following features and improvements :
 * Added a button to pass **XML data to Premium Workflow Encoder processor** (to set transcodeSource or setRuntimeProperties data)
 * Media Services SDK updated to 3.5.1
 * Bug fixes
+
+
+Version 3.29.0.0 (September 10, 2015) brings the following features and improvements :
+
+* **Sub-clipping and live archive extraction is now available** in the tool
+* **New dialog box** to select the streaming endpoint, filter and format before playing a content or coping the streaming URL to clipboard
+* Update to **Live Encoding** (custom preset)
+* Update to the **Media Encoder Standard** interface (new option to trim the source, update to the JSON settings for sub-clipping)
+* Various improvements (note that default locator duration is now 10 years)
+* Several critical bug fixes
+
+
+Version 3.28.0.0 (September 2, 2015) brings the following features and improvements :
+
+* Code updated to use **Media Services SDK v3.4.0.0** and **Visual Studio 2015**
+* The new installer checks the requirement for .NET 4.5.2
+* Moved all API calls from REST to .NET SDK for asset and global filters
+* **New options to search** in Id or name of assets, asset files, locators, jobs, channels and programs
+* Option to specify the manifest name for live programs
+* **Dynamic encryption updates**: an external AES key server can be configured, and it's possible to use the same key (key id) for several assets (AES or PlayReady)
+* Added support for **Premium Live Encoding** (in private preview)
+* Fixes to subclipping (currently in private preview)
+* UI updates and bug fixes
+
+
+Version 3.27.0.0 (July 17, 2015) brings the following features and improvements :
+
+* **Asset information export to Excel**. You can now export assets data to Excel (asset name, ID, streaming URL, expiration) then use Excel to analyse the data (with a pivot table). Please give us some feedback!
+* Update to the logging window (timestamps and more details)
+* Switched to JSON presets for **Media Encoder Standard** [which is now GA](http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/).
+* Subclipping support (currently in private preview)
+* UI updates
+* Several bug fixes
