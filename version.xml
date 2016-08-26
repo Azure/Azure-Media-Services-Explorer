@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--This file is downloaded by Azure Media Services Explorer to check its version and warn the user if there is an update-->
 <Versions>
-<Production Version="3.42.0.0" BinaryUrl="https://amsexplorer.blob.core.windows.net/release/AMSExplorerSetup_v3.42.0.0.exe" ReleaseNotesUrl="https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/ReleaseNotes.html" AllReleaseNotesUrl="https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html"/>
-<Beta Version="3.42.0.0" />
+<Production Version="3.43.0.0" BinaryUrl="https://amsexplorer.blob.core.windows.net/release/AMSExplorerSetup_v3.43.0.0.exe" ReleaseNotesUrl="https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/ReleaseNotes.html" AllReleaseNotesUrl="https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html"/>
+<Beta Version="3.43.0.0" />
 </Versions>
