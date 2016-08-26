@@ -3,7 +3,7 @@ Version 3.43.0.0 (August 26, 2016) brings the following features and improvement
 * Support for **Azure Media Telemetry** (Private Preview - activated on selected accounts)
   * initial configuration, update and deletion (management menu)
   * loading and displaying telemetry data for Streaming Endpoints and Channels
-  * Media Services Account ID field added to the logon Windows
+  * Media Services Account ID field added to the logon window
 * **Video Cropping** with Media Encoder Standard (MES)
 * **Visual Region Editor**
   * This editor displays the asset thumbnails and provides a way to define the cropping region for MES, and detection regions for Media Analytics OCR and Motion Detection
