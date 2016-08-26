@@ -282,18 +282,26 @@ namespace AMSExplorer
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
             // Let's check if there is one streaming unit running
-            if (_context.StreamingEndpoints.AsEnumerable().Where(o => o.State == StreamingEndpointState.Running).ToList().Count == 0)
-                TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
+            try
+            {
+                if (_context.StreamingEndpoints.AsEnumerable().Where(o => o.State == StreamingEndpointState.Running).ToList().Count == 0)
+                    TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
-            // Let's check if there is one streaming scale units
-            if (_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0)
-                TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging and live streaming output will not work.", true); // Warning
+                // Let's check if there is one streaming scale units
+                if (_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0)
+                    TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging and live streaming output will not work.", true); // Warning
 
-            // Let's check if there is enough streaming scale units for the channels
-            double nbchannels = (double)_context.Channels.Count();
-            double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
-            if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+                // Let's check if there is enough streaming scale units for the channels
+                double nbchannels = (double)_context.Channels.Count();
+                double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
+                if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
+                    TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
 
             // let's check the encoding reserved unit and type
             try
