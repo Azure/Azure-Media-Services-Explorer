@@ -207,6 +207,7 @@ namespace AMSExplorer
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
+            linkLabelInsertBlackVideo.Links.Add(new LinkLabel.Link(0, linkLabelInsertBlackVideo.Text.Length, Constants.LinkInsertBlackVideoMES));
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -365,6 +366,21 @@ namespace AMSExplorer
                         foreach (var codec in obj.Codecs)
                         {
                             if (codec.Type != null &&
+                                (codec.Type == "H264Video") &&
+                                codec.Condition != null
+                                && (codec.Condition == "InsertBlackIfNoVideoBottomLayerOnly" || codec.Condition == "InsertBlackIfNoVideo"))
+                            {
+                                codec.Condition.Parent.Remove();
+                            }
+                        }
+                    }
+
+                    // Clean InsertBlackvideo
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null &&
                                 (codec.Type == "H264Video" || codec.Type == "BmpImage" || codec.Type == "JpgImage" || codec.Type == "PngImage") &&
                                 codec.PreserveResolutionAfterRotation != null)
                             {
@@ -385,7 +401,7 @@ namespace AMSExplorer
                         }
                         listDelete.ForEach(c => c.Remove());
                     }
-                    if (obj.Outputs != null) // clean thumbnail entry in Outputs
+                    if (obj.Outputs != null) // clean noninterleave and thumbnail entry in Outputs
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var output in obj.Outputs)
@@ -393,6 +409,10 @@ namespace AMSExplorer
                             if (output.Format != null && output.Format.Type != null && output.Format.Type.Type == JTokenType.String)
                             {
                                 string valuestr = (string)output.Format.Type;
+                                if (valuestr == "MP4Format" && output.Condition != null && output.Condition == "NonInterleaved")
+                                {
+                                    output.Condition.Parent.Remove();
+                                }
                                 if (valuestr == "JpgFormat" || valuestr == "PngFormat" || valuestr == "BmpFormat")
                                 {
                                     listDelete.Add(output);
@@ -401,6 +421,8 @@ namespace AMSExplorer
                         }
                         listDelete.ForEach(c => c.Remove());
                     }
+
+
                     ////////////////////////////
                     // End of Cleaning
                     ////////////////////////////
@@ -768,6 +790,21 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Insert video at only the lowest bitrate
+                    if (checkBoxInsertVideo.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "H264Video")
+                                {
+                                    codec.Condition = radioButtonOnlyLowestBitrate.Checked ? "InsertBlackIfNoVideoBottomLayerOnly" : "InsertBlackIfNoVideo";
+                                }
+                            }
+                        }
+                    }
+
                     // Insert disable auto deinterlacing
                     if (checkBoxDisableAutoDeinterlacing.Checked)
                     {
@@ -813,6 +850,26 @@ namespace AMSExplorer
                             obj.Sources.Add(sourceentry);
                         }
                     }
+
+                    // non interleave audio and video
+                    if (checkBoxDoNotInterleave.Checked)
+                    {
+                        if (obj.Outputs != null)
+                        {
+                            foreach (var output in obj.Outputs)
+                            {
+                                if (output.Format != null && output.Format.Type != null && output.Format.Type.Type == JTokenType.String)
+                                {
+                                    string valuestr = (string)output.Format.Type;
+                                    if (valuestr == "MP4Format")
+                                    {
+                                        output.Condition = "NonInterleaved";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
 
                     // Thumbnails settings
                     if (checkBoxGenThumbnailsJPG.Checked || checkBoxGenThumbnailsPNG.Checked || checkBoxGenThumbnailsBMP.Checked)
@@ -1029,10 +1086,7 @@ namespace AMSExplorer
             labelWarningJSON.Visible = Error;
         }
 
-        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
 
-        }
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
@@ -1103,21 +1157,6 @@ namespace AMSExplorer
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-        }
-
-        private void checkBoxInsertSilentAudioTrack_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateTextBoxJSON(textBoxConfiguration.Text);
-        }
-
-        private void checkBoxDisableAutoDeinterlacing_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateTextBoxJSON(textBoxConfiguration.Text);
-        }
-
-        private void checkBoxPreserveResAfterRotation_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
         private void radioButtonPercentJPG_CheckedChanged(object sender, EventArgs e)
@@ -1273,7 +1312,6 @@ namespace AMSExplorer
 
         private void numericUpDownThWidthPNG_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             NumericUpDown nud = (NumericUpDown)sender;
             var v = nud.Value;
         }
@@ -1286,6 +1324,12 @@ namespace AMSExplorer
         private void buttonShowEDL_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void UpdateJSON(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
 

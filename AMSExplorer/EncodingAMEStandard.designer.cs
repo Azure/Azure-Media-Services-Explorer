@@ -54,6 +54,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
             this.TabPageFeatures = new System.Windows.Forms.TabPage();
+            this.checkBoxDoNotInterleave = new System.Windows.Forms.CheckBox();
+            this.radioButtonAllBitrates = new System.Windows.Forms.RadioButton();
+            this.radioButtonOnlyLowestBitrate = new System.Windows.Forms.RadioButton();
+            this.linkLabelInsertBlackVideo = new System.Windows.Forms.LinkLabel();
+            this.checkBoxInsertVideo = new System.Windows.Forms.CheckBox();
             this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
             this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
             this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
@@ -61,6 +66,7 @@
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
             this.tabPageTrimCrop = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.linkLabelInfoCropping = new System.Windows.Forms.LinkLabel();
             this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelEDL = new System.Windows.Forms.Panel();
@@ -187,7 +193,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.linkLabelInfoCropping = new System.Windows.Forms.LinkLabel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.buttonShowEDL = new AMSExplorer.ButtonEDL();
@@ -377,7 +382,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 164);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 152);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -492,6 +497,11 @@
             // 
             // TabPageFeatures
             // 
+            this.TabPageFeatures.Controls.Add(this.checkBoxDoNotInterleave);
+            this.TabPageFeatures.Controls.Add(this.radioButtonAllBitrates);
+            this.TabPageFeatures.Controls.Add(this.radioButtonOnlyLowestBitrate);
+            this.TabPageFeatures.Controls.Add(this.linkLabelInsertBlackVideo);
+            this.TabPageFeatures.Controls.Add(this.checkBoxInsertVideo);
             this.TabPageFeatures.Controls.Add(this.linkLabelMoreInfoPreserveResRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxPreserveResAfterRotation);
             this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
@@ -505,10 +515,66 @@
             this.TabPageFeatures.Text = "Features";
             this.TabPageFeatures.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDoNotInterleave
+            // 
+            this.checkBoxDoNotInterleave.AutoSize = true;
+            this.checkBoxDoNotInterleave.Location = new System.Drawing.Point(32, 177);
+            this.checkBoxDoNotInterleave.Name = "checkBoxDoNotInterleave";
+            this.checkBoxDoNotInterleave.Size = new System.Drawing.Size(329, 19);
+            this.checkBoxDoNotInterleave.TabIndex = 98;
+            this.checkBoxDoNotInterleave.Text = "Do not interleave audio and video (audio in separate files)";
+            this.checkBoxDoNotInterleave.UseVisualStyleBackColor = true;
+            this.checkBoxDoNotInterleave.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
+            // radioButtonAllBitrates
+            // 
+            this.radioButtonAllBitrates.AutoSize = true;
+            this.radioButtonAllBitrates.Location = new System.Drawing.Point(312, 145);
+            this.radioButtonAllBitrates.Name = "radioButtonAllBitrates";
+            this.radioButtonAllBitrates.Size = new System.Drawing.Size(79, 19);
+            this.radioButtonAllBitrates.TabIndex = 97;
+            this.radioButtonAllBitrates.Text = "all bitrates";
+            this.radioButtonAllBitrates.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOnlyLowestBitrate
+            // 
+            this.radioButtonOnlyLowestBitrate.AutoSize = true;
+            this.radioButtonOnlyLowestBitrate.Checked = true;
+            this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(312, 120);
+            this.radioButtonOnlyLowestBitrate.Name = "radioButtonOnlyLowestBitrate";
+            this.radioButtonOnlyLowestBitrate.Size = new System.Drawing.Size(122, 19);
+            this.radioButtonOnlyLowestBitrate.TabIndex = 96;
+            this.radioButtonOnlyLowestBitrate.TabStop = true;
+            this.radioButtonOnlyLowestBitrate.Text = "only lowest bitrate";
+            this.radioButtonOnlyLowestBitrate.UseVisualStyleBackColor = true;
+            this.radioButtonOnlyLowestBitrate.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
+            // linkLabelInsertBlackVideo
+            // 
+            this.linkLabelInsertBlackVideo.AutoSize = true;
+            this.linkLabelInsertBlackVideo.Location = new System.Drawing.Point(440, 121);
+            this.linkLabelInsertBlackVideo.Name = "linkLabelInsertBlackVideo";
+            this.linkLabelInsertBlackVideo.Size = new System.Drawing.Size(109, 15);
+            this.linkLabelInsertBlackVideo.TabIndex = 92;
+            this.linkLabelInsertBlackVideo.TabStop = true;
+            this.linkLabelInsertBlackVideo.Text = "(more information)";
+            this.linkLabelInsertBlackVideo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // checkBoxInsertVideo
+            // 
+            this.checkBoxInsertVideo.AutoSize = true;
+            this.checkBoxInsertVideo.Location = new System.Drawing.Point(32, 120);
+            this.checkBoxInsertVideo.Name = "checkBoxInsertVideo";
+            this.checkBoxInsertVideo.Size = new System.Drawing.Size(251, 19);
+            this.checkBoxInsertVideo.TabIndex = 93;
+            this.checkBoxInsertVideo.Text = "Insert black video when input has no video";
+            this.checkBoxInsertVideo.UseVisualStyleBackColor = true;
+            this.checkBoxInsertVideo.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
             // linkLabelMoreInfoPreserveResRotation
             // 
             this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
-            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(227, 80);
+            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(227, 60);
             this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
             this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
             this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
@@ -519,35 +585,35 @@
             // checkBoxPreserveResAfterRotation
             // 
             this.checkBoxPreserveResAfterRotation.AutoSize = true;
-            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(32, 79);
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(32, 59);
             this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
             this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
             this.checkBoxPreserveResAfterRotation.TabIndex = 91;
             this.checkBoxPreserveResAfterRotation.Text = "Preserve resolution after rotation";
             this.checkBoxPreserveResAfterRotation.UseVisualStyleBackColor = true;
-            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.checkBoxPreserveResAfterRotation_CheckedChanged);
+            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
             // checkBoxDisableAutoDeinterlacing
             // 
             this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(32, 54);
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(32, 34);
             this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
             this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
             this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
             this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
             this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
-            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.checkBoxDisableAutoDeinterlacing_CheckedChanged);
+            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
             // checkBoxInsertSilentAudioTrack
             // 
             this.checkBoxInsertSilentAudioTrack.AutoSize = true;
-            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(32, 29);
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(32, 95);
             this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
             this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
             this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
             this.checkBoxInsertSilentAudioTrack.Text = "Insert a silent audio track when input has no audio";
             this.checkBoxInsertSilentAudioTrack.UseVisualStyleBackColor = true;
-            this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.checkBoxInsertSilentAudioTrack_CheckedChanged);
+            this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
             // checkBoxAddAutomatic
             // 
@@ -586,6 +652,18 @@
             this.groupBox3.TabIndex = 110;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Video Cropping";
+            // 
+            // linkLabelInfoCropping
+            // 
+            this.linkLabelInfoCropping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelInfoCropping.AutoSize = true;
+            this.linkLabelInfoCropping.Location = new System.Drawing.Point(516, 35);
+            this.linkLabelInfoCropping.Name = "linkLabelInfoCropping";
+            this.linkLabelInfoCropping.Size = new System.Drawing.Size(169, 15);
+            this.linkLabelInfoCropping.TabIndex = 117;
+            this.linkLabelInfoCropping.TabStop = true;
+            this.linkLabelInfoCropping.Text = "More information on cropping";
+            this.linkLabelInfoCropping.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // checkBoxCropVideo
             // 
@@ -2095,18 +2173,6 @@
             this.panel2.Size = new System.Drawing.Size(24, 42);
             this.panel2.TabIndex = 85;
             // 
-            // linkLabelInfoCropping
-            // 
-            this.linkLabelInfoCropping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelInfoCropping.AutoSize = true;
-            this.linkLabelInfoCropping.Location = new System.Drawing.Point(516, 35);
-            this.linkLabelInfoCropping.Name = "linkLabelInfoCropping";
-            this.linkLabelInfoCropping.Size = new System.Drawing.Size(169, 15);
-            this.linkLabelInfoCropping.TabIndex = 117;
-            this.linkLabelInfoCropping.TabStop = true;
-            this.linkLabelInfoCropping.Text = "More information on cropping";
-            this.linkLabelInfoCropping.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2425,5 +2491,10 @@
         private System.Windows.Forms.CheckBox checkBoxCropVideo;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkLabelInfoCropping;
+        private System.Windows.Forms.LinkLabel linkLabelInsertBlackVideo;
+        private System.Windows.Forms.CheckBox checkBoxInsertVideo;
+        private System.Windows.Forms.RadioButton radioButtonAllBitrates;
+        private System.Windows.Forms.RadioButton radioButtonOnlyLowestBitrate;
+        private System.Windows.Forms.CheckBox checkBoxDoNotInterleave;
     }
 }
