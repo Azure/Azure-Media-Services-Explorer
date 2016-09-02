@@ -154,6 +154,7 @@
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAssetFilesToAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informationToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -1636,7 +1637,8 @@
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fromAzureStorageToolStripMenuItem,
-            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem});
+            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem,
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem});
             this.importToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importToolStripMenuItem.Image")));
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
@@ -1658,6 +1660,13 @@
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Text = "From a single HTTP/HTTPS URL...";
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Click += new System.EventHandler(this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem_Click);
+            // 
+            // fromAzureStoragecontainerSASUrlToolStripMenuItem
+            // 
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Name = "fromAzureStoragecontainerSASUrlToolStripMenuItem";
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Text = "From Azure Storage (container SAS url)...";
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStoragecontainerSASUrlToolStripMenuItem_Click);
             // 
             // copyAssetFilesToAzureStorageToolStripMenuItem
             // 
@@ -6073,6 +6082,7 @@
         private System.Windows.Forms.ToolStripMenuItem loadMetricsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem telemetryToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem telemetryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromAzureStoragecontainerSASUrlToolStripMenuItem;
     }
 }
 

@@ -522,6 +522,217 @@ namespace AMSExplorer
             }
         }
 
+        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, Guid guidTransfer, CancellationToken token)
+        {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(guidTransfer);
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+
+            bool Error = false;
+            bool Canceled = false;
+            string ErrorMessage = string.Empty;
+
+            TextBoxLogWriteLine("Starting the Http import process.");
+
+            CloudBlockBlob blockBlob;
+            IAssetFile assetFile;
+            IAsset asset;
+            ILocator destinationLocator = null;
+            IAccessPolicy writePolicy = null;
+
+            try
+            {
+
+                var account = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), true);
+                SharedAccessAccountServices servicesSupportedInSas = SharedAccessAccountServices.Blob;
+                SharedAccessAccountResourceTypes resourceTypesSupportedInSas = SharedAccessAccountResourceTypes.Container;//Since we want SAS for top level containers only.
+                SharedAccessAccountPermissions permissionsSupportedInSas = SharedAccessAccountPermissions.List;//Since we want to give create permission only.
+                var sasToken = account.GetSharedAccessSignature(new SharedAccessAccountPolicy()
+                {
+                    Services = servicesSupportedInSas,
+                    ResourceTypes = resourceTypesSupportedInSas,
+                    Permissions = permissionsSupportedInSas,
+                    SharedAccessExpiryTime = new DateTimeOffset(DateTime.UtcNow.AddHours(1))
+                });
+
+
+
+                // Create a new blob.
+
+                CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
+                
+                //CloudBlobContainer Container = new CloudBlobContainer(new Uri("https://mediasvcs6gbv2zdblgmj.blob.core.windows.net/asset-635fad0b-8cf6-4f7b-a38b-62ebe4cfe755"), new StorageCredentials("?sv=2012-02-12&sr=c&si=2ad3d8e8-96a8-4514-abb0-7f8f2ee3f551&sig=wdYME6fEuPwnf%2F7pepSoKk5QEFHbuIj3%2BvP6jfuJafo%3D&se=2026-08-31T13%3A19%3A34Z"));//, credentials);
+
+
+                //      CloudBlobContainer Container = new CloudBlobContainer( _context.Assets.Where(a=>a.Id== "nb:cid:UUID:a25f1030-7d04-4980-9b46-80a3baa5d0ef").FirstOrDefault().Uri, new StorageCredentials(sasToken));//, credentials);
+                //    var ur = _context.Assets.Where(a => a.Id == "nb:cid:UUID:a25f1030-7d04-4980-9b46-80a3baa5d0ef").FirstOrDefault().Uri;
+
+              
+             
+
+
+
+
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
+
+                // Create a new asset.
+                asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
+                destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
+
+                Uri uploadUri = new Uri(destinationLocator.Path);
+                string assetContainerName = uploadUri.Segments[1];
+
+                CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(assetContainerName);
+
+                TextBoxLogWriteLine("Creating the blob container.");
+
+                mediaBlobContainer.CreateIfNotExists();
+
+
+                foreach (var blob in Container.ListBlobs())
+                {
+                    string fileName = Path.GetFileName(blob.Uri.ToString());
+                    assetFile = asset.AssetFiles.Create(fileName);
+       
+                   
+
+                    blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
+                    TextBoxLogWriteLine("Created a reference for block blob in Azure....");
+
+                    var urib = new UriBuilder(ObjectUrl);
+                    urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
+
+                    string stringOperation = await blockBlob.StartCopyAsync(urib.Uri, token);
+                    bool Cancelled = false;
+
+                    DateTime startTime = DateTime.UtcNow;
+
+                    bool continueLoop = true;
+
+                    while (continueLoop)
+                    {
+                        if (token.IsCancellationRequested && !Cancelled)
+                        {
+                            await blockBlob.AbortCopyAsync(stringOperation);
+                            Cancelled = true;
+                        }
+
+                        blockBlob.FetchAttributes();
+                        var copyStatus = blockBlob.CopyState;
+                        if (copyStatus != null)
+                        {
+                            double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
+
+                            DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+
+                            if (copyStatus.Status != CopyStatus.Pending)
+                            {
+                                continueLoop = false;
+                                if (copyStatus.Status == CopyStatus.Failed)
+                                {
+                                    Error = true;
+                                    ErrorMessage = copyStatus.StatusDescription;
+                                }
+                                if (copyStatus.Status == CopyStatus.Aborted)
+                                {
+                                    Canceled = true;
+                                }
+                            }
+                        }
+                        System.Threading.Thread.Sleep(1000);
+                    }
+
+                    blockBlob.FetchAttributes();
+                    assetFile.ContentFileSize = blockBlob.Properties.Length;
+                    assetFile.Update();
+
+                    DateTime endTime = DateTime.UtcNow;
+                    TimeSpan diffTime = endTime - startTime;
+                }
+
+               
+
+
+
+                if (!Error && !Canceled)
+                {
+                    //TextBoxLogWriteLine("time transfer: {0}", diffTime.Duration().ToString());
+                    TextBoxLogWriteLine("Creating Azure Media Services asset...");
+                   
+                   
+                    destinationLocator.Delete();
+                    writePolicy.Delete();
+                    // Refresh the asset.
+                    asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+
+                    // make the file primary
+                    //AssetInfo.SetFileAsPrimary(asset, assetFile.Name);
+
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+                    DoRefreshGridAssetV(false);
+                }
+                else if (Canceled)
+                {
+                    try
+                    {
+                        destinationLocator.Delete();
+                        writePolicy.Delete();
+                    }
+                    catch { }
+
+                    DoGridTransferDeclareCancelled(guidTransfer);
+                    DoRefreshGridAssetV(false);
+                }
+                else // Error!
+                {
+                    DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
+                    try
+                    {
+                        destinationLocator.Delete();
+                        writePolicy.Delete();
+                    }
+                    catch { }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Error = true;
+                TextBoxLogWriteLine("Error during file import.", true);
+                TextBoxLogWriteLine(ex);
+                DoGridTransferDeclareError(guidTransfer, ex);
+
+                if (destinationLocator != null)
+                {
+                    try
+                    {
+                        destinationLocator.Delete();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                if (writePolicy != null)
+                {
+                    try
+                    {
+                        writePolicy.Delete();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+
 
         private async Task ProcessUploadFromFolder(object folderPath, Guid guidTransfer, AssetCreationOptions assetcreationoption, CancellationToken token, string storageaccount = null)
         {
@@ -1582,6 +1793,34 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuImportFromAzureStorageSASContainer()
+        {
+            string valuekey = "";
+
+            if (!havestoragecredentials)
+            { // No blob credentials. Let's ask the user
+
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
+                {
+                    _credentials.DefaultStorageKey = valuekey;
+                    havestoragecredentials = true;
+                }
+            }
+
+            if (havestoragecredentials) // if we have the storage credentials
+            {
+                ImportHttp form = new ImportHttp(true);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    var response = DoGridTransferAddItem(string.Format("Import from Container SAS URL '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                    // Start a worker thread that does uploading.
+                    var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response.Id, response.token), response.token);
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                }
+            }
+        }
+
         private async Task DoRefreshStreamingLocators()
         {
             IList<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -2019,7 +2258,7 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     // The permissions for the locator's access policy.
-                    AccessPermissions accessPolicyPermissions = AccessPermissions.Read;
+                    AccessPermissions accessPolicyPermissions = AccessPermissions.Read | AccessPermissions.List;
 
                     // The duration for the locator's access policy.
                     TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
@@ -2098,12 +2337,13 @@ namespace AMSExplorer
                 sbuilderThisAsset.AppendLine(AssetToP.Name);
                 sbuilderThisAsset.AppendLine("Locator ID:");
                 sbuilderThisAsset.AppendLine(locator.Id);
-                sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
-                sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
-                sbuilderThisAsset.AppendLine("");
-
+            
                 if (locatorType == LocatorType.OnDemandOrigin)
                 {
+                    sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
+                    sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
+                    sbuilderThisAsset.AppendLine("");
+
                     // delivery policies
                     bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
 
@@ -2203,6 +2443,10 @@ namespace AMSExplorer
                 }
                 else //SAS
                 {
+                    sbuilderThisAsset.AppendLine("Container SAS URL:");
+                    sbuilderThisAsset.AppendLine(locator.Path);
+                    sbuilderThisAsset.AppendLine("");
+
                     IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
 
                     // Generate the Progressive Download URLs for each file. 
@@ -14758,6 +15002,10 @@ namespace AMSExplorer
             form.Show();
         }
 
+        private void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromAzureStorageSASContainer();
+        }
     }
 }
 

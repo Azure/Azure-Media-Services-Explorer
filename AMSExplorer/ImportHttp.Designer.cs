@@ -32,7 +32,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelExamples = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxAssetFileName = new System.Windows.Forms.TextBox();
@@ -40,7 +40,8 @@
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.labelSASListExample = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -88,15 +89,15 @@
             this.textBoxURL.TabIndex = 0;
             this.textBoxURL.TextChanged += new System.EventHandler(this.textBoxURL_TextChanged);
             // 
-            // label2
+            // labelExamples
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Location = new System.Drawing.Point(33, 115);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(396, 60);
-            this.label2.TabIndex = 42;
-            this.label2.Text = "Examples :\r\nhttp://login:password@hostname.com/path\r\nAmazon : http://awskey:awsse" +
+            this.labelExamples.AutoSize = true;
+            this.labelExamples.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelExamples.Location = new System.Drawing.Point(33, 115);
+            this.labelExamples.Name = "labelExamples";
+            this.labelExamples.Size = new System.Drawing.Size(396, 60);
+            this.labelExamples.TabIndex = 42;
+            this.labelExamples.Text = "Examples :\r\nhttp://login:password@hostname.com/path\r\nAmazon : http://awskey:awsse" +
     "cretkey@bucket.s3.amazonaws.com/object\r\nDropbox : http://dl.dropbox.com/object\r\n" +
     "";
             // 
@@ -173,16 +174,30 @@
             this.panel1.Size = new System.Drawing.Size(800, 55);
             this.panel1.TabIndex = 63;
             // 
-            // label5
+            // labelTitle
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(32, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 20);
-            this.label5.TabIndex = 73;
-            this.label5.Text = "Import from Http";
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelTitle.Location = new System.Drawing.Point(32, 9);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(124, 20);
+            this.labelTitle.TabIndex = 73;
+            this.labelTitle.Text = "Import from Http";
+            // 
+            // labelSASListExample
+            // 
+            this.labelSASListExample.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSASListExample.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelSASListExample.Location = new System.Drawing.Point(36, 115);
+            this.labelSASListExample.Name = "labelSASListExample";
+            this.labelSASListExample.Size = new System.Drawing.Size(719, 60);
+            this.labelSASListExample.TabIndex = 74;
+            this.labelSASListExample.Text = "Example :\r\nhttps://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f" +
+    "6-47e3-a780-c9f27fd7a3b3?sv=2015-12-11&sr=c&si=testpolicy&sig=vgl5aBUUZ4K%2Buv8V" +
+    "5pLfrR8tJIXYbux5ryaznzPc9nM%3D";
+            this.labelSASListExample.Visible = false;
             // 
             // ImportHttp
             // 
@@ -192,11 +207,12 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(798, 410);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelSASListExample);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelURLFileNameWarning);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelExamples);
             this.Controls.Add(this.textBoxURL);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -218,7 +234,7 @@
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxURL;
-        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label labelExamples;
         private System.Windows.Forms.TextBox textBoxAssetName;
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxAssetFileName;
@@ -226,6 +242,7 @@
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelTitle;
+        public System.Windows.Forms.Label labelSASListExample;
     }
 }
