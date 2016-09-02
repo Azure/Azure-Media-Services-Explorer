@@ -522,13 +522,13 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, Guid guidTransfer, CancellationToken token)
+        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(guidTransfer);
-            if (token.IsCancellationRequested)
+            DoGridTransferWaitIfNeeded(response.Id);
+            if (response.token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCancelled(guidTransfer);
+                DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
@@ -547,40 +547,15 @@ namespace AMSExplorer
             try
             {
 
-                var account = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), true);
-                SharedAccessAccountServices servicesSupportedInSas = SharedAccessAccountServices.Blob;
-                SharedAccessAccountResourceTypes resourceTypesSupportedInSas = SharedAccessAccountResourceTypes.Container;//Since we want SAS for top level containers only.
-                SharedAccessAccountPermissions permissionsSupportedInSas = SharedAccessAccountPermissions.List;//Since we want to give create permission only.
-                var sasToken = account.GetSharedAccessSignature(new SharedAccessAccountPolicy()
-                {
-                    Services = servicesSupportedInSas,
-                    ResourceTypes = resourceTypesSupportedInSas,
-                    Permissions = permissionsSupportedInSas,
-                    SharedAccessExpiryTime = new DateTimeOffset(DateTime.UtcNow.AddHours(1))
-                });
-
-
-
                 // Create a new blob.
 
                 CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
-                
-                //CloudBlobContainer Container = new CloudBlobContainer(new Uri("https://mediasvcs6gbv2zdblgmj.blob.core.windows.net/asset-635fad0b-8cf6-4f7b-a38b-62ebe4cfe755"), new StorageCredentials("?sv=2012-02-12&sr=c&si=2ad3d8e8-96a8-4514-abb0-7f8f2ee3f551&sig=wdYME6fEuPwnf%2F7pepSoKk5QEFHbuIj3%2BvP6jfuJafo%3D&se=2026-08-31T13%3A19%3A34Z"));//, credentials);
-
-
-                //      CloudBlobContainer Container = new CloudBlobContainer( _context.Assets.Where(a=>a.Id== "nb:cid:UUID:a25f1030-7d04-4980-9b46-80a3baa5d0ef").FirstOrDefault().Uri, new StorageCredentials(sasToken));//, credentials);
-                //    var ur = _context.Assets.Where(a => a.Id == "nb:cid:UUID:a25f1030-7d04-4980-9b46-80a3baa5d0ef").FirstOrDefault().Uri;
-
-              
-             
-
-
-
-
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
+                TextBoxLogWriteLine("Creating Azure Media Services asset...");
+
                 asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
@@ -594,21 +569,40 @@ namespace AMSExplorer
 
                 mediaBlobContainer.CreateIfNotExists();
 
-
+                long Length = 0;
                 foreach (var blob in Container.ListBlobs())
                 {
+                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    {
+                        var blobblock = (CloudBlockBlob)blob;
+                        Length += blobblock.Properties.Length;
+                    }
+                }
+
+                var blobsblock = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob));
+                int nbtotalblobblock = blobsblock.Count();
+                int nbblob = 0;
+                long BytesCopied = 0;
+                foreach (var blob in blobsblock)
+                {
+                    nbblob++;
                     string fileName = Path.GetFileName(blob.Uri.ToString());
-                    assetFile = asset.AssetFiles.Create(fileName);
-       
-                   
+                    if (fileName != "_azuremediaservices.config")
+                    {
+                        assetFile = asset.AssetFiles.Create(fileName);
+                    }
+                    else
+                    {
+                        assetFile = null;
+                    }
 
                     blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
-                    TextBoxLogWriteLine("Created a reference for block blob in Azure....");
+                    TextBoxLogWriteLine("Copying file '{0}'....", fileName);
 
                     var urib = new UriBuilder(ObjectUrl);
                     urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
 
-                    string stringOperation = await blockBlob.StartCopyAsync(urib.Uri, token);
+                    string stringOperation = await blockBlob.StartCopyAsync(urib.Uri, response.token);
                     bool Cancelled = false;
 
                     DateTime startTime = DateTime.UtcNow;
@@ -617,7 +611,7 @@ namespace AMSExplorer
 
                     while (continueLoop)
                     {
-                        if (token.IsCancellationRequested && !Cancelled)
+                        if (response.token.IsCancellationRequested && !Cancelled)
                         {
                             await blockBlob.AbortCopyAsync(stringOperation);
                             Cancelled = true;
@@ -627,9 +621,9 @@ namespace AMSExplorer
                         var copyStatus = blockBlob.CopyState;
                         if (copyStatus != null)
                         {
-                            double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
+                            double percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(nbtotalblobblock)) * 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
 
-                            DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                            DoGridTransferUpdateProgress(percentComplete, response.Id);
 
                             if (copyStatus.Status != CopyStatus.Pending)
                             {
@@ -649,32 +643,80 @@ namespace AMSExplorer
                     }
 
                     blockBlob.FetchAttributes();
-                    assetFile.ContentFileSize = blockBlob.Properties.Length;
-                    assetFile.Update();
+                    if (assetFile != null)
+                    {
+                        assetFile.ContentFileSize = blockBlob.Properties.Length;
+                        assetFile.Update();
+                    }
 
                     DateTime endTime = DateTime.UtcNow;
                     TimeSpan diffTime = endTime - startTime;
+
+                    BytesCopied += blockBlob.Properties.Length;
                 }
 
-               
+
+                List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
+                List<Task> mylistresults = new List<Task>();
+
+                var blobsdir = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlobDirectory));
+                int nbtotalblobdir = blobsdir.Count();
+                int nbblobdir = 0;
+                foreach (var blob in blobsdir)
+                {
+                    nbblobdir++;
+                    string fileName = blob.Uri.Segments[2];
+                    assetFile = asset.AssetFiles.Create(fileName.Substring(0, fileName.Length - 1));  // to remove / at the end
+
+                    CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
+                    ListDirectories.Add(blobdir);
+                    TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
+
+                    var srcBlobList = blobdir.ListBlobs(
+                           useFlatBlobListing: true,
+                           blobListingDetails: BlobListingDetails.None).ToList();
+
+                    var subblocks = srcBlobList.Where(s => s.GetType() == typeof(CloudBlockBlob));
+                    long size = 0;
+                    if (subblocks.Count() > 0) size = subblocks.Sum(s => ((CloudBlockBlob)s).Properties.Length);
+                    assetFile.ContentFileSize = size;
+                    assetFile.Update();
+                }
 
 
+                // let's launch the copy of fragblobs
+                double ind = 0;
+                foreach (var dir in ListDirectories)
+                {
+                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
+
+                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, mediaBlobContainer, ObjectUrl.Query, response.token));
+
+                    if (mylistresults.Count > 0)
+                    {
+                        while (!mylistresults.All(r => r.IsCompleted))
+                        {
+                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
+                            double percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
+                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, response.Id);
+                        }
+                    }
+                    ind++;
+                    mylistresults.Clear();
+                }
 
                 if (!Error && !Canceled)
                 {
-                    //TextBoxLogWriteLine("time transfer: {0}", diffTime.Duration().ToString());
-                    TextBoxLogWriteLine("Creating Azure Media Services asset...");
-                   
-                   
+
                     destinationLocator.Delete();
                     writePolicy.Delete();
                     // Refresh the asset.
                     asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
 
-                    // make the file primary
-                    //AssetInfo.SetFileAsPrimary(asset, assetFile.Name);
+                    // make one of the file primary
+                    AssetInfo.SetAFileAsPrimary(asset);
 
-                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+                    DoGridTransferDeclareCompleted(response.Id, asset.Id);
                     DoRefreshGridAssetV(false);
                 }
                 else if (Canceled)
@@ -686,12 +728,12 @@ namespace AMSExplorer
                     }
                     catch { }
 
-                    DoGridTransferDeclareCancelled(guidTransfer);
+                    DoGridTransferDeclareCancelled(response.Id);
                     DoRefreshGridAssetV(false);
                 }
                 else // Error!
                 {
-                    DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
+                    DoGridTransferDeclareError(response.Id, "Error during import. " + ErrorMessage);
                     try
                     {
                         destinationLocator.Delete();
@@ -706,7 +748,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(guidTransfer, ex);
+                DoGridTransferDeclareError(response.Id, ex);
 
                 if (destinationLocator != null)
                 {
@@ -1815,7 +1857,7 @@ namespace AMSExplorer
                 {
                     var response = DoGridTransferAddItem(string.Format("Import from Container SAS URL '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response.Id, response.token), response.token);
+                    var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
@@ -2337,7 +2379,7 @@ namespace AMSExplorer
                 sbuilderThisAsset.AppendLine(AssetToP.Name);
                 sbuilderThisAsset.AppendLine("Locator ID:");
                 sbuilderThisAsset.AppendLine(locator.Id);
-            
+
                 if (locatorType == LocatorType.OnDemandOrigin)
                 {
                     sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
@@ -7163,7 +7205,7 @@ namespace AMSExplorer
 
                         //create the queue if it does not exist
                         notificationsQueue.CreateIfNotExists();
-                        
+
 
                         //create a notification endpoint and store it the glbal variable
                         MyWatchFolderSettings.NotificationEndPoint =
@@ -7178,7 +7220,7 @@ namespace AMSExplorer
                        the renaming of files or directories. */
                     MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                        | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
-                    // Only watch text files.
+                                                 // Only watch text files.
                     MyWatchFolderSettings.Watcher.Filter = "*.*";
                     MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
 
@@ -8925,7 +8967,7 @@ namespace AMSExplorer
                     var tasksstop = SelectedPrograms.Select(p => StopProgramASync(p)).ToArray();
                     await Task.WhenAll(tasksstop);
                 }
-      );
+        );
                 }
             }
         }
