@@ -1855,7 +1855,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from Container SAS URL '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                    var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -2485,7 +2485,7 @@ namespace AMSExplorer
                 }
                 else //SAS
                 {
-                    sbuilderThisAsset.AppendLine("Container SAS URL:");
+                    sbuilderThisAsset.AppendLine("SAS Container Path :");
                     sbuilderThisAsset.AppendLine(locator.Path);
                     sbuilderThisAsset.AppendLine("");
 
@@ -15045,6 +15045,11 @@ namespace AMSExplorer
         }
 
         private void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromAzureStorageSASContainer();
+        }
+
+        private void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuImportFromAzureStorageSASContainer();
         }

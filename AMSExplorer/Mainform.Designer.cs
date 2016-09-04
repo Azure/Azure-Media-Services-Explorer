@@ -63,6 +63,7 @@
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromAzureStorageSASContainerPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAssetsInformationToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,8 +154,8 @@
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromAzureStoragecontainerSASUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAssetFilesToAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informationToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -833,6 +834,7 @@
             // 
             this.importToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem14,
+            this.fromAzureStorageSASContainerPathToolStripMenuItem,
             this.toolStripMenuItem15});
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
             this.importToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
@@ -844,15 +846,25 @@
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             this.toolStripMenuItem14.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.I)));
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(325, 22);
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(392, 22);
             this.toolStripMenuItem14.Text = "Import file(s) from Azure Storage...";
             this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
+            // 
+            // fromAzureStorageSASContainerPathToolStripMenuItem
+            // 
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Name = "fromAzureStorageSASContainerPathToolStripMenuItem";
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Text = "From Azure Storage (SAS Container Path)...";
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStorageSASContainerPathToolStripMenuItem_Click);
             // 
             // toolStripMenuItem15
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
             this.toolStripMenuItem15.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.toolStripMenuItem15.Size = new System.Drawing.Size(325, 22);
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(392, 22);
             this.toolStripMenuItem15.Text = "From a single HTTP/HTTPS URL...";
             this.toolStripMenuItem15.Click += new System.EventHandler(this.toolStripMenuItem15_Click);
             // 
@@ -1637,8 +1649,8 @@
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fromAzureStorageToolStripMenuItem,
-            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem,
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem});
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem,
+            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem});
             this.importToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importToolStripMenuItem.Image")));
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
@@ -1649,24 +1661,27 @@
             this.fromAzureStorageToolStripMenuItem.Name = "fromAzureStorageToolStripMenuItem";
             this.fromAzureStorageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.I)));
-            this.fromAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+            this.fromAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
             this.fromAzureStorageToolStripMenuItem.Text = "From Azure Storage...";
             this.fromAzureStorageToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStorageToolStripMenuItem_Click);
+            // 
+            // fromAzureStoragecontainerSASUrlToolStripMenuItem
+            // 
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Name = "fromAzureStoragecontainerSASUrlToolStripMenuItem";
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Text = "From Azure Storage (SAS Container Path)...";
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStoragecontainerSASUrlToolStripMenuItem_Click);
             // 
             // fromASingleHTTPURLAmazonS3EtcToolStripMenuItem
             // 
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Name = "fromASingleHTTPURLAmazonS3EtcToolStripMenuItem";
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+            this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Text = "From a single HTTP/HTTPS URL...";
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Click += new System.EventHandler(this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem_Click);
-            // 
-            // fromAzureStoragecontainerSASUrlToolStripMenuItem
-            // 
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Name = "fromAzureStoragecontainerSASUrlToolStripMenuItem";
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Text = "From Azure Storage (container SAS url)...";
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStoragecontainerSASUrlToolStripMenuItem_Click);
             // 
             // copyAssetFilesToAzureStorageToolStripMenuItem
             // 
@@ -6083,6 +6098,7 @@
         private System.Windows.Forms.ToolStripMenuItem telemetryToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem telemetryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromAzureStoragecontainerSASUrlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromAzureStorageSASContainerPathToolStripMenuItem;
     }
 }
 

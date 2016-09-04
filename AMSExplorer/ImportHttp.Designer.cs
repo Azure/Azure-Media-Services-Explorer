@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportHttp));
             this.buttonImport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -155,7 +156,7 @@
             this.groupBox1.Controls.Add(this.textBoxAssetName);
             this.groupBox1.Controls.Add(this.textBoxAssetFileName);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(36, 186);
+            this.groupBox1.Location = new System.Drawing.Point(36, 200);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(720, 137);
             this.groupBox1.TabIndex = 47;
@@ -192,11 +193,9 @@
             this.labelSASListExample.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelSASListExample.Location = new System.Drawing.Point(36, 115);
             this.labelSASListExample.Name = "labelSASListExample";
-            this.labelSASListExample.Size = new System.Drawing.Size(719, 60);
+            this.labelSASListExample.Size = new System.Drawing.Size(719, 82);
             this.labelSASListExample.TabIndex = 74;
-            this.labelSASListExample.Text = "Example :\r\nhttps://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f" +
-    "6-47e3-a780-c9f27fd7a3b3?sv=2015-12-11&sr=c&si=testpolicy&sig=vgl5aBUUZ4K%2Buv8V" +
-    "5pLfrR8tJIXYbux5ryaznzPc9nM%3D";
+            this.labelSASListExample.Text = resources.GetString("labelSASListExample.Text");
             this.labelSASListExample.Visible = false;
             // 
             // ImportHttp

@@ -2694,13 +2694,13 @@ namespace AMSExplorer
                 sb.AppendLine("Locator Name      : " + locator.Name);
                 sb.AppendLine("Locator Type      : " + locator.Type.ToString());
                 sb.AppendLine("Locator Id        : " + locator.Id);
-                sb.AppendLine("Locator Path      : " + locator.Path);
                 if (locator.StartTime != null) sb.AppendLine("Start Time        : " + ((DateTime)locator.StartTime).ToLongDateString() + " " + ((DateTime)locator.StartTime).ToLongTimeString());
                 if (locator.ExpirationDateTime != null) sb.AppendLine("Expiration Time   : " + ((DateTime)locator.ExpirationDateTime).ToLongDateString() + " " + ((DateTime)locator.ExpirationDateTime).ToLongTimeString());
-                sb.AppendLine("");
 
                 if (locator.Type == LocatorType.OnDemandOrigin)
                 {
+                    sb.AppendLine("Locator Path      : " + locator.Path);
+                    sb.AppendLine("");
                     sb.AppendLine(_prog_down_http_streaming + " : ");
                     foreach (IAssetFile IAF in MyAsset.AssetFiles) sb.AppendLine((new Uri(locator.Path + IAF.Name)).AbsoluteUri);
                     sb.AppendLine("");
@@ -2757,6 +2757,9 @@ namespace AMSExplorer
                 }
                 if (locator.Type == LocatorType.Sas)
                 {
+                    sb.AppendLine("Container Path    : " + locator.Path);
+                    sb.AppendLine("");
+
                     List<Uri> ProgressiveDownloadUris;
                     IEnumerable<IAssetFile> MyAssetFiles;
                     sb.AppendLine(AssetInfo._prog_down_https_SAS + " : ");

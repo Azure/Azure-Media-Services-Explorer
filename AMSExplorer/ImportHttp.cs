@@ -71,7 +71,7 @@ namespace AMSExplorer
                 label4.Visible = textBoxAssetFileName.Visible = false;
                 labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
-                labelTitle.Text = this.Text = "Import from Container SAS URL";
+                labelTitle.Text = this.Text = "Import from SAS Container Path";
             }
         }
 
