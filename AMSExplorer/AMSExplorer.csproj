@@ -230,6 +230,12 @@
     <Compile Include="Forms-Telemetry\ConfigureTelemetry.Designer.cs">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaAnalyticsRedaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsRedaction.Designer.cs">
+      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaAnalyticsMotionDetection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -846,6 +852,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsRedaction.resx">
+      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaAnalyticsMotionDetection.resx">
       <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>

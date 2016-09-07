@@ -4856,6 +4856,52 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected, or asset is null.");
+            }
+            else
+            {
+                CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+
+                // Get the SDK extension method to  get a reference to the processor.
+                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
+
+                var form = new MediaAnalyticsRedaction(_context, processor, processorImage, preview)
+                {
+                    MIJobName = string.Format("Redaction ({0} mode) of {1}", Constants.NameconvRedactionMode, Constants.NameconvInputasset),
+                    MIOutputAssetName = string.Format("{0} - Redacted ({1})", Constants.NameconvInputasset, Constants.NameconvRedactionMode),
+                    MIInputAssetName = (SelectedAssets.Count > 1) ?
+                    string.Format("{0} assets have been selected for redaction.", SelectedAssets.Count)
+                    : string.Format("Asset '{0}' will be redacted.", SelectedAssets.FirstOrDefault().Name)
+                };
+
+                string taskname = string.Format("Redaction ({0} mode) of {1} ", form.RedactionMode(), Constants.NameconvInputasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (form.RedactionMode() == Constants.FaceRedactionSecondPass)
+                    {
+                        CheckJSONFileExtensionRedactionMode(SelectedAssets);
+                    }
+
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
+                        SelectedAssets,
+                        form.MIJobName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
+                        form.JobOptions.Priority,
+                        taskname,
+                        form.MIOutputAssetName,
+                         new List<string> { form.JsonConfig() },
+                        form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.TasksOptionsSetting,
+                        form.JobOptions.StorageSelected);
+                }
+            }
+        }
 
         private void DoMenuVideoAnalyticsFaceDetection(string processorStr, Image processorImage)
         {
@@ -5508,6 +5554,56 @@ namespace AMSExplorer
                 MessageBox.Show("Source asset must be a single " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private static void CheckPrimaryFileExtensionRedactionMode(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
+        {
+            bool Warning = false;
+            foreach (var asset in SelectedAssets)
+            {
+                IAssetFile primary = asset.AssetFiles.Where(f => f.IsPrimary).FirstOrDefault();
+                var selectableFiles = asset.AssetFiles.ToList().Where(f => mediaFileExtensions.Contains(Path.GetExtension(f.Name).ToUpperInvariant())).ToList();
+
+                // if primary file is not a video file supported but there are video files in asset
+                if (primary != null
+                    && !mediaFileExtensions.Contains(Path.GetExtension(primary.Name).ToUpperInvariant())
+                    && selectableFiles.Count > 0)
+                {
+                    var form = new MediaAnalyticsPickVideoFileInAsset(asset, mediaFileExtensions, true);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        AssetInfo.SetFileAsPrimary(asset, form.SelectedAssetFile.Name);
+                    }
+                }
+                // no video file in asset
+                else if (selectableFiles.Count == 0)
+                {
+                    Warning = true;
+                }
+            }
+            if (Warning)
+            {
+                MessageBox.Show("Source asset must contain a " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private static void CheckJSONFileExtensionRedactionMode(List<IAsset> SelectedAssets)
+        {
+            bool Warning = false;
+            foreach (var asset in SelectedAssets)
+            {
+                if (asset.AssetFiles.ToList().Where(f => f.Name.ToLowerInvariant().EndsWith("_annotations.json")).FirstOrDefault() == null)
+                // no annotations JSON file in asset
+                {
+                    Warning = true;
+                }
+            }
+
+            if (Warning)
+            {
+                MessageBox.Show("Source asset must contain an input annotations JSON file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
 
         private static Dictionary<string, string> CheckSingleFileIndexerV1SupportedExtensions(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
         {
@@ -14156,7 +14252,8 @@ namespace AMSExplorer
 
         private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
+            DoMenuVideoAnalyticsFaceRedaction(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
+
         }
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
@@ -14764,7 +14861,7 @@ namespace AMSExplorer
 
         private void ProcessRedactortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
+            DoMenuVideoAnalyticsFaceRedaction(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)

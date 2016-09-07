@@ -856,6 +856,7 @@ namespace AMSExplorer
         public const string NameconvManifestURL = "{manifest url}";
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
+        public const string NameconvRedactionMode = "{Redaction Mode}";
 
         public const string endline = "\r\n";
 
@@ -961,7 +962,7 @@ namespace AMSExplorer
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
         public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
         public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
-        public const string LinkInsertBlackVideoMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes/#no_video"; 
+        public const string LinkInsertBlackVideoMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes/#no_video";
 
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
@@ -1014,6 +1015,11 @@ namespace AMSExplorer
         public const string FaceDetectionFaces = "Faces";
         public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
         public const string FaceDetectionPerFaceEmotion = "PerFaceEmotion";
+
+        public const string FaceRedactionCombined = "combined";
+        public const string FaceRedactionFirstPass = "analyze";
+        public const string FaceRedactionSecondPass = "redact";
+
 
 
         public const string VideoThumbnailsOutputVideo = "video";
@@ -1674,7 +1680,7 @@ namespace AMSExplorer
                     }
                     catch
                     {
-                        throw ;
+                        throw;
                     }
                 });
                 locatorTask.Wait();
