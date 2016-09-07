@@ -35,7 +35,6 @@ namespace AMSExplorer
         public int EncodingNumberOfInputAssets;
         public string EncodingPremiumWorkflowPresetXMLFiles;
 
-        private List<IMediaProcessor> Procs;
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
         private CloudMediaContext _context;

@@ -302,7 +302,6 @@ namespace AMSExplorer
         public static string AnalyzeTextAndReportSyntaxError(string myText)
         {
             string strReturn = string.Empty;
-            bool Error = false;
             var type = Program.AnalyseConfigurationString(myText);
             if (type == TypeConfig.JSON)
             {
@@ -314,7 +313,6 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     strReturn = string.Format("JSON Syntax error: {0}", ex.Message);
-                    Error = true;
                 }
             }
             else if (type == TypeConfig.XML) // XML 
@@ -326,7 +324,6 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     strReturn = string.Format("XML Syntax error: {0}", ex.Message);
-                    Error = true;
                 }
             }
 
@@ -1675,9 +1672,9 @@ namespace AMSExplorer
                         tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
 
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        throw new Exception();
+                        throw ;
                     }
                 });
                 locatorTask.Wait();
@@ -2365,7 +2362,7 @@ namespace AMSExplorer
                         ismAssetFiles.First().IsPrimary = true;
                         ismAssetFiles.First().Update();
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         throw;
                     }
@@ -2443,7 +2440,7 @@ namespace AMSExplorer
                     ismAssetFiles.First().IsPrimary = true;
                     ismAssetFiles.First().Update();
                 }
-                catch (Exception ex)
+                catch
                 {
                     throw;
                 }

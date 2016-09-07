@@ -13871,7 +13871,7 @@ namespace AMSExplorer
                         }
                         catch (Exception ex)
                         {
-                            int i;
+                            TextBoxLogWriteLine(ex);
                         }
                     }
            );
@@ -14501,8 +14501,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Error accessing file. Position: {0}", skipSize, true);
                             }
-
-                            //TextBoxLogWriteLine(ex);
+                            TextBoxLogWriteLine(ex);
                             Error = true;
                         }
 
@@ -14574,7 +14573,7 @@ namespace AMSExplorer
                                     TextBoxLogWriteLine("Error accessing asset. Position: {0}", skipSize, true);
                                 }
 
-                                //TextBoxLogWriteLine(ex);
+                                TextBoxLogWriteLine(ex);
                                 Error = true;
                             }
 
@@ -17376,7 +17375,7 @@ namespace AMSExplorer
                        token).Result;
 
                 }
-                catch (Exception e)
+                catch
                 {
                     //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
                 }
