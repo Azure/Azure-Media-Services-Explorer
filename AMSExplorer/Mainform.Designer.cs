@@ -615,7 +615,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1020,7 +1020,7 @@
             this.toolStripMenuItemIndexer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemIndexer.Image")));
             this.toolStripMenuItemIndexer.Name = "toolStripMenuItemIndexer";
             this.toolStripMenuItemIndexer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.toolStripMenuItemIndexer.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemIndexer.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemIndexer.Text = "Index asset(s) with Azure Media Indexer...";
             this.toolStripMenuItemIndexer.Click += new System.EventHandler(this.toolStripMenuItem33_Click);
             // 
@@ -1028,7 +1028,7 @@
             // 
             this.toolStripMenuItem38Indexer2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem38Indexer2.Image")));
             this.toolStripMenuItem38Indexer2.Name = "toolStripMenuItem38Indexer2";
-            this.toolStripMenuItem38Indexer2.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItem38Indexer2.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItem38Indexer2.Text = "Index asset(s) with Azure Media Indexer 2...";
             this.toolStripMenuItem38Indexer2.Click += new System.EventHandler(this.toolStripMenuItem38Indexer2_Click);
             // 
@@ -1037,7 +1037,7 @@
             this.toolStripMenuItemHyperlapse.Image = global::AMSExplorer.Bitmaps.hyperlapse;
             this.toolStripMenuItemHyperlapse.Name = "toolStripMenuItemHyperlapse";
             this.toolStripMenuItemHyperlapse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.toolStripMenuItemHyperlapse.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemHyperlapse.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemHyperlapse.Text = "Process asset(s) with Hyperlapse...";
             this.toolStripMenuItemHyperlapse.Click += new System.EventHandler(this.toolStripMenuItem37_Click);
             // 
@@ -1045,15 +1045,15 @@
             // 
             this.toolStripMenuItemFaceDetector.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.toolStripMenuItemFaceDetector.Name = "toolStripMenuItemFaceDetector";
-            this.toolStripMenuItemFaceDetector.Size = new System.Drawing.Size(365, 22);
-            this.toolStripMenuItemFaceDetector.Text = "Process asset(s) with Azure Media Face Detector...";
+            this.toolStripMenuItemFaceDetector.Size = new System.Drawing.Size(397, 22);
+            this.toolStripMenuItemFaceDetector.Text = "Process asset(s) with Azure Media Face and Emotion Detector";
             this.toolStripMenuItemFaceDetector.Click += new System.EventHandler(this.toolStripMenuItemFaceDetector_Click);
             // 
             // toolStripMenuItemRedactor
             // 
             this.toolStripMenuItemRedactor.Image = global::AMSExplorer.Bitmaps.media_redactor;
             this.toolStripMenuItemRedactor.Name = "toolStripMenuItemRedactor";
-            this.toolStripMenuItemRedactor.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemRedactor.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemRedactor.Text = "Process asset(s) with Azure Media Redactor...";
             this.toolStripMenuItemRedactor.Click += new System.EventHandler(this.toolStripMenuItemRedactor_Click);
             // 
@@ -1061,7 +1061,7 @@
             // 
             this.toolStripMenuItemMotionDetector.Image = global::AMSExplorer.Bitmaps.motion_detector;
             this.toolStripMenuItemMotionDetector.Name = "toolStripMenuItemMotionDetector";
-            this.toolStripMenuItemMotionDetector.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemMotionDetector.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemMotionDetector.Text = "Process asset(s) with Azure Media Motion Detector...";
             this.toolStripMenuItemMotionDetector.Click += new System.EventHandler(this.toolStripMenuItemMotionDetector_Click);
             // 
@@ -1069,7 +1069,7 @@
             // 
             this.toolStripMenuItemStabilizer.Image = global::AMSExplorer.Bitmaps.media_stabilizer;
             this.toolStripMenuItemStabilizer.Name = "toolStripMenuItemStabilizer";
-            this.toolStripMenuItemStabilizer.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemStabilizer.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemStabilizer.Text = "Process asset(s) with Azure Media Stabilizer...";
             this.toolStripMenuItemStabilizer.Click += new System.EventHandler(this.toolStripMenuItemStabilizer_Click);
             // 
@@ -1077,7 +1077,7 @@
             // 
             this.toolStripMenuItemVideoThumbnails.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.toolStripMenuItemVideoThumbnails.Name = "toolStripMenuItemVideoThumbnails";
-            this.toolStripMenuItemVideoThumbnails.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemVideoThumbnails.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemVideoThumbnails.Text = "Process asset(s) with Azure Media Video Thumbnails...";
             this.toolStripMenuItemVideoThumbnails.Click += new System.EventHandler(this.toolStripMenuItemVideoThumbnails_Click);
             // 
@@ -1085,7 +1085,7 @@
             // 
             this.processAssetsWithAzureMediaOCRToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
             this.processAssetsWithAzureMediaOCRToolStripMenuItem.Name = "processAssetsWithAzureMediaOCRToolStripMenuItem";
-            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.processAssetsWithAzureMediaOCRToolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.processAssetsWithAzureMediaOCRToolStripMenuItem.Text = "Process asset(s) with Azure Media Video OCR...";
             this.processAssetsWithAzureMediaOCRToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaOCRToolStripMenuItem_Click);
             // 
@@ -1093,7 +1093,7 @@
             // 
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1";
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Size = new System.Drawing.Size(365, 22);
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Size = new System.Drawing.Size(397, 22);
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Text = "Process asset(s) with Azure Media Content Moderator...";
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Click += new System.EventHandler(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1_Click);
             // 
@@ -1997,7 +1997,7 @@
             this.indexAssetsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexAssetsToolStripMenuItem.Image")));
             this.indexAssetsToolStripMenuItem.Name = "indexAssetsToolStripMenuItem";
             this.indexAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.indexAssetsToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.indexAssetsToolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.indexAssetsToolStripMenuItem.Text = "Index asset(s) with Azure Media Indexer...";
             this.indexAssetsToolStripMenuItem.Click += new System.EventHandler(this.indexAssetsToolStripMenuItem_Click_1);
             // 
@@ -2005,7 +2005,7 @@
             // 
             this.toolStripMenuItemIndexv2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemIndexv2.Image")));
             this.toolStripMenuItemIndexv2.Name = "toolStripMenuItemIndexv2";
-            this.toolStripMenuItemIndexv2.Size = new System.Drawing.Size(365, 22);
+            this.toolStripMenuItemIndexv2.Size = new System.Drawing.Size(397, 22);
             this.toolStripMenuItemIndexv2.Text = "Index asset(s) with Azure Media Indexer 2...";
             this.toolStripMenuItemIndexv2.Click += new System.EventHandler(this.toolStripMenuItemIndexv2_Click);
             // 
@@ -2014,7 +2014,7 @@
             this.processAssetsWithHyperlapseToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.hyperlapse;
             this.processAssetsWithHyperlapseToolStripMenuItem.Name = "processAssetsWithHyperlapseToolStripMenuItem";
             this.processAssetsWithHyperlapseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.processAssetsWithHyperlapseToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.processAssetsWithHyperlapseToolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.processAssetsWithHyperlapseToolStripMenuItem.Text = "Process asset(s) with Hyperlapse...";
             this.processAssetsWithHyperlapseToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem_Click_1);
             // 
@@ -2022,15 +2022,15 @@
             // 
             this.ProcessFaceDetectortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.ProcessFaceDetectortoolStripMenuItem.Name = "ProcessFaceDetectortoolStripMenuItem";
-            this.ProcessFaceDetectortoolStripMenuItem.Size = new System.Drawing.Size(365, 22);
-            this.ProcessFaceDetectortoolStripMenuItem.Text = "Process asset(s) with Azure Media Face Detector";
+            this.ProcessFaceDetectortoolStripMenuItem.Size = new System.Drawing.Size(397, 22);
+            this.ProcessFaceDetectortoolStripMenuItem.Text = "Process asset(s) with Azure Media Face and Emotion Detector";
             this.ProcessFaceDetectortoolStripMenuItem.Click += new System.EventHandler(this.ProcessFaceDetectortoolStripMenuItem_Click_1);
             // 
             // ProcessRedactortoolStripMenuItem
             // 
             this.ProcessRedactortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_redactor;
             this.ProcessRedactortoolStripMenuItem.Name = "ProcessRedactortoolStripMenuItem";
-            this.ProcessRedactortoolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.ProcessRedactortoolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.ProcessRedactortoolStripMenuItem.Text = "Process asset(s) with Azure Media Redactor";
             this.ProcessRedactortoolStripMenuItem.Click += new System.EventHandler(this.ProcessRedactortoolStripMenuItem_Click_1);
             // 
@@ -2038,7 +2038,7 @@
             // 
             this.ProcessMotionDetectortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.motion_detector;
             this.ProcessMotionDetectortoolStripMenuItem.Name = "ProcessMotionDetectortoolStripMenuItem";
-            this.ProcessMotionDetectortoolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.ProcessMotionDetectortoolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.ProcessMotionDetectortoolStripMenuItem.Text = "Process asset(s) with Azure Media Motion Detector";
             this.ProcessMotionDetectortoolStripMenuItem.Click += new System.EventHandler(this.ProcessMotionDetectortoolStripMenuItem_Click_1);
             // 
@@ -2046,7 +2046,7 @@
             // 
             this.ProcessStabilizertoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_stabilizer;
             this.ProcessStabilizertoolStripMenuItem.Name = "ProcessStabilizertoolStripMenuItem";
-            this.ProcessStabilizertoolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.ProcessStabilizertoolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.ProcessStabilizertoolStripMenuItem.Text = "Process asset(s) with Azure Media Stabilizer";
             this.ProcessStabilizertoolStripMenuItem.Click += new System.EventHandler(this.ProcessStabilizertoolStripMenuItem_Click_1);
             // 
@@ -2054,7 +2054,7 @@
             // 
             this.ProcessVideoThumbnailstoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.ProcessVideoThumbnailstoolStripMenuItem.Name = "ProcessVideoThumbnailstoolStripMenuItem";
-            this.ProcessVideoThumbnailstoolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.ProcessVideoThumbnailstoolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.ProcessVideoThumbnailstoolStripMenuItem.Text = "Process asset(s) with Azure Media Video Thumbnails";
             this.ProcessVideoThumbnailstoolStripMenuItem.Click += new System.EventHandler(this.ProcessVideoThumbnailstoolStripMenuItem_Click_1);
             // 
@@ -2062,7 +2062,7 @@
             // 
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoOCRToolStripMenuItem";
-            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Text = "Process asset(s) with Azure Media Video OCR...";
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click);
             // 
@@ -2070,7 +2070,7 @@
             // 
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem";
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Size = new System.Drawing.Size(365, 22);
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Size = new System.Drawing.Size(397, 22);
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Text = "Process asset(s) with Azure Media Content Moderator...";
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click);
             // 

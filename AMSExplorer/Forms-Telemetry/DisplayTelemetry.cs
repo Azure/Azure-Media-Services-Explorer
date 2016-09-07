@@ -193,8 +193,9 @@ namespace AMSExplorer
         private void DoLoadTelemetry(object myobject, bool showOnlyErrors)
         {
             labelTimeRange.Text = string.Format("Display data from {0} to {1}",
-                _timerangeStart.ToLocalTime().ToString("G"),
-                _timerangeEnd == null ? "now" : ((DateTime)_timerangeEnd).ToLocalTime().ToString("G"));
+             radioButtonLocal.Checked ? _timerangeStart.ToLocalTime().ToString("G") : _timerangeStart.ToUniversalTime().ToString("G"),
+                _timerangeEnd == null ? "now" : radioButtonLocal.Checked ? ((DateTime)_timerangeEnd).ToLocalTime().ToString("G") : ((DateTime)_timerangeEnd).ToUniversalTime().ToString("G")
+                );
 
             this.Cursor = Cursors.WaitCursor;
             if (_entity is IStreamingEndpoint)
@@ -216,7 +217,7 @@ namespace AMSExplorer
             {
                 dataGridViewTelemetry.ColumnCount = 9;
 
-                dataGridViewTelemetry.Columns[0].HeaderText = "ObservedTime (local)";
+                dataGridViewTelemetry.Columns[0].HeaderText = "ObservedTime";
                 dataGridViewTelemetry.Columns[1].HeaderText = "BytesSent";
                 dataGridViewTelemetry.Columns[2].HeaderText = "EndToEndLatency";
                 dataGridViewTelemetry.Columns[3].HeaderText = "HostName";
@@ -233,20 +234,7 @@ namespace AMSExplorer
                 dataGridViewTelemetry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 _firsttime = false;
             }
-            // Processors tab
-            /*
-            dataGridViewTelemetry.ColumnCount = 5;
-            dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
-            dataGridViewProcessors.Columns[0].Width = 82;
-            dataGridViewProcessors.Columns[1].HeaderText = "Name";
-            dataGridViewProcessors.Columns[1].Width = 222;
-            dataGridViewProcessors.Columns[2].HeaderText = "Version";
-            dataGridViewProcessors.Columns[2].Width = 65;
-            dataGridViewProcessors.Columns[3].HeaderText = "Id";
-            dataGridViewProcessors.Columns[3].Width = 230;
-            dataGridViewProcessors.Columns[4].HeaderText = "Description";
-            dataGridViewProcessors.Columns[4].Width = 390;
-            */
+
             dataGridViewTelemetry.Rows.Clear();
 
             var monitorconfig = _context.MonitoringConfigurations.FirstOrDefault();
@@ -264,14 +252,15 @@ namespace AMSExplorer
                         new Guid(_credentials.AccountId).ToString(),
                         streamingEndpoint.Id,
                         _timerangeStart,
-                         _timerangeEnd ?? DateTime.UtcNow);
+                         _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
+                         );
 
 
-                foreach (var log in res)
+                foreach (var log in res.OrderByDescending(l => l.ObservedTime))
                 {
                     if (!showErrors || (showErrors && (log.StatusCode >= 400)))
                     {
-                        dataGridViewTelemetry.Rows.Add(log.ObservedTime.ToLocalTime(), log.BytesSent, log.EndToEndLatency, log.HostName, log.RequestCount, log.ResultCode, log.RowKey, log.ServerLatency, log.StatusCode);
+                        dataGridViewTelemetry.Rows.Add(radioButtonLocal.Checked ? log.ObservedTime.ToLocalTime() : log.ObservedTime.ToUniversalTime(), log.BytesSent, log.EndToEndLatency, log.HostName, log.RequestCount, log.ResultCode, log.RowKey, log.ServerLatency, log.StatusCode);
                     }
                 }
             }
@@ -292,7 +281,7 @@ namespace AMSExplorer
             {
                 dataGridViewTelemetry.ColumnCount = 9;
 
-                dataGridViewTelemetry.Columns[0].HeaderText = "Observed time (local)";
+                dataGridViewTelemetry.Columns[0].HeaderText = "Observed time";
                 dataGridViewTelemetry.Columns[1].HeaderText = "Track type";
                 dataGridViewTelemetry.Columns[2].HeaderText = "track name";
                 dataGridViewTelemetry.Columns[3].HeaderText = "Bitrate";
@@ -311,22 +300,6 @@ namespace AMSExplorer
             }
             dataGridViewTelemetry.Rows.Clear();
 
-            // Processors tab
-            /*
-            dataGridViewTelemetry.ColumnCount = 5;
-            dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
-            dataGridViewProcessors.Columns[0].Width = 82;
-            dataGridViewProcessors.Columns[1].HeaderText = "Name";
-            dataGridViewProcessors.Columns[1].Width = 222;
-            dataGridViewProcessors.Columns[2].HeaderText = "Version";
-            dataGridViewProcessors.Columns[2].Width = 65;
-            dataGridViewProcessors.Columns[3].HeaderText = "Id";
-            dataGridViewProcessors.Columns[3].Width = 230;
-            dataGridViewProcessors.Columns[4].HeaderText = "Description";
-            dataGridViewProcessors.Columns[4].Width = 390;
-            */
-
-
             var monitorconfig = _context.MonitoringConfigurations.FirstOrDefault();
             if (monitorconfig == null) return;
 
@@ -342,14 +315,14 @@ namespace AMSExplorer
                    new Guid(_credentials.AccountId).ToString(),
                    channel.Id,
                _timerangeStart,
-               _timerangeEnd ?? DateTime.UtcNow);
+               _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
+               );
 
-
-                foreach (var cHB in channelMetrics.OrderBy(x => x.ObservedTime))
+                foreach (var cHB in channelMetrics.OrderByDescending(x => x.ObservedTime))
                 {
                     if (!showErrors || (showErrors && (cHB.OverlapCount > 0 || cHB.DiscontinuityCount > 0)))
                     {
-                        dataGridViewTelemetry.Rows.Add(cHB.ObservedTime.ToLocalTime(), cHB.TrackType, cHB.TrackName, cHB.Bitrate, cHB.IncomingBitrate, cHB.OverlapCount, cHB.DiscontinuityCount, cHB.LastTimestamp, cHB.CustomAttributes);
+                        dataGridViewTelemetry.Rows.Add(radioButtonLocal.Checked ? cHB.ObservedTime.ToLocalTime() : cHB.ObservedTime.ToUniversalTime(), cHB.TrackType, cHB.TrackName, cHB.Bitrate, cHB.IncomingBitrate, cHB.OverlapCount, cHB.DiscontinuityCount, cHB.LastTimestamp, cHB.CustomAttributes);
                     }
                 }
             }
@@ -454,6 +427,11 @@ namespace AMSExplorer
         }
 
         private void checkBoxShowOnlyErrors_CheckedChanged(object sender, EventArgs e)
+        {
+            DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
+        }
+
+        private void radioButtonLocal_CheckedChanged(object sender, EventArgs e)
         {
             DoLoadTelemetry(_entity, checkBoxShowOnlyErrors.Checked);
         }

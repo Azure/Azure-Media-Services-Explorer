@@ -49,6 +49,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.radioButtonFaceDetection = new System.Windows.Forms.RadioButton();
             this.radioButtonAggregateEmotionDetection = new System.Windows.Forms.RadioButton();
+            this.radioButtonPerFaceEmotion = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -303,7 +304,7 @@
             this.radioButtonFaceDetection.Text = "Face detection";
             this.toolTip1.SetToolTip(this.radioButtonFaceDetection, "Only face detection");
             this.radioButtonFaceDetection.UseVisualStyleBackColor = true;
-            this.radioButtonFaceDetection.CheckedChanged += new System.EventHandler(this.radioButtonFaceDetection_CheckedChanged);
+            this.radioButtonFaceDetection.CheckedChanged += new System.EventHandler(this.radioButtonDetectionMode_CheckedChanged);
             // 
             // radioButtonAggregateEmotionDetection
             // 
@@ -316,10 +317,24 @@
             this.radioButtonAggregateEmotionDetection.Text = "Emotion detection (aggregate)";
             this.toolTip1.SetToolTip(this.radioButtonAggregateEmotionDetection, "Return average emotion values for all faces in frame");
             this.radioButtonAggregateEmotionDetection.UseVisualStyleBackColor = true;
-            this.radioButtonAggregateEmotionDetection.CheckedChanged += new System.EventHandler(this.radioButtonAggregateEmotionDetection_CheckedChanged);
+            this.radioButtonAggregateEmotionDetection.CheckedChanged += new System.EventHandler(this.radioButtonDetectionMode_CheckedChanged);
+            // 
+            // radioButtonPerFaceEmotion
+            // 
+            this.radioButtonPerFaceEmotion.AutoSize = true;
+            this.radioButtonPerFaceEmotion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonPerFaceEmotion.Location = new System.Drawing.Point(17, 80);
+            this.radioButtonPerFaceEmotion.Name = "radioButtonPerFaceEmotion";
+            this.radioButtonPerFaceEmotion.Size = new System.Drawing.Size(115, 19);
+            this.radioButtonPerFaceEmotion.TabIndex = 80;
+            this.radioButtonPerFaceEmotion.Text = "Per face emotion";
+            this.toolTip1.SetToolTip(this.radioButtonPerFaceEmotion, "Return average emotion values for all faces in frame");
+            this.radioButtonPerFaceEmotion.UseVisualStyleBackColor = true;
+            this.radioButtonPerFaceEmotion.CheckedChanged += new System.EventHandler(this.radioButtonDetectionMode_CheckedChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonPerFaceEmotion);
             this.groupBox1.Controls.Add(this.radioButtonFaceDetection);
             this.groupBox1.Controls.Add(this.radioButtonAggregateEmotionDetection);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -524,5 +539,6 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonPerFaceEmotion;
     }
 }

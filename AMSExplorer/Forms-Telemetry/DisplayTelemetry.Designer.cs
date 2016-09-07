@@ -45,6 +45,8 @@
             this.labelTimeRange = new System.Windows.Forms.Label();
             this.checkBoxShowOnlyErrors = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonLocal = new System.Windows.Forms.RadioButton();
+            this.radioButtonUTC = new System.Windows.Forms.RadioButton();
             this.contextMenuStripDG.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -197,6 +199,31 @@
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 110;
             // 
+            // radioButtonLocal
+            // 
+            this.radioButtonLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonLocal.AutoSize = true;
+            this.radioButtonLocal.Checked = true;
+            this.radioButtonLocal.Location = new System.Drawing.Point(795, 566);
+            this.radioButtonLocal.Name = "radioButtonLocal";
+            this.radioButtonLocal.Size = new System.Drawing.Size(53, 19);
+            this.radioButtonLocal.TabIndex = 111;
+            this.radioButtonLocal.TabStop = true;
+            this.radioButtonLocal.Text = "Local";
+            this.radioButtonLocal.UseVisualStyleBackColor = true;
+            this.radioButtonLocal.CheckedChanged += new System.EventHandler(this.radioButtonLocal_CheckedChanged);
+            // 
+            // radioButtonUTC
+            // 
+            this.radioButtonUTC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonUTC.AutoSize = true;
+            this.radioButtonUTC.Location = new System.Drawing.Point(854, 566);
+            this.radioButtonUTC.Name = "radioButtonUTC";
+            this.radioButtonUTC.Size = new System.Drawing.Size(47, 19);
+            this.radioButtonUTC.TabIndex = 112;
+            this.radioButtonUTC.Text = "UTC";
+            this.radioButtonUTC.UseVisualStyleBackColor = true;
+            // 
             // DisplayTelemetry
             // 
             this.AcceptButton = this.buttonClose;
@@ -205,6 +232,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.radioButtonUTC);
+            this.Controls.Add(this.radioButtonLocal);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.checkBoxShowOnlyErrors);
             this.Controls.Add(this.labelTimeRange);
@@ -248,5 +277,7 @@
         private System.Windows.Forms.Label labelTimeRange;
         private System.Windows.Forms.CheckBox checkBoxShowOnlyErrors;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonUTC;
+        private System.Windows.Forms.RadioButton radioButtonLocal;
     }
 }

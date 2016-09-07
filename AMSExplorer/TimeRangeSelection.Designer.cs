@@ -40,6 +40,7 @@
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.labelMain = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label49 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -176,6 +177,17 @@
             this.panel1.Size = new System.Drawing.Size(575, 55);
             this.panel1.TabIndex = 60;
             // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label49.Location = new System.Drawing.Point(241, 273);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(89, 13);
+            this.label49.TabIndex = 61;
+            this.label49.Text = "Date/time is local";
+            // 
             // TimeRangeSelection
             // 
             this.AcceptButton = this.buttonOk;
@@ -184,6 +196,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 353);
+            this.Controls.Add(this.label49);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelMain);
             this.Controls.Add(this.groupBox2);
@@ -198,6 +211,7 @@
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -215,5 +229,6 @@
         private System.Windows.Forms.RadioButton radioButtonEndNow;
         private System.Windows.Forms.RadioButton radioButtonEndCustom;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label49;
     }
 }
