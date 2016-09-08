@@ -53,29 +53,34 @@
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
-            this.TabPageFeatures = new System.Windows.Forms.TabPage();
-            this.checkBoxDoNotInterleave = new System.Windows.Forms.CheckBox();
-            this.radioButtonAllBitrates = new System.Windows.Forms.RadioButton();
-            this.radioButtonOnlyLowestBitrate = new System.Windows.Forms.RadioButton();
-            this.linkLabelInsertBlackVideo = new System.Windows.Forms.LinkLabel();
-            this.checkBoxInsertVideo = new System.Windows.Forms.CheckBox();
-            this.linkLabelMoreInfoPreserveResRotation = new System.Windows.Forms.LinkLabel();
-            this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
+            this.TabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisableAutoDeinterlacing = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsertVideo = new System.Windows.Forms.CheckBox();
+            this.checkBoxPreserveResAfterRotation = new System.Windows.Forms.CheckBox();
+            this.radioButtonOnlyLowestBitrate = new System.Windows.Forms.RadioButton();
+            this.radioButtonAllBitrates = new System.Windows.Forms.RadioButton();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBoxInsertSilentAudioTrack = new System.Windows.Forms.CheckBox();
+            this.checkBoxDoNotInterleave = new System.Windows.Forms.CheckBox();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
+            this.linkLabelMESFeatures = new System.Windows.Forms.LinkLabel();
             this.tabPageTrimCrop = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.linkLabelInfoCropping = new System.Windows.Forms.LinkLabel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
             this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.textBoxOffset = new System.Windows.Forms.TextBox();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
@@ -194,14 +199,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
-            this.TabPageFeatures.SuspendLayout();
+            this.TabPageAdvanced.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.tabPageTrimCrop.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -463,7 +466,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.TabPagePreset);
-            this.tabControl1.Controls.Add(this.TabPageFeatures);
+            this.tabControl1.Controls.Add(this.TabPageAdvanced);
             this.tabControl1.Controls.Add(this.tabPageTrimCrop);
             this.tabControl1.Controls.Add(this.tabPageOverlay);
             this.tabControl1.Controls.Add(this.tabPageThPNG);
@@ -495,52 +498,79 @@
             this.TabPagePreset.Text = "Preset";
             this.TabPagePreset.UseVisualStyleBackColor = true;
             // 
-            // TabPageFeatures
+            // TabPageAdvanced
             // 
-            this.TabPageFeatures.Controls.Add(this.checkBoxDoNotInterleave);
-            this.TabPageFeatures.Controls.Add(this.radioButtonAllBitrates);
-            this.TabPageFeatures.Controls.Add(this.radioButtonOnlyLowestBitrate);
-            this.TabPageFeatures.Controls.Add(this.linkLabelInsertBlackVideo);
-            this.TabPageFeatures.Controls.Add(this.checkBoxInsertVideo);
-            this.TabPageFeatures.Controls.Add(this.linkLabelMoreInfoPreserveResRotation);
-            this.TabPageFeatures.Controls.Add(this.checkBoxPreserveResAfterRotation);
-            this.TabPageFeatures.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
-            this.TabPageFeatures.Controls.Add(this.checkBoxInsertSilentAudioTrack);
-            this.TabPageFeatures.Controls.Add(this.checkBoxAddAutomatic);
-            this.TabPageFeatures.Location = new System.Drawing.Point(4, 24);
-            this.TabPageFeatures.Name = "TabPageFeatures";
-            this.TabPageFeatures.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageFeatures.Size = new System.Drawing.Size(724, 361);
-            this.TabPageFeatures.TabIndex = 1;
-            this.TabPageFeatures.Text = "Features";
-            this.TabPageFeatures.UseVisualStyleBackColor = true;
+            this.TabPageAdvanced.Controls.Add(this.groupBox5);
+            this.TabPageAdvanced.Controls.Add(this.groupBox4);
+            this.TabPageAdvanced.Controls.Add(this.checkBoxAddAutomatic);
+            this.TabPageAdvanced.Controls.Add(this.linkLabelMESFeatures);
+            this.TabPageAdvanced.Location = new System.Drawing.Point(4, 24);
+            this.TabPageAdvanced.Name = "TabPageAdvanced";
+            this.TabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageAdvanced.Size = new System.Drawing.Size(724, 361);
+            this.TabPageAdvanced.TabIndex = 1;
+            this.TabPageAdvanced.Text = "Advanced";
+            this.TabPageAdvanced.UseVisualStyleBackColor = true;
             // 
-            // checkBoxDoNotInterleave
+            // groupBox5
             // 
-            this.checkBoxDoNotInterleave.AutoSize = true;
-            this.checkBoxDoNotInterleave.Location = new System.Drawing.Point(32, 177);
-            this.checkBoxDoNotInterleave.Name = "checkBoxDoNotInterleave";
-            this.checkBoxDoNotInterleave.Size = new System.Drawing.Size(329, 19);
-            this.checkBoxDoNotInterleave.TabIndex = 98;
-            this.checkBoxDoNotInterleave.Text = "Do not interleave audio and video (audio in separate files)";
-            this.checkBoxDoNotInterleave.UseVisualStyleBackColor = true;
-            this.checkBoxDoNotInterleave.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
+            this.groupBox5.Controls.Add(this.checkBoxInsertVideo);
+            this.groupBox5.Controls.Add(this.checkBoxPreserveResAfterRotation);
+            this.groupBox5.Controls.Add(this.radioButtonOnlyLowestBitrate);
+            this.groupBox5.Controls.Add(this.radioButtonAllBitrates);
+            this.groupBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox5.Location = new System.Drawing.Point(30, 150);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(665, 144);
+            this.groupBox5.TabIndex = 100;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Video";
             // 
-            // radioButtonAllBitrates
+            // checkBoxDisableAutoDeinterlacing
             // 
-            this.radioButtonAllBitrates.AutoSize = true;
-            this.radioButtonAllBitrates.Location = new System.Drawing.Point(312, 145);
-            this.radioButtonAllBitrates.Name = "radioButtonAllBitrates";
-            this.radioButtonAllBitrates.Size = new System.Drawing.Size(79, 19);
-            this.radioButtonAllBitrates.TabIndex = 97;
-            this.radioButtonAllBitrates.Text = "all bitrates";
-            this.radioButtonAllBitrates.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
+            this.checkBoxDisableAutoDeinterlacing.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(18, 28);
+            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
+            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
+            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
+            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
+            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
+            // checkBoxInsertVideo
+            // 
+            this.checkBoxInsertVideo.AutoSize = true;
+            this.checkBoxInsertVideo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxInsertVideo.Location = new System.Drawing.Point(18, 78);
+            this.checkBoxInsertVideo.Name = "checkBoxInsertVideo";
+            this.checkBoxInsertVideo.Size = new System.Drawing.Size(251, 19);
+            this.checkBoxInsertVideo.TabIndex = 93;
+            this.checkBoxInsertVideo.Text = "Insert black video when input has no video";
+            this.checkBoxInsertVideo.UseVisualStyleBackColor = true;
+            this.checkBoxInsertVideo.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
+            // checkBoxPreserveResAfterRotation
+            // 
+            this.checkBoxPreserveResAfterRotation.AutoSize = true;
+            this.checkBoxPreserveResAfterRotation.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(18, 53);
+            this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
+            this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxPreserveResAfterRotation.TabIndex = 91;
+            this.checkBoxPreserveResAfterRotation.Text = "Preserve resolution after rotation";
+            this.checkBoxPreserveResAfterRotation.UseVisualStyleBackColor = true;
+            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
             // radioButtonOnlyLowestBitrate
             // 
             this.radioButtonOnlyLowestBitrate.AutoSize = true;
             this.radioButtonOnlyLowestBitrate.Checked = true;
-            this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(312, 120);
+            this.radioButtonOnlyLowestBitrate.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(275, 77);
             this.radioButtonOnlyLowestBitrate.Name = "radioButtonOnlyLowestBitrate";
             this.radioButtonOnlyLowestBitrate.Size = new System.Drawing.Size(122, 19);
             this.radioButtonOnlyLowestBitrate.TabIndex = 96;
@@ -549,65 +579,36 @@
             this.radioButtonOnlyLowestBitrate.UseVisualStyleBackColor = true;
             this.radioButtonOnlyLowestBitrate.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
-            // linkLabelInsertBlackVideo
+            // radioButtonAllBitrates
             // 
-            this.linkLabelInsertBlackVideo.AutoSize = true;
-            this.linkLabelInsertBlackVideo.Location = new System.Drawing.Point(440, 121);
-            this.linkLabelInsertBlackVideo.Name = "linkLabelInsertBlackVideo";
-            this.linkLabelInsertBlackVideo.Size = new System.Drawing.Size(109, 15);
-            this.linkLabelInsertBlackVideo.TabIndex = 92;
-            this.linkLabelInsertBlackVideo.TabStop = true;
-            this.linkLabelInsertBlackVideo.Text = "(more information)";
-            this.linkLabelInsertBlackVideo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.radioButtonAllBitrates.AutoSize = true;
+            this.radioButtonAllBitrates.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonAllBitrates.Location = new System.Drawing.Point(275, 102);
+            this.radioButtonAllBitrates.Name = "radioButtonAllBitrates";
+            this.radioButtonAllBitrates.Size = new System.Drawing.Size(79, 19);
+            this.radioButtonAllBitrates.TabIndex = 97;
+            this.radioButtonAllBitrates.Text = "all bitrates";
+            this.radioButtonAllBitrates.UseVisualStyleBackColor = true;
             // 
-            // checkBoxInsertVideo
+            // groupBox4
             // 
-            this.checkBoxInsertVideo.AutoSize = true;
-            this.checkBoxInsertVideo.Location = new System.Drawing.Point(32, 120);
-            this.checkBoxInsertVideo.Name = "checkBoxInsertVideo";
-            this.checkBoxInsertVideo.Size = new System.Drawing.Size(251, 19);
-            this.checkBoxInsertVideo.TabIndex = 93;
-            this.checkBoxInsertVideo.Text = "Insert black video when input has no video";
-            this.checkBoxInsertVideo.UseVisualStyleBackColor = true;
-            this.checkBoxInsertVideo.CheckedChanged += new System.EventHandler(this.UpdateJSON);
-            // 
-            // linkLabelMoreInfoPreserveResRotation
-            // 
-            this.linkLabelMoreInfoPreserveResRotation.AutoSize = true;
-            this.linkLabelMoreInfoPreserveResRotation.Location = new System.Drawing.Point(227, 60);
-            this.linkLabelMoreInfoPreserveResRotation.Name = "linkLabelMoreInfoPreserveResRotation";
-            this.linkLabelMoreInfoPreserveResRotation.Size = new System.Drawing.Size(109, 15);
-            this.linkLabelMoreInfoPreserveResRotation.TabIndex = 78;
-            this.linkLabelMoreInfoPreserveResRotation.TabStop = true;
-            this.linkLabelMoreInfoPreserveResRotation.Text = "(more information)";
-            this.linkLabelMoreInfoPreserveResRotation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
-            // checkBoxPreserveResAfterRotation
-            // 
-            this.checkBoxPreserveResAfterRotation.AutoSize = true;
-            this.checkBoxPreserveResAfterRotation.Location = new System.Drawing.Point(32, 59);
-            this.checkBoxPreserveResAfterRotation.Name = "checkBoxPreserveResAfterRotation";
-            this.checkBoxPreserveResAfterRotation.Size = new System.Drawing.Size(198, 19);
-            this.checkBoxPreserveResAfterRotation.TabIndex = 91;
-            this.checkBoxPreserveResAfterRotation.Text = "Preserve resolution after rotation";
-            this.checkBoxPreserveResAfterRotation.UseVisualStyleBackColor = true;
-            this.checkBoxPreserveResAfterRotation.CheckedChanged += new System.EventHandler(this.UpdateJSON);
-            // 
-            // checkBoxDisableAutoDeinterlacing
-            // 
-            this.checkBoxDisableAutoDeinterlacing.AutoSize = true;
-            this.checkBoxDisableAutoDeinterlacing.Location = new System.Drawing.Point(32, 34);
-            this.checkBoxDisableAutoDeinterlacing.Name = "checkBoxDisableAutoDeinterlacing";
-            this.checkBoxDisableAutoDeinterlacing.Size = new System.Drawing.Size(168, 19);
-            this.checkBoxDisableAutoDeinterlacing.TabIndex = 90;
-            this.checkBoxDisableAutoDeinterlacing.Text = "Disable auto de-interlacing";
-            this.checkBoxDisableAutoDeinterlacing.UseVisualStyleBackColor = true;
-            this.checkBoxDisableAutoDeinterlacing.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.checkBoxInsertSilentAudioTrack);
+            this.groupBox4.Controls.Add(this.checkBoxDoNotInterleave);
+            this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox4.Location = new System.Drawing.Point(30, 20);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(665, 98);
+            this.groupBox4.TabIndex = 99;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Audio";
             // 
             // checkBoxInsertSilentAudioTrack
             // 
             this.checkBoxInsertSilentAudioTrack.AutoSize = true;
-            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(32, 95);
+            this.checkBoxInsertSilentAudioTrack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxInsertSilentAudioTrack.Location = new System.Drawing.Point(18, 53);
             this.checkBoxInsertSilentAudioTrack.Name = "checkBoxInsertSilentAudioTrack";
             this.checkBoxInsertSilentAudioTrack.Size = new System.Drawing.Size(291, 19);
             this.checkBoxInsertSilentAudioTrack.TabIndex = 89;
@@ -615,19 +616,44 @@
             this.checkBoxInsertSilentAudioTrack.UseVisualStyleBackColor = true;
             this.checkBoxInsertSilentAudioTrack.CheckedChanged += new System.EventHandler(this.UpdateJSON);
             // 
+            // checkBoxDoNotInterleave
+            // 
+            this.checkBoxDoNotInterleave.AutoSize = true;
+            this.checkBoxDoNotInterleave.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDoNotInterleave.Location = new System.Drawing.Point(18, 28);
+            this.checkBoxDoNotInterleave.Name = "checkBoxDoNotInterleave";
+            this.checkBoxDoNotInterleave.Size = new System.Drawing.Size(329, 19);
+            this.checkBoxDoNotInterleave.TabIndex = 98;
+            this.checkBoxDoNotInterleave.Text = "Do not interleave audio and video (audio in separate files)";
+            this.checkBoxDoNotInterleave.UseVisualStyleBackColor = true;
+            this.checkBoxDoNotInterleave.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
             // checkBoxAddAutomatic
             // 
             this.checkBoxAddAutomatic.AutoSize = true;
             this.checkBoxAddAutomatic.Checked = true;
             this.checkBoxAddAutomatic.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddAutomatic.Location = new System.Drawing.Point(32, 336);
+            this.checkBoxAddAutomatic.Location = new System.Drawing.Point(30, 318);
             this.checkBoxAddAutomatic.Name = "checkBoxAddAutomatic";
-            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(572, 19);
+            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(626, 19);
             this.checkBoxAddAutomatic.TabIndex = 4;
-            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for features, trimming, cropping, ove" +
-    "rlay and thumbnails ";
+            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration for advanced features, trimming, crop" +
+    "ping, overlay and thumbnails ";
             this.checkBoxAddAutomatic.UseVisualStyleBackColor = true;
             this.checkBoxAddAutomatic.CheckedChanged += new System.EventHandler(this.checkBoxAddAutomatic_CheckedChanged);
+            // 
+            // linkLabelMESFeatures
+            // 
+            this.linkLabelMESFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelMESFeatures.AutoSize = true;
+            this.linkLabelMESFeatures.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.linkLabelMESFeatures.Location = new System.Drawing.Point(498, 132);
+            this.linkLabelMESFeatures.Name = "linkLabelMESFeatures";
+            this.linkLabelMESFeatures.Size = new System.Drawing.Size(198, 15);
+            this.linkLabelMESFeatures.TabIndex = 92;
+            this.linkLabelMESFeatures.TabStop = true;
+            this.linkLabelMESFeatures.Text = "Advanced encoding documentation";
+            this.linkLabelMESFeatures.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // tabPageTrimCrop
             // 
@@ -664,6 +690,16 @@
             this.linkLabelInfoCropping.TabStop = true;
             this.linkLabelInfoCropping.Text = "More information on cropping";
             this.linkLabelInfoCropping.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Enabled = false;
+            this.buttonRegionEditor.Location = new System.Drawing.Point(103, 31);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(203, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Define Cropping Rectangle...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
             // checkBoxCropVideo
             // 
@@ -718,6 +754,19 @@
             this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
             this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
             // 
+            // buttonShowEDL
+            // 
+            this.buttonShowEDL.Enabled = false;
+            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
+            this.buttonShowEDL.TabIndex = 138;
+            this.buttonShowEDL.Text = "Show EDL...";
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            this.buttonShowEDL.Click += new System.EventHandler(this.buttonShowEDL_Click);
+            // 
             // checkBoxUseEDL
             // 
             this.checkBoxUseEDL.AutoSize = true;
@@ -749,6 +798,25 @@
             this.textBoxOffset.TabIndex = 95;
             this.textBoxOffset.Visible = false;
             // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
             // checkBoxSourceTrimmingEnd
             // 
             this.checkBoxSourceTrimmingEnd.AutoSize = true;
@@ -767,6 +835,25 @@
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 82;
             this.label7.Text = "Duration :";
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // textBoxSourceDurationTime
             // 
@@ -2183,67 +2270,6 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // buttonRegionEditor
-            // 
-            this.buttonRegionEditor.Enabled = false;
-            this.buttonRegionEditor.Location = new System.Drawing.Point(103, 31);
-            this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(203, 23);
-            this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Define Cropping Rectangle...";
-            this.buttonRegionEditor.UseVisualStyleBackColor = true;
-            // 
-            // buttonShowEDL
-            // 
-            this.buttonShowEDL.Enabled = false;
-            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
-            this.buttonShowEDL.TabIndex = 138;
-            this.buttonShowEDL.Text = "Show EDL...";
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            this.buttonShowEDL.Click += new System.EventHandler(this.buttonShowEDL_Click);
-            // 
-            // timeControlEndTime
-            // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(33, 75);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
-            // 
-            // timeControlStartTime
-            // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(33, 21);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2276,8 +2302,12 @@
             this.tabControl1.ResumeLayout(false);
             this.TabPagePreset.ResumeLayout(false);
             this.TabPagePreset.PerformLayout();
-            this.TabPageFeatures.ResumeLayout(false);
-            this.TabPageFeatures.PerformLayout();
+            this.TabPageAdvanced.ResumeLayout(false);
+            this.TabPageAdvanced.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabPageTrimCrop.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -2351,7 +2381,7 @@
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage TabPagePreset;
-        private System.Windows.Forms.TabPage TabPageFeatures;
+        private System.Windows.Forms.TabPage TabPageAdvanced;
         private System.Windows.Forms.CheckBox checkBoxAddAutomatic;
         private System.Windows.Forms.CheckBox checkBoxSourceTrimmingStart;
         private TimeControl timeControlEndTime;
@@ -2423,7 +2453,6 @@
         private System.Windows.Forms.LinkLabel linkLabelThumbnail3;
         private System.Windows.Forms.CheckBox checkBoxInsertSilentAudioTrack;
         private System.Windows.Forms.CheckBox checkBoxDisableAutoDeinterlacing;
-        private System.Windows.Forms.LinkLabel linkLabelMoreInfoPreserveResRotation;
         private System.Windows.Forms.CheckBox checkBoxPreserveResAfterRotation;
         private System.Windows.Forms.CheckBox checkBoxPresResRotJPG;
         private System.Windows.Forms.CheckBox checkBoxPresResRotPNG;
@@ -2491,10 +2520,12 @@
         private System.Windows.Forms.CheckBox checkBoxCropVideo;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkLabelInfoCropping;
-        private System.Windows.Forms.LinkLabel linkLabelInsertBlackVideo;
+        private System.Windows.Forms.LinkLabel linkLabelMESFeatures;
         private System.Windows.Forms.CheckBox checkBoxInsertVideo;
         private System.Windows.Forms.RadioButton radioButtonAllBitrates;
         private System.Windows.Forms.RadioButton radioButtonOnlyLowestBitrate;
         private System.Windows.Forms.CheckBox checkBoxDoNotInterleave;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

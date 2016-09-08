@@ -962,7 +962,7 @@ namespace AMSExplorer
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
         public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
         public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
-        public const string LinkInsertBlackVideoMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes/#no_video";
+        public const string LinkMESAdvFeatures = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes";
 
         public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
 
@@ -977,7 +977,7 @@ namespace AMSExplorer
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
         public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
-        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/blog/announcing-video-ocr-public-preview-new-config/";
+        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-optical-character-recognition/";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";

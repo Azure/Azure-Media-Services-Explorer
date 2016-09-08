@@ -205,9 +205,8 @@ namespace AMSExplorer
             linkLabelThumbnail1.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail1.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail2.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail2.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
-            linkLabelMoreInfoPreserveResRotation.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPreserveResRotation.Text.Length, Constants.LinkPreserveResRotationMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
-            linkLabelInsertBlackVideo.Links.Add(new LinkLabel.Link(0, linkLabelInsertBlackVideo.Text.Length, Constants.LinkInsertBlackVideoMES));
+            linkLabelMESFeatures.Links.Add(new LinkLabel.Link(0, linkLabelMESFeatures.Text.Length, Constants.LinkMESAdvFeatures));
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 

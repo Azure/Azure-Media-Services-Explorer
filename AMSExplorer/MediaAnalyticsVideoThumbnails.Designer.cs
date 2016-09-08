@@ -84,7 +84,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 350);
+            this.label3.Location = new System.Drawing.Point(14, 380);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -94,7 +94,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 369);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 399);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(418, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -136,7 +136,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 313);
+            this.textBoxJobName.Location = new System.Drawing.Point(17, 343);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(418, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -145,7 +145,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 295);
+            this.label5.Location = new System.Drawing.Point(14, 325);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -183,7 +183,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 415);
+            this.panel1.Location = new System.Drawing.Point(-2, 445);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(635, 55);
             this.panel1.TabIndex = 66;
@@ -238,7 +238,7 @@
             this.panelVideoSettings.Controls.Add(this.checkBoxOutputAudio);
             this.panelVideoSettings.Location = new System.Drawing.Point(30, 46);
             this.panelVideoSettings.Name = "panelVideoSettings";
-            this.panelVideoSettings.Size = new System.Drawing.Size(178, 111);
+            this.panelVideoSettings.Size = new System.Drawing.Size(178, 108);
             this.panelVideoSettings.TabIndex = 89;
             // 
             // checkBoxVideoDurationAuto
@@ -375,7 +375,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(467, 313);
+            this.buttonJobOptions.Location = new System.Drawing.Point(467, 343);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
@@ -436,10 +436,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPageConfig);
-            this.tabControl1.Location = new System.Drawing.Point(17, 75);
+            this.tabControl1.Location = new System.Drawing.Point(17, 101);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(609, 209);
+            this.tabControl1.Size = new System.Drawing.Size(609, 213);
             this.tabControl1.TabIndex = 108;
             // 
             // tabPage1
@@ -449,7 +449,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(601, 181);
+            this.tabPage1.Size = new System.Drawing.Size(601, 185);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -509,7 +509,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(625, 415);
+            this.panel2.Location = new System.Drawing.Point(625, 445);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 109;
@@ -521,7 +521,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(645, 471);
+            this.ClientSize = new System.Drawing.Size(645, 501);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelPreview);
