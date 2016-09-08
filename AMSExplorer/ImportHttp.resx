@@ -121,6 +121,6 @@
     <value>Example :
 https://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f6-47e3-a780-c9f27fd7a3b3?sv=2015-12-11&amp;sr=c&amp;si=testpolicy&amp;sig=vgl5aBUUZ4K%2Buv8V5pLfrR8tJIXYbux5ryaznzPc9nM%3D
 
-Use a SAS locator with the LIST permision (AMSE v3.44 or later)</value>
+Use a SAS locator with the LIST permission (AMSE v3.44 or later)</value>
   </data>
 </root>
