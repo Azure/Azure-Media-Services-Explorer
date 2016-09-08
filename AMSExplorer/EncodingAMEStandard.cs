@@ -1330,6 +1330,12 @@ namespace AMSExplorer
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
+
+        private void checkBoxInsertVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonOnlyLowestBitrate.Enabled = radioButtonAllBitrates.Enabled = checkBoxInsertVideo.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
     }
 
     enum TypeConfig

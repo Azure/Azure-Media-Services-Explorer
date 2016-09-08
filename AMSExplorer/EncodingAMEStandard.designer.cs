@@ -551,7 +551,7 @@
             this.checkBoxInsertVideo.TabIndex = 93;
             this.checkBoxInsertVideo.Text = "Insert black video when input has no video";
             this.checkBoxInsertVideo.UseVisualStyleBackColor = true;
-            this.checkBoxInsertVideo.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            this.checkBoxInsertVideo.CheckedChanged += new System.EventHandler(this.checkBoxInsertVideo_CheckedChanged);
             // 
             // checkBoxPreserveResAfterRotation
             // 
@@ -569,6 +569,7 @@
             // 
             this.radioButtonOnlyLowestBitrate.AutoSize = true;
             this.radioButtonOnlyLowestBitrate.Checked = true;
+            this.radioButtonOnlyLowestBitrate.Enabled = false;
             this.radioButtonOnlyLowestBitrate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(275, 77);
             this.radioButtonOnlyLowestBitrate.Name = "radioButtonOnlyLowestBitrate";
@@ -582,6 +583,7 @@
             // radioButtonAllBitrates
             // 
             this.radioButtonAllBitrates.AutoSize = true;
+            this.radioButtonAllBitrates.Enabled = false;
             this.radioButtonAllBitrates.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonAllBitrates.Location = new System.Drawing.Point(275, 102);
             this.radioButtonAllBitrates.Name = "radioButtonAllBitrates";
