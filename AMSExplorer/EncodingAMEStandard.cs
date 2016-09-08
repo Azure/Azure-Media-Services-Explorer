@@ -723,7 +723,7 @@ namespace AMSExplorer
                             {
                                 if (entry.Filters != null)
                                 {
-                                    entry.Filters.Add(CropEntry);
+                                    entry.Filters.Crop = Crop; // Add(CropEntry);
                                 }
                                 else
                                 {
