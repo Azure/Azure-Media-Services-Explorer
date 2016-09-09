@@ -4874,7 +4874,7 @@ namespace AMSExplorer
                 var form = new MediaAnalyticsRedaction(_context, processor, processorImage, preview)
                 {
                     MIJobName = string.Format("Redaction ({0} mode) of {1}", Constants.NameconvRedactionMode, Constants.NameconvInputasset),
-                    MIOutputAssetName = string.Format("{0} - Redacted ({1})", Constants.NameconvInputasset, Constants.NameconvRedactionMode),
+                    MIOutputAssetName = string.Format("{0} - Redacted ({1} mode)", Constants.NameconvInputasset, Constants.NameconvRedactionMode),
                     MIInputAssetName = (SelectedAssets.Count > 1) ?
                     string.Format("{0} assets have been selected for redaction.", SelectedAssets.Count)
                     : string.Format("Asset '{0}' will be redacted.", SelectedAssets.FirstOrDefault().Name)
@@ -4894,7 +4894,7 @@ namespace AMSExplorer
                         form.MIJobName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
                         form.JobOptions.Priority,
                         taskname,
-                        form.MIOutputAssetName,
+                        form.MIOutputAssetName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
                          new List<string> { form.JsonConfig() },
                         form.JobOptions.OutputAssetsCreationOptions,
                         form.JobOptions.TasksOptionsSetting,
