@@ -183,7 +183,6 @@
             this.moreinfoprofilelink.TabIndex = 70;
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.Text = "More information";
-            this.moreinfoprofilelink.Visible = false;
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // labelPreview
