@@ -388,6 +388,20 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Clean StretchMode
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null &&
+                                (codec.Type == "H264Video") &&
+                                codec.StretchMode != null)
+                            {
+                                codec.StretchMode.Parent.Remove();
+                            }
+                        }
+                    }
+
                     if (obj.Codecs != null) // clean thumbnail entry in Codecs
                     {
                         var listDelete = new List<dynamic>();
@@ -799,6 +813,21 @@ namespace AMSExplorer
                                 if (codec.Type != null && codec.Type == "H264Video")
                                 {
                                     codec.Condition = radioButtonOnlyLowestBitrate.Checked ? "InsertBlackIfNoVideoBottomLayerOnly" : "InsertBlackIfNoVideo";
+                                }
+                            }
+                        }
+                    }
+
+                    // Autostrech mode to none ?
+                    if (checkBoxDisableAutoStretchMode.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "H264Video")
+                                {
+                                    codec.StretchMode = "None";
                                 }
                             }
                         }

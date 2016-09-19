@@ -973,7 +973,7 @@ namespace AMSExplorer
 
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
-        public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/2015/05/14/announcing-hyperlapse-for-azure-media-services/";
+        public const string LinkMoreInfoHyperlapse = "https://azure.microsoft.com/en-us/documentation/articles/media-services-hyperlapse-content/";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
         public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
@@ -3812,6 +3812,7 @@ namespace AMSExplorer
         public bool TTML { get; set; }
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
+        public bool ForFullCaptions { get; set; }
     }
 
 

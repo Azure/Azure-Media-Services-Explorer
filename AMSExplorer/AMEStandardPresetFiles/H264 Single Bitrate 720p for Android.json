@@ -3,7 +3,6 @@
   "Codecs": [
     {
       "KeyFrameInterval": "00:00:05",
-      "StretchMode": "AutoSize",
       "SceneChangeDetection": true,
       "H264Layers": [
         {

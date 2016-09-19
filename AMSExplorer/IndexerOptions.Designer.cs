@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IndexerOptions));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,6 +44,7 @@
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBoxForceFullCaptions = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxOther.SuspendLayout();
@@ -168,6 +170,7 @@
             // 
             // groupBoxOther
             // 
+            this.groupBoxOther.Controls.Add(this.checkBoxForceFullCaptions);
             this.groupBoxOther.Controls.Add(this.checkBoxKeywords);
             this.groupBoxOther.Controls.Add(this.checkBoxAIB);
             this.groupBoxOther.Location = new System.Drawing.Point(190, 39);
@@ -188,6 +191,17 @@
             this.label5.TabIndex = 74;
             this.label5.Text = "Generation Options";
             // 
+            // checkBoxForceFullCaptions
+            // 
+            this.checkBoxForceFullCaptions.AutoSize = true;
+            this.checkBoxForceFullCaptions.Location = new System.Drawing.Point(27, 90);
+            this.checkBoxForceFullCaptions.Name = "checkBoxForceFullCaptions";
+            this.checkBoxForceFullCaptions.Size = new System.Drawing.Size(123, 19);
+            this.checkBoxForceFullCaptions.TabIndex = 72;
+            this.checkBoxForceFullCaptions.Text = "Force full captions";
+            this.toolTip1.SetToolTip(this.checkBoxForceFullCaptions, resources.GetString("checkBoxForceFullCaptions.ToolTip"));
+            this.checkBoxForceFullCaptions.UseVisualStyleBackColor = true;
+            // 
             // IndexerOptions
             // 
             this.AcceptButton = this.buttonOk;
@@ -204,7 +218,6 @@
             this.Name = "IndexerOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Generation Options";
-            this.Load += new System.EventHandler(this.IndexerOptions_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -231,5 +244,6 @@
         private System.Windows.Forms.GroupBox groupBoxOther;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkBoxForceFullCaptions;
     }
 }

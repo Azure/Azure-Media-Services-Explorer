@@ -199,6 +199,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.checkBoxDisableAutoStretchMode = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -516,6 +517,7 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.checkBoxDisableAutoStretchMode);
             this.groupBox5.Controls.Add(this.checkBoxDisableAutoDeinterlacing);
             this.groupBox5.Controls.Add(this.checkBoxInsertVideo);
             this.groupBox5.Controls.Add(this.checkBoxPreserveResAfterRotation);
@@ -524,7 +526,7 @@
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox5.Location = new System.Drawing.Point(30, 150);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(665, 144);
+            this.groupBox5.Size = new System.Drawing.Size(665, 162);
             this.groupBox5.TabIndex = 100;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Video";
@@ -545,7 +547,7 @@
             // 
             this.checkBoxInsertVideo.AutoSize = true;
             this.checkBoxInsertVideo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxInsertVideo.Location = new System.Drawing.Point(18, 78);
+            this.checkBoxInsertVideo.Location = new System.Drawing.Point(18, 103);
             this.checkBoxInsertVideo.Name = "checkBoxInsertVideo";
             this.checkBoxInsertVideo.Size = new System.Drawing.Size(251, 19);
             this.checkBoxInsertVideo.TabIndex = 93;
@@ -571,7 +573,7 @@
             this.radioButtonOnlyLowestBitrate.Checked = true;
             this.radioButtonOnlyLowestBitrate.Enabled = false;
             this.radioButtonOnlyLowestBitrate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(275, 77);
+            this.radioButtonOnlyLowestBitrate.Location = new System.Drawing.Point(275, 102);
             this.radioButtonOnlyLowestBitrate.Name = "radioButtonOnlyLowestBitrate";
             this.radioButtonOnlyLowestBitrate.Size = new System.Drawing.Size(122, 19);
             this.radioButtonOnlyLowestBitrate.TabIndex = 96;
@@ -585,7 +587,7 @@
             this.radioButtonAllBitrates.AutoSize = true;
             this.radioButtonAllBitrates.Enabled = false;
             this.radioButtonAllBitrates.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonAllBitrates.Location = new System.Drawing.Point(275, 102);
+            this.radioButtonAllBitrates.Location = new System.Drawing.Point(275, 127);
             this.radioButtonAllBitrates.Name = "radioButtonAllBitrates";
             this.radioButtonAllBitrates.Size = new System.Drawing.Size(79, 19);
             this.radioButtonAllBitrates.TabIndex = 97;
@@ -2272,6 +2274,18 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDisableAutoStretchMode
+            // 
+            this.checkBoxDisableAutoStretchMode.AutoSize = true;
+            this.checkBoxDisableAutoStretchMode.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisableAutoStretchMode.Location = new System.Drawing.Point(18, 78);
+            this.checkBoxDisableAutoStretchMode.Name = "checkBoxDisableAutoStretchMode";
+            this.checkBoxDisableAutoStretchMode.Size = new System.Drawing.Size(164, 19);
+            this.checkBoxDisableAutoStretchMode.TabIndex = 98;
+            this.checkBoxDisableAutoStretchMode.Text = "Disable auto stretch mode";
+            this.checkBoxDisableAutoStretchMode.UseVisualStyleBackColor = true;
+            this.checkBoxDisableAutoStretchMode.CheckedChanged += new System.EventHandler(this.UpdateJSON);
+            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2529,5 +2543,6 @@
         private System.Windows.Forms.CheckBox checkBoxDoNotInterleave;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox checkBoxDisableAutoStretchMode;
     }
 }

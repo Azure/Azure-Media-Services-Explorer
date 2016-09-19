@@ -2488,7 +2488,7 @@ namespace AMSExplorer
                     sbuilderThisAsset.AppendLine("SAS Container Path :");
                     sbuilderThisAsset.AppendLine(locator.Path);
                     sbuilderThisAsset.AppendLine("");
-
+                    
                     IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
 
                     // Generate the Progressive Download URLs for each file. 
