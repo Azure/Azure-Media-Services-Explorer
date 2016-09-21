@@ -908,6 +908,7 @@ namespace AMSExplorer
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"http://www.jwplayer.com/partners/azure/";
+        public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
         public const string DemoCaptionMaker = @"https://dev.modern.ie/testdrive/demos/captionmaker/";
         public const string AMSSamples = @"https://github.com/AzureMediaServicesSamples";

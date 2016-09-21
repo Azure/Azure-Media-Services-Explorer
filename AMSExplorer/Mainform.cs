@@ -14988,6 +14988,11 @@ namespace AMSExplorer
         {
             DoMenuImportFromAzureStorageSASContainer();
         }
+
+        private void tHEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.PlayerTHEOplayerPartnership);
+        }
     }
 }
 
