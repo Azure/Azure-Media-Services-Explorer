@@ -882,11 +882,11 @@ namespace AMSExplorer
 
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
-        public const string PlayerAMPinOptions = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url={0}";
+        public const string PlayerAMPinOptions = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
         public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
 
-        public const string PlayerAMPIFrameToLaunch = @"http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
+        public const string PlayerAMPIFrameToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer_embed.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
         public const string AMPtokensyntax = "&token={0}";
         public const string AMPformatsyntax = "&format={0}";
@@ -900,32 +900,17 @@ namespace AMSExplorer
         public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.1.1/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.2.0/samples/dash-if-reference-player/index.html?url={0}";
 
-        public const string PlayerDASHAzure = @"http://dashplayer.azurewebsites.net";
-        public const string PlayerDASHAzureToLaunch = @"http://dashplayer.azurewebsites.net?url={0}";
-
-        public const string PlayerDASHAzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url={0}";
-        public const string PlayerFlashAzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url={0}";
-        public const string PlayerMP4AzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}";
-
-        public const string PlayerFlashAESToken = @"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}";
-        public const string PlayerSLToken = @"http://sltoken.azurewebsites.net";
-        public const string PlayerSLTokenToLaunch = @"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}";
+        public const string PlayerMP4AzurePage = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
         public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"http://www.jwplayer.com/partners/azure/";
 
-        public const string PlayerAESToken = @"http://aestoken.azurewebsites.net";
-        public const string PlayerAMPDiagnostics = @"http://aka.ms/ampdiagnostics";
-
         public const string DemoCaptionMaker = @"https://dev.modern.ie/testdrive/demos/captionmaker/";
         public const string AMSSamples = @"https://github.com/AzureMediaServicesSamples";
-
-        public const string LinkSMFHealth = "http://smf.cloudapp.net/healthmonitor";
-        public const string LinkSMFHealthToLaunch = "http://smf.cloudapp.net/healthmonitor?Autoplay=true&url={0}";
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
 
@@ -2818,7 +2803,7 @@ namespace AMSExplorer
                     }
                     else // no UI but let's rw for filter
                     {
-                        if (typeplayer == PlayerType.DASHIFRefPlayer || typeplayer == PlayerType.DASHLiveAzure)
+                        if (typeplayer == PlayerType.DASHIFRefPlayer)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.Dash).ToString();
                         }
@@ -2840,24 +2825,7 @@ namespace AMSExplorer
                         // user wants perhaps to play an asset with a token, so let's try to generate it
                         switch (typeplayer)
                         {
-                            case PlayerType.SilverlightPlayReadyToken:
-                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
-                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                {
-                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                    keytype = AssetProtectionType.PlayReady;
-                                }
-                                break;
-
-                            case PlayerType.FlashAESToken:
-                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
-                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                {
-                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                    keytype = AssetProtectionType.AES;
-                                }
-                                break;
-
+                           
                             case PlayerType.AzureMediaPlayer:
                             case PlayerType.AzureMediaPlayerFrame:
                             case PlayerType.CustomPlayer:
@@ -3032,40 +3000,12 @@ namespace AMSExplorer
                         FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(Urlstr)) + playerurl;
                         break;
 
-                    case PlayerType.SilverlightMonitoring:
-                        FullPlayBackLink = string.Format(Constants.LinkSMFHealthToLaunch, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.SilverlightPlayReadyToken:
-                        FullPlayBackLink = string.Format(Constants.PlayerSLTokenToLaunch, HttpUtility.UrlEncode(Urlstr), tokenresult);
-                        break;
-
                     case PlayerType.DASHIFRefPlayer:
                         if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
                         {
                             Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
                         FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, Urlstr);
-                        break;
-
-                    case PlayerType.DASHAzurePage:
-                        FullPlayBackLink = string.Format(Constants.PlayerDASHAzurePage, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.DASHLiveAzure:
-                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
-                        {
-                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
-                        }
-                        FullPlayBackLink = string.Format(Constants.PlayerDASHAzureToLaunch, Urlstr);
-                        break;
-
-                    case PlayerType.FlashAzurePage:
-                        FullPlayBackLink = string.Format(Constants.PlayerFlashAzurePage, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.FlashAESToken:
-                        FullPlayBackLink = string.Format(Constants.PlayerFlashAESToken, HttpUtility.UrlEncode(Urlstr), tokenresult);
                         break;
 
                     case PlayerType.MP4AzurePage:
@@ -3562,13 +3502,6 @@ namespace AMSExplorer
     {
         AzureMediaPlayer = 0,
         AzureMediaPlayerFrame,
-        FlashAzurePage,
-        SilverlightAzurePage,
-        SilverlightMonitoring,
-        SilverlightPlayReadyToken,
-        FlashAESToken,
-        DASHAzurePage,
-        DASHLiveAzure,
         DASHIFRefPlayer,
         MP4AzurePage,
         CustomPlayer

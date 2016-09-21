@@ -200,7 +200,7 @@ namespace AMSExplorer
            );
 
 
-            if (_playertype == PlayerType.DASHIFRefPlayer || _playertype == PlayerType.DASHLiveAzure)
+            if (_playertype == PlayerType.DASHIFRefPlayer)
             {
                 radioButtonDASH.Checked = true;
             }

@@ -4365,10 +4365,6 @@ namespace AMSExplorer
             }
         }
 
-        private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.LinkSMFHealth);
-        }
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7037,17 +7033,6 @@ namespace AMSExplorer
         }
 
 
-
-        private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
-        private void withFlashOSMFToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-
-        }
-
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
 
@@ -7073,12 +7058,6 @@ namespace AMSExplorer
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
-        }
-
-
-        private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
         }
 
 
@@ -9813,58 +9792,6 @@ namespace AMSExplorer
             }
         }
 
-        private void withFlashOSMFAzurePlayerToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
-        /*
-        private void DoPlayBackProgram(PlayerType ptype, bool tokenplayer = false)
-        {
-            foreach (var program in ReturnSelectedPrograms())
-            {
-                if (program != null && program.Asset != null)
-                {
-                    bool UserCancelled = false;
-                    ProgramInfo PI = new ProgramInfo(program, _context);
-                    IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
-
-                    if (ValidURIs.FirstOrDefault() == null) // no locator
-                    {
-                        if (MessageBox.Show(string.Format("There is no valid streaming locator for program '{0}'. Do you want to create one ?", program.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-                        {
-                            TextBoxLogWriteLine("Creating locator for program '{0}'", program.Name);
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + program.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                            ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, program.Asset, policy, null);
-                            ValidURIs = PI.GetValidURIs();
-                        }
-                        else
-                        {
-                            UserCancelled = true;
-                        }
-                    }
-
-                    if (!UserCancelled)
-                    {
-                        if (ValidURIs.FirstOrDefault() != null)
-                        {
-                            string myUri = ValidURIs.FirstOrDefault().ToString();
-                            if (ptype == PlayerType.DASHLiveAzure)
-                            {
-                                myUri = program.Asset.GetMpegDashUri().ToString();
-                            }
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: myUri, context: _context, myasset: program.Asset);
-                        }
-                        else
-                        {
-                            TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
-                        }
-                    }
-                }
-            }
-        }
-         */
-
         private void DoPlaybackChannelPreview(PlayerType ptype)
         {
             foreach (var channel in ReturnSelectedChannels())
@@ -9877,11 +9804,6 @@ namespace AMSExplorer
                     }
                 }
             }
-        }
-
-        private void withSilverlightMontoringPlayerToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
         }
 
 
@@ -9905,17 +9827,6 @@ namespace AMSExplorer
         {
             DoGenerateThumbnails();
         }
-
-        private void withSilverlightMontoringPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
-        }
-
-        private void withFlashOSMFAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
 
 
         private void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9978,16 +9889,6 @@ namespace AMSExplorer
         private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCreateChannel();
-        }
-
-        private void PlaybackPreviewWithFlashOSMFAzurePlayer_Click(object sender, EventArgs e)
-        {
-            DoPlaybackChannelPreview(PlayerType.FlashAzurePage);
-        }
-
-        private void PlaybackPreviewWithSilverlightMonitoringPlayer_Click(object sender, EventArgs e)
-        {
-            DoPlaybackChannelPreview(PlayerType.SilverlightMonitoring);
         }
 
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
@@ -11644,16 +11545,7 @@ namespace AMSExplorer
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
         }
-
-        private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHLiveAzure);
-        }
-
-        private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
-        }
+       
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -11962,10 +11854,6 @@ namespace AMSExplorer
             DoDisplayJobError();
         }
 
-        private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerSLToken);
-        }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -11987,11 +11875,6 @@ namespace AMSExplorer
             }
 
             if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
-        }
-
-        private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerDASHAzure);
         }
 
         private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12222,43 +12105,6 @@ namespace AMSExplorer
                 e.Effect = DragDropEffects.None;
             }
 
-        }
-
-        private void withFlashAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
-
-        }
-
-        private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
-        }
-
-        private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerAESToken);
-        }
-
-        private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
         }
 
         private void buttonUpdateMediaRU_Click(object sender, EventArgs e)
@@ -13502,20 +13348,13 @@ namespace AMSExplorer
         {
 
         }
-
-        private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
-        {
-        }
+       
 
         private void toolStripMenuItem26_Click(object sender, EventArgs e)
         {
             DoCreateFilter();
         }
 
-        private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerAMPDiagnostics);
-        }
 
         private void dataGridViewV_Resize(object sender, EventArgs e)
         {

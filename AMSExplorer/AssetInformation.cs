@@ -75,65 +75,7 @@ namespace AMSExplorer
                 }
             }
         }
-
-        private void toolStripMenuItemPlaybackFlash_Click(object sender, EventArgs e)
-        {
-            DoFlashPlayer();
-        }
-
-        private void DoFlashPlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._smooth_legacy:
-                        case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        default:
-                            break;
-                    }
-
-            }
-        }
-
-        private void toolStripMenuItemPlaybackSilverlight_Click(object sender, EventArgs e)
-        {
-            DoSLPlayer();
-        }
-
-        private void DoSLPlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._smooth_legacy:
-                        case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-
-                }
-            }
-        }
+       
 
         private void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
@@ -169,9 +111,6 @@ namespace AMSExplorer
                 {
                     toolStripMenuItemAzureMediaPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
-                    toolStripMenuItemDASHLiveAzure.Enabled = false;
-                    toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                    toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                     toolStripMenuItemPlaybackMP4.Enabled = false;
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
@@ -179,40 +118,28 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) | TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = true;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = true;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
-                        toolStripMenuItemDASHLiveAzure.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = true;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
                     }
@@ -1142,12 +1069,6 @@ namespace AMSExplorer
             DoDASHIFPlayer();
         }
 
-        private void buttonFlash_Click(object sender, EventArgs e)
-        {
-            DoFlashPlayer();
-        }
-
-
 
         private void buttonHTML_Click(object sender, EventArgs e)
         {
@@ -1162,8 +1083,6 @@ namespace AMSExplorer
                 {
                     buttonDASH.Enabled = false;
                     buttonAzureMediaPlayer.Enabled = false;
-                    buttonDashLiveAzure.Enabled = false;
-                    buttonFlash.Enabled = false;
                     buttonHTML.Enabled = false;
                     buttonOpen.Enabled = false;
                     buttonDel.Enabled = false;
@@ -1175,8 +1094,6 @@ namespace AMSExplorer
 
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1184,8 +1101,6 @@ namespace AMSExplorer
                         case AssetInfo._dash:
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonDashLiveAzure.Enabled = true;
-                            buttonFlash.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1193,8 +1108,6 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_https_SAS:
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = false;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = true;
                             break;
@@ -1202,8 +1115,6 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_http_streaming:
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = false;
                             buttonHTML.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".ism"));
                             break;
@@ -1259,11 +1170,6 @@ namespace AMSExplorer
                     }
                 }
             }
-        }
-
-        private void buttonSLMonitor_Click(object sender, EventArgs e)
-        {
-            DoSLPlayer();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1720,33 +1626,7 @@ namespace AMSExplorer
                 }
             }
         }
-
-        private void buttonDashLiveAzure_Click(object sender, EventArgs e)
-        {
-            DoDashLiveAzurePlayer();
-        }
-
-        private void DoDashLiveAzurePlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-
-                        default:
-                            break;
-                    }
-
-                }
-            }
-        }
+        
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {

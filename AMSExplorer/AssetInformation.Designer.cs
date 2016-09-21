@@ -38,10 +38,7 @@
             this.deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemPlaybackFlashAzure = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemPlaybackSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
@@ -117,7 +114,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
-            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
             this.buttonOpen = new System.Windows.Forms.Button();
@@ -126,7 +122,6 @@
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -208,13 +203,10 @@
             this.deleteLocatorToolStripMenuItem,
             this.toolStripMenuItemOpen,
             this.toolStripMenuItemAzureMediaPlayer,
-            this.toolStripMenuItemPlaybackFlashAzure,
-            this.toolStripMenuItemPlaybackSilverlightMonitoring,
             this.toolStripMenuItemDASHIF,
-            this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 202);
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 158);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
@@ -247,22 +239,6 @@
             this.toolStripMenuItemAzureMediaPlayer.Text = "Playback with Azure Media Player";
             this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
-            // toolStripMenuItemPlaybackFlashAzure
-            // 
-            this.toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-            this.toolStripMenuItemPlaybackFlashAzure.Name = "toolStripMenuItemPlaybackFlashAzure";
-            this.toolStripMenuItemPlaybackFlashAzure.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemPlaybackFlashAzure.Text = "Playback with Flash OSMF Azure Player";
-            this.toolStripMenuItemPlaybackFlashAzure.Click += new System.EventHandler(this.toolStripMenuItemPlaybackFlash_Click);
-            // 
-            // toolStripMenuItemPlaybackSilverlightMonitoring
-            // 
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Name = "toolStripMenuItemPlaybackSilverlightMonitoring";
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Text = "Playback with Silverlight Monitoring Player";
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Click += new System.EventHandler(this.toolStripMenuItemPlaybackSilverlight_Click);
-            // 
             // toolStripMenuItemDASHIF
             // 
             this.toolStripMenuItemDASHIF.Enabled = false;
@@ -270,13 +246,6 @@
             this.toolStripMenuItemDASHIF.Size = new System.Drawing.Size(322, 22);
             this.toolStripMenuItemDASHIF.Text = "Playback with MPEG-DASH-IF Reference Player";
             this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
-            // 
-            // toolStripMenuItemDASHLiveAzure
-            // 
-            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
-            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
-            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
             // 
             // toolStripMenuItemPlaybackMP4
             // 
@@ -1089,7 +1058,6 @@
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPage3.Controls.Add(this.checkBoxHttps);
-            this.tabPage3.Controls.Add(this.buttonDashLiveAzure);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
             this.tabPage3.Controls.Add(this.buttonOpen);
@@ -1098,7 +1066,6 @@
             this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
             this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.buttonFlash);
             this.tabPage3.Controls.Add(this.TreeViewLocators);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -1141,18 +1108,6 @@
             this.checkBoxHttps.Text = "HTTPS streaming endpoint URLs";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
             this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
-            // 
-            // buttonDashLiveAzure
-            // 
-            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDashLiveAzure.Enabled = false;
-            this.buttonDashLiveAzure.Location = new System.Drawing.Point(652, 473);
-            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
-            this.buttonDashLiveAzure.Size = new System.Drawing.Size(82, 27);
-            this.buttonDashLiveAzure.TabIndex = 31;
-            this.buttonDashLiveAzure.Text = "DASH Live";
-            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
-            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
             // 
             // label2
             // 
@@ -1228,7 +1183,7 @@
             // 
             this.buttonDASH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDASH.Enabled = false;
-            this.buttonDASH.Location = new System.Drawing.Point(514, 473);
+            this.buttonDASH.Location = new System.Drawing.Point(604, 473);
             this.buttonDASH.Name = "buttonDASH";
             this.buttonDASH.Size = new System.Drawing.Size(131, 27);
             this.buttonDASH.TabIndex = 23;
@@ -1245,18 +1200,6 @@
             this.label1.Size = new System.Drawing.Size(83, 15);
             this.label1.TabIndex = 21;
             this.label1.Text = "Playback with:";
-            // 
-            // buttonFlash
-            // 
-            this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(418, 473);
-            this.buttonFlash.Name = "buttonFlash";
-            this.buttonFlash.Size = new System.Drawing.Size(90, 27);
-            this.buttonFlash.TabIndex = 20;
-            this.buttonFlash.Text = "Flash OSMF";
-            this.buttonFlash.UseVisualStyleBackColor = true;
-            this.buttonFlash.Click += new System.EventHandler(this.buttonFlash_Click);
             // 
             // labelAssetNameTitle
             // 
@@ -1346,8 +1289,6 @@
         private System.Windows.Forms.DataGridView DGFiles;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackFlashAzure;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackSilverlightMonitoring;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHIF;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackMP4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
@@ -1373,7 +1314,6 @@
         private System.Windows.Forms.Button buttonHTML;
         private System.Windows.Forms.Button buttonDASH;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonFlash;
         private System.Windows.Forms.Button buttonOpen;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
         private System.Windows.Forms.Button buttonAzureMediaPlayer;
@@ -1402,8 +1342,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonGetTestToken;
-        private System.Windows.Forms.Button buttonDashLiveAzure;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHLiveAzure;
         private System.Windows.Forms.CheckBox checkBoxHttps;
         private System.Windows.Forms.Button buttonAudioVideoAnalysis;
         private System.Windows.Forms.Button buttonFileMetadata;
