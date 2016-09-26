@@ -550,23 +550,28 @@ namespace AMSExplorer
                 keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
             }
 
-            // let's key the url with the key id parameter
-            UriBuilder uriBuilder = new UriBuilder(keyAcquisitionUri);
-            uriBuilder.Query = String.Empty;
-            keyAcquisitionUri = uriBuilder.Uri;
-
             // Removed in March 2016. In order to use EnvelopeBaseKeyAcquisitionUrl and reuse the same policy for several assets
             //string envelopeEncryptionIV = Convert.ToBase64String(GetRandomBuffer(16));
 
-            // The following policy configuration specifies: 
-            //   key url that will have KID=<Guid> appended to the envelope and
-            //   the Initialization Vector (IV) to use for the envelope encryption.
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
-                new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
+               new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
+                       
+            
+            if (finalAcquisitionUrl)
             {
-                {finalAcquisitionUrl ? AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl: AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString()}
-            };
+                assetDeliveryPolicyConfiguration.Add( AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString());
+            }
+            else
+            {
+                // let's key the url with the key id parameter
+                UriBuilder uriBuilder = new UriBuilder(keyAcquisitionUri);
+                uriBuilder.Query = String.Empty;
+                keyAcquisitionUri = uriBuilder.Uri;
 
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString());
+
+            }
+                                    
             IAssetDeliveryPolicy assetDeliveryPolicy =
                 _context.AssetDeliveryPolicies.Create(
                             name,
