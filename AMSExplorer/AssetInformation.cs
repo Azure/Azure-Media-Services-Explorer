@@ -1900,6 +1900,7 @@ namespace AMSExplorer
                             try
                             {
                                 key.AuthorizationPolicyId = null;
+                                key.Update();
 
                                 if (DR == DialogResult.Yes) // user wants also to delete the auth policy
                                 {

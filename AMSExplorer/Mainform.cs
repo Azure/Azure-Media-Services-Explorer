@@ -2488,7 +2488,7 @@ namespace AMSExplorer
                     sbuilderThisAsset.AppendLine("SAS Container Path :");
                     sbuilderThisAsset.AppendLine(locator.Path);
                     sbuilderThisAsset.AppendLine("");
-                    
+
                     IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
 
                     // Generate the Progressive Download URLs for each file. 
@@ -11311,16 +11311,14 @@ namespace AMSExplorer
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("CENC and Envelope keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("CENC, FairPlay and Envelope keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("CENC and Envelope keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("CENC, FairPlay and Envelope keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
 
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-
-                bool deleteKeys = myDialogResult == DialogResult.Yes;
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
@@ -11341,7 +11339,8 @@ namespace AMSExplorer
                                 foreach (var key in CENCAESkeys)
                                 {
                                     DynamicEncryption.CleanupKey(_context, key);
-                                    if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
+                                    AssetToProcess.ContentKeys.Remove(key);
+                                    //if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
                                 }
                             }
                             catch (Exception e)
@@ -11353,7 +11352,7 @@ namespace AMSExplorer
                             }
                             if (!Error)
                             {
-                                TextBoxLogWriteLine("Removed CENC and Envelope keys for asset {0}.", AssetToProcess.Name);
+                                TextBoxLogWriteLine("Removed {0} key{1} for asset {0}.", KeysListIDs.Count, KeysListIDs.Count > 1 ? "s" : "", AssetToProcess.Name);
                             }
 
                             if (myDialogResult == DialogResult.Yes) // Let's delete the keys
@@ -11367,7 +11366,8 @@ namespace AMSExplorer
                                 {
                                     try
                                     {
-                                        DynamicEncryption.CleanupKey(_context, key);
+                                        //DynamicEncryption.CleanupKey(_context, key);
+                                        key.Delete();
                                     }
                                     catch (Exception e)
                                     {
@@ -11380,7 +11380,7 @@ namespace AMSExplorer
 
                                 if (!Error)
                                 {
-                                    TextBoxLogWriteLine("Deleted CENC, FairPlay and Envelope keys for asset {0}.", AssetToProcess.Name);
+                                    TextBoxLogWriteLine("Deleted {0} key{1} for asset {0}.", KeysListIDs.Count, KeysListIDs.Count > 1 ? "s" : "", AssetToProcess.Name);
                                 }
                             }
 
@@ -11545,7 +11545,7 @@ namespace AMSExplorer
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
         }
-       
+
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -13348,7 +13348,7 @@ namespace AMSExplorer
         {
 
         }
-       
+
 
         private void toolStripMenuItem26_Click(object sender, EventArgs e)
         {
