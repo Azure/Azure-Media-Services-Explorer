@@ -143,6 +143,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool SelectExistingPolicies
+        {
+            get
+            {
+                return checkBoxSelectPolicies.Checked;
+            }
+        }
+       
 
         private CloudMediaContext _context;
 
@@ -257,6 +265,11 @@ namespace AMSExplorer
                 groupBoxDelivery.Visible = false;
             }
 
+        }
+
+        private void checkBoxSelectPolicies_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxDelivery.Enabled = !checkBoxSelectPolicies.Checked;
         }
     }
 }

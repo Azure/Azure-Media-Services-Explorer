@@ -64,8 +64,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.TextBoxPolicyId = new System.Windows.Forms.TextBox();
-            this.buttonUseExistingAutpolicy = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -507,30 +505,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // TextBoxPolicyId
-            // 
-            this.TextBoxPolicyId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxPolicyId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxPolicyId.Location = new System.Drawing.Point(273, 655);
-            this.TextBoxPolicyId.Multiline = true;
-            this.TextBoxPolicyId.Name = "TextBoxPolicyId";
-            this.TextBoxPolicyId.ReadOnly = true;
-            this.TextBoxPolicyId.Size = new System.Drawing.Size(384, 27);
-            this.TextBoxPolicyId.TabIndex = 94;
-            this.TextBoxPolicyId.Text = "(no policy selected)";
-            // 
-            // buttonUseExistingAutpolicy
-            // 
-            this.buttonUseExistingAutpolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUseExistingAutpolicy.Location = new System.Drawing.Point(12, 655);
-            this.buttonUseExistingAutpolicy.Name = "buttonUseExistingAutpolicy";
-            this.buttonUseExistingAutpolicy.Size = new System.Drawing.Size(255, 27);
-            this.buttonUseExistingAutpolicy.TabIndex = 93;
-            this.buttonUseExistingAutpolicy.Text = "Or use an existing authorization policy...";
-            this.buttonUseExistingAutpolicy.UseVisualStyleBackColor = true;
-            this.buttonUseExistingAutpolicy.Click += new System.EventHandler(this.buttonUseExistingAutpolicy_Click);
-            // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -539,8 +513,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
-            this.Controls.Add(this.TextBoxPolicyId);
-            this.Controls.Add(this.buttonUseExistingAutpolicy);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxFairPlay);
             this.Controls.Add(this.panel1);
@@ -605,7 +577,5 @@
         private System.Windows.Forms.TextBox TextBoxCertificateFile;
         private System.Windows.Forms.LinkLabel moreinfoFairPlaylink;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox TextBoxPolicyId;
-        private System.Windows.Forms.Button buttonUseExistingAutpolicy;
     }
 }

@@ -10004,8 +10004,11 @@ namespace AMSExplorer
                         if (form2_CENC.ShowDialog() == DialogResult.OK)
                         {
                             var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
-                            if (form3_CENC.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_CENC.ShowDialog() == DialogResult.OK))
                             {
+
                                 bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0;
                                 bool NeedToDisplayWidevineLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0;
 
@@ -10016,7 +10019,7 @@ namespace AMSExplorer
                                 bool usercancelledform4or5 = false;
                                 bool usercancelledform4or6 = false;
 
-                                if (form3_CENC.UseExistingAuthorizationPolicy == null) // user did not select an existing authorization policy
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
                                     int step = 3;
                                     string tokensymmetrickey = null;
@@ -10082,10 +10085,10 @@ namespace AMSExplorer
                                         }
                                     }
                                 }
-                               
+
                                 if (!usercancelledform4or5 && !usercancelledform4or6)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, form6list, true);
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_ExistingPolicies, form3_CENC, form4list, form5list, form6list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10102,7 +10105,9 @@ namespace AMSExplorer
                         if (form2_CENC_Cbcs.ShowDialog() == DialogResult.OK)
                         {
                             var form3_CENC = new AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(_context);
-                            if (form3_CENC.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_CENC.ShowDialog() == DialogResult.OK))
                             {
                                 bool NeedToDisplayFairPlayLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0;
 
@@ -10110,7 +10115,7 @@ namespace AMSExplorer
 
                                 bool usercancelledform4 = false;
 
-                                if (form3_CENC.UseExistingAuthorizationPolicy == null) // user did not select an existing authorization policy
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
                                     int step = 3;
                                     string tokensymmetrickey = null;
@@ -10133,7 +10138,7 @@ namespace AMSExplorer
 
                                 if (!usercancelledform4)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_CENC, form4list, true);
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_ExistingPolicies, form3_CENC, form4list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10149,28 +10154,34 @@ namespace AMSExplorer
                         if (form2_AES.ShowDialog() == DialogResult.OK)
                         {
                             var form3_AES = new AddDynamicEncryptionFrame3_AESDelivery(_context);
-                            if (form3_AES.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_AES.ShowDialog() == DialogResult.OK))
                             {
                                 List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                 bool usercancelledform4 = false;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
+
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
-                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
                                     {
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4 = true;
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4 = true;
+                                        }
                                     }
                                 }
 
                                 if (!usercancelledform4)
                                 {
-                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_ExistingPolicies, form3_AES, form4list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10198,14 +10209,14 @@ namespace AMSExplorer
 
 
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENC(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5PlayReadyLicenseList, List<AddDynamicEncryptionFrame6_WidevineLicense> form6WidevineLicenseList, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENC(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5PlayReadyLicenseList, List<AddDynamicEncryptionFrame6_WidevineLicense> form6WidevineLicenseList, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             bool reusekey = false;
             bool firstkeycreation = true;
             IContentKey formerkey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_CENC.UseExistingAuthorizationPolicy;
-            IAssetDeliveryPolicy DelPol = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
 
             bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
@@ -10336,7 +10347,7 @@ namespace AMSExplorer
                             }
                         }
                     }
-                   
+
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
@@ -10559,12 +10570,13 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             IContentKey formerkey = null;
             IContentKey contentKey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_CENC.UseExistingAuthorizationPolicy;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
             // if the key already exists in the account (same key id), let's
             formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC_cbcs.KeyId.ToString()).FirstOrDefault();
@@ -10630,7 +10642,7 @@ namespace AMSExplorer
             }
 
 
-            IAssetDeliveryPolicy DelPol = null; // if not null, it means it has been created so we reuse for multiple assets
+            //  IAssetDeliveryPolicy DelPol = null; // if not null, it means it has been created so we reuse for multiple assets
 
 
             foreach (IAsset AssetToProcess in SelectedAssets)
@@ -10839,7 +10851,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, AddDynamicEncryptionFrame3_AESDelivery form3_AES, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_AESDelivery form3_AES, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             string aeskey = string.Empty;
@@ -10849,8 +10861,8 @@ namespace AMSExplorer
             IContentKey formerkey = null;
             bool reusekey = false;
 
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
-            IAssetDeliveryPolicy DelPol = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
             bool ManualForceKeyData = !form2.ContentKeyRandomGeneration;  // user want to manually enter the cryptography data
 

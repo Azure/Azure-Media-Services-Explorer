@@ -43,14 +43,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.labelkeylaurl = new System.Windows.Forms.Label();
             this.textBoxLAURL = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxKeyAcqUrl = new System.Windows.Forms.GroupBox();
+            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxKeyAcqUrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -214,22 +214,33 @@
             this.textBoxLAURL.TabIndex = 74;
             this.textBoxLAURL.TextChanged += new System.EventHandler(this.textBoxLAURL_TextChanged);
             // 
-            // groupBox2
+            // groupBoxKeyAcqUrl
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBoxKeyAcqUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.checkBoxFinalExtURL);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.labelkeylaurl);
-            this.groupBox2.Controls.Add(this.textBoxLAURL);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(14, 260);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(645, 223);
-            this.groupBox2.TabIndex = 78;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Key Acquisition Url";
+            this.groupBoxKeyAcqUrl.Controls.Add(this.checkBoxFinalExtURL);
+            this.groupBoxKeyAcqUrl.Controls.Add(this.label7);
+            this.groupBoxKeyAcqUrl.Controls.Add(this.labelkeylaurl);
+            this.groupBoxKeyAcqUrl.Controls.Add(this.textBoxLAURL);
+            this.groupBoxKeyAcqUrl.Controls.Add(this.label3);
+            this.groupBoxKeyAcqUrl.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBoxKeyAcqUrl.Location = new System.Drawing.Point(14, 260);
+            this.groupBoxKeyAcqUrl.Name = "groupBoxKeyAcqUrl";
+            this.groupBoxKeyAcqUrl.Size = new System.Drawing.Size(645, 223);
+            this.groupBoxKeyAcqUrl.TabIndex = 78;
+            this.groupBoxKeyAcqUrl.TabStop = false;
+            this.groupBoxKeyAcqUrl.Text = "Key Acquisition Url";
+            // 
+            // checkBoxFinalExtURL
+            // 
+            this.checkBoxFinalExtURL.AutoSize = true;
+            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(35, 166);
+            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
+            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(75, 19);
+            this.checkBoxFinalExtURL.TabIndex = 97;
+            this.checkBoxFinalExtURL.Text = "Final URL";
+            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -247,17 +258,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // checkBoxFinalExtURL
-            // 
-            this.checkBoxFinalExtURL.AutoSize = true;
-            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(35, 166);
-            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
-            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(75, 19);
-            this.checkBoxFinalExtURL.TabIndex = 97;
-            this.checkBoxFinalExtURL.Text = "Final URL";
-            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
-            // 
             // AddDynamicEncryptionFrame3_AESDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -266,7 +266,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxKeyAcqUrl);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -279,8 +279,8 @@
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxKeyAcqUrl.ResumeLayout(false);
+            this.groupBoxKeyAcqUrl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -302,7 +302,7 @@
         public System.Windows.Forms.Label labelkeylaurl;
         public System.Windows.Forms.TextBox textBoxLAURL;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxKeyAcqUrl;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.CheckBox checkBoxFinalExtURL;

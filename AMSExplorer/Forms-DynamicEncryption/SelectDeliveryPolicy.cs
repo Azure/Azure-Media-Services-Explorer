@@ -37,6 +37,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         private List<IAssetDeliveryPolicy> delPolicies;
+        private AssetDeliveryPolicyType _delpoltype;
 
         public IAssetDeliveryPolicy SelectedPolicy
         {
@@ -54,11 +55,12 @@ namespace AMSExplorer
         }
 
 
-        public SelectDeliveryPolicy(CloudMediaContext context)
+        public SelectDeliveryPolicy(CloudMediaContext context, AssetDeliveryPolicyType delpoltype = AssetDeliveryPolicyType.None)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _delpoltype = delpoltype;
         }
 
         private void EncodingAMEStandardPickOverlay_Load(object sender, EventArgs e)
@@ -68,9 +70,26 @@ namespace AMSExplorer
 
         private void ListPolicies()
         {
+            this.Cursor = Cursors.WaitCursor;
             listViewPolicies.Items.Clear();
+            DGDelPol.Rows.Clear();
 
-            delPolicies = _context.AssetDeliveryPolicies.ToList();
+
+
+            //  autPolicies = delPolicies = _context.AssetDeliveryPolicies.ToList().Where(p => p.AssetDeliveryPolicyType == _delpoltype).ToList();
+            if (_delpoltype != AssetDeliveryPolicyType.None)
+            {
+                delPolicies = _context.AssetDeliveryPolicies.Where(p => p.AssetDeliveryPolicyType == _delpoltype).ToList();
+
+            }
+            else
+            {
+                delPolicies = _context.AssetDeliveryPolicies.ToList();
+            }
+
+
+
+            //  delPolicies = _context.AssetDeliveryPolicies.ToList();
 
             listViewPolicies.BeginUpdate();
             foreach (var pol in delPolicies)
@@ -84,13 +103,15 @@ namespace AMSExplorer
             }
             listViewPolicies.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewPolicies.EndUpdate();
+            this.Cursor = Cursors.Default;
 
         }
 
-     
+
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonSelect.Enabled = listViewPolicies.SelectedItems.Count > 0;
+            buttonDelete.Enabled = listViewPolicies.SelectedItems.Count > 0;
+            buttonRename.Enabled = buttonSelect.Enabled = listViewPolicies.SelectedItems.Count == 1;
             DoDisplayDeliveryPolicyProperties();
         }
 
@@ -116,6 +137,97 @@ namespace AMSExplorer
                     {
                         DGDelPol.Rows.Add(string.Format("Config #{0}, \"{1}\"", i, conf.Key), conf.Value);
                         i++;
+                    }
+                }
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DoDeleteDelPol();
+        }
+        private void DoDeleteDelPol()
+        {
+
+            if (listViewPolicies.SelectedIndices.Count > 0)
+            {
+                string question;
+                int nbError = 0;
+                string messagestr = "";
+
+                if (listViewPolicies.SelectedIndices.Count == 1)
+                {
+                    question = "Are you sure that you want to DELETE this policy from the Azure Media Services account ?";
+                }
+                else
+                {
+                    question = string.Format("Are you sure that you want to DELETE these {0} policies from the Azure Media Services account ?", listViewPolicies.SelectedIndices.Count);
+                }
+
+                if (MessageBox.Show(question, "Delivery policy deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    foreach (var ind in listViewPolicies.SelectedIndices)
+                    {
+                        IAssetDeliveryPolicy DelPol = delPolicies.Skip((int)ind).Take(1).FirstOrDefault();
+
+                        if (DelPol != null)
+                        {
+                            try
+                            {
+                                DelPol.Delete();
+
+                            }
+                            catch (Exception e)
+                            {
+                                nbError++;
+                                if (e.InnerException != null)
+                                {
+                                    messagestr = Program.GetErrorMessage(e);
+                                }
+                            }
+                        }
+                    }
+                    this.Cursor = Cursors.Default;
+
+                    if (nbError > 0)
+                    {
+                        messagestr = string.Format("Error when deleting {0} delivery policies.", nbError) + Constants.endline + messagestr;
+                        MessageBox.Show(messagestr);
+                    }
+
+                    ListPolicies();
+
+                }
+            }
+        }
+
+        private void buttonRename_Click(object sender, EventArgs e)
+        {
+            DoMenuRenamePolicy();
+        }
+
+        private void DoMenuRenamePolicy()
+        {
+            if (listViewPolicies.SelectedIndices.Count == 1)
+            {
+                IAssetDeliveryPolicy DelPol = delPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                string value = DelPol.Name;
+
+                if (Program.InputBox("Policy rename", string.Format("Enter the new name for policy '{0}' :", DelPol.Name), ref value) == DialogResult.OK)
+                {
+                    try
+                    {
+                        DelPol.Name = value;
+                        DelPol.Update();
+                        ListPolicies();
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("There is a problem when renaming the policy.");
+                        return;
                     }
                 }
             }

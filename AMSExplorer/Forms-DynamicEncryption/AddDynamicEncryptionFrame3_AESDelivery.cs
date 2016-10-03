@@ -80,7 +80,6 @@ namespace AMSExplorer
             }
         }
 
-
         private CloudMediaContext _context;
 
         public AddDynamicEncryptionFrame3_AESDelivery(CloudMediaContext context)
@@ -126,11 +125,16 @@ namespace AMSExplorer
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled = (errorProvider1.GetError(textBoxLAURL) == string.Empty)
-                && 
-                (radioButtonDefineAuthPol.Checked 
-                ||
-                (radioButtonNoAuthPolicy.Checked && !string.IsNullOrWhiteSpace(textBoxLAURL.Text))) ;
+            buttonOk.Enabled =
+                (
+                    (errorProvider1.GetError(textBoxLAURL) == string.Empty)
+                    &&
+                    (
+                        radioButtonDefineAuthPol.Checked
+                        ||
+                        (radioButtonNoAuthPolicy.Checked && !string.IsNullOrWhiteSpace(textBoxLAURL.Text))
+                    )
+                );
         }
     }
 }

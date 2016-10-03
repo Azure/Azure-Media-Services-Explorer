@@ -158,6 +158,12 @@
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3_ExistingPolicies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -822,6 +828,9 @@
     </Content>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_ExistingPolicies.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3_ExistingPolicies.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>

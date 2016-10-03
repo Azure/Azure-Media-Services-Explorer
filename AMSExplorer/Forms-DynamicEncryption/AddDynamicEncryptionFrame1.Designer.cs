@@ -62,6 +62,7 @@
             this.checkBoxEnableDynEnc = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxSelectPolicies = new System.Windows.Forms.CheckBox();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -482,6 +483,17 @@
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
             // 
+            // checkBoxSelectPolicies
+            // 
+            this.checkBoxSelectPolicies.AutoSize = true;
+            this.checkBoxSelectPolicies.Location = new System.Drawing.Point(18, 660);
+            this.checkBoxSelectPolicies.Name = "checkBoxSelectPolicies";
+            this.checkBoxSelectPolicies.Size = new System.Drawing.Size(283, 19);
+            this.checkBoxSelectPolicies.TabIndex = 87;
+            this.checkBoxSelectPolicies.Text = "Select existing authorization and delivery policies";
+            this.checkBoxSelectPolicies.UseVisualStyleBackColor = true;
+            this.checkBoxSelectPolicies.CheckedChanged += new System.EventHandler(this.checkBoxSelectPolicies_CheckedChanged);
+            // 
             // AddDynamicEncryptionFrame1
             // 
             this.AcceptButton = this.buttonOk;
@@ -490,6 +502,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.checkBoxSelectPolicies);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxDelivery);
@@ -555,5 +568,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBoxSelectPolicies;
     }
 }

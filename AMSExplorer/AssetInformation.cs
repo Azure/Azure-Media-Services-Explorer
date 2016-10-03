@@ -2443,7 +2443,7 @@ namespace AMSExplorer
                 {
                     IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
 
-                    var form = new SelectAutPolicy(myContext);
+                    var form = new SelectAutPolicy(myContext, key.ContentKeyType);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         var AutPol = form.SelectedPolicy;

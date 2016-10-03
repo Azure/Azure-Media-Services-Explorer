@@ -37,6 +37,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         private List<IContentKeyAuthorizationPolicy> autPolicies;
+        private ContentKeyType _keyType;
 
         public IContentKeyAuthorizationPolicy SelectedPolicy
         {
@@ -54,11 +55,12 @@ namespace AMSExplorer
         }
 
 
-        public SelectAutPolicy(CloudMediaContext context)
+        public SelectAutPolicy(CloudMediaContext context, ContentKeyType keyType)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _keyType = keyType;
         }
 
         private void EncodingAMEStandardPickOverlay_Load(object sender, EventArgs e)
@@ -68,9 +70,30 @@ namespace AMSExplorer
 
         private void ListPolicies()
         {
+            this.Cursor = Cursors.WaitCursor;
             listViewPolicies.Items.Clear();
+            dataGridViewAutPolOption.Rows.Clear();
+            listViewAutPolOptions.Items.Clear();
 
-            autPolicies = _context.ContentKeyAuthorizationPolicies.ToList();
+            if (_keyType == ContentKeyType.EnvelopeEncryption)
+            {
+                autPolicies = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => p.Options.Any(o => o.KeyDeliveryType == ContentKeyDeliveryType.BaselineHttp)).ToList();
+
+            }
+            else if (_keyType == ContentKeyType.CommonEncryption)
+            {
+                autPolicies = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => p.Options.Any(o => o.KeyDeliveryType == ContentKeyDeliveryType.PlayReadyLicense || o.KeyDeliveryType == ContentKeyDeliveryType.Widevine)).ToList();
+
+            }
+            else if (_keyType == ContentKeyType.CommonEncryptionCbcs)
+            {
+                autPolicies = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => p.Options.Any(o => o.KeyDeliveryType == ContentKeyDeliveryType.FairPlay)).ToList();
+            }
+            else
+            {
+                autPolicies = _context.ContentKeyAuthorizationPolicies.ToList();
+
+            }
 
             listViewPolicies.BeginUpdate();
             foreach (var pol in autPolicies)
@@ -81,13 +104,14 @@ namespace AMSExplorer
             }
             listViewPolicies.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewPolicies.EndUpdate();
-
+            this.Cursor = Cursors.Default;
         }
 
 
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonSelect.Enabled = listViewPolicies.SelectedItems.Count > 0;
+            buttonDelete.Enabled = listViewPolicies.SelectedItems.Count > 0;
+            buttonRename.Enabled = buttonSelect.Enabled= listViewPolicies.SelectedItems.Count ==1;
             DoDisplayKeyPropertiesAndAutOptions();
         }
 
@@ -152,7 +176,7 @@ namespace AMSExplorer
                     {
                         dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
                         dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                        
+
                         if (restriction.Requirements != null)
                         {
                             // Restriction Requirements
@@ -214,10 +238,101 @@ namespace AMSExplorer
                         }
                     }
                 }
-               
+
             }
-            
+
         }
 
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DoDeleteAutPol();
+        }
+
+        private void DoDeleteAutPol()
+        {
+
+            if (listViewPolicies.SelectedIndices.Count > 0)
+            {
+                string question;
+                int nbError = 0;
+                string messagestr = "";
+
+                if (listViewPolicies.SelectedIndices.Count == 1)
+                {
+                    question = "Are you sure that you want to DELETE this policy from the Azure Media Services account ?";
+                }
+                else
+                {
+                    question = string.Format("Are you sure that you want to DELETE these {0} policies from the Azure Media Services account ?", listViewPolicies.SelectedIndices.Count);
+                }
+
+                if (MessageBox.Show(question, "Authorization policy deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    foreach (var ind in listViewPolicies.SelectedIndices)
+                    {
+                        IContentKeyAuthorizationPolicy AuthPol = autPolicies.Skip((int)ind).Take(1).FirstOrDefault();
+
+                        if (AuthPol != null)
+                        {
+                            try
+                            {
+                                AuthPol.Delete();
+
+                            }
+                            catch (Exception e)
+                            {
+                                nbError++;
+                                if (e.InnerException != null)
+                                {
+                                    messagestr = Program.GetErrorMessage(e);
+                                }
+                            }
+                        }
+                    }
+                    this.Cursor = Cursors.Default;
+
+                    if (nbError > 0)
+                    {
+                        messagestr = string.Format("Error when deleting {0} authorization policies.", nbError) + Constants.endline + messagestr;
+                        MessageBox.Show(messagestr);
+                    }
+
+                    ListPolicies();
+
+                }
+            }
+        }
+
+        private void DoMenuRenamePolicy()
+        {
+            if (listViewPolicies.SelectedIndices.Count == 1)
+            {
+                IContentKeyAuthorizationPolicy AuthPol = autPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                string value = AuthPol.Name;
+
+                if (Program.InputBox("Policy rename", string.Format("Enter the new name for policy '{0}' :", AuthPol.Name), ref value) == DialogResult.OK)
+                {
+                    try
+                    {
+                        AuthPol.Name = value;
+                        AuthPol.Update();
+                        ListPolicies();
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("There is a problem when renaming the policy.");
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void buttonRename_Click(object sender, EventArgs e)
+        {
+            DoMenuRenamePolicy();
+        }
     }
 }

@@ -55,8 +55,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonExternalWVServer = new System.Windows.Forms.RadioButton();
             this.radioButtonDeliverWVFromAMS = new System.Windows.Forms.RadioButton();
-            this.buttonUseExistingAutpolicy = new System.Windows.Forms.Button();
-            this.TextBoxPolicyId = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
             this.panelExternalPlayReady.SuspendLayout();
@@ -409,31 +407,6 @@
             this.radioButtonDeliverWVFromAMS.Text = "From Azure Media Services with";
             this.radioButtonDeliverWVFromAMS.UseVisualStyleBackColor = true;
             // 
-            // buttonUseExistingAutpolicy
-            // 
-            this.buttonUseExistingAutpolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUseExistingAutpolicy.Location = new System.Drawing.Point(12, 626);
-            this.buttonUseExistingAutpolicy.Name = "buttonUseExistingAutpolicy";
-            this.buttonUseExistingAutpolicy.Size = new System.Drawing.Size(255, 27);
-            this.buttonUseExistingAutpolicy.TabIndex = 72;
-            this.buttonUseExistingAutpolicy.Text = "Or use an existing authorization policy...";
-            this.buttonUseExistingAutpolicy.UseVisualStyleBackColor = true;
-            this.buttonUseExistingAutpolicy.Click += new System.EventHandler(this.buttonAddExistingDelPol_Click);
-            // 
-            // TextBoxPolicyId
-            // 
-            this.TextBoxPolicyId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxPolicyId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxPolicyId.Location = new System.Drawing.Point(273, 626);
-            this.TextBoxPolicyId.Multiline = true;
-            this.TextBoxPolicyId.Name = "TextBoxPolicyId";
-            this.TextBoxPolicyId.ReadOnly = true;
-            this.TextBoxPolicyId.Size = new System.Drawing.Size(384, 27);
-            this.TextBoxPolicyId.TabIndex = 92;
-            this.TextBoxPolicyId.Text = "(no policy selected)";
-            this.TextBoxPolicyId.TextChanged += new System.EventHandler(this.TextBoxPolicyId_TextChanged);
-            // 
             // AddDynamicEncryptionFrame3_CENCDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -442,8 +415,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
-            this.Controls.Add(this.TextBoxPolicyId);
-            this.Controls.Add(this.buttonUseExistingAutpolicy);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxWidevine);
             this.Controls.Add(this.groupBoxPlayReady);
@@ -499,7 +470,5 @@
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.CheckBox checkBoxWidevineFinalExtURL;
-        private System.Windows.Forms.Button buttonUseExistingAutpolicy;
-        private System.Windows.Forms.TextBox TextBoxPolicyId;
     }
 }
