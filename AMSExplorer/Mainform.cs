@@ -10000,8 +10000,6 @@ namespace AMSExplorer
                         AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
 
                             forceusertoprovidekey)
-                        //  !NeedToDisplayPlayReadyLicense,
-                        // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
                         { Left = form1.Left, Top = form1.Top };
                         if (form2_CENC.ShowDialog() == DialogResult.OK)
                         {
@@ -10018,69 +10016,73 @@ namespace AMSExplorer
                                 bool usercancelledform4or5 = false;
                                 bool usercancelledform4or6 = false;
 
-                                int step = 3;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                                if (form3_CENC.UseExistingAuthorizationPolicy == null) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    int step = 3;
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                                     {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                        AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        step++;
-                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+
+                                        if (form4.ShowDialog() == DialogResult.OK)
                                         {
-                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
-                                            form5_PlayReadyLicense.PlayReadOptionName = string.Format("{0}{1} PlayReady Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
-                                            if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                            AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            step++;
+                                            if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                             {
-                                                form5list.Add(form5_PlayReadyLicense);
+                                                string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                                form5_PlayReadyLicense.PlayReadOptionName = string.Format("{0}{1} PlayReady Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
+                                                if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                                {
+                                                    form5list.Add(form5_PlayReadyLicense);
+                                                }
+                                                else
+                                                {
+                                                    usercancelledform4or5 = true;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4or5 = true;
+                                        }
+                                    }
+
+                                    // widevine
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                                    {
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                            AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                            form6_WidevineLicense.WidevinePolicyName = string.Format("{0}{1} Widevine Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
+
+                                            step++;
+
+                                            if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            {
+                                                form6list.Add(form6_WidevineLicense);
                                             }
                                             else
                                             {
-                                                usercancelledform4or5 = true;
+                                                usercancelledform4or6 = true;
                                             }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4or5 = true;
-                                    }
-                                }
-
-                                // widevine
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
-                                {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                    if (form4.ShowDialog() == DialogResult.OK)
-                                    {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
-                                        form6_WidevineLicense.WidevinePolicyName = string.Format("{0}{1} Widevine Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
-
-                                        step++;
-
-                                        if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                        {
-                                            form6list.Add(form6_WidevineLicense);
                                         }
                                         else
                                         {
                                             usercancelledform4or6 = true;
                                         }
                                     }
-                                    else
-                                    {
-                                        usercancelledform4or6 = true;
-                                    }
                                 }
+                               
                                 if (!usercancelledform4or5 && !usercancelledform4or6)
                                 {
                                     DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, form6list, true);
@@ -10108,21 +10110,24 @@ namespace AMSExplorer
 
                                 bool usercancelledform4 = false;
 
-                                int step = 3;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                if (form3_CENC.UseExistingAuthorizationPolicy == null) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "FairPlay", tokensymmetrickey, false) { Left = form2_CENC_Cbcs.Left, Top = form2_CENC_Cbcs.Top };
+                                    int step = 3;
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                    {
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "FairPlay", tokensymmetrickey, false) { Left = form2_CENC_Cbcs.Left, Top = form2_CENC_Cbcs.Top };
 
-                                    if (form4.ShowDialog() == DialogResult.OK)
-                                    {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4 = true;
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4 = true;
+                                        }
                                     }
                                 }
 
@@ -10199,7 +10204,7 @@ namespace AMSExplorer
             bool reusekey = false;
             bool firstkeycreation = true;
             IContentKey formerkey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_CENC.UseExistingAuthorizationPolicy;
             IAssetDeliveryPolicy DelPol = null;
 
 
@@ -10331,12 +10336,7 @@ namespace AMSExplorer
                             }
                         }
                     }
-                    else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
-                                   // TO DO ? : if user wants to deliver license from external servers
-                                   // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
-                    {
-                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
-                    }
+                   
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
@@ -10564,7 +10564,7 @@ namespace AMSExplorer
             bool ErrorCreationKey = false;
             IContentKey formerkey = null;
             IContentKey contentKey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_CENC.UseExistingAuthorizationPolicy;
 
             // if the key already exists in the account (same key id), let's
             formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC_cbcs.KeyId.ToString()).FirstOrDefault();

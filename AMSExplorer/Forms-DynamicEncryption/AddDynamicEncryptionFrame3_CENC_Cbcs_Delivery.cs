@@ -149,8 +149,17 @@ namespace AMSExplorer
             }
         }
 
+        public IContentKeyAuthorizationPolicy UseExistingAuthorizationPolicy
+        {
+            get
+            {
+                return _existingAuthorizationPolicy;
+            }
+        }
+
         private CloudMediaContext _context;
         private PFXCertificate cert = new PFXCertificate();
+        private IContentKeyAuthorizationPolicy _existingAuthorizationPolicy;
 
         public AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(CloudMediaContext context)
         {
@@ -190,7 +199,9 @@ namespace AMSExplorer
             buttonOk.Enabled =
                 (radioButtonDeliverFairPlayfromAMS.Checked && cert.Certificate != null && FairPlayASK != null)
                 ||
-                (radioButtonExternalFairPlayServer.Checked && !string.IsNullOrWhiteSpace(textBoxFairPlayLAurl.Text) && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty);
+                (radioButtonExternalFairPlayServer.Checked && !string.IsNullOrWhiteSpace(textBoxFairPlayLAurl.Text) && errorProvider1.GetError(textBoxFairPlayLAurl) == string.Empty)
+                ||
+                (_existingAuthorizationPolicy != null);
         }
 
         private void textBoxFairPlayLAurl_TextChanged(object sender, EventArgs e)
@@ -317,6 +328,22 @@ namespace AMSExplorer
         private void moreinfoFairPlaylink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void buttonUseExistingAutpolicy_Click(object sender, EventArgs e)
+        {
+            var form = new SelectAutPolicy(_context);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var pol = form.SelectedPolicy;
+                if (pol != null)
+                {
+                    groupBoxFairPlay.Enabled = false;
+                    _existingAuthorizationPolicy = pol;
+                    TextBoxPolicyId.Text = string.Format("{0} ({1})", pol.Name, pol.Id);
+                    ValidateButtonOk();
+                }
+            }
         }
     }
 

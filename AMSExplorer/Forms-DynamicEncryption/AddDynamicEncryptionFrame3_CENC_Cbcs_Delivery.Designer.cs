@@ -36,6 +36,7 @@
             this.groupBoxFairPlay = new System.Windows.Forms.GroupBox();
             this.moreinfoFairPlaylink = new System.Windows.Forms.LinkLabel();
             this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.TextBoxCertificateFile = new System.Windows.Forms.TextBox();
             this.textBoxASK = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -63,7 +64,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label10 = new System.Windows.Forms.Label();
+            this.TextBoxPolicyId = new System.Windows.Forms.TextBox();
+            this.buttonUseExistingAutpolicy = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -133,7 +135,7 @@
             this.groupBoxFairPlay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFairPlay.Location = new System.Drawing.Point(12, 87);
             this.groupBoxFairPlay.Name = "groupBoxFairPlay";
-            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 574);
+            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 561);
             this.groupBoxFairPlay.TabIndex = 52;
             this.groupBoxFairPlay.TabStop = false;
             this.groupBoxFairPlay.Text = "Apple FairPlay Streaming";
@@ -167,6 +169,18 @@
             this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
             this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 230);
             this.panelFairPlayFromAMS.TabIndex = 85;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(223, 57);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(354, 15);
+            this.label10.TabIndex = 97;
+            this.label10.Text = "Read the online documentation to learn how to create the PFX file";
             // 
             // TextBoxCertificateFile
             // 
@@ -299,7 +313,7 @@
             this.panelExternalFairPlay.Controls.Add(this.label7);
             this.panelExternalFairPlay.Controls.Add(this.label3);
             this.panelExternalFairPlay.Enabled = false;
-            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 342);
+            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 329);
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
             this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 171);
             this.panelExternalFairPlay.TabIndex = 81;
@@ -437,7 +451,7 @@
             // 
             this.radioButtonExternalFairPlayServer.AutoSize = true;
             this.radioButtonExternalFairPlayServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 320);
+            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 307);
             this.radioButtonExternalFairPlayServer.Name = "radioButtonExternalFairPlayServer";
             this.radioButtonExternalFairPlayServer.Size = new System.Drawing.Size(201, 19);
             this.radioButtonExternalFairPlayServer.TabIndex = 62;
@@ -482,7 +496,7 @@
             // 
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(50, 616);
+            this.label8.Location = new System.Drawing.Point(50, 603);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(597, 32);
             this.label8.TabIndex = 69;
@@ -493,17 +507,29 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label10
+            // TextBoxPolicyId
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(223, 57);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(354, 15);
-            this.label10.TabIndex = 97;
-            this.label10.Text = "Read the online documentation to learn how to create the PFX file";
+            this.TextBoxPolicyId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBoxPolicyId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxPolicyId.Location = new System.Drawing.Point(273, 655);
+            this.TextBoxPolicyId.Multiline = true;
+            this.TextBoxPolicyId.Name = "TextBoxPolicyId";
+            this.TextBoxPolicyId.ReadOnly = true;
+            this.TextBoxPolicyId.Size = new System.Drawing.Size(384, 27);
+            this.TextBoxPolicyId.TabIndex = 94;
+            this.TextBoxPolicyId.Text = "(no policy selected)";
+            // 
+            // buttonUseExistingAutpolicy
+            // 
+            this.buttonUseExistingAutpolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUseExistingAutpolicy.Location = new System.Drawing.Point(12, 655);
+            this.buttonUseExistingAutpolicy.Name = "buttonUseExistingAutpolicy";
+            this.buttonUseExistingAutpolicy.Size = new System.Drawing.Size(255, 27);
+            this.buttonUseExistingAutpolicy.TabIndex = 93;
+            this.buttonUseExistingAutpolicy.Text = "Or use an existing authorization policy...";
+            this.buttonUseExistingAutpolicy.UseVisualStyleBackColor = true;
+            this.buttonUseExistingAutpolicy.Click += new System.EventHandler(this.buttonUseExistingAutpolicy_Click);
             // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
@@ -513,6 +539,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.TextBoxPolicyId);
+            this.Controls.Add(this.buttonUseExistingAutpolicy);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxFairPlay);
             this.Controls.Add(this.panel1);
@@ -577,5 +605,7 @@
         private System.Windows.Forms.TextBox TextBoxCertificateFile;
         private System.Windows.Forms.LinkLabel moreinfoFairPlaylink;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox TextBoxPolicyId;
+        private System.Windows.Forms.Button buttonUseExistingAutpolicy;
     }
 }

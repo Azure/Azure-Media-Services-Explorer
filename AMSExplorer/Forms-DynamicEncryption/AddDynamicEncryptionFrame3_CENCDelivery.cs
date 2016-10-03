@@ -34,7 +34,7 @@ namespace AMSExplorer
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
 
-     
+
         public Uri PlayReadyLAurl
         {
             get
@@ -123,10 +123,19 @@ namespace AMSExplorer
             }
         }
 
+        public IContentKeyAuthorizationPolicy UseExistingAuthorizationPolicy
+        {
+            get
+            {
+                return _existingAuthorizationPolicy;
+            }
+        }
+
 
         private CloudMediaContext _context;
         private bool _PlayReadyPackagingEnabled;
         private bool _WidevinePackagingEnabled;
+        private IContentKeyAuthorizationPolicy _existingAuthorizationPolicy = null;
 
         public AddDynamicEncryptionFrame3_CENCDelivery(CloudMediaContext context, bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
         {
@@ -160,7 +169,7 @@ namespace AMSExplorer
         {
             panelExternalPlayReady.Enabled = radioButtonExternalPRServer.Checked;
             numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalPRServer.Checked;
-           
+
         }
 
         private void radioButtonExternalWVServer_CheckedChanged(object sender, EventArgs e)
@@ -169,12 +178,24 @@ namespace AMSExplorer
             numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalWVServer.Checked;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var form = new SelectDeliveryPolicy(_context);
-            form.ShowDialog();
 
-            var s = form.SelectedPolicy.Id;
+        private void buttonAddExistingDelPol_Click(object sender, EventArgs e)
+        {
+            var form = new SelectAutPolicy(_context);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var pol = form.SelectedPolicy;
+                if (pol != null)
+                {
+                    groupBoxPlayReady.Enabled = groupBoxWidevine.Enabled = false;
+                    _existingAuthorizationPolicy = pol;
+                    TextBoxPolicyId.Text = string.Format("{0} ({1})", pol.Name, pol.Id);
+                }
+            }
+        }
+
+        private void TextBoxPolicyId_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
