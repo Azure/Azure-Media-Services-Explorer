@@ -168,5 +168,14 @@ namespace AMSExplorer
             panelExternalWidevine.Enabled = radioButtonExternalWVServer.Checked;
             numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalWVServer.Checked;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var form = new SelectDeliveryPolicy(_context);
+            form.ShowDialog();
+
+            var s = form.SelectedPolicy.Id;
+
+        }
     }
 }

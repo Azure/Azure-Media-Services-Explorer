@@ -86,6 +86,7 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonAddExistingAutPol = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
@@ -104,6 +105,7 @@
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonAddExistingDelPol = new System.Windows.Forms.Button();
             this.buttonRemoveDelPol = new System.Windows.Forms.Button();
             this.DGDelPol = new System.Windows.Forms.DataGridView();
             this.listViewDelPol = new System.Windows.Forms.ListView();
@@ -206,7 +208,7 @@
             this.toolStripMenuItemDASHIF,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 158);
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 136);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
@@ -765,6 +767,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonAddExistingAutPol);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPolOption);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
@@ -782,6 +785,18 @@
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // buttonAddExistingAutPol
+            // 
+            this.buttonAddExistingAutPol.Enabled = false;
+            this.buttonAddExistingAutPol.Location = new System.Drawing.Point(13, 338);
+            this.buttonAddExistingAutPol.Name = "buttonAddExistingAutPol";
+            this.buttonAddExistingAutPol.Size = new System.Drawing.Size(187, 27);
+            this.buttonAddExistingAutPol.TabIndex = 45;
+            this.buttonAddExistingAutPol.Text = "Add an existing auth policy...";
+            this.toolTip1.SetToolTip(this.buttonAddExistingAutPol, "Delete the selected file");
+            this.buttonAddExistingAutPol.UseVisualStyleBackColor = true;
+            this.buttonAddExistingAutPol.Click += new System.EventHandler(this.buttonAddExistingAutPol_Click);
+            // 
             // buttonRemoveAuthPolOption
             // 
             this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -797,7 +812,7 @@
             // buttonRemoveAuthPol
             // 
             this.buttonRemoveAuthPol.Enabled = false;
-            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(129, 272);
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(13, 305);
             this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
             this.buttonRemoveAuthPol.Size = new System.Drawing.Size(140, 27);
             this.buttonRemoveAuthPol.TabIndex = 43;
@@ -971,6 +986,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.buttonAddExistingDelPol);
             this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
             this.tabPage4.Controls.Add(this.DGDelPol);
             this.tabPage4.Controls.Add(this.listViewDelPol);
@@ -981,15 +997,27 @@
             this.tabPage4.Text = "Delivery policies";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // buttonAddExistingDelPol
+            // 
+            this.buttonAddExistingDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddExistingDelPol.Location = new System.Drawing.Point(174, 469);
+            this.buttonAddExistingDelPol.Name = "buttonAddExistingDelPol";
+            this.buttonAddExistingDelPol.Size = new System.Drawing.Size(166, 27);
+            this.buttonAddExistingDelPol.TabIndex = 35;
+            this.buttonAddExistingDelPol.Text = "Add an existing policy...";
+            this.toolTip1.SetToolTip(this.buttonAddExistingDelPol, "Delete the selected file");
+            this.buttonAddExistingDelPol.UseVisualStyleBackColor = true;
+            this.buttonAddExistingDelPol.Click += new System.EventHandler(this.buttonAddExistingDelPol_Click);
+            // 
             // buttonRemoveDelPol
             // 
             this.buttonRemoveDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveDelPol.Enabled = false;
             this.buttonRemoveDelPol.Location = new System.Drawing.Point(10, 469);
             this.buttonRemoveDelPol.Name = "buttonRemoveDelPol";
-            this.buttonRemoveDelPol.Size = new System.Drawing.Size(156, 27);
+            this.buttonRemoveDelPol.Size = new System.Drawing.Size(158, 27);
             this.buttonRemoveDelPol.TabIndex = 34;
-            this.buttonRemoveDelPol.Text = "Remove delivery policy";
+            this.buttonRemoveDelPol.Text = "Remove selected policy";
             this.toolTip1.SetToolTip(this.buttonRemoveDelPol, "Delete the selected file");
             this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
             this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
@@ -1378,5 +1406,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button buttonAddExistingDelPol;
+        private System.Windows.Forms.Button buttonAddExistingAutPol;
     }
 }

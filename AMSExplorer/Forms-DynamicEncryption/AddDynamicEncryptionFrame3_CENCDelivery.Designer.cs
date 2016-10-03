@@ -48,13 +48,14 @@
             this.labelPreview = new System.Windows.Forms.Label();
             this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.panelExternalWidevine = new System.Windows.Forms.Panel();
+            this.checkBoxWidevineFinalExtURL = new System.Windows.Forms.CheckBox();
             this.textBoxWVLAurl = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonExternalWVServer = new System.Windows.Forms.RadioButton();
             this.radioButtonDeliverWVFromAMS = new System.Windows.Forms.RadioButton();
-            this.checkBoxWidevineFinalExtURL = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
             this.panelExternalPlayReady.SuspendLayout();
@@ -329,6 +330,17 @@
             this.panelExternalWidevine.Size = new System.Drawing.Size(597, 90);
             this.panelExternalWidevine.TabIndex = 83;
             // 
+            // checkBoxWidevineFinalExtURL
+            // 
+            this.checkBoxWidevineFinalExtURL.AutoSize = true;
+            this.checkBoxWidevineFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxWidevineFinalExtURL.Location = new System.Drawing.Point(26, 62);
+            this.checkBoxWidevineFinalExtURL.Name = "checkBoxWidevineFinalExtURL";
+            this.checkBoxWidevineFinalExtURL.Size = new System.Drawing.Size(402, 19);
+            this.checkBoxWidevineFinalExtURL.TabIndex = 98;
+            this.checkBoxWidevineFinalExtURL.Text = "Final URL (the keyid will not be added to URL by the dynamic packager)";
+            this.checkBoxWidevineFinalExtURL.UseVisualStyleBackColor = true;
+            // 
             // textBoxWVLAurl
             // 
             this.textBoxWVLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -396,16 +408,15 @@
             this.radioButtonDeliverWVFromAMS.Text = "From Azure Media Services with";
             this.radioButtonDeliverWVFromAMS.UseVisualStyleBackColor = true;
             // 
-            // checkBoxWidevineFinalExtURL
+            // button1
             // 
-            this.checkBoxWidevineFinalExtURL.AutoSize = true;
-            this.checkBoxWidevineFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxWidevineFinalExtURL.Location = new System.Drawing.Point(26, 62);
-            this.checkBoxWidevineFinalExtURL.Name = "checkBoxWidevineFinalExtURL";
-            this.checkBoxWidevineFinalExtURL.Size = new System.Drawing.Size(402, 19);
-            this.checkBoxWidevineFinalExtURL.TabIndex = 98;
-            this.checkBoxWidevineFinalExtURL.Text = "Final URL (the keyid will not be added to URL by the dynamic packager)";
-            this.checkBoxWidevineFinalExtURL.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(62, 634);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 72;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AddDynamicEncryptionFrame3_CENCDelivery
             // 
@@ -415,6 +426,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxWidevine);
             this.Controls.Add(this.groupBoxPlayReady);
@@ -470,5 +482,6 @@
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.CheckBox checkBoxWidevineFinalExtURL;
+        private System.Windows.Forms.Button button1;
     }
 }

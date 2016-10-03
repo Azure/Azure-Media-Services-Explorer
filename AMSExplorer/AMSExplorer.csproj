@@ -152,46 +152,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame4.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame4.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame6_WidevineLicense.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame6_WidevineLicense.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="ChannelRunOnPremisesEncoder.cs">
@@ -217,6 +217,18 @@
     </Compile>
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\SelectAutPolicy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\SelectAutPolicy.Designer.cs">
+      <DependentUpon>SelectAutPolicy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.Designer.cs">
+      <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-Telemetry\DisplayTelemetry.cs">
       <SubType>Form</SubType>
@@ -458,16 +470,16 @@
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagementREST.cs" />
-    <Compile Include="AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame5_PlayReadyLicense.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame1.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame1.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.cs">
@@ -477,10 +489,10 @@
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="DynamicEncryption.cs" />
-    <Compile Include="AddDynamicEncryptionFrame2_CENCKeyConfig.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2_CENCKeyConfig.Designer.cs">
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
@@ -808,25 +820,25 @@
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3_AESDelivery.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_AESDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENCDelivery.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame3_CENCDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame4.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame4.resx">
       <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame6_WidevineLicense.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.resx">
       <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
@@ -846,6 +858,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\SelectAutPolicy.resx">
+      <DependentUpon>SelectAutPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.resx">
+      <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-Telemetry\DisplayTelemetry.resx">
       <DependentUpon>DisplayTelemetry.cs</DependentUpon>
@@ -962,16 +980,16 @@
     <EmbeddedResource Include="ProcessFromJobTemplate.resx">
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
       <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame1.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame1.resx">
       <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame2_CENCKeyConfig.resx">
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENCKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">

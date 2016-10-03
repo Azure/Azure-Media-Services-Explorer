@@ -75,7 +75,7 @@ namespace AMSExplorer
                 }
             }
         }
-       
+
 
         private void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
@@ -743,7 +743,6 @@ namespace AMSExplorer
                     foreach (var conf in ADP.AssetDeliveryConfiguration)
                     {
                         DGDelPol.Rows.Add(string.Format("Config #{0}, \"{1}\"", i, conf.Key), conf.Value);
-                        //DGDelPol.Rows.Add(string.Format("Configuration #{0}, Value", i), conf.Value);
                         i++;
                     }
                 }
@@ -1482,8 +1481,8 @@ namespace AMSExplorer
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
-            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled = buttonGetTestToken.Enabled = false;
+            buttonRemoveKey.Enabled = buttonAddExistingAutPol.Enabled = listViewKeys.SelectedItems.Count > 0;
+            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled =  buttonGetTestToken.Enabled = false;
             DoDisplayKeyPropertiesAndAutOptions();
         }
 
@@ -1626,7 +1625,7 @@ namespace AMSExplorer
                 }
             }
         }
-        
+
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
@@ -2393,5 +2392,89 @@ namespace AMSExplorer
             DoRemoveAuthPol();
 
         }
+
+        private void buttonAddExistingDelPol_Click(object sender, EventArgs e)
+        {
+            DoAddExistingDelPol();
+        }
+
+
+        private void DoAddExistingDelPol()
+        {
+
+            var form = new SelectDeliveryPolicy(myContext);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                IAssetDeliveryPolicy DP = form.SelectedPolicy;
+                if (DP != null)
+                {
+
+                    try
+                    {
+                        myAsset.DeliveryPolicies.Add(DP);
+                    }
+
+                    catch (Exception e)
+                    {
+                        string messagestr = string.Format("Error when attaching the delivery policy.");
+                        if (e.InnerException != null)
+                        {
+                            messagestr += Constants.endline + Program.GetErrorMessage(e);
+                        }
+                        MessageBox.Show(messagestr);
+                    }
+
+                    ListAssetDeliveryPolicies();
+                }
+            }
+        }
+
+        private void buttonAddExistingAutPol_Click(object sender, EventArgs e)
+        {
+            DoAddExistingAutPol();
+        }
+
+        private void DoAddExistingAutPol()
+        {
+
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                if (listViewKeys.SelectedItems[0] != null)
+                {
+                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                    var form = new SelectAutPolicy(myContext);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        var AutPol = form.SelectedPolicy;
+                        if (AutPol != null)
+                        {
+
+
+                            try
+                            {
+                                key.AuthorizationPolicyId = AutPol.Id;
+                                key.Update();
+                            }
+
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when attaching an existing authorization policy.");
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
+
+                            DoDisplayKeyPropertiesAndAutOptions();
+                        }
+                    }
+
+                }
+            }
+        }
     }
+
 }
+
