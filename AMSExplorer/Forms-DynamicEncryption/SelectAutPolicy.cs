@@ -65,6 +65,9 @@ namespace AMSExplorer
 
         private void EncodingAMEStandardPickOverlay_Load(object sender, EventArgs e)
         {
+            listViewPolicies.Tag = -1;
+            listViewPolicies.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
+
             ListPolicies();
         }
 
@@ -333,6 +336,11 @@ namespace AMSExplorer
         private void buttonRename_Click(object sender, EventArgs e)
         {
             DoMenuRenamePolicy();
+        }
+
+        private void listViewPolicies_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewItemComparer.ListView_ColumnClick(sender, e);
         }
     }
 }

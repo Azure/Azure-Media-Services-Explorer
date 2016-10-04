@@ -43,6 +43,7 @@ namespace AMSExplorer
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRename = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@ namespace AMSExplorer
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(659, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(645, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 40;
@@ -64,7 +65,7 @@ namespace AMSExplorer
             this.buttonSelect.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSelect.Enabled = false;
             this.buttonSelect.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSelect.Location = new System.Drawing.Point(533, 15);
+            this.buttonSelect.Location = new System.Drawing.Point(519, 15);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(119, 27);
             this.buttonSelect.TabIndex = 39;
@@ -78,9 +79,9 @@ namespace AMSExplorer
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonSelect);
-            this.panel1.Location = new System.Drawing.Point(-5, 505);
+            this.panel1.Location = new System.Drawing.Point(-5, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(791, 55);
+            this.panel1.Size = new System.Drawing.Size(777, 55);
             this.panel1.TabIndex = 63;
             // 
             // labelStorageAccount
@@ -197,6 +198,15 @@ namespace AMSExplorer
             this.buttonRename.UseVisualStyleBackColor = true;
             this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(761, 506);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(27, 43);
+            this.panel2.TabIndex = 81;
+            // 
             // SelectAutPolicy
             // 
             this.AcceptButton = this.buttonSelect;
@@ -205,6 +215,7 @@ namespace AMSExplorer
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonRename);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.label3);
@@ -215,6 +226,7 @@ namespace AMSExplorer
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "SelectAutPolicy";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Policy Selection";
             this.Load += new System.EventHandler(this.EncodingAMEStandardPickOverlay_Load);
@@ -239,5 +251,6 @@ namespace AMSExplorer
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonRename;
+        private System.Windows.Forms.Panel panel2;
     }
 }

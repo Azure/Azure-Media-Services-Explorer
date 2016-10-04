@@ -10375,7 +10375,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if(!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -10530,7 +10530,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else
+                        else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
                             if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
@@ -10703,7 +10703,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -10809,7 +10809,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else
+                        else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
 
@@ -11011,7 +11011,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -11111,7 +11111,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine(e);
                         }
                     }
-                    else
+                    else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                     {
                         // Let's create the Asset Delivery Policy now
                         string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());

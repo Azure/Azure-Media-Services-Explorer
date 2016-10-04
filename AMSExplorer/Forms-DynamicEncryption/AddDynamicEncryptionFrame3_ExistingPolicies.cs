@@ -74,13 +74,16 @@ namespace AMSExplorer
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled =
+            buttonOk.Enabled = true;
+
+            /*
                 (
                    _existingDeliveryPolicy != null
                &&
                 _existingAuthorizationPolicy != null
                 )
                 ;
+                */
         }
 
         private void buttonUseExistingAutpolicy_Click(object sender, EventArgs e)

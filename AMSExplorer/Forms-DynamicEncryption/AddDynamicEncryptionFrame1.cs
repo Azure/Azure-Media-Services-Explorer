@@ -188,7 +188,7 @@ namespace AMSExplorer
         }
 
 
-        private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonControl_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonAESClearKey.Checked)
             {
@@ -204,6 +204,8 @@ namespace AMSExplorer
                 checkBoxEnableDynEnc.Visible = true;
 
                 groupBoxDelivery.Visible = true;
+
+                checkBoxSelectPolicies.Visible = true;
             }
             else if (radioButtonCENCCbcsKey.Checked)
             {
@@ -222,6 +224,8 @@ namespace AMSExplorer
                 checkBoxEnableDynEnc.Visible = true;
 
                 groupBoxDelivery.Visible = true;
+
+                checkBoxSelectPolicies.Visible = true;
             }
             else if (radioButtonCENCKey.Checked)
             {
@@ -239,6 +243,8 @@ namespace AMSExplorer
                 checkBoxEnableDynEnc.Visible = true;
 
                 groupBoxDelivery.Visible = true;
+
+                checkBoxSelectPolicies.Visible = true;
             }
             else if (radioButtonDecryptStorage.Checked)
             {
@@ -255,6 +261,8 @@ namespace AMSExplorer
                 checkBoxEnableDynEnc.Visible = false;
 
                 groupBoxDelivery.Visible = true;
+
+                checkBoxSelectPolicies.Visible = false;
             }
             else if (radioButtonNoDynEnc.Checked)
             {
@@ -262,6 +270,13 @@ namespace AMSExplorer
 
                 checkBoxEnableDynEnc.Visible = true;
 
+                groupBoxDelivery.Visible = false;
+
+                checkBoxSelectPolicies.Visible = false;
+            }
+
+            if (checkBoxSelectPolicies.Checked && checkBoxSelectPolicies.Visible)
+            {
                 groupBoxDelivery.Visible = false;
             }
 

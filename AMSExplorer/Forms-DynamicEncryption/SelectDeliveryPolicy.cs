@@ -65,6 +65,9 @@ namespace AMSExplorer
 
         private void EncodingAMEStandardPickOverlay_Load(object sender, EventArgs e)
         {
+            listViewPolicies.Tag = -1;
+            listViewPolicies.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
+
             ListPolicies();
         }
 

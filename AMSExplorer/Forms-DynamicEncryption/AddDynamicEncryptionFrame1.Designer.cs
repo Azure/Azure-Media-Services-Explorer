@@ -106,7 +106,7 @@
             this.radioButtonAESClearKey.TabIndex = 44;
             this.radioButtonAESClearKey.Text = "Envelope clear key";
             this.radioButtonAESClearKey.UseVisualStyleBackColor = true;
-            this.radioButtonAESClearKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
+            this.radioButtonAESClearKey.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // radioButtonCENCKey
             // 
@@ -120,7 +120,7 @@
             this.radioButtonCENCKey.TabStop = true;
             this.radioButtonCENCKey.Text = "Common encryption (PlayReady, Widevine...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
-            this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
+            this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // groupBoxKeyType
             // 
@@ -202,7 +202,7 @@
             this.radioButtonCENCCbcsKey.TabIndex = 63;
             this.radioButtonCENCCbcsKey.Text = "Common encryption cbcs (FairPlay)";
             this.radioButtonCENCCbcsKey.UseVisualStyleBackColor = true;
-            this.radioButtonCENCCbcsKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
+            this.radioButtonCENCCbcsKey.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // radioButtonNoDynEnc
             // 
@@ -214,7 +214,7 @@
             this.radioButtonNoDynEnc.TabIndex = 62;
             this.radioButtonNoDynEnc.Text = "None - Asset already CENC encrypted";
             this.radioButtonNoDynEnc.UseVisualStyleBackColor = true;
-            this.radioButtonNoDynEnc.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
+            this.radioButtonNoDynEnc.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // pictureBox1
             // 
@@ -236,7 +236,7 @@
             this.radioButtonDecryptStorage.TabIndex = 61;
             this.radioButtonDecryptStorage.Text = "Decryption (stream storage encrypted asset(s) in clear)";
             this.radioButtonDecryptStorage.UseVisualStyleBackColor = true;
-            this.radioButtonDecryptStorage.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
+            this.radioButtonDecryptStorage.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // pictureBox3
             // 
@@ -492,7 +492,7 @@
             this.checkBoxSelectPolicies.TabIndex = 87;
             this.checkBoxSelectPolicies.Text = "Select existing authorization and delivery policies";
             this.checkBoxSelectPolicies.UseVisualStyleBackColor = true;
-            this.checkBoxSelectPolicies.CheckedChanged += new System.EventHandler(this.checkBoxSelectPolicies_CheckedChanged);
+            this.checkBoxSelectPolicies.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // AddDynamicEncryptionFrame1
             // 

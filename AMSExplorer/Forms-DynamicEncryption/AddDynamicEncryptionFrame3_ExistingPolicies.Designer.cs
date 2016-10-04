@@ -49,7 +49,6 @@
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Enabled = false;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(386, 13);
             this.buttonOk.Name = "buttonOk";
