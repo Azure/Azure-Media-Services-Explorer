@@ -206,7 +206,7 @@ namespace AMSExplorer
             string language = ((Item)comboBoxLanguage.SelectedItem).Value as string;
             string orientation = ((Item)comboBoxOrientation.SelectedItem).Value as string;
 
-            if (!string.IsNullOrEmpty(language) || checkBoxTimeInterval.Checked || checkBoxRestrictDetection.Checked || !string.IsNullOrEmpty(orientation))
+            if (!string.IsNullOrEmpty(language) || checkBoxTimeInterval.Checked || checkBoxRestrictDetection.Checked || !string.IsNullOrEmpty(orientation) || checkBoxAdvancedOutput.Checked)
             {
                 obj.Options = new JObject();
                 if (!string.IsNullOrEmpty(language))
@@ -235,6 +235,11 @@ namespace AMSExplorer
                 if (!string.IsNullOrEmpty(orientation))
                 {
                     obj.Options.TextOrientation = orientation;
+                }
+
+                if (checkBoxAdvancedOutput.Checked)
+                {
+                    obj.Options.AdvancedOutput = true.ToString();
                 }
             }
 

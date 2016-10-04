@@ -53,6 +53,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panelSelectRegions = new System.Windows.Forms.Panel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
@@ -61,16 +63,15 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
-            this.panelSelectRegions = new System.Windows.Forms.Panel();
+            this.checkBoxAdvancedOutput = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPageConfig.SuspendLayout();
             this.panelSelectRegions.SuspendLayout();
+            this.tabPageConfig.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -329,6 +330,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxAdvancedOutput);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.comboBoxOrientation);
             this.tabPage1.Controls.Add(this.label6);
@@ -354,6 +356,24 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Regions";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panelSelectRegions
+            // 
+            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
+            this.panelSelectRegions.Enabled = false;
+            this.panelSelectRegions.Location = new System.Drawing.Point(192, 6);
+            this.panelSelectRegions.Name = "panelSelectRegions";
+            this.panelSelectRegions.Size = new System.Drawing.Size(370, 100);
+            this.panelSelectRegions.TabIndex = 109;
+            // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Location = new System.Drawing.Point(3, 14);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Select...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
             // tabPageConfig
             // 
@@ -435,23 +455,16 @@
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 109;
             // 
-            // buttonRegionEditor
+            // checkBoxAdvancedOutput
             // 
-            this.buttonRegionEditor.Location = new System.Drawing.Point(3, 14);
-            this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
-            this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Select...";
-            this.buttonRegionEditor.UseVisualStyleBackColor = true;
-            // 
-            // panelSelectRegions
-            // 
-            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
-            this.panelSelectRegions.Enabled = false;
-            this.panelSelectRegions.Location = new System.Drawing.Point(192, 6);
-            this.panelSelectRegions.Name = "panelSelectRegions";
-            this.panelSelectRegions.Size = new System.Drawing.Size(370, 100);
-            this.panelSelectRegions.TabIndex = 109;
+            this.checkBoxAdvancedOutput.AutoSize = true;
+            this.checkBoxAdvancedOutput.Location = new System.Drawing.Point(30, 104);
+            this.checkBoxAdvancedOutput.Name = "checkBoxAdvancedOutput";
+            this.checkBoxAdvancedOutput.Size = new System.Drawing.Size(170, 19);
+            this.checkBoxAdvancedOutput.TabIndex = 93;
+            this.checkBoxAdvancedOutput.Text = "Advanced output (verbose)";
+            this.checkBoxAdvancedOutput.UseVisualStyleBackColor = true;
+            this.checkBoxAdvancedOutput.CheckedChanged += new System.EventHandler(this.control_changed);
             // 
             // MediaAnalyticsVideoOCR
             // 
@@ -488,9 +501,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panelSelectRegions.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
-            this.panelSelectRegions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -532,5 +545,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelSelectRegions;
         private ButtonRegionEditor buttonRegionEditor;
+        private System.Windows.Forms.CheckBox checkBoxAdvancedOutput;
     }
 }

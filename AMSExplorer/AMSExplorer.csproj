@@ -248,28 +248,28 @@
     <Compile Include="Forms-Telemetry\ConfigureTelemetry.Designer.cs">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsRedaction.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsRedaction.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.Designer.cs">
       <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsMotionDetection.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsMotionDetection.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.Designer.cs">
       <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsVideoOCR.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsVideoOCR.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.Designer.cs">
       <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsPickVideoFileInAsset.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsPickVideoFileInAsset.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.Designer.cs">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </Compile>
     <Compile Include="IndexerV2.cs">
@@ -328,22 +328,22 @@
     <Compile Include="BulkContainerInfo.Designer.cs">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsVideoThumbnails.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsVideoThumbnails.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.Designer.cs">
       <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsFaceDetection.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsFaceDetection.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.Designer.cs">
       <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaAnalyticsGeneric.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaAnalyticsGeneric.Designer.cs">
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.Designer.cs">
       <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareUpdate.cs">
@@ -880,16 +880,16 @@
     <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsRedaction.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.resx">
       <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsMotionDetection.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.resx">
       <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsVideoOCR.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.resx">
       <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsPickVideoFileInAsset.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
@@ -913,13 +913,13 @@
     <EmbeddedResource Include="BulkContainerInfo.resx">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsVideoThumbnails.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.resx">
       <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsFaceDetection.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.resx">
       <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaAnalyticsGeneric.resx">
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.resx">
       <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
