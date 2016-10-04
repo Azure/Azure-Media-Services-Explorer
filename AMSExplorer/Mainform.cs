@@ -7316,9 +7316,8 @@ namespace AMSExplorer
                 }
             }
         }
-
-
-
+           
+        
         private void WaitForCreatingProcessToCloseFileThenDoStuff(object threadContext)
         {
             // Make sure the just-found file is done being
@@ -7342,7 +7341,8 @@ namespace AMSExplorer
                     // Do Stuff
                     Debug.WriteLine(path);
 
-                    try
+
+                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                     {
                         var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
@@ -7354,12 +7354,9 @@ namespace AMSExplorer
                               MyWatchFolderSettings),
                               response.token);
                     }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
-                        TextBoxLogWriteLine(e);
-                    }
+
                     break;
+                
                 }
                 catch (FileNotFoundException)
                 {
@@ -7373,11 +7370,13 @@ namespace AMSExplorer
                 catch (IOException ex)
                 {
                     // mask in severity, customer, and code
-                    var hr = (int)(ex.HResult & 0xA000FFFF);
-                    if (hr != 0x80000020 && hr != 0x80000021)
+                    var hr = (Int64)(ex.HResult & 0xA000FFFF);
+                    if (hr != 0x80000020  && hr != 0x80000021)
                     {
                         // not a share violation or a lock violation
-                        throw;
+                        TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
+                        TextBoxLogWriteLine(ex);
+                        break;
                     }
                 }
 
@@ -7398,10 +7397,11 @@ namespace AMSExplorer
                 if (DateTime.Now - lastLengthChange > noGrowthLimit)
                 {
                     // 5 minutes, still locked, no growth.
+                    TextBoxLogWriteLine("Error: file locked, no growth...", true);
                     break;
                 }
 
-                Thread.Sleep(111);
+                Thread.Sleep(500);
             }
         }
 
