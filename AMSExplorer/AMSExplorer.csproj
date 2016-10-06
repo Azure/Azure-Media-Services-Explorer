@@ -651,85 +651,85 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 for iOS.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 for iOS.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 for iOS.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 for iOS.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p.json">
+    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4K Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 4K Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4K.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 4K.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p Audio 5.1.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 720p Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p for Android.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 720p for Android.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate 720p.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate High Quality SD for Android.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate High Quality SD for Android.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
+    <Content Include="MESPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\AAC Good Quality Audio.json">
+    <Content Include="MESPresetFiles\AAC Good Quality Audio.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AMEStandardPresetFiles\AAC Audio.json">
+    <Content Include="MESPresetFiles\AAC Audio.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="BitmapsPNG\hyperlapse-large.png" />

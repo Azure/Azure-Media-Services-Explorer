@@ -874,7 +874,7 @@ namespace AMSExplorer
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
-        public const string PathAMEStdFiles = @"\AMEStandardPresetFiles\";
+        public const string PathMESFiles = @"\MESPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathManifestFile = @"\manifest\";
         public const string PathHelpFiles = @"\HelpFiles\";

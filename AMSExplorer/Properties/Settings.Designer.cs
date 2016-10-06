@@ -373,18 +373,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AMEStandardPresetXMLFilesCurrentFolder {
-            get {
-                return ((string)(this["AMEStandardPresetXMLFilesCurrentFolder"]));
-            }
-            set {
-                this["AMEStandardPresetXMLFilesCurrentFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://testacs")]
         public string DynEncTokenIssuer {
             get {
@@ -560,6 +548,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["MigratedLoginListToJSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MESPresetFilesCurrentFolder {
+            get {
+                return ((string)(this["MESPresetFilesCurrentFolder"]));
+            }
+            set {
+                this["MESPresetFilesCurrentFolder"] = value;
             }
         }
     }

@@ -621,8 +621,8 @@ namespace AMSExplorer
 
                     EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
-                    EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                    EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                    EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                    EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                     SelectedAssets = _selectedAssets
                 };
 

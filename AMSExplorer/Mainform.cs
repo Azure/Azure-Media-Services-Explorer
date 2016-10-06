@@ -151,9 +151,9 @@ namespace AMSExplorer
             }
 
             // AME Standard preset folder
-            if ((Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder)))
+            if ((Properties.Settings.Default.MESPresetFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.MESPresetFilesCurrentFolder)))
             {
-                Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEStdFiles;
+                Properties.Settings.Default.MESPresetFilesCurrentFolder = Application.StartupPath + Constants.PathMESFiles;
             }
 
             // Default Slate Image
@@ -9330,8 +9330,8 @@ namespace AMSExplorer
 
                 EncodingJobName = "Thumbnails generation (MES) of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
-                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                 SelectedAssets = SelectedAssets
             };
 
@@ -13158,8 +13158,8 @@ namespace AMSExplorer
 
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
-                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                 SelectedAssets = SelectedAssets
             };
 
