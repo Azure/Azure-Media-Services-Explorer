@@ -363,6 +363,20 @@ namespace AMSExplorer
         {
             if (openFileDialogAssetFiles.ShowDialog() == DialogResult.OK)
             {
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(openFileDialogAssetFiles.FileNames.ToList());
+                if (listpb.Count > 0)
+                {
+                    if (listpb.Count > 1)
+                    {
+                        MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    return;
+                }
+
                 foreach (var file in openFileDialogAssetFiles.FileNames)
                 {
                     assetFiles.Add(new BulkAssetFile() { AssetName = Path.GetFileName(file), FileName = file });
@@ -401,10 +415,25 @@ namespace AMSExplorer
 
                 if (files.Count > 0)
                 {
-                    Guid g = Guid.NewGuid();
-                    foreach (var file in files)
+                    var listpb = AssetInfo.ReturnFilenamesWithProblem(files);
+                    if (listpb.Count > 0)
                     {
-                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(openFolderDialog.FileName), FileName = file });
+                        if (listpb.Count > 1)
+                        {
+                            MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        Guid g = Guid.NewGuid();
+                        foreach (var file in files)
+                        {
+                            assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(openFolderDialog.FileName), FileName = file });
+                        }
                     }
                 }
 
@@ -413,14 +442,29 @@ namespace AMSExplorer
                 foreach (var folder in folders)
                 {
                     var filesinfolder = Directory.GetFiles(folder).ToList();
-
+                   
                     if (filesinfolder.Count > 0)
                     {
-                        Guid g = Guid.NewGuid();
-                        string thisassetname = Path.GetFileNameWithoutExtension(filesinfolder[0]);
-                        foreach (var file in filesinfolder)
+                        var listpb = AssetInfo.ReturnFilenamesWithProblem(filesinfolder);
+                        if (listpb.Count > 0)
                         {
-                            assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folder), FileName = file });
+                            if (listpb.Count > 1)
+                            {
+                                MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            Guid g = Guid.NewGuid();
+                            string thisassetname = Path.GetFileNameWithoutExtension(filesinfolder[0]);
+                            foreach (var file in filesinfolder)
+                            {
+                                assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folder), FileName = file });
+                            }
                         }
                     }
                 }

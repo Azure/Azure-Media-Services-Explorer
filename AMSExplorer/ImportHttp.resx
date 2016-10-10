@@ -123,4 +123,7 @@ https://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f6-47e3-a78
 
 Use a SAS locator with the LIST permission (AMSE v3.44 or later)</value>
   </data>
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

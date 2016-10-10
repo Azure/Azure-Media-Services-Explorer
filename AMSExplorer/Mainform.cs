@@ -1305,66 +1305,87 @@ namespace AMSExplorer
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
-                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
-                try
-                {
-                    asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
-                                                          storageaccount,
-                                                          assetcreationoptions,
-                                                          token);
 
-                    foreach (var file in listfiles)
-                    {
-                        IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
-                        if (token.IsCancellationRequested) return;
-                        UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
-                        UploadedAssetFile.Upload(file.URI);
-                    }
-
-                    AssetInfo.SetAFileAsPrimary(asset);
-                }
-                catch (Exception e)
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.URI)).ToList());
+                if (listpb.Count > 0)
                 {
+                    TextBoxLogWriteLine("These file names are not compatible with Media Services :\n" + string.Join("\n", listpb) + "\nOperation aborted.", true);
+                    DoGridTransferDeclareError(guidTransfer);
                     Error = true;
-                    DoGridTransferDeclareError(guidTransfer, e);
-                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                    TextBoxLogWriteLine(e);
-                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                    try
                     {
-                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                        asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
+                                                              storageaccount,
+                                                              assetcreationoptions,
+                                                              token);
+
+                        foreach (var file in listfiles)
                         {
-                            TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
+                            if (token.IsCancellationRequested) return;
+                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
+                            UploadedAssetFile.Upload(file.URI);
+                        }
+
+                        AssetInfo.SetAFileAsPrimary(asset);
+                    }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, e);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                        TextBoxLogWriteLine(e);
+                        if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
                         }
                     }
                 }
             }
             else // normal case
             {
-                TextBoxLogWriteLine("Starting upload of file '{0}'", name);
-                try
+                if (!AssetInfo.AssetFileNameIsOk(name as string))
                 {
-                    asset = await _context.Assets.CreateFromFileAsync(
-                                                          name as string,
-                                                          storageaccount,
-                                                          assetcreationoptions,
-                                                          (af, p) =>
-                                                          {
-                                                              DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                                                          },
-                                                          token
-                                                          );
-                    AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
-                }
-                catch (Exception e)
-                {
+                    TextBoxLogWriteLine("File name is not compatible with Media Services :\n" + name as string + "\nOperation aborted.", true);
+                    DoGridTransferDeclareError(guidTransfer);
                     Error = true;
-                    DoGridTransferDeclareError(guidTransfer, e);
-                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                    TextBoxLogWriteLine(e);
-                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Starting upload of file '{0}'", name);
+                    try
                     {
-                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                        asset = await _context.Assets.CreateFromFileAsync(
+                                                              name as string,
+                                                              storageaccount,
+                                                              assetcreationoptions,
+                                                              (af, p) =>
+                                                              {
+                                                                  DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                                                              },
+                                                              token
+                                                              );
+                        AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
                     }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, e);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                        TextBoxLogWriteLine(e);
+                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                        {
+                            TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                        }
+                    }
+
                 }
             }
 

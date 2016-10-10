@@ -30,8 +30,6 @@
         {
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.checkedListBoxFiles = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxFolders = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -42,6 +40,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkedListBoxFolders = new System.Windows.Forms.ListView();
+            this.checkedListBoxFiles = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -73,30 +73,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // checkedListBoxFiles
-            // 
-            this.checkedListBoxFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBoxFiles.CheckOnClick = true;
-            this.checkedListBoxFiles.FormattingEnabled = true;
-            this.checkedListBoxFiles.Location = new System.Drawing.Point(7, 32);
-            this.checkedListBoxFiles.Name = "checkedListBoxFiles";
-            this.checkedListBoxFiles.Size = new System.Drawing.Size(587, 94);
-            this.checkedListBoxFiles.TabIndex = 2;
-            // 
-            // checkedListBoxFolders
-            // 
-            this.checkedListBoxFolders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBoxFolders.CheckOnClick = true;
-            this.checkedListBoxFolders.FormattingEnabled = true;
-            this.checkedListBoxFolders.Location = new System.Drawing.Point(7, 22);
-            this.checkedListBoxFolders.Name = "checkedListBoxFolders";
-            this.checkedListBoxFolders.Size = new System.Drawing.Size(587, 130);
-            this.checkedListBoxFolders.TabIndex = 3;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -126,18 +102,18 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxFolders);
             this.splitContainer1.Panel1.Controls.Add(this.buttonFolderDeselAll);
             this.splitContainer1.Panel1.Controls.Add(this.buttonFolderSelAll);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxFolders);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Controls.Add(this.buttonFileDeselAll);
             this.splitContainer1.Panel2.Controls.Add(this.buttonFileSelAll);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(607, 405);
             this.splitContainer1.SplitterDistance = 198;
@@ -169,7 +145,7 @@
             // buttonFileDeselAll
             // 
             this.buttonFileDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileDeselAll.Location = new System.Drawing.Point(101, 164);
+            this.buttonFileDeselAll.Location = new System.Drawing.Point(101, 163);
             this.buttonFileDeselAll.Name = "buttonFileDeselAll";
             this.buttonFileDeselAll.Size = new System.Drawing.Size(87, 27);
             this.buttonFileDeselAll.TabIndex = 8;
@@ -180,7 +156,7 @@
             // buttonFileSelAll
             // 
             this.buttonFileSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileSelAll.Location = new System.Drawing.Point(7, 164);
+            this.buttonFileSelAll.Location = new System.Drawing.Point(7, 163);
             this.buttonFileSelAll.Name = "buttonFileSelAll";
             this.buttonFileSelAll.Size = new System.Drawing.Size(87, 27);
             this.buttonFileSelAll.TabIndex = 7;
@@ -220,6 +196,33 @@
             this.panel1.Size = new System.Drawing.Size(636, 55);
             this.panel1.TabIndex = 56;
             // 
+            // checkedListBoxFolders
+            // 
+            this.checkedListBoxFolders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxFolders.CheckBoxes = true;
+            this.checkedListBoxFolders.Location = new System.Drawing.Point(7, 20);
+            this.checkedListBoxFolders.Name = "checkedListBoxFolders";
+            this.checkedListBoxFolders.Size = new System.Drawing.Size(587, 142);
+            this.checkedListBoxFolders.TabIndex = 7;
+            this.checkedListBoxFolders.UseCompatibleStateImageBehavior = false;
+            this.checkedListBoxFolders.View = System.Windows.Forms.View.List;
+            // 
+            // checkedListBoxFiles
+            // 
+            this.checkedListBoxFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxFiles.CheckBoxes = true;
+            this.checkedListBoxFiles.GridLines = true;
+            this.checkedListBoxFiles.Location = new System.Drawing.Point(7, 30);
+            this.checkedListBoxFiles.Name = "checkedListBoxFiles";
+            this.checkedListBoxFiles.Size = new System.Drawing.Size(587, 128);
+            this.checkedListBoxFiles.TabIndex = 9;
+            this.checkedListBoxFiles.UseCompatibleStateImageBehavior = false;
+            this.checkedListBoxFiles.View = System.Windows.Forms.View.List;
+            // 
             // BatchUploadFrame2
             // 
             this.AcceptButton = this.buttonUpload;
@@ -253,8 +256,6 @@
 
         private System.Windows.Forms.Button buttonUpload;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.CheckedListBox checkedListBoxFiles;
-        private System.Windows.Forms.CheckedListBox checkedListBoxFolders;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -265,5 +266,7 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView checkedListBoxFolders;
+        private System.Windows.Forms.ListView checkedListBoxFiles;
     }
 }

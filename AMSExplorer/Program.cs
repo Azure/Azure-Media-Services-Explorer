@@ -3118,6 +3118,8 @@ namespace AMSExplorer
             // check if the filename is compatible with AMS
             // see https://azure.microsoft.com/en-us/documentation/articles/media-services-rest-upload-files/
 
+            filename = Path.GetFileName(filename);
+
             Regex reg = new Regex(@"[!\*'\(\);:@&=\+\$,/\?%#[\]]", RegexOptions.Compiled);
             // . $ ^ { [ ( | ) * + ? \
 
@@ -3142,10 +3144,9 @@ namespace AMSExplorer
             List<string> listreturn = new List<string>();
             foreach (string f in filenames)
             {
-                string fn = Path.GetFileName(f);
-                if (!AssetFileNameIsOk(fn))
+                if (!AssetFileNameIsOk(f))
                 {
-                    listreturn.Add(fn);
+                    listreturn.Add(Path.GetFileName(f));
                 }
             }
             return listreturn;

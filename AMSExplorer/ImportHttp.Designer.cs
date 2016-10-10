@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportHttp));
             this.buttonImport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -43,8 +44,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -108,7 +111,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAssetName.Location = new System.Drawing.Point(10, 44);
             this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(702, 23);
+            this.textBoxAssetName.Size = new System.Drawing.Size(686, 23);
             this.textBoxAssetName.TabIndex = 1;
             // 
             // label3
@@ -126,8 +129,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAssetFileName.Location = new System.Drawing.Point(10, 96);
             this.textBoxAssetFileName.Name = "textBoxAssetFileName";
-            this.textBoxAssetFileName.Size = new System.Drawing.Size(702, 23);
+            this.textBoxAssetFileName.Size = new System.Drawing.Size(686, 23);
             this.textBoxAssetFileName.TabIndex = 2;
+            this.textBoxAssetFileName.TextChanged += new System.EventHandler(this.textBoxAssetFileName_TextChanged);
             // 
             // label4
             // 
@@ -198,6 +202,10 @@
             this.labelSASListExample.Text = resources.GetString("labelSASListExample.Text");
             this.labelSASListExample.Visible = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
@@ -222,6 +230,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,5 +252,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTitle;
         public System.Windows.Forms.Label labelSASListExample;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

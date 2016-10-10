@@ -77,7 +77,7 @@ namespace AMSExplorer
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
         {
-           
+
             bool Error = false;
             try
             {
@@ -114,6 +114,20 @@ namespace AMSExplorer
             if (!Error)
             {
                 labelURLFileNameWarning.Text = string.Empty;
+            }
+        }
+
+        private void textBoxAssetFileName_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (!AssetInfo.AssetFileNameIsOk(tb.Text))
+            {
+                errorProvider1.SetError(tb, "Asset file name is not compatible with Media Services");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
             }
         }
     }
