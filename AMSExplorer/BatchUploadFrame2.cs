@@ -99,7 +99,7 @@ namespace AMSExplorer
                         filecount = Directory.GetFiles(folder).Count();
                         s = filecount > 1 ? "{0} ({1} files)" : "{0} ({1} file)";
                         checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount), true);
-                    }
+                     }
                 }
             }
             catch (Exception e)

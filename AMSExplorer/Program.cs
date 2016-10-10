@@ -48,6 +48,7 @@ using Microsoft.Win32;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace AMSExplorer
 {
@@ -702,18 +703,27 @@ namespace AMSExplorer
         }
 
 
-        public static void CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
+        public static bool CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
         {
             // Let's create the email with Outlook
-            Outlook.Application outlookApp = new Outlook.Application();
-            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            try
+            {
+                Outlook.Application outlookApp = new Outlook.Application();
+                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
 
-            mailItem.To = RecipientEmailAddress;
-            mailItem.Subject = Subject;
-            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-            mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-            mailItem.Display(false);
-            mailItem.Send();
+                mailItem.To = RecipientEmailAddress;
+                mailItem.Subject = Subject;
+                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+                mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+                mailItem.Display(false);
+                mailItem.Send();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
 
         public static string ReturnNameForProtocol(StreamingProtocol protocol)
@@ -1990,7 +2000,7 @@ namespace AMSExplorer
             PublishStatus LocPubStatus;
             if (!(Locator.ExpirationDateTime < DateTime.UtcNow))
             {// not in the past
-                // if  locator is not valid today but will be in the future
+             // if  locator is not valid today but will be in the future
                 if (Locator.StartTime != null)
                 {
                     LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
@@ -2826,7 +2836,7 @@ namespace AMSExplorer
                         // user wants perhaps to play an asset with a token, so let's try to generate it
                         switch (typeplayer)
                         {
-                           
+
                             case PlayerType.AzureMediaPlayer:
                             case PlayerType.AzureMediaPlayerFrame:
                             case PlayerType.CustomPlayer:
@@ -3103,7 +3113,43 @@ namespace AMSExplorer
             }
         }
 
+        public static bool AssetFileNameIsOk(string filename)
+        {
+            // check if the filename is compatible with AMS
+            // see https://azure.microsoft.com/en-us/documentation/articles/media-services-rest-upload-files/
 
+            Regex reg = new Regex(@"[!\*'\(\);:@&=\+\$,/\?%#[\]]", RegexOptions.Compiled);
+            // . $ ^ { [ ( | ) * + ? \
+
+            bool Regexok = !reg.IsMatch(filename);
+            bool lenghtok = filename.Length <= 260;
+
+            int count = 0;
+            int i = 0;
+            while ((i =filename.IndexOf('.', i)) != -1)
+            {
+                i++;
+                count++;
+            }
+            bool dotok = count < 2;
+
+            return Regexok && lenghtok && dotok;
+        }
+
+        // Return the list of problematic filenames
+        public static List<string> ReturnFilenamesWithProblem(List<string> filenames)
+        {
+            List<string> listreturn = new List<string>();
+            foreach (string f in filenames)
+            {
+                string fn = Path.GetFileName(f);
+                if (!AssetFileNameIsOk(fn))
+                {
+                    listreturn.Add(fn);
+                }
+            }
+            return listreturn;
+        }
     }
 
     public class TaskSizeAndPrice
@@ -3917,11 +3963,11 @@ namespace AMSExplorer
         {
             int returnVal;
             // Determine whether the type being compared is a date type.
-            
-                // Compare the two items as a string.
-                returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
-                            ((ListViewItem)y).SubItems[col].Text);
-            
+
+            // Compare the two items as a string.
+            returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
+                        ((ListViewItem)y).SubItems[col].Text);
+
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
                 // Invert the value returned by String.Compare.

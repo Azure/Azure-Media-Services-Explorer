@@ -2282,11 +2282,8 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-
-
-            var editform = new EditorXMLJSON("Clear key value", key.ToString(), false, false);
+            var editform = new EditorXMLJSON("Value", key.ToString(), false, false);
             editform.Display();
-
         }
 
         private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)

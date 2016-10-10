@@ -90,7 +90,7 @@ namespace AMSExplorer
             _WatchFolderSettings = watchfoldersettings;
             _SelectedAssets = selectedassets;
         }
-     
+
 
         private void WatchFolder_Load(object sender, EventArgs e)
         {
@@ -171,7 +171,11 @@ namespace AMSExplorer
 
         private void buttonTestEmail_Click(object sender, EventArgs e)
         {
-            Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body");
+            if (!Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body"))
+            {
+                MessageBox.Show("Error when sending Outlook email...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void checkBoxSendEMail_CheckedChanged(object sender, EventArgs e)

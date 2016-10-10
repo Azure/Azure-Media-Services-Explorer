@@ -151,6 +151,7 @@ namespace AMSExplorer
             this.dataGridViewAutPolOption.RowHeadersVisible = false;
             this.dataGridViewAutPolOption.Size = new System.Drawing.Size(484, 252);
             this.dataGridViewAutPolOption.TabIndex = 76;
+            this.dataGridViewAutPolOption.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAutPolOption_CellContentClick);
             // 
             // listViewAutPolOptions
             // 

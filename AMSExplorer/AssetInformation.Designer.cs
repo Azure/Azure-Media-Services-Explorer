@@ -793,7 +793,6 @@
             this.buttonAddExistingAutPol.Size = new System.Drawing.Size(187, 27);
             this.buttonAddExistingAutPol.TabIndex = 45;
             this.buttonAddExistingAutPol.Text = "Add an existing auth policy...";
-            this.toolTip1.SetToolTip(this.buttonAddExistingAutPol, "Delete the selected file");
             this.buttonAddExistingAutPol.UseVisualStyleBackColor = true;
             this.buttonAddExistingAutPol.Click += new System.EventHandler(this.buttonAddExistingAutPol_Click);
             // 
@@ -1005,7 +1004,6 @@
             this.buttonAddExistingDelPol.Size = new System.Drawing.Size(166, 27);
             this.buttonAddExistingDelPol.TabIndex = 35;
             this.buttonAddExistingDelPol.Text = "Add an existing policy...";
-            this.toolTip1.SetToolTip(this.buttonAddExistingDelPol, "Delete the selected file");
             this.buttonAddExistingDelPol.UseVisualStyleBackColor = true;
             this.buttonAddExistingDelPol.Click += new System.EventHandler(this.buttonAddExistingDelPol_Click);
             // 
@@ -1018,7 +1016,6 @@
             this.buttonRemoveDelPol.Size = new System.Drawing.Size(158, 27);
             this.buttonRemoveDelPol.TabIndex = 34;
             this.buttonRemoveDelPol.Text = "Remove selected policy";
-            this.toolTip1.SetToolTip(this.buttonRemoveDelPol, "Delete the selected file");
             this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
             this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
             // 

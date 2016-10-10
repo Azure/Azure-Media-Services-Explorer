@@ -1239,6 +1239,22 @@ namespace AMSExplorer
                     return;
             }
 
+            var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            if (listpb.Count > 0)
+            {
+                if (listpb.Count > 1)
+                {
+                    MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
+
+
             // Each file goes in a individual asset
             foreach (String file in FileNames)
             {
@@ -1275,7 +1291,6 @@ namespace AMSExplorer
             bool Error = false;
             IAsset asset = null;
             var listfiles = new List<WatchFolder.RohzetAsset>();
-
 
             if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
             {
@@ -1316,7 +1331,10 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(e);
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
-                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                        {
+                            TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                        }
                     }
                 }
             }
@@ -1343,9 +1361,9 @@ namespace AMSExplorer
                     DoGridTransferDeclareError(guidTransfer, e);
                     TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
                     TextBoxLogWriteLine(e);
-                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
                     {
-                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
                     }
                 }
             }
@@ -1364,7 +1382,13 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
-                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+                        if (watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
+                        }
                     }
 
                     try
@@ -1378,7 +1402,13 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()), true);
-                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message);
+                        if (watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
+                        }
                     }
                 }
 
@@ -1408,7 +1438,10 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(e);
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
-                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
                         }
                         return;
                     }
@@ -1476,7 +1509,11 @@ namespace AMSExplorer
                                         sb.AppendLine();
                                     }
                                     sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
+
+                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
+                                    {
+                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                                    }
                                 }
                             }
                         }
@@ -1489,7 +1526,10 @@ namespace AMSExplorer
                                     StringBuilder sb = new StringBuilder();
                                     sb.Append(AssetInfo.GetStat(oasset));
 
-                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
+                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
+                                    {
+                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                                    }
                                 }
                             }
 
@@ -1501,7 +1541,11 @@ namespace AMSExplorer
                         {
                             StringBuilder sb = new StringBuilder();
                             sb.Append((new JobInfo(job).GetStats()));
-                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
+
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString()))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
                         }
                     }
                 }
@@ -1543,6 +1587,20 @@ namespace AMSExplorer
 
         private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<IAsset> assets)
         {
+            var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            if (listpb.Count > 0)
+            {
+                if (listpb.Count > 1)
+                {
+                    MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
             foreach (var asset in assets)
             {
                 try
@@ -1783,6 +1841,21 @@ namespace AMSExplorer
             {
                 if (SelectedPath != null)
                 {
+
+                    var listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
+                    if (listpb.Count > 0)
+                    {
+                        if (listpb.Count > 1)
+                        {
+                            MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        return;
+                    }
+
                     _backuprootfolderupload = SelectedPath;
                     var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
@@ -7290,34 +7363,56 @@ namespace AMSExplorer
 
                     }
 
-                    MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
-                    /* Watch for changes in LastAccess and LastWrite times, and
-                       the renaming of files or directories. */
-                    MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                       | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
-                                                 // Only watch text files.
-                    MyWatchFolderSettings.Watcher.Filter = "*.*";
-                    MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
+                    try
+                    {
 
-                    // Begin watching.
-                    MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
-                    toolStripStatusLabelWatchFolder.Visible = true;
+                        MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
+                        /* Watch for changes in LastAccess and LastWrite times, and
+                           the renaming of files or directories. */
+                        MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                           | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
+                                                     // Only watch text files.
+                        MyWatchFolderSettings.Watcher.Filter = "*.*";
+                        MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
+
+                        // Begin watching.
+                        MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
+                        toolStripStatusLabelWatchFolder.Visible = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        TextBoxLogWriteLine(ex);
+                        return;
+                    }
+
+
 
                     MyWatchFolderSettings.Watcher.Created += (s, e) =>
                     {
-                        if (!this.seen.ContainsKey(e.FullPath)
-                            || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
+                        try
                         {
-                            this.seen[e.FullPath] = DateTime.Now;
-                            ThreadPool.QueueUserWorkItem(
-                                this.WaitForCreatingProcessToCloseFileThenDoStuff, e.FullPath);
+                            if (!this.seen.ContainsKey(e.FullPath)
+                           || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
+                            {
+                                this.seen[e.FullPath] = DateTime.Now;
+                                ThreadPool.QueueUserWorkItem(
+                                    this.WaitForCreatingProcessToCloseFileThenDoStuff, e.FullPath);
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error Watcher Creation", true);
+                            TextBoxLogWriteLine(ex);
+                            return;
                         }
                     };
                 }
             }
         }
-           
-        
+
+
         private void WaitForCreatingProcessToCloseFileThenDoStuff(object threadContext)
         {
             // Make sure the just-found file is done being
@@ -7341,7 +7436,6 @@ namespace AMSExplorer
                     // Do Stuff
                     Debug.WriteLine(path);
 
-
                     using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                     {
                         var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
@@ -7356,7 +7450,7 @@ namespace AMSExplorer
                     }
 
                     break;
-                
+
                 }
                 catch (FileNotFoundException)
                 {
@@ -7371,7 +7465,7 @@ namespace AMSExplorer
                 {
                     // mask in severity, customer, and code
                     var hr = (Int64)(ex.HResult & 0xA000FFFF);
-                    if (hr != 0x80000020  && hr != 0x80000021)
+                    if (hr != 0x80000020 && hr != 0x80000021)
                     {
                         // not a share violation or a lock violation
                         TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
@@ -10375,7 +10469,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else if(!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.

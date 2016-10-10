@@ -241,9 +241,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-
             }
-
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -341,6 +339,23 @@ namespace AMSExplorer
         private void listViewPolicies_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ListViewItemComparer.ListView_ColumnClick(sender, e);
+        }
+
+        private void SeeClearKey(string key)
+        {
+            var editform = new EditorXMLJSON("Value", key.ToString(), false, false);
+            editform.Display();
+        }
+
+        private void dataGridViewAutPolOption_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            {
+                //TODO - Button Clicked - to see the key
+                SeeClearKey(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
+            }
         }
     }
 }
