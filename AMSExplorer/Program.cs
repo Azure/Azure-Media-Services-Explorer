@@ -3113,29 +3113,79 @@ namespace AMSExplorer
             }
         }
 
+        private static readonly List<string> InvalidFileNamePrefixList = new List<string>
+                {
+                    "CON",
+                    "PRN",
+                    "AUX",
+                    "NUL",
+                    "COM1",
+                    "COM2",
+                    "COM3",
+                    "COM4",
+                    "COM5",
+                    "COM6",
+                    "COM7",
+                    "COM8",
+                    "COM9",
+                    "LPT1",
+                    "LPT2",
+                    "LPT3",
+                    "LPT4",
+                    "LPT5",
+                    "LPT6",
+                    "LPT7",
+                    "LPT8",
+                    "LPT9"
+                };
+
+        private static readonly char[] NtfsInvalidChars = System.IO.Path.GetInvalidFileNameChars();
+
+
         public static bool AssetFileNameIsOk(string filename)
         {
             // check if the filename is compatible with AMS
-            // see https://azure.microsoft.com/en-us/documentation/articles/media-services-rest-upload-files/
+            // Validates if the asset file name conforms to the following requirements
+            // AssetFile name must be a valid blob name.
+            // AssetFile name must be a valid NTFS file name.
+            // AssetFile name length must be limited to 248 characters. 
+            // AssetFileName should not contain the following characters: + % and #
+            // AssetFileName should not contain only space(s)
+            // AssetFileName should not start with certain prefixes restricted by NTFS such as CON1, PRN ... 
+            // An AssetFileName constructed using the above mentioned criteria shall be encoded, streamed and played back successfully.
 
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                return false;
+            }
+
+            // let's make sure we exract the file name (without the path)
             filename = Path.GetFileName(filename);
 
-            Regex reg = new Regex(@"[!\*'\(\);:@&=\+\$,/\?%#[\]]", RegexOptions.Compiled);
-            // . $ ^ { [ ( | ) * + ? \
-
-            bool Regexok = !reg.IsMatch(filename);
-            bool lenghtok = filename.Length <= 260;
-
-            int count = 0;
-            int i = 0;
-            while ((i =filename.IndexOf('.', i)) != -1)
+            // white space
+            if (string.IsNullOrWhiteSpace(filename))
             {
-                i++;
-                count++;
+                return false;
             }
-            bool dotok = count < 2;
 
-            return Regexok && lenghtok && dotok;
+            if (filename.Length > 248)
+            {
+                return false;
+            }
+
+            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || Regex.IsMatch(filename, @"[+%#]+"))
+            {
+                return false;
+            }
+
+            //// Invalid NTFS Filename prefix checks
+            if (InvalidFileNamePrefixList.Any(x => filename.StartsWith(x + ".", StringComparison.OrdinalIgnoreCase)) ||
+                InvalidFileNamePrefixList.Any(x => filename.Equals(x, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Return the list of problematic filenames
@@ -3151,7 +3201,24 @@ namespace AMSExplorer
             }
             return listreturn;
         }
+
+        public static string FileNameProblemMessage(List<string> listpb)
+
+        {
+            if (listpb.Count == 1)
+            {
+                return "This file name is not compatible with Media Services :\n\n" + listpb.FirstOrDefault() + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+
+            }
+            else
+            {
+                return "These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+
+            }
+        }
     }
+
+
 
     public class TaskSizeAndPrice
     {

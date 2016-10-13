@@ -1242,17 +1242,9 @@ namespace AMSExplorer
             var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
-                if (listpb.Count > 1)
-                {
-                    MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
 
 
             // Each file goes in a individual asset
@@ -1309,7 +1301,7 @@ namespace AMSExplorer
                 var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.URI)).ToList());
                 if (listpb.Count > 0)
                 {
-                    TextBoxLogWriteLine("These file names are not compatible with Media Services :\n" + string.Join("\n", listpb) + "\nOperation aborted.", true);
+                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
@@ -1611,14 +1603,7 @@ namespace AMSExplorer
             var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
-                if (listpb.Count > 1)
-                {
-                    MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1866,14 +1851,7 @@ namespace AMSExplorer
                     var listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
                     if (listpb.Count > 0)
                     {
-                        if (listpb.Count > 1)
-                        {
-                            MessageBox.Show("These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show("This file name is not compatible with Media Services :\n\n" + listpb[0] + "\n\nOperation aborted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
