@@ -347,8 +347,8 @@ namespace AMSExplorer
             UpdateLabelConcurrentTransfers();
 
             ApplySettingsOptions(true);
-        }
 
+        }
 
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
@@ -9414,7 +9414,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true, main: this)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, new List<IAsset>(), processor.Version, ThumbnailsModeOnly: true, main: this)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -13235,20 +13235,41 @@ namespace AMSExplorer
                 LiveArchiveAsset = true;
             }
 
+            bool MultipleInputAssets = false;
+            if (SelectedAssets.Count > 1)
+            {
+                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use one preset and one job per asset, or do you want to generate one job with several input assets (for stitching)." + Constants.endline + Constants.endline
+                    + "Yes: One job per asset" + Constants.endline + "No: Several input assets (for stitching)", "Several assets selected", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    MultipleInputAssets = true;
+            }
+
             string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version,
+            string label;
+            if (SelectedAssets.Count > 1 && !MultipleInputAssets)
+            {
+                label = string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count);
+            }
+            else if (SelectedAssets.Count > 1 && MultipleInputAssets)
+            {
+                label = string.Format("{0} assets selected. You are going to submit 1 job with 1 task and multiple input assets.", SelectedAssets.Count);
+            }
+            else
+            {
+                label = "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).";
+            }
+
+
+            EncodingAMEStandard form = new EncodingAMEStandard(_context,
+                MultipleInputAssets ? SelectedAssets : new List<IAsset>(),
+                processor.Version,
                 disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
                 disableSourceTrimming: LiveArchiveAsset,
                 main: this)
             {
-                EncodingLabel = (SelectedAssets.Count > 1) ?
-                string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
-
+                EncodingLabel = label,
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
                 EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
@@ -13260,12 +13281,13 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                foreach (IAsset asset in form.SelectedAssets)
+                if (MultipleInputAssets) // one job, multiple input assets (stitching)
                 {
+
                     bool Error = false;
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
                     ITask AMEStandardTask = job.Tasks.AddNew(
                         tasknameloc,
                         processor,
@@ -13273,10 +13295,10 @@ namespace AMSExplorer
                        form.JobOptions.TasksOptionsSetting
                       );
 
-                    AMEStandardTask.InputAssets.Add(asset);
+                    AMEStandardTask.InputAssets.AddRange(form.SelectedAssets);
 
                     // Add an output asset to contain the results of the job.  
-                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
                     AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
@@ -13297,7 +13319,50 @@ namespace AMSExplorer
                         Error = true;
                     }
                     if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+
                 }
+                else
+                {
+                    foreach (IAsset asset in form.SelectedAssets)
+                    {
+                        bool Error = false;
+                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                        ITask AMEStandardTask = job.Tasks.AddNew(
+                            tasknameloc,
+                            processor,
+                           form.EncodingConfiguration,
+                           form.JobOptions.TasksOptionsSetting
+                          );
+
+                        AMEStandardTask.InputAssets.Add(asset);
+
+                        // Add an output asset to contain the results of the job.  
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                        AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+
+                        // Submit the job  
+                        TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
+                        try
+                        {
+                            job.Submit();
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            if (SelectedAssets.Count < 5)
+                            {
+                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                        if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                    }
+                }
+
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);
             }

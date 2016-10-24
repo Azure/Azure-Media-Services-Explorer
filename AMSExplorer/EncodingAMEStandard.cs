@@ -85,12 +85,13 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
 
-        private int _nbInputAssets;
+        //private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
         private bool _disableOverlay;
         private bool _disableSourceTrimming;
         private Mainform _main;
+        private List<IAsset> _inputAssetsForJob;
 
         public List<IAsset> SelectedAssets
         {
@@ -158,7 +159,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, Mainform main, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
+        public EncodingAMEStandard(CloudMediaContext context, List<IAsset> inputAssetsForJob, string processorVersion, Mainform main, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -166,10 +167,13 @@ namespace AMSExplorer
             _processorVersion = processorVersion;
             _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
-            _nbInputAssets = nbInputAssets;
+            //_nbInputAssets = nbInputAssets;
             _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
             _disableOverlay = disableOverlay;
             _disableSourceTrimming = disableSourceTrimming;
+            _inputAssetsForJob = inputAssetsForJob;
+            if (_inputAssetsForJob.Count == 0) _disableOverlay = true; // if stiching, let's disable overlay
+
             _main = main;
 
         }
@@ -207,6 +211,7 @@ namespace AMSExplorer
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
             linkLabelMESFeatures.Links.Add(new LinkLabel.Link(0, linkLabelMESFeatures.Text.Length, Constants.LinkMESAdvFeatures));
+            comboBoxRotation.SelectedIndex = 0;
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -237,7 +242,7 @@ namespace AMSExplorer
                 _disableOverlay = true;
             }
 
-            if (_nbInputAssets > 1)
+            if (_disableOverlay)//_nbInputAssets > 1)
             {
                 checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
             }
@@ -262,6 +267,13 @@ namespace AMSExplorer
             if (_disableSourceTrimming)
             {
                 groupBox1.Enabled = false;
+            }
+
+            if (_inputAssetsForJob.Count>1)
+            {
+                comboBoxSourceAsset.Visible = true;
+                _inputAssetsForJob.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Id), a.Id)));
+                comboBoxSourceAsset.SelectedIndex = 0;
             }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -329,6 +341,7 @@ namespace AMSExplorer
                     // clean deinterlace filter
                     // clean overlay
                     // clean cropping
+                    // clean rotation
 
 
                     if (obj.Sources != null)
@@ -452,6 +465,10 @@ namespace AMSExplorer
                         foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             dynamic time = new JObject();
+                            if (entry.AssetID != null)
+                            {
+                                time.AssetID = entry.AssetID;
+                            }
                             time.StartTime = entry.Start + buttonShowEDL.Offset;
                             time.Duration = entry.Duration;
                             obj.Sources.Add(time);
@@ -465,6 +482,11 @@ namespace AMSExplorer
                         }
 
                         dynamic time = new JObject();
+                        if (comboBoxSourceAsset.Items.Count > 1)
+                        {
+                            time.AssetId = ((Item)comboBoxSourceAsset.SelectedItem).Value;
+                        }
+
                         if (checkBoxSourceTrimmingStart.Checked)
                         {
                             time.StartTime = timeControlStartTime.TimeStampWithOffset;
@@ -764,6 +786,72 @@ namespace AMSExplorer
                             {
                                 Source.Filters = CropEntry;
                             }
+
+                            if (Source.Streams == null)
+                            {
+                                Source.Streams = new JArray() as dynamic;
+                            }
+                        }
+                    }
+
+
+                    // Auto rotation
+                    if (comboBoxRotation.SelectedIndex > 0)
+
+                    {
+                        /*
+                       {
+"Version": 1.0,
+  "Sources": [
+    {
+      "Filters": {
+        "Rotation": "90"
+      }
+    }
+  ]
+],
+"Codecs": [
+{
+
+    */
+
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        // let's prepare objects
+                        dynamic RotEntry = new JObject();
+                        RotEntry.Rotation = (string) comboBoxRotation.SelectedItem;
+
+
+                        // now we put these objects in the preset
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                if (entry.Filters != null)
+                                {
+                                    entry.Filters.Rotation = comboBoxRotation.SelectedText;
+                                }
+                                else
+                                {
+                                    entry.Filters = RotEntry;
+
+                                }
+
+                                if (entry.Streams == null)
+                                {
+                                    entry.Streams = new JArray() as dynamic;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dynamic Source = new JObject();
+                            obj.Sources.Add(Source);
+                            Source.Filters = RotEntry;
+
 
                             if (Source.Streams == null)
                             {
@@ -1150,7 +1238,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
+            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1297,7 +1385,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = checkBoxSourceTrimmingEnd.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
+            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1327,8 +1415,13 @@ namespace AMSExplorer
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
                     Start = timeControlStartTime.TimeStampWithoutOffset,
-                    End = timeControlEndTime.TimeStampWithoutOffset
+                    End = timeControlEndTime.TimeStampWithoutOffset,
+                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null
                 });
+            }
+            else
+            {
+                MessageBox.Show("Please specify a start and an end time", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

@@ -199,7 +199,7 @@ namespace AMSExplorer
     {
         public TimeSpan Start { get; set; }
         public TimeSpan End { get; set; }
-
+    
         public TimeSpan Duration
         {
             get
@@ -207,6 +207,8 @@ namespace AMSExplorer
                 return End - Start;
             }
         }
+
+        public string AssetID { get; set; }
     }
 
 }
