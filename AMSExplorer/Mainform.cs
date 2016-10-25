@@ -13238,8 +13238,8 @@ namespace AMSExplorer
             bool MultipleInputAssets = false;
             if (SelectedAssets.Count > 1)
             {
-                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use one preset and one job per asset, or do you want to generate one job with several input assets (for stitching)." + Constants.endline + Constants.endline
-                    + "Yes: One job per asset" + Constants.endline + "No: Several input assets (for stitching)", "Several assets selected", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single task (to do stitching), or generate one task per input asset." + Constants.endline + Constants.endline
+                    + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     MultipleInputAssets = true;
             }
 

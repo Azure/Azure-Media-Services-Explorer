@@ -269,9 +269,9 @@ namespace AMSExplorer
                 groupBox1.Enabled = false;
             }
 
-            if (_inputAssetsForJob.Count>1)
+            if (_inputAssetsForJob.Count > 1)
             {
-                comboBoxSourceAsset.Visible = true;
+                comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
                 _inputAssetsForJob.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Id), a.Id)));
                 comboBoxSourceAsset.SelectedIndex = 0;
             }
@@ -499,6 +499,16 @@ namespace AMSExplorer
                         {
                             time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
+                        obj.Sources.Add(time);
+                    }
+                    else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+                        dynamic time = new JObject();
+                        time.AssetId = ((Item)comboBoxSourceAsset.SelectedItem).Value;
                         obj.Sources.Add(time);
                     }
 
@@ -822,7 +832,7 @@ namespace AMSExplorer
 
                         // let's prepare objects
                         dynamic RotEntry = new JObject();
-                        RotEntry.Rotation = (string) comboBoxRotation.SelectedItem;
+                        RotEntry.Rotation = (string)comboBoxRotation.SelectedItem;
 
 
                         // now we put these objects in the preset

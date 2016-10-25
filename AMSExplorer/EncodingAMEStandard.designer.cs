@@ -71,16 +71,20 @@
             this.tabPageTrimCrop = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.linkLabelInfoCropping = new System.Windows.Forms.LinkLabel();
+            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
             this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
             this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.textBoxOffset = new System.Windows.Forms.TextBox();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
@@ -199,10 +203,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.labelInputAsset = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -738,6 +739,16 @@
             this.linkLabelInfoCropping.Text = "More information on cropping";
             this.linkLabelInfoCropping.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // buttonRegionEditor
+            // 
+            this.buttonRegionEditor.Enabled = false;
+            this.buttonRegionEditor.Location = new System.Drawing.Point(103, 31);
+            this.buttonRegionEditor.Name = "buttonRegionEditor";
+            this.buttonRegionEditor.Size = new System.Drawing.Size(203, 23);
+            this.buttonRegionEditor.TabIndex = 106;
+            this.buttonRegionEditor.Text = "Define Cropping Rectangle...";
+            this.buttonRegionEditor.UseVisualStyleBackColor = true;
+            // 
             // checkBoxCropVideo
             // 
             this.checkBoxCropVideo.AutoSize = true;
@@ -752,6 +763,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelInputAsset);
             this.groupBox1.Controls.Add(this.comboBoxSourceAsset);
             this.groupBox1.Controls.Add(this.panelEDL);
             this.groupBox1.Controls.Add(this.labelOffset);
@@ -771,11 +783,13 @@
             // 
             // comboBoxSourceAsset
             // 
+            this.comboBoxSourceAsset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSourceAsset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSourceAsset.FormattingEnabled = true;
-            this.comboBoxSourceAsset.Location = new System.Drawing.Point(12, 23);
+            this.comboBoxSourceAsset.Location = new System.Drawing.Point(85, 23);
             this.comboBoxSourceAsset.Name = "comboBoxSourceAsset";
-            this.comboBoxSourceAsset.Size = new System.Drawing.Size(655, 23);
+            this.comboBoxSourceAsset.Size = new System.Drawing.Size(582, 23);
             this.comboBoxSourceAsset.TabIndex = 137;
             this.comboBoxSourceAsset.Visible = false;
             // 
@@ -801,6 +815,19 @@
             this.buttonAddEDLEntry.Text = "Add Start/End times to EDL";
             this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
             this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonShowEDL
+            // 
+            this.buttonShowEDL.Enabled = false;
+            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
+            this.buttonShowEDL.TabIndex = 138;
+            this.buttonShowEDL.Text = "Show EDL...";
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            this.buttonShowEDL.Click += new System.EventHandler(this.buttonShowEDL_Click);
             // 
             // checkBoxUseEDL
             // 
@@ -833,6 +860,25 @@
             this.textBoxOffset.TabIndex = 95;
             this.textBoxOffset.Visible = false;
             // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(33, 110);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
             // checkBoxSourceTrimmingEnd
             // 
             this.checkBoxSourceTrimmingEnd.AutoSize = true;
@@ -851,6 +897,25 @@
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 82;
             this.label7.Text = "Duration :";
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(33, 56);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
             // textBoxSourceDurationTime
             // 
@@ -2267,66 +2332,15 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // buttonRegionEditor
+            // labelInputAsset
             // 
-            this.buttonRegionEditor.Enabled = false;
-            this.buttonRegionEditor.Location = new System.Drawing.Point(103, 31);
-            this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(203, 23);
-            this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Define Cropping Rectangle...";
-            this.buttonRegionEditor.UseVisualStyleBackColor = true;
-            // 
-            // buttonShowEDL
-            // 
-            this.buttonShowEDL.Enabled = false;
-            this.buttonShowEDL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonShowEDL.Location = new System.Drawing.Point(194, 3);
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.Size = new System.Drawing.Size(103, 27);
-            this.buttonShowEDL.TabIndex = 138;
-            this.buttonShowEDL.Text = "Show EDL...";
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            this.buttonShowEDL.Click += new System.EventHandler(this.buttonShowEDL_Click);
-            // 
-            // timeControlEndTime
-            // 
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Enabled = false;
-            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Location = new System.Drawing.Point(33, 110);
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlEndTime.TabIndex = 7;
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
-            // 
-            // timeControlStartTime
-            // 
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Enabled = false;
-            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Location = new System.Drawing.Point(33, 56);
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
-            this.timeControlStartTime.TabIndex = 6;
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
+            this.labelInputAsset.AutoSize = true;
+            this.labelInputAsset.Location = new System.Drawing.Point(9, 26);
+            this.labelInputAsset.Name = "labelInputAsset";
+            this.labelInputAsset.Size = new System.Drawing.Size(70, 15);
+            this.labelInputAsset.TabIndex = 138;
+            this.labelInputAsset.Text = "Input asset :";
+            this.labelInputAsset.Visible = false;
             // 
             // EncodingAMEStandard
             // 
@@ -2589,5 +2603,6 @@
         private System.Windows.Forms.ComboBox comboBoxRotation;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.ComboBox comboBoxSourceAsset;
+        private System.Windows.Forms.Label labelInputAsset;
     }
 }
