@@ -472,6 +472,7 @@
             this.checkBoxCallAPI.TabIndex = 81;
             this.checkBoxCallAPI.Text = "Call an API, Url :";
             this.checkBoxCallAPI.UseVisualStyleBackColor = true;
+            this.checkBoxCallAPI.CheckedChanged += new System.EventHandler(this.checkBoxCallAPI_CheckedChanged);
             // 
             // textBoxAPIUrl
             // 

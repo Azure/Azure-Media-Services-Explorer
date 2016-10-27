@@ -1513,22 +1513,23 @@ namespace AMSExplorer
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
+
+                                IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
+                                StringBuilder sb = new StringBuilder();
+                                Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
+                                if (SmoothUri != null)
+                                {
+                                    string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                                    sb.AppendLine("Link to playback the asset:");
+                                    sb.AppendLine(playbackurl);
+                                    sb.AppendLine();
+                                }
+                                sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+                                Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, sb.ToString());
+
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
-                                    IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
-                                    StringBuilder sb = new StringBuilder();
-                                    Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
-                                    if (SmoothUri != null)
-                                    {
-                                        string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
-                                        sb.AppendLine("Link to playback the asset:");
-                                        sb.AppendLine(playbackurl);
-                                        sb.AppendLine();
-                                    }
-                                    sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-
-                                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, sb.ToString());
-
+                                
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
                                     {
                                         TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1540,13 +1541,12 @@ namespace AMSExplorer
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
+                                Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job);
+
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
                                     StringBuilder sb = new StringBuilder();
                                     sb.Append(AssetInfo.GetStat(oasset));
-
-                                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job);
-
 
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
                                     {
@@ -1559,12 +1559,12 @@ namespace AMSExplorer
                     }
                     else  // not completed successfuly
                     {
+                        Program.WatchFolderCallApi("Job Error", (string)name, watchfoldersettings, asset, null, job);
+
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
                             StringBuilder sb = new StringBuilder();
                             sb.Append((new JobInfo(job).GetStats()));
-
-                            Program.WatchFolderCallApi("Job Error", (string)name, watchfoldersettings, asset, null, job);
 
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString()))
                             {
@@ -1575,12 +1575,12 @@ namespace AMSExplorer
                 }
                 else // user selected no processing. Upload successfull
                 {
+                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset);
+
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(AssetInfo.GetStat(asset));
-                        Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset);
-
                         Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
                     }
                 }

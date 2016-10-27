@@ -310,5 +310,10 @@ namespace AMSExplorer
             BodyDisplayForm.Display();
 
         }
+
+        private void checkBoxCallAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxAPIUrl.Enabled = buttonJsonBody.Enabled = checkBoxCallAPI.Checked;
+        }
     }
 }
