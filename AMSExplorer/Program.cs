@@ -723,6 +723,51 @@ namespace AMSExplorer
             {
                 return false;
             }
+        }
+
+
+        public static HttpStatusCode WatchFolderCallApi(string error, string sourcefilename, WatchFolderSettings settings, IAsset sourceAsset = null, IAsset outputAsset = null, IJob job = null, ILocator locator = null, Uri publishUrl = null, string playbackUrl = null)
+        {
+            if (settings == null || settings.CallAPIUrl == null) return HttpStatusCode.BadRequest;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(settings.CallAPIUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+
+            string body = settings.CallAPJson;
+
+            body = body.Replace("{Error}", error ?? "");
+            body = body.Replace("{Source Asset Id}", sourceAsset != null ? sourceAsset.Id : "").Replace("{Source Asset Name}", sourceAsset != null ? sourceAsset.Name : "");
+            body = body.Replace("{Source File Name}", sourcefilename != null ? sourcefilename : "");
+            body = body.Replace("{Output Asset Id}", outputAsset != null ? outputAsset.Id : "").Replace("{Output Asset Name}", outputAsset != null ? outputAsset.Name : "");
+            body = body.Replace("{Job Id}", job != null ? job.Id : "").Replace("{Job State}", job != null ? job.State.ToString() : "");
+            body = body.Replace("{Locator Id}", locator != null ? locator.Id : "").Replace("{Publish Url}", publishUrl != null ? publishUrl.ToString() : "").Replace("{Playback Url}", publishUrl != null ? playbackUrl : "");
+
+            /*
+          {
+  "Error": "{Error}",
+  "SourceAssetId": "{Source Asset Id}",
+  "SourceAssetName": "{Source Asset Name}",
+  "SourceFileName": "{Source File Name}",
+  "OutputAssetId": "{Output Asset Id}",
+  "OutputAssetName": "{Output Asset Name}",
+  "JobId": "{Job Id}",
+  "JobState": "{Job State}",
+  "LocatorId": "{Locator Id}",
+  "PublishUrl": "{Publish Url}",
+  "Playback Url": "{Playback Url}"
+}
+      */
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                var requestBytes = System.Text.Encoding.ASCII.GetBytes(body);
+                requestStream.Write(requestBytes, 0, requestBytes.Length);
+                requestStream.Close();
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+            return response.StatusCode;
 
         }
 
@@ -3698,6 +3743,9 @@ namespace AMSExplorer
         public FileSystemWatcher Watcher { get; set; }
         public INotificationEndPoint NotificationEndPoint { get; set; }
         public bool ProcessRohzetXML { get; set; }
+        public string CallAPIUrl { get; set; }
+        public string CallAPJson { get; set; }
+
 
         public WatchFolderSettings()
         {
@@ -3710,6 +3758,8 @@ namespace AMSExplorer
             ExtraInputAssets = null;
             TypeInputExtraInput = TypeInputExtraInput.None;
             ProcessRohzetXML = false;
+            CallAPIUrl = null;
+            CallAPJson = string.Empty;
         }
     }
 

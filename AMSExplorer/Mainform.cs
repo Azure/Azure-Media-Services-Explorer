@@ -1329,8 +1329,9 @@ namespace AMSExplorer
                     {
                         Error = true;
                         DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", (string) name, true);
                         TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Upload error", (string)name, watchfoldersettings);
                         if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                         {
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
@@ -1372,6 +1373,7 @@ namespace AMSExplorer
                         DoGridTransferDeclareError(guidTransfer, e);
                         TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
                         TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Upload error", (string)name, watchfoldersettings);
                         if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
                         {
                             TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1449,6 +1451,8 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Job submission error", (string)name, watchfoldersettings, job:job);
+
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message))
@@ -1523,6 +1527,8 @@ namespace AMSExplorer
                                     }
                                     sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
 
+                                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, sb.ToString());
+
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
                                     {
                                         TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1538,6 +1544,9 @@ namespace AMSExplorer
                                 {
                                     StringBuilder sb = new StringBuilder();
                                     sb.Append(AssetInfo.GetStat(oasset));
+
+                                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job);
+
 
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
                                     {
@@ -1555,6 +1564,8 @@ namespace AMSExplorer
                             StringBuilder sb = new StringBuilder();
                             sb.Append((new JobInfo(job).GetStats()));
 
+                            Program.WatchFolderCallApi("Job Error", (string)name, watchfoldersettings, asset, null, job);
+
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString()))
                             {
                                 TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1568,6 +1579,8 @@ namespace AMSExplorer
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(AssetInfo.GetStat(asset));
+                        Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset);
+
                         Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
                     }
                 }

@@ -35,6 +35,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IEnumerable<IAsset> _SelectedAssets;
         private WatchFolderSettings _WatchFolderSettings;
+        private EditorXMLJSON BodyDisplayForm;
 
         public WatchFolderSettings WatchFolderGetSettings
         {
@@ -75,6 +76,12 @@ namespace AMSExplorer
                 else
                 {
                     settings.TypeInputExtraInput = TypeInputExtraInput.None;
+                }
+
+                if (checkBoxCallAPI.Checked)
+                {
+                    settings.CallAPIUrl = textBoxAPIUrl.Text;
+                    settings.CallAPJson = BodyDisplayForm.TextData;
                 }
 
                 return settings;
@@ -134,6 +141,18 @@ namespace AMSExplorer
             // other
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
             labelWarning.Text = string.Empty;
+
+
+            // Body for the API Call
+            try
+            {
+                StreamReader streamReader = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleWatchFolderJSONCall.json"));
+                BodyDisplayForm = new EditorXMLJSON("Body", streamReader.ReadToEnd(), true, false, true);
+                streamReader.Close();
+            }
+            catch
+            {
+            }
         }
 
         private void buttonSelFolder_Click(object sender, EventArgs e)
@@ -278,6 +297,18 @@ namespace AMSExplorer
             catch
             {
             }
+        }
+
+        private void buttonJsonBody_Click(object sender, EventArgs e)
+        {
+            JsonBodyDisplayEdit();
+        }
+
+        private void JsonBodyDisplayEdit()
+        {
+
+            BodyDisplayForm.Display();
+
         }
     }
 }

@@ -59,8 +59,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
             this.buttonSeeRhozetExample = new System.Windows.Forms.Button();
+            this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
+            this.checkBoxCallAPI = new System.Windows.Forms.CheckBox();
+            this.textBoxAPIUrl = new System.Windows.Forms.TextBox();
+            this.buttonJsonBody = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -136,7 +139,7 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
-            this.groupBox4.Location = new System.Drawing.Point(61, 153);
+            this.groupBox4.Location = new System.Drawing.Point(61, 143);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(156, 99);
             this.groupBox4.TabIndex = 43;
@@ -197,7 +200,7 @@
             // checkBoxRunJobTemplate
             // 
             this.checkBoxRunJobTemplate.AutoSize = true;
-            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 281);
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 264);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
             this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
             this.checkBoxRunJobTemplate.TabIndex = 51;
@@ -221,7 +224,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 587);
+            this.pictureBox3.Location = new System.Drawing.Point(26, 570);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -232,7 +235,7 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 588);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 571);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
             this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
             this.checkBoxPublishOAssets.TabIndex = 65;
@@ -243,7 +246,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
-            this.pictureBox4.Location = new System.Drawing.Point(26, 620);
+            this.pictureBox4.Location = new System.Drawing.Point(26, 603);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -254,7 +257,7 @@
             // 
             this.checkBoxSendEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSendEMail.AutoSize = true;
-            this.checkBoxSendEMail.Location = new System.Drawing.Point(61, 621);
+            this.checkBoxSendEMail.Location = new System.Drawing.Point(61, 604);
             this.checkBoxSendEMail.Name = "checkBoxSendEMail";
             this.checkBoxSendEMail.Size = new System.Drawing.Size(310, 19);
             this.checkBoxSendEMail.TabIndex = 67;
@@ -267,7 +270,7 @@
             this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEMail.Enabled = false;
-            this.textBoxEMail.Location = new System.Drawing.Point(394, 617);
+            this.textBoxEMail.Location = new System.Drawing.Point(394, 600);
             this.textBoxEMail.Name = "textBoxEMail";
             this.textBoxEMail.Size = new System.Drawing.Size(301, 23);
             this.textBoxEMail.TabIndex = 69;
@@ -276,7 +279,7 @@
             // 
             this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTestEmail.Enabled = false;
-            this.buttonTestEmail.Location = new System.Drawing.Point(715, 615);
+            this.buttonTestEmail.Location = new System.Drawing.Point(715, 598);
             this.buttonTestEmail.Name = "buttonTestEmail";
             this.buttonTestEmail.Size = new System.Drawing.Size(87, 27);
             this.buttonTestEmail.TabIndex = 70;
@@ -320,7 +323,7 @@
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
             this.groupBoxProcess.Enabled = false;
-            this.groupBoxProcess.Location = new System.Drawing.Point(61, 308);
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 291);
             this.groupBoxProcess.Name = "groupBoxProcess";
             this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
             this.groupBoxProcess.TabIndex = 74;
@@ -399,7 +402,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(26, 282);
+            this.pictureBox5.Location = new System.Drawing.Point(26, 265);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(16, 16);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -432,22 +435,12 @@
             this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
             this.groupBoxOptions.Controls.Add(this.pictureBox2);
-            this.groupBoxOptions.Location = new System.Drawing.Point(245, 153);
+            this.groupBoxOptions.Location = new System.Drawing.Point(245, 143);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Size = new System.Drawing.Size(557, 100);
             this.groupBoxOptions.TabIndex = 80;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Upload Options";
-            // 
-            // checkBoxProcessXMLRohzet
-            // 
-            this.checkBoxProcessXMLRohzet.AutoSize = true;
-            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 60);
-            this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
-            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
-            this.checkBoxProcessXMLRohzet.TabIndex = 51;
-            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
-            this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
             // 
             // buttonSeeRhozetExample
             // 
@@ -459,6 +452,49 @@
             this.buttonSeeRhozetExample.UseVisualStyleBackColor = true;
             this.buttonSeeRhozetExample.Click += new System.EventHandler(this.buttonSeeRhozetExample_Click);
             // 
+            // checkBoxProcessXMLRohzet
+            // 
+            this.checkBoxProcessXMLRohzet.AutoSize = true;
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 60);
+            this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
+            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
+            this.checkBoxProcessXMLRohzet.TabIndex = 51;
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
+            this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCallAPI
+            // 
+            this.checkBoxCallAPI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxCallAPI.AutoSize = true;
+            this.checkBoxCallAPI.Location = new System.Drawing.Point(61, 636);
+            this.checkBoxCallAPI.Name = "checkBoxCallAPI";
+            this.checkBoxCallAPI.Size = new System.Drawing.Size(110, 19);
+            this.checkBoxCallAPI.TabIndex = 81;
+            this.checkBoxCallAPI.Text = "Call an API, Url :";
+            this.checkBoxCallAPI.UseVisualStyleBackColor = true;
+            // 
+            // textBoxAPIUrl
+            // 
+            this.textBoxAPIUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAPIUrl.Enabled = false;
+            this.textBoxAPIUrl.Location = new System.Drawing.Point(177, 632);
+            this.textBoxAPIUrl.Name = "textBoxAPIUrl";
+            this.textBoxAPIUrl.Size = new System.Drawing.Size(518, 23);
+            this.textBoxAPIUrl.TabIndex = 82;
+            // 
+            // buttonJsonBody
+            // 
+            this.buttonJsonBody.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJsonBody.Enabled = false;
+            this.buttonJsonBody.Location = new System.Drawing.Point(716, 629);
+            this.buttonJsonBody.Name = "buttonJsonBody";
+            this.buttonJsonBody.Size = new System.Drawing.Size(87, 27);
+            this.buttonJsonBody.TabIndex = 83;
+            this.buttonJsonBody.Text = "Json body...";
+            this.buttonJsonBody.UseVisualStyleBackColor = true;
+            this.buttonJsonBody.Click += new System.EventHandler(this.buttonJsonBody_Click);
+            // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
@@ -467,6 +503,9 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.buttonJsonBody);
+            this.Controls.Add(this.textBoxAPIUrl);
+            this.Controls.Add(this.checkBoxCallAPI);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label13);
@@ -545,5 +584,8 @@
         private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.CheckBox checkBoxProcessXMLRohzet;
         private System.Windows.Forms.Button buttonSeeRhozetExample;
+        private System.Windows.Forms.CheckBox checkBoxCallAPI;
+        private System.Windows.Forms.TextBox textBoxAPIUrl;
+        private System.Windows.Forms.Button buttonJsonBody;
     }
 }
