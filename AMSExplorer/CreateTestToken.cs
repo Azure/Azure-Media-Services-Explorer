@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -183,7 +183,6 @@ namespace AMSExplorer
                         join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
                         select new { keyname = key.Name, keytype = key.ContentKeyType, keyid = key.Id, aupolid = autpol.Id };
 
-
             listViewAutOptions.BeginUpdate();
             listViewAutOptions.Items.Clear();
             foreach (var key in query)
@@ -214,7 +213,6 @@ namespace AMSExplorer
                             else if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                             {
                                 item.SubItems.Add("OpenID");
-
                             }
                         }
                         listViewAutOptions.Items.Add(item);
@@ -230,9 +228,6 @@ namespace AMSExplorer
 
             listViewAutOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAutOptions.EndUpdate();
-
-
-
         }
 
 
@@ -333,7 +328,7 @@ namespace AMSExplorer
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
-            cert = DynamicEncryption.GetCertificateFromFile(false);
+            cert = DynamicEncryption.GetCertificateFromFile(false).Certificate;
             labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
             UpdateButtonOk();
         }

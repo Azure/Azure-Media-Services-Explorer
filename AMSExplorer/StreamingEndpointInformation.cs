@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -39,7 +39,10 @@ namespace AMSExplorer
     public partial class StreamingEndpointInformation : Form
     {
         public IStreamingEndpoint MyStreamingEndpoint;
+        public bool MultipleSelection = false;
         public CloudMediaContext MyContext;
+        public ExplorerSEModifications Modifications = new ExplorerSEModifications();
+
         private string MaxCacheAgeInitial;
         private BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
         private BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
@@ -122,7 +125,6 @@ namespace AMSExplorer
         }
 
 
-
         public string GetOriginClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
@@ -132,7 +134,6 @@ namespace AMSExplorer
         public string GetOriginCrossdomaintPolicy
         {
             get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
-
         }
 
         public StreamingEndpointInformation()
@@ -142,23 +143,31 @@ namespace AMSExplorer
         }
 
 
-
         private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
-            labelSEName.Text = string.Format(labelSEName.Text, MyStreamingEndpoint.Name);
-            hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
-            DGOrigin.ColumnCount = 2;
+            if (!MultipleSelection) // one SE
+            {
+                labelSEName.Text = string.Format(labelSEName.Text, MyStreamingEndpoint.Name);
+                hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
+                DGOrigin.ColumnCount = 2;
 
-            // asset info
-            DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGOrigin.Rows.Add("Name", MyStreamingEndpoint.Name);
-            DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
-            DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
-            DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
-            DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime().ToString("G"));
-            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime().ToString("G"));
-            DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
-            DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
+                // asset info
+                DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGOrigin.Rows.Add("Name", MyStreamingEndpoint.Name);
+                DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
+                DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
+                DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
+                DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
+                DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
+            }
+            else
+            {
+                labelSEName.Text = "(multiple streaming endpoints have been selected)";
+                tabControl1.TabPages.Remove(tabPageInfo); // no SE info page
+            }
+
 
             // Custom Hostnames binding to control
             if (MyStreamingEndpoint.CustomHostNames != null)
@@ -177,7 +186,7 @@ namespace AMSExplorer
 
             if (MyStreamingEndpoint.ScaleUnits != null)
             {
-                DGOrigin.Rows.Add("Scale Units", MyStreamingEndpoint.ScaleUnits);
+                if (!MultipleSelection) DGOrigin.Rows.Add("Scale Units", MyStreamingEndpoint.ScaleUnits);
                 if (numericUpDownRU.Maximum < MyStreamingEndpoint.ScaleUnits) numericUpDownRU.Maximum = (int)MyStreamingEndpoint.ScaleUnits * 2;
                 numericUpDownRU.Value = (int)MyStreamingEndpoint.ScaleUnits;
             }
@@ -240,6 +249,19 @@ namespace AMSExplorer
             textboxorigindesc.Text = MyStreamingEndpoint.Description;
 
             checkMaxCacheAgeValue();
+
+            // let's track when user edit a setting
+            Modifications = new ExplorerSEModifications
+            {
+                Description = false,
+                ClientAccessPolicy = false,
+                CrossDomainPolicy = false,
+                AkamaiSignatureHeaderAuthentication = false,
+                CustomHostNames = false,
+                MaxCacheAge = false,
+                StreamingAllowedIPAddresses = false,
+                StreamingUnits = false
+            };
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -281,6 +303,7 @@ namespace AMSExplorer
         private void buttonAddIP_Click(object sender, EventArgs e)
         {
             endpointSettingList.AddNew();
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void buttonDelIP_Click(object sender, EventArgs e)
@@ -288,6 +311,7 @@ namespace AMSExplorer
             if (dataGridViewIP.SelectedRows.Count == 1)
             {
                 endpointSettingList.RemoveAt(dataGridViewIP.SelectedRows[0].Index);
+                Modifications.StreamingAllowedIPAddresses = true;
             }
         }
 
@@ -301,6 +325,7 @@ namespace AMSExplorer
         private void buttonAddAkamai_Click(object sender, EventArgs e)
         {
             AkamaiSettingList.AddNew();
+            Modifications.AkamaiSignatureHeaderAuthentication = true;
         }
 
         private void buttonDelAkamai_Click(object sender, EventArgs e)
@@ -309,6 +334,7 @@ namespace AMSExplorer
             if (dataGridViewAkamai.SelectedRows.Count == 1)
             {
                 AkamaiSettingList.RemoveAt(dataGridViewAkamai.SelectedRows[0].Index);
+                Modifications.AkamaiSignatureHeaderAuthentication = true;
             }
         }
 
@@ -317,26 +343,31 @@ namespace AMSExplorer
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            Modifications.ClientAccessPolicy = true;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
+            Modifications.CrossDomainPolicy = true;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewAkamai.Enabled = buttonAddAkamai.Enabled = buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
+            Modifications.AkamaiSignatureHeaderAuthentication = true;
         }
 
         private void buttonAddHostName_Click(object sender, EventArgs e)
         {
             CustomHostNamesList.AddNew();
+            Modifications.CustomHostNames = true;
         }
 
         private void buttonDelHostName_Click(object sender, EventArgs e)
@@ -344,6 +375,7 @@ namespace AMSExplorer
             if (dataGridViewCustomHostname.SelectedRows.Count == 1)
             {
                 CustomHostNamesList.RemoveAt(dataGridViewCustomHostname.SelectedRows[0].Index);
+                Modifications.CustomHostNames = true;
             }
         }
 
@@ -364,8 +396,7 @@ namespace AMSExplorer
 
         private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
         {
-
-
+            Modifications.StreamingUnits = true;
         }
 
 
@@ -378,11 +409,13 @@ namespace AMSExplorer
         {
             checkBoxStreamingIPlistSet.Checked = false;
             endpointSettingList.Clear();
+            Modifications.StreamingAllowedIPAddresses = true;
         }
 
         private void textBoxMaxCacheAge_TextChanged(object sender, EventArgs e)
         {
             checkMaxCacheAgeValue();
+            Modifications.MaxCacheAge = true;
         }
 
         private void checkMaxCacheAgeValue()
@@ -396,5 +429,32 @@ namespace AMSExplorer
                 errorProvider1.SetError(textBoxMaxCacheAge, String.Empty);
             }
         }
+
+        private void textboxorigindesc_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.Description = true;
+        }
+
+        private void textBoxClientPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.ClientAccessPolicy = true;
+        }
+
+        private void textBoxCrossDomPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.CrossDomainPolicy = true;
+        }
+    }
+
+    public class ExplorerSEModifications
+    {
+        public bool Description { get; set; }
+        public bool StreamingUnits { get; set; }
+        public bool MaxCacheAge { get; set; }
+        public bool StreamingAllowedIPAddresses { get; set; }
+        public bool AkamaiSignatureHeaderAuthentication { get; set; }
+        public bool CustomHostNames { get; set; }
+        public bool ClientAccessPolicy { get; set; }
+        public bool CrossDomainPolicy { get; set; }
     }
 }

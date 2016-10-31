@@ -73,6 +73,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageTF = new System.Windows.Forms.TabPage();
+            this.numericUpDownFirstQualityBitrate = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxFirstQualityBitrate = new System.Windows.Forms.CheckBox();
+            this.label40 = new System.Windows.Forms.Label();
             this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -133,6 +136,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPageTRRaw.SuspendLayout();
             this.tabPageTF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
@@ -200,7 +204,7 @@
             // buttonInsertSample
             // 
             this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertSample.Location = new System.Drawing.Point(802, 242);
+            this.buttonInsertSample.Location = new System.Drawing.Point(800, 214);
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(215, 28);
             this.buttonInsertSample.TabIndex = 79;
@@ -651,6 +655,9 @@
             // 
             // tabPageTF
             // 
+            this.tabPageTF.Controls.Add(this.numericUpDownFirstQualityBitrate);
+            this.tabPageTF.Controls.Add(this.checkBoxFirstQualityBitrate);
+            this.tabPageTF.Controls.Add(this.label40);
             this.tabPageTF.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPageTF.Controls.Add(this.pictureBox4);
             this.tabPageTF.Controls.Add(this.tableLayoutPanel1);
@@ -671,6 +678,43 @@
             this.tabPageTF.Text = "Track filtering";
             this.tabPageTF.UseVisualStyleBackColor = true;
             // 
+            // numericUpDownFirstQualityBitrate
+            // 
+            this.numericUpDownFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDownFirstQualityBitrate.Enabled = false;
+            this.numericUpDownFirstQualityBitrate.Location = new System.Drawing.Point(189, 516);
+            this.numericUpDownFirstQualityBitrate.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownFirstQualityBitrate.Name = "numericUpDownFirstQualityBitrate";
+            this.numericUpDownFirstQualityBitrate.Size = new System.Drawing.Size(81, 23);
+            this.numericUpDownFirstQualityBitrate.TabIndex = 126;
+            // 
+            // checkBoxFirstQualityBitrate
+            // 
+            this.checkBoxFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxFirstQualityBitrate.AutoSize = true;
+            this.checkBoxFirstQualityBitrate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBoxFirstQualityBitrate.Location = new System.Drawing.Point(22, 517);
+            this.checkBoxFirstQualityBitrate.Name = "checkBoxFirstQualityBitrate";
+            this.checkBoxFirstQualityBitrate.Size = new System.Drawing.Size(165, 19);
+            this.checkBoxFirstQualityBitrate.TabIndex = 125;
+            this.checkBoxFirstQualityBitrate.Text = "First Quality Bitrate (HLS) :";
+            this.checkBoxFirstQualityBitrate.UseVisualStyleBackColor = true;
+            this.checkBoxFirstQualityBitrate.CheckedChanged += new System.EventHandler(this.checkBoxFirstQualityBitrate_CheckedChanged);
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label40.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label40.Location = new System.Drawing.Point(276, 518);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(45, 18);
+            this.label40.TabIndex = 124;
+            this.label40.Text = "bps";
+            // 
             // comboBoxLocatorsFilters
             // 
             this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -678,7 +722,7 @@
             this.comboBoxLocatorsFilters.Enabled = false;
             this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(802, 298);
+            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(802, 248);
             this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
             this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(213, 23);
             this.comboBoxLocatorsFilters.TabIndex = 101;
@@ -728,7 +772,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label38, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label28, 0, 5);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(22, 393);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(22, 337);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1079,7 +1123,7 @@
             // buttonDeleteCondition
             // 
             this.buttonDeleteCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteCondition.Location = new System.Drawing.Point(651, 329);
+            this.buttonDeleteCondition.Location = new System.Drawing.Point(651, 276);
             this.buttonDeleteCondition.Name = "buttonDeleteCondition";
             this.buttonDeleteCondition.Size = new System.Drawing.Size(68, 27);
             this.buttonDeleteCondition.TabIndex = 46;
@@ -1090,9 +1134,9 @@
             // buttonDeleteTrack
             // 
             this.buttonDeleteTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteTrack.Location = new System.Drawing.Point(97, 329);
+            this.buttonDeleteTrack.Location = new System.Drawing.Point(96, 276);
             this.buttonDeleteTrack.Name = "buttonDeleteTrack";
-            this.buttonDeleteTrack.Size = new System.Drawing.Size(68, 27);
+            this.buttonDeleteTrack.Size = new System.Drawing.Size(65, 27);
             this.buttonDeleteTrack.TabIndex = 44;
             this.buttonDeleteTrack.Text = "Delete";
             this.buttonDeleteTrack.UseVisualStyleBackColor = true;
@@ -1101,7 +1145,7 @@
             // buttonAddCondition
             // 
             this.buttonAddCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddCondition.Location = new System.Drawing.Point(576, 329);
+            this.buttonAddCondition.Location = new System.Drawing.Point(577, 276);
             this.buttonAddCondition.Name = "buttonAddCondition";
             this.buttonAddCondition.Size = new System.Drawing.Size(68, 27);
             this.buttonAddCondition.TabIndex = 45;
@@ -1112,7 +1156,7 @@
             // buttonAddTrack
             // 
             this.buttonAddTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddTrack.Location = new System.Drawing.Point(22, 329);
+            this.buttonAddTrack.Location = new System.Drawing.Point(22, 277);
             this.buttonAddTrack.Name = "buttonAddTrack";
             this.buttonAddTrack.Size = new System.Drawing.Size(68, 27);
             this.buttonAddTrack.TabIndex = 43;
@@ -1128,7 +1172,7 @@
             this.listBoxTracks.ItemHeight = 15;
             this.listBoxTracks.Location = new System.Drawing.Point(22, 27);
             this.listBoxTracks.Name = "listBoxTracks";
-            this.listBoxTracks.Size = new System.Drawing.Size(139, 274);
+            this.listBoxTracks.Size = new System.Drawing.Size(139, 229);
             this.listBoxTracks.TabIndex = 1;
             this.listBoxTracks.SelectedIndexChanged += new System.EventHandler(this.listBoxTracks_SelectedIndexChanged);
             // 
@@ -1144,7 +1188,7 @@
             this.dataGridViewTracks.Name = "dataGridViewTracks";
             this.dataGridViewTracks.RowHeadersVisible = false;
             this.dataGridViewTracks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTracks.Size = new System.Drawing.Size(550, 294);
+            this.dataGridViewTracks.Size = new System.Drawing.Size(550, 241);
             this.dataGridViewTracks.TabIndex = 0;
             this.dataGridViewTracks.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTracks_CellValueChanged);
             this.dataGridViewTracks.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewTracks_CurrentCellDirtyStateChanged);
@@ -1358,6 +1402,7 @@
             this.tabPageTRRaw.PerformLayout();
             this.tabPageTF.ResumeLayout(false);
             this.tabPageTF.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
@@ -1467,5 +1512,8 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxDurationTime;
         public System.Windows.Forms.Label label39;
+        private System.Windows.Forms.NumericUpDown numericUpDownFirstQualityBitrate;
+        private System.Windows.Forms.CheckBox checkBoxFirstQualityBitrate;
+        private System.Windows.Forms.Label label40;
     }
 }

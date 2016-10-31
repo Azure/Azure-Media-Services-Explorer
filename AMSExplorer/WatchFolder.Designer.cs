@@ -35,10 +35,8 @@
             this.radioButtonOFF = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.buttonSelFolder = new System.Windows.Forms.Button();
             this.textBoxFolder = new System.Windows.Forms.TextBox();
-            this.checkBoxUseQueue = new System.Windows.Forms.CheckBox();
             this.checkBoxDeleteFile = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.checkBoxRunJobTemplate = new System.Windows.Forms.CheckBox();
@@ -59,6 +57,10 @@
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
+            this.buttonSeeRhozetExample = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -68,13 +70,14 @@
             this.groupBoxProcess.SuspendLayout();
             this.panelInsertAsset.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(583, 15);
+            this.buttonOk.Location = new System.Drawing.Point(570, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(115, 27);
             this.buttonOk.TabIndex = 17;
@@ -85,7 +88,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(706, 14);
+            this.buttonCancel.Location = new System.Drawing.Point(693, 14);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -133,9 +136,9 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
-            this.groupBox4.Location = new System.Drawing.Point(20, 143);
+            this.groupBox4.Location = new System.Drawing.Point(61, 153);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(783, 99);
+            this.groupBox4.Size = new System.Drawing.Size(156, 99);
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Activation";
@@ -149,10 +152,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 49;
             this.pictureBox1.TabStop = false;
-            // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // buttonSelFolder
             // 
@@ -175,21 +174,10 @@
             this.textBoxFolder.TabIndex = 45;
             this.textBoxFolder.TextChanged += new System.EventHandler(this.textBoxFolder_TextChanged);
             // 
-            // checkBoxUseQueue
-            // 
-            this.checkBoxUseQueue.AutoSize = true;
-            this.checkBoxUseQueue.Location = new System.Drawing.Point(61, 249);
-            this.checkBoxUseQueue.Name = "checkBoxUseQueue";
-            this.checkBoxUseQueue.Size = new System.Drawing.Size(211, 19);
-            this.checkBoxUseQueue.TabIndex = 48;
-            this.checkBoxUseQueue.Text = "One upload at a time (use a queue)";
-            this.checkBoxUseQueue.UseVisualStyleBackColor = true;
-            this.checkBoxUseQueue.CheckedChanged += new System.EventHandler(this.checkBoxParallel_CheckedChanged);
-            // 
             // checkBoxDeleteFile
             // 
             this.checkBoxDeleteFile.AutoSize = true;
-            this.checkBoxDeleteFile.Location = new System.Drawing.Point(61, 276);
+            this.checkBoxDeleteFile.Location = new System.Drawing.Point(37, 34);
             this.checkBoxDeleteFile.Name = "checkBoxDeleteFile";
             this.checkBoxDeleteFile.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteFile.TabIndex = 49;
@@ -199,7 +187,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.delete;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 276);
+            this.pictureBox2.Location = new System.Drawing.Point(15, 34);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -209,7 +197,7 @@
             // checkBoxRunJobTemplate
             // 
             this.checkBoxRunJobTemplate.AutoSize = true;
-            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 302);
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 281);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
             this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
             this.checkBoxRunJobTemplate.TabIndex = 51;
@@ -226,14 +214,14 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 661);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(836, 55);
+            this.panel1.Size = new System.Drawing.Size(823, 55);
             this.panel1.TabIndex = 64;
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 593);
+            this.pictureBox3.Location = new System.Drawing.Point(26, 587);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -244,7 +232,7 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 594);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 588);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
             this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
             this.checkBoxPublishOAssets.TabIndex = 65;
@@ -332,7 +320,7 @@
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
             this.groupBoxProcess.Enabled = false;
-            this.groupBoxProcess.Location = new System.Drawing.Point(61, 329);
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 308);
             this.groupBoxProcess.Name = "groupBoxProcess";
             this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
             this.groupBoxProcess.TabIndex = 74;
@@ -411,7 +399,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
+            this.pictureBox5.Location = new System.Drawing.Point(26, 282);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(16, 16);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -429,6 +417,48 @@
             this.label13.TabIndex = 78;
             this.label13.Text = "Watch Folder";
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(812, 661);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(23, 44);
+            this.panel2.TabIndex = 79;
+            // 
+            // groupBoxOptions
+            // 
+            this.groupBoxOptions.Controls.Add(this.buttonSeeRhozetExample);
+            this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
+            this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
+            this.groupBoxOptions.Controls.Add(this.pictureBox2);
+            this.groupBoxOptions.Location = new System.Drawing.Point(245, 153);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Size = new System.Drawing.Size(557, 100);
+            this.groupBoxOptions.TabIndex = 80;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Upload Options";
+            // 
+            // checkBoxProcessXMLRohzet
+            // 
+            this.checkBoxProcessXMLRohzet.AutoSize = true;
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 60);
+            this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
+            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
+            this.checkBoxProcessXMLRohzet.TabIndex = 51;
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
+            this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
+            // 
+            // buttonSeeRhozetExample
+            // 
+            this.buttonSeeRhozetExample.Location = new System.Drawing.Point(409, 59);
+            this.buttonSeeRhozetExample.Name = "buttonSeeRhozetExample";
+            this.buttonSeeRhozetExample.Size = new System.Drawing.Size(113, 23);
+            this.buttonSeeRhozetExample.TabIndex = 52;
+            this.buttonSeeRhozetExample.Text = "See an example";
+            this.buttonSeeRhozetExample.UseVisualStyleBackColor = true;
+            this.buttonSeeRhozetExample.Click += new System.EventHandler(this.buttonSeeRhozetExample_Click);
+            // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
@@ -437,6 +467,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.groupBoxOptions);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);
@@ -448,15 +480,13 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.checkBoxPublishOAssets);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.checkBoxDeleteFile);
-            this.Controls.Add(this.checkBoxUseQueue);
             this.Controls.Add(this.textBoxFolder);
             this.Controls.Add(this.buttonSelFolder);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WatchFolder";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Watch Folder";
             this.Load += new System.EventHandler(this.WatchFolder_Load);
@@ -473,6 +503,8 @@
             this.panelInsertAsset.ResumeLayout(false);
             this.panelInsertAsset.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -483,10 +515,8 @@
         private System.Windows.Forms.RadioButton radioButtonON;
         private System.Windows.Forms.RadioButton radioButtonOFF;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button buttonSelFolder;
         private System.Windows.Forms.TextBox textBoxFolder;
-        private System.Windows.Forms.CheckBox checkBoxUseQueue;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBoxDeleteFile;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -511,5 +541,9 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
+        private System.Windows.Forms.CheckBox checkBoxProcessXMLRohzet;
+        private System.Windows.Forms.Button buttonSeeRhozetExample;
     }
 }

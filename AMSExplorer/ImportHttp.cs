@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ namespace AMSExplorer
 {
     public partial class ImportHttp : Form
     {
+        private bool _AzureStorageContainerSASListMode;
+
         public Uri GetURL
         {
             get
@@ -52,20 +54,30 @@ namespace AMSExplorer
         }
 
 
-        public ImportHttp()
+        public ImportHttp(bool AzureStorageContainerSASListMode = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+
+            _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
         }
 
         private void ImportHttp_Load(object sender, EventArgs e)
         {
             labelURLFileNameWarning.Text = string.Empty;
+
+            if (_AzureStorageContainerSASListMode)
+            {
+                label4.Visible = textBoxAssetFileName.Visible = false;
+                labelExamples.Visible = false;
+                labelSASListExample.Visible = true;
+                labelTitle.Text = this.Text = "Import from SAS Container Path";
+            }
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
         {
-            string filename = null;
+           
             bool Error = false;
             try
             {
@@ -78,23 +90,30 @@ namespace AMSExplorer
                 buttonImport.Enabled = false;
                 return;
             }
-           
+
             buttonImport.Enabled = true;
-            try
+            if (!_AzureStorageContainerSASListMode)
             {
-                filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
-            }
-            catch
-            {
-                Error = true;
-                labelURLFileNameWarning.Text = "File name not found in the URL";
+                string filename = null;
+                try
+                {
+                    filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
+                }
+                catch
+                {
+                    Error = true;
+                    labelURLFileNameWarning.Text = "File name not found in the URL";
+                }
+                if (!Error)
+                {
+                    textBoxAssetName.Text = filename;
+                    textBoxAssetFileName.Text = filename;
+                }
             }
 
             if (!Error)
             {
                 labelURLFileNameWarning.Text = string.Empty;
-                textBoxAssetName.Text = filename;
-                textBoxAssetFileName.Text = filename;
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
-
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
@@ -66,6 +66,14 @@ namespace AMSExplorer
             }
         }
 
+        public AssetCreationOptions EncryptionOption
+        {
+            get
+            {
+                return  (AssetCreationOptions)Enum.Parse(typeof(AssetCreationOptions), (comboBoxEncryption.SelectedItem as Item).Value);
+            }
+        }
+
 
 
         public BatchUploadFrame1()
@@ -75,17 +83,26 @@ namespace AMSExplorer
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog FolderDialog = new FolderBrowserDialog();
-            if (FolderDialog.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolder.Text = FolderDialog.SelectedPath;
+                textBoxFolder.Text = openFolderDialog.FileName;// FolderDialog.SelectedPath;
             }
         }
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            checkBoxOneUpDownload.Checked = Properties.Settings.Default.useTransferQueue;
-            checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
+            comboBoxEncryption.Items.Add(new Item("None (no encryption before upload)", AssetCreationOptions.None.ToString()));
+            comboBoxEncryption.Items.Add(new Item("Storage encryption (content will be encrypted locally to AES 256 before upload)", AssetCreationOptions.StorageEncrypted.ToString()));
+            comboBoxEncryption.Items.Add(new Item("Common encryption (content is already encrypted with PlayReady)", AssetCreationOptions.CommonEncryptionProtected.ToString()));
+            if (Properties.Settings.Default.useStorageEncryption)
+            {
+                comboBoxEncryption.SelectedIndex = 1;
+            }
+            else
+            {
+                comboBoxEncryption.SelectedIndex = 0;
+            }
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
@@ -95,7 +112,6 @@ namespace AMSExplorer
                 MessageBox.Show("Folder does not exist", "Folder", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.DialogResult = DialogResult.None;
             }
-
         }
     }
 }

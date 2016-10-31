@@ -54,7 +54,6 @@
             this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonCreateMail = new System.Windows.Forms.Button();
             this.buttonCopyStats = new System.Windows.Forms.Button();
@@ -69,6 +68,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonGenerateManifest = new System.Windows.Forms.Button();
             this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonFileMetadata = new System.Windows.Forms.Button();
@@ -89,6 +89,7 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
             this.buttonGetTestToken = new System.Windows.Forms.Button();
@@ -98,6 +99,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripAuthPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.getTestTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAuthorizationPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
             this.listViewKeys = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -120,7 +123,6 @@
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonAzureMediaPlayer = new System.Windows.Forms.Button();
-            this.buttonSLMonitor = new System.Windows.Forms.Button();
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -128,6 +130,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -190,7 +193,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(813, 14);
+            this.buttonClose.Location = new System.Drawing.Point(800, 14);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(87, 27);
             this.buttonClose.TabIndex = 3;
@@ -311,7 +314,7 @@
             this.DGFiles.Name = "DGFiles";
             this.DGFiles.ReadOnly = true;
             this.DGFiles.RowHeadersVisible = false;
-            this.DGFiles.Size = new System.Drawing.Size(478, 456);
+            this.DGFiles.Size = new System.Drawing.Size(478, 424);
             this.DGFiles.TabIndex = 20;
             // 
             // contextMenuStripFiles
@@ -413,7 +416,7 @@
             this.buttonCopyStats.Name = "buttonCopyStats";
             this.buttonCopyStats.Size = new System.Drawing.Size(121, 27);
             this.buttonCopyStats.TabIndex = 24;
-            this.buttonCopyStats.Text = "Copy to clipboard";
+            this.buttonCopyStats.Text = "Display it";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
             this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
@@ -421,7 +424,7 @@
             // 
             this.buttonSetPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSetPrimary.Enabled = false;
-            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 469);
+            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 437);
             this.buttonSetPrimary.Name = "buttonSetPrimary";
             this.buttonSetPrimary.Size = new System.Drawing.Size(104, 27);
             this.buttonSetPrimary.TabIndex = 27;
@@ -433,7 +436,7 @@
             // 
             this.buttonDeleteFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteFile.Enabled = false;
-            this.buttonDeleteFile.Location = new System.Drawing.Point(581, 469);
+            this.buttonDeleteFile.Location = new System.Drawing.Point(178, 437);
             this.buttonDeleteFile.Name = "buttonDeleteFile";
             this.buttonDeleteFile.Size = new System.Drawing.Size(56, 27);
             this.buttonDeleteFile.TabIndex = 28;
@@ -446,7 +449,7 @@
             // 
             this.buttonDownloadFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDownloadFile.Enabled = false;
-            this.buttonDownloadFile.Location = new System.Drawing.Point(341, 469);
+            this.buttonDownloadFile.Location = new System.Drawing.Point(479, 437);
             this.buttonDownloadFile.Name = "buttonDownloadFile";
             this.buttonDownloadFile.Size = new System.Drawing.Size(80, 27);
             this.buttonDownloadFile.TabIndex = 29;
@@ -458,7 +461,7 @@
             // 
             this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpenFile.Enabled = false;
-            this.buttonOpenFile.Location = new System.Drawing.Point(229, 469);
+            this.buttonOpenFile.Location = new System.Drawing.Point(120, 437);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(52, 27);
             this.buttonOpenFile.TabIndex = 30;
@@ -476,11 +479,12 @@
             this.ListViewFilesName,
             this.ListViewFilesSize});
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
+            this.listViewFiles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
             this.listViewFiles.Location = new System.Drawing.Point(10, 7);
             this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.Size = new System.Drawing.Size(367, 455);
+            this.listViewFiles.Size = new System.Drawing.Size(367, 424);
             this.listViewFiles.TabIndex = 31;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
@@ -541,6 +545,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonGenerateManifest);
             this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
             this.tabPage2.Controls.Add(this.buttonFileMetadata);
@@ -561,13 +566,25 @@
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonGenerateManifest
+            // 
+            this.buttonGenerateManifest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGenerateManifest.Location = new System.Drawing.Point(178, 469);
+            this.buttonGenerateManifest.Name = "buttonGenerateManifest";
+            this.buttonGenerateManifest.Size = new System.Drawing.Size(141, 27);
+            this.buttonGenerateManifest.TabIndex = 38;
+            this.buttonGenerateManifest.Text = "Generate a manifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateManifest, "Generate a manifest file for a multi MP4 files asset");
+            this.buttonGenerateManifest.UseVisualStyleBackColor = true;
+            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
+            // 
             // buttonEditOnline
             // 
             this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonEditOnline.Enabled = false;
-            this.buttonEditOnline.Location = new System.Drawing.Point(287, 469);
+            this.buttonEditOnline.Location = new System.Drawing.Point(120, 469);
             this.buttonEditOnline.Name = "buttonEditOnline";
-            this.buttonEditOnline.Size = new System.Drawing.Size(48, 27);
+            this.buttonEditOnline.Size = new System.Drawing.Size(52, 27);
             this.buttonEditOnline.TabIndex = 37;
             this.buttonEditOnline.Text = "Edit";
             this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
@@ -578,7 +595,7 @@
             // 
             this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteAll.Enabled = false;
-            this.buttonDeleteAll.Location = new System.Drawing.Point(643, 469);
+            this.buttonDeleteAll.Location = new System.Drawing.Point(240, 437);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
             this.buttonDeleteAll.Size = new System.Drawing.Size(79, 27);
             this.buttonDeleteAll.TabIndex = 36;
@@ -591,7 +608,7 @@
             // 
             this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFileMetadata.Enabled = false;
-            this.buttonFileMetadata.Location = new System.Drawing.Point(120, 469);
+            this.buttonFileMetadata.Location = new System.Drawing.Point(11, 469);
             this.buttonFileMetadata.Name = "buttonFileMetadata";
             this.buttonFileMetadata.Size = new System.Drawing.Size(103, 27);
             this.buttonFileMetadata.TabIndex = 35;
@@ -604,9 +621,9 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(729, 469);
+            this.progressBarUpload.Location = new System.Drawing.Point(565, 437);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(134, 27);
+            this.progressBarUpload.Size = new System.Drawing.Size(298, 27);
             this.progressBarUpload.TabIndex = 34;
             this.progressBarUpload.Visible = false;
             // 
@@ -614,7 +631,7 @@
             // 
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(427, 469);
+            this.buttonUpload.Location = new System.Drawing.Point(404, 437);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(69, 27);
             this.buttonUpload.TabIndex = 33;
@@ -627,7 +644,7 @@
             // 
             this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDuplicate.Enabled = false;
-            this.buttonDuplicate.Location = new System.Drawing.Point(502, 469);
+            this.buttonDuplicate.Location = new System.Drawing.Point(325, 437);
             this.buttonDuplicate.Name = "buttonDuplicate";
             this.buttonDuplicate.Size = new System.Drawing.Size(73, 27);
             this.buttonDuplicate.TabIndex = 32;
@@ -779,6 +796,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonRemoveAuthPolOption);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
             this.tabPage5.Controls.Add(this.buttonGetTestToken);
@@ -795,10 +813,22 @@
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // buttonRemoveAuthPolOption
+            // 
+            this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveAuthPolOption.Enabled = false;
+            this.buttonRemoveAuthPolOption.Location = new System.Drawing.Point(402, 469);
+            this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
+            this.buttonRemoveAuthPolOption.Size = new System.Drawing.Size(103, 27);
+            this.buttonRemoveAuthPolOption.TabIndex = 44;
+            this.buttonRemoveAuthPolOption.Text = "Remove option";
+            this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
+            this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
+            // 
             // buttonRemoveAuthPol
             // 
             this.buttonRemoveAuthPol.Enabled = false;
-            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(128, 272);
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(129, 272);
             this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
             this.buttonRemoveAuthPol.Size = new System.Drawing.Size(140, 27);
             this.buttonRemoveAuthPol.TabIndex = 43;
@@ -821,7 +851,7 @@
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonGetTestToken.Enabled = false;
-            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 470);
+            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 469);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
             this.buttonGetTestToken.Size = new System.Drawing.Size(121, 27);
             this.buttonGetTestToken.TabIndex = 41;
@@ -872,7 +902,7 @@
             this.listViewAutPolOptions.Location = new System.Drawing.Point(275, 302);
             this.listViewAutPolOptions.MultiSelect = false;
             this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 160);
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 161);
             this.listViewAutPolOptions.TabIndex = 39;
             this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
@@ -886,17 +916,33 @@
             // contextMenuStripAuthPol
             // 
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getTestTokenToolStripMenuItem});
+            this.getTestTokenToolStripMenuItem,
+            this.removeOptionToolStripMenuItem,
+            this.removeAuthorizationPolicyToolStripMenuItem});
             this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(161, 26);
+            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(235, 70);
             this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
             // 
             // getTestTokenToolStripMenuItem
             // 
             this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
-            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.getTestTokenToolStripMenuItem.Text = "Get Test Token...";
             this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
+            // 
+            // removeOptionToolStripMenuItem
+            // 
+            this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
+            this.removeOptionToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeOptionToolStripMenuItem.Text = "Remove option...";
+            this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
+            // 
+            // removeAuthorizationPolicyToolStripMenuItem
+            // 
+            this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
+            this.removeAuthorizationPolicyToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeAuthorizationPolicyToolStripMenuItem.Text = "Remove authorization policy...";
+            this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
             // 
             // dataGridViewKeys
             // 
@@ -1049,7 +1095,6 @@
             this.tabPage3.Controls.Add(this.buttonOpen);
             this.tabPage3.Controls.Add(this.buttonDel);
             this.tabPage3.Controls.Add(this.buttonAzureMediaPlayer);
-            this.tabPage3.Controls.Add(this.buttonSLMonitor);
             this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
             this.tabPage3.Controls.Add(this.label1);
@@ -1167,18 +1212,6 @@
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
             this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
-            // buttonSLMonitor
-            // 
-            this.buttonSLMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSLMonitor.Enabled = false;
-            this.buttonSLMonitor.Location = new System.Drawing.Point(387, 473);
-            this.buttonSLMonitor.Name = "buttonSLMonitor";
-            this.buttonSLMonitor.Size = new System.Drawing.Size(120, 27);
-            this.buttonSLMonitor.TabIndex = 26;
-            this.buttonSLMonitor.Text = "Silverlight Monitor";
-            this.buttonSLMonitor.UseVisualStyleBackColor = true;
-            this.buttonSLMonitor.Click += new System.EventHandler(this.buttonSLMonitor_Click);
-            // 
             // buttonHTML
             // 
             this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1217,7 +1250,7 @@
             // 
             this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(290, 473);
+            this.buttonFlash.Location = new System.Drawing.Point(418, 473);
             this.buttonFlash.Name = "buttonFlash";
             this.buttonFlash.Size = new System.Drawing.Size(90, 27);
             this.buttonFlash.TabIndex = 20;
@@ -1244,8 +1277,17 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(0, 593);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(916, 55);
+            this.panel1.Size = new System.Drawing.Size(903, 55);
             this.panel1.TabIndex = 36;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(893, 593);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(29, 42);
+            this.panel2.TabIndex = 77;
             // 
             // AssetInformation
             // 
@@ -1255,11 +1297,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AssetInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
@@ -1310,7 +1354,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadFile;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonCreateMail;
         private System.Windows.Forms.Button buttonCopyStats;
@@ -1332,7 +1375,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonFlash;
         private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.Button buttonSLMonitor;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
         private System.Windows.Forms.Button buttonAzureMediaPlayer;
         private System.Windows.Forms.Button buttonDuplicate;
@@ -1393,5 +1435,10 @@
         private System.Windows.Forms.Button buttonDeleteAll;
         private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
         private System.Windows.Forms.Button buttonEditOnline;
+        private System.Windows.Forms.Button buttonGenerateManifest;
+        private System.Windows.Forms.Button buttonRemoveAuthPolOption;
+        private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
     }
 }

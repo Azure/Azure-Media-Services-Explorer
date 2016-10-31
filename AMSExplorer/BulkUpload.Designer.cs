@@ -35,7 +35,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.openFileDialogAssetFiles = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,10 +50,28 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridAssetFiles = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.radioButtonCENCEncryption = new System.Windows.Forms.RadioButton();
+            this.radioButtonStorageEncryption = new System.Windows.Forms.RadioButton();
+            this.radioButtonEncryptionNone = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.linkLabelInfoAzCopy = new System.Windows.Forms.LinkLabel();
+            this.checkBoxGenerateAzCopy = new System.Windows.Forms.CheckBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panelSigniant = new System.Windows.Forms.Panel();
+            this.comboBoxSigniantServer = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxSigniantAPIKey = new System.Windows.Forms.TextBox();
+            this.linkLabelSigniantRequestKey = new System.Windows.Forms.LinkLabel();
+            this.linklabelSigniantMarket = new System.Windows.Forms.LinkLabel();
+            this.checkBoxGenerateSigniant = new System.Windows.Forms.CheckBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.checkBoxGenerateAspera = new System.Windows.Forms.CheckBox();
+            this.linkLabelAspera = new System.Windows.Forms.LinkLabel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,19 +84,23 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAssetFiles)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.panelSigniant.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Location = new System.Drawing.Point(510, 14);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(143, 27);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Create Bulk Ingest";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -127,6 +148,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 118);
             this.tabControl1.Name = "tabControl1";
@@ -296,8 +320,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.radioButtonCENCEncryption);
+            this.tabPage2.Controls.Add(this.radioButtonStorageEncryption);
+            this.tabPage2.Controls.Add(this.radioButtonEncryptionNone);
             this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.checkBoxEncrypt);
             this.tabPage2.Controls.Add(this.buttonBrowseFile);
             this.tabPage2.Controls.Add(this.textBoxFolderPath);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
@@ -305,34 +332,69 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(752, 355);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Storage Encryption";
+            this.tabPage2.Text = "Encryption";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(43, 100);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(394, 15);
+            this.label10.TabIndex = 86;
+            this.label10.Text = "Content will be encrypted locally to AES 256, before upload, to this folder:";
+            // 
+            // radioButtonCENCEncryption
+            // 
+            this.radioButtonCENCEncryption.AutoSize = true;
+            this.radioButtonCENCEncryption.Location = new System.Drawing.Point(28, 214);
+            this.radioButtonCENCEncryption.Name = "radioButtonCENCEncryption";
+            this.radioButtonCENCEncryption.Size = new System.Drawing.Size(379, 19);
+            this.radioButtonCENCEncryption.TabIndex = 85;
+            this.radioButtonCENCEncryption.TabStop = true;
+            this.radioButtonCENCEncryption.Text = "Common encryption (content is already encrypted with PlayReady)";
+            this.radioButtonCENCEncryption.UseVisualStyleBackColor = true;
+            this.radioButtonCENCEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
+            // 
+            // radioButtonStorageEncryption
+            // 
+            this.radioButtonStorageEncryption.AutoSize = true;
+            this.radioButtonStorageEncryption.Location = new System.Drawing.Point(28, 67);
+            this.radioButtonStorageEncryption.Name = "radioButtonStorageEncryption";
+            this.radioButtonStorageEncryption.Size = new System.Drawing.Size(125, 19);
+            this.radioButtonStorageEncryption.TabIndex = 84;
+            this.radioButtonStorageEncryption.TabStop = true;
+            this.radioButtonStorageEncryption.Text = "Storage encryption";
+            this.radioButtonStorageEncryption.UseVisualStyleBackColor = true;
+            this.radioButtonStorageEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
+            // 
+            // radioButtonEncryptionNone
+            // 
+            this.radioButtonEncryptionNone.AutoSize = true;
+            this.radioButtonEncryptionNone.Checked = true;
+            this.radioButtonEncryptionNone.Location = new System.Drawing.Point(28, 23);
+            this.radioButtonEncryptionNone.Name = "radioButtonEncryptionNone";
+            this.radioButtonEncryptionNone.Size = new System.Drawing.Size(216, 19);
+            this.radioButtonEncryptionNone.TabIndex = 83;
+            this.radioButtonEncryptionNone.TabStop = true;
+            this.radioButtonEncryptionNone.Text = "None (no encryption before upload)";
+            this.radioButtonEncryptionNone.UseVisualStyleBackColor = true;
+            this.radioButtonEncryptionNone.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
             // 
             // label4
             // 
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(37, 85);
+            this.label4.Location = new System.Drawing.Point(43, 157);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(471, 15);
             this.label4.TabIndex = 82;
             this.label4.Text = "key(s) will be locally generated and copied to the target asset(s) in AMS";
             // 
-            // checkBoxEncrypt
-            // 
-            this.checkBoxEncrypt.AutoSize = true;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(21, 16);
-            this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(243, 19);
-            this.checkBoxEncrypt.TabIndex = 0;
-            this.checkBoxEncrypt.Text = "Encrypt the local asset files to this folder :";
-            this.checkBoxEncrypt.UseVisualStyleBackColor = true;
-            this.checkBoxEncrypt.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // buttonBrowseFile
             // 
             this.buttonBrowseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowseFile.Enabled = false;
-            this.buttonBrowseFile.Location = new System.Drawing.Point(639, 46);
+            this.buttonBrowseFile.Location = new System.Drawing.Point(645, 118);
             this.buttonBrowseFile.Name = "buttonBrowseFile";
             this.buttonBrowseFile.Size = new System.Drawing.Size(95, 23);
             this.buttonBrowseFile.TabIndex = 3;
@@ -345,10 +407,176 @@
             this.textBoxFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolderPath.Enabled = false;
-            this.textBoxFolderPath.Location = new System.Drawing.Point(40, 46);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(46, 118);
             this.textBoxFolderPath.Name = "textBoxFolderPath";
             this.textBoxFolderPath.Size = new System.Drawing.Size(592, 23);
             this.textBoxFolderPath.TabIndex = 2;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.linkLabelInfoAzCopy);
+            this.tabPage5.Controls.Add(this.checkBoxGenerateAzCopy);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(752, 355);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Microsoft AzCopy";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelInfoAzCopy
+            // 
+            this.linkLabelInfoAzCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelInfoAzCopy.AutoSize = true;
+            this.linkLabelInfoAzCopy.Location = new System.Drawing.Point(614, 24);
+            this.linkLabelInfoAzCopy.Name = "linkLabelInfoAzCopy";
+            this.linkLabelInfoAzCopy.Size = new System.Drawing.Size(120, 15);
+            this.linkLabelInfoAzCopy.TabIndex = 84;
+            this.linkLabelInfoAzCopy.TabStop = true;
+            this.linkLabelInfoAzCopy.Text = "More info on AzCopy";
+            this.linkLabelInfoAzCopy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
+            // 
+            // checkBoxGenerateAzCopy
+            // 
+            this.checkBoxGenerateAzCopy.AutoSize = true;
+            this.checkBoxGenerateAzCopy.Location = new System.Drawing.Point(29, 24);
+            this.checkBoxGenerateAzCopy.Name = "checkBoxGenerateAzCopy";
+            this.checkBoxGenerateAzCopy.Size = new System.Drawing.Size(197, 19);
+            this.checkBoxGenerateAzCopy.TabIndex = 2;
+            this.checkBoxGenerateAzCopy.Text = "Generate AzCopy command line";
+            this.checkBoxGenerateAzCopy.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.panelSigniant);
+            this.tabPage4.Controls.Add(this.linkLabelSigniantRequestKey);
+            this.tabPage4.Controls.Add(this.linklabelSigniantMarket);
+            this.tabPage4.Controls.Add(this.checkBoxGenerateSigniant);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(752, 355);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Signiant Flight";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // panelSigniant
+            // 
+            this.panelSigniant.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelSigniant.Controls.Add(this.comboBoxSigniantServer);
+            this.panelSigniant.Controls.Add(this.label8);
+            this.panelSigniant.Controls.Add(this.label9);
+            this.panelSigniant.Controls.Add(this.textBoxSigniantAPIKey);
+            this.panelSigniant.Enabled = false;
+            this.panelSigniant.Location = new System.Drawing.Point(6, 66);
+            this.panelSigniant.Name = "panelSigniant";
+            this.panelSigniant.Size = new System.Drawing.Size(740, 161);
+            this.panelSigniant.TabIndex = 85;
+            // 
+            // comboBoxSigniantServer
+            // 
+            this.comboBoxSigniantServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSigniantServer.FormattingEnabled = true;
+            this.comboBoxSigniantServer.Location = new System.Drawing.Point(18, 21);
+            this.comboBoxSigniantServer.Name = "comboBoxSigniantServer";
+            this.comboBoxSigniantServer.Size = new System.Drawing.Size(247, 23);
+            this.comboBoxSigniantServer.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(382, 15);
+            this.label8.TabIndex = 80;
+            this.label8.Text = "Select the Signiant region (should be the same than the AMS account) :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 64);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 15);
+            this.label9.TabIndex = 81;
+            this.label9.Text = "API Key :";
+            // 
+            // textBoxSigniantAPIKey
+            // 
+            this.textBoxSigniantAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSigniantAPIKey.Location = new System.Drawing.Point(18, 82);
+            this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
+            this.textBoxSigniantAPIKey.Size = new System.Drawing.Size(553, 23);
+            this.textBoxSigniantAPIKey.TabIndex = 82;
+            // 
+            // linkLabelSigniantRequestKey
+            // 
+            this.linkLabelSigniantRequestKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelSigniantRequestKey.AutoSize = true;
+            this.linkLabelSigniantRequestKey.Location = new System.Drawing.Point(632, 48);
+            this.linkLabelSigniantRequestKey.Name = "linkLabelSigniantRequestKey";
+            this.linkLabelSigniantRequestKey.Size = new System.Drawing.Size(102, 15);
+            this.linkLabelSigniantRequestKey.TabIndex = 84;
+            this.linkLabelSigniantRequestKey.TabStop = true;
+            this.linkLabelSigniantRequestKey.Text = "Request a trial key";
+            this.linkLabelSigniantRequestKey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
+            // 
+            // linklabelSigniantMarket
+            // 
+            this.linklabelSigniantMarket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklabelSigniantMarket.AutoSize = true;
+            this.linklabelSigniantMarket.Location = new System.Drawing.Point(533, 22);
+            this.linklabelSigniantMarket.Name = "linklabelSigniantMarket";
+            this.linklabelSigniantMarket.Size = new System.Drawing.Size(201, 15);
+            this.linklabelSigniantMarket.TabIndex = 83;
+            this.linklabelSigniantMarket.TabStop = true;
+            this.linklabelSigniantMarket.Text = "Signiant Flight on Azure Marketplace";
+            this.linklabelSigniantMarket.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
+            // 
+            // checkBoxGenerateSigniant
+            // 
+            this.checkBoxGenerateSigniant.AutoSize = true;
+            this.checkBoxGenerateSigniant.Location = new System.Drawing.Point(24, 22);
+            this.checkBoxGenerateSigniant.Name = "checkBoxGenerateSigniant";
+            this.checkBoxGenerateSigniant.Size = new System.Drawing.Size(257, 19);
+            this.checkBoxGenerateSigniant.TabIndex = 1;
+            this.checkBoxGenerateSigniant.Text = "Generate Signiant (sigcli.exe) command line";
+            this.checkBoxGenerateSigniant.UseVisualStyleBackColor = true;
+            this.checkBoxGenerateSigniant.CheckedChanged += new System.EventHandler(this.checkBoxGenerateSigniant_CheckedChanged);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.checkBoxGenerateAspera);
+            this.tabPage6.Controls.Add(this.linkLabelAspera);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(752, 355);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Aspera SOD";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxGenerateAspera
+            // 
+            this.checkBoxGenerateAspera.AutoSize = true;
+            this.checkBoxGenerateAspera.Location = new System.Drawing.Point(29, 22);
+            this.checkBoxGenerateAspera.Name = "checkBoxGenerateAspera";
+            this.checkBoxGenerateAspera.Size = new System.Drawing.Size(136, 19);
+            this.checkBoxGenerateAspera.TabIndex = 85;
+            this.checkBoxGenerateAspera.Text = "Generate Aspera URL";
+            this.checkBoxGenerateAspera.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelAspera
+            // 
+            this.linkLabelAspera.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelAspera.AutoSize = true;
+            this.linkLabelAspera.Location = new System.Drawing.Point(546, 22);
+            this.linkLabelAspera.Name = "linkLabelAspera";
+            this.linkLabelAspera.Size = new System.Drawing.Size(187, 15);
+            this.linkLabelAspera.TabIndex = 84;
+            this.linkLabelAspera.TabStop = true;
+            this.linkLabelAspera.Text = "Aspera SOD on Azure Marketplace";
+            this.linkLabelAspera.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
             // tabPage3
             // 
@@ -375,7 +603,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(229, 15);
             this.label3.TabIndex = 84;
-            this.label3.Text = "Bulk ingest container name to create :";
+            this.label3.Text = "Bulk ingest name to create :";
             // 
             // textBoxManifestName
             // 
@@ -384,7 +612,7 @@
             this.textBoxManifestName.Location = new System.Drawing.Point(16, 71);
             this.textBoxManifestName.Name = "textBoxManifestName";
             this.textBoxManifestName.Size = new System.Drawing.Size(525, 23);
-            this.textBoxManifestName.TabIndex = 83;
+            this.textBoxManifestName.TabIndex = 0;
             // 
             // comboBoxStorageIngest
             // 
@@ -433,6 +661,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAssetFiles)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.panelSigniant.ResumeLayout(false);
+            this.panelSigniant.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -446,7 +682,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.OpenFileDialog openFileDialogAssetFiles;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button buttonSelectFiles;
@@ -457,7 +692,6 @@
         private System.Windows.Forms.DataGridView dataGridAssetFiles;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBoxEncrypt;
         private System.Windows.Forms.Button buttonBrowseFile;
         private System.Windows.Forms.TextBox textBoxFolderPath;
         private System.Windows.Forms.TabPage tabPage3;
@@ -473,5 +707,24 @@
         private System.Windows.Forms.Button buttonSplitSelection;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxGenerateSigniant;
+        private System.Windows.Forms.ComboBox comboBoxSigniantServer;
+        private System.Windows.Forms.TextBox textBoxSigniantAPIKey;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.CheckBox checkBoxGenerateAzCopy;
+        private System.Windows.Forms.LinkLabel linkLabelSigniantRequestKey;
+        private System.Windows.Forms.LinkLabel linklabelSigniantMarket;
+        private System.Windows.Forms.LinkLabel linkLabelInfoAzCopy;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.LinkLabel linkLabelAspera;
+        private System.Windows.Forms.CheckBox checkBoxGenerateAspera;
+        private System.Windows.Forms.Panel panelSigniant;
+        private System.Windows.Forms.RadioButton radioButtonStorageEncryption;
+        private System.Windows.Forms.RadioButton radioButtonEncryptionNone;
+        private System.Windows.Forms.RadioButton radioButtonCENCEncryption;
+        private System.Windows.Forms.Label label10;
     }
 }

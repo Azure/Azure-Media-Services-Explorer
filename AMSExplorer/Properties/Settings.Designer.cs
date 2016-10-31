@@ -108,18 +108,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool useTransferQueue {
-            get {
-                return ((bool)(this["useTransferQueue"]));
-            }
-            set {
-                this["useTransferQueue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int NbItemsDisplayedInGrid {
             get {
@@ -301,30 +289,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.39")]
-        public decimal LegacyEncodingPrice {
-            get {
-                return ((decimal)(this["LegacyEncodingPrice"]));
-            }
-            set {
-                this["LegacyEncodingPrice"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public decimal IndexingPrice {
-            get {
-                return ((decimal)(this["IndexingPrice"]));
-            }
-            set {
-                this["IndexingPrice"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("$")]
         public string Currency {
             get {
@@ -488,6 +452,114 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DisplayIngestManifestIDinGrid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SigniantFlightAPIKey {
+            get {
+                return ((string)(this["SigniantFlightAPIKey"]));
+            }
+            set {
+                this["SigniantFlightAPIKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayAssetAltIDinGrid {
+            get {
+                return ((bool)(this["DisplayAssetAltIDinGrid"]));
+            }
+            set {
+                this["DisplayAssetAltIDinGrid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
+        public decimal IndexingPricePerMin {
+            get {
+                return ((decimal)(this["IndexingPricePerMin"]));
+            }
+            set {
+                this["IndexingPricePerMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowLivePremiumChannel {
+            get {
+                return ((bool)(this["ShowLivePremiumChannel"]));
+            }
+            set {
+                this["ShowLivePremiumChannel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ConcurrentTransfers {
+            get {
+                return ((int)(this["ConcurrentTransfers"]));
+            }
+            set {
+                this["ConcurrentTransfers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int AssetAnalysisStart {
+            get {
+                return ((int)(this["AssetAnalysisStart"]));
+            }
+            set {
+                this["AssetAnalysisStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int AssetAnalysisStep {
+            get {
+                return ((int)(this["AssetAnalysisStep"]));
+            }
+            set {
+                this["AssetAnalysisStep"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginListJSON {
+            get {
+                return ((string)(this["LoginListJSON"]));
+            }
+            set {
+                this["LoginListJSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MigratedLoginListToJSON {
+            get {
+                return ((bool)(this["MigratedLoginListToJSON"]));
+            }
+            set {
+                this["MigratedLoginListToJSON"] = value;
             }
         }
     }

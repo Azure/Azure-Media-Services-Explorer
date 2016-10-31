@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -43,6 +43,8 @@ namespace AMSExplorer
         private IEnumerable<Uri> NotValidURIs;
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private Mainform MyMainForm;
+        public bool MultipleSelection = false;
+        public ExplorerProgramModifications Modifications = new ExplorerProgramModifications();
 
         public string ProgramDescription
         {
@@ -86,7 +88,7 @@ namespace AMSExplorer
             }
         }
 
-     
+
 
         private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
         {
@@ -109,47 +111,62 @@ namespace AMSExplorer
         }
 
 
-     
 
-        private void ProgramInformation_Load_1(object sender, EventArgs e)
+
+        private void ProgramInformation_Load(object sender, EventArgs e)
         {
-            labelProgramName.Text += MyProgram.Name;
-            DGChannel.ColumnCount = 2;
-
-            // Program info
-            DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGChannel.Rows.Add("Name", MyProgram.Name);
-            DGChannel.Rows.Add("Id", MyProgram.Id);
-            DGChannel.Rows.Add("State", (ChannelState)MyProgram.State);
-            DGChannel.Rows.Add("Created", ((DateTime)MyProgram.Created).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Last Modified", ((DateTime)MyProgram.LastModified).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Description", MyProgram.Description);
-            DGChannel.Rows.Add("Archive Window Length", MyProgram.ArchiveWindowLength);
-            DGChannel.Rows.Add("Manifest Name", MyProgram.ManifestName);
-            DGChannel.Rows.Add("Channel Name", MyProgram.Channel.Name);
-            DGChannel.Rows.Add("Channel Id", MyProgram.ChannelId);
-            DGChannel.Rows.Add("Asset Name", MyProgram.Asset.Name);
-            DGChannel.Rows.Add("Asset Id", MyProgram.AssetId);
-
-            ProgramInfo PI = new ProgramInfo(MyProgram, MyContext);
-            ValidURIs = PI.GetValidURIs();
-            NotValidURIs = PI.GetNotValidURIs();
-
-            foreach (var t in ValidURIs)
+            if (!MultipleSelection)
             {
-                DGChannel.Rows.Add("Url", t.AbsoluteUri);
+                labelProgramName.Text += MyProgram.Name;
+                DGChannel.ColumnCount = 2;
+
+                // Program info
+                DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGChannel.Rows.Add("Name", MyProgram.Name);
+                DGChannel.Rows.Add("Id", MyProgram.Id);
+                DGChannel.Rows.Add("State", (ChannelState)MyProgram.State);
+                DGChannel.Rows.Add("Created", ((DateTime)MyProgram.Created).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Last Modified", ((DateTime)MyProgram.LastModified).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Description", MyProgram.Description);
+                DGChannel.Rows.Add("Archive Window Length", MyProgram.ArchiveWindowLength);
+                DGChannel.Rows.Add("Manifest Name", MyProgram.ManifestName);
+                DGChannel.Rows.Add("Channel Name", MyProgram.Channel.Name);
+                DGChannel.Rows.Add("Channel Id", MyProgram.ChannelId);
+                DGChannel.Rows.Add("Asset Name", MyProgram.Asset.Name);
+                DGChannel.Rows.Add("Asset Id", MyProgram.AssetId);
+
+                ProgramInfo PI = new ProgramInfo(MyProgram, MyContext);
+                ValidURIs = PI.GetValidURIs();
+                NotValidURIs = PI.GetNotValidURIs();
+
+                foreach (var t in ValidURIs)
+                {
+                    DGChannel.Rows.Add("Url", t.AbsoluteUri);
+                }
+                foreach (var t in NotValidURIs)
+                {
+                    int i = DGChannel.Rows.Add("Url", t.AbsoluteUri);
+                    DGChannel.Rows[i].Cells[1].Style.ForeColor = Color.Red;
+                }
             }
-            foreach (var t in NotValidURIs)
+            else
             {
-                int i = DGChannel.Rows.Add("Url", t.AbsoluteUri);
-                DGChannel.Rows[i].Cells[1].Style.ForeColor = Color.Red;
+                labelProgramName.Text = "(multiple programs have been selected)";
+                tabControl1.TabPages.Remove(tabPageInfo); // no info as multiple
+                buttonDisplayRelatedAsset.Visible = false;
             }
 
             textBoxDescription.Text = MyProgram.Description;
 
-            numericUpDownArchiveHours.Value =Convert.ToInt16(MyProgram.ArchiveWindowLength.TotalHours);
+            numericUpDownArchiveHours.Value = Convert.ToInt16(MyProgram.ArchiveWindowLength.TotalHours);
             numericUpDownArchiveMinutes.Value = MyProgram.ArchiveWindowLength.Minutes;
 
+            // let's track when user edit a setting
+            Modifications = new ExplorerProgramModifications
+            {
+                Description = false,
+                ArchiveWindow = false
+            };
         }
 
         private void labelProgramName_Click(object sender, EventArgs e)
@@ -162,5 +179,26 @@ namespace AMSExplorer
         {
 
         }
+
+        private void textBoxDescription_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.Description = true;
+        }
+
+        private void numericUpDownArchiveHours_ValueChanged(object sender, EventArgs e)
+        {
+            Modifications.ArchiveWindow = true;
+        }
+
+        private void numericUpDownArchiveMinutes_ValueChanged(object sender, EventArgs e)
+        {
+            Modifications.ArchiveWindow = true;
+        }
+    }
+
+    public class ExplorerProgramModifications
+    {
+        public bool Description { get; set; }
+        public bool ArchiveWindow { get; set; }
     }
 }

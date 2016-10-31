@@ -1,9 +1,9 @@
-Version 3.33.0.0 brings the following features and improvements :
+Version 3.44.1.0 (September 9, 2016) brings the following features and improvements :
 
-* **Google Widevine license delivery** support (public preview). See [this announcement](https://azure.microsoft.com/en-us/blog/announcing-google-widevine-license-delivery-services-public-preview-in-azure-media-services/). Feature will continue to improve in the coming releases
-* **Dynamic encryption wizard update**. UI has been fully revisited.
-* Content keys and token keys are displayed with a button, to increase security
-* Possibility to select Microsoft Edge, Microsoft Internet Explorer or Google Chrome for asset playback
-* More checks on asset sources for Indexer task
-* Media Services SDK updated to 3.5.2
+* New **Import from SAS Container Path** option
+  * AMS Explorer now generates SAS locators that include the list permission
+  * A SAS Container Path can be used to import an asset to the current AMS account. This is useful to share multiple files asset or a live archive with another user using only one URL.
+* Additional **advanced features** with Media Encoder Standard (MES)
+  * Insert black video, non interleaved mode for audio streams
+* Update to **Azure Media Analytics** (Redaction, Face detection)
 * Bug fixes

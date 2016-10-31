@@ -34,8 +34,8 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageInfo = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.labelcdn = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
             this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
@@ -54,13 +54,13 @@
             this.buttonDelHostName = new System.Windows.Forms.Button();
             this.hostnamelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labeldesc = new System.Windows.Forms.Label();
             this.textboxorigindesc = new System.Windows.Forms.TextBox();
             this.textBoxMaxCacheAge = new System.Windows.Forms.TextBox();
             this.lblMaxCacheAge = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.buttonAddExampleCrossDomainPolicy = new System.Windows.Forms.Button();
             this.buttonAddExampleClientPolicy = new System.Windows.Forms.Button();
             this.checkBoxcrossdomain = new System.Windows.Forms.CheckBox();
@@ -72,11 +72,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageInfo.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
             this.panelAkamai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).BeginInit();
             this.panelStreamingAllowedIP.SuspendLayout();
@@ -84,7 +85,7 @@
             this.panelCustomHostnames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.tabPagePolicies.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -127,7 +128,7 @@
             // 
             this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Location = new System.Drawing.Point(596, 15);
+            this.buttonUpdateClose.Location = new System.Drawing.Point(580, 15);
             this.buttonUpdateClose.Name = "buttonUpdateClose";
             this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
             this.buttonUpdateClose.TabIndex = 3;
@@ -139,46 +140,46 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPageInfo);
+            this.tabControl1.Controls.Add(this.tabPageSettings);
+            this.tabControl1.Controls.Add(this.tabPagePolicies);
             this.tabControl1.Location = new System.Drawing.Point(14, 50);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(887, 539);
             this.tabControl1.TabIndex = 34;
             // 
-            // tabPage1
+            // tabPageInfo
             // 
-            this.tabPage1.Controls.Add(this.DGOrigin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(879, 511);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Information";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageInfo.Controls.Add(this.DGOrigin);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 24);
+            this.tabPageInfo.Name = "tabPageInfo";
+            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInfo.Size = new System.Drawing.Size(879, 511);
+            this.tabPageInfo.TabIndex = 0;
+            this.tabPageInfo.Text = "Information";
+            this.tabPageInfo.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPageSettings
             // 
-            this.tabPage2.Controls.Add(this.labelcdn);
-            this.tabPage2.Controls.Add(this.panelAkamai);
-            this.tabPage2.Controls.Add(this.panelStreamingAllowedIP);
-            this.tabPage2.Controls.Add(this.panelCustomHostnames);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.textboxorigindesc);
-            this.tabPage2.Controls.Add(this.textBoxMaxCacheAge);
-            this.tabPage2.Controls.Add(this.lblMaxCacheAge);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.numericUpDownRU);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(879, 511);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            this.tabPageSettings.Controls.Add(this.labelcdn);
+            this.tabPageSettings.Controls.Add(this.panelAkamai);
+            this.tabPageSettings.Controls.Add(this.panelStreamingAllowedIP);
+            this.tabPageSettings.Controls.Add(this.panelCustomHostnames);
+            this.tabPageSettings.Controls.Add(this.labeldesc);
+            this.tabPageSettings.Controls.Add(this.textboxorigindesc);
+            this.tabPageSettings.Controls.Add(this.textBoxMaxCacheAge);
+            this.tabPageSettings.Controls.Add(this.lblMaxCacheAge);
+            this.tabPageSettings.Controls.Add(this.label1);
+            this.tabPageSettings.Controls.Add(this.numericUpDownRU);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 24);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettings.Size = new System.Drawing.Size(879, 511);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.UseVisualStyleBackColor = true;
+            this.tabPageSettings.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // labelcdn
             // 
@@ -385,14 +386,14 @@
             this.label3.TabIndex = 59;
             this.label3.Text = "Custom host names :";
             // 
-            // label2
+            // labeldesc
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 15);
-            this.label2.TabIndex = 50;
-            this.label2.Text = "Description :";
+            this.labeldesc.AutoSize = true;
+            this.labeldesc.Location = new System.Drawing.Point(13, 17);
+            this.labeldesc.Name = "labeldesc";
+            this.labeldesc.Size = new System.Drawing.Size(73, 15);
+            this.labeldesc.TabIndex = 50;
+            this.labeldesc.Text = "Description :";
             // 
             // textboxorigindesc
             // 
@@ -400,6 +401,7 @@
             this.textboxorigindesc.Name = "textboxorigindesc";
             this.textboxorigindesc.Size = new System.Drawing.Size(523, 23);
             this.textboxorigindesc.TabIndex = 49;
+            this.textboxorigindesc.TextChanged += new System.EventHandler(this.textboxorigindesc_TextChanged);
             // 
             // textBoxMaxCacheAge
             // 
@@ -437,21 +439,21 @@
             this.toolTip1.SetToolTip(this.numericUpDownRU, "1 unit = 200 mbps");
             this.numericUpDownRU.ValueChanged += new System.EventHandler(this.numericUpDownRU_ValueChanged);
             // 
-            // tabPage3
+            // tabPagePolicies
             // 
-            this.tabPage3.Controls.Add(this.buttonAddExampleCrossDomainPolicy);
-            this.tabPage3.Controls.Add(this.buttonAddExampleClientPolicy);
-            this.tabPage3.Controls.Add(this.checkBoxcrossdomain);
-            this.tabPage3.Controls.Add(this.textBoxCrossDomPolicy);
-            this.tabPage3.Controls.Add(this.checkBoxclientpolicy);
-            this.tabPage3.Controls.Add(this.textBoxClientPolicy);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(879, 511);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Policies";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPagePolicies.Controls.Add(this.buttonAddExampleCrossDomainPolicy);
+            this.tabPagePolicies.Controls.Add(this.buttonAddExampleClientPolicy);
+            this.tabPagePolicies.Controls.Add(this.checkBoxcrossdomain);
+            this.tabPagePolicies.Controls.Add(this.textBoxCrossDomPolicy);
+            this.tabPagePolicies.Controls.Add(this.checkBoxclientpolicy);
+            this.tabPagePolicies.Controls.Add(this.textBoxClientPolicy);
+            this.tabPagePolicies.Location = new System.Drawing.Point(4, 24);
+            this.tabPagePolicies.Name = "tabPagePolicies";
+            this.tabPagePolicies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePolicies.Size = new System.Drawing.Size(879, 511);
+            this.tabPagePolicies.TabIndex = 2;
+            this.tabPagePolicies.Text = "Policies";
+            this.tabPagePolicies.UseVisualStyleBackColor = true;
             // 
             // buttonAddExampleCrossDomainPolicy
             // 
@@ -501,6 +503,7 @@
             this.textBoxCrossDomPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxCrossDomPolicy.Size = new System.Drawing.Size(863, 207);
             this.textBoxCrossDomPolicy.TabIndex = 61;
+            this.textBoxCrossDomPolicy.TextChanged += new System.EventHandler(this.textBoxCrossDomPolicy_TextChanged);
             // 
             // checkBoxclientpolicy
             // 
@@ -525,6 +528,7 @@
             this.textBoxClientPolicy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxClientPolicy.Size = new System.Drawing.Size(863, 212);
             this.textBoxClientPolicy.TabIndex = 59;
+            this.textBoxClientPolicy.TextChanged += new System.EventHandler(this.textBoxClientPolicy_TextChanged);
             // 
             // labelSEName
             // 
@@ -542,7 +546,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(789, 15);
+            this.buttonClose.Location = new System.Drawing.Point(773, 15);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(115, 27);
             this.buttonClose.TabIndex = 39;
@@ -558,12 +562,21 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(-3, 592);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(922, 55);
+            this.panel1.Size = new System.Drawing.Size(906, 55);
             this.panel1.TabIndex = 64;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(894, 591);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(26, 43);
+            this.panel2.TabIndex = 77;
             // 
             // StreamingEndpointInformation
             // 
@@ -573,11 +586,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelSEName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "StreamingEndpointInformation";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
@@ -586,9 +601,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).EndInit();
             this.contextMenuStripOI.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPageInfo.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageSettings.PerformLayout();
             this.panelAkamai.ResumeLayout(false);
             this.panelAkamai.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).EndInit();
@@ -599,8 +614,8 @@
             this.panelCustomHostnames.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabPagePolicies.ResumeLayout(false);
+            this.tabPagePolicies.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -612,8 +627,8 @@
         private System.Windows.Forms.DataGridView DGOrigin;
         private System.Windows.Forms.Button buttonUpdateClose;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageInfo;
+        private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.Label labelSEName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOI;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
@@ -627,13 +642,13 @@
         private System.Windows.Forms.Button buttonAddIP;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox checkBoxStreamingIPlistSet;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labeldesc;
         private System.Windows.Forms.TextBox textboxorigindesc;
         private System.Windows.Forms.CheckBox checkBoxAkamai;
         private System.Windows.Forms.Button buttonDelAkamai;
         private System.Windows.Forms.Button buttonAddAkamai;
         private System.Windows.Forms.DataGridView dataGridViewAkamai;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPagePolicies;
         private System.Windows.Forms.CheckBox checkBoxcrossdomain;
         private System.Windows.Forms.TextBox textBoxCrossDomPolicy;
         private System.Windows.Forms.CheckBox checkBoxclientpolicy;
@@ -652,5 +667,6 @@
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.Button buttonAllowAllStreamingIP;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

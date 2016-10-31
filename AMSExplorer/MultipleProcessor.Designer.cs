@@ -125,6 +125,8 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxSingleOutputAsset = new System.Windows.Forms.CheckBox();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -155,7 +157,7 @@
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Enabled = false;
-            this.buttonOk.Location = new System.Drawing.Point(647, 15);
+            this.buttonOk.Location = new System.Drawing.Point(632, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(132, 27);
             this.buttonOk.TabIndex = 17;
@@ -167,7 +169,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(786, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(771, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -350,6 +352,7 @@
             // 
             // tabPageJobs
             // 
+            this.tabPageJobs.Controls.Add(this.checkBoxSingleOutputAsset);
             this.tabPageJobs.Controls.Add(this.pictureBox2);
             this.tabPageJobs.Controls.Add(this.label5);
             this.tabPageJobs.Controls.Add(this.numericUpDownPriority);
@@ -394,6 +397,11 @@
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
             this.numericUpDownPriority.TabIndex = 75;
+            this.numericUpDownPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
@@ -1131,8 +1139,28 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Location = new System.Drawing.Point(-1, 609);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(919, 55);
+            this.panel1.Size = new System.Drawing.Size(904, 55);
             this.panel1.TabIndex = 67;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(891, 609);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 77;
+            // 
+            // checkBoxSingleOutputAsset
+            // 
+            this.checkBoxSingleOutputAsset.AutoSize = true;
+            this.checkBoxSingleOutputAsset.Enabled = false;
+            this.checkBoxSingleOutputAsset.Location = new System.Drawing.Point(37, 403);
+            this.checkBoxSingleOutputAsset.Name = "checkBoxSingleOutputAsset";
+            this.checkBoxSingleOutputAsset.Size = new System.Drawing.Size(126, 19);
+            this.checkBoxSingleOutputAsset.TabIndex = 78;
+            this.checkBoxSingleOutputAsset.Text = "Single output asset";
+            this.checkBoxSingleOutputAsset.UseVisualStyleBackColor = true;
             // 
             // MultipleProcessor
             // 
@@ -1141,11 +1169,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(915, 665);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MultipleProcessor";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Multiple processors job";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
@@ -1276,5 +1306,7 @@
         private System.Windows.Forms.Label labelWarningJSON4;
         private System.Windows.Forms.Label labelWarningJSON5;
         private System.Windows.Forms.RadioButton radioButtonOneJobPerVisibleAsset;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBoxSingleOutputAsset;
     }
 }

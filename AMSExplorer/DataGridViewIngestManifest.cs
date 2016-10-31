@@ -271,6 +271,7 @@ namespace AMSExplorer
                             // Notify if upload completed for one bulk ingest container
                             myform.Notify(string.Format("Bulk ingest completed with {0} error(s)", im.Statistics.ErrorFilesCount), string.Format("Container '{0}'", im.Name), im.Statistics.ErrorFilesCount > 0);
                             myform.TextBoxLogWriteLine(string.Format("Bulk ingest on container '{0}' completed with {1} error(s)", im.Name, im.Statistics.ErrorFilesCount), im.Statistics.ErrorFilesCount > 0);
+                            myform.DoRefreshGridAssetV(false);
                         }
 
                         img.State = im.State;

@@ -146,7 +146,6 @@
             this.trackBarTime.Name = "trackBarTime";
             this.trackBarTime.Size = new System.Drawing.Size(437, 45);
             this.trackBarTime.TabIndex = 119;
-            this.trackBarTime.Scroll += new System.EventHandler(this.trackBarStart_Scroll);
             this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
             // 
             // label1

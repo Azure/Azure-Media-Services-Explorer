@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 using System.IO;
+using System.Threading;
 
 namespace AMSExplorer
 {
@@ -36,7 +37,7 @@ namespace AMSExplorer
         string savedConfig;
         string defaultConfig;
 
-        public string PremiumXML
+        public string TextData
         {
             get
             {
@@ -44,7 +45,7 @@ namespace AMSExplorer
             }
         }
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -63,11 +64,13 @@ namespace AMSExplorer
 
             buttonInsertSample.Visible = showSamplePremium;
             labelWarningJSON.Text = string.Empty;
-        }
+            buttonFormat.Visible = DisplayFormatButton;
 
-        private void EditorXMLJSON_Load(object sender, EventArgs e)
-        {
-
+            if (infoText!=null)
+            {
+                labelInfoText.Text = infoText;
+                labelInfoText.Visible = true;
+            }
         }
 
         public DialogResult Display()
@@ -86,6 +89,9 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
             labelWarningJSON.Text = Program.AnalyzeTextAndReportSyntaxError(textBoxConfiguration.Text);
         }
 
@@ -93,23 +99,26 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            string myxml =
-@"<?xml version = ""1.0"" encoding = ""utf-8"" ?>
-<transcodeRequest>
-<transcodeSource>
-</transcodeSource>
-<!--set runtime properties-->
-<setRuntimeProperties>
-<property propertyPath = ""Text To Image Converter/text"" value = ""Value""/>
-</setRuntimeProperties></transcodeRequest>";
-
-            XDocument doc = XDocument.Parse(myxml);
-            textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+            XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+            textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxConfiguration.Text);
+            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            MyThread.SetApartmentState(ApartmentState.STA);
+            MyThread.IsBackground = true;
+            MyThread.Start(textBoxConfiguration.Text);
+        }
+
+        public void DoCopyClipboard(object text)
+        {
+            Clipboard.SetText((string)text);
+        }
+
+        private void buttonFormat_Click(object sender, EventArgs e)
+        {
+            textBoxConfiguration.Text = Program.AnalyzeAndIndentXMLJSON(textBoxConfiguration.Text);
         }
     }
 
@@ -134,7 +143,7 @@ namespace AMSExplorer
 
         public string GetXML()
         {
-            return myPremiumXML.PremiumXML;
+            return myPremiumXML.TextData;
         }
     }
 }

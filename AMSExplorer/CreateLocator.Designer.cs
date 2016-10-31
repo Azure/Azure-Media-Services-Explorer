@@ -222,10 +222,10 @@
             this.radioButtonOrigin.Checked = true;
             this.radioButtonOrigin.Location = new System.Drawing.Point(41, 33);
             this.radioButtonOrigin.Name = "radioButtonOrigin";
-            this.radioButtonOrigin.Size = new System.Drawing.Size(231, 19);
+            this.radioButtonOrigin.Size = new System.Drawing.Size(353, 19);
             this.radioButtonOrigin.TabIndex = 0;
             this.radioButtonOrigin.TabStop = true;
-            this.radioButtonOrigin.Text = "Streaming locator (adaptive streaming)";
+            this.radioButtonOrigin.Text = "Streaming locator (adaptive streaming, progressive download)";
             this.radioButtonOrigin.UseVisualStyleBackColor = true;
             this.radioButtonOrigin.CheckedChanged += new System.EventHandler(this.UpdateLocatorGUID_CheckedChanged);
             // 
@@ -234,9 +234,9 @@
             this.radioButtonSAS.AutoSize = true;
             this.radioButtonSAS.Location = new System.Drawing.Point(41, 61);
             this.radioButtonSAS.Name = "radioButtonSAS";
-            this.radioButtonSAS.Size = new System.Drawing.Size(212, 19);
+            this.radioButtonSAS.Size = new System.Drawing.Size(149, 19);
             this.radioButtonSAS.TabIndex = 1;
-            this.radioButtonSAS.Text = "SAS locator (progressive download)";
+            this.radioButtonSAS.Text = "SAS locator (download)";
             this.radioButtonSAS.UseVisualStyleBackColor = true;
             // 
             // groupBox4

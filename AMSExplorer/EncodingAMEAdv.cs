@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ namespace AMSExplorer
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+                    textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
@@ -985,6 +985,13 @@ namespace AMSExplorer
                 }
                 
             }
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+            // let's normalize the line breaks
+            textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -59,8 +59,6 @@ namespace AMSExplorer
             _filterToDisplay = filterToDisplay;
             _parentAsset = parentAsset;
             _subclipconfig = subclipconfig;
-
-
         }
 
         private void FillComboBoxImportFilters(IAsset asset)
@@ -104,7 +102,6 @@ namespace AMSExplorer
                 isGlobalFilter = true;
                 tabControl1.TabPages.Remove(tabPageInformation);
                 _filter_presentationtimerange = new PresentationTimeRange();
-                // _filter_tracks = new List<FilterTrackSelectStatement>();
                 filtertracks = new List<ExFilterTrack>();
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
@@ -123,7 +120,6 @@ namespace AMSExplorer
                 DisplayFilterInfo();
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                //_filter_tracks = new List<FilterTrackSelectStatement>();
                 filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
 
                 _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
@@ -147,6 +143,12 @@ namespace AMSExplorer
                 timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
                 TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
                 numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+
+                if (_filterToDisplay.FirstQuality != null)
+                {
+                    checkBoxFirstQualityBitrate.Checked = true;
+                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                }
             }
 
 
@@ -160,7 +162,6 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageInformation);
 
                 _filter_presentationtimerange = new PresentationTimeRange();
-                //_filter_tracks = new List<FilterTrackSelectStatement>();
 
                 filtertracks = new List<ExFilterTrack>();
 
@@ -235,7 +236,6 @@ namespace AMSExplorer
 
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
-                //_filter_tracks = _filterToDisplay.Tracks;
                 filtertracks = ConvertFilterTracksToInternalVar(_filterToDisplay.Tracks);
 
                 _timescale = _filterToDisplay.PresentationTimeRange.Timescale;
@@ -286,7 +286,6 @@ namespace AMSExplorer
                 {
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
                     timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
-                    //timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
 
@@ -301,6 +300,12 @@ namespace AMSExplorer
                 timeControlDVR.SetTimeStamp(_filter_presentationtimerange.PresentationWindowDuration ?? TimeSpan.FromMinutes(2));  // we don't want to pass the max value to the control (overflow)
                 TimeSpan backoff = _filter_presentationtimerange.LiveBackoffDuration ?? new TimeSpan(0);
                 numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
+
+                if (_filterToDisplay.FirstQuality != null)
+                {
+                    checkBoxFirstQualityBitrate.Checked = true;
+                    numericUpDownFirstQualityBitrate.Value = _filterToDisplay.FirstQuality.Bitrate;
+                }
             }
 
             // Common code
@@ -383,6 +388,7 @@ namespace AMSExplorer
                 DGInfo.Rows.Add("Id", assetfilter.Id);
                 DGInfo.Rows.Add("Parent asset Id", assetfilter.ParentAssetId);
             }
+            DGInfo.Rows.Add("First Quality Bitrate", _filterToDisplay.FirstQuality == null ? Constants.stringNull : _filterToDisplay.FirstQuality.Bitrate.ToString());
             DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
             DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
             DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
@@ -512,7 +518,7 @@ namespace AMSExplorer
             {
                 FilterCreationInfo filterinfo = new FilterCreationInfo();
                 filterinfo.Name = newfilter ? textBoxFilterName.Text : _filter_name;
-
+                filterinfo.Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null;
                 if (checkBoxRawMode.Checked) // RAW Mode
                 {
                     try
@@ -549,10 +555,10 @@ namespace AMSExplorer
             get
             {
                 var ptr = new PresentationTimeRange(
-                    start: checkBoxStartTime.Checked ? (ulong?)timeControlStart.GetScaledTimeStampWithOffset() : null,
-                    end: checkBoxEndTime.Checked ? (ulong?)timeControlEnd.GetScaledTimeStampWithOffset() : null,
+                    start: checkBoxStartTime.Checked ? (ulong?)timeControlStart.ScaledTimeStampWithOffset : null,
+                    end: checkBoxEndTime.Checked ? (ulong?)timeControlEnd.ScaledTimeStampWithOffset : null,
                     backoff: checkBoxLiveBackoff.Checked ? (TimeSpan?)TimeSpan.FromSeconds((double)numericUpDownBackoffSeconds.Value) : null,
-                    pwDuration: checkBoxDVRWindow.Checked ? (TimeSpan?)timeControlDVR.GetTimeStampAsTimeSpanWitoutOffset() : null,
+                    pwDuration: checkBoxDVRWindow.Checked ? (TimeSpan?)timeControlDVR.TimeStampWithoutOffset : null,
                     timescale: (ulong?)_timescale
                 );
                 return ptr;
@@ -837,7 +843,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlStart, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
             }
-            else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
+            else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.TimeStampWithoutOffset > timeControlEnd.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
             }
@@ -854,7 +860,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlEnd, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
             }
-            else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
+            else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.TimeStampWithoutOffset < timeControlStart.TimeStampWithoutOffset)
             {
                 errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
             }
@@ -865,7 +871,7 @@ namespace AMSExplorer
 
 
             // dvr
-            if (checkBoxDVRWindow.Checked && timeControlDVR.GetTimeStampAsTimeSpanWitoutOffset() < TimeSpan.FromMinutes(2))
+            if (checkBoxDVRWindow.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(2))
             {
                 errorProvider1.SetError(timeControlDVR, "The DVR Window must be at least 2 minutes (or more)");
             }
@@ -899,7 +905,7 @@ namespace AMSExplorer
             if (checkBoxStartTime.Checked && checkBoxEndTime.Checked)
             {
                 textBoxDurationTime.Enabled = true;
-                textBoxDurationTime.Text = (timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset()).ToString();
+                textBoxDurationTime.Text = (timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset).ToString();
 
             }
             else
@@ -1074,6 +1080,11 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
+        }
+
+        private void checkBoxFirstQualityBitrate_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownFirstQualityBitrate.Enabled = checkBoxFirstQualityBitrate.Checked;
         }
     }
 

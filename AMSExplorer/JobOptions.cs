@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -50,7 +50,10 @@ namespace AMSExplorer
                 {
                     StorageSelected = ((Item)comboBoxStorage.SelectedItem).Value,
                     Priority = (int)numericUpDownPriority.Value,
-                    TasksOptionsSetting = checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+                    TasksOptionsSetting =
+                        (checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None) |
+                        (checkBoxDoNotCancelOnJobFailure.Checked ? TaskOptions.DoNotCancelOnJobFailure : TaskOptions.None) |
+                        (checkBoxDoNotDeleteOutputAssetOnFailure.Checked ? TaskOptions.DoNotDeleteOutputAssetOnFailure : TaskOptions.None),
                     OutputAssetsCreationOptions = checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
                 };
             }
@@ -74,10 +77,8 @@ namespace AMSExplorer
             ControlsResetToDefault();
             if (taskMode)
             {
-                this.Text = this.Text.Replace("Job", "Task");
-                labelJobOptions.Text= labelJobOptions.Text.Replace("Job", "Task");
+                labelJobOptions.Text = "Task Options";
             }
-
         }
 
         private void ControlsResetToDefault()

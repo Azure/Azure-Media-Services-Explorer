@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ namespace AMSExplorer
 {
     public partial class CreateLocator : Form
     {
-
         public DateTime? LocatorStartDate
         {
             get
@@ -70,7 +69,6 @@ namespace AMSExplorer
             {
                 return (radioButtonOrigin.Checked) ? LocatorType.OnDemandOrigin : LocatorType.Sas;
             }
-
         }
 
         public string ForceLocatorGuid
@@ -91,7 +89,6 @@ namespace AMSExplorer
                     return null;
                 }
             }
-
         }
 
         public string LocAssetName
@@ -110,7 +107,6 @@ namespace AMSExplorer
             }
         }
 
-
         public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
@@ -123,8 +119,6 @@ namespace AMSExplorer
                 groupBox2.Enabled = false; // do not propose to specificy start date
             }
         }
-
-
 
         private void dateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
         {

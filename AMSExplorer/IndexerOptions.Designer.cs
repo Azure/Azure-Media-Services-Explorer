@@ -40,12 +40,12 @@
             this.checkBoxSAMI = new System.Windows.Forms.CheckBox();
             this.checkBoxAIB = new System.Windows.Forms.CheckBox();
             this.checkBoxKeywords = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxOther = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxOther.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -166,16 +166,16 @@
             this.checkBoxKeywords.Text = "Keywords";
             this.checkBoxKeywords.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // groupBoxOther
             // 
-            this.groupBox2.Controls.Add(this.checkBoxKeywords);
-            this.groupBox2.Controls.Add(this.checkBoxAIB);
-            this.groupBox2.Location = new System.Drawing.Point(190, 39);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(211, 136);
-            this.groupBox2.TabIndex = 70;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Other";
+            this.groupBoxOther.Controls.Add(this.checkBoxKeywords);
+            this.groupBoxOther.Controls.Add(this.checkBoxAIB);
+            this.groupBoxOther.Location = new System.Drawing.Point(190, 39);
+            this.groupBoxOther.Name = "groupBoxOther";
+            this.groupBoxOther.Size = new System.Drawing.Size(211, 136);
+            this.groupBoxOther.TabIndex = 70;
+            this.groupBoxOther.TabStop = false;
+            this.groupBoxOther.Text = "Other";
             // 
             // label5
             // 
@@ -197,7 +197,7 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(415, 245);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxOther);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -208,8 +208,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxOther.ResumeLayout(false);
+            this.groupBoxOther.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,7 +228,7 @@
         private System.Windows.Forms.CheckBox checkBoxSAMI;
         private System.Windows.Forms.CheckBox checkBoxAIB;
         private System.Windows.Forms.CheckBox checkBoxKeywords;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxOther;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
     }

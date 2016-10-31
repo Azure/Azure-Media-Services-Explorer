@@ -33,13 +33,14 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
             this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
-            this.checkBoxOneUpDownload = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxNbItems = new System.Windows.Forms.ComboBox();
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDisplayAssetAltId = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
@@ -47,6 +48,7 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,15 +64,13 @@
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownAMEPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownLegacyEncodingPrice = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownAMEPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -82,7 +82,11 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDownAssetAnalysisStep = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -92,16 +96,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPremiumWorkflowPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -148,17 +153,6 @@
             this.checkBoxUseProtectedConfig.TabIndex = 9;
             this.checkBoxUseProtectedConfig.Text = "Use protected configuration for new tasks";
             this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOneUpDownload
-            // 
-            this.checkBoxOneUpDownload.AutoSize = true;
-            this.checkBoxOneUpDownload.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxOneUpDownload.Location = new System.Drawing.Point(49, 80);
-            this.checkBoxOneUpDownload.Name = "checkBoxOneUpDownload";
-            this.checkBoxOneUpDownload.Size = new System.Drawing.Size(214, 19);
-            this.checkBoxOneUpDownload.TabIndex = 10;
-            this.checkBoxOneUpDownload.Text = "One transfer at a time (use a queue)";
-            this.checkBoxOneUpDownload.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -215,6 +209,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayBulkContId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
@@ -233,6 +228,28 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grids Display";
+            // 
+            // checkBoxDisplayAssetAltId
+            // 
+            this.checkBoxDisplayAssetAltId.AutoSize = true;
+            this.checkBoxDisplayAssetAltId.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisplayAssetAltId.Location = new System.Drawing.Point(196, 59);
+            this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
+            this.checkBoxDisplayAssetAltId.Size = new System.Drawing.Size(118, 19);
+            this.checkBoxDisplayAssetAltId.TabIndex = 24;
+            this.checkBoxDisplayAssetAltId.Text = "Asset Alternate Id";
+            this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisplayBulkContId
+            // 
+            this.checkBoxDisplayBulkContId.AutoSize = true;
+            this.checkBoxDisplayBulkContId.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisplayBulkContId.Location = new System.Drawing.Point(49, 109);
+            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
+            this.checkBoxDisplayBulkContId.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxDisplayBulkContId.TabIndex = 23;
+            this.checkBoxDisplayBulkContId.Text = "Bulk Container Id";
+            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
             // 
@@ -307,6 +324,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStep);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStart);
+            this.groupBox2.Controls.Add(this.checkBoxShowPremiumLiveEncoding);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
@@ -317,14 +340,24 @@
             this.groupBox2.Controls.Add(this.checkBoxUseStorageEncryption);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
-            this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 305);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(560, 201);
+            this.groupBox2.Size = new System.Drawing.Size(560, 266);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
+            // 
+            // checkBoxShowPremiumLiveEncoding
+            // 
+            this.checkBoxShowPremiumLiveEncoding.AutoSize = true;
+            this.checkBoxShowPremiumLiveEncoding.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxShowPremiumLiveEncoding.Location = new System.Drawing.Point(49, 194);
+            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
+            this.checkBoxShowPremiumLiveEncoding.Size = new System.Drawing.Size(222, 19);
+            this.checkBoxShowPremiumLiveEncoding.TabIndex = 56;
+            this.checkBoxShowPremiumLiveEncoding.Text = "Show Premium Live Encoding option";
+            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -498,57 +531,28 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(47, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 15);
+            this.label4.Size = new System.Drawing.Size(222, 15);
             this.label4.TabIndex = 54;
-            this.label4.Text = "Encoding price per output GB :";
+            this.label4.Text = "Standard Encoding price, per output GB :";
             // 
-            // numericUpDownAMEPrice
+            // numericUpDownMESPrice
             // 
-            this.numericUpDownAMEPrice.DecimalPlaces = 2;
-            this.numericUpDownAMEPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAMEPrice.Increment = new decimal(new int[] {
+            this.numericUpDownMESPrice.DecimalPlaces = 2;
+            this.numericUpDownMESPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(337, 66);
-            this.numericUpDownAMEPrice.Name = "numericUpDownAMEPrice";
-            this.numericUpDownAMEPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownAMEPrice.TabIndex = 55;
-            this.numericUpDownAMEPrice.Value = new decimal(new int[] {
+            this.numericUpDownMESPrice.Location = new System.Drawing.Point(337, 66);
+            this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
+            this.numericUpDownMESPrice.Size = new System.Drawing.Size(73, 23);
+            this.numericUpDownMESPrice.TabIndex = 55;
+            this.numericUpDownMESPrice.Value = new decimal(new int[] {
             199,
             0,
             0,
             131072});
-            // 
-            // numericUpDownLegacyEncodingPrice
-            // 
-            this.numericUpDownLegacyEncodingPrice.DecimalPlaces = 2;
-            this.numericUpDownLegacyEncodingPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownLegacyEncodingPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(337, 126);
-            this.numericUpDownLegacyEncodingPrice.Name = "numericUpDownLegacyEncodingPrice";
-            this.numericUpDownLegacyEncodingPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownLegacyEncodingPrice.TabIndex = 57;
-            this.numericUpDownLegacyEncodingPrice.Value = new decimal(new int[] {
-            139,
-            0,
-            0,
-            131072});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(45, 128);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(226, 15);
-            this.label5.TabIndex = 56;
-            this.label5.Text = "Legacy encoding price per processed GB :";
             // 
             // numericUpDownIndexingPrice
             // 
@@ -560,12 +564,12 @@
             0,
             0,
             131072});
-            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(337, 156);
+            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(337, 125);
             this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
             this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownIndexingPrice.TabIndex = 59;
             this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            1000,
+            5,
             0,
             0,
             131072});
@@ -574,11 +578,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label6.Location = new System.Drawing.Point(45, 158);
+            this.label6.Location = new System.Drawing.Point(45, 127);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 15);
+            this.label6.Size = new System.Drawing.Size(187, 15);
             this.label6.TabIndex = 58;
-            this.label6.Text = "Content indexer price per content hour :";
+            this.label6.Text = "Content indexer price per minute :";
             // 
             // textBoxCurrency
             // 
@@ -592,20 +596,18 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.numericUpDownAMEPremiumWorkflowPrice);
+            this.groupBox4.Controls.Add(this.numericUpDownPremiumWorkflowPrice);
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
-            this.groupBox4.Controls.Add(this.numericUpDownAMEPrice);
-            this.groupBox4.Controls.Add(this.numericUpDownLegacyEncodingPrice);
-            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
             this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(7, 7);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(562, 233);
+            this.groupBox4.Size = new System.Drawing.Size(562, 208);
             this.groupBox4.TabIndex = 64;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Prices";
@@ -616,24 +618,24 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label9.Location = new System.Drawing.Point(47, 98);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(275, 15);
+            this.label9.Size = new System.Drawing.Size(278, 15);
             this.label9.TabIndex = 64;
-            this.label9.Text = "Premium Workflow encoding price per output GB :";
+            this.label9.Text = "Premium Workflow encoding price, per output GB :";
             // 
-            // numericUpDownAMEPremiumWorkflowPrice
+            // numericUpDownPremiumWorkflowPrice
             // 
-            this.numericUpDownAMEPremiumWorkflowPrice.DecimalPlaces = 2;
-            this.numericUpDownAMEPremiumWorkflowPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAMEPremiumWorkflowPrice.Increment = new decimal(new int[] {
+            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 2;
+            this.numericUpDownPremiumWorkflowPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(337, 96);
-            this.numericUpDownAMEPremiumWorkflowPrice.Name = "numericUpDownAMEPremiumWorkflowPrice";
-            this.numericUpDownAMEPremiumWorkflowPrice.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownAMEPremiumWorkflowPrice.TabIndex = 63;
-            this.numericUpDownAMEPremiumWorkflowPrice.Value = new decimal(new int[] {
+            this.numericUpDownPremiumWorkflowPrice.Location = new System.Drawing.Point(337, 96);
+            this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
+            this.numericUpDownPremiumWorkflowPrice.Size = new System.Drawing.Size(73, 23);
+            this.numericUpDownPremiumWorkflowPrice.TabIndex = 63;
+            this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
             399,
             0,
             0,
@@ -644,7 +646,7 @@
             this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.amspriceslink.AutoSize = true;
             this.amspriceslink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.amspriceslink.Location = new System.Drawing.Point(47, 193);
+            this.amspriceslink.Location = new System.Drawing.Point(45, 168);
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.Size = new System.Drawing.Size(125, 15);
             this.amspriceslink.TabIndex = 62;
@@ -761,16 +763,71 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
-            // checkBoxDisplayBulkContId
+            // label5
             // 
-            this.checkBoxDisplayBulkContId.AutoSize = true;
-            this.checkBoxDisplayBulkContId.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayBulkContId.Location = new System.Drawing.Point(49, 109);
-            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
-            this.checkBoxDisplayBulkContId.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxDisplayBulkContId.TabIndex = 23;
-            this.checkBoxDisplayBulkContId.Text = "Bulk Container Id";
-            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label5.Location = new System.Drawing.Point(47, 239);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 15);
+            this.label5.TabIndex = 57;
+            this.label5.Text = "Asset analysis job";
+            // 
+            // numericUpDownAssetAnalysisStart
+            // 
+            this.numericUpDownAssetAnalysisStart.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownAssetAnalysisStart.Location = new System.Drawing.Point(250, 237);
+            this.numericUpDownAssetAnalysisStart.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownAssetAnalysisStart.Name = "numericUpDownAssetAnalysisStart";
+            this.numericUpDownAssetAnalysisStart.Size = new System.Drawing.Size(108, 23);
+            this.numericUpDownAssetAnalysisStart.TabIndex = 58;
+            this.numericUpDownAssetAnalysisStart.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label12.Location = new System.Drawing.Point(158, 239);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(86, 15);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Start (%) :";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label13.Location = new System.Drawing.Point(376, 239);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(69, 15);
+            this.label13.TabIndex = 61;
+            this.label13.Text = "Step (%) :";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numericUpDownAssetAnalysisStep
+            // 
+            this.numericUpDownAssetAnalysisStep.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownAssetAnalysisStep.Location = new System.Drawing.Point(446, 237);
+            this.numericUpDownAssetAnalysisStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownAssetAnalysisStep.Name = "numericUpDownAssetAnalysisStep";
+            this.numericUpDownAssetAnalysisStep.Size = new System.Drawing.Size(108, 23);
+            this.numericUpDownAssetAnalysisStep.TabIndex = 60;
+            this.numericUpDownAssetAnalysisStep.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
             // 
             // Options
             // 
@@ -799,18 +856,19 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPremiumWorkflowPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -821,7 +879,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
         private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
-        private System.Windows.Forms.CheckBox checkBoxOneUpDownload;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxNbItems;
         public System.Windows.Forms.Button buttonReset;
@@ -846,10 +903,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.NumericUpDown numericUpDownAMEPrice;
+        private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownLegacyEncodingPrice;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxCurrency;
@@ -859,7 +914,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownAMEPremiumWorkflowPrice;
+        private System.Windows.Forms.NumericUpDown numericUpDownPremiumWorkflowPrice;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -871,5 +926,12 @@
         private System.Windows.Forms.TextBox textBoxffmpegPath;
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
+        private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
+        private System.Windows.Forms.CheckBox checkBoxShowPremiumLiveEncoding;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStep;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
     }
 }

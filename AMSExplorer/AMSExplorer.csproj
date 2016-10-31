@@ -55,32 +55,26 @@
   <PropertyGroup>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release No Credentials|AnyCPU'">
-    <OutputPath>bin\Release No Credentials\</OutputPath>
-    <DefineConstants>TRACE;NOCREDENTIALS</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    <Reference Include="Microsoft.Data.Edm, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.7.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    <Reference Include="Microsoft.Data.OData, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.7.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.7.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocol.Extensions, Version=1.0.2.33, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocol.Extensions.1.0.2.206221351\lib\net45\Microsoft.IdentityModel.Protocol.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -92,28 +86,40 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.5.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.5.2.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Windows7APICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.5.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.5.2.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Windows7APICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.5.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.5.2.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.7.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.7.0.1\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.7.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.7.0.1\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.7.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.7.0.1\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\windowsazure.mediaservices.extensions.3.3.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.6.0.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.7.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -129,9 +135,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+    <Reference Include="System.Spatial, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.7.0\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -146,11 +152,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
     </Compile>
     <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.cs">
       <SubType>Form</SubType>
@@ -200,6 +218,79 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms-Telemetry\DisplayTelemetry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-Telemetry\DisplayTelemetry.Designer.cs">
+      <DependentUpon>DisplayTelemetry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms-Telemetry\ConfigureTelemetry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-Telemetry\ConfigureTelemetry.Designer.cs">
+      <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsRedaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsRedaction.Designer.cs">
+      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsMotionDetection.Designer.cs">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsVideoOCR.Designer.cs">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsPickVideoFileInAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsPickVideoFileInAsset.Designer.cs">
+      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexerV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerV2.Designer.cs">
+      <DependentUpon>IndexerV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegionEditor\RegionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionEditor\RegionEditor.Designer.cs">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsSelection.Designer.cs">
+      <DependentUpon>SettingsSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EDL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EDL.Designer.cs">
+      <DependentUpon>EDL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SortableBindingList.cs" />
+    <Compile Include="EncodingAMEStandardPickOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncodingAMEStandardPickOverlay.Designer.cs">
+      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeRangeSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeRangeSelection.Designer.cs">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGridViewIngestManifest.cs" />
     <Compile Include="BulkUpload.cs">
       <SubType>Form</SubType>
@@ -219,11 +310,23 @@
     <Compile Include="BulkContainerInfo.Designer.cs">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaInsightsGeneric.cs">
+    <Compile Include="MediaAnalyticsVideoThumbnails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaInsightsGeneric.Designer.cs">
-      <DependentUpon>MediaInsightsGeneric.cs</DependentUpon>
+    <Compile Include="MediaAnalyticsVideoThumbnails.Designer.cs">
+      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsFaceDetection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsFaceDetection.Designer.cs">
+      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaAnalyticsGeneric.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaAnalyticsGeneric.Designer.cs">
+      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareUpdate.cs">
       <SubType>Form</SubType>
@@ -612,13 +715,26 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="BitmapsPNG\hyperlapse-large.png" />
-    <Content Include="Configurations\Hyperlapse.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="BitmapsPNG\02-hyperlapse.png" />
+    <None Include="BitmapsPNG\03-motion-detection.png" />
+    <None Include="BitmapsPNG\04-face-detection.png" />
+    <None Include="BitmapsPNG\06-emotion.png" />
+    <None Include="BitmapsPNG\01-indexer.png" />
+    <None Include="BitmapsPNG\encoding-large.png" />
+    <None Include="BitmapsPNG\OCR.png" />
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />
+    <Content Include="Configurations\SampleSemaphoreRhozet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\SampleMPWESetRunTime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\AssetAnalysis.json">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="HelpFiles\MediaServices.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -635,21 +751,71 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="IconsPNG\filter.png" />
-    <None Include="IconsPNG\filters.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />
-    <Content Include="IconsPNG\hyperlapse.png" />
+    <None Include="IconsPNG\bulk_ingest.png" />
+    <None Include="IconsPNG\contentmoderation.png" />
+    <None Include="IconsPNG\copy_to_clipboard.png" />
+    <None Include="IconsPNG\face_detector.png" />
+    <None Include="IconsPNG\filters.png" />
+    <None Include="IconsPNG\hyperlapse.png" />
+    <None Include="IconsPNG\XY.png" />
+    <None Include="IconsPNG\XYRect.png" />
+    <None Include="IconsPNG\DRM_protection_Cbcs.png" />
+    <Content Include="Manifest\Manifest.ism">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\H264 Progressive Download MP4 SD.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\H264 Progresssive Download MP4.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\READMe.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MP4.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Enhanced-Thumbs.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Enhanced.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Frame-Trimmed.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Time-Trimmed.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Tutorial\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
     <None Include="Resources\media-services-multiple-rules-filters.png" />
     <None Include="Resources\media-services-trim-filter.png" />
     <None Include="Resources\media-services-subclips-filter.png" />
     <None Include="Resources\media-services-rendition-filter2.png" />
+    <None Include="IconsPNG\media_redactor.png" />
+    <None Include="IconsPNG\media_stabilizer.png" />
+    <None Include="IconsPNG\motion_detector.png" />
+    <None Include="IconsPNG\subclipping.png" />
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame3_AESDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENCDelivery.resx">
       <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
@@ -678,14 +844,56 @@
     <EmbeddedResource Include="BulkUpload.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EDL.resx">
+      <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-Telemetry\DisplayTelemetry.resx">
+      <DependentUpon>DisplayTelemetry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
+      <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsRedaction.resx">
+      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsMotionDetection.resx">
+      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsVideoOCR.resx">
+      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsPickVideoFileInAsset.resx">
+      <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
+      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexerV2.resx">
+      <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionEditor\RegionEditor.resx">
+      <DependentUpon>RegionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsSelection.resx">
+      <DependentUpon>SettingsSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeRangeSelection.resx">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BulkContainerInfo.resx">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaInsightsGeneric.resx">
-      <DependentUpon>MediaInsightsGeneric.cs</DependentUpon>
+    <EmbeddedResource Include="MediaAnalyticsVideoThumbnails.resx">
+      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsFaceDetection.resx">
+      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaAnalyticsGeneric.resx">
+      <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>
@@ -840,15 +1048,15 @@
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Azure Explorer_ico.ico" />
-    <Content Include="BitmapsPNG\8-12-2014-13-20-04.png" />
-    <Content Include="BitmapsPNG\Azure Explorer.png" />
-    <Content Include="BitmapsPNG\Azure Explorer_ico.ico" />
+    <None Include="BitmapsPNG\8-12-2014-13-20-04.png" />
+    <None Include="BitmapsPNG\Azure Explorer.png" />
+    <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\AzureMedia_Full-Color-64-opaque.png" />
-    <Content Include="BitmapsPNG\modeltaskxenio1.png" />
-    <Content Include="BitmapsPNG\modeltaskxenio2.png" />
-    <Content Include="BitmapsPNG\modetaskjob1.png" />
-    <Content Include="BitmapsPNG\modetaskjob2.png" />
-    <Content Include="BitmapsPNG\modetaskjob3.png" />
+    <None Include="BitmapsPNG\modeltaskxenio1.png" />
+    <None Include="BitmapsPNG\modeltaskxenio2.png" />
+    <None Include="BitmapsPNG\modetaskjob1.png" />
+    <None Include="BitmapsPNG\modetaskjob2.png" />
+    <None Include="BitmapsPNG\modetaskjob3.png" />
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -900,13 +1108,9 @@
     <Content Include="License\Azure Media Services Explorer.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
-    <Content Include="PremiumWorkflowSamples\Sample H264 Progresssive Download MP4 SD.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Sample H264 Progresssive Download MP4.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -32,11 +32,14 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
+            this.buttonFormat = new System.Windows.Forms.Button();
+            this.labelInfoText = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +47,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(657, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(642, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
@@ -56,7 +59,7 @@
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(535, 15);
+            this.buttonOk.Location = new System.Drawing.Point(520, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(115, 27);
             this.buttonOk.TabIndex = 17;
@@ -70,9 +73,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 505);
+            this.panel1.Location = new System.Drawing.Point(0, 505);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(787, 55);
+            this.panel1.Size = new System.Drawing.Size(772, 55);
             this.panel1.TabIndex = 66;
             // 
             // textBoxConfiguration
@@ -85,19 +88,9 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(624, 460);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(608, 460);
             this.textBoxConfiguration.TabIndex = 67;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // labelWarningJSON
             // 
@@ -115,9 +108,9 @@
             // buttonInsertSample
             // 
             this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertSample.Location = new System.Drawing.Point(647, 42);
+            this.buttonInsertSample.Location = new System.Drawing.Point(626, 42);
             this.buttonInsertSample.Name = "buttonInsertSample";
-            this.buttonInsertSample.Size = new System.Drawing.Size(128, 23);
+            this.buttonInsertSample.Size = new System.Drawing.Size(149, 23);
             this.buttonInsertSample.TabIndex = 79;
             this.buttonInsertSample.Text = "Insert sample";
             this.buttonInsertSample.UseVisualStyleBackColor = true;
@@ -126,22 +119,70 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(647, 13);
+            this.buttonCopyClipboard.Image = global::AMSExplorer.Bitmaps.copy_to_clipboard;
+            this.buttonCopyClipboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(626, 13);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(128, 23);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(149, 23);
             this.buttonCopyClipboard.TabIndex = 80;
             this.buttonCopyClipboard.Text = "Copy to clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
             // 
+            // buttonFormat
+            // 
+            this.buttonFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFormat.Location = new System.Drawing.Point(626, 71);
+            this.buttonFormat.Name = "buttonFormat";
+            this.buttonFormat.Size = new System.Drawing.Size(149, 23);
+            this.buttonFormat.TabIndex = 81;
+            this.buttonFormat.Text = "Format data";
+            this.buttonFormat.UseVisualStyleBackColor = true;
+            this.buttonFormat.Click += new System.EventHandler(this.buttonFormat_Click);
+            // 
+            // labelInfoText
+            // 
+            this.labelInfoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.labelInfoText.ForeColor = System.Drawing.Color.Black;
+            this.labelInfoText.Location = new System.Drawing.Point(626, 107);
+            this.labelInfoText.Name = "labelInfoText";
+            this.labelInfoText.Size = new System.Drawing.Size(149, 80);
+            this.labelInfoText.TabIndex = 82;
+            this.labelInfoText.Tag = "";
+            this.labelInfoText.Text = "This is an information text";
+            this.labelInfoText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelInfoText.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 505);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(24, 42);
+            this.panel2.TabIndex = 67;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // EditorXMLJSON
             // 
-            this.AcceptButton = this.buttonCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.labelInfoText);
+            this.Controls.Add(this.buttonFormat);
             this.Controls.Add(this.buttonCopyClipboard);
             this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.labelWarningJSON);
@@ -149,9 +190,9 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "EditorXMLJSON";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "XML Data";
-            this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -169,5 +210,8 @@
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.Button buttonInsertSample;
         private System.Windows.Forms.Button buttonCopyClipboard;
+        private System.Windows.Forms.Button buttonFormat;
+        private System.Windows.Forms.Label labelInfoText;
+        private System.Windows.Forms.Panel panel2;
     }
 }

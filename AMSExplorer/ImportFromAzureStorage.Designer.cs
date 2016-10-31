@@ -31,6 +31,7 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxOneAssetPerFile = new System.Windows.Forms.CheckBox();
             this.labelSelectedAssetWarning = new System.Windows.Forms.Label();
             this.labelExistingAssetName = new System.Windows.Forms.Label();
             this.textBoxNewAssetName = new System.Windows.Forms.TextBox();
@@ -57,6 +58,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -67,7 +69,7 @@
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(527, 14);
+            this.buttonUpload.Location = new System.Drawing.Point(509, 14);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(115, 27);
             this.buttonUpload.TabIndex = 2;
@@ -79,7 +81,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(656, 14);
+            this.buttonClose.Location = new System.Drawing.Point(638, 14);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(115, 27);
             this.buttonClose.TabIndex = 10;
@@ -90,6 +92,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkBoxOneAssetPerFile);
             this.groupBox1.Controls.Add(this.labelSelectedAssetWarning);
             this.groupBox1.Controls.Add(this.labelExistingAssetName);
             this.groupBox1.Controls.Add(this.textBoxNewAssetName);
@@ -101,6 +104,17 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Copy to Azure Media Services";
+            // 
+            // checkBoxOneAssetPerFile
+            // 
+            this.checkBoxOneAssetPerFile.AutoSize = true;
+            this.checkBoxOneAssetPerFile.Enabled = false;
+            this.checkBoxOneAssetPerFile.Location = new System.Drawing.Point(557, 24);
+            this.checkBoxOneAssetPerFile.Name = "checkBoxOneAssetPerFile";
+            this.checkBoxOneAssetPerFile.Size = new System.Drawing.Size(151, 19);
+            this.checkBoxOneAssetPerFile.TabIndex = 46;
+            this.checkBoxOneAssetPerFile.Text = "Create one asset per file";
+            this.checkBoxOneAssetPerFile.UseVisualStyleBackColor = true;
             // 
             // labelSelectedAssetWarning
             // 
@@ -117,7 +131,7 @@
             // 
             this.labelExistingAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelExistingAssetName.AutoSize = true;
-            this.labelExistingAssetName.Location = new System.Drawing.Point(170, 52);
+            this.labelExistingAssetName.Location = new System.Drawing.Point(170, 55);
             this.labelExistingAssetName.Name = "labelExistingAssetName";
             this.labelExistingAssetName.Size = new System.Drawing.Size(63, 15);
             this.labelExistingAssetName.TabIndex = 18;
@@ -366,8 +380,17 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(-2, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(792, 55);
+            this.panel1.Size = new System.Drawing.Size(774, 55);
             this.panel1.TabIndex = 63;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(768, 506);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(16, 41);
+            this.panel2.TabIndex = 77;
             // 
             // ImportFromAzureStorage
             // 
@@ -377,6 +400,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxSearch);
@@ -388,6 +412,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ImportFromAzureStorage";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import from Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
@@ -433,5 +458,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelSelectedAssetWarning;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBoxOneAssetPerFile;
+        private System.Windows.Forms.Panel panel2;
     }
 }

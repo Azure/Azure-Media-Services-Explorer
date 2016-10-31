@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -99,16 +99,16 @@ namespace AMSExplorer
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-            SampleStorageURLTemplate = (_credentials.UseOtherAPI == true.ToString()) ?
+            SampleStorageURLTemplate = (_credentials.UseOtherAPI) ?
                 CredentialsEntry.CoreAttachStorageURL + _credentials.OtherAzureEndpoint : // "https://{0}.blob.core.chinacloudapi.cn/"
                 CredentialsEntry.CoreAttachStorageURL + CredentialsEntry.GlobalAzureEndpoint; // "https://{0}.blob.core.windows.net"
 
             // let's poopulate the Azure Service Management URL field
-            if (_credentials.UseOtherAPI == true.ToString())
+            if (_credentials.UseOtherAPI)
             {
                 textBoxServiceManagement.Text = CredentialsEntry.CoreServiceManagement + _credentials.OtherAzureEndpoint;
             }
-            else if (_credentials.UsePartnerAPI == true.ToString())
+            else if (_credentials.UsePartnerAPI)
             {
                 textBoxServiceManagement.Text = "Please insert Azure Service Management URL here";
             }
@@ -118,7 +118,7 @@ namespace AMSExplorer
             }
 
             UpdateEndPointURL();
-        
+
         }
 
 
@@ -160,23 +160,33 @@ namespace AMSExplorer
         {
             if (openFileDialogLoadSubFile.ShowDialog() == DialogResult.OK)
             {
-               
                 try
                 {
                     var doc = new XDocument();
                     doc = XDocument.Load(openFileDialogLoadSubFile.FileName);
+                    var subs = doc.Element("PublishData").Element("PublishProfile").Elements("Subscription");
 
-                    var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
+                    if (subs.Count() == 0)
+                    {
+                        MessageBox.Show("No Subscription data in the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
 
-                    textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
-                    textBoxSubId.Text = subscription.Attribute("Id").Value;
-                    textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
+                        if (subs.Count() > 1)
+                        {
+                            MessageBox.Show(string.Format("There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.", subscription.Attribute("Name").Value), "Several subscriptions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
+                        textBoxSubId.Text = subscription.Attribute("Id").Value;
+                        textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message);
+                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-              
             }
         }
     }

@@ -39,27 +39,29 @@
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(37, 47);
+            this.label.Location = new System.Drawing.Point(104, 47);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(576, 20);
+            this.label.Size = new System.Drawing.Size(509, 20);
             this.label.TabIndex = 0;
             this.label.Text = "label1";
             // 
@@ -75,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 143);
+            this.label2.Location = new System.Drawing.Point(37, 116);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(376, 30);
             this.label2.TabIndex = 2;
@@ -86,7 +88,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(658, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(645, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
@@ -155,7 +157,7 @@
             this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(486, 15);
+            this.buttonOk.Location = new System.Drawing.Point(473, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(164, 27);
             this.buttonOk.TabIndex = 5;
@@ -173,33 +175,13 @@
             this.pictureBoxJob.TabIndex = 41;
             this.pictureBoxJob.TabStop = false;
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(37, 78);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(64, 15);
-            this.label32.TabIndex = 57;
-            this.label32.Text = "Processor :";
-            // 
-            // comboBoxProcessor
-            // 
-            this.comboBoxProcessor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxProcessor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxProcessor.FormattingEnabled = true;
-            this.comboBoxProcessor.Location = new System.Drawing.Point(37, 97);
-            this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(715, 23);
-            this.comboBoxProcessor.TabIndex = 56;
-            // 
             // label31
             // 
             this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label31.Location = new System.Drawing.Point(429, 9);
+            this.label31.Location = new System.Drawing.Point(428, 9);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(324, 25);
             this.label31.TabIndex = 60;
@@ -210,7 +192,7 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(419, 146);
+            this.progressBarUpload.Location = new System.Drawing.Point(419, 119);
             this.progressBarUpload.Name = "progressBarUpload";
             this.progressBarUpload.Size = new System.Drawing.Size(165, 27);
             this.progressBarUpload.TabIndex = 63;
@@ -219,7 +201,7 @@
             // buttonUpload
             // 
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpload.Location = new System.Drawing.Point(590, 146);
+            this.buttonUpload.Location = new System.Drawing.Point(590, 119);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(162, 27);
             this.buttonUpload.TabIndex = 62;
@@ -240,8 +222,38 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-3, 606);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(788, 55);
+            this.panel1.Size = new System.Drawing.Size(775, 55);
             this.panel1.TabIndex = 66;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(763, 606);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 76;
+            // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelProcessorVersion.Location = new System.Drawing.Point(628, 34);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
+            this.labelProcessorVersion.TabIndex = 78;
+            this.labelProcessorVersion.Text = "Version {0}";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
+            this.pictureBox1.Location = new System.Drawing.Point(37, 32);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 85;
+            this.pictureBox1.TabStop = false;
             // 
             // buttonPremiumXMLData
             // 
@@ -270,9 +282,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewWorkflows.FullRowSelect = true;
             this.listViewWorkflows.HideSelection = false;
-            this.listViewWorkflows.Location = new System.Drawing.Point(37, 179);
+            this.listViewWorkflows.Location = new System.Drawing.Point(37, 152);
             this.listViewWorkflows.Name = "listViewWorkflows";
-            this.listViewWorkflows.Size = new System.Drawing.Size(715, 156);
+            this.listViewWorkflows.Size = new System.Drawing.Size(715, 183);
             this.listViewWorkflows.TabIndex = 61;
             this.listViewWorkflows.Tag = -1;
             this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
@@ -287,14 +299,15 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.labelProcessorVersion);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonPremiumXMLData);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.progressBarUpload);
             this.Controls.Add(this.buttonUpload);
-            this.Controls.Add(this.label32);
-            this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.labelsummaryjob);
             this.Controls.Add(this.label3);
@@ -307,11 +320,13 @@
             this.Controls.Add(this.label31);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "EncodingPremium";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Media Encoder Premium Workflow";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,8 +345,6 @@
         public System.Windows.Forms.TextBox textboxoutputassetname;
         private System.Windows.Forms.Label labelsummaryjob;
         private System.Windows.Forms.PictureBox pictureBoxJob;
-        public System.Windows.Forms.Label label32;
-        private System.Windows.Forms.ComboBox comboBoxProcessor;
         public System.Windows.Forms.Label label31;
         private System.Windows.Forms.ProgressBar progressBarUpload;
         private System.Windows.Forms.Button buttonUpload;
@@ -340,5 +353,8 @@
         private ListViewWorkflows listViewWorkflows;
         private ButtonJobOptions buttonJobOptions;
         private ButtonPremiumXMLData buttonPremiumXMLData;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label labelProcessorVersion;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 //----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -108,7 +108,7 @@ namespace AMSExplorer
 
 
 
-        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool ForceUseToProvideKey, bool showPlayReadyTestButton = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -121,23 +121,13 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
-            /*
-            if (DoNotAskURL)
-            {
-                //textBoxLAurl.Enabled = false;
-                panelPlayReadyTest.Visible = false;
-            }
-            if (!laststep)
-            {
-                buttonOk.Text = "Next";
-                buttonOk.Image = null;
-            }
-            */
+            panelPlayReadyTest.Visible = showPlayReadyTestButton;
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
         {
             //textBoxLAurl.Text = _PlayReadyTestLAURL;
+            radioButtonKeySeedBase64.Checked = true;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
             textBoxcontentkey.Text = string.Empty;
         }

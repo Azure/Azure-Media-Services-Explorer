@@ -28,21 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryptionFrame3_AESDelivery));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
-            this.labelkeylaurl = new System.Windows.Forms.Label();
-            this.textBoxLAURL = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelkeylaurl = new System.Windows.Forms.Label();
+            this.textBoxLAURL = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.checkBoxFinalExtURL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -92,8 +101,6 @@
             // 
             // groupBoxAuthPol
             // 
-            this.groupBoxAuthPol.Controls.Add(this.labelkeylaurl);
-            this.groupBoxAuthPol.Controls.Add(this.textBoxLAURL);
             this.groupBoxAuthPol.Controls.Add(this.label8);
             this.groupBoxAuthPol.Controls.Add(this.label2);
             this.groupBoxAuthPol.Controls.Add(this.numericUpDownNbOptions);
@@ -102,32 +109,10 @@
             this.groupBoxAuthPol.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxAuthPol.Location = new System.Drawing.Point(14, 96);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 197);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 144);
             this.groupBoxAuthPol.TabIndex = 52;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Key Delivery From Azure Media Services";
-            // 
-            // labelkeylaurl
-            // 
-            this.labelkeylaurl.AutoSize = true;
-            this.labelkeylaurl.Enabled = false;
-            this.labelkeylaurl.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelkeylaurl.Location = new System.Drawing.Point(60, 126);
-            this.labelkeylaurl.Name = "labelkeylaurl";
-            this.labelkeylaurl.Size = new System.Drawing.Size(113, 15);
-            this.labelkeylaurl.TabIndex = 75;
-            this.labelkeylaurl.Text = "Key Acquisition Url :";
-            // 
-            // textBoxLAURL
-            // 
-            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAURL.Enabled = false;
-            this.textBoxLAURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxLAURL.Location = new System.Drawing.Point(63, 144);
-            this.textBoxLAURL.Name = "textBoxLAURL";
-            this.textBoxLAURL.Size = new System.Drawing.Size(547, 23);
-            this.textBoxLAURL.TabIndex = 74;
             // 
             // label8
             // 
@@ -198,6 +183,81 @@
             this.radioButtonNoAuthPolicy.Text = "No - An external key server is used to deliver the keys";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Location = new System.Drawing.Point(32, 84);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(550, 88);
+            this.label3.TabIndex = 76;
+            this.label3.Text = resources.GetString("label3.Text");
+            // 
+            // labelkeylaurl
+            // 
+            this.labelkeylaurl.AutoSize = true;
+            this.labelkeylaurl.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelkeylaurl.Location = new System.Drawing.Point(32, 40);
+            this.labelkeylaurl.Name = "labelkeylaurl";
+            this.labelkeylaurl.Size = new System.Drawing.Size(113, 15);
+            this.labelkeylaurl.TabIndex = 75;
+            this.labelkeylaurl.Text = "Key Acquisition Url :";
+            // 
+            // textBoxLAURL
+            // 
+            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLAURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxLAURL.Location = new System.Drawing.Point(35, 58);
+            this.textBoxLAURL.Name = "textBoxLAURL";
+            this.textBoxLAURL.Size = new System.Drawing.Size(547, 23);
+            this.textBoxLAURL.TabIndex = 74;
+            this.textBoxLAURL.TextChanged += new System.EventHandler(this.textBoxLAURL_TextChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.checkBoxFinalExtURL);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.labelkeylaurl);
+            this.groupBox2.Controls.Add(this.textBoxLAURL);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.Location = new System.Drawing.Point(14, 260);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(645, 223);
+            this.groupBox2.TabIndex = 78;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Key Acquisition Url";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Location = new System.Drawing.Point(599, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 15);
+            this.label7.TabIndex = 80;
+            this.label7.Text = "(Url)";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // checkBoxFinalExtURL
+            // 
+            this.checkBoxFinalExtURL.AutoSize = true;
+            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(35, 166);
+            this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
+            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(75, 19);
+            this.checkBoxFinalExtURL.TabIndex = 97;
+            this.checkBoxFinalExtURL.Text = "Final URL";
+            this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
+            // 
             // AddDynamicEncryptionFrame3_AESDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -206,6 +266,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -218,6 +279,9 @@
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,5 +301,10 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label labelkeylaurl;
         public System.Windows.Forms.TextBox textBoxLAURL;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.CheckBox checkBoxFinalExtURL;
     }
 }

@@ -41,6 +41,7 @@
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +77,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(655, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(642, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
@@ -102,7 +103,7 @@
             this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(484, 15);
+            this.buttonOk.Location = new System.Drawing.Point(471, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(164, 27);
             this.buttonOk.TabIndex = 5;
@@ -176,7 +177,7 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Location = new System.Drawing.Point(-1, 505);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 55);
+            this.panel1.Size = new System.Drawing.Size(773, 55);
             this.panel1.TabIndex = 65;
             // 
             // buttonJobOptions
@@ -189,6 +190,15 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(762, 505);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(25, 42);
+            this.panel2.TabIndex = 77;
+            // 
             // ProcessFromJobTemplate
             // 
             this.AcceptButton = this.buttonOk;
@@ -197,6 +207,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listViewTemplates);
@@ -209,6 +220,7 @@
             this.Controls.Add(this.label31);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProcessFromJobTemplate";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Process from job template";
             this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
@@ -233,6 +245,6 @@
         private ListViewTemplates listViewTemplates;
         private System.Windows.Forms.Panel panel1;
         private ButtonJobOptions buttonJobOptions;
-
+        private System.Windows.Forms.Panel panel2;
     }
 }

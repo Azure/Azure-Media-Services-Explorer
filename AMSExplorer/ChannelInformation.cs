@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -32,8 +32,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using System.Net;
-
-
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -45,9 +43,14 @@ namespace AMSExplorer
     {
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
+        public bool MultipleSelection = false;
+        public ExplorerChannelModifications Modifications = new ExplorerChannelModifications();
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
+        private string defaultEncodingPreset = "";
+        private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private string defaultAudioStreamCode = null;
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -76,13 +79,11 @@ namespace AMSExplorer
         public string GetChannelClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
-
         }
 
-        public string GetChannelCrossdomaintPolicy
+        public string GetChannelCrossdomainPolicy
         {
             get { return (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null; }
-
         }
 
         public TimeSpan? KeyframeInterval
@@ -109,6 +110,66 @@ namespace AMSExplorer
             get
             {
                 return checkBoxHLSFragPerSeg.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
+            }
+        }
+
+        public string SystemPreset
+        {
+            get
+            {
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+            }
+        }
+
+        public bool Ignore708Captions
+        {
+            get
+            {
+                return checkBoxIgnore708.Checked;
+            }
+        }
+
+        public ReadOnlyCollection<VideoStream> VideoStreamList
+        {
+            get
+            {
+                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS)
+                { // RTP
+                    List<VideoStream> videostreams = new List<VideoStream>();
+                    videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
+                    return new ReadOnlyCollection<VideoStream>(videostreams);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public ReadOnlyCollection<AudioStream> AudioStreamList
+        {
+            get
+            {
+                if (
+                   MyChannel.Input.StreamingProtocol == StreamingProtocol.RTPMPEG2TS && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
+                   )
+                { // RTP
+                    List<AudioStream> audiostreamsl = new List<AudioStream>();
+                    audiostreamsl.Add(new AudioStream() { Language = defaultAudioStreamCode, Index = (int)numericUpDownAudioIndexMain.Value });
+                    foreach (var s in audiostreams)
+                    {
+                        audiostreamsl.Add(new AudioStream()
+                        {
+                            Index = s.Index,
+                            Language = s.Code
+                        });
+                    }
+                    return new ReadOnlyCollection<AudioStream>(audiostreamsl);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -140,74 +201,238 @@ namespace AMSExplorer
 
         private void ChannelInformation_Load(object sender, EventArgs e)
         {
-            labelChannelName.Text += MyChannel.Name;
-            DGChannel.ColumnCount = 2;
 
-            // channel info
-            DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGChannel.Rows.Add("Name", MyChannel.Name);
-            DGChannel.Rows.Add("Id", MyChannel.Id);
-            DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
-            DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
-            DGChannel.Rows.Add("Description", MyChannel.Description);
-            DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
-            DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
-
-            if (MyChannel.Encoding != null)
+            if (!MultipleSelection) // one channel
             {
-                DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
-                DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
-                DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
-                DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
-                DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
+                labelChannelName.Text += MyChannel.Name;
 
-                if (MyChannel.Slate != null)
+                DGChannel.ColumnCount = 2;
+
+                // channel info
+                DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGChannel.Rows.Add("Name", MyChannel.Name);
+                DGChannel.Rows.Add("Id", MyChannel.Id);
+                DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
+                DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Description", MyChannel.Description);
+                DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
+                DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
+
+                if (MyChannel.Encoding != null)
                 {
-                    DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
-                    DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                    DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
+                    DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
+                    DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
+                    DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
+                    DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
+
+                    if (MyChannel.Slate != null)
+                    {
+                        DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+                        DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                    }
+                    else
+                    {
+                        DGChannel.Rows.Add("Slate settings", "(none)");
+                    }
+                }
+
+
+                if (MyChannel.Input.KeyFrameInterval != null)
+                {
+                    DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
+                    checkBoxKeyFrameIntDefined.Checked = true;
+                    textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
+                }
+
+                string[] stringnameurl = new string[] { "Primary ", "Secondary " };
+
+                int i = 0;
+                foreach (var endpoint in MyChannel.Input.Endpoints)
+                {
+                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
+                    if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
+                    {
+                        DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                    }
+                    i++;
+                }
+                foreach (var endpoint in MyChannel.Preview.Endpoints)
+                {
+                    DGChannel.Rows.Add(string.Format("Preview URL ({0})", endpoint.Protocol), endpoint.Url);
+                }
+                if (MyChannel.Output != null)
+                {
+                    if (MyChannel.Output.Hls != null)
+                    {
+                        if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
+                            checkBoxHLSFragPerSeg.Checked = true;
+                            numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        }
+                    }
+                }
+            }
+            else // multiselect
+            {
+                labelChannelName.Text = "(multiple channels have been selected)";
+
+                tabControl1.TabPages.Remove(tabPageChannelInfo); // no channel info page
+                tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
+
+                if (MyChannel.Input.KeyFrameInterval != null)
+                {
+                    checkBoxKeyFrameIntDefined.Checked = true;
+                    textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
+                }
+
+                if (MyChannel.Output != null)
+                {
+                    if (MyChannel.Output.Hls != null)
+                    {
+                        if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            checkBoxHLSFragPerSeg.Checked = true;
+                            numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        }
+                    }
+                }
+            }
+
+            // comon code - multiselect or only one channel selected
+
+            // Encoding Settings
+            if (MyChannel.EncodingType != ChannelEncodingType.None)
+            {
+                // default encoding profile name
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    defaultEncodingPreset = profileliveselected.Name;
+                    radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
+                }
+
+                if (MyChannel.Encoding != null && MyChannel.Encoding.SystemPreset != null)
+                {
+                    if (MyChannel.Encoding.SystemPreset == defaultEncodingPreset)
+                    {
+                        radioButtonDefaultPreset.Checked = true;
+                    }
+                    else
+                    {
+                        radioButtonCustomPreset.Checked = true;
+                        textBoxCustomPreset.Text = MyChannel.Encoding.SystemPreset;
+                    }
+                    checkBoxIgnore708.Checked = MyChannel.Encoding.IgnoreCea708ClosedCaptions;
+                }
+                if (MyChannel.State != ChannelState.Stopped)
+                {
+                    groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
+                    groupBoxVideoStream.Enabled = false;
+                    checkBoxIgnore708.Enabled = false;
+                    labelChannelMustBeStopped.Visible = true;
+                    labelIndexesChannelMustBeStopped.Visible = true;
+                    panelStreamIndexes.Enabled = false; // encoding settings cannot be edited
+                }
+
+                if (MyChannel.Input.StreamingProtocol != StreamingProtocol.RTPMPEG2TS)
+                {
+                    tabControl1.TabPages.Remove(tabPageIndexes); // no rtp channel, no indexes
+                    groupBoxVideoStream.Visible = false;
                 }
                 else
                 {
-                    DGChannel.Rows.Add("Slate settings", "(none)");
-                }
-            }
+                    numericUpDownVideoStreamIndex.Value = MyChannel.Encoding.VideoStreams != null && MyChannel.Encoding.VideoStreams.FirstOrDefault() != null ?
+                        MyChannel.Encoding.VideoStreams.FirstOrDefault().Index
+                        : 0;
 
+                    Item myitem = new Item("Undefined", "und");
+                    comboBoxAudioLanguageMain.Items.Add(myitem);
+                    comboBoxAudioLanguageAddition.Items.Add(myitem);
+                    comboBoxAudioLanguageAddition.SelectedItem = myitem;
 
-            if (MyChannel.Input.KeyFrameInterval != null)
-            {
-                DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
-                checkBoxKeyFrameIntDefined.Checked = true;
-                textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
-            }
-
-            string[] stringnameurl = new string[] { "Primary ", "Secondary " };
-
-            int i = 0;
-            foreach (var endpoint in MyChannel.Input.Endpoints)
-            {
-                DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
-                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
-                {
-                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
-                }
-                i++;
-            }
-            foreach (var endpoint in MyChannel.Preview.Endpoints)
-            {
-                DGChannel.Rows.Add(string.Format("Preview URL ({0})", endpoint.Protocol), endpoint.Url);
-            }
-            if (MyChannel.Output != null)
-            {
-                if (MyChannel.Output.Hls != null)
-                {
-                    if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                    foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures).OrderBy(c => c.DisplayName))
                     {
-                        DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
-                        checkBoxHLSFragPerSeg.Checked = true;
-                        numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
+                        myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
+                        comboBoxAudioLanguageMain.Items.Add(myitem);
+                        comboBoxAudioLanguageAddition.Items.Add(myitem);
+                        if (MyChannel.Encoding.AudioStreams.Count > 0 && MyChannel.Encoding.AudioStreams[0].Language == ci.ThreeLetterISOLanguageName)
+                        {
+                            comboBoxAudioLanguageMain.SelectedItem = myitem;
+                        }
                     }
+
+                    if (MyChannel.Encoding.AudioStreams != null && MyChannel.Encoding.AudioStreams.Count > 0)
+                    {
+
+                        if (comboBoxAudioLanguageMain.SelectedItem == null) // code which is not in culture list !
+                        {
+                            myitem = new Item(MyChannel.Encoding.AudioStreams[0].Language, MyChannel.Encoding.AudioStreams[0].Language);
+                            comboBoxAudioLanguageMain.Items.Add(myitem);
+                            comboBoxAudioLanguageMain.SelectedItem = myitem;
+                        }
+
+                        defaultAudioStreamCode = MyChannel.Encoding.AudioStreams[0].Language; // in order to keep the initial code if needed
+
+                        numericUpDownAudioIndexMain.Value = MyChannel.Encoding.AudioStreams[0].Index;
+
+                        if (MyChannel.Encoding.AudioStreams.Count > 1)
+                        {
+                            int index = 0;
+                            foreach (var audiostream in MyChannel.Encoding.AudioStreams)
+                            {
+                                if (index > 0)
+                                {
+                                    var language = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.ThreeLetterISOLanguageName == audiostream.Language).FirstOrDefault();
+                                    audiostreams.Add(new ExplorerAudioStream()
+                                    {
+                                        Language = language != null ? language.DisplayName : audiostream.Language,
+                                        Index = audiostream.Index,
+                                        Code = audiostream.Language
+                                    }
+                                        );
+                                }
+                                index++;
+                            }
+                        }
+
+                        // let set the next possible index
+                        List<int> audioindex = new List<int>() { MyChannel.Encoding.AudioStreams[0].Index };
+                        audioindex.AddRange(MyChannel.Encoding.AudioStreams.Select(a => a.Index).ToList());
+                        int indexAvailable = 0;
+                        while (true)
+                        {
+                            if (!audioindex.Contains(indexAvailable))
+                            {
+                                break;
+                            }
+                            indexAvailable++;
+                        }
+                        numericUpDownAudioIndexAddition.Value = indexAvailable;
+
+                    }
+                    else // no audiostream list !
+                    {
+                        defaultAudioStreamCode = null;
+                        numericUpDownAudioIndexMain.Value = 0;
+
+                        myitem = new Item("<null>", null);
+                        comboBoxAudioLanguageMain.Items.Add(myitem);
+                        comboBoxAudioLanguageMain.SelectedItem = myitem;
+                    }
+
+                    dataGridViewAudioStreams.DataSource = audiostreams;
+                    dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
                 }
+
+                UpdateProfileGrids();
+            }
+            else
+            {
+                tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
+                tabControl1.TabPages.Remove(tabPageIndexes); // no encoding channel, no indexes
             }
 
 
@@ -235,7 +460,6 @@ namespace AMSExplorer
                         PreviewEndpointSettingList.Add(endpoint);
                     }
                 }
-
             }
             dataGridViewPreviewIP.DataSource = PreviewEndpointSettingList;
             dataGridViewPreviewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
@@ -255,6 +479,29 @@ namespace AMSExplorer
                 }
             }
             textboxchannedesc.Text = MyChannel.Description;
+
+            // Channel is not stopped or running. We cannot update settings
+            if (MyChannel.State != ChannelState.Stopped && MyChannel.State != ChannelState.Running)
+            {
+                labelChannelStoppedOrStartedSettings.Visible = true;
+                buttonUpdateClose.Enabled = false;
+            }
+
+            // let's track when user edit a setting
+            Modifications = new ExplorerChannelModifications
+            {
+                Description = false,
+                AudioStreams = false,
+                ClientAccessPolicy = false,
+                CrossDomainPolicy = false,
+                HLSFragPerSegment = false,
+                InputIPAllowList = false,
+                KeyFrameInterval = false,
+                PreviewIPAllowList = false,
+                SystemPreset = false,
+                VideoStreams = false,
+                Ignore708Captions = false
+            };
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -271,7 +518,9 @@ namespace AMSExplorer
 
         private void ChanneltInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            // let's sure we dispose the webbrowser control
+            webBrowserPreview.Url = null;
+            webBrowserPreview.Dispose();
         }
 
 
@@ -284,11 +533,13 @@ namespace AMSExplorer
         private void buttonAddIngestIP_Click(object sender, EventArgs e)
         {
             InputEndpointSettingList.AddNew();
+            Modifications.InputIPAllowList = true;
         }
 
         private void buttonAddPreviewIP_Click(object sender, EventArgs e)
         {
             PreviewEndpointSettingList.AddNew();
+            Modifications.PreviewIPAllowList = true;
         }
 
         private void buttonDelIngestIP_Click(object sender, EventArgs e)
@@ -296,7 +547,7 @@ namespace AMSExplorer
             if (dataGridViewInputIP.SelectedRows.Count == 1)
             {
                 InputEndpointSettingList.RemoveAt(dataGridViewInputIP.SelectedRows[0].Index);
-                buttonUpdateClose.Enabled = true;
+                Modifications.InputIPAllowList = true;
             }
         }
 
@@ -305,7 +556,7 @@ namespace AMSExplorer
             if (dataGridViewPreviewIP.SelectedRows.Count == 1)
             {
                 PreviewEndpointSettingList.RemoveAt(dataGridViewPreviewIP.SelectedRows[0].Index);
-                buttonUpdateClose.Enabled = true;
+                Modifications.PreviewIPAllowList = true;
             }
         }
 
@@ -320,17 +571,20 @@ namespace AMSExplorer
             dataGridViewPreviewIP.Enabled = checkBoxPreviewSet.Checked;
             buttonAddPreviewIP.Enabled = checkBoxPreviewSet.Checked;
             buttonDelPreviewIP.Enabled = checkBoxPreviewSet.Checked;
+            Modifications.PreviewIPAllowList = true;
         }
 
 
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            Modifications.ClientAccessPolicy = true;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Enabled = checkBoxcrossdomains.Checked;
+            Modifications.CrossDomainPolicy = true;
         }
 
         private void dataGridViewInputIP_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -343,18 +597,20 @@ namespace AMSExplorer
             dataGridViewInputIP.Enabled = checkBoxInputSet.Checked;
             buttonAddInputIP.Enabled = checkBoxInputSet.Checked;
             buttonDelInputIP.Enabled = checkBoxInputSet.Checked;
+            Modifications.InputIPAllowList = true;
         }
 
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
             checkKeyFrameValue();
+            Modifications.KeyFrameInterval = true;
         }
 
         private void checkBoxHLSFragPerSeg_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSeg.Checked;
-
+            Modifications.HLSFragPerSegment = true;
         }
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
@@ -362,12 +618,14 @@ namespace AMSExplorer
             InputEndpointSettingList.Clear();
             InputEndpointSettingList.Add(new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
+            Modifications.InputIPAllowList = true;
         }
 
         private void buttonAllowAllPreviewIP_Click(object sender, EventArgs e)
         {
             checkBoxPreviewSet.Checked = false;
             PreviewEndpointSettingList.Clear();
+            Modifications.PreviewIPAllowList = true;
         }
 
         private void tabPage4_Enter(object sender, EventArgs e)
@@ -387,6 +645,7 @@ namespace AMSExplorer
         private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
         {
             checkKeyFrameValue();
+            Modifications.KeyFrameInterval = true;
         }
 
         private void checkKeyFrameValue()
@@ -400,6 +659,196 @@ namespace AMSExplorer
                 errorProvider1.SetError(textBoxKeyFrame, String.Empty);
             }
         }
+
+        private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+            textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
+            Modifications.SystemPreset = true;
+        }
+
+        private void UpdateProfileGrids()
+        {
+            string encodingprofile = ReturnLiveEncodingProfile();
+            if (encodingprofile != null)
+            {
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    dataGridViewVideoProf.DataSource = profileliveselected.Video;
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
+
+                    var audio = this.AudioStreamList;
+                    if (audio != null)
+                    {
+                        foreach (var audiostream in audio)
+                        {
+                            profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                        }
+                    }
+                    else // no specific audio language specified
+                    {
+                        profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    }
+                    dataGridViewAudioProf.DataSource = profmultiaudio;
+                    panelDisplayEncProfile.Visible = true;
+                }
+                else
+                {
+                    dataGridViewVideoProf.DataSource = null;
+                    dataGridViewAudioProf.DataSource = null;
+                    panelDisplayEncProfile.Visible = false;
+                }
+            }
+        }
+
+        private string ReturnLiveEncodingProfile()
+        {
+            if (MyChannel.EncodingType != ChannelEncodingType.None)
+            {
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void buttonAddAudioStream_Click(object sender, EventArgs e)
+        {
+            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value
+                && !audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value)
+                && audiostreams.Count < 7
+                && ((Item)comboBoxAudioLanguageMain.SelectedItem).Value != null // if list does not exist, the user must select a valid default index
+                )
+            {
+                var selected = (Item)comboBoxAudioLanguageAddition.SelectedItem;
+                audiostreams.Add(new ExplorerAudioStream()
+                {
+                    Language = selected.Name,
+                    Index = (int)numericUpDownAudioIndexAddition.Value,
+                    Code = selected.Value
+                });
+                UpdateProfileGrids();
+                Modifications.AudioStreams = true;
+            }
+        }
+
+        private void buttonDelAddOption_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewAudioStreams.SelectedRows.Count == 1)
+            {
+                audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
+                UpdateProfileGrids();
+                Modifications.AudioStreams = true;
+            }
+        }
+
+        private void comboBoxAudioLanguageMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string lang = ((Item)comboBoxAudioLanguageMain.SelectedItem).Name;
+            var culture = CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == lang).FirstOrDefault();
+            if (culture != null)
+            {
+                defaultAudioStreamCode = culture.ThreeLetterISOLanguageName;
+            }
+            else
+            {
+                defaultAudioStreamCode = null;
+            }
+            UpdateProfileGrids();
+            Modifications.AudioStreams = true;
+        }
+
+        private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
+        {
+            var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
+            if (defaultaudiostream != null)
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
+            }
+            UpdateProfileGrids();
+            Modifications.AudioStreams = true;
+        }
+
+        private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
+            || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, String.Empty);
+            }
+        }
+
+        private void numericUpDownVideoStreamIndex_ValueChanged(object sender, EventArgs e)
+        {
+            Modifications.VideoStreams = true;
+        }
+
+        private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+            Modifications.SystemPreset = true;
+        }
+
+        private void textboxchannedesc_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.Description = true;
+        }
+
+        private void numericUpDownHLSFragPerSeg_ValueChanged(object sender, EventArgs e)
+        {
+            Modifications.HLSFragPerSegment = true;
+        }
+
+        private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.SystemPreset = true;
+        }
+
+        private void textBoxClientPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.ClientAccessPolicy = true;
+        }
+
+        private void textBoxCrossDomPolicy_TextChanged(object sender, EventArgs e)
+        {
+            Modifications.CrossDomainPolicy = true;
+        }
+
+        private void checkBoxIgnore708_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.Ignore708Captions = true;
+        }
     }
 
+    public class ExplorerAudioStream
+    {
+        public int Index { get; set; }
+        public string Language { get; set; }
+        public string Code { get; set; }
+    }
+
+    public class ExplorerChannelModifications
+    {
+        public bool Description { get; set; }
+        public bool KeyFrameInterval { get; set; }
+        public bool SystemPreset { get; set; }
+        public bool AudioStreams { get; set; }
+        public bool VideoStreams { get; set; }
+        public bool HLSFragPerSegment { get; set; }
+        public bool InputIPAllowList { get; set; }
+        public bool PreviewIPAllowList { get; set; }
+        public bool ClientAccessPolicy { get; set; }
+        public bool CrossDomainPolicy { get; set; }
+        public bool Ignore708Captions { get; set; }
+    }
 }

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -230,12 +230,13 @@ namespace AMSExplorer
 
             // Server side request
             var query = _context.Files.Where(f => (
-                                            f.Name.EndsWith(".xenio") // upercase/lowercase ignored
+                                     /*       f.Name.EndsWith(".xenio") // upercase/lowercase ignored
                                             || f.Name.EndsWith(".kayak")
                                             || f.Name.EndsWith(".workflow")
                                             || f.Name.EndsWith(".blueprint")
                                             || f.Name.EndsWith(".graph")
-                                            || f.Name.EndsWith(".zenium")
+                                            || f.Name.EndsWith(".zenium") */
+                                            f.Name.EndsWith(".workflow")
                                             )).ToArray();
 
             foreach (IAssetFile file in query)

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -153,10 +153,13 @@ namespace AMSExplorer
             if (bfileinasset)
             {
                 listViewAssetFiles.BeginUpdate();
-                foreach (IAssetFile file in sourceAsset.AssetFiles)
+                foreach (IAssetFile file in sourceAsset.AssetFiles.ToList().Where(af => af.AssetFileOptions == AssetFileOptions.None))
                 {
                     ListViewItem item = new ListViewItem(file.Name, 0);
-                    if (file.IsPrimary) item.ForeColor = Color.Blue;
+                    if (file.IsPrimary)
+                    {
+                        item.ForeColor = Color.Blue;
+                    }
                     item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     (listViewAssetFiles.Items.Add(item)).Selected = true;
@@ -204,7 +207,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), myStorageSuffix ,true);
+                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), myStorageSuffix, true);
                 }
             }
             catch

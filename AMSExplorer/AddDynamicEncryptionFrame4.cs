@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -40,8 +40,8 @@ namespace AMSExplorer
         private X509Certificate2 cert = null;
 
         public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
-            new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/discovery/keys"},
-             new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
+                new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/.well-known/openid-configuration"},
+                new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
         public ContentKeyRestrictionType GetKeyRestrictionType
@@ -217,7 +217,7 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DynEncTokenIssuer= textBoxIssuer.Text ;
+            Properties.Settings.Default.DynEncTokenIssuer = textBoxIssuer.Text;
             Properties.Settings.Default.DynEncTokenAudience = textBoxAudience.Text;
             Program.SaveAndProtectUserConfig();
         }
@@ -244,7 +244,7 @@ namespace AMSExplorer
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
-            cert = DynamicEncryption.GetCertificateFromFile(false);
+            cert = DynamicEncryption.GetCertificateFromFile(false).Certificate;
             labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
             UpdateButtonOk();
         }
@@ -305,8 +305,8 @@ namespace AMSExplorer
 
         private void GenerateSymKey()
         {
+            radioButtonContentKeyBase64.Checked = true;
             textBoxSymKey.Text = Convert.ToBase64String(new SymmetricVerificationKey().KeyValue);
-
         }
 
         private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)

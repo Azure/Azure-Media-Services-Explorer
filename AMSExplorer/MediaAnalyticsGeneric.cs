@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -31,11 +31,13 @@ using System.Xml.Linq;
 
 namespace AMSExplorer
 {
-    public partial class MediaInsightsGeneric : Form
+    public partial class MediaAnalyticsGeneric : Form
     {
         private CloudMediaContext _context;
         private IMediaProcessor _processor;
         private bool _preview;
+        private Image _processorImage;
+        private string _urlMoreInfo;
 
         public string MIInputAssetName
         {
@@ -86,27 +88,29 @@ namespace AMSExplorer
             }
         }
 
-        public MediaInsightsGeneric(CloudMediaContext context, IMediaProcessor processor, bool preview)
+        public MediaAnalyticsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview, string urlMoreInfo)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _processor = processor;
             _preview = preview;
+            _processorImage = processorImage;
+            _urlMoreInfo = urlMoreInfo;
             buttonJobOptions.Initialize(_context);
         }
 
 
-        private void MediaInsightsGeneric_Load(object sender, EventArgs e)
+        private void MediaAnalyticsGeneric_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
-
-            // we don't have yet link or picture for MI Greneric
-            moreinfoprofilelink.Visible = false;
+            // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, _urlMoreInfo));
+            moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;
             labelPreview.Visible = _preview;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text,  _processor.Version);
+            buttonOk.Image = _processorImage;
             this.Text = _processor.Name;
         }
 

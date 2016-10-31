@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2015 Microsoft Corporation
+//    Copyright 2016 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -29,6 +29,8 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AMSExplorer
 {
@@ -36,6 +38,29 @@ namespace AMSExplorer
     {
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
+
+        public readonly string SigniantGlobalServer = "global-az.cloud.signiant.com";
+
+        public readonly IList<SigniantInfo> SigniantServers = new List<SigniantInfo> {
+            new SigniantInfo() {AzureContainerInfo="East US (Virginia)", FlightServer="us-east-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="East US 2 (Virginia)", FlightServer="us-east-2-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Central US (Iowa)", FlightServer="us-central-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="North Central US (Illinois)", FlightServer="us-northcentral-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="South Central US (Texas)", FlightServer="us-southcentral-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West US (California)", FlightServer="us-west-az.cloud.signiant.com", FlightRegion="us-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="North Europe (Ireland)", FlightServer="eu-north-az.cloud.signiant.com", FlightRegion="eu-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West Europe (Netherlands)", FlightServer="eu-west-az.cloud.signiant.com", FlightRegion="eu-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="East Asia (Hong Kong)", FlightServer="ap-east-az.cloud.signiant.com", FlightRegion="ap-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Southeast Asia (Singapore)", FlightServer="ap-south-az.cloud.signiant.com", FlightRegion="ap-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Japan East (Tokyo)", FlightServer="jp-east-az.cloud.signiant.com", FlightRegion="jp-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Japan West (Osaka)", FlightServer="jp-west-az.cloud.signiant.com", FlightRegion="jp-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Brazil South (Sao Paulo State)", FlightServer="sa-south-az.cloud.signiant.com", FlightRegion="sa-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Australia East (New South Wales)", FlightServer="aus-east-az.cloud.signiant.com", FlightRegion="aus-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Australia Southeast (Victoria)", FlightServer="aus-southeast-az.cloud.signiant.com", FlightRegion="aus-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="Central India (Pune)", FlightServer="ind-central-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="South India (Chennai)", FlightServer="ind-south-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"},
+            new SigniantInfo() {AzureContainerInfo="West India (Mumbai)", FlightServer="ind-west-az.cloud.signiant.com", FlightRegion="ind-az.cloud.signiant.com"}
+        };
 
         public string IngestName
         {
@@ -74,22 +99,90 @@ namespace AMSExplorer
                 return ((Item)comboBoxStorageIngest.SelectedItem).Value;
             }
         }
-
-        public bool EncryptAssetFiles
-        {
-            get
-            {
-                return checkBoxEncrypt.Checked;
-            }
-        }
+               
 
         public string EncryptToFolder
         {
             get
             {
-                return checkBoxEncrypt.Checked ? textBoxFolderPath.Text : null;
+                return radioButtonStorageEncryption.Checked ? textBoxFolderPath.Text : null;
             }
         }
+
+        public AssetCreationOptions AssetCreationOption
+        {
+            get
+            {
+                if (radioButtonEncryptionNone.Checked)
+                {
+                    return AssetCreationOptions.None;
+                }
+                else if (radioButtonStorageEncryption.Checked)
+                {
+                    return AssetCreationOptions.StorageEncrypted;
+                }
+                else
+                {
+                    return AssetCreationOptions.CommonEncryptionProtected;
+                }
+            }
+        }
+
+        public bool GenerateAzCopy
+        {
+            get
+            {
+                return checkBoxGenerateAzCopy.Checked;
+            }
+        }
+
+        public bool GenerateSigniant
+        {
+            get
+            {
+                return checkBoxGenerateSigniant.Checked;
+            }
+        }
+
+        public bool GenerateAspera
+        {
+            get
+            {
+                return checkBoxGenerateAspera.Checked;
+            }
+        }
+
+        public string SigniantAPIKey
+        {
+            get
+            {
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    return textBoxSigniantAPIKey.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public List<string> SigniantServersSelected
+        {
+            get
+            {
+                var servers = new List<string>();
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    string regionname = (string)comboBoxSigniantServer.SelectedItem;
+                    var flightentry = SigniantServers.Where(s => s.AzureContainerInfo == regionname).FirstOrDefault();
+                    servers.Add(flightentry.FlightServer);
+                    servers.Add(SigniantGlobalServer);
+                }
+                return servers;
+            }
+        }
+
 
         public BulkUpload(CloudMediaContext context)
         {
@@ -117,6 +210,19 @@ namespace AMSExplorer
             dataGridAssetFiles.Columns["AssetIndex"].ReadOnly = true;
             dataGridAssetFiles.Columns["FileName"].ReadOnly = true;
             labelWarningFiles.Text = "";
+
+            foreach (var server in SigniantServers)
+            {
+                comboBoxSigniantServer.Items.Add(server.AzureContainerInfo);
+            }
+            //comboBoxSigniantServer.SelectedIndex = 0;
+
+            linkLabelSigniantRequestKey.Links.Add(new LinkLabel.Link(0, linkLabelSigniantRequestKey.Text.Length, Constants.LinkSigniantFlightRequestTrialKey));
+            linklabelSigniantMarket.Links.Add(new LinkLabel.Link(0, linklabelSigniantMarket.Text.Length, Constants.LinkSigniantFlightMarketPlace));
+            linkLabelInfoAzCopy.Links.Add(new LinkLabel.Link(0, linkLabelInfoAzCopy.Text.Length, Constants.LinkMoreInfoAzCopy));
+            linkLabelAspera.Links.Add(new LinkLabel.Link(0, linkLabelAspera.Text.Length, Constants.LinkAspera));
+
+            textBoxSigniantAPIKey.Text = Properties.Settings.Default.SigniantFlightAPIKey;
         }
 
 
@@ -164,11 +270,11 @@ namespace AMSExplorer
                     f.AssetName = assetname; // let's make sure all asset files from the same asset have the same asset name
                 }
                 f.AssetIndex = index;
-               
+
                 g = f.AssetGuid;
             }
 
-           
+
 
             // let's check filename duplicates
             var listfilenames = assetFiles.Select(a => Path.GetFileName(a.FileName)).Distinct().ToList();
@@ -272,36 +378,33 @@ namespace AMSExplorer
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory= textBoxFolderPath.Text };
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath ;
+                textBoxFolderPath.Text = openFolderDialog.FileName;
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = checkBoxEncrypt.Checked;
-        }
-
+     
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true};
+            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
                 {
-                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"_Encrypted";
+                    textBoxFolderPath.Text = openFolderDialog.FileName + @"_Encrypted";
                 }
 
-                var folders = Directory.GetDirectories(folderBrowserDialog1.SelectedPath).ToList();
-                var files = Directory.GetFiles(folderBrowserDialog1.SelectedPath).ToList();
+                var folders = Directory.GetDirectories(openFolderDialog.FileName).ToList();
+                var files = Directory.GetFiles(openFolderDialog.FileName).ToList();
 
                 if (files.Count > 0)
                 {
                     Guid g = Guid.NewGuid();
                     foreach (var file in files)
                     {
-                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folderBrowserDialog1.SelectedPath), FileName = file });
+                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(openFolderDialog.FileName), FileName = file });
                     }
                 }
 
@@ -371,5 +474,53 @@ namespace AMSExplorer
                 ReindexAssetListAndDoSomeChecks();
             }
         }
+
+        private void linklabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            if (checkBoxGenerateSigniant.Checked && comboBoxSigniantServer.SelectedIndex < 0)
+            {
+                // problem
+                MessageBox.Show("Please select a Signiant server in the same region than the AMS/Storage account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (checkBoxGenerateSigniant.Checked && string.IsNullOrWhiteSpace(textBoxSigniantAPIKey.Text))
+            {
+                // problem
+                MessageBox.Show("Please provide a valid Signiant API Key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if (checkBoxGenerateSigniant.Checked)
+                {
+                    Properties.Settings.Default.SigniantFlightAPIKey = textBoxSigniantAPIKey.Text;
+                    Properties.Settings.Default.Save();
+                }
+
+                this.DialogResult = DialogResult.OK;  // form will close with OK result
+                                                      // else --> form won't close...
+            }
+        }
+
+        private void checkBoxGenerateSigniant_CheckedChanged(object sender, EventArgs e)
+        {
+            panelSigniant.Enabled = checkBoxGenerateSigniant.Checked;
+        }
+
+        private void radioButtonStorageEncryption_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = radioButtonStorageEncryption.Checked;
+        }
+    }
+
+    public class SigniantInfo
+    {
+        public string AzureContainerInfo { get; set; }
+        public string FlightServer { get; set; }
+        public string FlightRegion { get; set; }
+
     }
 }

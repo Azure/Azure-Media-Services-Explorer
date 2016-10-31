@@ -255,7 +255,6 @@
             // openFileDialogLoadSubFile
             // 
             this.openFileDialogLoadSubFile.DefaultExt = "publishsettings";
-            this.openFileDialogLoadSubFile.FileName = "openFileDialog1";
             this.openFileDialogLoadSubFile.Filter = "Subscription file|*.publishsettings|All files|*.*";
             // 
             // buttonImportSubscriptionFile

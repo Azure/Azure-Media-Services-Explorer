@@ -1700,6 +1700,9 @@ Deinterlace only if necessary</componentName>
                             <pin name="in6" type="INPUT_PUSH">
                                 <pinDefinition name="in6" displayName="In 6" type="INPUT_PUSH" dynamic="true"/>
                             </pin>
+                            <pin name="in7" type="INPUT_PUSH">
+                                <pinDefinition name="in7" displayName="In 7" type="INPUT_PUSH" dynamic="true"/>
+                            </pin>
                         </component>
                         <component>
                             <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
@@ -2136,6 +2139,81 @@ Deinterlace only if necessary</componentName>
                             <componentOwningPluginId>ca.digitalrapids.DolbyPulseEncoder</componentOwningPluginId>
                             <childComponents/>
                             <pin name="audio" type="INPUT_IO"/>
+                            <pin name="out" type="OUTPUT_IO"/>
+                        </component>
+                        <component>
+                            <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
+                            <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
+                            <property name="Duration">Depend on the shortest source</property>
+                            <property name="_graphDisplayContents" isNull="true"/>
+                            <property name="_graphDisplayLocation">858.0,690.0</property>
+                            <property name="_timeBase_local" isNull="true"/>
+                            <property name="defaultInputPin" isNull="true"/>
+                            <property name="defaultOutputPin">out</property>
+                            <property name="framesPerPacket">1024</property>
+                            <property name="logsMaxEntries" isNull="true"/>
+                            <componentName>Audio Stream Interleaver</componentName>
+                            <componentDefinitionName>Audio Stream Interleaver</componentDefinitionName>
+                            <componentDefinitionGuid>D166D48B-FA26-44ca-8F2D-62B20D892659</componentDefinitionGuid>
+                            <componentOwningPluginName>AudioFormatUtilities</componentOwningPluginName>
+                            <componentOwningPluginId>ca.digitalrapids.AudioFormatUtilities</componentOwningPluginId>
+                            <childComponents/>
+                            <pin name="out" type="OUTPUT_PUSH"/>
+                            <pin name="done" type="EVENT"/>
+                            <pin name="in 1" type="INPUT_PUSH">
+                                <pinDefinition name="in 1" displayName="Raw Audio 1" type="INPUT_PUSH" dynamic="true"/>
+                            </pin>
+                            <pin name="in 2" type="INPUT_PUSH">
+                                <pinDefinition name="in 2" displayName="Raw Audio 2" type="INPUT_PUSH" dynamic="true"/>
+                            </pin>
+                            <pin name="in 3" type="INPUT_PUSH">
+                                <pinDefinition name="in 3" displayName="Raw Audio 3" type="INPUT_PUSH" dynamic="true"/>
+                            </pin>
+                        </component>
+                        <component>
+                            <propertyDefinition hidden="true" name="_graphDisplayLocation" group="System" dynamic="true"/>
+                            <propertyDefinition hidden="true" name="_graphDisplayContents" group="System" dynamic="true"/>
+                            <propertyDefinition hidden="true" name="_graphMinDisplaySize" group="System" dynamic="true"/>
+                            <property name="_graphDisplayContents">false</property>
+                            <property name="_graphDisplayLocation">1100.9998779296875,677.0257034301758</property>
+                            <property name="_graphMinDisplaySize" isNull="true"/>
+                            <property name="_timeBase_local" isNull="true"/>
+                            <property name="accuracy_bits_per_sample" isNull="true"/>
+                            <property name="acquireChildLicenses" isNull="true"/>
+                            <property name="average_bit_rate" isNull="true"/>
+                            <property name="bits_per_sample" isNull="true"/>
+                            <property name="channel1_speaker">L_LEFT</property>
+                            <property name="channel2_speaker">R_RIGHT</property>
+                            <property name="channel3_speaker"></property>
+                            <property name="channel4_speaker"></property>
+                            <property name="channel5_speaker"></property>
+                            <property name="channel6_speaker"></property>
+                            <property name="channel7_speaker"></property>
+                            <property name="channel8_speaker"></property>
+                            <property name="channel_position_preset">L_R</property>
+                            <property name="defaultInputPin">in</property>
+                            <property name="defaultOutputPin">out</property>
+                            <property name="encoder_preset_filter">WAVE</property>
+                            <property name="ignoreChildComponentErrors" isNull="true"/>
+                            <property name="ignoreParentGraphState" isNull="true"/>
+                            <property name="language_code" isNull="true"/>
+                            <property name="logsMaxEntries" isNull="true"/>
+                            <property name="maximum_bit_rate" isNull="true"/>
+                            <property name="num_active_channels" isNull="true"/>
+                            <property name="num_channels" isNull="true"/>
+                            <property name="out_endian">little</property>
+                            <property name="override_input">false</property>
+                            <property name="rate_control" isNull="true"/>
+                            <property name="sample_rate" isNull="true"/>
+                            <property name="sample_signed" isNull="true"/>
+                            <property name="storage_bits_per_sample" isNull="true"/>
+                            <componentName>Audio Data Type Updater 6</componentName>
+                            <componentDefinitionName>Audio Data Type Updater</componentDefinitionName>
+                            <componentDefinitionGuid>9D095BEC-5A2C-445e-9AF9-A17313693263</componentDefinitionGuid>
+                            <componentOwningPluginName>AudioFormatUtilities</componentOwningPluginName>
+                            <componentOwningPluginId>ca.digitalrapids.AudioFormatUtilities</componentOwningPluginId>
+                            <childComponents/>
+                            <pin name="in" type="INPUT_IO"/>
                             <pin name="out" type="OUTPUT_IO"/>
                         </component>
                     </childComponents>
@@ -4035,12 +4113,24 @@ Deinterlace only if necessary/Deinterlacer/in</destinationPath>
             <destinationPath>Audio Logic and Encoding/Audio Data Type Updater 5/in</destinationPath>
         </connection>
         <connection>
+            <sourcePath>Audio Logic and Encoding/Logic Branch 5/no</sourcePath>
+            <destinationPath>Audio Logic and Encoding/Audio Stream Interleaver/in 1</destinationPath>
+        </connection>
+        <connection>
+            <sourcePath>Audio Logic and Encoding/Logic Branch 5/no</sourcePath>
+            <destinationPath>Audio Logic and Encoding/Audio Stream Interleaver/in 2</destinationPath>
+        </connection>
+        <connection>
             <sourcePath>Audio Logic and Encoding/Audio Data Type Updater 5/out</sourcePath>
             <destinationPath>Audio Logic and Encoding/Branch Merger/in5</destinationPath>
         </connection>
         <connection>
             <sourcePath>Audio Logic and Encoding/Branch Merger/out</sourcePath>
             <destinationPath>Audio Logic and Encoding/Audio Routing - based on Source Video Framesize/Audio Input</destinationPath>
+        </connection>
+        <connection>
+            <sourcePath>Audio Logic and Encoding/Audio Data Type Updater 6/out</sourcePath>
+            <destinationPath>Audio Logic and Encoding/Branch Merger/in6</destinationPath>
         </connection>
         <connection>
             <sourcePath>Audio Logic and Encoding/Audio Routing - based on Source Video Framesize/Audio Out - 1080</sourcePath>
@@ -4113,6 +4203,10 @@ Deinterlace only if necessary/Deinterlacer/in</destinationPath>
         <connection>
             <sourcePath>Audio Logic and Encoding/AAC Encoder - 256kbps/out</sourcePath>
             <destinationPath>Audio Logic and Encoding/Branch Merger 2/in1</destinationPath>
+        </connection>
+        <connection>
+            <sourcePath>Audio Logic and Encoding/Audio Stream Interleaver/out</sourcePath>
+            <destinationPath>Audio Logic and Encoding/Audio Data Type Updater 6/in</destinationPath>
         </connection>
         <connection>
             <sourcePath>EIA-608 Captions Decoder/out_cc1</sourcePath>
@@ -4263,7 +4357,7 @@ Deinterlace only if necessary/Deinterlacer/in</destinationPath>
         <osName>Windows 7</osName>
         <osArch>amd64</osArch>
         <osVersion>6.1</osVersion>
-        <authoredDate>2014-12-05T16:45:10.640-05:00</authoredDate>
+        <authoredDate>2014-12-08T15:59:13.357-05:00</authoredDate>
         <plugins>
             <plugin pluginId="ca.digitalrapids.AACSourceController" name="AAC Source Controller">
                 <pluginVersion>1.0.24.0</pluginVersion>
