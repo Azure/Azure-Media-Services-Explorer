@@ -88,13 +88,11 @@
             // 
             resources.ApplyResources(this.labelProductName, "labelProductName");
             this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Click += new System.EventHandler(this.labelProductName_Click);
             // 
             // labelVersion
             // 
             resources.ApplyResources(this.labelVersion, "labelVersion");
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Click += new System.EventHandler(this.labelVersion_Click);
             // 
             // labelCopyright
             // 
