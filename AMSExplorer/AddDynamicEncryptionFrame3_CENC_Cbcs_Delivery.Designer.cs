@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.groupBoxFairPlay = new System.Windows.Forms.GroupBox();
             this.moreinfoFairPlaylink = new System.Windows.Forms.LinkLabel();
             this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.TextBoxCertificateFile = new System.Windows.Forms.TextBox();
             this.textBoxASK = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -63,7 +65,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxFairPlay.SuspendLayout();
             this.panelFairPlayFromAMS.SuspendLayout();
@@ -76,53 +77,47 @@
             // 
             // buttonOk
             // 
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Enabled = false;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(386, 13);
+            this.errorProvider1.SetError(this.buttonOk, resources.GetString("buttonOk.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonOk, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonOk.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonOk, ((int)(resources.GetObject("buttonOk.IconPadding"))));
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(176, 27);
-            this.buttonOk.TabIndex = 17;
-            this.buttonOk.Text = "Next";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(569, 13);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(107, 27);
-            this.buttonCancel.TabIndex = 16;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(26, 21);
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 42);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "Step 3\r\nLicense delivery";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 688);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(684, 55);
-            this.panel1.TabIndex = 51;
             // 
             // groupBoxFairPlay
             // 
-            this.groupBoxFairPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.groupBoxFairPlay, "groupBoxFairPlay");
             this.groupBoxFairPlay.Controls.Add(this.moreinfoFairPlaylink);
             this.groupBoxFairPlay.Controls.Add(this.panelFairPlayFromAMS);
             this.groupBoxFairPlay.Controls.Add(this.panelExternalFairPlay);
@@ -130,30 +125,25 @@
             this.groupBoxFairPlay.Controls.Add(this.radioButtonExternalFairPlayServer);
             this.groupBoxFairPlay.Controls.Add(this.numericUpDownNbOptionsFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.label2);
-            this.groupBoxFairPlay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFairPlay.Location = new System.Drawing.Point(12, 87);
+            this.errorProvider1.SetError(this.groupBoxFairPlay, resources.GetString("groupBoxFairPlay.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBoxFairPlay, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBoxFairPlay.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBoxFairPlay, ((int)(resources.GetObject("groupBoxFairPlay.IconPadding"))));
             this.groupBoxFairPlay.Name = "groupBoxFairPlay";
-            this.groupBoxFairPlay.Size = new System.Drawing.Size(645, 574);
-            this.groupBoxFairPlay.TabIndex = 52;
             this.groupBoxFairPlay.TabStop = false;
-            this.groupBoxFairPlay.Text = "Apple FairPlay Streaming";
             // 
             // moreinfoFairPlaylink
             // 
-            this.moreinfoFairPlaylink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreinfoFairPlaylink.AutoSize = true;
-            this.moreinfoFairPlaylink.Location = new System.Drawing.Point(482, 19);
+            resources.ApplyResources(this.moreinfoFairPlaylink, "moreinfoFairPlaylink");
+            this.errorProvider1.SetError(this.moreinfoFairPlaylink, resources.GetString("moreinfoFairPlaylink.Error"));
+            this.errorProvider1.SetIconAlignment(this.moreinfoFairPlaylink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("moreinfoFairPlaylink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.moreinfoFairPlaylink, ((int)(resources.GetObject("moreinfoFairPlaylink.IconPadding"))));
             this.moreinfoFairPlaylink.Name = "moreinfoFairPlaylink";
-            this.moreinfoFairPlaylink.Size = new System.Drawing.Size(156, 15);
-            this.moreinfoFairPlaylink.TabIndex = 92;
             this.moreinfoFairPlaylink.TabStop = true;
-            this.moreinfoFairPlaylink.Text = "FairPlay with Media Services";
             this.moreinfoFairPlaylink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoFairPlaylink_LinkClicked);
             // 
             // panelFairPlayFromAMS
             // 
-            this.panelFairPlayFromAMS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panelFairPlayFromAMS, "panelFairPlayFromAMS");
             this.panelFairPlayFromAMS.Controls.Add(this.label10);
             this.panelFairPlayFromAMS.Controls.Add(this.TextBoxCertificateFile);
             this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
@@ -163,133 +153,119 @@
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonHttps);
             this.panelFairPlayFromAMS.Controls.Add(this.radioButtonSkd);
             this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
-            this.panelFairPlayFromAMS.Location = new System.Drawing.Point(41, 63);
+            this.errorProvider1.SetError(this.panelFairPlayFromAMS, resources.GetString("panelFairPlayFromAMS.Error"));
+            this.errorProvider1.SetIconAlignment(this.panelFairPlayFromAMS, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panelFairPlayFromAMS.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panelFairPlayFromAMS, ((int)(resources.GetObject("panelFairPlayFromAMS.IconPadding"))));
             this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
-            this.panelFairPlayFromAMS.Size = new System.Drawing.Size(597, 230);
-            this.panelFairPlayFromAMS.TabIndex = 85;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
+            this.label10.Name = "label10";
             // 
             // TextBoxCertificateFile
             // 
-            this.TextBoxCertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxCertificateFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxCertificateFile.Location = new System.Drawing.Point(262, 17);
-            this.TextBoxCertificateFile.Multiline = true;
+            resources.ApplyResources(this.TextBoxCertificateFile, "TextBoxCertificateFile");
+            this.errorProvider1.SetError(this.TextBoxCertificateFile, resources.GetString("TextBoxCertificateFile.Error"));
+            this.errorProvider1.SetIconAlignment(this.TextBoxCertificateFile, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("TextBoxCertificateFile.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.TextBoxCertificateFile, ((int)(resources.GetObject("TextBoxCertificateFile.IconPadding"))));
             this.TextBoxCertificateFile.Name = "TextBoxCertificateFile";
             this.TextBoxCertificateFile.ReadOnly = true;
-            this.TextBoxCertificateFile.Size = new System.Drawing.Size(315, 37);
-            this.TextBoxCertificateFile.TabIndex = 91;
-            this.TextBoxCertificateFile.Text = "(no file selected)";
             // 
             // textBoxASK
             // 
-            this.textBoxASK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxASK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxASK.Location = new System.Drawing.Point(29, 105);
+            resources.ApplyResources(this.textBoxASK, "textBoxASK");
+            this.errorProvider1.SetError(this.textBoxASK, resources.GetString("textBoxASK.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxASK, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxASK.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxASK, ((int)(resources.GetObject("textBoxASK.IconPadding"))));
             this.textBoxASK.Name = "textBoxASK";
-            this.textBoxASK.Size = new System.Drawing.Size(416, 23);
-            this.textBoxASK.TabIndex = 89;
             this.textBoxASK.TextChanged += new System.EventHandler(this.textBoxASK_TextChanged);
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Controls.Add(this.radioButtonASKBase64);
             this.panel2.Controls.Add(this.radioButtonASKHex);
-            this.panel2.Location = new System.Drawing.Point(466, 87);
+            this.errorProvider1.SetError(this.panel2, resources.GetString("panel2.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel2, ((int)(resources.GetObject("panel2.IconPadding"))));
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(87, 55);
-            this.panel2.TabIndex = 90;
             // 
             // radioButtonASKBase64
             // 
-            this.radioButtonASKBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonASKBase64.AutoSize = true;
-            this.radioButtonASKBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonASKBase64.Location = new System.Drawing.Point(9, 7);
+            resources.ApplyResources(this.radioButtonASKBase64, "radioButtonASKBase64");
+            this.errorProvider1.SetError(this.radioButtonASKBase64, resources.GetString("radioButtonASKBase64.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonASKBase64, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonASKBase64.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonASKBase64, ((int)(resources.GetObject("radioButtonASKBase64.IconPadding"))));
             this.radioButtonASKBase64.Name = "radioButtonASKBase64";
-            this.radioButtonASKBase64.Size = new System.Drawing.Size(61, 19);
-            this.radioButtonASKBase64.TabIndex = 68;
-            this.radioButtonASKBase64.Text = "Base64";
             this.radioButtonASKBase64.UseVisualStyleBackColor = true;
             this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.radioButtonASKBase64_CheckedChanged);
             // 
             // radioButtonASKHex
             // 
-            this.radioButtonASKHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonASKHex.AutoSize = true;
+            resources.ApplyResources(this.radioButtonASKHex, "radioButtonASKHex");
             this.radioButtonASKHex.Checked = true;
-            this.radioButtonASKHex.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonASKHex.Location = new System.Drawing.Point(9, 32);
+            this.errorProvider1.SetError(this.radioButtonASKHex, resources.GetString("radioButtonASKHex.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonASKHex, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonASKHex.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonASKHex, ((int)(resources.GetObject("radioButtonASKHex.IconPadding"))));
             this.radioButtonASKHex.Name = "radioButtonASKHex";
-            this.radioButtonASKHex.Size = new System.Drawing.Size(45, 19);
-            this.radioButtonASKHex.TabIndex = 69;
             this.radioButtonASKHex.TabStop = true;
-            this.radioButtonASKHex.Text = "Hex";
             this.radioButtonASKHex.UseVisualStyleBackColor = true;
             this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.radioButtonASKHex_CheckedChanged);
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(26, 87);
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(163, 15);
-            this.label9.TabIndex = 88;
-            this.label9.Text = "Application Secret Key (ASK) :";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 148);
+            resources.ApplyResources(this.label6, "label6");
+            this.errorProvider1.SetError(this.label6, resources.GetString("label6.Error"));
+            this.errorProvider1.SetIconAlignment(this.label6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label6, ((int)(resources.GetObject("label6.IconPadding"))));
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(177, 15);
-            this.label6.TabIndex = 78;
-            this.label6.Text = "License Acquisition Url scheme :";
             // 
             // radioButtonHttps
             // 
-            this.radioButtonHttps.AutoSize = true;
-            this.radioButtonHttps.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonHttps.Location = new System.Drawing.Point(29, 191);
+            resources.ApplyResources(this.radioButtonHttps, "radioButtonHttps");
+            this.errorProvider1.SetError(this.radioButtonHttps, resources.GetString("radioButtonHttps.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonHttps, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonHttps.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonHttps, ((int)(resources.GetObject("radioButtonHttps.IconPadding"))));
             this.radioButtonHttps.Name = "radioButtonHttps";
-            this.radioButtonHttps.Size = new System.Drawing.Size(65, 19);
-            this.radioButtonHttps.TabIndex = 73;
-            this.radioButtonHttps.Text = "https://";
             this.radioButtonHttps.UseVisualStyleBackColor = true;
             // 
             // radioButtonSkd
             // 
-            this.radioButtonSkd.AutoSize = true;
+            resources.ApplyResources(this.radioButtonSkd, "radioButtonSkd");
             this.radioButtonSkd.Checked = true;
-            this.radioButtonSkd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSkd.Location = new System.Drawing.Point(29, 166);
+            this.errorProvider1.SetError(this.radioButtonSkd, resources.GetString("radioButtonSkd.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonSkd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonSkd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonSkd, ((int)(resources.GetObject("radioButtonSkd.IconPadding"))));
             this.radioButtonSkd.Name = "radioButtonSkd";
-            this.radioButtonSkd.Size = new System.Drawing.Size(56, 19);
-            this.radioButtonSkd.TabIndex = 72;
             this.radioButtonSkd.TabStop = true;
-            this.radioButtonSkd.Text = "skd://";
             this.radioButtonSkd.UseVisualStyleBackColor = true;
             // 
             // buttonImportPFX
             // 
-            this.buttonImportPFX.Location = new System.Drawing.Point(26, 17);
+            resources.ApplyResources(this.buttonImportPFX, "buttonImportPFX");
+            this.errorProvider1.SetError(this.buttonImportPFX, resources.GetString("buttonImportPFX.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonImportPFX, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonImportPFX.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonImportPFX, ((int)(resources.GetObject("buttonImportPFX.IconPadding"))));
             this.buttonImportPFX.Name = "buttonImportPFX";
-            this.buttonImportPFX.Size = new System.Drawing.Size(227, 27);
-            this.buttonImportPFX.TabIndex = 70;
-            this.buttonImportPFX.Text = "Import App Certificate (.PFX)...";
             this.buttonImportPFX.UseVisualStyleBackColor = true;
             this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
             // 
             // panelExternalFairPlay
             // 
-            this.panelExternalFairPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panelExternalFairPlay, "panelExternalFairPlay");
             this.panelExternalFairPlay.Controls.Add(this.checkBoxFinalExtURL);
             this.panelExternalFairPlay.Controls.Add(this.panel3);
             this.panelExternalFairPlay.Controls.Add(this.label4);
@@ -298,157 +274,131 @@
             this.panelExternalFairPlay.Controls.Add(this.textBoxFairPlayLAurl);
             this.panelExternalFairPlay.Controls.Add(this.label7);
             this.panelExternalFairPlay.Controls.Add(this.label3);
-            this.panelExternalFairPlay.Enabled = false;
-            this.panelExternalFairPlay.Location = new System.Drawing.Point(41, 342);
+            this.errorProvider1.SetError(this.panelExternalFairPlay, resources.GetString("panelExternalFairPlay.Error"));
+            this.errorProvider1.SetIconAlignment(this.panelExternalFairPlay, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panelExternalFairPlay.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panelExternalFairPlay, ((int)(resources.GetObject("panelExternalFairPlay.IconPadding"))));
             this.panelExternalFairPlay.Name = "panelExternalFairPlay";
-            this.panelExternalFairPlay.Size = new System.Drawing.Size(597, 171);
-            this.panelExternalFairPlay.TabIndex = 81;
             // 
             // checkBoxFinalExtURL
             // 
-            this.checkBoxFinalExtURL.AutoSize = true;
-            this.checkBoxFinalExtURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxFinalExtURL.Location = new System.Drawing.Point(29, 63);
+            resources.ApplyResources(this.checkBoxFinalExtURL, "checkBoxFinalExtURL");
+            this.errorProvider1.SetError(this.checkBoxFinalExtURL, resources.GetString("checkBoxFinalExtURL.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxFinalExtURL, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxFinalExtURL.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxFinalExtURL, ((int)(resources.GetObject("checkBoxFinalExtURL.IconPadding"))));
             this.checkBoxFinalExtURL.Name = "checkBoxFinalExtURL";
-            this.checkBoxFinalExtURL.Size = new System.Drawing.Size(548, 19);
-            this.checkBoxFinalExtURL.TabIndex = 96;
-            this.checkBoxFinalExtURL.Text = "Final URL (the keyid and the initialisation vector will not be added to URL by th" +
-    "e dynamic packager)";
             this.checkBoxFinalExtURL.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.radioButtonIVBase64);
             this.panel3.Controls.Add(this.radioButtonIVHex);
-            this.panel3.Location = new System.Drawing.Point(466, 105);
+            this.errorProvider1.SetError(this.panel3, resources.GetString("panel3.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel3, ((int)(resources.GetObject("panel3.IconPadding"))));
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(87, 55);
-            this.panel3.TabIndex = 92;
             // 
             // radioButtonIVBase64
             // 
-            this.radioButtonIVBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonIVBase64.AutoSize = true;
+            resources.ApplyResources(this.radioButtonIVBase64, "radioButtonIVBase64");
             this.radioButtonIVBase64.Checked = true;
-            this.radioButtonIVBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonIVBase64.Location = new System.Drawing.Point(9, 7);
+            this.errorProvider1.SetError(this.radioButtonIVBase64, resources.GetString("radioButtonIVBase64.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonIVBase64, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonIVBase64.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonIVBase64, ((int)(resources.GetObject("radioButtonIVBase64.IconPadding"))));
             this.radioButtonIVBase64.Name = "radioButtonIVBase64";
-            this.radioButtonIVBase64.Size = new System.Drawing.Size(61, 19);
-            this.radioButtonIVBase64.TabIndex = 68;
             this.radioButtonIVBase64.TabStop = true;
-            this.radioButtonIVBase64.Text = "Base64";
             this.radioButtonIVBase64.UseVisualStyleBackColor = true;
             this.radioButtonIVBase64.CheckedChanged += new System.EventHandler(this.radioButtonIVBase64_CheckedChanged);
             // 
             // radioButtonIVHex
             // 
-            this.radioButtonIVHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonIVHex.AutoSize = true;
-            this.radioButtonIVHex.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonIVHex.Location = new System.Drawing.Point(9, 32);
+            resources.ApplyResources(this.radioButtonIVHex, "radioButtonIVHex");
+            this.errorProvider1.SetError(this.radioButtonIVHex, resources.GetString("radioButtonIVHex.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonIVHex, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonIVHex.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonIVHex, ((int)(resources.GetObject("radioButtonIVHex.IconPadding"))));
             this.radioButtonIVHex.Name = "radioButtonIVHex";
-            this.radioButtonIVHex.Size = new System.Drawing.Size(45, 19);
-            this.radioButtonIVHex.TabIndex = 69;
-            this.radioButtonIVHex.Text = "Hex";
             this.radioButtonIVHex.UseVisualStyleBackColor = true;
             this.radioButtonIVHex.CheckedChanged += new System.EventHandler(this.radioButtonIVHex_CheckedChanged);
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(145, 105);
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(267, 15);
-            this.label4.TabIndex = 95;
-            this.label4.Text = "If empty, it will be automatically generated";
             // 
             // textBoxIV
             // 
-            this.textBoxIV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIV.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxIV.Location = new System.Drawing.Point(29, 123);
+            resources.ApplyResources(this.textBoxIV, "textBoxIV");
+            this.errorProvider1.SetError(this.textBoxIV, resources.GetString("textBoxIV.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxIV, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxIV.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxIV, ((int)(resources.GetObject("textBoxIV.IconPadding"))));
             this.textBoxIV.Name = "textBoxIV";
-            this.textBoxIV.Size = new System.Drawing.Size(416, 23);
-            this.textBoxIV.TabIndex = 94;
             this.textBoxIV.TextChanged += new System.EventHandler(this.textBoxIV_TextChanged);
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(26, 105);
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 15);
-            this.label5.TabIndex = 93;
-            this.label5.Text = "Initialization Vector :";
             // 
             // textBoxFairPlayLAurl
             // 
-            this.textBoxFairPlayLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFairPlayLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFairPlayLAurl.Location = new System.Drawing.Point(29, 33);
+            resources.ApplyResources(this.textBoxFairPlayLAurl, "textBoxFairPlayLAurl");
+            this.errorProvider1.SetError(this.textBoxFairPlayLAurl, resources.GetString("textBoxFairPlayLAurl.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxFairPlayLAurl, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxFairPlayLAurl.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxFairPlayLAurl, ((int)(resources.GetObject("textBoxFairPlayLAurl.IconPadding"))));
             this.textBoxFairPlayLAurl.Name = "textBoxFairPlayLAurl";
-            this.textBoxFairPlayLAurl.Size = new System.Drawing.Size(416, 23);
-            this.textBoxFairPlayLAurl.TabIndex = 78;
             this.textBoxFairPlayLAurl.TextChanged += new System.EventHandler(this.textBoxFairPlayLAurl_TextChanged);
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label7, "label7");
+            this.errorProvider1.SetError(this.label7, resources.GetString("label7.Error"));
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(453, 36);
+            this.errorProvider1.SetIconAlignment(this.label7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label7, ((int)(resources.GetObject("label7.IconPadding"))));
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 15);
-            this.label7.TabIndex = 79;
-            this.label7.Text = "(Url)";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(26, 15);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 15);
-            this.label3.TabIndex = 77;
-            this.label3.Text = "License Acquisition Url :";
             // 
             // radioButtonDeliverFairPlayfromAMS
             // 
-            this.radioButtonDeliverFairPlayfromAMS.AutoSize = true;
+            resources.ApplyResources(this.radioButtonDeliverFairPlayfromAMS, "radioButtonDeliverFairPlayfromAMS");
             this.radioButtonDeliverFairPlayfromAMS.Checked = true;
-            this.radioButtonDeliverFairPlayfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDeliverFairPlayfromAMS.Location = new System.Drawing.Point(41, 34);
+            this.errorProvider1.SetError(this.radioButtonDeliverFairPlayfromAMS, resources.GetString("radioButtonDeliverFairPlayfromAMS.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonDeliverFairPlayfromAMS, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonDeliverFairPlayfromAMS.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonDeliverFairPlayfromAMS, ((int)(resources.GetObject("radioButtonDeliverFairPlayfromAMS.IconPadding"))));
             this.radioButtonDeliverFairPlayfromAMS.Name = "radioButtonDeliverFairPlayfromAMS";
-            this.radioButtonDeliverFairPlayfromAMS.Size = new System.Drawing.Size(193, 19);
-            this.radioButtonDeliverFairPlayfromAMS.TabIndex = 63;
             this.radioButtonDeliverFairPlayfromAMS.TabStop = true;
-            this.radioButtonDeliverFairPlayfromAMS.Text = "From Azure Media Services with";
             this.radioButtonDeliverFairPlayfromAMS.UseVisualStyleBackColor = true;
             // 
             // radioButtonExternalFairPlayServer
             // 
-            this.radioButtonExternalFairPlayServer.AutoSize = true;
-            this.radioButtonExternalFairPlayServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalFairPlayServer.Location = new System.Drawing.Point(41, 320);
+            resources.ApplyResources(this.radioButtonExternalFairPlayServer, "radioButtonExternalFairPlayServer");
+            this.errorProvider1.SetError(this.radioButtonExternalFairPlayServer, resources.GetString("radioButtonExternalFairPlayServer.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonExternalFairPlayServer, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonExternalFairPlayServer.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonExternalFairPlayServer, ((int)(resources.GetObject("radioButtonExternalFairPlayServer.IconPadding"))));
             this.radioButtonExternalFairPlayServer.Name = "radioButtonExternalFairPlayServer";
-            this.radioButtonExternalFairPlayServer.Size = new System.Drawing.Size(201, 19);
-            this.radioButtonExternalFairPlayServer.TabIndex = 62;
-            this.radioButtonExternalFairPlayServer.Text = "An external FairPlay server is used";
             this.radioButtonExternalFairPlayServer.UseVisualStyleBackColor = true;
             this.radioButtonExternalFairPlayServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalPRServer_CheckedChanged);
             // 
             // numericUpDownNbOptionsFairPlay
             // 
-            this.numericUpDownNbOptionsFairPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownNbOptionsFairPlay.Location = new System.Drawing.Point(240, 34);
+            resources.ApplyResources(this.numericUpDownNbOptionsFairPlay, "numericUpDownNbOptionsFairPlay");
+            this.errorProvider1.SetError(this.numericUpDownNbOptionsFairPlay, resources.GetString("numericUpDownNbOptionsFairPlay.Error"));
+            this.errorProvider1.SetIconAlignment(this.numericUpDownNbOptionsFairPlay, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("numericUpDownNbOptionsFairPlay.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.numericUpDownNbOptionsFairPlay, ((int)(resources.GetObject("numericUpDownNbOptionsFairPlay.IconPadding"))));
             this.numericUpDownNbOptionsFairPlay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -460,8 +410,6 @@
             0,
             0});
             this.numericUpDownNbOptionsFairPlay.Name = "numericUpDownNbOptionsFairPlay";
-            this.numericUpDownNbOptionsFairPlay.Size = new System.Drawing.Size(54, 23);
-            this.numericUpDownNbOptionsFairPlay.TabIndex = 64;
             this.numericUpDownNbOptionsFairPlay.Value = new decimal(new int[] {
             1,
             0,
@@ -470,57 +418,38 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(300, 38);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
-            this.label2.TabIndex = 65;
-            this.label2.Text = "option(s)";
             // 
             // label8
             // 
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label8, "label8");
+            this.errorProvider1.SetError(this.label8, resources.GetString("label8.Error"));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(50, 616);
+            this.errorProvider1.SetIconAlignment(this.label8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label8, ((int)(resources.GetObject("label8.IconPadding"))));
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(597, 32);
-            this.label8.TabIndex = 69;
-            this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
-    "ens, or want to deliver various FairPlay licenses based on token claims.";
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(223, 57);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(354, 15);
-            this.label10.TabIndex = 97;
-            this.label10.Text = "Read the online documentation to learn how to create the PFX file";
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxFairPlay);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Dynamic Encryption - Step 3";
             this.Load += new System.EventHandler(this.AddDynamicEncryptionFrame3_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxFairPlay.ResumeLayout(false);

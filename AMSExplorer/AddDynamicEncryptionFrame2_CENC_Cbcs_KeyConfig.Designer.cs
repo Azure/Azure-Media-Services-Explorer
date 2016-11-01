@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -60,55 +61,52 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(567, 13);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(107, 27);
-            this.buttonCancel.TabIndex = 16;
-            this.buttonCancel.Text = "Cancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(384, 13);
+            this.errorProvider1.SetError(this.buttonOk, resources.GetString("buttonOk.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonOk, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonOk.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonOk, ((int)(resources.GetObject("buttonOk.IconPadding"))));
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(176, 27);
-            this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
-            this.buttonOk.Text = "Next";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 688);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(684, 55);
-            this.panel1.TabIndex = 63;
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
             this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label3.Location = new System.Drawing.Point(19, 33);
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(575, 22);
-            this.label3.TabIndex = 68;
-            this.label3.Text = "Explorer will use the existing CENC cbcs key attached to the asset. If there is n" +
-    "one, a key must be created :";
+            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // groupBoxCrypto
             // 
-            this.groupBoxCrypto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.groupBoxCrypto, "groupBoxCrypto");
             this.groupBoxCrypto.Controls.Add(this.label2);
             this.groupBoxCrypto.Controls.Add(this.label1);
             this.groupBoxCrypto.Controls.Add(this.textBoxContentKey);
@@ -120,209 +118,189 @@
             this.groupBoxCrypto.Controls.Add(this.buttonGenKeyID);
             this.groupBoxCrypto.Controls.Add(this.panel4);
             this.groupBoxCrypto.Controls.Add(this.label5);
-            this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxCrypto.Location = new System.Drawing.Point(17, 119);
+            this.errorProvider1.SetError(this.groupBoxCrypto, resources.GetString("groupBoxCrypto.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBoxCrypto, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBoxCrypto.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBoxCrypto, ((int)(resources.GetObject("groupBoxCrypto.IconPadding"))));
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 255);
-            this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
-            this.groupBoxCrypto.Text = "CENC cbcs Content Key";
+            this.toolTip1.SetToolTip(this.groupBoxCrypto, resources.GetString("groupBoxCrypto.ToolTip"));
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Location = new System.Drawing.Point(102, 85);
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(267, 15);
-            this.label2.TabIndex = 92;
-            this.label2.Text = "If empty, it will be automatically generated";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label1.Location = new System.Drawing.Point(19, 85);
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 88;
-            this.label1.Text = "Content key :";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // textBoxContentKey
             // 
-            this.textBoxContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxContentKey.Location = new System.Drawing.Point(22, 103);
+            resources.ApplyResources(this.textBoxContentKey, "textBoxContentKey");
+            this.errorProvider1.SetError(this.textBoxContentKey, resources.GetString("textBoxContentKey.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxContentKey, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxContentKey.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxContentKey, ((int)(resources.GetObject("textBoxContentKey.IconPadding"))));
             this.textBoxContentKey.Name = "textBoxContentKey";
-            this.textBoxContentKey.Size = new System.Drawing.Size(416, 23);
-            this.textBoxContentKey.TabIndex = 89;
+            this.toolTip1.SetToolTip(this.textBoxContentKey, resources.GetString("textBoxContentKey.ToolTip"));
             // 
             // buttongenerateContentKey
             // 
-            this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(549, 97);
+            resources.ApplyResources(this.buttongenerateContentKey, "buttongenerateContentKey");
+            this.errorProvider1.SetError(this.buttongenerateContentKey, resources.GetString("buttongenerateContentKey.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttongenerateContentKey, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttongenerateContentKey.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttongenerateContentKey, ((int)(resources.GetObject("buttongenerateContentKey.IconPadding"))));
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
-            this.buttongenerateContentKey.TabIndex = 90;
-            this.buttongenerateContentKey.Text = "Generate";
+            this.toolTip1.SetToolTip(this.buttongenerateContentKey, resources.GetString("buttongenerateContentKey.ToolTip"));
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
             this.buttongenerateContentKey.Click += new System.EventHandler(this.buttongenerateContentKey_Click);
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel3.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel3.Location = new System.Drawing.Point(455, 85);
+            this.errorProvider1.SetError(this.panel3, resources.GetString("panel3.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel3, ((int)(resources.GetObject("panel3.IconPadding"))));
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(87, 55);
-            this.panel3.TabIndex = 91;
+            this.toolTip1.SetToolTip(this.panel3, resources.GetString("panel3.ToolTip"));
             // 
             // radioButtonContentKeyBase64
             // 
-            this.radioButtonContentKeyBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonContentKeyBase64.AutoSize = true;
+            resources.ApplyResources(this.radioButtonContentKeyBase64, "radioButtonContentKeyBase64");
             this.radioButtonContentKeyBase64.Checked = true;
-            this.radioButtonContentKeyBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(9, 7);
+            this.errorProvider1.SetError(this.radioButtonContentKeyBase64, resources.GetString("radioButtonContentKeyBase64.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonContentKeyBase64, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonContentKeyBase64.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonContentKeyBase64, ((int)(resources.GetObject("radioButtonContentKeyBase64.IconPadding"))));
             this.radioButtonContentKeyBase64.Name = "radioButtonContentKeyBase64";
-            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 19);
-            this.radioButtonContentKeyBase64.TabIndex = 68;
             this.radioButtonContentKeyBase64.TabStop = true;
-            this.radioButtonContentKeyBase64.Text = "Base64";
+            this.toolTip1.SetToolTip(this.radioButtonContentKeyBase64, resources.GetString("radioButtonContentKeyBase64.ToolTip"));
             this.radioButtonContentKeyBase64.UseVisualStyleBackColor = true;
             this.radioButtonContentKeyBase64.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyBase64_CheckedChanged_1);
             // 
             // radioButtonContentKeyHex
             // 
-            this.radioButtonContentKeyHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonContentKeyHex.AutoSize = true;
-            this.radioButtonContentKeyHex.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(9, 32);
+            resources.ApplyResources(this.radioButtonContentKeyHex, "radioButtonContentKeyHex");
+            this.errorProvider1.SetError(this.radioButtonContentKeyHex, resources.GetString("radioButtonContentKeyHex.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonContentKeyHex, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonContentKeyHex.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonContentKeyHex, ((int)(resources.GetObject("radioButtonContentKeyHex.IconPadding"))));
             this.radioButtonContentKeyHex.Name = "radioButtonContentKeyHex";
-            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(45, 19);
-            this.radioButtonContentKeyHex.TabIndex = 69;
-            this.radioButtonContentKeyHex.Text = "Hex";
+            this.toolTip1.SetToolTip(this.radioButtonContentKeyHex, resources.GetString("radioButtonContentKeyHex.ToolTip"));
             this.radioButtonContentKeyHex.UseVisualStyleBackColor = true;
             this.radioButtonContentKeyHex.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyHex_CheckedChanged_1);
             // 
             // label10
             // 
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(71, 168);
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(267, 15);
-            this.label10.TabIndex = 69;
-            this.label10.Text = "If empty, it will be automatically generated";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // textBoxkeyid
             // 
-            this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxkeyid.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxkeyid.Location = new System.Drawing.Point(22, 186);
+            resources.ApplyResources(this.textBoxkeyid, "textBoxkeyid");
+            this.errorProvider1.SetError(this.textBoxkeyid, resources.GetString("textBoxkeyid.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxkeyid, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxkeyid.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxkeyid, ((int)(resources.GetObject("textBoxkeyid.IconPadding"))));
             this.textBoxkeyid.Name = "textBoxkeyid";
-            this.textBoxkeyid.Size = new System.Drawing.Size(416, 23);
-            this.textBoxkeyid.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.textBoxkeyid, resources.GetString("textBoxkeyid.ToolTip"));
             this.textBoxkeyid.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // buttonGenKeyID
             // 
-            this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenKeyID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonGenKeyID.Location = new System.Drawing.Point(549, 183);
+            resources.ApplyResources(this.buttonGenKeyID, "buttonGenKeyID");
+            this.errorProvider1.SetError(this.buttonGenKeyID, resources.GetString("buttonGenKeyID.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonGenKeyID, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonGenKeyID.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonGenKeyID, ((int)(resources.GetObject("buttonGenKeyID.IconPadding"))));
             this.buttonGenKeyID.Name = "buttonGenKeyID";
-            this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
-            this.buttonGenKeyID.TabIndex = 33;
-            this.buttonGenKeyID.Text = "Generate";
+            this.toolTip1.SetToolTip(this.buttonGenKeyID, resources.GetString("buttonGenKeyID.ToolTip"));
             this.buttonGenKeyID.UseVisualStyleBackColor = true;
             this.buttonGenKeyID.Click += new System.EventHandler(this.buttonGenKeyID_Click_1);
             // 
             // panel4
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Controls.Add(this.radioButtonKeyIDGuid);
             this.panel4.Controls.Add(this.radioButtonKeyIDBase64);
-            this.panel4.Location = new System.Drawing.Point(458, 168);
+            this.errorProvider1.SetError(this.panel4, resources.GetString("panel4.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel4, ((int)(resources.GetObject("panel4.IconPadding"))));
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(87, 55);
-            this.panel4.TabIndex = 72;
+            this.toolTip1.SetToolTip(this.panel4, resources.GetString("panel4.ToolTip"));
             // 
             // radioButtonKeyIDGuid
             // 
-            this.radioButtonKeyIDGuid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonKeyIDGuid.AutoSize = true;
+            resources.ApplyResources(this.radioButtonKeyIDGuid, "radioButtonKeyIDGuid");
             this.radioButtonKeyIDGuid.Checked = true;
-            this.radioButtonKeyIDGuid.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonKeyIDGuid.Location = new System.Drawing.Point(9, 3);
+            this.errorProvider1.SetError(this.radioButtonKeyIDGuid, resources.GetString("radioButtonKeyIDGuid.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonKeyIDGuid, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonKeyIDGuid.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonKeyIDGuid, ((int)(resources.GetObject("radioButtonKeyIDGuid.IconPadding"))));
             this.radioButtonKeyIDGuid.Name = "radioButtonKeyIDGuid";
-            this.radioButtonKeyIDGuid.Size = new System.Drawing.Size(50, 19);
-            this.radioButtonKeyIDGuid.TabIndex = 68;
             this.radioButtonKeyIDGuid.TabStop = true;
-            this.radioButtonKeyIDGuid.Text = "Guid";
+            this.toolTip1.SetToolTip(this.radioButtonKeyIDGuid, resources.GetString("radioButtonKeyIDGuid.ToolTip"));
             this.radioButtonKeyIDGuid.UseVisualStyleBackColor = true;
             this.radioButtonKeyIDGuid.CheckedChanged += new System.EventHandler(this.radioButtonKeyIDGuid_CheckedChanged);
             // 
             // radioButtonKeyIDBase64
             // 
-            this.radioButtonKeyIDBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonKeyIDBase64.AutoSize = true;
-            this.radioButtonKeyIDBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonKeyIDBase64.Location = new System.Drawing.Point(9, 29);
+            resources.ApplyResources(this.radioButtonKeyIDBase64, "radioButtonKeyIDBase64");
+            this.errorProvider1.SetError(this.radioButtonKeyIDBase64, resources.GetString("radioButtonKeyIDBase64.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonKeyIDBase64, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonKeyIDBase64.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonKeyIDBase64, ((int)(resources.GetObject("radioButtonKeyIDBase64.IconPadding"))));
             this.radioButtonKeyIDBase64.Name = "radioButtonKeyIDBase64";
-            this.radioButtonKeyIDBase64.Size = new System.Drawing.Size(61, 19);
-            this.radioButtonKeyIDBase64.TabIndex = 69;
-            this.radioButtonKeyIDBase64.Text = "Base64";
+            this.toolTip1.SetToolTip(this.radioButtonKeyIDBase64, resources.GetString("radioButtonKeyIDBase64.ToolTip"));
             this.radioButtonKeyIDBase64.UseVisualStyleBackColor = true;
             this.radioButtonKeyIDBase64.CheckedChanged += new System.EventHandler(this.radioButtonKeyIDBase64_CheckedChanged);
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(19, 168);
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 15);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "Key ID :";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
             this.label9.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label9.Location = new System.Drawing.Point(26, 21);
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(267, 42);
-            this.label9.TabIndex = 83;
-            this.label9.Text = "Step 2\r\nSpecify the CENC cbcs Content Key";
+            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Dynamic Encryption - Step 2";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxCrypto.ResumeLayout(false);
