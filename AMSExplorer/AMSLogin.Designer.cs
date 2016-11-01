@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMSLogin));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
@@ -84,93 +85,85 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLogin.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonLogin.Location = new System.Drawing.Point(554, 15);
+            resources.ApplyResources(this.buttonLogin, "buttonLogin");
+            this.errorProvider1.SetError(this.buttonLogin, resources.GetString("buttonLogin.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonLogin, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonLogin.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonLogin, ((int)(resources.GetObject("buttonLogin.IconPadding"))));
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(105, 27);
-            this.buttonLogin.TabIndex = 4;
-            this.buttonLogin.Text = "Connect";
+            this.toolTip1.SetToolTip(this.buttonLogin, resources.GetString("buttonLogin.ToolTip"));
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonCancel.Location = new System.Drawing.Point(666, 15);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(105, 27);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Cancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // listBoxAcounts
             // 
-            this.listBoxAcounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBoxAcounts.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.listBoxAcounts, "listBoxAcounts");
+            this.errorProvider1.SetError(this.listBoxAcounts, resources.GetString("listBoxAcounts.Error"));
             this.listBoxAcounts.FormattingEnabled = true;
-            this.listBoxAcounts.ItemHeight = 15;
-            this.listBoxAcounts.Location = new System.Drawing.Point(17, 50);
+            this.errorProvider1.SetIconAlignment(this.listBoxAcounts, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listBoxAcounts.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listBoxAcounts, ((int)(resources.GetObject("listBoxAcounts.IconPadding"))));
             this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(255, 349);
-            this.listBoxAcounts.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.listBoxAcounts, resources.GetString("listBoxAcounts.ToolTip"));
             this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAccounts_SelectedIndexChanged);
             // 
             // buttonSaveToList
             // 
-            this.buttonSaveToList.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonSaveToList.Location = new System.Drawing.Point(316, 407);
+            resources.ApplyResources(this.buttonSaveToList, "buttonSaveToList");
+            this.errorProvider1.SetError(this.buttonSaveToList, resources.GetString("buttonSaveToList.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonSaveToList, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonSaveToList.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonSaveToList, ((int)(resources.GetObject("buttonSaveToList.IconPadding"))));
             this.buttonSaveToList.Name = "buttonSaveToList";
-            this.buttonSaveToList.Size = new System.Drawing.Size(142, 27);
-            this.buttonSaveToList.TabIndex = 14;
-            this.buttonSaveToList.Text = "<-- Save to the list";
-            this.toolTip1.SetToolTip(this.buttonSaveToList, "Credentials are saved in clear in your user profile. Use Bitlocker or do not save" +
-        " them if your PC is unsecured.");
+            this.toolTip1.SetToolTip(this.buttonSaveToList, resources.GetString("buttonSaveToList.ToolTip"));
             this.buttonSaveToList.UseVisualStyleBackColor = true;
             this.buttonSaveToList.Click += new System.EventHandler(this.buttonSaveToList_Click);
             // 
             // buttonDeleteAccountEntry
             // 
-            this.buttonDeleteAccountEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteAccountEntry.Enabled = false;
-            this.buttonDeleteAccountEntry.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonDeleteAccountEntry.Location = new System.Drawing.Point(17, 407);
+            resources.ApplyResources(this.buttonDeleteAccountEntry, "buttonDeleteAccountEntry");
+            this.errorProvider1.SetError(this.buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonDeleteAccountEntry, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonDeleteAccountEntry.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonDeleteAccountEntry, ((int)(resources.GetObject("buttonDeleteAccountEntry.IconPadding"))));
             this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
-            this.buttonDeleteAccountEntry.Size = new System.Drawing.Size(87, 27);
-            this.buttonDeleteAccountEntry.TabIndex = 15;
-            this.buttonDeleteAccountEntry.Text = "Delete entry";
+            this.toolTip1.SetToolTip(this.buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.ToolTip"));
             this.buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
             this.buttonDeleteAccountEntry.Click += new System.EventHandler(this.buttonDeleteAccount_Click);
             // 
             // buttonClear
             // 
-            this.buttonClear.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonClear.Location = new System.Drawing.Point(464, 407);
+            resources.ApplyResources(this.buttonClear, "buttonClear");
+            this.errorProvider1.SetError(this.buttonClear, resources.GetString("buttonClear.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonClear, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonClear.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonClear, ((int)(resources.GetObject("buttonClear.IconPadding"))));
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(120, 27);
-            this.buttonClear.TabIndex = 19;
-            this.buttonClear.Text = "Clear fields";
+            this.toolTip1.SetToolTip(this.buttonClear, resources.GetString("buttonClear.ToolTip"));
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.tabControl1.Location = new System.Drawing.Point(292, 51);
+            this.errorProvider1.SetError(this.tabControl1, resources.GetString("tabControl1.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabControl1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabControl1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabControl1, ((int)(resources.GetObject("tabControl1.IconPadding"))));
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(467, 348);
-            this.tabControl1.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
             this.tabPage1.Controls.Add(this.textBoxAccountID);
             this.tabPage1.Controls.Add(this.label11);
@@ -182,110 +175,110 @@
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.textBoxAccountName);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPage1, resources.GetString("tabPage1.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPage1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage1, ((int)(resources.GetObject("tabPage1.IconPadding"))));
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(459, 320);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Credentials";
+            this.toolTip1.SetToolTip(this.tabPage1, resources.GetString("tabPage1.ToolTip"));
             // 
             // textBoxAccountID
             // 
-            this.textBoxAccountID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAccountID.Location = new System.Drawing.Point(20, 221);
+            resources.ApplyResources(this.textBoxAccountID, "textBoxAccountID");
+            this.errorProvider1.SetError(this.textBoxAccountID, resources.GetString("textBoxAccountID.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAccountID, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAccountID.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAccountID, ((int)(resources.GetObject("textBoxAccountID.IconPadding"))));
             this.textBoxAccountID.Name = "textBoxAccountID";
-            this.textBoxAccountID.Size = new System.Drawing.Size(417, 23);
-            this.textBoxAccountID.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.textBoxAccountID, resources.GetString("textBoxAccountID.ToolTip"));
             this.textBoxAccountID.Validating += new System.ComponentModel.CancelEventHandler(this.CheckTextBoxGuid);
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(17, 203);
+            resources.ApplyResources(this.label11, "label11");
+            this.errorProvider1.SetError(this.label11, resources.GetString("label11.Error"));
+            this.errorProvider1.SetIconAlignment(this.label11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label11, ((int)(resources.GetObject("label11.IconPadding"))));
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(273, 15);
-            this.label11.TabIndex = 38;
-            this.label11.Text = "Media Service Account ID (optional, for Telemetry)";
+            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(20, 280);
+            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+            this.errorProvider1.SetError(this.textBoxDescription, resources.GetString("textBoxDescription.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxDescription, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxDescription.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxDescription, ((int)(resources.GetObject("textBoxDescription.IconPadding"))));
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(417, 23);
-            this.textBoxDescription.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 262);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 15);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "Description (optional)";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // textBoxBlobKey
             // 
-            this.textBoxBlobKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBlobKey.Location = new System.Drawing.Point(20, 162);
+            resources.ApplyResources(this.textBoxBlobKey, "textBoxBlobKey");
+            this.errorProvider1.SetError(this.textBoxBlobKey, resources.GetString("textBoxBlobKey.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxBlobKey, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxBlobKey.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxBlobKey, ((int)(resources.GetObject("textBoxBlobKey.IconPadding"))));
             this.textBoxBlobKey.Name = "textBoxBlobKey";
-            this.textBoxBlobKey.Size = new System.Drawing.Size(417, 23);
-            this.textBoxBlobKey.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textBoxBlobKey, resources.GetString("textBoxBlobKey.ToolTip"));
             this.textBoxBlobKey.UseSystemPasswordChar = true;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 144);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(408, 15);
-            this.label3.TabIndex = 34;
-            this.label3.Text = "Default Storage Account Access Key (optional, for Azure Storage operations)";
+            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // textBoxAccountKey
             // 
-            this.textBoxAccountKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAccountKey.Location = new System.Drawing.Point(20, 103);
+            resources.ApplyResources(this.textBoxAccountKey, "textBoxAccountKey");
+            this.errorProvider1.SetError(this.textBoxAccountKey, resources.GetString("textBoxAccountKey.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAccountKey, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAccountKey.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAccountKey, ((int)(resources.GetObject("textBoxAccountKey.IconPadding"))));
             this.textBoxAccountKey.Name = "textBoxAccountKey";
-            this.textBoxAccountKey.Size = new System.Drawing.Size(417, 23);
-            this.textBoxAccountKey.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxAccountKey, resources.GetString("textBoxAccountKey.ToolTip"));
             this.textBoxAccountKey.UseSystemPasswordChar = true;
             this.textBoxAccountKey.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountKey_Validating);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 85);
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(150, 15);
-            this.label4.TabIndex = 32;
-            this.label4.Text = "Media Service Account Key";
+            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
             // 
             // textBoxAccountName
             // 
-            this.textBoxAccountName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAccountName.Location = new System.Drawing.Point(20, 44);
+            resources.ApplyResources(this.textBoxAccountName, "textBoxAccountName");
+            this.errorProvider1.SetError(this.textBoxAccountName, resources.GetString("textBoxAccountName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAccountName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAccountName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAccountName, ((int)(resources.GetObject("textBoxAccountName.IconPadding"))));
             this.textBoxAccountName.Name = "textBoxAccountName";
-            this.textBoxAccountName.Size = new System.Drawing.Size(417, 23);
-            this.textBoxAccountName.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.textBoxAccountName, resources.GetString("textBoxAccountName.ToolTip"));
             this.textBoxAccountName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountName_Validating);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 26);
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 15);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "Media Service Account Name";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // tabPage2
             // 
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
             this.tabPage2.Controls.Add(this.textBoxManagementPortal);
             this.tabPage2.Controls.Add(this.label10);
@@ -302,266 +295,267 @@
             this.tabPage2.Controls.Add(this.radioButtonOther);
             this.tabPage2.Controls.Add(this.radioButtonPartner);
             this.tabPage2.Controls.Add(this.radioButtonProd);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPage2, resources.GetString("tabPage2.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPage2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage2, ((int)(resources.GetObject("tabPage2.IconPadding"))));
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(459, 320);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Endpoint";
+            this.toolTip1.SetToolTip(this.tabPage2, resources.GetString("tabPage2.ToolTip"));
             // 
             // textBoxManagementPortal
             // 
+            resources.ApplyResources(this.textBoxManagementPortal, "textBoxManagementPortal");
             this.textBoxManagementPortal.BackColor = System.Drawing.Color.Pink;
-            this.textBoxManagementPortal.Enabled = false;
-            this.textBoxManagementPortal.Location = new System.Drawing.Point(36, 291);
+            this.errorProvider1.SetError(this.textBoxManagementPortal, resources.GetString("textBoxManagementPortal.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxManagementPortal, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxManagementPortal.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxManagementPortal, ((int)(resources.GetObject("textBoxManagementPortal.IconPadding"))));
             this.textBoxManagementPortal.Name = "textBoxManagementPortal";
-            this.textBoxManagementPortal.Size = new System.Drawing.Size(409, 23);
-            this.textBoxManagementPortal.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.textBoxManagementPortal, resources.GetString("textBoxManagementPortal.ToolTip"));
             this.textBoxManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(37, 273);
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(112, 15);
-            this.label10.TabIndex = 50;
-            this.label10.Text = "Management Portal";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // comboBoxMappingList
             // 
+            resources.ApplyResources(this.comboBoxMappingList, "comboBoxMappingList");
             this.comboBoxMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMappingList.Enabled = false;
+            this.errorProvider1.SetError(this.comboBoxMappingList, resources.GetString("comboBoxMappingList.Error"));
             this.comboBoxMappingList.FormattingEnabled = true;
-            this.comboBoxMappingList.Location = new System.Drawing.Point(160, 72);
+            this.errorProvider1.SetIconAlignment(this.comboBoxMappingList, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comboBoxMappingList.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comboBoxMappingList, ((int)(resources.GetObject("comboBoxMappingList.IconPadding"))));
             this.comboBoxMappingList.Name = "comboBoxMappingList";
-            this.comboBoxMappingList.Size = new System.Drawing.Size(175, 23);
-            this.comboBoxMappingList.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.comboBoxMappingList, resources.GetString("comboBoxMappingList.ToolTip"));
             // 
             // buttonAddMapping
             // 
-            this.buttonAddMapping.Enabled = false;
-            this.buttonAddMapping.Location = new System.Drawing.Point(341, 72);
+            resources.ApplyResources(this.buttonAddMapping, "buttonAddMapping");
+            this.errorProvider1.SetError(this.buttonAddMapping, resources.GetString("buttonAddMapping.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonAddMapping, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonAddMapping.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonAddMapping, ((int)(resources.GetObject("buttonAddMapping.IconPadding"))));
             this.buttonAddMapping.Name = "buttonAddMapping";
-            this.buttonAddMapping.Size = new System.Drawing.Size(104, 23);
-            this.buttonAddMapping.TabIndex = 48;
-            this.buttonAddMapping.Text = "Insert settings";
+            this.toolTip1.SetToolTip(this.buttonAddMapping, resources.GetString("buttonAddMapping.ToolTip"));
             this.buttonAddMapping.UseVisualStyleBackColor = true;
             this.buttonAddMapping.Click += new System.EventHandler(this.buttonAddMapping_Click);
             // 
             // textBoxAzureEndpoint
             // 
+            resources.ApplyResources(this.textBoxAzureEndpoint, "textBoxAzureEndpoint");
             this.textBoxAzureEndpoint.BackColor = System.Drawing.Color.Pink;
-            this.textBoxAzureEndpoint.Enabled = false;
-            this.textBoxAzureEndpoint.Location = new System.Drawing.Point(36, 246);
+            this.errorProvider1.SetError(this.textBoxAzureEndpoint, resources.GetString("textBoxAzureEndpoint.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAzureEndpoint, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAzureEndpoint.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAzureEndpoint, ((int)(resources.GetObject("textBoxAzureEndpoint.IconPadding"))));
             this.textBoxAzureEndpoint.Name = "textBoxAzureEndpoint";
-            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(409, 23);
-            this.textBoxAzureEndpoint.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.textBoxAzureEndpoint, resources.GetString("textBoxAzureEndpoint.ToolTip"));
             this.textBoxAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(37, 228);
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 15);
-            this.label9.TabIndex = 42;
-            this.label9.Text = "Azure Endpoint";
+            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
             // 
             // textBoxACSBaseAddress
             // 
+            resources.ApplyResources(this.textBoxACSBaseAddress, "textBoxACSBaseAddress");
             this.textBoxACSBaseAddress.BackColor = System.Drawing.Color.Pink;
-            this.textBoxACSBaseAddress.Enabled = false;
-            this.textBoxACSBaseAddress.Location = new System.Drawing.Point(36, 201);
+            this.errorProvider1.SetError(this.textBoxACSBaseAddress, resources.GetString("textBoxACSBaseAddress.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxACSBaseAddress, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxACSBaseAddress.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxACSBaseAddress, ((int)(resources.GetObject("textBoxACSBaseAddress.IconPadding"))));
             this.textBoxACSBaseAddress.Name = "textBoxACSBaseAddress";
-            this.textBoxACSBaseAddress.Size = new System.Drawing.Size(409, 23);
-            this.textBoxACSBaseAddress.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.textBoxACSBaseAddress, resources.GetString("textBoxACSBaseAddress.ToolTip"));
             this.textBoxACSBaseAddress.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(37, 183);
+            resources.ApplyResources(this.label6, "label6");
+            this.errorProvider1.SetError(this.label6, resources.GetString("label6.Error"));
+            this.errorProvider1.SetIconAlignment(this.label6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label6, ((int)(resources.GetObject("label6.IconPadding"))));
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 15);
-            this.label6.TabIndex = 40;
-            this.label6.Text = "Azure ACS Base Address";
+            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
             // 
             // textBoxScope
             // 
+            resources.ApplyResources(this.textBoxScope, "textBoxScope");
             this.textBoxScope.BackColor = System.Drawing.Color.Pink;
-            this.textBoxScope.Enabled = false;
-            this.textBoxScope.Location = new System.Drawing.Point(36, 156);
+            this.errorProvider1.SetError(this.textBoxScope, resources.GetString("textBoxScope.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxScope, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxScope.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxScope, ((int)(resources.GetObject("textBoxScope.IconPadding"))));
             this.textBoxScope.Name = "textBoxScope";
-            this.textBoxScope.Size = new System.Drawing.Size(409, 23);
-            this.textBoxScope.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.textBoxScope, resources.GetString("textBoxScope.ToolTip"));
             this.textBoxScope.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(37, 138);
+            resources.ApplyResources(this.label7, "label7");
+            this.errorProvider1.SetError(this.label7, resources.GetString("label7.Error"));
+            this.errorProvider1.SetIconAlignment(this.label7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label7, ((int)(resources.GetObject("label7.IconPadding"))));
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 15);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "Media Scope";
+            this.toolTip1.SetToolTip(this.label7, resources.GetString("label7.ToolTip"));
             // 
             // textBoxAPIServer
             // 
+            resources.ApplyResources(this.textBoxAPIServer, "textBoxAPIServer");
             this.textBoxAPIServer.BackColor = System.Drawing.Color.Pink;
-            this.textBoxAPIServer.Enabled = false;
-            this.textBoxAPIServer.Location = new System.Drawing.Point(36, 111);
+            this.errorProvider1.SetError(this.textBoxAPIServer, resources.GetString("textBoxAPIServer.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAPIServer, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAPIServer.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAPIServer, ((int)(resources.GetObject("textBoxAPIServer.IconPadding"))));
             this.textBoxAPIServer.Name = "textBoxAPIServer";
-            this.textBoxAPIServer.Size = new System.Drawing.Size(409, 23);
-            this.textBoxAPIServer.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.textBoxAPIServer, resources.GetString("textBoxAPIServer.ToolTip"));
             this.textBoxAPIServer.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(37, 93);
+            resources.ApplyResources(this.label8, "label8");
+            this.errorProvider1.SetError(this.label8, resources.GetString("label8.Error"));
+            this.errorProvider1.SetIconAlignment(this.label8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label8, ((int)(resources.GetObject("label8.IconPadding"))));
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 15);
-            this.label8.TabIndex = 36;
-            this.label8.Text = "Media API Server";
+            this.toolTip1.SetToolTip(this.label8, resources.GetString("label8.ToolTip"));
             // 
             // radioButtonOther
             // 
-            this.radioButtonOther.AutoSize = true;
-            this.radioButtonOther.Location = new System.Drawing.Point(19, 65);
+            resources.ApplyResources(this.radioButtonOther, "radioButtonOther");
+            this.errorProvider1.SetError(this.radioButtonOther, resources.GetString("radioButtonOther.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonOther, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonOther.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonOther, ((int)(resources.GetObject("radioButtonOther.IconPadding"))));
             this.radioButtonOther.Name = "radioButtonOther";
-            this.radioButtonOther.Size = new System.Drawing.Size(58, 19);
-            this.radioButtonOther.TabIndex = 34;
-            this.radioButtonOther.Text = "Other:";
+            this.toolTip1.SetToolTip(this.radioButtonOther, resources.GetString("radioButtonOther.ToolTip"));
             this.radioButtonOther.UseVisualStyleBackColor = true;
             this.radioButtonOther.CheckedChanged += new System.EventHandler(this.radioButtonOther_CheckedChanged);
             // 
             // radioButtonPartner
             // 
-            this.radioButtonPartner.AutoSize = true;
-            this.radioButtonPartner.Location = new System.Drawing.Point(19, 38);
+            resources.ApplyResources(this.radioButtonPartner, "radioButtonPartner");
+            this.errorProvider1.SetError(this.radioButtonPartner, resources.GetString("radioButtonPartner.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonPartner, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonPartner.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonPartner, ((int)(resources.GetObject("radioButtonPartner.IconPadding"))));
             this.radioButtonPartner.Name = "radioButtonPartner";
-            this.radioButtonPartner.Size = new System.Drawing.Size(131, 19);
-            this.radioButtonPartner.TabIndex = 33;
-            this.radioButtonPartner.Text = "Partner Deployment";
+            this.toolTip1.SetToolTip(this.radioButtonPartner, resources.GetString("radioButtonPartner.ToolTip"));
             this.radioButtonPartner.UseVisualStyleBackColor = true;
             // 
             // radioButtonProd
             // 
-            this.radioButtonProd.AutoSize = true;
+            resources.ApplyResources(this.radioButtonProd, "radioButtonProd");
             this.radioButtonProd.Checked = true;
-            this.radioButtonProd.Location = new System.Drawing.Point(19, 12);
+            this.errorProvider1.SetError(this.radioButtonProd, resources.GetString("radioButtonProd.Error"));
+            this.errorProvider1.SetIconAlignment(this.radioButtonProd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("radioButtonProd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.radioButtonProd, ((int)(resources.GetObject("radioButtonProd.IconPadding"))));
             this.radioButtonProd.Name = "radioButtonProd";
-            this.radioButtonProd.Size = new System.Drawing.Size(141, 19);
-            this.radioButtonProd.TabIndex = 32;
             this.radioButtonProd.TabStop = true;
-            this.radioButtonProd.Text = "Default (Azure Global)";
+            this.toolTip1.SetToolTip(this.radioButtonProd, resources.GetString("radioButtonProd.ToolTip"));
             this.radioButtonProd.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(14, 15);
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(270, 20);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "Select or enter a Media Service account";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // buttonExport
             // 
-            this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExport.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonExport.Location = new System.Drawing.Point(112, 407);
+            resources.ApplyResources(this.buttonExport, "buttonExport");
+            this.errorProvider1.SetError(this.buttonExport, resources.GetString("buttonExport.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonExport, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonExport.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonExport, ((int)(resources.GetObject("buttonExport.IconPadding"))));
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(75, 27);
-            this.buttonExport.TabIndex = 32;
-            this.buttonExport.Text = "Export";
+            this.toolTip1.SetToolTip(this.buttonExport, resources.GetString("buttonExport.ToolTip"));
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // buttonImportAll
             // 
-            this.buttonImportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonImportAll.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonImportAll.Location = new System.Drawing.Point(194, 407);
+            resources.ApplyResources(this.buttonImportAll, "buttonImportAll");
+            this.errorProvider1.SetError(this.buttonImportAll, resources.GetString("buttonImportAll.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonImportAll, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonImportAll.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonImportAll, ((int)(resources.GetObject("buttonImportAll.IconPadding"))));
             this.buttonImportAll.Name = "buttonImportAll";
-            this.buttonImportAll.Size = new System.Drawing.Size(79, 27);
-            this.buttonImportAll.TabIndex = 33;
-            this.buttonImportAll.Text = "Import";
+            this.toolTip1.SetToolTip(this.buttonImportAll, resources.GetString("buttonImportAll.ToolTip"));
             this.buttonImportAll.UseVisualStyleBackColor = true;
             this.buttonImportAll.Click += new System.EventHandler(this.buttonImportAll_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "json";
-            this.openFileDialog1.Filter = "Json files (*.json)|*.json|Xml files (*.xml)|*.xml";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.DefaultExt = "json";
-            this.saveFileDialog1.Filter = "json file (*.json)|*.json";
+            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
             // 
             // accountmgtlink
             // 
-            this.accountmgtlink.AutoSize = true;
-            this.accountmgtlink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.accountmgtlink.Location = new System.Drawing.Point(412, 19);
+            resources.ApplyResources(this.accountmgtlink, "accountmgtlink");
+            this.errorProvider1.SetError(this.accountmgtlink, resources.GetString("accountmgtlink.Error"));
+            this.errorProvider1.SetIconAlignment(this.accountmgtlink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("accountmgtlink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.accountmgtlink, ((int)(resources.GetObject("accountmgtlink.IconPadding"))));
             this.accountmgtlink.Name = "accountmgtlink";
-            this.accountmgtlink.Size = new System.Drawing.Size(147, 15);
-            this.accountmgtlink.TabIndex = 34;
             this.accountmgtlink.TabStop = true;
-            this.accountmgtlink.Text = "How to Create an Account";
+            this.toolTip1.SetToolTip(this.accountmgtlink, resources.GetString("accountmgtlink.ToolTip"));
             this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
             // pictureBoxJob
             // 
-            this.pictureBoxJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.pictureBoxJob, "pictureBoxJob");
+            this.errorProvider1.SetError(this.pictureBoxJob, resources.GetString("pictureBoxJob.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBoxJob, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBoxJob.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBoxJob, ((int)(resources.GetObject("pictureBoxJob.IconPadding"))));
             this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.AzureMedia_Full_Color_64_opaque;
-            this.pictureBoxJob.Location = new System.Drawing.Point(565, 5);
             this.pictureBoxJob.Name = "pictureBoxJob";
-            this.pictureBoxJob.Size = new System.Drawing.Size(194, 64);
-            this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxJob.TabIndex = 42;
             this.pictureBoxJob.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxJob, resources.GetString("pictureBoxJob.ToolTip"));
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 467);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 55);
-            this.panel1.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // labelVersion
             // 
-            this.labelVersion.AutoSize = true;
+            resources.ApplyResources(this.labelVersion, "labelVersion");
+            this.errorProvider1.SetError(this.labelVersion, resources.GetString("labelVersion.Error"));
             this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelVersion.Location = new System.Drawing.Point(15, 21);
+            this.errorProvider1.SetIconAlignment(this.labelVersion, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelVersion.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelVersion, ((int)(resources.GetObject("labelVersion.IconPadding"))));
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(78, 15);
-            this.labelVersion.TabIndex = 6;
-            this.labelVersion.Text = "Version ??????";
+            this.toolTip1.SetToolTip(this.labelVersion, resources.GetString("labelVersion.ToolTip"));
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // AMSLogin
             // 
             this.AcceptButton = this.buttonLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(784, 523);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.accountmgtlink);
@@ -573,12 +567,10 @@
             this.Controls.Add(this.buttonDeleteAccountEntry);
             this.Controls.Add(this.buttonSaveToList);
             this.Controls.Add(this.listBoxAcounts);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AMSLogin";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Azure Media Services Explorer";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AMSLogin_Load);
             this.Shown += new System.EventHandler(this.AMSLogin_Shown);
             this.tabControl1.ResumeLayout(false);
