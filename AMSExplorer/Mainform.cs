@@ -8,7 +8,7 @@
 //      http://www.apache.org/licenses/LICENSE-2.0
 //
 //    Unless required by applicable law or agreed to in writing, software
-//    distributed under the License is distributed on an "AS IS" BASIS,
+//    distributed under the License is distributed on an "AS IS" BASIS, 
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
@@ -1167,7 +1167,7 @@ namespace AMSExplorer
             }
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
+            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
 
         public void DoPurgeAssetInfoFromCache(IAsset asset)
@@ -1201,7 +1201,7 @@ namespace AMSExplorer
             }
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
-            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
+            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
         }
 
         public void DoRefreshGridIngestManifestV(bool firstime)
@@ -1247,7 +1247,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
                 {
@@ -1550,7 +1550,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
                 {
@@ -1794,7 +1794,7 @@ namespace AMSExplorer
                           response.token
                           ), response.token);
 
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
             }
@@ -1830,7 +1830,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
             }
         }
@@ -1858,7 +1858,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
             }
         }
@@ -2221,7 +2221,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
                     // Start a worker thread that does downloading.
                     var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
             }
         }
@@ -2568,11 +2568,11 @@ namespace AMSExplorer
 
         private List<IAsset> ReturnSelectedAssetsFromProgramsOrAssets()
         {
-            if (tabControlMain.SelectedTab.Text.StartsWith(Constants.TabAssets)) // we are in the asset tab
+            if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
                 return ReturnSelectedAssets();
             }
-            else if (tabControlMain.SelectedTab.Text.StartsWith(Constants.TabLive)) // we are in the live tab
+            else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
                 return ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             }
@@ -2858,7 +2858,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, response), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
             }
@@ -4476,7 +4476,7 @@ namespace AMSExplorer
                     }
                     dataGridViewJobsV.DoJobProgress(job);
                 }
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
         }
@@ -5113,7 +5113,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("");
                 }
 
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
 
             }
@@ -5180,7 +5180,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine();
                 }
 
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
 
@@ -6081,7 +6081,7 @@ namespace AMSExplorer
                     return;
                 }
                 TextBoxLogWriteLine("Job '{0}' submitted", jobnameloc);
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
                 Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
             }
@@ -6285,7 +6285,7 @@ namespace AMSExplorer
                     dataGridViewJobsV.DoJobProgress(job);
 
                 }
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
         }
@@ -7222,7 +7222,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
                             // Start a worker thread that does copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, response), response.token);
-                            DotabControlMainSwitch(Constants.TabTransfers);
+                            DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                             DoRefreshGridAssetV(false);
                         }
                     }
@@ -7455,26 +7455,26 @@ namespace AMSExplorer
             TabControl tabcontrol = (TabControl)sender;
 
             // let's enable or disable all items from menu and context menu
-            EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets) || (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive))));
-            EnableChildItems(ref processToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
-            EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
-            EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
+            EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets) || (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive))));
+            EnableChildItems(ref processToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
+            EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
+            EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
 
-            EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabFilters)));
-            EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabFilters)));
+            EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
+            EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
 
-            EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabJobs)));
-            EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabJobs)));
+            EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
+            EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
 
-            EnableChildItems(ref transferToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabTransfers)));
-            EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabTransfers)));
+            EnableChildItems(ref transferToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
+            EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
 
-            EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
-            EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
+            EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
+            EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
 
-            EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
-            EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
-            EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
+            EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
 
             // let's disable Premium Workflow if not present
             if (!AMEPremiumWorkflowPresent)
@@ -7719,8 +7719,8 @@ namespace AMSExplorer
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
 
             var count = _context.Channels.Count();
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
-            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(Constants.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
+            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
@@ -7738,7 +7738,7 @@ namespace AMSExplorer
 
             int backupindex = 0;
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
-            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(Constants.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
+            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
 
         }
 
@@ -7752,7 +7752,7 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
             dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context)));
 
-            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
         }
 
         private void DoRefreshGridProcessorV(bool firstime)
@@ -7778,7 +7778,7 @@ namespace AMSExplorer
             {
                 dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
             }
-            tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
+            tabPageProcessors.Text = string.Format(AMSExplorer.Properties.Resources.TabProcessors + " ({0})", Procs.Count());
 
             // Media Reserved Unit(s)
             if (MediaRUFeatureOn)
@@ -7871,7 +7871,7 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
                 }
             }
-            tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
+            tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", Storages.Count());
         }
 
 
@@ -7941,7 +7941,7 @@ namespace AMSExplorer
                 }
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
             }
-            tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", _context.Filters.Count());
+            tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", _context.Filters.Count());
         }
 
 
@@ -9397,7 +9397,7 @@ namespace AMSExplorer
                     }
                     Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
                 }
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
         }
@@ -9931,7 +9931,7 @@ namespace AMSExplorer
                 BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context) { Left = form.Left, Top = form.Top };
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
                     Task.Run(async () =>
                     {
@@ -12169,7 +12169,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(e);
                     return;
                 }
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
         }
@@ -12589,7 +12589,7 @@ namespace AMSExplorer
                             ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, form.DeleteSourceAsset), response.token);
                         }
                     }
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
             }
         }
@@ -13347,7 +13347,7 @@ namespace AMSExplorer
                     }
                     if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
                 }
-                DotabControlMainSwitch(Constants.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
         }

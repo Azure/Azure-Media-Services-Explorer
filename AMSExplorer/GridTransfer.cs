@@ -268,7 +268,7 @@ namespace AMSExplorer
             dataGridViewTransfer.Columns["DestLocation"].Width = 140;
             dataGridViewTransfer.Columns["DestLocation"].HeaderText = "Destination";
 
-            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", 0)));
+            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", 0)));
         }
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
@@ -302,7 +302,7 @@ namespace AMSExplorer
             }
 
             // refresh number in tab
-            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", _MyListTransfer.Count())));
+            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count())));
 
             // to cancel task if needed
             CancellationTokenSource tokenSource = new CancellationTokenSource();

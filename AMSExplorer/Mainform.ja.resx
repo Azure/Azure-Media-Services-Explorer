@@ -796,6 +796,9 @@
   <data name="label1.Text" xml:space="preserve">
     <value>ページ :</value>
   </data>
+  <data name="tabPageAssets.Text" xml:space="preserve">
+    <value>アセット</value>
+  </data>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>259, 22</value>
   </data>
@@ -828,6 +831,9 @@
   </data>
   <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 114</value>
+  </data>
+  <data name="tabPageFilters.Text" xml:space="preserve">
+    <value>グローバルフィルター</value>
   </data>
   <data name="trackBarConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -914,6 +920,9 @@
   </data>
   <data name="contextMenuStripIngestManifests.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 126</value>
+  </data>
+  <data name="tabPageTransfers.Text" xml:space="preserve">
+    <value>転送</value>
   </data>
   <data name="trackBarEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1116,6 +1125,9 @@
   </data>
   <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 258</value>
+  </data>
+  <data name="tabPageJobs.Text" xml:space="preserve">
+    <value>ジョブ</value>
   </data>
   <data name="dataGridViewProgramsV.ChannelSourceIDs" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -1570,6 +1582,9 @@
   <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="tabPageLive.Text" xml:space="preserve">
+    <value>ライブチャネル</value>
+  </data>
   <data name="refreshToolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 22</value>
   </data>
@@ -1578,6 +1593,9 @@
   </data>
   <data name="contextMenuStripProcessors.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 26</value>
+  </data>
+  <data name="tabPageProcessors.Text" xml:space="preserve">
+    <value>メディアプロセッサー</value>
   </data>
   <data name="refreshToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 22</value>
@@ -1681,6 +1699,9 @@
   <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
     <value>334, 214</value>
   </data>
+  <data name="tabPageOrigins.Text" xml:space="preserve">
+    <value>ストリーミングエンドポイント</value>
+  </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 22</value>
   </data>
@@ -1702,6 +1723,9 @@
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 70</value>
   </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>ストレージ</value>
+  </data>
   <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1710,6 +1734,9 @@
   </data>
   <data name="buttonbuildchart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="tabPageChart.Text" xml:space="preserve">
+    <value>チャート</value>
   </data>
   <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 22</value>
@@ -2955,10 +2982,10 @@
     <value>プログラムのサブクリッピング...</value>
   </data>
   <data name="liveChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+    <value>88, 20</value>
   </data>
   <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
-    <value>ライブ配信</value>
+    <value>ライブチャネル</value>
   </data>
   <data name="displayOriginInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

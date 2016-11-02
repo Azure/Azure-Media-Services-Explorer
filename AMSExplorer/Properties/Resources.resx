@@ -117,95 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="accountmgtlink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 15</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="accountmgtlink.Text" xml:space="preserve">
-    <value>アカウントの作成方法</value>
+  <data name="LabelChannel" xml:space="preserve">
+    <value>Channels</value>
   </data>
-  <data name="buttonImportAll.Text" xml:space="preserve">
-    <value>インポート</value>
+  <data name="LabelProgram" xml:space="preserve">
+    <value>Programs</value>
   </data>
-  <data name="buttonExport.Text" xml:space="preserve">
-    <value>エクスポート</value>
+  <data name="TabAssets" xml:space="preserve">
+    <value>Assets</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 20</value>
+  <data name="TabFilters" xml:space="preserve">
+    <value>Global filters</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Media Service アカウントの選択または入力</value>
+  <data name="TabJobs" xml:space="preserve">
+    <value>Jobs</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 15</value>
+  <data name="TabLive" xml:space="preserve">
+    <value>Live</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Media Service アカウント ID (任意 - テレメトリーにて利用)</value>
+  <data name="TabLog" xml:space="preserve">
+    <value>Log</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 15</value>
+  <data name="TabOrigins" xml:space="preserve">
+    <value>Streaming endpoints</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>アカウントの説明 (任意)</value>
+  <data name="TabProcessors" xml:space="preserve">
+    <value>Processors</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 15</value>
+  <data name="TabStorage" xml:space="preserve">
+    <value>Storage</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>既定のストレージアカウントのアクセスキー (任意 - Azure ストレージ操作にて利用)</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 15</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Media Service アカウントキー</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 15</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Media Service アカウント名</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>資格情報</value>
-  </data>
-  <data name="buttonAddMapping.Text" xml:space="preserve">
-    <value>設定の挿入</value>
-  </data>
-  <data name="radioButtonOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 19</value>
-  </data>
-  <data name="radioButtonOther.Text" xml:space="preserve">
-    <value>その他:</value>
-  </data>
-  <data name="radioButtonPartner.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 19</value>
-  </data>
-  <data name="radioButtonPartner.Text" xml:space="preserve">
-    <value>パートナー展開</value>
-  </data>
-  <data name="radioButtonProd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 19</value>
-  </data>
-  <data name="radioButtonProd.Text" xml:space="preserve">
-    <value>既定 (Azure Global)</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>エンドポイント</value>
-  </data>
-  <data name="buttonClear.Text" xml:space="preserve">
-    <value>入力のクリア</value>
-  </data>
-  <data name="buttonDeleteAccountEntry.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="buttonSaveToList.Text" xml:space="preserve">
-    <value>&lt;-- リストへ保存</value>
-  </data>
-  <data name="buttonLogin.Text" xml:space="preserve">
-    <value>接続</value>
+  <data name="TabTransfers" xml:space="preserve">
+    <value>Transfers</value>
   </data>
 </root>

@@ -59,8 +59,12 @@ namespace AMSExplorer
         /// 
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(args[0], false);
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform());
@@ -583,14 +587,14 @@ namespace AMSExplorer
         {
             Button buttonOk = new Button()
             {
-                Text = "OK",
+                Text = AMSExplorer.Properties.Resources.ButtonOK,
                 DialogResult = DialogResult.OK,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
 
             Button buttonCancel = new Button()
             {
-                Text = "Cancel",
+                Text = AMSExplorer.Properties.Resources.ButtonCancel,
                 DialogResult = DialogResult.Cancel,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
@@ -859,18 +863,6 @@ namespace AMSExplorer
         public const string NameconvRedactionMode = "{Redaction Mode}";
 
         public const string endline = "\r\n";
-
-        public const string TabAssets = "Assets"; // name of the Assets tab
-        public const string TabTransfers = "Transfers"; // name of the Transfers tab
-        public const string TabJobs = "Jobs"; // name of the Jobs tab
-        public const string TabLive = "Live"; // name of the Live tab
-        public const string LabelProgram = "Programs"; // name of the Live tab
-        public const string LabelChannel = "Channels"; // name of the Live tab
-        public const string TabProcessors = "Processors"; // name of the Processors tab
-        public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
-        public const string TabStorage = "Storage"; // name of the Origins tab
-        public const string TabFilters = "Global filters"; // name of the filters tab
-        public const string TabLog = "Log"; // name of the Jobs tab
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
