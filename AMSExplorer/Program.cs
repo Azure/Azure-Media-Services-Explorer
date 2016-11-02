@@ -765,9 +765,23 @@ namespace AMSExplorer
                 requestStream.Write(requestBytes, 0, requestBytes.Length);
                 requestStream.Close();
             }
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+            }
 
-            var response = (HttpWebResponse)request.GetResponse();
-            return response.StatusCode;
+            if (response != null)
+            {
+                return response.StatusCode;
+                            }
+            else
+            {
+                return HttpStatusCode.BadRequest;
+            }
 
         }
 

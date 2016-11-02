@@ -1329,9 +1329,9 @@ namespace AMSExplorer
                     {
                         Error = true;
                         DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", (string) name, true);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", (string)name, true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", (string)name, watchfoldersettings);
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName((string)name), watchfoldersettings);
                         if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                         {
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
@@ -1373,7 +1373,7 @@ namespace AMSExplorer
                         DoGridTransferDeclareError(guidTransfer, e);
                         TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", (string)name, watchfoldersettings);
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName((string)name), watchfoldersettings);
                         if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
                         {
                             TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1451,7 +1451,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Job submission error", (string)name, watchfoldersettings, job:job);
+                        Program.WatchFolderCallApi("Job submission error", Path.GetFileName((string)name), watchfoldersettings, job: job);
 
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
@@ -1517,19 +1517,20 @@ namespace AMSExplorer
                                 IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
                                 StringBuilder sb = new StringBuilder();
                                 Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
+                                string playbackurl = null;
                                 if (SmoothUri != null)
                                 {
-                                    string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
                                     sb.AppendLine("Link to playback the asset:");
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
                                 }
                                 sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-                                Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, sb.ToString());
+
+                                Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
 
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
-                                
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
                                     {
                                         TextBoxLogWriteLine("Error when sending Outlook email...", true);
@@ -1541,7 +1542,7 @@ namespace AMSExplorer
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
-                                Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset, oasset, job);
+                                Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset, oasset, job);
 
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
@@ -1559,7 +1560,7 @@ namespace AMSExplorer
                     }
                     else  // not completed successfuly
                     {
-                        Program.WatchFolderCallApi("Job Error", (string)name, watchfoldersettings, asset, null, job);
+                        Program.WatchFolderCallApi("Job Error", Path.GetFileName((string)name), watchfoldersettings, asset, null, job);
 
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
@@ -1575,7 +1576,7 @@ namespace AMSExplorer
                 }
                 else // user selected no processing. Upload successfull
                 {
-                    Program.WatchFolderCallApi(null, (string)name, watchfoldersettings, asset);
+                    Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset);
 
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
