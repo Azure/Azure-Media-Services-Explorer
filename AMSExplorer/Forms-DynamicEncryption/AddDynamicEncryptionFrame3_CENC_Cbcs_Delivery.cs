@@ -50,7 +50,8 @@ namespace AMSExplorer
 
                     else // Base 64
                     {
-                        return Convert.FromBase64String(textBoxASK.Text);
+                        var key = Convert.FromBase64String(textBoxASK.Text);
+                        return (key.Length == 16) ? key : null;
                     }
                 }
 
@@ -321,7 +322,7 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-      
+
     }
 
 }
