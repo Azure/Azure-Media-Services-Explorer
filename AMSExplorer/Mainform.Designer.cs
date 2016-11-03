@@ -3633,7 +3633,6 @@
             this.saveAsTemplateToolStripMenuItem1,
             this.deleteToolStripMenuItem2});
             this.encodingToolStripMenuItem.Name = "encodingToolStripMenuItem";
-            this.encodingToolStripMenuItem.Click += new System.EventHandler(this.encodingToolStripMenuItem_Click);
             // 
             // displayJobInformationToolStripMenuItem
             // 
@@ -4495,10 +4494,6 @@
             this.toolTip1.SetToolTip(this.buttonRefresh, resources.GetString("buttonRefresh.ToolTip"));
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // linkLabelFeedbackAMS
             // 
