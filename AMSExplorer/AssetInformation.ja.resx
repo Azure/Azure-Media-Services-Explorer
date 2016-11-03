@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="contextMenuStripDG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 26</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="toolStripMenuItemCopy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemCopy.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="deleteLocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="deleteLocatorToolStripMenuItem.Text" xml:space="preserve">
+    <value>ロケーターの削除</value>
+  </data>
+  <data name="toolStripMenuItemOpen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemOpen.Text" xml:space="preserve">
+    <value>ファイルを開く</value>
+  </data>
+  <data name="toolStripMenuItemAzureMediaPlayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemAzureMediaPlayer.Text" xml:space="preserve">
+    <value>Azure Media Player で再生</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackFlashAzure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackFlashAzure.Text" xml:space="preserve">
+    <value>Flash OSMF Azure Player で再生</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackSilverlightMonitoring.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackSilverlightMonitoring.Text" xml:space="preserve">
+    <value>Silverlight Monitoring Player で再生</value>
+  </data>
+  <data name="toolStripMenuItemDASHIF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemDASHIF.Text" xml:space="preserve">
+    <value>MPEG-DASH-IF Reference Player で再生</value>
+  </data>
+  <data name="toolStripMenuItemDASHLiveAzure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemDASHLiveAzure.Text" xml:space="preserve">
+    <value>MPEG-DASH Live Azure Player で再生</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackMP4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="toolStripMenuItemPlaybackMP4.Text" xml:space="preserve">
+    <value>HTML Player (MP4) で再生</value>
+  </data>
+  <data name="contextMenuStripLocators.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 202</value>
+  </data>
+  <data name="makeItPrimaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="makeItPrimaryToolStripMenuItem.Text" xml:space="preserve">
+    <value>プライマリに設定</value>
+  </data>
+  <data name="showMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="showMetadataToolStripMenuItem.Text" xml:space="preserve">
+    <value>メタデータ表示</value>
+  </data>
+  <data name="toolStripMenuItemOpenFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItemOpenFile.Text" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="toolStripMenuItemDownloadFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItemDownloadFile.Text" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="deleteFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="deleteFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="deleteAllFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="deleteAllFilesToolStripMenuItem.Text" xml:space="preserve">
+    <value>すべて削除</value>
+  </data>
+  <data name="duplicateFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="duplicateFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="uploadASmallFileInTheAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="uploadASmallFileInTheAssetToolStripMenuItem.Text" xml:space="preserve">
+    <value>アセットへアップロード</value>
+  </data>
+  <data name="contextMenuStripFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 180</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>アセットレポート:</value>
+  </data>
+  <data name="buttonCreateMail.Text" xml:space="preserve">
+    <value>レポートメールの作成</value>
+  </data>
+  <data name="buttonCopyStats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 470</value>
+  </data>
+  <data name="buttonCopyStats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 27</value>
+  </data>
+  <data name="buttonCopyStats.Text" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="buttonSetPrimary.Text" xml:space="preserve">
+    <value>プライマリに設定</value>
+  </data>
+  <data name="buttonDeleteFile.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDownloadFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>492, 437</value>
+  </data>
+  <data name="buttonDownloadFile.Text" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="buttonOpenFile.Text" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Text" xml:space="preserve">
+    <value>ビデオ/オーディオ分析</value>
+  </data>
+  <data name="buttonGenerateManifest.Text" xml:space="preserve">
+    <value>マニフェスト生成</value>
+  </data>
+  <data name="buttonEditOnline.Text" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="buttonDeleteAll.Text" xml:space="preserve">
+    <value>すべて削除</value>
+  </data>
+  <data name="buttonFileMetadata.Text" xml:space="preserve">
+    <value>メタデータ表示</value>
+  </data>
+  <data name="progressBarUpload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>578, 437</value>
+  </data>
+  <data name="progressBarUpload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 27</value>
+  </data>
+  <data name="buttonUpload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 27</value>
+  </data>
+  <data name="buttonUpload.Text" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="buttonDuplicate.Text" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="buttonPlayFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 27</value>
+  </data>
+  <data name="buttonPlayFilter.Text" xml:space="preserve">
+    <value>フィルターを適用して再生</value>
+  </data>
+  <data name="buttonDuplicateFilter.Text" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="buttonDeleteFilter.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonCreateAssetFilter.Text" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="buttonFilterInfo.Text" xml:space="preserve">
+    <value>情報表示/更新</value>
+  </data>
+  <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>情報表示/更新</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
+    <value>作成...</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
+    <value>フィルターを適用して再生</value>
+  </data>
+  <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 114</value>
+  </data>
+  <data name="buttonRemoveAuthPolOption.Text" xml:space="preserve">
+    <value>オプション削除</value>
+  </data>
+  <data name="buttonRemoveAuthPol.Text" xml:space="preserve">
+    <value>承認ポリシー 削除</value>
+  </data>
+  <data name="buttonRemoveKey.Text" xml:space="preserve">
+    <value>コンテンツ鍵 削除</value>
+  </data>
+  <data name="buttonGetTestToken.Text" xml:space="preserve">
+    <value>テストトークン取得</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>承認ポリシー オプション</value>
+  </data>
+  <data name="getTestTokenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 22</value>
+  </data>
+  <data name="getTestTokenToolStripMenuItem.Text" xml:space="preserve">
+    <value>テスト用トークンの取得...</value>
+  </data>
+  <data name="removeOptionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 22</value>
+  </data>
+  <data name="removeOptionToolStripMenuItem.Text" xml:space="preserve">
+    <value>承認ポリシーオプションの削除...</value>
+  </data>
+  <data name="removeAuthorizationPolicyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 22</value>
+  </data>
+  <data name="removeAuthorizationPolicyToolStripMenuItem.Text" xml:space="preserve">
+    <value>承認ポリシーの削除...</value>
+  </data>
+  <data name="contextMenuStripAuthPol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 70</value>
+  </data>
+  <data name="removeKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="removeKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>コンテンツ鍵を削除...</value>
+  </data>
+  <data name="contextMenuStripKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 26</value>
+  </data>
+  <data name="buttonRemoveDelPol.Text" xml:space="preserve">
+    <value>配信ポリシー削除</value>
+  </data>
+  <data name="removeDeliveryPolicyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 22</value>
+  </data>
+  <data name="removeDeliveryPolicyToolStripMenuItem.Text" xml:space="preserve">
+    <value>配信ポリシーの削除...</value>
+  </data>
+  <data name="contextMenuStripDelPol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 26</value>
+  </data>
+  <data name="comboBoxLocatorsFilters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>468, 7</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>407, 10</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>フィルター :</value>
+  </data>
+  <data name="checkBoxHttps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>653, 10</value>
+  </data>
+  <data name="checkBoxHttps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 19</value>
+  </data>
+  <data name="checkBoxHttps.Text" xml:space="preserve">
+    <value>HTTPS ストリーミングエンドポイントURL</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>ストリーミングエンドポイント :</value>
+  </data>
+  <data name="comboBoxStreamingEndpoint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 7</value>
+  </data>
+  <data name="buttonOpen.Text" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="buttonDel.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="labelAssetNameTitle.Text" xml:space="preserve">
+    <value>アセット : </value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>アセット情報</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>アセット情報</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>アセット ファイル</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>ロケーター</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>配信ポリシー</value>
+  </data>
+  <data name="tabPage5.Text" xml:space="preserve">
+    <value>コンテンツ鍵</value>
+  </data>
+  <data name="tabPage6.Text" xml:space="preserve">
+    <value>アセット フィルター</value>
+  </data>
+</root>
