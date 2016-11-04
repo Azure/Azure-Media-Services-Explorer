@@ -228,10 +228,28 @@ namespace AMSExplorer
 
                 if (_subclipConfig.InOutForReencode.Count == 1) // one entry only, let's display in the two visible controls
                 {
-                    timeControlStartTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].Start);
+                    if (_subclipConfig.InOutForReencode[0].Start != null)
+                    {
+                        timeControlStartTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].Start);
+                        checkBoxSourceTrimmingStart.Checked = true;
+                    }
+                    else
+                    {
+                        checkBoxSourceTrimmingStart.Checked = false;
+
+                    }
+
+                    if (_subclipConfig.InOutForReencode[0].End != null)
+                    {
+                        timeControlEndTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].End);
+                        checkBoxSourceTrimmingEnd.Checked = true;
+                    }
+                    else
+                    {
+                        checkBoxSourceTrimmingEnd.Checked = false;
+
+                    }
                     timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
-                    timeControlEndTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].End);
-                    checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
                 }
                 else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
                 {
@@ -465,13 +483,29 @@ namespace AMSExplorer
                         foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             dynamic time = new JObject();
+
+                            bool insert = false;
                             if (entry.AssetID != null)
                             {
                                 time.AssetID = entry.AssetID;
+                                insert = true;
                             }
-                            time.StartTime = entry.Start + buttonShowEDL.Offset;
-                            time.Duration = entry.Duration;
-                            obj.Sources.Add(time);
+                            if (entry.Start != null)
+                            {
+                                time.StartTime = entry.Start + buttonShowEDL.Offset;
+                                insert = true;
+
+                            }
+                            if (entry.Duration != null)
+                            {
+                                time.Duration = entry.Duration;
+                                insert = true;
+                            }
+
+                            if (insert)
+                            {
+                                obj.Sources.Add(time);
+                            }
                         }
                     }
                     else if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked) // Only start or end or both (no edl)
@@ -1248,7 +1282,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && checkBoxUseEDL.Checked;
+            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1395,7 +1429,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = checkBoxSourceTrimmingEnd.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && checkBoxUseEDL.Checked;
+            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1420,19 +1454,33 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
-            if (checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked)
+
+            if (checkBoxSourceTrimmingEnd.Checked && !checkBoxSourceTrimmingStart.Checked)
             {
+                MessageBox.Show("You cannot specify only an end time.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (checkBoxSourceTrimmingStart.Checked)
+            {
+
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
                     Start = timeControlStartTime.TimeStampWithoutOffset,
-                    End = timeControlEndTime.TimeStampWithoutOffset,
-                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null
+                    End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
                 });
             }
-            else
+            else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked)
             {
-                MessageBox.Show("Please specify a start and an end time", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                {
+                    Start = new TimeSpan(0),
+                    //End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
+                });
             }
+
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)

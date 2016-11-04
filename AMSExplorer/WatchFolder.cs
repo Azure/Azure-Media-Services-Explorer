@@ -143,15 +143,26 @@ namespace AMSExplorer
             labelWarning.Text = string.Empty;
 
 
-            // Body for the API Call
-            try
+            checkBoxCallAPI.Checked = _WatchFolderSettings.CallAPIUrl != null;
+            textBoxAPIUrl.Text = _WatchFolderSettings.CallAPIUrl;
+
+            if (_WatchFolderSettings.CallAPJson != null)
             {
-                StreamReader streamReader = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleWatchFolderJSONCall.json"));
-                BodyDisplayForm = new EditorXMLJSON("Body", streamReader.ReadToEnd(), true, false, true);
-                streamReader.Close();
+                BodyDisplayForm = new EditorXMLJSON("Body", _WatchFolderSettings.CallAPJson, true, false, true);
+
             }
-            catch
+            else
             {
+                // Body for the API Call
+                try
+                {
+                    StreamReader streamReader = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleWatchFolderJSONCall.json"));
+                    BodyDisplayForm = new EditorXMLJSON("Body", streamReader.ReadToEnd(), true, false, true);
+                    streamReader.Close();
+                }
+                catch
+                {
+                }
             }
         }
 

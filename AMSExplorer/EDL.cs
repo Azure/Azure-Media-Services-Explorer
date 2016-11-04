@@ -180,7 +180,7 @@ namespace AMSExplorer
         {
             myEDL.AddEDLEntry(entry);
         }
-        
+
         public List<ExplorerEDLEntryInOut> GetEDLEntries()
         {
             return myEDL.GetEDLEntries();
@@ -198,13 +198,22 @@ namespace AMSExplorer
     public class ExplorerEDLEntryInOut
     {
         public TimeSpan Start { get; set; }
-        public TimeSpan End { get; set; }
-    
-        public TimeSpan Duration
+        public TimeSpan? End { get; set; }
+
+        public TimeSpan? Offset { get; set; }
+
+        public TimeSpan? Duration
         {
             get
             {
-                return End - Start;
+                if (End != null)
+                {
+                    return End - Start;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

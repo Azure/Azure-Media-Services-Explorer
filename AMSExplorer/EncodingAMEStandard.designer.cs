@@ -74,6 +74,7 @@
             this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.checkBoxCropVideo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelInputAsset = new System.Windows.Forms.Label();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
             this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
@@ -203,7 +204,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.labelInputAsset = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPagePreset.SuspendLayout();
@@ -779,7 +779,17 @@
             this.groupBox1.Size = new System.Drawing.Size(691, 225);
             this.groupBox1.TabIndex = 94;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Source Trimming";
+            this.groupBox1.Text = "Source Trimming and Stitching";
+            // 
+            // labelInputAsset
+            // 
+            this.labelInputAsset.AutoSize = true;
+            this.labelInputAsset.Location = new System.Drawing.Point(9, 26);
+            this.labelInputAsset.Name = "labelInputAsset";
+            this.labelInputAsset.Size = new System.Drawing.Size(70, 15);
+            this.labelInputAsset.TabIndex = 138;
+            this.labelInputAsset.Text = "Input asset :";
+            this.labelInputAsset.Visible = false;
             // 
             // comboBoxSourceAsset
             // 
@@ -792,6 +802,7 @@
             this.comboBoxSourceAsset.Size = new System.Drawing.Size(582, 23);
             this.comboBoxSourceAsset.TabIndex = 137;
             this.comboBoxSourceAsset.Visible = false;
+            this.comboBoxSourceAsset.SelectedIndexChanged += new System.EventHandler(this.UpdateJSON);
             // 
             // panelEDL
             // 
@@ -801,7 +812,7 @@
             this.panelEDL.Controls.Add(this.checkBoxUseEDL);
             this.panelEDL.Location = new System.Drawing.Point(9, 170);
             this.panelEDL.Name = "panelEDL";
-            this.panelEDL.Size = new System.Drawing.Size(508, 34);
+            this.panelEDL.Size = new System.Drawing.Size(658, 34);
             this.panelEDL.TabIndex = 136;
             // 
             // buttonAddEDLEntry
@@ -2331,16 +2342,6 @@
             this.buttonJobOptions.TabIndex = 75;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // labelInputAsset
-            // 
-            this.labelInputAsset.AutoSize = true;
-            this.labelInputAsset.Location = new System.Drawing.Point(9, 26);
-            this.labelInputAsset.Name = "labelInputAsset";
-            this.labelInputAsset.Size = new System.Drawing.Size(70, 15);
-            this.labelInputAsset.TabIndex = 138;
-            this.labelInputAsset.Text = "Input asset :";
-            this.labelInputAsset.Visible = false;
             // 
             // EncodingAMEStandard
             // 

@@ -49,6 +49,7 @@ using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -356,7 +357,7 @@ namespace AMSExplorer
                     StringBuilder builder = new StringBuilder();
                     using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
                     {
-                        writer.Formatting = Formatting.Indented;
+                        writer.Formatting = System.Xml.Formatting.Indented;
                         document.Save(writer);
                     }
                     myText = builder.ToString();
@@ -736,12 +737,17 @@ namespace AMSExplorer
 
             string body = settings.CallAPJson;
 
-            body = body.Replace("{Error}", error ?? "");
-            body = body.Replace("{Source Asset Id}", sourceAsset != null ? sourceAsset.Id : "").Replace("{Source Asset Name}", sourceAsset != null ? sourceAsset.Name : "");
-            body = body.Replace("{Source File Name}", sourcefilename != null ? sourcefilename : "");
-            body = body.Replace("{Output Asset Id}", outputAsset != null ? outputAsset.Id : "").Replace("{Output Asset Name}", outputAsset != null ? outputAsset.Name : "");
-            body = body.Replace("{Job Id}", job != null ? job.Id : "").Replace("{Job State}", job != null ? job.State.ToString() : "");
-            body = body.Replace("{Locator Id}", locator != null ? locator.Id : "").Replace("{Publish Url}", publishUrl != null ? publishUrl.ToString() : "").Replace("{Playback Url}", publishUrl != null ? playbackUrl : "");
+            if (job != null) // let's refresh the job
+            {
+                job = job.GetMediaContext().Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
+            }
+
+            body = body.Replace("\"{Error}\"", error ?? "");
+            body = body.Replace("\"{Source Asset Id}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Id) : "").Replace("\"{Source Asset Name}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Name) : "");
+            body = body.Replace("\"{Source File Name}\"", sourcefilename != null ? JsonConvert.ToString(sourcefilename) : "");
+            body = body.Replace("\"{Output Asset Id}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Id) : "").Replace("\"{Output Asset Name}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Name) : "");
+            body = body.Replace("\"{Job Id}\"", job != null ? JsonConvert.ToString(job.Id) : "").Replace("\"{Job State}\"", job != null ? JsonConvert.ToString(job.State.ToString()) : "");
+            body = body.Replace("\"{Locator Id}\"", locator != null ? JsonConvert.ToString(locator.Id) : "").Replace("\"{Publish Url}\"", publishUrl != null ? JsonConvert.ToString(publishUrl.ToString()) : "").Replace("\"{Playback Url}\"", publishUrl != null ? JsonConvert.ToString(playbackUrl) : "");
 
             /*
           {
@@ -777,7 +783,7 @@ namespace AMSExplorer
             if (response != null)
             {
                 return response.StatusCode;
-                            }
+            }
             else
             {
                 return HttpStatusCode.BadRequest;
@@ -3773,7 +3779,7 @@ namespace AMSExplorer
             TypeInputExtraInput = TypeInputExtraInput.None;
             ProcessRohzetXML = false;
             CallAPIUrl = null;
-            CallAPJson = string.Empty;
+            CallAPJson = null;
         }
     }
 

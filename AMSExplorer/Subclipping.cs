@@ -332,16 +332,17 @@ namespace AMSExplorer
 
                     if (checkBoxUseEDL.Checked) // EDL
                     {
+                        var offset = timeControlStart.GetOffSetAsTimeSpan();
                         foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
-                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End });
+                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End, Offset = offset });
                         }
-                        config.OffsetForReencode = timeControlStart.GetOffSetAsTimeSpan();
+                        config.OffsetForReencode = offset;
                     }
                     else  // No EDL
                     {
                         var subdata = GetSubClipTrimmingDataTimeSpan();
-                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset });
+                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset, Offset = subdata.Offset });
                         config.OffsetForReencode = subdata.Offset;
                     }
                     config.InOutForReencode = list;
@@ -691,7 +692,8 @@ namespace AMSExplorer
             buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
             {
                 Start = timeControlStart.TimeStampWithoutOffset,
-                End = timeControlEnd.TimeStampWithoutOffset
+                End = timeControlEnd.TimeStampWithoutOffset,
+                Offset = timeControlStart.GetOffSetAsTimeSpan()
             });
             //ResetConfigXML();
         }
