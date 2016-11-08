@@ -481,14 +481,15 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-        public static void CheckAMSEVersion()
+        public static async void CheckAMSEVersion()
         {
             var webClient = new WebClient();
-            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
-            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+            webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompleted(true, sender, e);
+            //webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
         }
 
-        public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
+        public static void DownloadVersionRequestCompleted(bool firsttry,object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error == null)
             {
@@ -520,13 +521,6 @@ namespace AMSExplorer
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        /* // OLD CODE
-                        if (MessageBox.Show(string.Format("A new version of Azure Media Services Explorer ({0}) is available." + Constants.endline + "Would you like to download it ?", versionAMSEGitHub), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        { // user selected yes
-                            System.Diagnostics.Process.Start(Constants.GitHubAMSELink);
-                            Environment.Exit(0);
-                        }
-                        */
                         var form = new SoftwareUpdate(ReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
@@ -536,9 +530,15 @@ namespace AMSExplorer
 
                 }
             }
+            else if( firsttry)
+            {
+                var webClient = new WebClient();
+                webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompleted(false, sender2, e2);
+
+                webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondary));
+                ;
+            }
         }
-
-
 
 
 
@@ -897,7 +897,9 @@ namespace AMSExplorer
 
     public class Constants
     {
-        public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+        public const string GitHubAMSEVersionPrimary = "https://amsexplorer.azureedge.net/release/version.xml";
+        public const string GitHubAMSEVersionSecondary = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
 
