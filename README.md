@@ -7,9 +7,10 @@ Azure Media Services Explorer 多言語化 (日本語化) プロジェクト
 
 連絡先: shigeyf@microsoft.com
 
+試験用バイナリ： [v3.44.1.0](https://github.com/shigeyf/Azure-Media-Services-Explorer/blob/master/releases/download/japanese/v3.44.1.0/AMSExplorerSetup_v3.44.1.0-ja.exe)
 
 =============================
-[Original release notes]
+**[Original release notes]**
 
 Azure Media Services Explorer (AMSE) is a Winforms/C# application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services](https://azure.microsoft.com/en-us/services/media-services/).
 
