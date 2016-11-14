@@ -99,7 +99,7 @@ namespace AMSExplorer
 
         private bool largeAccount = false; // if nb assets > trigger
         private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
-        private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        //private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
         private const int maxNbAssets = 1000000;
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;

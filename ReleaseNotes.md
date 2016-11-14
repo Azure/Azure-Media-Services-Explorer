@@ -1,9 +1,12 @@
-Version 3.44.1.0 (September 9, 2016) brings the following features and improvements :
+Version 3.45.0.0 (November 14, 2016) brings the following features and improvements :
 
-* New **Import from SAS Container Path** option
-  * AMS Explorer now generates SAS locators that include the list permission
-  * A SAS Container Path can be used to import an asset to the current AMS account. This is useful to share multiple files asset or a live archive with another user using only one URL.
-* Additional **advanced features** with Media Encoder Standard (MES)
-  * Insert black video, non interleaved mode for audio streams
-* Update to **Azure Media Analytics** (Redaction, Face detection)
-* Bug fixes
+* Update for Media Encoder Standard (MES)
+  * Update to audio only presets
+  * Multi asset input support (for stitching)
+  * Video rotation mode
+* Minor update to **Azure Media Analytics**
+* Dynamic Encryption
+  * It's now possible to select an existing delivering policy and key authorization policy in Dynamic Encryption Wizard and Asset info, as it is recommended to reuse existing policies.
+* File name check when uploading a file
+* Support for calling an API in Watchfolder (to call an Azure logical app, for example)
+* Bug fixes, links update

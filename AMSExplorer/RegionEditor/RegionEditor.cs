@@ -196,21 +196,19 @@ namespace AMSExplorer
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
                 result.Error = true;
             }
-
 
             try
             {
                 if (saslocator != null) saslocator.Delete();
             }
 
-            catch (Exception e)
-            { }
-
-
+            catch
+            {
+            }
 
             return result;
         }
@@ -243,9 +241,7 @@ namespace AMSExplorer
 
             catch
             {
-
             }
-
 
             return DR;
         }

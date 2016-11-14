@@ -489,7 +489,7 @@ namespace AMSExplorer
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
         }
 
-        public static void DownloadVersionRequestCompleted(bool firsttry,object sender, DownloadStringCompletedEventArgs e)
+        public static void DownloadVersionRequestCompleted(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error == null)
             {
@@ -530,13 +530,11 @@ namespace AMSExplorer
 
                 }
             }
-            else if( firsttry)
+            else if (firsttry)
             {
                 var webClient = new WebClient();
                 webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompleted(false, sender2, e2);
-
                 webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondary));
-                ;
             }
         }
 
@@ -776,7 +774,7 @@ namespace AMSExplorer
             {
                 response = (HttpWebResponse)request.GetResponse();
             }
-            catch (Exception ex)
+            catch
             {
             }
 
