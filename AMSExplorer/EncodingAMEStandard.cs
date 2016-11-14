@@ -293,6 +293,10 @@ namespace AMSExplorer
                 _inputAssetsForJob.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Id), a.Id)));
                 comboBoxSourceAsset.SelectedIndex = 0;
             }
+            else
+            {
+                labelInfoSeveralAssetStitching.Visible = true;
+            }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }

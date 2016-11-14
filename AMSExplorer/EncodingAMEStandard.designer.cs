@@ -88,6 +88,7 @@
             this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
+            this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
             this.linkLabelInfoOverlay = new System.Windows.Forms.LinkLabel();
             this.panelOverlay = new System.Windows.Forms.Panel();
@@ -774,6 +775,7 @@
             this.groupBox1.Controls.Add(this.timeControlStartTime);
             this.groupBox1.Controls.Add(this.textBoxSourceDurationTime);
             this.groupBox1.Controls.Add(this.checkBoxSourceTrimmingStart);
+            this.groupBox1.Controls.Add(this.labelInfoSeveralAssetStitching);
             this.groupBox1.Location = new System.Drawing.Point(17, 17);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(691, 225);
@@ -946,6 +948,18 @@
             this.checkBoxSourceTrimmingStart.TabIndex = 5;
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
+            // labelInfoSeveralAssetStitching
+            // 
+            this.labelInfoSeveralAssetStitching.AutoSize = true;
+            this.labelInfoSeveralAssetStitching.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelInfoSeveralAssetStitching.Location = new System.Drawing.Point(9, 26);
+            this.labelInfoSeveralAssetStitching.Name = "labelInfoSeveralAssetStitching";
+            this.labelInfoSeveralAssetStitching.Size = new System.Drawing.Size(484, 15);
+            this.labelInfoSeveralAssetStitching.TabIndex = 139;
+            this.labelInfoSeveralAssetStitching.Text = "Select several assets before calling the encoder if you want to stitch several as" +
+    "sets together.";
+            this.labelInfoSeveralAssetStitching.Visible = false;
             // 
             // tabPageOverlay
             // 
@@ -2605,5 +2619,6 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.ComboBox comboBoxSourceAsset;
         private System.Windows.Forms.Label labelInputAsset;
+        public System.Windows.Forms.Label labelInfoSeveralAssetStitching;
     }
 }
