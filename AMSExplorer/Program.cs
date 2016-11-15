@@ -1084,8 +1084,6 @@ namespace AMSExplorer
         public const string FaceRedactionFirstPass = "analyze";
         public const string FaceRedactionSecondPass = "redact";
 
-
-
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";
         public const string VideoThumbnailsOutputBoth = "both";

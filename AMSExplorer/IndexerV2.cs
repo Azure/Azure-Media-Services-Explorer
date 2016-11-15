@@ -47,7 +47,9 @@ namespace AMSExplorer
             new Item("German", "DeDe"),
             new Item("Italian", "ItIt"),
             new Item("Portuguese", "PtBr"),
-            new Item("Arabic (Egyptian)", "ArEg") };
+            new Item("Arabic (Egyptian)", "ArEg"),
+            new Item("Japanese", "JaJp")
+        };
 
         public IndexerOptionsVar IndexerGenerationOptions
         {
