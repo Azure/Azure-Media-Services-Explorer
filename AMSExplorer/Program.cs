@@ -1015,17 +1015,17 @@ namespace AMSExplorer
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services-2/";
 
-        public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";
+        public const string LinkMoreInfoAME = "https://docs.microsoft.com/en-us/azure/media-services/media-services-media-encoder-standard-formats";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
         public const string LinkMorePresetsMES = "http://go.microsoft.com/fwlink/?LinkId=618336";
-        public const string LinkThumbnailsMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-dotnet-generate-thumbnail-with-mes/";
+        public const string LinkThumbnailsMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-dotnet-generate-thumbnail-with-mes";
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
-        public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
-        public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
-        public const string LinkMESAdvFeatures = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes";
+        public const string LinkOverlayMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes#overlay";
+        public const string LinkCroppingMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-crop-video";
+        public const string LinkMESAdvFeatures = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes";
 
-        public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
+        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy";
 
         public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";
         public const string LinkSigniantFlightRequestTrialKey = "http://info.signiant.com/flight-Free-Trial_1.html";
@@ -1033,33 +1033,35 @@ namespace AMSExplorer
         public const string LinkAspera = "https://azure.microsoft.com/en-us/marketplace/partners/aspera/sod/";
 
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
-        public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
-        public const string LinkMoreInfoHyperlapse = "https://azure.microsoft.com/en-us/documentation/articles/media-services-hyperlapse-content/";
+        public const string LinkMoreInfoPremiumEncoder = "https://docs.microsoft.com/en-us/azure/media-services/media-services-encode-with-premium-workflow";
+        public const string LinkMoreInfoHyperlapse = "https://docs.microsoft.com/en-us/azure/media-services/media-services-hyperlapse-content";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
-        public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
-        public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
-        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-optical-character-recognition/";
+        public const string LinkMoreInfoIndexer = "https://docs.microsoft.com/en-us/azure/media-services/media-services-index-content";
+        public const string LinkMoreInfoIndexerV2 = "https://docs.microsoft.com/en-us/azure/media-services/media-services-process-content-with-indexer2";
+        public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/media-services-video-optical-character-recognition";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEncoding = "https://azure.microsoft.com/en-us/documentation/articles/media-services-manage-live-encoder-enabled-channels";
-        public const string LinkMoreInfoLiveStreaming = "https://azure.microsoft.com/en-us/documentation/articles/media-services-manage-channels-overview/";
+        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/media-services-manage-live-encoder-enabled-channels";
+        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/media-services-manage-channels-overview";
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
-        public const string LinkMoreInfoFairPlay = "https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/";
-        public const string LinkMoreInfoTelemetry = "https://azure.microsoft.com/en-us/documentation/articles/media-services-telemetry/";
+        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/media-services-protect-hls-with-fairplay";
+        public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/media-services-telemetry";
 
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
-        public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
-        public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
-        public const string LinkMoreInfoFaceRedaction = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-redaction/";
-        public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
+        public const string LinkMoreInfoMotionDetection = "https://docs.microsoft.com/en-us/azure/media-services/media-services-motion-detection";
+        public const string LinkMoreInfoFaceDetection = "https://docs.microsoft.com/en-us/azure/media-services/media-services-face-and-emotion-detection";
+        public const string LinkMoreInfoFaceRedaction = "https://docs.microsoft.com/en-us/azure/media-services/media-services-face-redaction";
+        public const string LinkMoreInfoVideoSummarization = "https://docs.microsoft.com/en-us/azure/media-services/media-services-video-summarization";
         public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
-        public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
+        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/media-services-playready-license-template-overview";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-widevine-license-template-overview/";
+        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/media-services-widevine-license-template-overview";
+
+        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/media-services-portal-create-account";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
