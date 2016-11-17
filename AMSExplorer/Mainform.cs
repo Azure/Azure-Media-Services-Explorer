@@ -362,7 +362,7 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token)
+        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token, string targetStorage, string targetStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -386,11 +386,11 @@ namespace AMSExplorer
 
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(targetStorage, targetStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
-                asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, targetStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 assetFile = asset.AssetFiles.Create(fileName);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
@@ -522,7 +522,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response)
+        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response, string destStorage, string destStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
@@ -550,13 +550,13 @@ namespace AMSExplorer
                 // Create a new blob.
 
                 CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(destStorage, destStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
                 TextBoxLogWriteLine("Creating Azure Media Services asset...");
 
-                asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, destStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
@@ -1895,58 +1895,98 @@ namespace AMSExplorer
 
         private void DoMenuImportFromHttp()
         {
-            string valuekey = "";
+            ImportHttp form = new ImportHttp(_context);
 
-            if (!havestoragecredentials)
-            { // No blob credentials. Let's ask the user
-
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                {
-                    _credentials.DefaultStorageKey = valuekey;
-                    havestoragecredentials = true;
-                }
-            }
-
-            if (havestoragecredentials) // if we have the storage credentials
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                ImportHttp form = new ImportHttp();
 
-                if (form.ShowDialog() == DialogResult.OK)
+                string DestStorage = _context.DefaultStorageAccount.Name;
+                string passwordDestStorage = _credentials.DefaultStorageKey;
+                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
+                    string valuekey2 = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
+                    {
+                        DestStorage = form.StorageSelected;
+                        passwordDestStorage = valuekey2;
+                    }
+                    else
+                    {
+                        //this.Close();
+                        return;
+                    }
                 }
+                else if (!havestoragecredentials)
+                { // No blob credentials. Let's ask the user
+
+                    string valuekey = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
+                    {
+                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
+                        havestoragecredentials = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                // Start a worker thread that does uploading.
+                var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token, DestStorage, passwordDestStorage), response.token);
+                DotabControlMainSwitch(Constants.TabTransfers);
             }
         }
 
         private void DoMenuImportFromAzureStorageSASContainer()
         {
-            string valuekey = "";
 
-            if (!havestoragecredentials)
-            { // No blob credentials. Let's ask the user
+            ImportHttp form = new ImportHttp(_context, true);
 
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                {
-                    _credentials.DefaultStorageKey = valuekey;
-                    havestoragecredentials = true;
-                }
-            }
 
-            if (havestoragecredentials) // if we have the storage credentials
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                ImportHttp form = new ImportHttp(true);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                string DestStorage = _context.DefaultStorageAccount.Name;
+                string passwordDestStorage = _credentials.DefaultStorageKey;
+                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
+                    string valuekey2 = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
+                    {
+                        DestStorage = form.StorageSelected;
+                        passwordDestStorage = valuekey2;
+                    }
+                    else
+                    {
+                        //this.Close();
+                        return;
+                    }
                 }
+                else if (!havestoragecredentials)
+                { // No blob credentials. Let's ask the user
+
+                    string valuekey = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
+                    {
+                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
+                        havestoragecredentials = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+
+
+                var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                // Start a worker thread that does uploading.
+                var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
+                DotabControlMainSwitch(Constants.TabTransfers);
             }
+
         }
 
         private async Task DoRefreshStreamingLocators()

@@ -16,12 +16,15 @@
 
 using System;
 using System.Windows.Forms;
+using Microsoft.WindowsAzure.MediaServices.Client;
+
 
 namespace AMSExplorer
 {
     public partial class ImportHttp : Form
     {
         private bool _AzureStorageContainerSASListMode;
+        private CloudMediaContext _context;
 
         public Uri GetURL
         {
@@ -53,13 +56,21 @@ namespace AMSExplorer
             }
         }
 
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
+            }
+        }
 
-        public ImportHttp(bool AzureStorageContainerSASListMode = false)
+        public ImportHttp(CloudMediaContext context, bool AzureStorageContainerSASListMode = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
             _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
+            _context = context;
         }
 
         private void ImportHttp_Load(object sender, EventArgs e)
@@ -72,6 +83,12 @@ namespace AMSExplorer
                 labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
                 labelTitle.Text = this.Text = "Import from SAS Container Path";
+            }
+
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
 
