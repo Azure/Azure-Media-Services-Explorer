@@ -1913,7 +1913,6 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        //this.Close();
                         return;
                     }
                 }
@@ -1941,9 +1940,7 @@ namespace AMSExplorer
 
         private void DoMenuImportFromAzureStorageSASContainer()
         {
-
             ImportHttp form = new ImportHttp(_context, true);
-
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -1960,7 +1957,6 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        //this.Close();
                         return;
                     }
                 }
@@ -1979,14 +1975,11 @@ namespace AMSExplorer
                     }
                 }
 
-
-
                 var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                 // Start a worker thread that does uploading.
                 var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
                 DotabControlMainSwitch(Constants.TabTransfers);
             }
-
         }
 
         private async Task DoRefreshStreamingLocators()
@@ -2055,7 +2048,6 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Failed to update asset '{0}' streaming locator {1}.", locator.Asset.Name, locator.Id, true);
                 TextBoxLogWriteLine(e);
             }
-
         }
 
 
