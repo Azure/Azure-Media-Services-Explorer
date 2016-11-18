@@ -110,8 +110,8 @@
       <HintPath>..\packages\windowsazure.mediaservices.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.3.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.8.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -277,6 +277,12 @@
     </Compile>
     <Compile Include="IndexerV2.Designer.cs">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UploadOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadOptions.Designer.cs">
+      <DependentUpon>UploadOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="RegionEditor\RegionEditor.cs">
       <SubType>Form</SubType>
@@ -900,6 +906,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadOptions.resx">
+      <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegionEditor\RegionEditor.resx">
       <DependentUpon>RegionEditor.cs</DependentUpon>

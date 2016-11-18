@@ -1233,12 +1233,16 @@ namespace AMSExplorer
 
         private void DoMenuUploadFromSingleFile_Step2(string[] FileNames)
         {
+
+
+            /*
+           
             if (FileNames.Count() > 1)
             {
                 if (System.Windows.Forms.MessageBox.Show("You selected multiple files. Each file will be uploaded as individual asset. If you want to create asset(s) that contain(s) several files, copy the files to folder(s) and upload or drag&drop the folder(s).", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                     return;
             }
-
+            */
             var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
@@ -1246,15 +1250,19 @@ namespace AMSExplorer
                 return;
             }
 
+            var form = new UploadOptions(_context, FileNames.Count() > 1) { AssetCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None };
+            if (form.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
 
-            // Each file goes in a individual asset
-            foreach (String file in FileNames)
+            if (FileNames.Count() > 1 && form.SingleAsset)
             {
                 try
                 {
-                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(FileNames.ToList(), response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
                 catch (Exception ex)
@@ -1263,12 +1271,33 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
+            else // one asset per file
+            {
+                // Each file goes in a individual asset
+                foreach (String file in FileNames)
+                {
+                    try
+                    {
+                        var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                        // Start a worker thread that does uploading.
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(new List<string>() { file }, response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
+                        DotabControlMainSwitch(Constants.TabTransfers);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+            }
+
+
         }
 
 
 
 
-        private async Task ProcessUploadFileAndMore(object name, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(List<string> filename, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -1284,15 +1313,15 @@ namespace AMSExplorer
             IAsset asset = null;
             var listfiles = new List<WatchFolder.RohzetAsset>();
 
-            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && filename.Count == 1 && (filename[0]).ToLower().EndsWith(".xml"))
             {
                 try
                 {
-                    listfiles = WatchFolder.GetListFilesFromRohzetXML(name as string);
+                    listfiles = WatchFolder.GetListFilesFromRohzetXML(filename[0]);
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when reading xml file '{0}'", name as string, true);
+                    TextBoxLogWriteLine("Error when reading xml file '{0}'", filename[0], true);
                     TextBoxLogWriteLine(e);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
@@ -1310,7 +1339,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
                     try
                     {
-                        asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
+                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
                                                               storageaccount,
                                                               assetcreationoptions,
                                                               token);
@@ -1329,12 +1358,12 @@ namespace AMSExplorer
                     {
                         Error = true;
                         DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", (string)name, true);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", filename[0], true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", Path.GetFileName((string)name), watchfoldersettings);
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
                         if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                         {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + filename[0], e.Message))
                             {
                                 TextBoxLogWriteLine("Error when sending Outlook email...", true);
                             }
@@ -1344,19 +1373,21 @@ namespace AMSExplorer
             }
             else // normal case
             {
-                if (!AssetInfo.AssetFileNameIsOk(name as string))
+                if (filename.Any(f => !AssetInfo.AssetFileNameIsOk(f)))
                 {
-                    TextBoxLogWriteLine("File name is not compatible with Media Services :\n" + name as string + "\nOperation aborted.", true);
+                    var files = filename.Where(f => !AssetInfo.AssetFileNameIsOk(f)).ToList();
+                    files.ForEach(f => TextBoxLogWriteLine("File name is not compatible with Media Services :\n" + f + "\nOperation aborted.", true));
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
                 else
                 {
-                    TextBoxLogWriteLine("Starting upload of file '{0}'", name);
+                    TextBoxLogWriteLine("Starting upload of file '{0}'", filename[0]);
                     try
                     {
+                       /*
                         asset = await _context.Assets.CreateFromFileAsync(
-                                                              name as string,
+                                                              filename[0],
                                                               storageaccount,
                                                               assetcreationoptions,
                                                               (af, p) =>
@@ -1365,16 +1396,32 @@ namespace AMSExplorer
                                                               },
                                                               token
                                                               );
-                        AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
+                                                              */
+                       
+                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
+                                                              storageaccount,
+                                                              assetcreationoptions,
+                                                              token);
+                        
+                        foreach (var file in filename.Skip(1))
+                        {
+                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file), token);
+                            if (token.IsCancellationRequested) return;
+                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, filename.IndexOf(file), filename.Count);
+                            UploadedAssetFile.Upload(file);
+                        }
+
+                        AssetInfo.SetAFileAsPrimary(asset);
+                        //AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
                     }
                     catch (Exception e)
                     {
                         Error = true;
                         DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", string.Join(", ", filename), true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", Path.GetFileName((string)name), watchfoldersettings);
-                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message))
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
+                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + string.Join(", ", filename), e.Message))
                         {
                             TextBoxLogWriteLine("Error when sending Outlook email...", true);
                         }
@@ -1391,12 +1438,12 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        File.Delete(name as string);
-                        TextBoxLogWriteLine("File '{0}' deleted.", name);
+                        File.Delete(filename[0] as string);
+                        TextBoxLogWriteLine("File '{0}' deleted.", filename[0]);
                     }
                     catch (Exception e)
                     {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
+                        TextBoxLogWriteLine("Error when deleting '{0}'", filename[0], true);
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
                             if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message))
@@ -1451,7 +1498,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Job submission error", Path.GetFileName((string)name), watchfoldersettings, job: job);
+                        Program.WatchFolderCallApi("Job submission error", Path.GetFileName(filename[0]), watchfoldersettings, job: job);
 
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
@@ -1527,7 +1574,7 @@ namespace AMSExplorer
                                 }
                                 sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
 
-                                Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
+                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
 
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
@@ -1542,7 +1589,7 @@ namespace AMSExplorer
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
-                                Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset, oasset, job);
+                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job);
 
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
@@ -1560,7 +1607,7 @@ namespace AMSExplorer
                     }
                     else  // not completed successfuly
                     {
-                        Program.WatchFolderCallApi("Job Error", Path.GetFileName((string)name), watchfoldersettings, asset, null, job);
+                        Program.WatchFolderCallApi("Job Error", Path.GetFileName(filename[0]), watchfoldersettings, asset, null, job);
 
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
@@ -1576,7 +1623,7 @@ namespace AMSExplorer
                 }
                 else // user selected no processing. Upload successfull
                 {
-                    Program.WatchFolderCallApi(null, Path.GetFileName((string)name), watchfoldersettings, asset);
+                    Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset);
 
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
@@ -7486,7 +7533,7 @@ namespace AMSExplorer
                         var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                              path,
+                              new List<string>() { path },
                               response.Id,
                               Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                               response.token,
@@ -9997,7 +10044,7 @@ namespace AMSExplorer
                         {
                             var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                                  file,
+                                  new List<string>() { file },
                                   response.Id,
                                   Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                   response.token,
@@ -15208,6 +15255,11 @@ namespace AMSExplorer
         private void tHEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.PlayerTHEOplayerPartnership);
+        }
+
+        private void azureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
     }
 }
