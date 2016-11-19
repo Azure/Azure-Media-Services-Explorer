@@ -1403,7 +1403,7 @@ namespace AMSExplorer
                                                               assetcreationoptions,
                                                               token);
                         
-                        foreach (var file in filename.Skip(1))
+                        foreach (var file in filename)
                         {
                             IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file), token);
                             if (token.IsCancellationRequested) return;

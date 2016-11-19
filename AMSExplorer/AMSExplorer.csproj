@@ -98,20 +98,20 @@
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.8.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.8.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.3\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.8.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.8.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.3\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.8.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.8.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.3\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.8.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.8.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.8.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.8.0.3\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
