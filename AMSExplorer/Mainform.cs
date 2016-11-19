@@ -1217,32 +1217,22 @@ namespace AMSExplorer
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile_Step1();
+            DoMenuUploadFromSingleFiles_Step1();
         }
 
-        private void DoMenuUploadFromSingleFile_Step1()
+        private void DoMenuUploadFromSingleFiles_Step1()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFromSingleFile_Step2(openFileDialog.FileNames);
+                DoMenuUploadFromSingleFileS_Step2(openFileDialog.FileNames);
             }
         }
 
-        private void DoMenuUploadFromSingleFile_Step2(string[] FileNames)
+        private void DoMenuUploadFromSingleFileS_Step2(string[] FileNames)
         {
-
-
-            /*
-           
-            if (FileNames.Count() > 1)
-            {
-                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. Each file will be uploaded as individual asset. If you want to create asset(s) that contain(s) several files, copy the files to folder(s) and upload or drag&drop the folder(s).", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
-                    return;
-            }
-            */
             var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
@@ -1373,10 +1363,10 @@ namespace AMSExplorer
             }
             else // normal case
             {
-                if (filename.Any(f => !AssetInfo.AssetFileNameIsOk(f)))
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(filename);
+                if (listpb.Count > 0)
                 {
-                    var files = filename.Where(f => !AssetInfo.AssetFileNameIsOk(f)).ToList();
-                    files.ForEach(f => TextBoxLogWriteLine("File name is not compatible with Media Services :\n" + f + "\nOperation aborted.", true));
+                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
@@ -1385,24 +1375,24 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Starting upload of file '{0}'", filename[0]);
                     try
                     {
-                       /*
-                        asset = await _context.Assets.CreateFromFileAsync(
-                                                              filename[0],
-                                                              storageaccount,
-                                                              assetcreationoptions,
-                                                              (af, p) =>
-                                                              {
-                                                                  DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                                                              },
-                                                              token
-                                                              );
-                                                              */
-                       
+                        /*
+                         asset = await _context.Assets.CreateFromFileAsync(
+                                                               filename[0],
+                                                               storageaccount,
+                                                               assetcreationoptions,
+                                                               (af, p) =>
+                                                               {
+                                                                   DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                                                               },
+                                                               token
+                                                               );
+                                                               */
+
                         asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
                                                               storageaccount,
                                                               assetcreationoptions,
                                                               token);
-                        
+
                         foreach (var file in filename)
                         {
                             IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file), token);
@@ -12287,7 +12277,7 @@ namespace AMSExplorer
                     DoMenuUploadFromFolder_Step2(fold); // it's a folder
 
                 if (files.Count > 0)
-                    DoMenuUploadFromSingleFile_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
+                    DoMenuUploadFromSingleFileS_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
             }
         }
 
@@ -12841,7 +12831,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile_Step1();
+            DoMenuUploadFromSingleFiles_Step1();
         }
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)

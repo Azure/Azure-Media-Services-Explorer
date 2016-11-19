@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -314,6 +314,7 @@
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
+            this.azureMediaServicesReleaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
@@ -523,7 +524,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.azureMediaServicesReleaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -596,7 +596,7 @@
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(289, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -773,7 +773,7 @@
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
             this.toolStripMenuItem18.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.toolStripMenuItem18.Size = new System.Drawing.Size(405, 22);
-            this.toolStripMenuItem18.Text = "Upload file(s) to new single file asset(s)...";
+            this.toolStripMenuItem18.Text = "Upload file(s)...";
             this.toolStripMenuItem18.Click += new System.EventHandler(this.toolStripMenuItem18_Click);
             // 
             // filesToSelectedAssetsToolStripMenuItem1
@@ -1555,7 +1555,7 @@
             this.fromASingleFileToolStripMenuItem.Name = "fromASingleFileToolStripMenuItem";
             this.fromASingleFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(405, 22);
-            this.fromASingleFileToolStripMenuItem.Text = "Upload file(s) to new single file asset(s)...";
+            this.fromASingleFileToolStripMenuItem.Text = "Upload file(s)...";
             this.fromASingleFileToolStripMenuItem.Click += new System.EventHandler(this.fromASingleFileToolStripMenuItem_Click);
             // 
             // filesToSelectedAssetsToolStripMenuItem
@@ -3058,6 +3058,14 @@
             this.toolStripSeparator38.Name = "toolStripSeparator38";
             this.toolStripSeparator38.Size = new System.Drawing.Size(357, 6);
             // 
+            // azureMediaServicesReleaseNotesToolStripMenuItem
+            // 
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Name = "azureMediaServicesReleaseNotesToolStripMenuItem";
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Text = "Azure Media Services Release Notes";
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesReleaseNotesToolStripMenuItem_Click);
+            // 
             // azureMediaServicesMSDNToolStripMenuItem
             // 
             this.azureMediaServicesMSDNToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("azureMediaServicesMSDNToolStripMenuItem.Image")));
@@ -4221,9 +4229,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject4.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject4.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject4;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4859,9 +4867,9 @@
             this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject1.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject1;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(992, 153);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -5034,9 +5042,9 @@
             this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject2.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject2;
+            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(992, 163);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -5288,10 +5296,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -5334,14 +5342,6 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
-            // 
-            // azureMediaServicesReleaseNotesToolStripMenuItem
-            // 
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Name = "azureMediaServicesReleaseNotesToolStripMenuItem";
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Text = "Azure Media Services Release Notes";
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesReleaseNotesToolStripMenuItem_Click);
             // 
             // Mainform
             // 
