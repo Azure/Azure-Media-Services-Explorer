@@ -3764,6 +3764,7 @@ namespace AMSExplorer
         public FileSystemWatcher Watcher { get; set; }
         public INotificationEndPoint NotificationEndPoint { get; set; }
         public bool ProcessRohzetXML { get; set; }
+        public bool ProcessJSONSemaphore { get; set; }
         public string CallAPIUrl { get; set; }
         public string CallAPJson { get; set; }
 

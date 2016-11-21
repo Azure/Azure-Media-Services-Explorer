@@ -1280,10 +1280,7 @@ namespace AMSExplorer
                     }
                 }
             }
-
-
         }
-
 
 
 
@@ -1301,32 +1298,45 @@ namespace AMSExplorer
 
             bool Error = false;
             IAsset asset = null;
-            var listfiles = new List<WatchFolder.RohzetAsset>();
+            var listfiles = new List<WatchFolder.assetfileinJson>();
 
-            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && filename.Count == 1 && (filename[0]).ToLower().EndsWith(".xml"))
+            if (watchfoldersettings != null && filename.Count == 1
+                && (
+                   (watchfoldersettings.ProcessRohzetXML && (filename[0]).ToLower().EndsWith(".xml"))
+                   ||
+                   (watchfoldersettings.ProcessJSONSemaphore && (filename[0]).ToLower().EndsWith(".json"))
+                   )
+               )
             {
                 try
                 {
-                    listfiles = WatchFolder.GetListFilesFromRohzetXML(filename[0]);
+                    if (filename[0].ToLower().EndsWith(".xml"))
+                    {
+                        listfiles = WatchFolder.GetListFilesFromRohzetXML(filename[0]);
+                    }
+                    else
+                    {
+                        listfiles = WatchFolder.GetListFilesFromJSONIngest(filename[0]);
+                    }
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when reading xml file '{0}'", filename[0], true);
+                    TextBoxLogWriteLine("Error when reading file '{0}'", filename[0], true);
                     TextBoxLogWriteLine(e);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
 
-                var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.URI)).ToList());
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.fileName)).ToList());
                 if (listpb.Count > 0)
                 {
                     TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
-                else
+                else if (!Error)
                 {
-                    TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                    TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
                     try
                     {
                         asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
@@ -1334,15 +1344,21 @@ namespace AMSExplorer
                                                               assetcreationoptions,
                                                               token);
 
+                        bool primarySet = false;
                         foreach (var file in listfiles)
                         {
-                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
+                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.fileName), token);
                             if (token.IsCancellationRequested) return;
                             UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
-                            UploadedAssetFile.Upload(file.URI);
+                            UploadedAssetFile.Upload(file.fileName);
+                            if (file.isPrimary)
+                            {
+                                UploadedAssetFile.IsPrimary = primarySet = true;
+                                UploadedAssetFile.Update();
+                            }
                         }
 
-                        AssetInfo.SetAFileAsPrimary(asset);
+                        if (!primarySet) AssetInfo.SetAFileAsPrimary(asset);
                     }
                     catch (Exception e)
                     {
@@ -1447,16 +1463,16 @@ namespace AMSExplorer
                     {
                         if (listfiles.Count > 0)
                         {
-                            listfiles.ForEach(f => File.Delete(f.URI));
-                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                            listfiles.ForEach(f => File.Delete(f.fileName));
+                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
                         }
                     }
                     catch (Exception e)
                     {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()), true);
+                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()), true);
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message))
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.fileName).ToList()) + "\n\n" + e.Message))
                             {
                                 TextBoxLogWriteLine("Error when sending Outlook email...", true);
                             }

@@ -657,6 +657,9 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <Content Include="Configurations\SampleSemaphore.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -64,6 +64,8 @@
             this.checkBoxCallAPI = new System.Windows.Forms.CheckBox();
             this.textBoxAPIUrl = new System.Windows.Forms.TextBox();
             this.buttonJsonBody = new System.Windows.Forms.Button();
+            this.checkBoxProcessJSONSemaphore = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -431,6 +433,8 @@
             // 
             // groupBoxOptions
             // 
+            this.groupBoxOptions.Controls.Add(this.button1);
+            this.groupBoxOptions.Controls.Add(this.checkBoxProcessJSONSemaphore);
             this.groupBoxOptions.Controls.Add(this.buttonSeeRhozetExample);
             this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
@@ -444,7 +448,7 @@
             // 
             // buttonSeeRhozetExample
             // 
-            this.buttonSeeRhozetExample.Location = new System.Drawing.Point(409, 59);
+            this.buttonSeeRhozetExample.Location = new System.Drawing.Point(409, 75);
             this.buttonSeeRhozetExample.Name = "buttonSeeRhozetExample";
             this.buttonSeeRhozetExample.Size = new System.Drawing.Size(113, 23);
             this.buttonSeeRhozetExample.TabIndex = 52;
@@ -455,11 +459,11 @@
             // checkBoxProcessXMLRohzet
             // 
             this.checkBoxProcessXMLRohzet.AutoSize = true;
-            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 60);
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 78);
             this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
-            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(366, 19);
+            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(363, 19);
             this.checkBoxProcessXMLRohzet.TabIndex = 51;
-            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphone file (Rhozet) for multi files asset upload";
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphore file (Rhozet) for multi files asset upload";
             this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
             // 
             // checkBoxCallAPI
@@ -495,6 +499,26 @@
             this.buttonJsonBody.Text = "Json body...";
             this.buttonJsonBody.UseVisualStyleBackColor = true;
             this.buttonJsonBody.Click += new System.EventHandler(this.buttonJsonBody_Click);
+            // 
+            // checkBoxProcessJSONSemaphore
+            // 
+            this.checkBoxProcessJSONSemaphore.AutoSize = true;
+            this.checkBoxProcessJSONSemaphore.Location = new System.Drawing.Point(37, 56);
+            this.checkBoxProcessJSONSemaphore.Name = "checkBoxProcessJSONSemaphore";
+            this.checkBoxProcessJSONSemaphore.Size = new System.Drawing.Size(320, 19);
+            this.checkBoxProcessJSONSemaphore.TabIndex = 53;
+            this.checkBoxProcessJSONSemaphore.Text = "Process JSON semaphore file for multi files asset upload";
+            this.checkBoxProcessJSONSemaphore.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(409, 52);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 23);
+            this.button1.TabIndex = 54;
+            this.button1.Text = "See an example";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // WatchFolder
             // 
@@ -588,5 +612,7 @@
         private System.Windows.Forms.CheckBox checkBoxCallAPI;
         private System.Windows.Forms.TextBox textBoxAPIUrl;
         private System.Windows.Forms.Button buttonJsonBody;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxProcessJSONSemaphore;
     }
 }
