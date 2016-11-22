@@ -639,4 +639,46 @@
   <data name="AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy" xml:space="preserve">
     <value>Error when attaching an existing authorization policy.</value>
   </data>
+  <data name="AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere" xml:space="preserve">
+    <value>Please insert Azure Service Management URL here</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile" xml:space="preserve">
+    <value>No Subscription data in the file.</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed" xml:space="preserve">
+    <value>There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_SeveralSubscriptions" xml:space="preserve">
+    <value>Several subscriptions</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError" xml:space="preserve">
+    <value>Error when reading the file. Original error: </value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload" xml:space="preserve">
+    <value>None (no encryption before upload)</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload" xml:space="preserve">
+    <value>Storage encryption (content will be encrypted locally to AES 256 before upload)</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady" xml:space="preserve">
+    <value>Common encryption (content is already encrypted with PlayReady)</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist" xml:space="preserve">
+    <value>Folder does not exist</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders" xml:space="preserve">
+    <value>Error when reading files or folders.</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01Files" xml:space="preserve">
+    <value>{0} ({1} files)</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01File" xml:space="preserve">
+    <value>{0} ({1} file)</value>
+  </data>
+  <data name="BatchUploadFrame2_BathUploadFrame2_Load_Default" xml:space="preserve">
+    <value>(default)</value>
+  </data>
 </root>

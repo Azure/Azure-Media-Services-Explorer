@@ -110,7 +110,7 @@ namespace AMSExplorer
             }
             else if (_credentials.UsePartnerAPI)
             {
-                textBoxServiceManagement.Text = "Please insert Azure Service Management URL here";
+                textBoxServiceManagement.Text = AMSExplorer.Properties.Resources.AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere;
             }
             else // Global Azure
             {
@@ -168,7 +168,7 @@ namespace AMSExplorer
 
                     if (subs.Count() == 0)
                     {
-                        MessageBox.Show("No Subscription data in the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -176,7 +176,7 @@ namespace AMSExplorer
 
                         if (subs.Count() > 1)
                         {
-                            MessageBox.Show(string.Format("There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.", subscription.Attribute("Name").Value), "Several subscriptions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed, subscription.Attribute("Name").Value), AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_SeveralSubscriptions, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
                         textBoxSubId.Text = subscription.Attribute("Id").Value;
@@ -185,7 +185,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError + ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

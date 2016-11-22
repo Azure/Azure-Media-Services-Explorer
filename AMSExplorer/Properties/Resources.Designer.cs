@@ -1525,6 +1525,135 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please insert Azure Service Management URL here.
+        /// </summary>
+        internal static string AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere {
+            get {
+                return ResourceManager.GetString("AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when reading the file. Original error: .
+        /// </summary>
+        internal static string AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError {
+            get {
+                return ResourceManager.GetString("AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Subscription data in the file..
+        /// </summary>
+        internal static string AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile {
+            get {
+                return ResourceManager.GetString("AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Several subscriptions.
+        /// </summary>
+        internal static string AttachStorage_LoadSubscriptionFile_SeveralSubscriptions {
+            get {
+                return ResourceManager.GetString("AttachStorage_LoadSubscriptionFile_SeveralSubscriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are several subscriptions data in the file.\n\nThe first entry &apos;{0}&apos; will be used..
+        /// </summary>
+        internal static string AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed {
+            get {
+                return ResourceManager.GetString("AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNThe" +
+                        "FirstEntry0WillBeUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common encryption (content is already encrypted with PlayReady).
+        /// </summary>
+        internal static string BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncrypted" +
+                        "WithPlayReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None (no encryption before upload).
+        /// </summary>
+        internal static string BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage encryption (content will be encrypted locally to AES 256 before upload).
+        /// </summary>
+        internal static string BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLo" +
+                        "callyToAES256BeforeUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder.
+        /// </summary>
+        internal static string BatchUploadFrame1_buttonNext_Click_Folder {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame1_buttonNext_Click_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder does not exist.
+        /// </summary>
+        internal static string BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} file).
+        /// </summary>
+        internal static string BatchUploadFrame2_BatchUploadFrame2_01File {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame2_BatchUploadFrame2_01File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} files).
+        /// </summary>
+        internal static string BatchUploadFrame2_BatchUploadFrame2_01Files {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame2_BatchUploadFrame2_01Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when reading files or folders..
+        /// </summary>
+        internal static string BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (default).
+        /// </summary>
+        internal static string BatchUploadFrame2_BathUploadFrame2_Load_Default {
+            get {
+                return ResourceManager.GetString("BatchUploadFrame2_BathUploadFrame2_Load_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string ButtonCancel {
