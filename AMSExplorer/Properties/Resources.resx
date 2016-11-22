@@ -762,4 +762,73 @@
   <data name="ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid" xml:space="preserve">
     <value>Advertising Cue Id is not valid</value>
   </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputProtocol" xml:space="preserve">
+    <value>Input protocol</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingType" xml:space="preserve">
+    <value>Encoding Type</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingSystemPreset" xml:space="preserve">
+    <value>Encoding System Preset</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708" xml:space="preserve">
+    <value>Encoding IgnoreCEA708</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount" xml:space="preserve">
+    <value>Encoding Video Streams Count</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount" xml:space="preserve">
+    <value>Encoding Audio Streams Count</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource" xml:space="preserve">
+    <value>Encoding Ad Marker Source</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId" xml:space="preserve">
+    <value>Default Slate Asset Id</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal" xml:space="preserve">
+    <value>Automatic Slate Insertion on AD signal</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_SlateSettings" xml:space="preserve">
+    <value>Slate settings</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_None" xml:space="preserve">
+    <value>(none)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS" xml:space="preserve">
+    <value>Input KeyFrameInterval (s)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Primary" xml:space="preserve">
+    <value>Primary </value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Secondary" xml:space="preserve">
+    <value>Secondary </value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1" xml:space="preserve">
+    <value>{0}Input URL ({1})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1SSL" xml:space="preserve">
+    <value>{0}Input URL ({1}, SSL)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_PreviewURL0" xml:space="preserve">
+    <value>Preview URL ({0})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment" xml:space="preserve">
+    <value>Output HLS Fragments per segment</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected" xml:space="preserve">
+    <value>(multiple channels have been selected)</value>
+  </data>
+  <data name="ChannelInformation_buttonAllowAllInputIP_Click_AllowAll" xml:space="preserve">
+    <value>Allow All</value>
+  </data>
+  <data name="ChannelInformation_checkKeyFrameValue_ValueIsNotValid" xml:space="preserve">
+    <value>Value is not valid</value>
+  </data>
+  <data name="ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated" xml:space="preserve">
+    <value>The audio stream index '{0}' is repeated</value>
+  </data>
 </root>

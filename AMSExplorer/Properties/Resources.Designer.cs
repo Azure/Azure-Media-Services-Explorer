@@ -1918,6 +1918,214 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow All.
+        /// </summary>
+        internal static string ChannelInformation_buttonAllowAllInputIP_Click_AllowAll {
+            get {
+                return ResourceManager.GetString("ChannelInformation_buttonAllowAllInputIP_Click_AllowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Input URL ({1}).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_0InputURL1 {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_0InputURL1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Input URL ({1}, SSL).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_0InputURL1SSL {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_0InputURL1SSL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic Slate Insertion on AD signal.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Slate Asset Id.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_Description {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding Ad Marker Source.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding Audio Streams Count.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding IgnoreCEA708.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708 {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding System Preset.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingSystemPreset {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingSystemPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding Type.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingType {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding Video Streams Count.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input KeyFrameInterval (s).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input protocol.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_InputProtocol {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_InputProtocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (multiple channels have been selected).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (none).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_None {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output HLS Fragments per segment.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview URL ({0}).
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_PreviewURL0 {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_PreviewURL0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary .
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_Primary {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary .
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_Secondary {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_Secondary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slate settings.
+        /// </summary>
+        internal static string ChannelInformation_ChannelInformation_Load_SlateSettings {
+            get {
+                return ResourceManager.GetString("ChannelInformation_ChannelInformation_Load_SlateSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value is not valid.
+        /// </summary>
+        internal static string ChannelInformation_checkKeyFrameValue_ValueIsNotValid {
+            get {
+                return ResourceManager.GetString("ChannelInformation_checkKeyFrameValue_ValueIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The audio stream index &apos;{0}&apos; is repeated.
+        /// </summary>
+        internal static string ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated {
+            get {
+                return ResourceManager.GetString("ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0I" +
+                        "sRepeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

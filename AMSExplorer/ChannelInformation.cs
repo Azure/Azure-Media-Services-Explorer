@@ -210,57 +210,57 @@ namespace AMSExplorer
 
                 // channel info
                 DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGChannel.Rows.Add("Name", MyChannel.Name);
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyChannel.Name);
                 DGChannel.Rows.Add("Id", MyChannel.Id);
-                DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
-                DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Description", MyChannel.Description);
-                DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
-                DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (ChannelState)MyChannel.State);
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyChannel.Description);
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyChannel.Input.StreamingProtocol);
+                DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingType, MyChannel.EncodingType);
 
                 if (MyChannel.Encoding != null)
                 {
-                    DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
-                    DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
-                    DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
-                    DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
-                    DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingSystemPreset, MyChannel.Encoding.SystemPreset);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708, MyChannel.Encoding.IgnoreCea708ClosedCaptions);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount, MyChannel.Encoding.VideoStreams.Count);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount, MyChannel.Encoding.AudioStreams.Count);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource, (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
 
                     if (MyChannel.Slate != null)
                     {
-                        DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
-                        DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                        DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId, MyChannel.Slate.DefaultSlateAssetId);
+                        DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal, MyChannel.Slate.InsertSlateOnAdMarker);
                     }
                     else
                     {
-                        DGChannel.Rows.Add("Slate settings", "(none)");
+                        DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
                     }
                 }
 
 
                 if (MyChannel.Input.KeyFrameInterval != null)
                 {
-                    DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
+                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS, ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
                     checkBoxKeyFrameIntDefined.Checked = true;
                     textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
                 }
 
-                string[] stringnameurl = new string[] { "Primary ", "Secondary " };
+                string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
 
                 int i = 0;
                 foreach (var endpoint in MyChannel.Input.Endpoints)
                 {
-                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
+                    DGChannel.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
                     if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
                     {
-                        DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                        DGChannel.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                     }
                     i++;
                 }
                 foreach (var endpoint in MyChannel.Preview.Endpoints)
                 {
-                    DGChannel.Rows.Add(string.Format("Preview URL ({0})", endpoint.Protocol), endpoint.Url);
+                    DGChannel.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Url);
                 }
                 if (MyChannel.Output != null)
                 {
@@ -268,7 +268,7 @@ namespace AMSExplorer
                     {
                         if (MyChannel.Output.Hls.FragmentsPerSegment != null)
                         {
-                            DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
+                            DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment, MyChannel.Output.Hls.FragmentsPerSegment);
                             checkBoxHLSFragPerSeg.Checked = true;
                             numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
                         }
@@ -277,7 +277,7 @@ namespace AMSExplorer
             }
             else // multiselect
             {
-                labelChannelName.Text = "(multiple channels have been selected)";
+                labelChannelName.Text = AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected;
 
                 tabControl1.TabPages.Remove(tabPageChannelInfo); // no channel info page
                 tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
@@ -616,7 +616,7 @@ namespace AMSExplorer
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
             InputEndpointSettingList.Clear();
-            InputEndpointSettingList.Add(new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
+            InputEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
             Modifications.InputIPAllowList = true;
         }
@@ -652,7 +652,7 @@ namespace AMSExplorer
         {
             if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
             {
-                errorProvider1.SetError(textBoxKeyFrame, "Value is not valid");
+                errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }
             else
             {
@@ -765,7 +765,7 @@ namespace AMSExplorer
             var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
             if (defaultaudiostream != null)
             {
-                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
+                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, defaultaudiostream.Index));
             }
             else
             {
@@ -780,7 +780,7 @@ namespace AMSExplorer
             if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
             || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
             {
-                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, numericUpDownAudioIndexAddition.Value));
             }
             else
             {
