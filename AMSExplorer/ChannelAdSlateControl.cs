@@ -207,13 +207,13 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with AD duration input", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput, MyChannel.Name, true);
                 MyMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
             {
-                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text)); ;
+                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text));
                 int cueid = 0;
                 if (!string.IsNullOrEmpty(textBoxCueId.Text))
                 {
@@ -225,13 +225,13 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         Error = true;
-                        MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with CueID input", MyChannel.Name, true);
+                        MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput, MyChannel.Name, true);
                         MyMainForm.TextBoxLogWriteLine(e);
                     }
                 }
                 if (!Error)
                 {
-                    MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending AD signal", MyChannel.Name);
+                    MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0SendingADSignal, MyChannel.Name);
 
                     try
                     {
@@ -240,7 +240,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         Error = true;
-                        MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when sending signal", MyChannel.Name, true);
+                        MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal, MyChannel.Name, true);
                         MyMainForm.TextBoxLogWriteLine(e);
                     }
                     if (!Error) textBoxCueId.Text = GenerateRandomCueId();
@@ -261,24 +261,24 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with slate duration input", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput, MyChannel.Name, true);
                 MyMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
             {
                 TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
-                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending show slate signal", MyChannel.Name);
+                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal, MyChannel.Name);
 
                 try
                 {
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, "slate shown", MyContext, MyMainForm));
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_SlateShown, MyContext, MyMainForm));
                 }
                 catch (Exception e)
                 {
                     Error = true;
-                    MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when showing slate", MyChannel.Name, true);
+                    MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate, MyChannel.Name, true);
                     MyMainForm.TextBoxLogWriteLine(e);
 
                 }
@@ -287,15 +287,15 @@ namespace AMSExplorer
 
         private async void HideSlate()
         {
-            MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending hide slate signal", MyChannel.Name);
+            MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal, MyChannel.Name);
 
             try
             {
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_SlateHidden, MyContext, MyMainForm));
             }
             catch (Exception e)
             {
-                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when hidding slate", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate, MyChannel.Name, true);
                 MyMainForm.TextBoxLogWriteLine(e);
             }
         }
@@ -380,7 +380,7 @@ namespace AMSExplorer
                     }
                     catch
                     {
-                        MessageBox.Show("Error when accessing temporary SAS locator");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator);
                     }
                 }
             }
@@ -417,7 +417,7 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error when creating the temporary SAS locator." + ex.Message);
+                MessageBox.Show(AMSExplorer.Properties.Resources.ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator + ex.Message);
             }
             return newlocator;
         }
@@ -494,7 +494,7 @@ namespace AMSExplorer
 
             if (Error)
             {
-                errorProvider1.SetError(tb, "Duration value is not valid");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid);
             }
             else
             {
@@ -519,7 +519,7 @@ namespace AMSExplorer
 
             if (Error)
             {
-                errorProvider1.SetError(tb, "Advertising Cue Id is not valid");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid);
             }
             else
             {

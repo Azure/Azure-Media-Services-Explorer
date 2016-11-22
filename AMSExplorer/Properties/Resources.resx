@@ -720,4 +720,46 @@
   <data name="BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey" xml:space="preserve">
     <value>Please provide a valid Signiant API Key.</value>
   </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with AD duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with CueID input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0SendingADSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending AD signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal" xml:space="preserve">
+    <value>Channel '{0}' : Error when sending signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with slate duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending show slate signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_SlateShown" xml:space="preserve">
+    <value>slate shown</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate" xml:space="preserve">
+    <value>Channel '{0}' : Error when showing slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending hide slate signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate" xml:space="preserve">
+    <value>Channel '{0}' : Error when hidding slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_SlateHidden" xml:space="preserve">
+    <value>slate hidden</value>
+  </data>
+  <data name="ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator" xml:space="preserve">
+    <value>Error when creating the temporary SAS locator.</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid" xml:space="preserve">
+    <value>Duration value is not valid</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid" xml:space="preserve">
+    <value>Advertising Cue Id is not valid</value>
+  </data>
 </root>

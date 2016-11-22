@@ -1791,6 +1791,133 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error when creating the temporary SAS locator..
+        /// </summary>
+        internal static string ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error when hidding slate.
+        /// </summary>
+        internal static string ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : sending hide slate signal.
+        /// </summary>
+        internal static string ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to slate hidden.
+        /// </summary>
+        internal static string ChannelAdSlateControl_HideSlate_SlateHidden {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_HideSlate_SlateHidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error when sending signal.
+        /// </summary>
+        internal static string ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error with AD duration input.
+        /// </summary>
+        internal static string ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error with CueID input.
+        /// </summary>
+        internal static string ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : sending AD signal.
+        /// </summary>
+        internal static string ChannelAdSlateControl_InsertAd_Channel0SendingADSignal {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_InsertAd_Channel0SendingADSignal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error when showing slate.
+        /// </summary>
+        internal static string ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : Error with slate duration input.
+        /// </summary>
+        internal static string ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel &apos;{0}&apos; : sending show slate signal.
+        /// </summary>
+        internal static string ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to slate shown.
+        /// </summary>
+        internal static string ChannelAdSlateControl_ShowSlate_SlateShown {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_ShowSlate_SlateShown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration value is not valid.
+        /// </summary>
+        internal static string ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advertising Cue Id is not valid.
+        /// </summary>
+        internal static string ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid {
+            get {
+                return ResourceManager.GetString("ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {
