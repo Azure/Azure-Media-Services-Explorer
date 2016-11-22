@@ -234,11 +234,29 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}, {2} scale unit) Custom hostname : {3}.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3 {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}, {2} scale units).
         /// </summary>
         internal static string AssetInformation_AssetInformation_Load_012ScaleUnits {
             get {
                 return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}, {2} scale units) Custom hostname : {3}.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3 {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3", resourceCulture);
             }
         }
         
@@ -401,6 +419,1108 @@ namespace AMSExplorer.Properties {
         internal static string AssetInformation_AssetInformation_Load_Type {
             get {
                 return ResourceManager.GetString("AssetInformation_AssetInformation_Load_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiration date time: {0}.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_ExpirationDateTime0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_ExpirationDateTime0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locator information.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_LocatorInformation {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_LocatorInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name: {0}.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_Name0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_Name0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path: {0}.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_Path0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_Path0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time: {0}.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_StartTime0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_StartTime0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type: {0}.
+        /// </summary>
+        internal static string AssetInformation_BuildLocatorsTree_Type0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_BuildLocatorsTree_Type0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when creating the temporary SAS locator to the metadata file..
+        /// </summary>
+        internal static string AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASLocatorToTheMetadataFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASL" +
+                        "ocatorToTheMetadataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset filter  : .
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_AssetFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_AssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DVR.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_DVR {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_DVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DVR (d.h:m:s).
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_DVRDHMS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_DVRDHMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_End {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End (d.h:m:s).
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_EndDHMS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_EndDHMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global filter : .
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_GlobalFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_GlobalFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LiveBackoff.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_LiveBackoff {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_LiveBackoff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live backoff (d.h:m:s).
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_LiveBackoffDHMS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_LiveBackoffDHMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to max.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_Max {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_Max", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_Min {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_Min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rules.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_Rules {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_Start {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start (d.h:m:s).
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_StartDHMS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_StartDHMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track Rules.
+        /// </summary>
+        internal static string AssetInformation_DisplayAssetFilters_TrackRules {
+            get {
+                return ResourceManager.GetString("AssetInformation_DisplayAssetFilters_TrackRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when attaching an existing authorization policy..
+        /// </summary>
+        internal static string AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPol" +
+                        "icy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when attaching the delivery policy..
+        /// </summary>
+        internal static string AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset filter &apos;{0}&apos; has been created..
+        /// </summary>
+        internal static string AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when creating asset filter..
+        /// </summary>
+        internal static string AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when creating asset filter &apos;{0}&apos;..
+        /// </summary>
+        internal static string AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unknown name.
+        /// </summary>
+        internal static string AssetInformation_DoCreateAssetFilter_UnknownName {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoCreateAssetFilter_UnknownName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when deleting the files.
+        /// </summary>
+        internal static string AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when deleting asset filter(s)..
+        /// </summary>
+        internal static string AssetInformation_DoDeleteAssetFilter_ErrorWhenDeletingAssetFilterS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteAssetFilter_ErrorWhenDeletingAssetFilterS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete the file &apos;{0}&apos; ?.
+        /// </summary>
+        internal static string AssetInformation_DoDeleteFiles_DeleteTheFile0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteFiles_DeleteTheFile0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete these {0} files ?.
+        /// </summary>
+        internal static string AssetInformation_DoDeleteFiles_DeleteThese0Files {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteFiles_DeleteThese0Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when deleting file(s).
+        /// </summary>
+        internal static string AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File deletion.
+        /// </summary>
+        internal static string AssetInformation_DoDeleteFiles_FileDeletion {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDeleteFiles_FileDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to delete this locator ?.
+        /// </summary>
+        internal static string AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when trying to delete the locator..
+        /// </summary>
+        internal static string AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locator deletion.
+        /// </summary>
+        internal static string AssetInformation_DoDelLocator_LocatorDeletion {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDelLocator_LocatorDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when {0} the key.
+        /// </summary>
+        internal static string AssetInformation_DoDemoveKey_ErrorWhen0TheKey {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDemoveKey_ErrorWhen0TheKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key removal.
+        /// </summary>
+        internal static string AssetInformation_DoDemoveKey_KeyRemoval {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDemoveKey_KeyRemoval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will remove the key &apos;{0}&apos; from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?.
+        /// </summary>
+        internal static string AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDEL" +
+                        "ETETheKeyFromTheAzureMediaServicesAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset report.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAssetStats_AssetReport {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAssetStats_AssetReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternate Verification Key.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asymmetric (X509).
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeyDeliveryConfiguration.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeyDeliveryType.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;null&gt;.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_Null {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenId Connect Discovery Document Uri.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumen" +
+                        "tUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary Verification Key.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required Claim, Type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required Claim, Value.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restriction KeyRestrictionType.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restriction Name.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restriction Requirements.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See key value.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See value.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symmetric.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Audience.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Issuer.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Verification Key Type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protocol.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_Encrypted {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_Encrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption key id.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_EncryptionKeyId {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_EncryptionKeyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption scheme.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_EncryptionScheme {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_EncryptionScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption version.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_EncryptionVersion {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_EncryptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File size.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_FileSize {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_FileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last modified.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_LastModified {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_LastModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mime type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_MimeType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_MimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_Options {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary file.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayFileProperties_PrimaryFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayFileProperties_PrimaryFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization Policy Id.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization Policy Name.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checksum.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Key Value.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content key type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no name&gt;.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protection key Id.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protection key type.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to see clear key.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See clear key.
+        /// </summary>
+        internal static string AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download of file &apos;{0}&apos; from asset &apos;{1}&apos;.
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download process has been initiated. See the Transfers tab to check the progress..
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTa" +
+                        "bToCheckTheProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when deleting files.
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_ErrorWhenDeletingFiles {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_ErrorWhenDeletingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when downloading file(s).
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_ErrorWhenDownloadingFileS {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_ErrorWhenDownloadingFileS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File(s) overwrite.
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_FileSOverwrite {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_FileSOverwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following file is already in the folder\n\n{0}\n\nOverwite the file ?.
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwit" +
+                        "eTheFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?.
+        /// </summary>
+        internal static string AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOver" +
+                        "witeTheFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy of {0}.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicate_CopyOf0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicate_CopyOf0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the name of the new duplicate file:.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when duplicating this file.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New name.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicate_NewName {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicate_NewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify the account storage key in the login window..
+        /// </summary>
+        internal static string AssetInformation_DoDuplicate_PleaseSpecifyTheAccountStorageKeyInTheLoginWindow {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicate_PleaseSpecifyTheAccountStorageKeyInTheLoginWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicateFilter_Copy {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicateFilter_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the name of the new duplicate filter:.
+        /// </summary>
+        internal static string AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when duplicating asset filter..
+        /// </summary>
+        internal static string AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when accessing/editing asset file..
+        /// </summary>
+        internal static string AssetInformation_DoEditFile_ErrorWhenAccessingEditingAssetFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoEditFile_ErrorWhenAccessingEditingAssetFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is to large to edit it online..
+        /// </summary>
+        internal static string AssetInformation_DoEditFile_FileIsToLargeToEditItOnline {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoEditFile_FileIsToLargeToEditItOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online edit of &apos;{0}&apos;.
+        /// </summary>
+        internal static string AssetInformation_DoEditFile_OnlineEditOf0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoEditFile_OnlineEditOf0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string AssetInformation_DoEditFile_Value {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoEditFile_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset filter &apos;{0}&apos; has been updated..
+        /// </summary>
+        internal static string AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when updating asset filter..
+        /// </summary>
+        internal static string AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when updating asset filter &apos;{0}&apos;..
+        /// </summary>
+        internal static string AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check carefully the content of the generated manifest as the tool makes guesses !.
+        /// </summary>
+        internal static string AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedM" +
+                        "anifestAsTheToolMakesGuesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The authorization test token (with Bearer) is :\n{0}.
+        /// </summary>
+        internal static string AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The authorization test token (without Bearer) is :\n{0}.
+        /// </summary>
+        internal static string AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The test token below has been be copied to the log window and clipboard.\n\n{0}.
+        /// </summary>
+        internal static string AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0 {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAnd" +
+                        "ClipboardNN0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when accessing temporary SAS locator.
+        /// </summary>
+        internal static string AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization policy removal.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when {0} the authorization policy..
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will remove the authorization policy &apos;{0}&apos; from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyN" +
+                        "DoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when {0} the authorization policy option..
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option removal.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPolOption_OptionRemoval {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPolOption_OptionRemoval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will remove the option &apos;{0}&apos; from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizati" +
+                        "onPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to deleting.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveDeliveryPol_Deleting {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveDeliveryPol_Deleting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Policy removal.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when {0} the delivery policy..
+        /// </summary>
+        internal static string AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to removing.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveDeliveryPol_Removing {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveDeliveryPol_Removing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will remove the policy &apos;{0}&apos; from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?.
+        /// </summary>
+        internal static string AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
+            get {
+                return ResourceManager.GetString("AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWa" +
+                        "ntToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when creating the temporary SAS locator.\n.
+        /// </summary>
+        internal static string AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN {
+            get {
+                return ResourceManager.GetString("AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when making this file primary.
+        /// </summary>
+        internal static string AssetInformation_MakeItAsPrimary_ErrorWhenMakingThisFilePrimary {
+            get {
+                return ResourceManager.GetString("AssetInformation_MakeItAsPrimary_ErrorWhenMakingThisFilePrimary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when uploading the file.
+        /// </summary>
+        internal static string AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no metadata for this file..
+        /// </summary>
+        internal static string AssetInformation_ShowFileMetadata_ThereIsNoMetadataForThisFile {
+            get {
+                return ResourceManager.GetString("AssetInformation_ShowFileMetadata_ThereIsNoMetadataForThisFile", resourceCulture);
             }
         }
         
