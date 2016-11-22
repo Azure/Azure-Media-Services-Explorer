@@ -1253,7 +1253,7 @@ namespace AMSExplorer
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFileAndMore(FileNames.ToList(), response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
-                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
                 {
@@ -1271,7 +1271,7 @@ namespace AMSExplorer
                         var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         Task.Factory.StartNew(() => ProcessUploadFileAndMore(new List<string>() { file }, response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
-                        DotabControlMainSwitch(Constants.TabTransfers);
+                        DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     }
                     catch (Exception ex)
                     {
@@ -1987,7 +1987,7 @@ namespace AMSExplorer
                 var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                 // Start a worker thread that does uploading.
                 var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token, DestStorage, passwordDestStorage), response.token);
-                DotabControlMainSwitch(Constants.TabTransfers);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
             }
         }
 
@@ -2031,7 +2031,7 @@ namespace AMSExplorer
                 var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
                 // Start a worker thread that does uploading.
                 var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
-                DotabControlMainSwitch(Constants.TabTransfers);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
             }
         }
 

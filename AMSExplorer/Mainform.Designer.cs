@@ -1358,24 +1358,6 @@
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
-            // ContextMenuItemPlaybackWithFlashOSMFAzure
-            // 
-            resources.ApplyResources(this.ContextMenuItemPlaybackWithFlashOSMFAzure, "ContextMenuItemPlaybackWithFlashOSMFAzure");
-            this.ContextMenuItemPlaybackWithFlashOSMFAzure.Name = "ContextMenuItemPlaybackWithFlashOSMFAzure";
-            this.ContextMenuItemPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click);
-            // 
-            // withFlashTokenPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withFlashTokenPlayerToolStripMenuItem, "withFlashTokenPlayerToolStripMenuItem");
-            this.withFlashTokenPlayerToolStripMenuItem.Name = "withFlashTokenPlayerToolStripMenuItem";
-            this.withFlashTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashTokenPlayerToolStripMenuItem_Click);
-            // 
-            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem, "withSilverlightPlayReadyTokenPlayerToolStripMenuItem");
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click);
-            // 
             // ContextMenuItemPlaybackWithMPEGDASHIFReference
             // 
             resources.ApplyResources(this.ContextMenuItemPlaybackWithMPEGDASHIFReference, "ContextMenuItemPlaybackWithMPEGDASHIFReference");
@@ -2257,24 +2239,6 @@
             resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             // 
-            // ContextMenuItemProgramPlaybackWithFlashOSMFAzure
-            // 
-            resources.ApplyResources(this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure, "ContextMenuItemProgramPlaybackWithFlashOSMFAzure");
-            this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Name = "ContextMenuItemProgramPlaybackWithFlashOSMFAzure";
-            this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click_1);
-            // 
-            // withFlashAESTokenPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withFlashAESTokenPlayerToolStripMenuItem, "withFlashAESTokenPlayerToolStripMenuItem");
-            this.withFlashAESTokenPlayerToolStripMenuItem.Name = "withFlashAESTokenPlayerToolStripMenuItem";
-            this.withFlashAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem_Click);
-            // 
-            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem1
-            // 
-            resources.ApplyResources(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1, "withSilverlightPlayReadyTokenPlayerToolStripMenuItem1");
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem1";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click);
-            // 
             // withCustomPlayerToolStripMenuItem2
             // 
             resources.ApplyResources(this.withCustomPlayerToolStripMenuItem2, "withCustomPlayerToolStripMenuItem2");
@@ -2583,18 +2547,6 @@
             // 
             resources.ApplyResources(this.toolStripSeparator28, "toolStripSeparator28");
             this.toolStripSeparator28.Name = "toolStripSeparator28";
-            // 
-            // withFlashOSMFAzurePlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withFlashOSMFAzurePlayerToolStripMenuItem, "withFlashOSMFAzurePlayerToolStripMenuItem");
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Name = "withFlashOSMFAzurePlayerToolStripMenuItem";
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithFlashOSMFAzurePlayer_Click);
-            // 
-            // withSilverlightMontoringPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withSilverlightMontoringPlayerToolStripMenuItem, "withSilverlightMontoringPlayerToolStripMenuItem");
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Name = "withSilverlightMontoringPlayerToolStripMenuItem";
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithSilverlightMonitoringPlayer_Click);
             // 
             // labelChannels
             // 
@@ -3864,25 +3816,6 @@
             resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             // 
-            // withFlashOSMFToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withFlashOSMFToolStripMenuItem, "withFlashOSMFToolStripMenuItem");
-            this.withFlashOSMFToolStripMenuItem.Name = "withFlashOSMFToolStripMenuItem";
-            this.withFlashOSMFToolStripMenuItem.DropDownOpening += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_DropDownOpening);
-            this.withFlashOSMFToolStripMenuItem.Click += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_Click);
-            // 
-            // withFlashAESTokenPlayerToolStripMenuItem1
-            // 
-            resources.ApplyResources(this.withFlashAESTokenPlayerToolStripMenuItem1, "withFlashAESTokenPlayerToolStripMenuItem1");
-            this.withFlashAESTokenPlayerToolStripMenuItem1.Name = "withFlashAESTokenPlayerToolStripMenuItem1";
-            this.withFlashAESTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem1_Click);
-            // 
-            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem2
-            // 
-            resources.ApplyResources(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2, "withSilverlightPlayReadyTokenPlayerToolStripMenuItem2");
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem2";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click);
-            // 
             // withMPEGDASHIFRefPlayerToolStripMenuItem
             // 
             resources.ApplyResources(this.withMPEGDASHIFRefPlayerToolStripMenuItem, "withMPEGDASHIFRefPlayerToolStripMenuItem");
@@ -4049,18 +3982,6 @@
             // 
             resources.ApplyResources(this.toolStripSeparator27, "toolStripSeparator27");
             this.toolStripSeparator27.Name = "toolStripSeparator27";
-            // 
-            // withFlashOSMFAzurePlayerToolStripMenuItem1
-            // 
-            resources.ApplyResources(this.withFlashOSMFAzurePlayerToolStripMenuItem1, "withFlashOSMFAzurePlayerToolStripMenuItem1");
-            this.withFlashOSMFAzurePlayerToolStripMenuItem1.Name = "withFlashOSMFAzurePlayerToolStripMenuItem1";
-            this.withFlashOSMFAzurePlayerToolStripMenuItem1.Click += new System.EventHandler(this.PlaybackPreviewWithFlashOSMFAzurePlayer_Click);
-            // 
-            // withSilverlightMonitoringPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.withSilverlightMonitoringPlayerToolStripMenuItem, "withSilverlightMonitoringPlayerToolStripMenuItem");
-            this.withSilverlightMonitoringPlayerToolStripMenuItem.Name = "withSilverlightMonitoringPlayerToolStripMenuItem";
-            this.withSilverlightMonitoringPlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithSilverlightMonitoringPlayer_Click);
             // 
             // toolStripSeparator15
             // 
@@ -4287,39 +4208,11 @@
             this.azureMediaServicesPlayerPageToolStripMenuItem.Name = "azureMediaServicesPlayerPageToolStripMenuItem";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesPlayerPageToolStripMenuItem_Click);
             // 
-            // azureMediaPlayerDiagnosticsCenterToolStripMenuItem
-            // 
-            resources.ApplyResources(this.azureMediaPlayerDiagnosticsCenterToolStripMenuItem, "azureMediaPlayerDiagnosticsCenterToolStripMenuItem");
-            this.azureMediaPlayerDiagnosticsCenterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.azureMediaPlayerDiagnosticsCenterToolStripMenuItem.Name = "azureMediaPlayerDiagnosticsCenterToolStripMenuItem";
-            this.azureMediaPlayerDiagnosticsCenterToolStripMenuItem.Click += new System.EventHandler(this.azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click);
-            // 
-            // silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem, "silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem");
-            this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Name = "silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem";
-            this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click);
-            // 
-            // flashSmoothStreamingAESTokenPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem, "flashSmoothStreamingAESTokenPlayerToolStripMenuItem");
-            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Name = "flashSmoothStreamingAESTokenPlayerToolStripMenuItem";
-            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click);
-            // 
             // dASHIFHTML5ReferencePlayerToolStripMenuItem
             // 
             resources.ApplyResources(this.dASHIFHTML5ReferencePlayerToolStripMenuItem, "dASHIFHTML5ReferencePlayerToolStripMenuItem");
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem.Name = "dASHIFHTML5ReferencePlayerToolStripMenuItem";
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem.Click += new System.EventHandler(this.dASHIFHTML5ReferencePlayerToolStripMenuItem_Click);
-            // 
-            // dASHLivePlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.dASHLivePlayerToolStripMenuItem, "dASHLivePlayerToolStripMenuItem");
-            this.dASHLivePlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.dASHLivePlayerToolStripMenuItem.Name = "dASHLivePlayerToolStripMenuItem";
-            this.dASHLivePlayerToolStripMenuItem.Click += new System.EventHandler(this.dASHLivePlayerToolStripMenuItem_Click);
             // 
             // hTML5VideoElementToolStripMenuItem
             // 
