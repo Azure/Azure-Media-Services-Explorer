@@ -301,43 +301,43 @@ namespace AMSExplorer
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAsset.Rows.Add("Name", myAsset.Name);
-            DGAsset.Rows.Add("Type", myAssetType);
-            DGAsset.Rows.Add("AssetType", myAsset.AssetType);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAsset.Name);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, myAssetType);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_AssetType, myAsset.AssetType);
             DGAsset.Rows.Add("Id", myAsset.Id);
             DGAsset.Rows.Add("AlternateId", myAsset.AlternateId);
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
-            DGAsset.Rows.Add("State", (AssetState)myAsset.State);
-            DGAsset.Rows.Add("Created", ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add("Last Modified", ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add("Creation Options", (AssetCreationOptions)myAsset.Options);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (AssetState)myAsset.State);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_CreationOptions, (AssetCreationOptions)myAsset.Options);
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
             if (program != null) // Asset is linked to a Program
             {
-                DGAsset.Rows.Add("Program Id", program.Id);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ProgramId, program.Id);
             }
 
             if (myAsset.State != AssetState.Deleted)
             {
-                DGAsset.Rows.Add("IsStreamable", myAsset.IsStreamable);
-                DGAsset.Rows.Add("SupportsDynamicEncryption", myAsset.SupportsDynamicEncryption);
-                DGAsset.Rows.Add("Storage Url", myAsset.Uri);
-                DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
-                DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
-                DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_IsStreamable, myAsset.IsStreamable);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_SupportsDynamicEncryption, myAsset.SupportsDynamicEncryption);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl, myAsset.Uri);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountName, myAsset.StorageAccount.Name);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountByteUsed, AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountIsDefault, myAsset.StorageAccount.IsDefault);
 
                 try
                 {
                     foreach (IAsset p_asset in myAsset.ParentAssets)
                     {
-                        DGAsset.Rows.Add("Parent asset", p_asset.Name);
-                        DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAsset, p_asset.Name);
+                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, p_asset.Id);
                     }
                 }
                 catch
                 {
-                    DGAsset.Rows.Add("Parent asset(s)", "<error, deleted?>");
+                    DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetS, AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted);
                 }
 
 
@@ -345,7 +345,7 @@ namespace AMSExplorer
 
                 foreach (var se in myStreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty), se.HostName));
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnits: AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, se.ScaleUnits), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
 
                     foreach (var custom in se.CustomHostNames)

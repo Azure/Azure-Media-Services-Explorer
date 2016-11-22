@@ -61,6 +61,15 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About {0}.
+        /// </summary>
+        internal static string AboutBox_AboutBox_About0 {
+            get {
+                return ResourceManager.GetString("AboutBox_AboutBox_About0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading credentials. Settings have been deleted..
         /// </summary>
         internal static string AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted {
@@ -212,6 +221,186 @@ namespace AMSExplorer.Properties {
         internal static string AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials {
             get {
                 return ResourceManager.GetString("AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}, {2} scale unit).
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_012ScaleUnit {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}, {2} scale units).
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_012ScaleUnits {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AssetType.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_AssetType {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_AssetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_Created {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation Options.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_CreationOptions {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_CreationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;error, deleted?&gt;.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_ErrorDeleted {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_ErrorDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsStreamable.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_IsStreamable {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_IsStreamable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Modified.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_LastModified {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_LastModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_Name {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent asset.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_ParentAsset {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_ParentAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent asset Id.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_ParentAssetId {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_ParentAssetId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent asset(s).
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_ParentAssetS {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_ParentAssetS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program Id.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_ProgramId {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_ProgramId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_State {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage Account Byte used.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_StorageAccountByteUsed {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_StorageAccountByteUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage Account Is Default.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_StorageAccountIsDefault {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_StorageAccountIsDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage Account Name.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_StorageAccountName {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_StorageAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage Url.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_StorageUrl {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_StorageUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SupportsDynamicEncryption.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_SupportsDynamicEncryption {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_SupportsDynamicEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_Type {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_Type", resourceCulture);
             }
         }
         

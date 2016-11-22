@@ -207,4 +207,67 @@
   <data name="AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty" xml:space="preserve">
     <value>The account name cannot be empty.</value>
   </data>
+  <data name="AboutBox_AboutBox_About0" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_AssetType" xml:space="preserve">
+    <value>AssetType</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_LastModified" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_CreationOptions" xml:space="preserve">
+    <value>Creation Options</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ProgramId" xml:space="preserve">
+    <value>Program Id</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_IsStreamable" xml:space="preserve">
+    <value>IsStreamable</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_SupportsDynamicEncryption" xml:space="preserve">
+    <value>SupportsDynamicEncryption</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageUrl" xml:space="preserve">
+    <value>Storage Url</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountName" xml:space="preserve">
+    <value>Storage Account Name</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountByteUsed" xml:space="preserve">
+    <value>Storage Account Byte used</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountIsDefault" xml:space="preserve">
+    <value>Storage Account Is Default</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAsset" xml:space="preserve">
+    <value>Parent asset</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetId" xml:space="preserve">
+    <value>Parent asset Id</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetS" xml:space="preserve">
+    <value>Parent asset(s)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ErrorDeleted" xml:space="preserve">
+    <value>&lt;error, deleted?&gt;</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnits" xml:space="preserve">
+    <value>{0} ({1}, {2} scale units)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnit" xml:space="preserve">
+    <value>{0} ({1}, {2} scale unit)</value>
+  </data>
 </root>
