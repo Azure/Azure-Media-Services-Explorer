@@ -681,4 +681,43 @@
   <data name="BatchUploadFrame2_BathUploadFrame2_Load_Default" xml:space="preserve">
     <value>(default)</value>
   </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload" xml:space="preserve">
+    <value>Blob Storage URL For Upload</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount" xml:space="preserve">
+    <value>Pending Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount" xml:space="preserve">
+    <value>Finished Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount" xml:space="preserve">
+    <value>Error Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails" xml:space="preserve">
+    <value>Error Files Details</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetName" xml:space="preserve">
+    <value>Asset Name</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetId" xml:space="preserve">
+    <value>Asset Id</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Name" xml:space="preserve">
+    <value>File #{0} Name</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0State" xml:space="preserve">
+    <value>File #{0} State</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted" xml:space="preserve">
+    <value>File #{0} Encrypted</value>
+  </data>
+  <data name="BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThisIsNotSupportedInsideTheSameBulkIngestContainer" xml:space="preserve">
+    <value>Warning : two files have the same file name. This is not supported inside the same bulk ingest container.</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSStorageAccount" xml:space="preserve">
+    <value>Please select a Signiant server in the same region than the AMS/Storage account.</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey" xml:space="preserve">
+    <value>Please provide a valid Signiant API Key.</value>
+  </data>
 </root>

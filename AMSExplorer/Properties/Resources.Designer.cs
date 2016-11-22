@@ -1654,6 +1654,125 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blob Storage URL For Upload.
+        /// </summary>
+        internal static string BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Files Count.
+        /// </summary>
+        internal static string BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Files Details.
+        /// </summary>
+        internal static string BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished Files Count.
+        /// </summary>
+        internal static string BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Files Count.
+        /// </summary>
+        internal static string BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset Id.
+        /// </summary>
+        internal static string BulkContainerInfo_DoDisplayAssetManifest_AssetId {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_DoDisplayAssetManifest_AssetId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset Name.
+        /// </summary>
+        internal static string BulkContainerInfo_DoDisplayAssetManifest_AssetName {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_DoDisplayAssetManifest_AssetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File #{0} Encrypted.
+        /// </summary>
+        internal static string BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File #{0} Name.
+        /// </summary>
+        internal static string BulkContainerInfo_DoDisplayAssetManifest_File0Name {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_DoDisplayAssetManifest_File0Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File #{0} State.
+        /// </summary>
+        internal static string BulkContainerInfo_DoDisplayAssetManifest_File0State {
+            get {
+                return ResourceManager.GetString("BulkContainerInfo_DoDisplayAssetManifest_File0State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide a valid Signiant API Key..
+        /// </summary>
+        internal static string BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey {
+            get {
+                return ResourceManager.GetString("BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a Signiant server in the same region than the AMS/Storage account..
+        /// </summary>
+        internal static string BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSStorageAccount {
+            get {
+                return ResourceManager.GetString("BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSSto" +
+                        "rageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning : two files have the same file name. This is not supported inside the same bulk ingest container..
+        /// </summary>
+        internal static string BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThisIsNotSupportedInsideTheSameBulkIngestContainer {
+            get {
+                return ResourceManager.GetString("BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThis" +
+                        "IsNotSupportedInsideTheSameBulkIngestContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string ButtonCancel {
