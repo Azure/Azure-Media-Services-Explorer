@@ -43,7 +43,7 @@ namespace AMSExplorer
                 List<string> selectedfolders = new List<string>();
                 foreach (var f in checkedListBoxFolders.CheckedItems)
                 {
-                    selectedfolders.Add(folders[checkedListBoxFolders.Items.IndexOf(f)]);
+                    selectedfolders.Add(folders[checkedListBoxFolders.Items.IndexOf((ListViewItem)f)]);
                 }
                 return selectedfolders;
             }
@@ -56,7 +56,7 @@ namespace AMSExplorer
                 List<string> selectedfiles = new List<string>();
                 foreach (var f in checkedListBoxFiles.CheckedItems)
                 {
-                    selectedfiles.Add(files[checkedListBoxFiles.Items.IndexOf(f)]);
+                    selectedfiles.Add(files[checkedListBoxFiles.Items.IndexOf((ListViewItem)f)]);
                 }
                 return selectedfiles;
             }
@@ -85,7 +85,12 @@ namespace AMSExplorer
                 {
                     foreach (var file in files)
                     {
-                        checkedListBoxFiles.Items.Add(Path.GetFileName(file), true);
+                        var it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
+                        it.Checked = true;
+                        if (!AssetInfo.AssetFileNameIsOk(Path.GetFileName(file)))
+                        {
+                            it.ForeColor = Color.Red;
+                        }
                     }
                 }
                 if (BatchProcessSubFolders)
@@ -98,7 +103,12 @@ namespace AMSExplorer
                     {
                         filecount = Directory.GetFiles(folder).Count();
                         s = filecount > 1 ? "{0} ({1} files)" : "{0} ({1} file)";
-                        checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount), true);
+                        var it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
+                        it.Checked = true;
+                        if (AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
+                        {
+                            it.ForeColor = Color.Red;
+                        }
                     }
                 }
             }
@@ -137,7 +147,7 @@ namespace AMSExplorer
         {
             for (int i = 0; i < checkedListBoxFolders.Items.Count; i++)
             {
-                checkedListBoxFolders.SetItemCheckState(i, CheckState.Checked);
+                checkedListBoxFolders.Items[i].Checked = true;
             }
         }
 
@@ -145,7 +155,7 @@ namespace AMSExplorer
         {
             foreach (int i in checkedListBoxFolders.CheckedIndices)
             {
-                checkedListBoxFolders.SetItemCheckState(i, CheckState.Unchecked);
+                checkedListBoxFolders.Items[i].Checked = false;
             }
         }
 
@@ -153,7 +163,7 @@ namespace AMSExplorer
         {
             foreach (int i in checkedListBoxFiles.CheckedIndices)
             {
-                checkedListBoxFiles.SetItemCheckState(i, CheckState.Unchecked);
+                checkedListBoxFiles.Items[i].Checked = false;
             }
         }
 
@@ -161,7 +171,7 @@ namespace AMSExplorer
         {
             for (int i = 0; i < checkedListBoxFiles.Items.Count; i++)
             {
-                checkedListBoxFiles.SetItemCheckState(i, CheckState.Checked);
+                checkedListBoxFiles.Items[i].Checked = true;
             }
         }
     }

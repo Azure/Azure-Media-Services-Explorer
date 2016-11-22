@@ -58,20 +58,21 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelPreview = new System.Windows.Forms.Label();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxStabilize = new System.Windows.Forms.CheckBox();
             this.checkBoxLimitNbFrames = new System.Windows.Forms.CheckBox();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTimes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).BeginInit();
@@ -228,7 +229,7 @@
             this.comboBoxFrameRate.Name = "comboBoxFrameRate";
             this.comboBoxFrameRate.Size = new System.Drawing.Size(101, 23);
             this.comboBoxFrameRate.TabIndex = 76;
-            this.comboBoxFrameRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxFrameRate_SelectedIndexChanged);
+            this.comboBoxFrameRate.SelectedIndexChanged += new System.EventHandler(this.control_ValueChanged);
             // 
             // textBoxSourceDurationTime
             // 
@@ -279,7 +280,7 @@
             0,
             0,
             0});
-            this.numericUpDownNumFrames.ValueChanged += new System.EventHandler(this.numericUpDownNumFrames_ValueChanged);
+            this.numericUpDownNumFrames.ValueChanged += new System.EventHandler(this.control_ValueChanged);
             // 
             // numericUpDownStartFrame
             // 
@@ -292,7 +293,7 @@
             this.numericUpDownStartFrame.Name = "numericUpDownStartFrame";
             this.numericUpDownStartFrame.Size = new System.Drawing.Size(124, 23);
             this.numericUpDownStartFrame.TabIndex = 43;
-            this.numericUpDownStartFrame.ValueChanged += new System.EventHandler(this.numericUpDownStartFrame_ValueChanged);
+            this.numericUpDownStartFrame.ValueChanged += new System.EventHandler(this.control_ValueChanged);
             // 
             // linkLabelHowItWorks
             // 
@@ -327,7 +328,7 @@
             0,
             0,
             0});
-            this.numericUpDownSpeed.ValueChanged += new System.EventHandler(this.numericUpDownSpeed_ValueChanged);
+            this.numericUpDownSpeed.ValueChanged += new System.EventHandler(this.control_ValueChanged);
             // 
             // labelspeed
             // 
@@ -410,26 +411,6 @@
             this.pictureBox1.TabIndex = 71;
             this.pictureBox1.TabStop = false;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(467, 403);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -473,6 +454,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxStabilize);
             this.tabPage1.Controls.Add(this.checkBoxLimitNbFrames);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label4);
@@ -490,6 +472,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxStabilize
+            // 
+            this.checkBoxStabilize.AutoSize = true;
+            this.checkBoxStabilize.Checked = true;
+            this.checkBoxStabilize.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStabilize.Location = new System.Drawing.Point(10, 200);
+            this.checkBoxStabilize.Name = "checkBoxStabilize";
+            this.checkBoxStabilize.Size = new System.Drawing.Size(69, 19);
+            this.checkBoxStabilize.TabIndex = 85;
+            this.checkBoxStabilize.Text = "Stabilize";
+            this.checkBoxStabilize.UseVisualStyleBackColor = true;
+            this.checkBoxStabilize.CheckedChanged += new System.EventHandler(this.control_ValueChanged);
             // 
             // checkBoxLimitNbFrames
             // 
@@ -542,6 +537,7 @@
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxConfiguration.Size = new System.Drawing.Size(585, 199);
             this.textBoxConfiguration.TabIndex = 78;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label12
             // 
@@ -560,6 +556,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(25, 42);
             this.panel2.TabIndex = 110;
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(467, 403);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // Hyperlapse
             // 
@@ -651,5 +667,6 @@
         public System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBoxLimitNbFrames;
+        private System.Windows.Forms.CheckBox checkBoxStabilize;
     }
 }

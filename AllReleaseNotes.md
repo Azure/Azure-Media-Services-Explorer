@@ -1,3 +1,33 @@
+Version 3.46.0.0 (November 21, 2016) brings the following features and improvements :
+
+* Support for new **“Blob storage accounts”** including **hot and cool** tiers
+  * Only for additional (attached) storage accounts
+  * Primary storage account still needs to be regular storage account and only LRS/GRS/GRS-RA is supported
+  * Uploading to new blob storage accounts is supported
+* New dialog box when a single file or multiple files are uploaded
+  * User can select the destination storage account, storage encryption or not, single asset option 
+* Update to **Azure Media Telemetry**
+* Support for JSON semaphore file in Watchfolder
+* Added support for Japanese in Media Indexer v2
+* Documentation links update
+* Updated the Media Services SDK to version 3.8.0.3
+* Bug fixes
+
+
+Version 3.45.0.0 (November 14, 2016) brings the following features and improvements :
+
+* Update for Media Encoder Standard (MES)
+  * Update to audio only presets
+  * Multi asset input support (for stitching)
+  * Video rotation mode
+* Minor update to **Azure Media Analytics**
+* Dynamic Encryption
+  * It's now possible to select an existing delivering policy and key authorization policy in Dynamic Encryption Wizard and Asset info, as it is recommended to reuse existing policies.
+* File name check when uploading a file
+* Support for calling an API in Watchfolder (to call an Azure logical app, for example)
+* Bug fixes, links update
+
+
 Version 3.44.1.0 (September 9, 2016) brings the following features and improvements :
 
 * New **Import from SAS Container Path** option

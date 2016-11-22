@@ -27,6 +27,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml.Linq;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -35,6 +36,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IEnumerable<IAsset> _SelectedAssets;
         private WatchFolderSettings _WatchFolderSettings;
+        private EditorXMLJSON BodyDisplayForm;
 
         public WatchFolderSettings WatchFolderGetSettings
         {
@@ -48,7 +50,8 @@ namespace AMSExplorer
                     JobTemplate = checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null,
                     SendEmailToRecipient = checkBoxSendEMail.Checked ? textBoxEMail.Text : null,
                     PublishOutputAssets = checkBoxPublishOAssets.Checked,
-                    ProcessRohzetXML = checkBoxProcessXMLRohzet.Checked
+                    ProcessRohzetXML = checkBoxProcessXMLRohzet.Checked,
+                    ProcessJSONSemaphore = checkBoxProcessJSONSemaphore.Checked,
                 };
 
                 if (checkBoAddAssetsToInput.Checked)
@@ -77,6 +80,12 @@ namespace AMSExplorer
                     settings.TypeInputExtraInput = TypeInputExtraInput.None;
                 }
 
+                if (checkBoxCallAPI.Checked)
+                {
+                    settings.CallAPIUrl = textBoxAPIUrl.Text;
+                    settings.CallAPJson = BodyDisplayForm.TextData;
+                }
+
                 return settings;
             }
         }
@@ -90,7 +99,7 @@ namespace AMSExplorer
             _WatchFolderSettings = watchfoldersettings;
             _SelectedAssets = selectedassets;
         }
-     
+
 
         private void WatchFolder_Load(object sender, EventArgs e)
         {
@@ -105,6 +114,9 @@ namespace AMSExplorer
 
             // Rohzet xml file
             checkBoxProcessXMLRohzet.Checked = _WatchFolderSettings.ProcessRohzetXML;
+
+            // JSON semaphore file
+            checkBoxProcessJSONSemaphore.Checked = _WatchFolderSettings.ProcessJSONSemaphore;
 
             // process asset
             checkBoxRunJobTemplate.Checked = (_WatchFolderSettings.JobTemplate != null);
@@ -134,6 +146,29 @@ namespace AMSExplorer
             // other
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
             labelWarning.Text = string.Empty;
+
+
+            checkBoxCallAPI.Checked = _WatchFolderSettings.CallAPIUrl != null;
+            textBoxAPIUrl.Text = _WatchFolderSettings.CallAPIUrl;
+
+            if (_WatchFolderSettings.CallAPJson != null)
+            {
+                BodyDisplayForm = new EditorXMLJSON("Body", _WatchFolderSettings.CallAPJson, true, false, true);
+
+            }
+            else
+            {
+                // Body for the API Call
+                try
+                {
+                    StreamReader streamReader = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleWatchFolderJSONCall.json"));
+                    BodyDisplayForm = new EditorXMLJSON("Body", streamReader.ReadToEnd(), true, false, true);
+                    streamReader.Close();
+                }
+                catch
+                {
+                }
+            }
         }
 
         private void buttonSelFolder_Click(object sender, EventArgs e)
@@ -171,7 +206,11 @@ namespace AMSExplorer
 
         private void buttonTestEmail_Click(object sender, EventArgs e)
         {
-            Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body");
+            if (!Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body"))
+            {
+                MessageBox.Show("Error when sending Outlook email...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void checkBoxSendEMail_CheckedChanged(object sender, EventArgs e)
@@ -225,16 +264,16 @@ namespace AMSExplorer
 
         }
 
-        public class RohzetAsset
+        public class assetfileinJson
         {
-            public string Type { get; set; }
-            public string URI { get; set; }
+            public string fileName = String.Empty;
+            public bool isPrimary = false;
         }
 
 
-        public static List<RohzetAsset> GetListFilesFromRohzetXML(string filenameWithPath)
+        public static List<assetfileinJson> GetListFilesFromRohzetXML(string filenameWithPath)
         {
-            var list = new List<RohzetAsset>();
+            var list = new List<assetfileinJson>();
             try
             {
                 var doc = new XDocument();
@@ -247,10 +286,32 @@ namespace AMSExplorer
                     {
                         bool relative = bool.Parse(a.Element("IsRelativeURI").Value);
                         string filename = relative ? Path.Combine(Path.GetDirectoryName(filenameWithPath), a.Element("URI").Value) : a.Element("URI").Value;
-                        list.Add(new RohzetAsset() { Type = a.Element("Type").Value, URI = filename });
+                        list.Add(new assetfileinJson() { /* Type = a.Element("Type").Value, */ fileName = filename });
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return list;
+        }
+
+        public static List<assetfileinJson> GetListFilesFromJSONIngest(string filenameWithPath)
+        {
+            List<assetfileinJson> list = new List<assetfileinJson>();
+            try
+            {
+                using (StreamReader reader = new StreamReader(filenameWithPath))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string json = reader.ReadToEnd();
+                        list = JsonConvert.DeserializeObject<List<assetfileinJson>>(json);
+                    }
+                }
+            }
+
             catch (Exception ex)
             {
                 throw ex;
@@ -268,12 +329,47 @@ namespace AMSExplorer
             try
             {
                 XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleSemaphoreRhozet.xml"));
-                var tokenDisplayForm = new EditorXMLJSON("Sample Semaphore file", doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), false, false, false);
+                var tokenDisplayForm = new EditorXMLJSON("Sample Semaphore XML file", doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), false, false, false);
                 tokenDisplayForm.Display();
             }
             catch
             {
             }
+        }
+
+        private void SeeJSONExample()
+        {
+            try
+            {
+                var sr = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleSemaphore.json"));
+                var tokenDisplayForm = new EditorXMLJSON("Sample Semaphore JSON", sr.ReadToEnd(), false, false, false);
+                tokenDisplayForm.Display();
+            }
+            catch
+            {
+            }
+        }
+
+        private void buttonJsonBody_Click(object sender, EventArgs e)
+        {
+            JsonBodyDisplayEdit();
+        }
+
+        private void JsonBodyDisplayEdit()
+        {
+
+            BodyDisplayForm.Display();
+
+        }
+
+        private void checkBoxCallAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxAPIUrl.Enabled = buttonJsonBody.Enabled = checkBoxCallAPI.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SeeJSONExample();
         }
     }
 }

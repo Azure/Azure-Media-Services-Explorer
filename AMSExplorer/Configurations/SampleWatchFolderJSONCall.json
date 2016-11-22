@@ -1,0 +1,13 @@
+{
+  "Error": "{Error}",
+  "SourceAssetId": "{Source Asset Id}",
+  "SourceAssetName": "{Source Asset Name}",
+  "SourceFileName": "{Source File Name}",
+  "OutputAssetId": "{Output Asset Id}",
+  "OutputAssetName": "{Output Asset Name}",
+  "JobId": "{Job Id}",
+  "JobState": "{Job State}",
+  "LocatorId": "{Locator Id}",
+  "PublishUrl": "{Publish Url}",
+  "Playback Url": "{Playback Url}"
+}

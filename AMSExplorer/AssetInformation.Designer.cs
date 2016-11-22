@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInformation));
             this.DGAsset = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,10 +38,7 @@
             this.deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemPlaybackFlashAzure = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemPlaybackSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
@@ -90,6 +86,7 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonAddExistingAutPol = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
@@ -108,6 +105,7 @@
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.buttonAddExistingDelPol = new System.Windows.Forms.Button();
             this.buttonRemoveDelPol = new System.Windows.Forms.Button();
             this.DGDelPol = new System.Windows.Forms.DataGridView();
             this.listViewDelPol = new System.Windows.Forms.ListView();
@@ -115,10 +113,9 @@
             this.contextMenuStripDelPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeDeliveryPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
-            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
             this.buttonOpen = new System.Windows.Forms.Button();
@@ -127,7 +124,6 @@
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -157,141 +153,143 @@
             // 
             // DGAsset
             // 
-            resources.ApplyResources(this.DGAsset, "DGAsset");
             this.DGAsset.AllowUserToAddRows = false;
             this.DGAsset.AllowUserToDeleteRows = false;
             this.DGAsset.AllowUserToResizeRows = false;
+            this.DGAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGAsset.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAsset.ColumnHeadersVisible = false;
             this.DGAsset.ContextMenuStrip = this.contextMenuStripDG;
+            this.DGAsset.Location = new System.Drawing.Point(7, 7);
             this.DGAsset.MultiSelect = false;
             this.DGAsset.Name = "DGAsset";
             this.DGAsset.ReadOnly = true;
             this.DGAsset.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.DGAsset, resources.GetString("DGAsset.ToolTip"));
+            this.DGAsset.Size = new System.Drawing.Size(863, 456);
+            this.DGAsset.TabIndex = 0;
             // 
             // contextMenuStripDG
             // 
-            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.toolTip1.SetToolTip(this.contextMenuStripDG, resources.GetString("contextMenuStripDG.ToolTip"));
+            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick_1);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
-            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
+            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
+            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
             this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
             // 
             // buttonClose
             // 
-            resources.ApplyResources(this.buttonClose, "buttonClose");
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonClose.Location = new System.Drawing.Point(800, 14);
             this.buttonClose.Name = "buttonClose";
-            this.toolTip1.SetToolTip(this.buttonClose, resources.GetString("buttonClose.ToolTip"));
+            this.buttonClose.Size = new System.Drawing.Size(87, 27);
+            this.buttonClose.TabIndex = 3;
+            this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // contextMenuStripLocators
             // 
-            resources.ApplyResources(this.contextMenuStripLocators, "contextMenuStripLocators");
             this.contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemCopy,
             this.deleteLocatorToolStripMenuItem,
             this.toolStripMenuItemOpen,
             this.toolStripMenuItemAzureMediaPlayer,
-            this.toolStripMenuItemPlaybackFlashAzure,
-            this.toolStripMenuItemPlaybackSilverlightMonitoring,
             this.toolStripMenuItemDASHIF,
-            this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.toolTip1.SetToolTip(this.contextMenuStripLocators, resources.GetString("contextMenuStripLocators.ToolTip"));
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 136);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
             // 
-            resources.ApplyResources(this.toolStripMenuItemCopy, "toolStripMenuItemCopy");
             this.toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
+            this.toolStripMenuItemCopy.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemCopy.Text = "Copy to clipboard";
             this.toolStripMenuItemCopy.Click += new System.EventHandler(this.toolStripMenuItemCopy_Click);
             // 
             // deleteLocatorToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteLocatorToolStripMenuItem, "deleteLocatorToolStripMenuItem");
             this.deleteLocatorToolStripMenuItem.Name = "deleteLocatorToolStripMenuItem";
+            this.deleteLocatorToolStripMenuItem.Size = new System.Drawing.Size(322, 22);
+            this.deleteLocatorToolStripMenuItem.Text = "Delete locator";
             this.deleteLocatorToolStripMenuItem.Click += new System.EventHandler(this.deleteLocatorToolStripMenuItem_Click);
             // 
             // toolStripMenuItemOpen
             // 
-            resources.ApplyResources(this.toolStripMenuItemOpen, "toolStripMenuItemOpen");
+            this.toolStripMenuItemOpen.Enabled = false;
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemOpen.Text = "Open the file";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
             // toolStripMenuItemAzureMediaPlayer
             // 
-            resources.ApplyResources(this.toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
+            this.toolStripMenuItemAzureMediaPlayer.Enabled = false;
             this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
+            this.toolStripMenuItemAzureMediaPlayer.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemAzureMediaPlayer.Text = "Playback with Azure Media Player";
             this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItemPlaybackFlashAzure
-            // 
-            resources.ApplyResources(this.toolStripMenuItemPlaybackFlashAzure, "toolStripMenuItemPlaybackFlashAzure");
-            this.toolStripMenuItemPlaybackFlashAzure.Name = "toolStripMenuItemPlaybackFlashAzure";
-            this.toolStripMenuItemPlaybackFlashAzure.Click += new System.EventHandler(this.toolStripMenuItemPlaybackFlash_Click);
-            // 
-            // toolStripMenuItemPlaybackSilverlightMonitoring
-            // 
-            resources.ApplyResources(this.toolStripMenuItemPlaybackSilverlightMonitoring, "toolStripMenuItemPlaybackSilverlightMonitoring");
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Name = "toolStripMenuItemPlaybackSilverlightMonitoring";
-            this.toolStripMenuItemPlaybackSilverlightMonitoring.Click += new System.EventHandler(this.toolStripMenuItemPlaybackSilverlight_Click);
             // 
             // toolStripMenuItemDASHIF
             // 
-            resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
+            this.toolStripMenuItemDASHIF.Enabled = false;
             this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
+            this.toolStripMenuItemDASHIF.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemDASHIF.Text = "Playback with MPEG-DASH-IF Reference Player";
             this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
-            // 
-            // toolStripMenuItemDASHLiveAzure
-            // 
-            resources.ApplyResources(this.toolStripMenuItemDASHLiveAzure, "toolStripMenuItemDASHLiveAzure");
-            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
             // 
             // toolStripMenuItemPlaybackMP4
             // 
-            resources.ApplyResources(this.toolStripMenuItemPlaybackMP4, "toolStripMenuItemPlaybackMP4");
+            this.toolStripMenuItemPlaybackMP4.Enabled = false;
             this.toolStripMenuItemPlaybackMP4.Name = "toolStripMenuItemPlaybackMP4";
+            this.toolStripMenuItemPlaybackMP4.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemPlaybackMP4.Text = "Playback with HTML Player (MP4)";
             this.toolStripMenuItemPlaybackMP4.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
             // 
             // TreeViewLocators
             // 
-            resources.ApplyResources(this.TreeViewLocators, "TreeViewLocators");
+            this.TreeViewLocators.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TreeViewLocators.ContextMenuStrip = this.contextMenuStripLocators;
+            this.TreeViewLocators.Location = new System.Drawing.Point(7, 36);
             this.TreeViewLocators.Name = "TreeViewLocators";
-            this.toolTip1.SetToolTip(this.TreeViewLocators, resources.GetString("TreeViewLocators.ToolTip"));
+            this.TreeViewLocators.Size = new System.Drawing.Size(863, 395);
+            this.TreeViewLocators.TabIndex = 19;
             this.TreeViewLocators.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewLocators_AfterSelect);
             // 
             // DGFiles
             // 
-            resources.ApplyResources(this.DGFiles, "DGFiles");
             this.DGFiles.AllowUserToAddRows = false;
             this.DGFiles.AllowUserToDeleteRows = false;
             this.DGFiles.AllowUserToResizeRows = false;
+            this.DGFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGFiles.ColumnHeadersVisible = false;
             this.DGFiles.ContextMenuStrip = this.contextMenuStripDG;
+            this.DGFiles.Location = new System.Drawing.Point(385, 7);
             this.DGFiles.MultiSelect = false;
             this.DGFiles.Name = "DGFiles";
             this.DGFiles.ReadOnly = true;
             this.DGFiles.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.DGFiles, resources.GetString("DGFiles.ToolTip"));
+            this.DGFiles.Size = new System.Drawing.Size(478, 424);
+            this.DGFiles.TabIndex = 20;
             // 
             // contextMenuStripFiles
             // 
-            resources.ApplyResources(this.contextMenuStripFiles, "contextMenuStripFiles");
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.makeItPrimaryToolStripMenuItem,
             this.showMetadataToolStripMenuItem,
@@ -302,170 +300,222 @@
             this.duplicateFileToolStripMenuItem,
             this.uploadASmallFileInTheAssetToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.toolTip1.SetToolTip(this.contextMenuStripFiles, resources.GetString("contextMenuStripFiles.ToolTip"));
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 180);
             this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
             // 
             // makeItPrimaryToolStripMenuItem
             // 
-            resources.ApplyResources(this.makeItPrimaryToolStripMenuItem, "makeItPrimaryToolStripMenuItem");
             this.makeItPrimaryToolStripMenuItem.Name = "makeItPrimaryToolStripMenuItem";
+            this.makeItPrimaryToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.makeItPrimaryToolStripMenuItem.Text = "Set as Primary";
             this.makeItPrimaryToolStripMenuItem.Click += new System.EventHandler(this.makeItPrimaryToolStripMenuItem_Click);
             // 
             // showMetadataToolStripMenuItem
             // 
-            resources.ApplyResources(this.showMetadataToolStripMenuItem, "showMetadataToolStripMenuItem");
             this.showMetadataToolStripMenuItem.Name = "showMetadataToolStripMenuItem";
+            this.showMetadataToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.showMetadataToolStripMenuItem.Text = "Show metadata";
             this.showMetadataToolStripMenuItem.Click += new System.EventHandler(this.showMetadataToolStripMenuItem_Click);
             // 
             // toolStripMenuItemOpenFile
             // 
-            resources.ApplyResources(this.toolStripMenuItemOpenFile, "toolStripMenuItemOpenFile");
             this.toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
+            this.toolStripMenuItemOpenFile.Size = new System.Drawing.Size(234, 22);
+            this.toolStripMenuItemOpenFile.Text = "Open file";
             this.toolStripMenuItemOpenFile.Click += new System.EventHandler(this.toolStripMenuItemOpenFile_Click);
             // 
             // toolStripMenuItemDownloadFile
             // 
-            resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
             this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
+            this.toolStripMenuItemDownloadFile.Size = new System.Drawing.Size(234, 22);
+            this.toolStripMenuItemDownloadFile.Text = "Download file to a local folder";
             this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_Click);
             // 
             // deleteFileToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteFileToolStripMenuItem, "deleteFileToolStripMenuItem");
             this.deleteFileToolStripMenuItem.Name = "deleteFileToolStripMenuItem";
+            this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.deleteFileToolStripMenuItem.Text = "Delete file";
             this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
             // 
             // deleteAllFilesToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteAllFilesToolStripMenuItem, "deleteAllFilesToolStripMenuItem");
             this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
+            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
             this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
             // duplicateFileToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateFileToolStripMenuItem, "duplicateFileToolStripMenuItem");
             this.duplicateFileToolStripMenuItem.Name = "duplicateFileToolStripMenuItem";
+            this.duplicateFileToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.duplicateFileToolStripMenuItem.Text = "Duplicate file";
             this.duplicateFileToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_Click);
             // 
             // uploadASmallFileInTheAssetToolStripMenuItem
             // 
-            resources.ApplyResources(this.uploadASmallFileInTheAssetToolStripMenuItem, "uploadASmallFileInTheAssetToolStripMenuItem");
             this.uploadASmallFileInTheAssetToolStripMenuItem.Name = "uploadASmallFileInTheAssetToolStripMenuItem";
+            this.uploadASmallFileInTheAssetToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.uploadASmallFileInTheAssetToolStripMenuItem.Text = "Upload a small file to the asset";
             this.uploadASmallFileInTheAssetToolStripMenuItem.Click += new System.EventHandler(this.uploadASmallFileInTheAssetToolStripMenuItem_Click);
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 476);
             this.label4.Name = "label4";
-            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
+            this.label4.Size = new System.Drawing.Size(73, 15);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Asset report:";
             // 
             // buttonCreateMail
             // 
-            resources.ApplyResources(this.buttonCreateMail, "buttonCreateMail");
+            this.buttonCreateMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCreateMail.Location = new System.Drawing.Point(219, 470);
             this.buttonCreateMail.Name = "buttonCreateMail";
-            this.toolTip1.SetToolTip(this.buttonCreateMail, resources.GetString("buttonCreateMail.ToolTip"));
+            this.buttonCreateMail.Size = new System.Drawing.Size(161, 27);
+            this.buttonCreateMail.TabIndex = 25;
+            this.buttonCreateMail.Text = "Create new Outlook email";
             this.buttonCreateMail.UseVisualStyleBackColor = true;
             this.buttonCreateMail.Click += new System.EventHandler(this.buttonCreateMail_Click);
             // 
             // buttonCopyStats
             // 
-            resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
+            this.buttonCopyStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCopyStats.Location = new System.Drawing.Point(91, 470);
             this.buttonCopyStats.Name = "buttonCopyStats";
-            this.toolTip1.SetToolTip(this.buttonCopyStats, resources.GetString("buttonCopyStats.ToolTip"));
+            this.buttonCopyStats.Size = new System.Drawing.Size(121, 27);
+            this.buttonCopyStats.TabIndex = 24;
+            this.buttonCopyStats.Text = "Display it";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
             this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
             // buttonSetPrimary
             // 
-            resources.ApplyResources(this.buttonSetPrimary, "buttonSetPrimary");
+            this.buttonSetPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSetPrimary.Enabled = false;
+            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 437);
             this.buttonSetPrimary.Name = "buttonSetPrimary";
-            this.toolTip1.SetToolTip(this.buttonSetPrimary, resources.GetString("buttonSetPrimary.ToolTip"));
+            this.buttonSetPrimary.Size = new System.Drawing.Size(104, 27);
+            this.buttonSetPrimary.TabIndex = 27;
+            this.buttonSetPrimary.Text = "Set as Primary";
             this.buttonSetPrimary.UseVisualStyleBackColor = true;
             this.buttonSetPrimary.Click += new System.EventHandler(this.buttonSetPrimary_Click);
             // 
             // buttonDeleteFile
             // 
-            resources.ApplyResources(this.buttonDeleteFile, "buttonDeleteFile");
+            this.buttonDeleteFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteFile.Enabled = false;
+            this.buttonDeleteFile.Location = new System.Drawing.Point(178, 437);
             this.buttonDeleteFile.Name = "buttonDeleteFile";
-            this.toolTip1.SetToolTip(this.buttonDeleteFile, resources.GetString("buttonDeleteFile.ToolTip"));
+            this.buttonDeleteFile.Size = new System.Drawing.Size(56, 27);
+            this.buttonDeleteFile.TabIndex = 28;
+            this.buttonDeleteFile.Text = "Delete";
+            this.toolTip1.SetToolTip(this.buttonDeleteFile, "Delete the selected file");
             this.buttonDeleteFile.UseVisualStyleBackColor = true;
             this.buttonDeleteFile.Click += new System.EventHandler(this.buttonDeleteFile_Click);
             // 
             // buttonDownloadFile
             // 
-            resources.ApplyResources(this.buttonDownloadFile, "buttonDownloadFile");
+            this.buttonDownloadFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDownloadFile.Enabled = false;
+            this.buttonDownloadFile.Location = new System.Drawing.Point(479, 437);
             this.buttonDownloadFile.Name = "buttonDownloadFile";
-            this.toolTip1.SetToolTip(this.buttonDownloadFile, resources.GetString("buttonDownloadFile.ToolTip"));
+            this.buttonDownloadFile.Size = new System.Drawing.Size(80, 27);
+            this.buttonDownloadFile.TabIndex = 29;
+            this.buttonDownloadFile.Text = "Download";
             this.buttonDownloadFile.UseVisualStyleBackColor = true;
             this.buttonDownloadFile.Click += new System.EventHandler(this.buttonDownloadFile_Click);
             // 
             // buttonOpenFile
             // 
-            resources.ApplyResources(this.buttonOpenFile, "buttonOpenFile");
+            this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOpenFile.Enabled = false;
+            this.buttonOpenFile.Location = new System.Drawing.Point(120, 437);
             this.buttonOpenFile.Name = "buttonOpenFile";
-            this.toolTip1.SetToolTip(this.buttonOpenFile, resources.GetString("buttonOpenFile.ToolTip"));
+            this.buttonOpenFile.Size = new System.Drawing.Size(52, 27);
+            this.buttonOpenFile.TabIndex = 30;
+            this.buttonOpenFile.Text = "Open";
+            this.toolTip1.SetToolTip(this.buttonOpenFile, "Open the selected file in a browser");
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
             // listViewFiles
             // 
-            resources.ApplyResources(this.listViewFiles, "listViewFiles");
+            this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ListViewFilesName,
             this.ListViewFilesSize});
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
+            this.listViewFiles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
+            this.listViewFiles.Location = new System.Drawing.Point(10, 7);
             this.listViewFiles.Name = "listViewFiles";
-            this.toolTip1.SetToolTip(this.listViewFiles, resources.GetString("listViewFiles.ToolTip"));
+            this.listViewFiles.Size = new System.Drawing.Size(367, 424);
+            this.listViewFiles.TabIndex = 31;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
             this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
             // 
             // ListViewFilesName
             // 
-            resources.ApplyResources(this.ListViewFilesName, "ListViewFilesName");
+            this.ListViewFilesName.Text = "Name";
+            this.ListViewFilesName.Width = 25;
             // 
             // ListViewFilesSize
             // 
-            resources.ApplyResources(this.ListViewFilesSize, "ListViewFilesSize");
+            this.ListViewFilesSize.Text = "Size";
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(14, 51);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
+            this.tabControl1.Size = new System.Drawing.Size(887, 535);
+            this.tabControl1.TabIndex = 34;
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.buttonAudioVideoAnalysis);
             this.tabPage1.Controls.Add(this.DGAsset);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
             this.tabPage1.Controls.Add(this.buttonCreateMail);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
-            this.toolTip1.SetToolTip(this.tabPage1, resources.GetString("tabPage1.ToolTip"));
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(879, 507);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Asset information";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonAudioVideoAnalysis
             // 
-            resources.ApplyResources(this.buttonAudioVideoAnalysis, "buttonAudioVideoAnalysis");
+            this.buttonAudioVideoAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAudioVideoAnalysis.Location = new System.Drawing.Point(717, 470);
             this.buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
-            this.toolTip1.SetToolTip(this.buttonAudioVideoAnalysis, resources.GetString("buttonAudioVideoAnalysis.ToolTip"));
+            this.buttonAudioVideoAnalysis.Size = new System.Drawing.Size(153, 27);
+            this.buttonAudioVideoAnalysis.TabIndex = 27;
+            this.buttonAudioVideoAnalysis.Text = "Audio/Video analysis";
             this.buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
+            this.buttonAudioVideoAnalysis.Visible = false;
             this.buttonAudioVideoAnalysis.Click += new System.EventHandler(this.buttonAudioVideoAnalysis_Click);
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.buttonGenerateManifest);
             this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
@@ -479,136 +529,194 @@
             this.tabPage2.Controls.Add(this.buttonSetPrimary);
             this.tabPage2.Controls.Add(this.DGFiles);
             this.tabPage2.Controls.Add(this.listViewFiles);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
-            this.toolTip1.SetToolTip(this.tabPage2, resources.GetString("tabPage2.ToolTip"));
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(879, 507);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // buttonGenerateManifest
             // 
-            resources.ApplyResources(this.buttonGenerateManifest, "buttonGenerateManifest");
+            this.buttonGenerateManifest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGenerateManifest.Location = new System.Drawing.Point(178, 469);
             this.buttonGenerateManifest.Name = "buttonGenerateManifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateManifest, resources.GetString("buttonGenerateManifest.ToolTip"));
+            this.buttonGenerateManifest.Size = new System.Drawing.Size(141, 27);
+            this.buttonGenerateManifest.TabIndex = 38;
+            this.buttonGenerateManifest.Text = "Generate a manifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateManifest, "Generate a manifest file for a multi MP4 files asset");
             this.buttonGenerateManifest.UseVisualStyleBackColor = true;
             this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
             // 
             // buttonEditOnline
             // 
-            resources.ApplyResources(this.buttonEditOnline, "buttonEditOnline");
+            this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditOnline.Enabled = false;
+            this.buttonEditOnline.Location = new System.Drawing.Point(120, 469);
             this.buttonEditOnline.Name = "buttonEditOnline";
-            this.toolTip1.SetToolTip(this.buttonEditOnline, resources.GetString("buttonEditOnline.ToolTip"));
+            this.buttonEditOnline.Size = new System.Drawing.Size(52, 27);
+            this.buttonEditOnline.TabIndex = 37;
+            this.buttonEditOnline.Text = "Edit";
+            this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
             this.buttonEditOnline.UseVisualStyleBackColor = true;
             this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
             // 
             // buttonDeleteAll
             // 
-            resources.ApplyResources(this.buttonDeleteAll, "buttonDeleteAll");
+            this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteAll.Enabled = false;
+            this.buttonDeleteAll.Location = new System.Drawing.Point(240, 437);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
-            this.toolTip1.SetToolTip(this.buttonDeleteAll, resources.GetString("buttonDeleteAll.ToolTip"));
+            this.buttonDeleteAll.Size = new System.Drawing.Size(79, 27);
+            this.buttonDeleteAll.TabIndex = 36;
+            this.buttonDeleteAll.Text = "Delete All";
+            this.toolTip1.SetToolTip(this.buttonDeleteAll, "Delete the selected file");
             this.buttonDeleteAll.UseVisualStyleBackColor = true;
             this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
             // 
             // buttonFileMetadata
             // 
-            resources.ApplyResources(this.buttonFileMetadata, "buttonFileMetadata");
+            this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFileMetadata.Enabled = false;
+            this.buttonFileMetadata.Location = new System.Drawing.Point(11, 469);
             this.buttonFileMetadata.Name = "buttonFileMetadata";
-            this.toolTip1.SetToolTip(this.buttonFileMetadata, resources.GetString("buttonFileMetadata.ToolTip"));
+            this.buttonFileMetadata.Size = new System.Drawing.Size(103, 27);
+            this.buttonFileMetadata.TabIndex = 35;
+            this.buttonFileMetadata.Text = "Show metadata";
+            this.toolTip1.SetToolTip(this.buttonFileMetadata, "Duplicate the selected file");
             this.buttonFileMetadata.UseVisualStyleBackColor = true;
             this.buttonFileMetadata.Click += new System.EventHandler(this.buttonFileMetadata_Click);
             // 
             // progressBarUpload
             // 
-            resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
+            this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarUpload.Location = new System.Drawing.Point(565, 437);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.toolTip1.SetToolTip(this.progressBarUpload, resources.GetString("progressBarUpload.ToolTip"));
+            this.progressBarUpload.Size = new System.Drawing.Size(298, 27);
+            this.progressBarUpload.TabIndex = 34;
+            this.progressBarUpload.Visible = false;
             // 
             // buttonUpload
             // 
-            resources.ApplyResources(this.buttonUpload, "buttonUpload");
+            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUpload.Enabled = false;
+            this.buttonUpload.Location = new System.Drawing.Point(404, 437);
             this.buttonUpload.Name = "buttonUpload";
-            this.toolTip1.SetToolTip(this.buttonUpload, resources.GetString("buttonUpload.ToolTip"));
+            this.buttonUpload.Size = new System.Drawing.Size(69, 27);
+            this.buttonUpload.TabIndex = 33;
+            this.buttonUpload.Text = "Upload";
+            this.toolTip1.SetToolTip(this.buttonUpload, "Upload file(s) to the asset. Use for small file(s) only.");
             this.buttonUpload.UseVisualStyleBackColor = true;
             this.buttonUpload.Click += new System.EventHandler(this.button2_Click);
             // 
             // buttonDuplicate
             // 
-            resources.ApplyResources(this.buttonDuplicate, "buttonDuplicate");
+            this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDuplicate.Enabled = false;
+            this.buttonDuplicate.Location = new System.Drawing.Point(325, 437);
             this.buttonDuplicate.Name = "buttonDuplicate";
-            this.toolTip1.SetToolTip(this.buttonDuplicate, resources.GetString("buttonDuplicate.ToolTip"));
+            this.buttonDuplicate.Size = new System.Drawing.Size(73, 27);
+            this.buttonDuplicate.TabIndex = 32;
+            this.buttonDuplicate.Text = "Duplicate";
+            this.toolTip1.SetToolTip(this.buttonDuplicate, "Duplicate the selected file");
             this.buttonDuplicate.UseVisualStyleBackColor = true;
             this.buttonDuplicate.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // tabPage6
             // 
-            resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Controls.Add(this.buttonPlayFilter);
             this.tabPage6.Controls.Add(this.buttonDuplicateFilter);
             this.tabPage6.Controls.Add(this.buttonDeleteFilter);
             this.tabPage6.Controls.Add(this.buttonCreateAssetFilter);
             this.tabPage6.Controls.Add(this.buttonFilterInfo);
             this.tabPage6.Controls.Add(this.dataGridViewFilters);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
-            this.toolTip1.SetToolTip(this.tabPage6, resources.GetString("tabPage6.ToolTip"));
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(879, 507);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Asset Filters";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // buttonPlayFilter
             // 
-            resources.ApplyResources(this.buttonPlayFilter, "buttonPlayFilter");
+            this.buttonPlayFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPlayFilter.Location = new System.Drawing.Point(478, 470);
             this.buttonPlayFilter.Name = "buttonPlayFilter";
-            this.toolTip1.SetToolTip(this.buttonPlayFilter, resources.GetString("buttonPlayFilter.ToolTip"));
+            this.buttonPlayFilter.Size = new System.Drawing.Size(140, 27);
+            this.buttonPlayFilter.TabIndex = 41;
+            this.buttonPlayFilter.Text = "Play with this filter";
             this.buttonPlayFilter.UseVisualStyleBackColor = true;
             this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
             // 
             // buttonDuplicateFilter
             // 
-            resources.ApplyResources(this.buttonDuplicateFilter, "buttonDuplicateFilter");
+            this.buttonDuplicateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDuplicateFilter.Location = new System.Drawing.Point(369, 470);
             this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
-            this.toolTip1.SetToolTip(this.buttonDuplicateFilter, resources.GetString("buttonDuplicateFilter.ToolTip"));
+            this.buttonDuplicateFilter.Size = new System.Drawing.Size(103, 27);
+            this.buttonDuplicateFilter.TabIndex = 40;
+            this.buttonDuplicateFilter.Text = "Duplicate";
             this.buttonDuplicateFilter.UseVisualStyleBackColor = true;
             this.buttonDuplicateFilter.Click += new System.EventHandler(this.button4_Click);
             // 
             // buttonDeleteFilter
             // 
-            resources.ApplyResources(this.buttonDeleteFilter, "buttonDeleteFilter");
+            this.buttonDeleteFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteFilter.Location = new System.Drawing.Point(259, 470);
             this.buttonDeleteFilter.Name = "buttonDeleteFilter";
-            this.toolTip1.SetToolTip(this.buttonDeleteFilter, resources.GetString("buttonDeleteFilter.ToolTip"));
+            this.buttonDeleteFilter.Size = new System.Drawing.Size(103, 27);
+            this.buttonDeleteFilter.TabIndex = 39;
+            this.buttonDeleteFilter.Text = "Delete";
             this.buttonDeleteFilter.UseVisualStyleBackColor = true;
             this.buttonDeleteFilter.Click += new System.EventHandler(this.buttonDeleteFilter_Click);
             // 
             // buttonCreateAssetFilter
             // 
-            resources.ApplyResources(this.buttonCreateAssetFilter, "buttonCreateAssetFilter");
+            this.buttonCreateAssetFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(149, 470);
             this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
-            this.toolTip1.SetToolTip(this.buttonCreateAssetFilter, resources.GetString("buttonCreateAssetFilter.ToolTip"));
+            this.buttonCreateAssetFilter.Size = new System.Drawing.Size(103, 27);
+            this.buttonCreateAssetFilter.TabIndex = 38;
+            this.buttonCreateAssetFilter.Text = "Create";
             this.buttonCreateAssetFilter.UseVisualStyleBackColor = true;
             this.buttonCreateAssetFilter.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // buttonFilterInfo
             // 
-            resources.ApplyResources(this.buttonFilterInfo, "buttonFilterInfo");
+            this.buttonFilterInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFilterInfo.Location = new System.Drawing.Point(7, 470);
             this.buttonFilterInfo.Name = "buttonFilterInfo";
-            this.toolTip1.SetToolTip(this.buttonFilterInfo, resources.GetString("buttonFilterInfo.ToolTip"));
+            this.buttonFilterInfo.Size = new System.Drawing.Size(135, 27);
+            this.buttonFilterInfo.TabIndex = 37;
+            this.buttonFilterInfo.Text = "Filter info/update";
             this.buttonFilterInfo.UseVisualStyleBackColor = true;
             this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // dataGridViewFilters
             // 
-            resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
             this.dataGridViewFilters.AllowUserToAddRows = false;
             this.dataGridViewFilters.AllowUserToDeleteRows = false;
             this.dataGridViewFilters.AllowUserToResizeRows = false;
+            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
+            this.dataGridViewFilters.Location = new System.Drawing.Point(7, 7);
             this.dataGridViewFilters.Name = "dataGridViewFilters";
             this.dataGridViewFilters.ReadOnly = true;
             this.dataGridViewFilters.RowHeadersVisible = false;
             this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.toolTip1.SetToolTip(this.dataGridViewFilters, resources.GetString("dataGridViewFilters.ToolTip"));
+            this.dataGridViewFilters.Size = new System.Drawing.Size(863, 456);
+            this.dataGridViewFilters.TabIndex = 36;
             this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
             // 
             // contextMenuStripFilter
             // 
-            resources.ApplyResources(this.contextMenuStripFilter, "contextMenuStripFilter");
             this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filterInfoupdateToolStripMenuItem,
             this.createAnAssetFilterToolStripMenuItem,
@@ -616,45 +724,50 @@
             this.duplicateToolStripMenuItem,
             this.playWithThisFilterToolStripMenuItem});
             this.contextMenuStripFilter.Name = "contextMenuStripFilter";
-            this.toolTip1.SetToolTip(this.contextMenuStripFilter, resources.GetString("contextMenuStripFilter.ToolTip"));
+            this.contextMenuStripFilter.Size = new System.Drawing.Size(172, 114);
             // 
             // filterInfoupdateToolStripMenuItem
             // 
-            resources.ApplyResources(this.filterInfoupdateToolStripMenuItem, "filterInfoupdateToolStripMenuItem");
             this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
             this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
             // createAnAssetFilterToolStripMenuItem
             // 
-            resources.ApplyResources(this.createAnAssetFilterToolStripMenuItem, "createAnAssetFilterToolStripMenuItem");
             this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
             this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
+            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.createAnAssetFilterToolStripMenuItem.Text = "Create...";
             this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteToolStripMenuItem, "deleteToolStripMenuItem");
             this.deleteToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // duplicateToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateToolStripMenuItem, "duplicateToolStripMenuItem");
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.duplicateToolStripMenuItem.Text = "Duplicate";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // playWithThisFilterToolStripMenuItem
             // 
-            resources.ApplyResources(this.playWithThisFilterToolStripMenuItem, "playWithThisFilterToolStripMenuItem");
             this.playWithThisFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.play;
             this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
+            this.playWithThisFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.playWithThisFilterToolStripMenuItem.Text = "Play with this filter";
             this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
             // 
             // tabPage5
             // 
-            resources.ApplyResources(this.tabPage5, "tabPage5");
+            this.tabPage5.Controls.Add(this.buttonAddExistingAutPol);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPolOption);
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
@@ -664,240 +777,312 @@
             this.tabPage5.Controls.Add(this.listViewAutPolOptions);
             this.tabPage5.Controls.Add(this.dataGridViewKeys);
             this.tabPage5.Controls.Add(this.listViewKeys);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
-            this.toolTip1.SetToolTip(this.tabPage5, resources.GetString("tabPage5.ToolTip"));
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(879, 507);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddExistingAutPol
+            // 
+            this.buttonAddExistingAutPol.Enabled = false;
+            this.buttonAddExistingAutPol.Location = new System.Drawing.Point(13, 338);
+            this.buttonAddExistingAutPol.Name = "buttonAddExistingAutPol";
+            this.buttonAddExistingAutPol.Size = new System.Drawing.Size(187, 27);
+            this.buttonAddExistingAutPol.TabIndex = 45;
+            this.buttonAddExistingAutPol.Text = "Add an existing auth policy...";
+            this.buttonAddExistingAutPol.UseVisualStyleBackColor = true;
+            this.buttonAddExistingAutPol.Click += new System.EventHandler(this.buttonAddExistingAutPol_Click);
             // 
             // buttonRemoveAuthPolOption
             // 
-            resources.ApplyResources(this.buttonRemoveAuthPolOption, "buttonRemoveAuthPolOption");
+            this.buttonRemoveAuthPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveAuthPolOption.Enabled = false;
+            this.buttonRemoveAuthPolOption.Location = new System.Drawing.Point(402, 469);
             this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
-            this.toolTip1.SetToolTip(this.buttonRemoveAuthPolOption, resources.GetString("buttonRemoveAuthPolOption.ToolTip"));
+            this.buttonRemoveAuthPolOption.Size = new System.Drawing.Size(103, 27);
+            this.buttonRemoveAuthPolOption.TabIndex = 44;
+            this.buttonRemoveAuthPolOption.Text = "Remove option";
             this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
             this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
             // 
             // buttonRemoveAuthPol
             // 
-            resources.ApplyResources(this.buttonRemoveAuthPol, "buttonRemoveAuthPol");
+            this.buttonRemoveAuthPol.Enabled = false;
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(13, 305);
             this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
-            this.toolTip1.SetToolTip(this.buttonRemoveAuthPol, resources.GetString("buttonRemoveAuthPol.ToolTip"));
+            this.buttonRemoveAuthPol.Size = new System.Drawing.Size(140, 27);
+            this.buttonRemoveAuthPol.TabIndex = 43;
+            this.buttonRemoveAuthPol.Text = "Remove auth policy";
             this.buttonRemoveAuthPol.UseVisualStyleBackColor = true;
             this.buttonRemoveAuthPol.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // buttonRemoveKey
             // 
-            resources.ApplyResources(this.buttonRemoveKey, "buttonRemoveKey");
+            this.buttonRemoveKey.Enabled = false;
+            this.buttonRemoveKey.Location = new System.Drawing.Point(13, 272);
             this.buttonRemoveKey.Name = "buttonRemoveKey";
-            this.toolTip1.SetToolTip(this.buttonRemoveKey, resources.GetString("buttonRemoveKey.ToolTip"));
+            this.buttonRemoveKey.Size = new System.Drawing.Size(108, 27);
+            this.buttonRemoveKey.TabIndex = 42;
+            this.buttonRemoveKey.Text = "Remove key";
             this.buttonRemoveKey.UseVisualStyleBackColor = true;
             this.buttonRemoveKey.Click += new System.EventHandler(this.buttonDelKey_Click);
             // 
             // buttonGetTestToken
             // 
-            resources.ApplyResources(this.buttonGetTestToken, "buttonGetTestToken");
+            this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGetTestToken.Enabled = false;
+            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 469);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
-            this.toolTip1.SetToolTip(this.buttonGetTestToken, resources.GetString("buttonGetTestToken.ToolTip"));
+            this.buttonGetTestToken.Size = new System.Drawing.Size(121, 27);
+            this.buttonGetTestToken.TabIndex = 41;
+            this.buttonGetTestToken.Text = "Get Test Token";
             this.buttonGetTestToken.UseVisualStyleBackColor = true;
             this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
             // 
             // label3
             // 
-            resources.ApplyResources(this.label3, "label3");
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(275, 284);
             this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
+            this.label3.Size = new System.Drawing.Size(158, 15);
+            this.label3.TabIndex = 40;
+            this.label3.Text = "Authorization policy options";
             // 
             // dataGridViewAutPolOption
             // 
-            resources.ApplyResources(this.dataGridViewAutPolOption, "dataGridViewAutPolOption");
             this.dataGridViewAutPolOption.AllowUserToAddRows = false;
             this.dataGridViewAutPolOption.AllowUserToDeleteRows = false;
             this.dataGridViewAutPolOption.AllowUserToResizeRows = false;
+            this.dataGridViewAutPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewAutPolOption.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewAutPolOption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAutPolOption.ColumnHeadersVisible = false;
             this.dataGridViewAutPolOption.ContextMenuStrip = this.contextMenuStripDG;
+            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(538, 302);
             this.dataGridViewAutPolOption.MultiSelect = false;
             this.dataGridViewAutPolOption.Name = "dataGridViewAutPolOption";
             this.dataGridViewAutPolOption.ReadOnly = true;
             this.dataGridViewAutPolOption.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.dataGridViewAutPolOption, resources.GetString("dataGridViewAutPolOption.ToolTip"));
+            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(328, 194);
+            this.dataGridViewAutPolOption.TabIndex = 38;
             this.dataGridViewAutPolOption.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAutPolOption_CellContentClick);
             // 
             // listViewAutPolOptions
             // 
-            resources.ApplyResources(this.listViewAutPolOptions, "listViewAutPolOptions");
+            this.listViewAutPolOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listViewAutPolOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3});
             this.listViewAutPolOptions.ContextMenuStrip = this.contextMenuStripAuthPol;
             this.listViewAutPolOptions.FullRowSelect = true;
             this.listViewAutPolOptions.HideSelection = false;
+            this.listViewAutPolOptions.Location = new System.Drawing.Point(275, 302);
             this.listViewAutPolOptions.MultiSelect = false;
             this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.toolTip1.SetToolTip(this.listViewAutPolOptions, resources.GetString("listViewAutPolOptions.ToolTip"));
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 161);
+            this.listViewAutPolOptions.TabIndex = 39;
             this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
             this.listViewAutPolOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutPolOption_SelectedIndexChanged);
             // 
             // columnHeader3
             // 
-            resources.ApplyResources(this.columnHeader3, "columnHeader3");
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 25;
             // 
             // contextMenuStripAuthPol
             // 
-            resources.ApplyResources(this.contextMenuStripAuthPol, "contextMenuStripAuthPol");
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.getTestTokenToolStripMenuItem,
             this.removeOptionToolStripMenuItem,
             this.removeAuthorizationPolicyToolStripMenuItem});
             this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            this.toolTip1.SetToolTip(this.contextMenuStripAuthPol, resources.GetString("contextMenuStripAuthPol.ToolTip"));
+            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(235, 70);
             this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
             // 
             // getTestTokenToolStripMenuItem
             // 
-            resources.ApplyResources(this.getTestTokenToolStripMenuItem, "getTestTokenToolStripMenuItem");
             this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
+            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.getTestTokenToolStripMenuItem.Text = "Get Test Token...";
             this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
             // 
             // removeOptionToolStripMenuItem
             // 
-            resources.ApplyResources(this.removeOptionToolStripMenuItem, "removeOptionToolStripMenuItem");
             this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
+            this.removeOptionToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeOptionToolStripMenuItem.Text = "Remove option...";
             this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
             // 
             // removeAuthorizationPolicyToolStripMenuItem
             // 
-            resources.ApplyResources(this.removeAuthorizationPolicyToolStripMenuItem, "removeAuthorizationPolicyToolStripMenuItem");
             this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
+            this.removeAuthorizationPolicyToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.removeAuthorizationPolicyToolStripMenuItem.Text = "Remove authorization policy...";
             this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
             // 
             // dataGridViewKeys
             // 
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
             this.dataGridViewKeys.AllowUserToAddRows = false;
             this.dataGridViewKeys.AllowUserToDeleteRows = false;
             this.dataGridViewKeys.AllowUserToResizeRows = false;
+            this.dataGridViewKeys.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKeys.ColumnHeadersVisible = false;
             this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
+            this.dataGridViewKeys.Location = new System.Drawing.Point(275, 7);
             this.dataGridViewKeys.MultiSelect = false;
             this.dataGridViewKeys.Name = "dataGridViewKeys";
             this.dataGridViewKeys.ReadOnly = true;
             this.dataGridViewKeys.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.dataGridViewKeys, resources.GetString("dataGridViewKeys.ToolTip"));
+            this.dataGridViewKeys.Size = new System.Drawing.Size(590, 258);
+            this.dataGridViewKeys.TabIndex = 35;
             this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick);
             // 
             // listViewKeys
             // 
-            resources.ApplyResources(this.listViewKeys, "listViewKeys");
             this.listViewKeys.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
             this.listViewKeys.ContextMenuStrip = this.contextMenuStripKey;
             this.listViewKeys.FullRowSelect = true;
             this.listViewKeys.HideSelection = false;
+            this.listViewKeys.Location = new System.Drawing.Point(13, 7);
             this.listViewKeys.MultiSelect = false;
             this.listViewKeys.Name = "listViewKeys";
-            this.toolTip1.SetToolTip(this.listViewKeys, resources.GetString("listViewKeys.ToolTip"));
+            this.listViewKeys.Size = new System.Drawing.Size(255, 258);
+            this.listViewKeys.TabIndex = 36;
             this.listViewKeys.UseCompatibleStateImageBehavior = false;
             this.listViewKeys.View = System.Windows.Forms.View.Details;
             this.listViewKeys.SelectedIndexChanged += new System.EventHandler(this.listViewKeys_SelectedIndexChanged);
             // 
             // columnHeader2
             // 
-            resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 25;
             // 
             // contextMenuStripKey
             // 
-            resources.ApplyResources(this.contextMenuStripKey, "contextMenuStripKey");
             this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeKeyToolStripMenuItem});
             this.contextMenuStripKey.Name = "contextMenuStripKey";
-            this.toolTip1.SetToolTip(this.contextMenuStripKey, resources.GetString("contextMenuStripKey.ToolTip"));
+            this.contextMenuStripKey.Size = new System.Drawing.Size(148, 26);
             this.contextMenuStripKey.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripKey_Opening);
             // 
             // removeKeyToolStripMenuItem
             // 
-            resources.ApplyResources(this.removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
             this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
+            this.removeKeyToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.removeKeyToolStripMenuItem.Text = "Remove key...";
             this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // tabPage4
             // 
-            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Controls.Add(this.buttonAddExistingDelPol);
             this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
             this.tabPage4.Controls.Add(this.DGDelPol);
             this.tabPage4.Controls.Add(this.listViewDelPol);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
-            this.toolTip1.SetToolTip(this.tabPage4, resources.GetString("tabPage4.ToolTip"));
+            this.tabPage4.Size = new System.Drawing.Size(879, 507);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Delivery policies";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddExistingDelPol
+            // 
+            this.buttonAddExistingDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddExistingDelPol.Location = new System.Drawing.Point(174, 469);
+            this.buttonAddExistingDelPol.Name = "buttonAddExistingDelPol";
+            this.buttonAddExistingDelPol.Size = new System.Drawing.Size(166, 27);
+            this.buttonAddExistingDelPol.TabIndex = 35;
+            this.buttonAddExistingDelPol.Text = "Add an existing policy...";
+            this.buttonAddExistingDelPol.UseVisualStyleBackColor = true;
+            this.buttonAddExistingDelPol.Click += new System.EventHandler(this.buttonAddExistingDelPol_Click);
             // 
             // buttonRemoveDelPol
             // 
-            resources.ApplyResources(this.buttonRemoveDelPol, "buttonRemoveDelPol");
+            this.buttonRemoveDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveDelPol.Enabled = false;
+            this.buttonRemoveDelPol.Location = new System.Drawing.Point(10, 469);
             this.buttonRemoveDelPol.Name = "buttonRemoveDelPol";
-            this.toolTip1.SetToolTip(this.buttonRemoveDelPol, resources.GetString("buttonRemoveDelPol.ToolTip"));
+            this.buttonRemoveDelPol.Size = new System.Drawing.Size(158, 27);
+            this.buttonRemoveDelPol.TabIndex = 34;
+            this.buttonRemoveDelPol.Text = "Remove selected policy";
             this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
             this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
             // 
             // DGDelPol
             // 
-            resources.ApplyResources(this.DGDelPol, "DGDelPol");
             this.DGDelPol.AllowUserToAddRows = false;
             this.DGDelPol.AllowUserToDeleteRows = false;
             this.DGDelPol.AllowUserToResizeRows = false;
+            this.DGDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGDelPol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGDelPol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGDelPol.ColumnHeadersVisible = false;
             this.DGDelPol.ContextMenuStrip = this.contextMenuStripDG;
+            this.DGDelPol.Location = new System.Drawing.Point(385, 7);
             this.DGDelPol.MultiSelect = false;
             this.DGDelPol.Name = "DGDelPol";
             this.DGDelPol.ReadOnly = true;
             this.DGDelPol.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.DGDelPol, resources.GetString("DGDelPol.ToolTip"));
+            this.DGDelPol.Size = new System.Drawing.Size(478, 455);
+            this.DGDelPol.TabIndex = 32;
             this.DGDelPol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // listViewDelPol
             // 
-            resources.ApplyResources(this.listViewDelPol, "listViewDelPol");
+            this.listViewDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listViewDelPol.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewDelPol.ContextMenuStrip = this.contextMenuStripDelPol;
             this.listViewDelPol.FullRowSelect = true;
             this.listViewDelPol.HideSelection = false;
+            this.listViewDelPol.Location = new System.Drawing.Point(10, 7);
             this.listViewDelPol.MultiSelect = false;
             this.listViewDelPol.Name = "listViewDelPol";
-            this.toolTip1.SetToolTip(this.listViewDelPol, resources.GetString("listViewDelPol.ToolTip"));
+            this.listViewDelPol.Size = new System.Drawing.Size(367, 454);
+            this.listViewDelPol.TabIndex = 33;
             this.listViewDelPol.UseCompatibleStateImageBehavior = false;
             this.listViewDelPol.View = System.Windows.Forms.View.Details;
             this.listViewDelPol.SelectedIndexChanged += new System.EventHandler(this.listViewDelPol_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
-            resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 25;
             // 
             // contextMenuStripDelPol
             // 
-            resources.ApplyResources(this.contextMenuStripDelPol, "contextMenuStripDelPol");
             this.contextMenuStripDelPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeDeliveryPolicyToolStripMenuItem});
             this.contextMenuStripDelPol.Name = "contextMenuStripDelPol";
-            this.toolTip1.SetToolTip(this.contextMenuStripDelPol, resources.GetString("contextMenuStripDelPol.ToolTip"));
+            this.contextMenuStripDelPol.Size = new System.Drawing.Size(206, 26);
             this.contextMenuStripDelPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDelPol_Opening);
             // 
             // removeDeliveryPolicyToolStripMenuItem
             // 
-            resources.ApplyResources(this.removeDeliveryPolicyToolStripMenuItem, "removeDeliveryPolicyToolStripMenuItem");
             this.removeDeliveryPolicyToolStripMenuItem.Name = "removeDeliveryPolicyToolStripMenuItem";
+            this.removeDeliveryPolicyToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.removeDeliveryPolicyToolStripMenuItem.Text = "Remove delivery policy...";
             this.removeDeliveryPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeDeliveryPolicyToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPage3.Controls.Add(this.checkBoxHttps);
-            this.tabPage3.Controls.Add(this.buttonDashLiveAzure);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
             this.tabPage3.Controls.Add(this.buttonOpen);
@@ -906,147 +1091,189 @@
             this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
             this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.buttonFlash);
             this.tabPage3.Controls.Add(this.TreeViewLocators);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
-            this.toolTip1.SetToolTip(this.tabPage3, resources.GetString("tabPage3.ToolTip"));
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(879, 507);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxLocatorsFilters
-            // 
-            resources.ApplyResources(this.comboBoxLocatorsFilters, "comboBoxLocatorsFilters");
-            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
-            this.toolTip1.SetToolTip(this.comboBoxLocatorsFilters, resources.GetString("comboBoxLocatorsFilters.ToolTip"));
-            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(406, 10);
             this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            this.label5.Size = new System.Drawing.Size(39, 15);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "Filter :";
+            // 
+            // comboBoxLocatorsFilters
+            // 
+            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxLocatorsFilters.FormattingEnabled = true;
+            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(454, 7);
+            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
+            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(180, 23);
+            this.comboBoxLocatorsFilters.TabIndex = 33;
+            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
             // checkBoxHttps
             // 
-            resources.ApplyResources(this.checkBoxHttps, "checkBoxHttps");
+            this.checkBoxHttps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxHttps.AutoSize = true;
+            this.checkBoxHttps.Location = new System.Drawing.Point(673, 10);
             this.checkBoxHttps.Name = "checkBoxHttps";
-            this.toolTip1.SetToolTip(this.checkBoxHttps, resources.GetString("checkBoxHttps.ToolTip"));
+            this.checkBoxHttps.Size = new System.Drawing.Size(198, 19);
+            this.checkBoxHttps.TabIndex = 32;
+            this.checkBoxHttps.Text = "HTTPS streaming endpoint URLs";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
             this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
             // 
-            // buttonDashLiveAzure
-            // 
-            resources.ApplyResources(this.buttonDashLiveAzure, "buttonDashLiveAzure");
-            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
-            this.toolTip1.SetToolTip(this.buttonDashLiveAzure, resources.GetString("buttonDashLiveAzure.ToolTip"));
-            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
-            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
-            // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 10);
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
+            this.label2.Size = new System.Drawing.Size(118, 15);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Streaming endpoint :";
             // 
             // comboBoxStreamingEndpoint
             // 
-            resources.ApplyResources(this.comboBoxStreamingEndpoint, "comboBoxStreamingEndpoint");
+            this.comboBoxStreamingEndpoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStreamingEndpoint.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
+            this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(136, 7);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.toolTip1.SetToolTip(this.comboBoxStreamingEndpoint, resources.GetString("comboBoxStreamingEndpoint.ToolTip"));
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(250, 23);
+            this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
             // buttonOpen
             // 
-            resources.ApplyResources(this.buttonOpen, "buttonOpen");
+            this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOpen.Enabled = false;
+            this.buttonOpen.Location = new System.Drawing.Point(84, 439);
             this.buttonOpen.Name = "buttonOpen";
-            this.toolTip1.SetToolTip(this.buttonOpen, resources.GetString("buttonOpen.ToolTip"));
+            this.buttonOpen.Size = new System.Drawing.Size(58, 27);
+            this.buttonOpen.TabIndex = 25;
+            this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonDel
             // 
-            resources.ApplyResources(this.buttonDel, "buttonDel");
+            this.buttonDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDel.Enabled = false;
+            this.buttonDel.Location = new System.Drawing.Point(10, 439);
             this.buttonDel.Name = "buttonDel";
-            this.toolTip1.SetToolTip(this.buttonDel, resources.GetString("buttonDel.ToolTip"));
+            this.buttonDel.Size = new System.Drawing.Size(66, 27);
+            this.buttonDel.TabIndex = 28;
+            this.buttonDel.Text = "Delete";
             this.buttonDel.UseVisualStyleBackColor = true;
             this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // buttonAzureMediaPlayer
             // 
-            resources.ApplyResources(this.buttonAzureMediaPlayer, "buttonAzureMediaPlayer");
+            this.buttonAzureMediaPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAzureMediaPlayer.Enabled = false;
+            this.buttonAzureMediaPlayer.Location = new System.Drawing.Point(110, 472);
             this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
-            this.toolTip1.SetToolTip(this.buttonAzureMediaPlayer, resources.GetString("buttonAzureMediaPlayer.ToolTip"));
+            this.buttonAzureMediaPlayer.Size = new System.Drawing.Size(131, 27);
+            this.buttonAzureMediaPlayer.TabIndex = 27;
+            this.buttonAzureMediaPlayer.Text = "Azure Media Player";
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
             this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonHTML
             // 
-            resources.ApplyResources(this.buttonHTML, "buttonHTML");
+            this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHTML.Enabled = false;
+            this.buttonHTML.Location = new System.Drawing.Point(741, 473);
             this.buttonHTML.Name = "buttonHTML";
-            this.toolTip1.SetToolTip(this.buttonHTML, resources.GetString("buttonHTML.ToolTip"));
+            this.buttonHTML.Size = new System.Drawing.Size(129, 27);
+            this.buttonHTML.TabIndex = 24;
+            this.buttonHTML.Text = "HTML Player (MP4)";
             this.buttonHTML.UseVisualStyleBackColor = true;
             this.buttonHTML.Click += new System.EventHandler(this.buttonHTML_Click);
             // 
             // buttonDASH
             // 
-            resources.ApplyResources(this.buttonDASH, "buttonDASH");
+            this.buttonDASH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDASH.Enabled = false;
+            this.buttonDASH.Location = new System.Drawing.Point(604, 473);
             this.buttonDASH.Name = "buttonDASH";
-            this.toolTip1.SetToolTip(this.buttonDASH, resources.GetString("buttonDASH.ToolTip"));
+            this.buttonDASH.Size = new System.Drawing.Size(131, 27);
+            this.buttonDASH.TabIndex = 23;
+            this.buttonDASH.Text = "DASH-IF Ref player";
             this.buttonDASH.UseVisualStyleBackColor = true;
             this.buttonDASH.Click += new System.EventHandler(this.button3_Click);
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 478);
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
-            // 
-            // buttonFlash
-            // 
-            resources.ApplyResources(this.buttonFlash, "buttonFlash");
-            this.buttonFlash.Name = "buttonFlash";
-            this.toolTip1.SetToolTip(this.buttonFlash, resources.GetString("buttonFlash.ToolTip"));
-            this.buttonFlash.UseVisualStyleBackColor = true;
-            this.buttonFlash.Click += new System.EventHandler(this.buttonFlash_Click);
+            this.label1.Size = new System.Drawing.Size(83, 15);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Playback with:";
             // 
             // labelAssetNameTitle
             // 
-            resources.ApplyResources(this.labelAssetNameTitle, "labelAssetNameTitle");
+            this.labelAssetNameTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelAssetNameTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssetNameTitle.Location = new System.Drawing.Point(21, 10);
             this.labelAssetNameTitle.Name = "labelAssetNameTitle";
-            this.toolTip1.SetToolTip(this.labelAssetNameTitle, resources.GetString("labelAssetNameTitle.ToolTip"));
+            this.labelAssetNameTitle.Size = new System.Drawing.Size(878, 37);
+            this.labelAssetNameTitle.TabIndex = 35;
+            this.labelAssetNameTitle.Text = "Asset : ";
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Location = new System.Drawing.Point(0, 593);
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
+            this.panel1.Size = new System.Drawing.Size(903, 55);
+            this.panel1.TabIndex = 36;
             // 
             // panel2
             // 
-            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(893, 593);
             this.panel2.Name = "panel2";
-            this.toolTip1.SetToolTip(this.panel2, resources.GetString("panel2.ToolTip"));
+            this.panel2.Size = new System.Drawing.Size(29, 42);
+            this.panel2.TabIndex = 77;
             // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
+            this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AssetInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
             this.Load += new System.EventHandler(this.AssetInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).EndInit();
@@ -1087,8 +1314,6 @@
         private System.Windows.Forms.DataGridView DGFiles;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackFlashAzure;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackSilverlightMonitoring;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHIF;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackMP4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
@@ -1114,7 +1339,6 @@
         private System.Windows.Forms.Button buttonHTML;
         private System.Windows.Forms.Button buttonDASH;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonFlash;
         private System.Windows.Forms.Button buttonOpen;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
         private System.Windows.Forms.Button buttonAzureMediaPlayer;
@@ -1143,8 +1367,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonGetTestToken;
-        private System.Windows.Forms.Button buttonDashLiveAzure;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHLiveAzure;
         private System.Windows.Forms.CheckBox checkBoxHttps;
         private System.Windows.Forms.Button buttonAudioVideoAnalysis;
         private System.Windows.Forms.Button buttonFileMetadata;
@@ -1181,5 +1403,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button buttonAddExistingDelPol;
+        private System.Windows.Forms.Button buttonAddExistingAutPol;
     }
 }

@@ -201,12 +201,16 @@ namespace AMSExplorer
             {
                 Source.NumFrames = HyperlapseNumFrames;
             }
+           
             Sources.Add(Source);
             obj.Sources = Sources;
 
             dynamic Options = new JObject();
             Options.Speed = HyperlapseSpeed;
-            //Options.Stabilize = false;
+            if (!checkBoxStabilize.Checked)
+            {
+                Options.Stabilize = false;
+            }
             obj.Options = Options;
 
             return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
@@ -224,12 +228,6 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void numericUpDownStartFrame_ValueChanged(object sender, EventArgs e)
-        {
-            DisplayTime();
-            UpdateJSONData();
-        }
-
         private void DisplayTime()
         {
            
@@ -243,22 +241,9 @@ namespace AMSExplorer
                 textBoxSourceStartTime.Text = tsstart.ToString("g");
                 textBoxSourceDurationTime.Text = tsduration.ToString("g");
                 textBoxOutputDuration.Text = tsoutputduration.ToString("g");
-            
         }
 
-        private void numericUpDownNumFrames_ValueChanged(object sender, EventArgs e)
-        {
-            DisplayTime();
-            UpdateJSONData();
-        }
-
-        private void comboBoxFrameRate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DisplayTime();
-            UpdateJSONData();
-        }
-
-        private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
+        private void control_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
             UpdateJSONData();
@@ -314,6 +299,8 @@ namespace AMSExplorer
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
            numericUpDownNumFrames.Enabled = checkBoxLimitNbFrames.Checked;
+            DisplayTime();
+            UpdateJSONData();
         }
     }
 }

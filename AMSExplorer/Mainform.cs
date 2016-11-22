@@ -99,7 +99,7 @@ namespace AMSExplorer
 
         private bool largeAccount = false; // if nb assets > trigger
         private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
-        private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        //private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
         private const int maxNbAssets = 1000000;
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;
@@ -151,9 +151,9 @@ namespace AMSExplorer
             }
 
             // AME Standard preset folder
-            if ((Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder)))
+            if ((Properties.Settings.Default.MESPresetFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.MESPresetFilesCurrentFolder)))
             {
-                Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEStdFiles;
+                Properties.Settings.Default.MESPresetFilesCurrentFolder = Application.StartupPath + Constants.PathMESFiles;
             }
 
             // Default Slate Image
@@ -347,8 +347,8 @@ namespace AMSExplorer
             UpdateLabelConcurrentTransfers();
 
             ApplySettingsOptions(true);
-        }
 
+        }
 
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
@@ -362,7 +362,7 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token)
+        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token, string targetStorage, string targetStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -386,11 +386,11 @@ namespace AMSExplorer
 
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(targetStorage, targetStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
-                asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, targetStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 assetFile = asset.AssetFiles.Create(fileName);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
@@ -522,7 +522,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response)
+        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response, string destStorage, string destStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
@@ -550,13 +550,13 @@ namespace AMSExplorer
                 // Create a new blob.
 
                 CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(destStorage, destStorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
                 TextBoxLogWriteLine("Creating Azure Media Services asset...");
 
-                asset = _context.Assets.Create(assetname, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, destStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
@@ -1217,37 +1217,43 @@ namespace AMSExplorer
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile_Step1();
+            DoMenuUploadFromSingleFiles_Step1();
         }
 
-        private void DoMenuUploadFromSingleFile_Step1()
+        private void DoMenuUploadFromSingleFiles_Step1()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFromSingleFile_Step2(openFileDialog.FileNames);
+                DoMenuUploadFromSingleFileS_Step2(openFileDialog.FileNames);
             }
         }
 
-        private void DoMenuUploadFromSingleFile_Step2(string[] FileNames)
+        private void DoMenuUploadFromSingleFileS_Step2(string[] FileNames)
         {
-            if (FileNames.Count() > 1)
+            var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            if (listpb.Count > 0)
             {
-                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. Each file will be uploaded as individual asset. If you want to create asset(s) that contain(s) several files, copy the files to folder(s) and upload or drag&drop the folder(s).", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
-                    return;
+                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            // Each file goes in a individual asset
-            foreach (String file in FileNames)
+            var form = new UploadOptions(_context, FileNames.Count() > 1) { AssetCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None };
+            if (form.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            if (FileNames.Count() > 1 && form.SingleAsset)
             {
                 try
                 {
-                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, response.Id, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, response.token), response.token);
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(FileNames.ToList(), response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
+                    DotabControlMainSwitch(Constants.TabTransfers);
                 }
                 catch (Exception ex)
                 {
@@ -1255,12 +1261,30 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
+            else // one asset per file
+            {
+                // Each file goes in a individual asset
+                foreach (String file in FileNames)
+                {
+                    try
+                    {
+                        var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                        // Start a worker thread that does uploading.
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(new List<string>() { file }, response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
+                        DotabControlMainSwitch(Constants.TabTransfers);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+            }
         }
 
 
 
-
-        private async Task ProcessUploadFileAndMore(object name, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(List<string> filename, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -1274,79 +1298,141 @@ namespace AMSExplorer
 
             bool Error = false;
             IAsset asset = null;
-            var listfiles = new List<WatchFolder.RohzetAsset>();
+            var listfiles = new List<WatchFolder.assetfileinJson>();
 
-
-            if (watchfoldersettings != null && watchfoldersettings.ProcessRohzetXML && (name as string).ToLower().EndsWith(".xml"))
+            if (watchfoldersettings != null && filename.Count == 1
+                && (
+                   (watchfoldersettings.ProcessRohzetXML && (filename[0]).ToLower().EndsWith(".xml"))
+                   ||
+                   (watchfoldersettings.ProcessJSONSemaphore && (filename[0]).ToLower().EndsWith(".json"))
+                   )
+               )
             {
                 try
                 {
-                    listfiles = WatchFolder.GetListFilesFromRohzetXML(name as string);
+                    if (filename[0].ToLower().EndsWith(".xml"))
+                    {
+                        listfiles = WatchFolder.GetListFilesFromRohzetXML(filename[0]);
+                    }
+                    else
+                    {
+                        listfiles = WatchFolder.GetListFilesFromJSONIngest(filename[0]);
+                    }
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when reading xml file '{0}'", name as string, true);
+                    TextBoxLogWriteLine("Error when reading file '{0}'", filename[0], true);
                     TextBoxLogWriteLine(e);
                     DoGridTransferDeclareError(guidTransfer);
                     Error = true;
                 }
-                TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
-                try
-                {
-                    asset = await _context.Assets.CreateAsync(Path.GetFileName(name as string),
-                                                          storageaccount,
-                                                          assetcreationoptions,
-                                                          token);
 
-                    foreach (var file in listfiles)
-                    {
-                        IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.URI), token);
-                        if (token.IsCancellationRequested) return;
-                        UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
-                        UploadedAssetFile.Upload(file.URI);
-                    }
-
-                    AssetInfo.SetAFileAsPrimary(asset);
-                }
-                catch (Exception e)
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.fileName)).ToList());
+                if (listpb.Count > 0)
                 {
+                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
+                    DoGridTransferDeclareError(guidTransfer);
                     Error = true;
-                    DoGridTransferDeclareError(guidTransfer, e);
-                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                    TextBoxLogWriteLine(e);
-                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                }
+                else if (!Error)
+                {
+                    TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
+                    try
                     {
-                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
+                                                              storageaccount,
+                                                              assetcreationoptions,
+                                                              token);
+
+                        bool primarySet = false;
+                        foreach (var file in listfiles)
+                        {
+                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.fileName), token);
+                            if (token.IsCancellationRequested) return;
+                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
+                            UploadedAssetFile.Upload(file.fileName);
+                            if (file.isPrimary)
+                            {
+                                UploadedAssetFile.IsPrimary = primarySet = true;
+                                UploadedAssetFile.Update();
+                            }
+                        }
+
+                        if (!primarySet) AssetInfo.SetAFileAsPrimary(asset);
+                    }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, e);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", filename[0], true);
+                        TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
+                        if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + filename[0], e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
+                        }
                     }
                 }
             }
             else // normal case
             {
-                TextBoxLogWriteLine("Starting upload of file '{0}'", name);
-                try
+                var listpb = AssetInfo.ReturnFilenamesWithProblem(filename);
+                if (listpb.Count > 0)
                 {
-                    asset = await _context.Assets.CreateFromFileAsync(
-                                                          name as string,
-                                                          storageaccount,
-                                                          assetcreationoptions,
-                                                          (af, p) =>
-                                                          {
-                                                              DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                                                          },
-                                                          token
-                                                          );
-                    AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
-                }
-                catch (Exception e)
-                {
+                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
+                    DoGridTransferDeclareError(guidTransfer);
                     Error = true;
-                    DoGridTransferDeclareError(guidTransfer, e);
-                    TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                    TextBoxLogWriteLine(e);
-                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Starting upload of file '{0}'", filename[0]);
+                    try
                     {
-                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                        /*
+                         asset = await _context.Assets.CreateFromFileAsync(
+                                                               filename[0],
+                                                               storageaccount,
+                                                               assetcreationoptions,
+                                                               (af, p) =>
+                                                               {
+                                                                   DoGridTransferUpdateProgress(p.Progress, guidTransfer);
+                                                               },
+                                                               token
+                                                               );
+                                                               */
+
+                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
+                                                              storageaccount,
+                                                              assetcreationoptions,
+                                                              token);
+
+                        foreach (var file in filename)
+                        {
+                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file), token);
+                            if (token.IsCancellationRequested) return;
+                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, filename.IndexOf(file), filename.Count);
+                            UploadedAssetFile.Upload(file);
+                        }
+
+                        AssetInfo.SetAFileAsPrimary(asset);
+                        //AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
                     }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, e);
+                        TextBoxLogWriteLine("Error when uploading '{0}'", string.Join(", ", filename), true);
+                        TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
+                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + string.Join(", ", filename), e.Message))
+                        {
+                            TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                        }
+                    }
+
                 }
             }
 
@@ -1358,27 +1444,39 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        File.Delete(name as string);
-                        TextBoxLogWriteLine("File '{0}' deleted.", name);
+                        File.Delete(filename[0] as string);
+                        TextBoxLogWriteLine("File '{0}' deleted.", filename[0]);
                     }
                     catch (Exception e)
                     {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
-                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+                        TextBoxLogWriteLine("Error when deleting '{0}'", filename[0], true);
+                        if (watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
+                        }
                     }
 
                     try
                     {
                         if (listfiles.Count > 0)
                         {
-                            listfiles.ForEach(f => File.Delete(f.URI));
-                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.URI).ToList()));
+                            listfiles.ForEach(f => File.Delete(f.fileName));
+                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
                         }
                     }
                     catch (Exception e)
                     {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.URI).ToList()), true);
-                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.URI).ToList()) + "\n\n" + e.Message);
+                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()), true);
+                        if (watchfoldersettings.SendEmailToRecipient != null)
+                        {
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.fileName).ToList()) + "\n\n" + e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
+                        }
                     }
                 }
 
@@ -1406,9 +1504,14 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
+                        Program.WatchFolderCallApi("Job submission error", Path.GetFileName(filename[0]), watchfoldersettings, job: job);
+
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
-                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
                         }
                         return;
                     }
@@ -1463,20 +1566,28 @@ namespace AMSExplorer
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
+
+                                IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
+                                StringBuilder sb = new StringBuilder();
+                                Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
+                                string playbackurl = null;
+                                if (SmoothUri != null)
+                                {
+                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                                    sb.AppendLine("Link to playback the asset:");
+                                    sb.AppendLine(playbackurl);
+                                    sb.AppendLine();
+                                }
+                                sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+
+                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
+
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
-                                    IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
-                                    StringBuilder sb = new StringBuilder();
-                                    Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
-                                    if (SmoothUri != null)
+                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
                                     {
-                                        string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
-                                        sb.AppendLine("Link to playback the asset:");
-                                        sb.AppendLine(playbackurl);
-                                        sb.AppendLine();
+                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
                                     }
-                                    sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
                                 }
                             }
                         }
@@ -1484,12 +1595,17 @@ namespace AMSExplorer
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
+                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job);
+
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
                                     StringBuilder sb = new StringBuilder();
                                     sb.Append(AssetInfo.GetStat(oasset));
 
-                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
+                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
+                                    {
+                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                                    }
                                 }
                             }
 
@@ -1497,16 +1613,24 @@ namespace AMSExplorer
                     }
                     else  // not completed successfuly
                     {
+                        Program.WatchFolderCallApi("Job Error", Path.GetFileName(filename[0]), watchfoldersettings, asset, null, job);
+
                         if (watchfoldersettings.SendEmailToRecipient != null)
                         {
                             StringBuilder sb = new StringBuilder();
                             sb.Append((new JobInfo(job).GetStats()));
-                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
+
+                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString()))
+                            {
+                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
+                            }
                         }
                     }
                 }
                 else // user selected no processing. Upload successfull
                 {
+                    Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset);
+
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
                         StringBuilder sb = new StringBuilder();
@@ -1543,6 +1667,13 @@ namespace AMSExplorer
 
         private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<IAsset> assets)
         {
+            var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            if (listpb.Count > 0)
+            {
+                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             foreach (var asset in assets)
             {
                 try
@@ -1783,6 +1914,14 @@ namespace AMSExplorer
             {
                 if (SelectedPath != null)
                 {
+
+                    var listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
+                    if (listpb.Count > 0)
+                    {
+                        MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     _backuprootfolderupload = SelectedPath;
                     var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
@@ -1809,57 +1948,90 @@ namespace AMSExplorer
 
         private void DoMenuImportFromHttp()
         {
-            string valuekey = "";
+            ImportHttp form = new ImportHttp(_context);
 
-            if (!havestoragecredentials)
-            { // No blob credentials. Let's ask the user
-
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                {
-                    _credentials.DefaultStorageKey = valuekey;
-                    havestoragecredentials = true;
-                }
-            }
-
-            if (havestoragecredentials) // if we have the storage credentials
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                ImportHttp form = new ImportHttp();
 
-                if (form.ShowDialog() == DialogResult.OK)
+                string DestStorage = _context.DefaultStorageAccount.Name;
+                string passwordDestStorage = _credentials.DefaultStorageKey;
+                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token), response.token);
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
+                    string valuekey2 = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
+                    {
+                        DestStorage = form.StorageSelected;
+                        passwordDestStorage = valuekey2;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
+                else if (!havestoragecredentials)
+                { // No blob credentials. Let's ask the user
+
+                    string valuekey = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
+                    {
+                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
+                        havestoragecredentials = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                // Start a worker thread that does uploading.
+                var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token, DestStorage, passwordDestStorage), response.token);
+                DotabControlMainSwitch(Constants.TabTransfers);
             }
         }
 
         private void DoMenuImportFromAzureStorageSASContainer()
         {
-            string valuekey = "";
+            ImportHttp form = new ImportHttp(_context, true);
 
-            if (!havestoragecredentials)
-            { // No blob credentials. Let's ask the user
-
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                {
-                    _credentials.DefaultStorageKey = valuekey;
-                    havestoragecredentials = true;
-                }
-            }
-
-            if (havestoragecredentials) // if we have the storage credentials
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                ImportHttp form = new ImportHttp(true);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                string DestStorage = _context.DefaultStorageAccount.Name;
+                string passwordDestStorage = _credentials.DefaultStorageKey;
+                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
                 {
-                    var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response), response.token);
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
+                    string valuekey2 = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
+                    {
+                        DestStorage = form.StorageSelected;
+                        passwordDestStorage = valuekey2;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
+                else if (!havestoragecredentials)
+                { // No blob credentials. Let's ask the user
+
+                    string valuekey = "";
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
+                    {
+                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
+                        havestoragecredentials = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                // Start a worker thread that does uploading.
+                var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
+                DotabControlMainSwitch(Constants.TabTransfers);
             }
         }
 
@@ -1929,7 +2101,6 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Failed to update asset '{0}' streaming locator {1}.", locator.Asset.Name, locator.Id, true);
                 TextBoxLogWriteLine(e);
             }
-
         }
 
 
@@ -4365,10 +4536,6 @@ namespace AMSExplorer
             }
         }
 
-        private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.LinkSMFHealth);
-        }
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7037,17 +7204,6 @@ namespace AMSExplorer
         }
 
 
-
-        private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
-        private void withFlashOSMFToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-
-        }
-
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
 
@@ -7073,12 +7229,6 @@ namespace AMSExplorer
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
-        }
-
-
-        private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
         }
 
 
@@ -7311,33 +7461,54 @@ namespace AMSExplorer
 
                     }
 
-                    MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
-                    /* Watch for changes in LastAccess and LastWrite times, and
-                       the renaming of files or directories. */
-                    MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                       | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
-                                                 // Only watch text files.
-                    MyWatchFolderSettings.Watcher.Filter = "*.*";
-                    MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
+                    try
+                    {
 
-                    // Begin watching.
-                    MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
-                    toolStripStatusLabelWatchFolder.Visible = true;
+                        MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
+                        /* Watch for changes in LastAccess and LastWrite times, and
+                           the renaming of files or directories. */
+                        MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                           | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
+                                                     // Only watch text files.
+                        MyWatchFolderSettings.Watcher.Filter = "*.*";
+                        MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
+
+                        // Begin watching.
+                        MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
+                        toolStripStatusLabelWatchFolder.Visible = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        TextBoxLogWriteLine(ex);
+                        return;
+                    }
+
+
 
                     MyWatchFolderSettings.Watcher.Created += (s, e) =>
                     {
-                        if (!this.seen.ContainsKey(e.FullPath)
-                            || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
+                        try
                         {
-                            this.seen[e.FullPath] = DateTime.Now;
-                            ThreadPool.QueueUserWorkItem(
-                                this.WaitForCreatingProcessToCloseFileThenDoStuff, e.FullPath);
+                            if (!this.seen.ContainsKey(e.FullPath)
+                           || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
+                            {
+                                this.seen[e.FullPath] = DateTime.Now;
+                                ThreadPool.QueueUserWorkItem(
+                                    this.WaitForCreatingProcessToCloseFileThenDoStuff, e.FullPath);
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error Watcher Creation", true);
+                            TextBoxLogWriteLine(ex);
+                            return;
                         }
                     };
                 }
             }
         }
-
 
 
         private void WaitForCreatingProcessToCloseFileThenDoStuff(object threadContext)
@@ -7363,24 +7534,21 @@ namespace AMSExplorer
                     // Do Stuff
                     Debug.WriteLine(path);
 
-                    try
+                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                     {
                         var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                              path,
+                              new List<string>() { path },
                               response.Id,
                               Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                               response.token,
                               MyWatchFolderSettings),
                               response.token);
                     }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
-                        TextBoxLogWriteLine(e);
-                    }
+
                     break;
+
                 }
                 catch (FileNotFoundException)
                 {
@@ -7394,11 +7562,13 @@ namespace AMSExplorer
                 catch (IOException ex)
                 {
                     // mask in severity, customer, and code
-                    var hr = (int)(ex.HResult & 0xA000FFFF);
+                    var hr = (Int64)(ex.HResult & 0xA000FFFF);
                     if (hr != 0x80000020 && hr != 0x80000021)
                     {
                         // not a share violation or a lock violation
-                        throw;
+                        TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
+                        TextBoxLogWriteLine(ex);
+                        break;
                     }
                 }
 
@@ -7419,10 +7589,11 @@ namespace AMSExplorer
                 if (DateTime.Now - lastLengthChange > noGrowthLimit)
                 {
                     // 5 minutes, still locked, no growth.
+                    TextBoxLogWriteLine("Error: file locked, no growth...", true);
                     break;
                 }
 
-                Thread.Sleep(111);
+                Thread.Sleep(500);
             }
         }
 
@@ -9342,7 +9513,7 @@ namespace AMSExplorer
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly: true, main: this)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, new List<IAsset>(), processor.Version, ThumbnailsModeOnly: true, main: this)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -9351,8 +9522,8 @@ namespace AMSExplorer
 
                 EncodingJobName = "Thumbnails generation (MES) of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
-                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                 SelectedAssets = SelectedAssets
             };
 
@@ -9813,58 +9984,6 @@ namespace AMSExplorer
             }
         }
 
-        private void withFlashOSMFAzurePlayerToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
-        /*
-        private void DoPlayBackProgram(PlayerType ptype, bool tokenplayer = false)
-        {
-            foreach (var program in ReturnSelectedPrograms())
-            {
-                if (program != null && program.Asset != null)
-                {
-                    bool UserCancelled = false;
-                    ProgramInfo PI = new ProgramInfo(program, _context);
-                    IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
-
-                    if (ValidURIs.FirstOrDefault() == null) // no locator
-                    {
-                        if (MessageBox.Show(string.Format("There is no valid streaming locator for program '{0}'. Do you want to create one ?", program.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-                        {
-                            TextBoxLogWriteLine("Creating locator for program '{0}'", program.Name);
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + program.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                            ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, program.Asset, policy, null);
-                            ValidURIs = PI.GetValidURIs();
-                        }
-                        else
-                        {
-                            UserCancelled = true;
-                        }
-                    }
-
-                    if (!UserCancelled)
-                    {
-                        if (ValidURIs.FirstOrDefault() != null)
-                        {
-                            string myUri = ValidURIs.FirstOrDefault().ToString();
-                            if (ptype == PlayerType.DASHLiveAzure)
-                            {
-                                myUri = program.Asset.GetMpegDashUri().ToString();
-                            }
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: myUri, context: _context, myasset: program.Asset);
-                        }
-                        else
-                        {
-                            TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
-                        }
-                    }
-                }
-            }
-        }
-         */
-
         private void DoPlaybackChannelPreview(PlayerType ptype)
         {
             foreach (var channel in ReturnSelectedChannels())
@@ -9877,11 +9996,6 @@ namespace AMSExplorer
                     }
                 }
             }
-        }
-
-        private void withSilverlightMontoringPlayerToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
         }
 
 
@@ -9905,17 +10019,6 @@ namespace AMSExplorer
         {
             DoGenerateThumbnails();
         }
-
-        private void withSilverlightMontoringPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightMonitoring);
-        }
-
-        private void withFlashOSMFAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAzurePage);
-        }
-
 
 
         private void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9947,7 +10050,7 @@ namespace AMSExplorer
                         {
                             var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                                  file,
+                                  new List<string>() { file },
                                   response.Id,
                                   Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                   response.token,
@@ -9978,16 +10081,6 @@ namespace AMSExplorer
         private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCreateChannel();
-        }
-
-        private void PlaybackPreviewWithFlashOSMFAzurePlayer_Click(object sender, EventArgs e)
-        {
-            DoPlaybackChannelPreview(PlayerType.FlashAzurePage);
-        }
-
-        private void PlaybackPreviewWithSilverlightMonitoringPlayer_Click(object sender, EventArgs e)
-        {
-            DoPlaybackChannelPreview(PlayerType.SilverlightMonitoring);
         }
 
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
@@ -10099,14 +10192,15 @@ namespace AMSExplorer
                         AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
 
                             forceusertoprovidekey)
-                        //  !NeedToDisplayPlayReadyLicense,
-                        // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
                         { Left = form1.Left, Top = form1.Top };
                         if (form2_CENC.ShowDialog() == DialogResult.OK)
                         {
                             var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
-                            if (form3_CENC.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_CENC.ShowDialog() == DialogResult.OK))
                             {
+
                                 bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0;
                                 bool NeedToDisplayWidevineLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0;
 
@@ -10117,72 +10211,76 @@ namespace AMSExplorer
                                 bool usercancelledform4or5 = false;
                                 bool usercancelledform4or6 = false;
 
-                                int step = 3;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    int step = 3;
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                                     {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                        AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        step++;
-                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+
+                                        if (form4.ShowDialog() == DialogResult.OK)
                                         {
-                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
-                                            form5_PlayReadyLicense.PlayReadOptionName = string.Format("{0}{1} PlayReady Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
-                                            if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                            AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            step++;
+                                            if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                             {
-                                                form5list.Add(form5_PlayReadyLicense);
+                                                string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                                form5_PlayReadyLicense.PlayReadOptionName = string.Format("{0}{1} PlayReady Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
+                                                if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                                {
+                                                    form5list.Add(form5_PlayReadyLicense);
+                                                }
+                                                else
+                                                {
+                                                    usercancelledform4or5 = true;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4or5 = true;
+                                        }
+                                    }
+
+                                    // widevine
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                                    {
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                            AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+                                            form6_WidevineLicense.WidevinePolicyName = string.Format("{0}{1} Widevine Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
+
+                                            step++;
+
+                                            if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            {
+                                                form6list.Add(form6_WidevineLicense);
                                             }
                                             else
                                             {
-                                                usercancelledform4or5 = true;
+                                                usercancelledform4or6 = true;
                                             }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4or5 = true;
-                                    }
-                                }
-
-                                // widevine
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
-                                {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                    if (form4.ShowDialog() == DialogResult.OK)
-                                    {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
-                                        form6_WidevineLicense.WidevinePolicyName = string.Format("{0}{1} Widevine Option {2}", form4.GetKeyRestrictionType.ToString(), tokentype, i + 1);
-
-                                        step++;
-
-                                        if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                        {
-                                            form6list.Add(form6_WidevineLicense);
                                         }
                                         else
                                         {
                                             usercancelledform4or6 = true;
                                         }
                                     }
-                                    else
-                                    {
-                                        usercancelledform4or6 = true;
-                                    }
                                 }
+
                                 if (!usercancelledform4or5 && !usercancelledform4or6)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, form6list, true);
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_ExistingPolicies, form3_CENC, form4list, form5list, form6list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10199,7 +10297,9 @@ namespace AMSExplorer
                         if (form2_CENC_Cbcs.ShowDialog() == DialogResult.OK)
                         {
                             var form3_CENC = new AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery(_context);
-                            if (form3_CENC.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_CENC.ShowDialog() == DialogResult.OK))
                             {
                                 bool NeedToDisplayFairPlayLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0;
 
@@ -10207,27 +10307,30 @@ namespace AMSExplorer
 
                                 bool usercancelledform4 = false;
 
-                                int step = 3;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "FairPlay", tokensymmetrickey, false) { Left = form2_CENC_Cbcs.Left, Top = form2_CENC_Cbcs.Top };
+                                    int step = 3;
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                    {
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "FairPlay", tokensymmetrickey, false) { Left = form2_CENC_Cbcs.Left, Top = form2_CENC_Cbcs.Top };
 
-                                    if (form4.ShowDialog() == DialogResult.OK)
-                                    {
-                                        step++;
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4 = true;
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            step++;
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4 = true;
+                                        }
                                     }
                                 }
 
                                 if (!usercancelledform4)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_CENC, form4list, true);
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_ExistingPolicies, form3_CENC, form4list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10243,28 +10346,34 @@ namespace AMSExplorer
                         if (form2_AES.ShowDialog() == DialogResult.OK)
                         {
                             var form3_AES = new AddDynamicEncryptionFrame3_AESDelivery(_context);
-                            if (form3_AES.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies = new AddDynamicEncryptionFrame3_ExistingPolicies(_context, form1);
+
+                            if ((form1.SelectExistingPolicies && form3_ExistingPolicies.ShowDialog() == DialogResult.OK) || (!form1.SelectExistingPolicies && form3_AES.ShowDialog() == DialogResult.OK))
                             {
                                 List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                 bool usercancelledform4 = false;
-                                string tokensymmetrickey = null;
-                                for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
+
+                                if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
-                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
-                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    string tokensymmetrickey = null;
+                                    for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
                                     {
-                                        form4list.Add(form4);
-                                        tokensymmetrickey = form4.SymmetricKey;
-                                    }
-                                    else
-                                    {
-                                        usercancelledform4 = true;
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
+                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        {
+                                            form4list.Add(form4);
+                                            tokensymmetrickey = form4.SymmetricKey;
+                                        }
+                                        else
+                                        {
+                                            usercancelledform4 = true;
+                                        }
                                     }
                                 }
 
                                 if (!usercancelledform4)
                                 {
-                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_ExistingPolicies, form3_AES, form4list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10292,14 +10401,14 @@ namespace AMSExplorer
 
 
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENC(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5PlayReadyLicenseList, List<AddDynamicEncryptionFrame6_WidevineLicense> form6WidevineLicenseList, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENC(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5PlayReadyLicenseList, List<AddDynamicEncryptionFrame6_WidevineLicense> form6WidevineLicenseList, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             bool reusekey = false;
             bool firstkeycreation = true;
             IContentKey formerkey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
-            IAssetDeliveryPolicy DelPol = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
 
             bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
@@ -10430,12 +10539,7 @@ namespace AMSExplorer
                             }
                         }
                     }
-                    else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
-                                   // TO DO ? : if user wants to deliver license from external servers
-                                   // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
-                    {
-                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
-                    }
+
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
@@ -10463,7 +10567,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -10618,7 +10722,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else
+                        else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
                             if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
@@ -10658,12 +10762,13 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             IContentKey formerkey = null;
             IContentKey contentKey = null;
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
             // if the key already exists in the account (same key id), let's
             formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_CENC_cbcs.KeyId.ToString()).FirstOrDefault();
@@ -10729,7 +10834,7 @@ namespace AMSExplorer
             }
 
 
-            IAssetDeliveryPolicy DelPol = null; // if not null, it means it has been created so we reuse for multiple assets
+            //  IAssetDeliveryPolicy DelPol = null; // if not null, it means it has been created so we reuse for multiple assets
 
 
             foreach (IAsset AssetToProcess in SelectedAssets)
@@ -10790,7 +10895,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -10896,7 +11001,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else
+                        else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             var assetDeliveryProtocol = form1.GetAssetDeliveryProtocol;
 
@@ -10938,7 +11043,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, AddDynamicEncryptionFrame3_AESDelivery form3_AES, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_AESDelivery form3_AES, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             string aeskey = string.Empty;
@@ -10948,8 +11053,8 @@ namespace AMSExplorer
             IContentKey formerkey = null;
             bool reusekey = false;
 
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = null;
-            IAssetDeliveryPolicy DelPol = null;
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
+            IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
 
             bool ManualForceKeyData = !form2.ContentKeyRandomGeneration;  // user want to manually enter the cryptography data
 
@@ -11098,7 +11203,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(e);
                             }
                         }
-                        else // authorization policy to create
+                        else if (!form1.SelectExistingPolicies) // authorization policy to create (policy==null and user did not select the option to choose an existing policy)
                         {
                             // let's create the Authorization Policy
                             contentKeyAuthorizationPolicy = _context.
@@ -11198,7 +11303,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine(e);
                         }
                     }
-                    else
+                    else if (!form1.SelectExistingPolicies) // delivery policy to create (policy==null and user did not select the option to choose an existing policy)
                     {
                         // Let's create the Asset Delivery Policy now
                         string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
@@ -11410,16 +11515,14 @@ namespace AMSExplorer
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("CENC and Envelope keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("CENC, FairPlay and Envelope keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("CENC and Envelope keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("CENC, FairPlay and Envelope keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
 
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-
-                bool deleteKeys = myDialogResult == DialogResult.Yes;
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
@@ -11440,7 +11543,8 @@ namespace AMSExplorer
                                 foreach (var key in CENCAESkeys)
                                 {
                                     DynamicEncryption.CleanupKey(_context, key);
-                                    if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
+                                    AssetToProcess.ContentKeys.Remove(key);
+                                    //if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
                                 }
                             }
                             catch (Exception e)
@@ -11452,7 +11556,7 @@ namespace AMSExplorer
                             }
                             if (!Error)
                             {
-                                TextBoxLogWriteLine("Removed CENC and Envelope keys for asset {0}.", AssetToProcess.Name);
+                                TextBoxLogWriteLine("Removed {0} key{1} for asset {0}.", KeysListIDs.Count, KeysListIDs.Count > 1 ? "s" : "", AssetToProcess.Name);
                             }
 
                             if (myDialogResult == DialogResult.Yes) // Let's delete the keys
@@ -11466,7 +11570,8 @@ namespace AMSExplorer
                                 {
                                     try
                                     {
-                                        DynamicEncryption.CleanupKey(_context, key);
+                                        //DynamicEncryption.CleanupKey(_context, key);
+                                        key.Delete();
                                     }
                                     catch (Exception e)
                                     {
@@ -11479,7 +11584,7 @@ namespace AMSExplorer
 
                                 if (!Error)
                                 {
-                                    TextBoxLogWriteLine("Deleted CENC, FairPlay and Envelope keys for asset {0}.", AssetToProcess.Name);
+                                    TextBoxLogWriteLine("Deleted {0} key{1} for asset {0}.", KeysListIDs.Count, KeysListIDs.Count > 1 ? "s" : "", AssetToProcess.Name);
                                 }
                             }
 
@@ -11645,15 +11750,6 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
         }
 
-        private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHLiveAzure);
-        }
-
-        private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
-        }
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -11962,10 +12058,6 @@ namespace AMSExplorer
             DoDisplayJobError();
         }
 
-        private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerSLToken);
-        }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -11987,11 +12079,6 @@ namespace AMSExplorer
             }
 
             if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
-        }
-
-        private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerDASHAzure);
         }
 
         private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12206,7 +12293,7 @@ namespace AMSExplorer
                     DoMenuUploadFromFolder_Step2(fold); // it's a folder
 
                 if (files.Count > 0)
-                    DoMenuUploadFromSingleFile_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
+                    DoMenuUploadFromSingleFileS_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
             }
         }
 
@@ -12222,43 +12309,6 @@ namespace AMSExplorer
                 e.Effect = DragDropEffects.None;
             }
 
-        }
-
-        private void withFlashAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
-
-        }
-
-        private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
-        }
-
-        private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerAESToken);
-        }
-
-        private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.FlashAESToken);
-        }
-
-        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.SilverlightPlayReadyToken);
         }
 
         private void buttonUpdateMediaRU_Click(object sender, EventArgs e)
@@ -12797,7 +12847,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile_Step1();
+            DoMenuUploadFromSingleFiles_Step1();
         }
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
@@ -13284,24 +13334,45 @@ namespace AMSExplorer
                 LiveArchiveAsset = true;
             }
 
+            bool MultipleInputAssets = false;
+            if (SelectedAssets.Count > 1)
+            {
+                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single task (to do stitching), or generate one task per input asset." + Constants.endline + Constants.endline
+                    + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    MultipleInputAssets = true;
+            }
+
             string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version,
+            string label;
+            if (SelectedAssets.Count > 1 && !MultipleInputAssets)
+            {
+                label = string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count);
+            }
+            else if (SelectedAssets.Count > 1 && MultipleInputAssets)
+            {
+                label = string.Format("{0} assets selected. You are going to submit 1 job with 1 task and multiple input assets.", SelectedAssets.Count);
+            }
+            else
+            {
+                label = "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).";
+            }
+
+
+            EncodingAMEStandard form = new EncodingAMEStandard(_context,
+                MultipleInputAssets ? SelectedAssets : new List<IAsset>(),
+                processor.Version,
                 disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
                 disableSourceTrimming: LiveArchiveAsset,
                 main: this)
             {
-                EncodingLabel = (SelectedAssets.Count > 1) ?
-                string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
-
+                EncodingLabel = label,
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
-                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                 SelectedAssets = SelectedAssets
             };
 
@@ -13309,12 +13380,13 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                foreach (IAsset asset in form.SelectedAssets)
+                if (MultipleInputAssets) // one job, multiple input assets (stitching)
                 {
+
                     bool Error = false;
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
                     ITask AMEStandardTask = job.Tasks.AddNew(
                         tasknameloc,
                         processor,
@@ -13322,10 +13394,10 @@ namespace AMSExplorer
                        form.JobOptions.TasksOptionsSetting
                       );
 
-                    AMEStandardTask.InputAssets.Add(asset);
+                    AMEStandardTask.InputAssets.AddRange(form.SelectedAssets);
 
                     // Add an output asset to contain the results of the job.  
-                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
                     AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
@@ -13346,7 +13418,50 @@ namespace AMSExplorer
                         Error = true;
                     }
                     if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+
                 }
+                else
+                {
+                    foreach (IAsset asset in form.SelectedAssets)
+                    {
+                        bool Error = false;
+                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                        ITask AMEStandardTask = job.Tasks.AddNew(
+                            tasknameloc,
+                            processor,
+                           form.EncodingConfiguration,
+                           form.JobOptions.TasksOptionsSetting
+                          );
+
+                        AMEStandardTask.InputAssets.Add(asset);
+
+                        // Add an output asset to contain the results of the job.  
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                        AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+
+                        // Submit the job  
+                        TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
+                        try
+                        {
+                            job.Submit();
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            if (SelectedAssets.Count < 5)
+                            {
+                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                        if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                    }
+                }
+
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
             }
@@ -13503,19 +13618,12 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
-        {
-        }
 
         private void toolStripMenuItem26_Click(object sender, EventArgs e)
         {
             DoCreateFilter();
         }
 
-        private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.PlayerAMPDiagnostics);
-        }
 
         private void dataGridViewV_Resize(object sender, EventArgs e)
         {
@@ -15148,6 +15256,16 @@ namespace AMSExplorer
         private void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuImportFromAzureStorageSASContainer();
+        }
+
+        private void tHEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.PlayerTHEOplayerPartnership);
+        }
+
+        private void azureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
     }
 }

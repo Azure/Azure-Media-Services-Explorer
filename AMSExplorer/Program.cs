@@ -48,6 +48,8 @@ using Microsoft.Win32;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -359,7 +361,7 @@ namespace AMSExplorer
                     StringBuilder builder = new StringBuilder();
                     using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
                     {
-                        writer.Formatting = Formatting.Indented;
+                        writer.Formatting = System.Xml.Formatting.Indented;
                         document.Save(writer);
                     }
                     myText = builder.ToString();
@@ -483,14 +485,15 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-        public static void CheckAMSEVersion()
+        public static async void CheckAMSEVersion()
         {
             var webClient = new WebClient();
-            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
-            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+            webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompleted(true, sender, e);
+            //webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
         }
 
-        public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
+        public static void DownloadVersionRequestCompleted(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error == null)
             {
@@ -522,13 +525,6 @@ namespace AMSExplorer
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        /* // OLD CODE
-                        if (MessageBox.Show(string.Format("A new version of Azure Media Services Explorer ({0}) is available." + Constants.endline + "Would you like to download it ?", versionAMSEGitHub), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        { // user selected yes
-                            System.Diagnostics.Process.Start(Constants.GitHubAMSELink);
-                            Environment.Exit(0);
-                        }
-                        */
                         var form = new SoftwareUpdate(ReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
@@ -538,9 +534,13 @@ namespace AMSExplorer
 
                 }
             }
+            else if (firsttry)
+            {
+                var webClient = new WebClient();
+                webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompleted(false, sender2, e2);
+                webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondary));
+            }
         }
-
-
 
 
 
@@ -706,18 +706,91 @@ namespace AMSExplorer
         }
 
 
-        public static void CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
+        public static bool CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
         {
             // Let's create the email with Outlook
-            Outlook.Application outlookApp = new Outlook.Application();
-            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            try
+            {
+                Outlook.Application outlookApp = new Outlook.Application();
+                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
 
-            mailItem.To = RecipientEmailAddress;
-            mailItem.Subject = Subject;
-            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-            mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-            mailItem.Display(false);
-            mailItem.Send();
+                mailItem.To = RecipientEmailAddress;
+                mailItem.Subject = Subject;
+                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+                mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+                mailItem.Display(false);
+                mailItem.Send();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public static HttpStatusCode WatchFolderCallApi(string error, string sourcefilename, WatchFolderSettings settings, IAsset sourceAsset = null, IAsset outputAsset = null, IJob job = null, ILocator locator = null, Uri publishUrl = null, string playbackUrl = null)
+        {
+            if (settings == null || settings.CallAPIUrl == null) return HttpStatusCode.BadRequest;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(settings.CallAPIUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+
+            string body = settings.CallAPJson;
+
+            if (job != null) // let's refresh the job
+            {
+                job = job.GetMediaContext().Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
+            }
+
+            body = body.Replace("\"{Error}\"", error ?? "");
+            body = body.Replace("\"{Source Asset Id}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Id) : "").Replace("\"{Source Asset Name}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Name) : "");
+            body = body.Replace("\"{Source File Name}\"", sourcefilename != null ? JsonConvert.ToString(sourcefilename) : "");
+            body = body.Replace("\"{Output Asset Id}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Id) : "").Replace("\"{Output Asset Name}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Name) : "");
+            body = body.Replace("\"{Job Id}\"", job != null ? JsonConvert.ToString(job.Id) : "").Replace("\"{Job State}\"", job != null ? JsonConvert.ToString(job.State.ToString()) : "");
+            body = body.Replace("\"{Locator Id}\"", locator != null ? JsonConvert.ToString(locator.Id) : "").Replace("\"{Publish Url}\"", publishUrl != null ? JsonConvert.ToString(publishUrl.ToString()) : "").Replace("\"{Playback Url}\"", publishUrl != null ? JsonConvert.ToString(playbackUrl) : "");
+
+            /*
+          {
+  "Error": "{Error}",
+  "SourceAssetId": "{Source Asset Id}",
+  "SourceAssetName": "{Source Asset Name}",
+  "SourceFileName": "{Source File Name}",
+  "OutputAssetId": "{Output Asset Id}",
+  "OutputAssetName": "{Output Asset Name}",
+  "JobId": "{Job Id}",
+  "JobState": "{Job State}",
+  "LocatorId": "{Locator Id}",
+  "PublishUrl": "{Publish Url}",
+  "Playback Url": "{Playback Url}"
+}
+      */
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                var requestBytes = System.Text.Encoding.ASCII.GetBytes(body);
+                requestStream.Write(requestBytes, 0, requestBytes.Length);
+                requestStream.Close();
+            }
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch
+            {
+            }
+
+            if (response != null)
+            {
+                return response.StatusCode;
+            }
+            else
+            {
+                return HttpStatusCode.BadRequest;
+            }
+
         }
 
         public static string ReturnNameForProtocol(StreamingProtocol protocol)
@@ -826,7 +899,9 @@ namespace AMSExplorer
 
     public class Constants
     {
-        public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+        public const string GitHubAMSEVersionPrimary = "https://amsexplorer.azureedge.net/release/version.xml";
+        public const string GitHubAMSEVersionSecondary = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
 
@@ -866,7 +941,7 @@ namespace AMSExplorer
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
-        public const string PathAMEStdFiles = @"\AMEStandardPresetFiles\";
+        public const string PathMESFiles = @"\MESPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathManifestFile = @"\manifest\";
         public const string PathHelpFiles = @"\HelpFiles\";
@@ -874,11 +949,11 @@ namespace AMSExplorer
 
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
-        public const string PlayerAMPinOptions = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url={0}";
+        public const string PlayerAMPinOptions = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
         public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
 
-        public const string PlayerAMPIFrameToLaunch = @"http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
+        public const string PlayerAMPIFrameToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer_embed.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
         public const string AMPtokensyntax = "&token={0}";
         public const string AMPformatsyntax = "&format={0}";
@@ -892,32 +967,18 @@ namespace AMSExplorer
         public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.1.1/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.2.0/samples/dash-if-reference-player/index.html?url={0}";
 
-        public const string PlayerDASHAzure = @"http://dashplayer.azurewebsites.net";
-        public const string PlayerDASHAzureToLaunch = @"http://dashplayer.azurewebsites.net?url={0}";
-
-        public const string PlayerDASHAzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url={0}";
-        public const string PlayerFlashAzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url={0}";
-        public const string PlayerMP4AzurePage = @"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}";
-
-        public const string PlayerFlashAESToken = @"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}";
-        public const string PlayerSLToken = @"http://sltoken.azurewebsites.net";
-        public const string PlayerSLTokenToLaunch = @"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}";
+        public const string PlayerMP4AzurePage = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
         public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"http://www.jwplayer.com/partners/azure/";
-
-        public const string PlayerAESToken = @"http://aestoken.azurewebsites.net";
-        public const string PlayerAMPDiagnostics = @"http://aka.ms/ampdiagnostics";
+        public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
         public const string DemoCaptionMaker = @"https://dev.modern.ie/testdrive/demos/captionmaker/";
         public const string AMSSamples = @"https://github.com/AzureMediaServicesSamples";
-
-        public const string LinkSMFHealth = "http://smf.cloudapp.net/healthmonitor";
-        public const string LinkSMFHealthToLaunch = "http://smf.cloudapp.net/healthmonitor?Autoplay=true&url={0}";
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
 
@@ -942,21 +1003,22 @@ namespace AMSExplorer
         public const string Bearer = "Bearer ";
         public const string strUnits = "{0} unit{1}";
 
-        public const string LinkMoreInfoDocAMS = @"https://azure.microsoft.com/en-us/documentation/services/media-services/";
+        public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/media-services-release-notes";
+        public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services-2/";
 
-        public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";
+        public const string LinkMoreInfoAME = "https://docs.microsoft.com/en-us/azure/media-services/media-services-media-encoder-standard-formats";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
         public const string LinkMorePresetsMES = "http://go.microsoft.com/fwlink/?LinkId=618336";
-        public const string LinkThumbnailsMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-dotnet-generate-thumbnail-with-mes/";
+        public const string LinkThumbnailsMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-dotnet-generate-thumbnail-with-mes";
         public const string LinkPreserveResRotationMES = "https://msdn.microsoft.com/en-US/library/mt269962#PreserveResolutionAfterRotation";
-        public const string LinkOverlayMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-custom-mes-presets-with-dotnet/#overlay";
-        public const string LinkCroppingMES = "https://azure.microsoft.com/en-us/documentation/articles/media-services-crop-video/";
-        public const string LinkMESAdvFeatures = "https://azure.microsoft.com/en-us/documentation/articles/media-services-advanced-encoding-with-mes";
+        public const string LinkOverlayMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes#overlay";
+        public const string LinkCroppingMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-crop-video";
+        public const string LinkMESAdvFeatures = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes";
 
-        public const string LinkMoreInfoAzCopy = "https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/";
+        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy";
 
         public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";
         public const string LinkSigniantFlightRequestTrialKey = "http://info.signiant.com/flight-Free-Trial_1.html";
@@ -964,32 +1026,35 @@ namespace AMSExplorer
         public const string LinkAspera = "https://azure.microsoft.com/en-us/marketplace/partners/aspera/sod/";
 
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
-        public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
-        public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/2015/05/14/announcing-hyperlapse-for-azure-media-services/";
+        public const string LinkMoreInfoPremiumEncoder = "https://docs.microsoft.com/en-us/azure/media-services/media-services-encode-with-premium-workflow";
+        public const string LinkMoreInfoHyperlapse = "https://docs.microsoft.com/en-us/azure/media-services/media-services-hyperlapse-content";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
-        public const string LinkMoreInfoIndexer = "https://azure.microsoft.com/en-us/documentation/articles/media-services-index-content/";
-        public const string LinkMoreInfoIndexerV2 = "https://azure.microsoft.com/en-us/documentation/articles/media-services-process-content-with-indexer2/";
-        public const string LinkMoreInfoVideoOCR = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-optical-character-recognition/";
+        public const string LinkMoreInfoIndexer = "https://docs.microsoft.com/en-us/azure/media-services/media-services-index-content";
+        public const string LinkMoreInfoIndexerV2 = "https://docs.microsoft.com/en-us/azure/media-services/media-services-process-content-with-indexer2";
+        public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/media-services-video-optical-character-recognition";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEncoding = "https://azure.microsoft.com/en-us/documentation/articles/media-services-manage-live-encoder-enabled-channels";
-        public const string LinkMoreInfoLiveStreaming = "https://azure.microsoft.com/en-us/documentation/articles/media-services-manage-channels-overview/";
+        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/media-services-manage-live-encoder-enabled-channels";
+        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/media-services-manage-channels-overview";
         public const string LinkMoreInfoPricing = "http://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
-        public const string LinkMoreInfoFairPlay = "https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/";
-        public const string LinkMoreInfoTelemetry = "https://azure.microsoft.com/en-us/documentation/articles/media-services-telemetry/";
+        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/media-services-protect-hls-with-fairplay";
+        public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/media-services-telemetry";
 
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
-        public const string LinkMoreInfoMotionDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/";
-        public const string LinkMoreInfoFaceDetection = "https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/";
-        public const string LinkMoreInfoVideoSummarization = "https://azure.microsoft.com/en-us/documentation/articles/media-services-video-summarization/";
+        public const string LinkMoreInfoMotionDetection = "https://docs.microsoft.com/en-us/azure/media-services/media-services-motion-detection";
+        public const string LinkMoreInfoFaceDetection = "https://docs.microsoft.com/en-us/azure/media-services/media-services-face-and-emotion-detection";
+        public const string LinkMoreInfoFaceRedaction = "https://docs.microsoft.com/en-us/azure/media-services/media-services-face-redaction";
+        public const string LinkMoreInfoVideoSummarization = "https://docs.microsoft.com/en-us/azure/media-services/media-services-video-summarization";
         public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
-        public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
+        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/media-services-playready-license-template-overview";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-widevine-license-template-overview/";
+        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/media-services-widevine-license-template-overview";
+
+        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/media-services-portal-create-account";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
@@ -1011,8 +1076,6 @@ namespace AMSExplorer
         public const string FaceRedactionCombined = "combined";
         public const string FaceRedactionFirstPass = "analyze";
         public const string FaceRedactionSecondPass = "redact";
-
-
 
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";
@@ -1995,7 +2058,7 @@ namespace AMSExplorer
             PublishStatus LocPubStatus;
             if (!(Locator.ExpirationDateTime < DateTime.UtcNow))
             {// not in the past
-                // if  locator is not valid today but will be in the future
+             // if  locator is not valid today but will be in the future
                 if (Locator.StartTime != null)
                 {
                     LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
@@ -2809,7 +2872,7 @@ namespace AMSExplorer
                     }
                     else // no UI but let's rw for filter
                     {
-                        if (typeplayer == PlayerType.DASHIFRefPlayer || typeplayer == PlayerType.DASHLiveAzure)
+                        if (typeplayer == PlayerType.DASHIFRefPlayer)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.Dash).ToString();
                         }
@@ -2831,23 +2894,6 @@ namespace AMSExplorer
                         // user wants perhaps to play an asset with a token, so let's try to generate it
                         switch (typeplayer)
                         {
-                            case PlayerType.SilverlightPlayReadyToken:
-                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
-                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                {
-                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                    keytype = AssetProtectionType.PlayReady;
-                                }
-                                break;
-
-                            case PlayerType.FlashAESToken:
-                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
-                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                {
-                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                    keytype = AssetProtectionType.AES;
-                                }
-                                break;
 
                             case PlayerType.AzureMediaPlayer:
                             case PlayerType.AzureMediaPlayerFrame:
@@ -3023,40 +3069,12 @@ namespace AMSExplorer
                         FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(Urlstr)) + playerurl;
                         break;
 
-                    case PlayerType.SilverlightMonitoring:
-                        FullPlayBackLink = string.Format(Constants.LinkSMFHealthToLaunch, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.SilverlightPlayReadyToken:
-                        FullPlayBackLink = string.Format(Constants.PlayerSLTokenToLaunch, HttpUtility.UrlEncode(Urlstr), tokenresult);
-                        break;
-
                     case PlayerType.DASHIFRefPlayer:
                         if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
                         {
                             Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
                         FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, Urlstr);
-                        break;
-
-                    case PlayerType.DASHAzurePage:
-                        FullPlayBackLink = string.Format(Constants.PlayerDASHAzurePage, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.DASHLiveAzure:
-                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
-                        {
-                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
-                        }
-                        FullPlayBackLink = string.Format(Constants.PlayerDASHAzureToLaunch, Urlstr);
-                        break;
-
-                    case PlayerType.FlashAzurePage:
-                        FullPlayBackLink = string.Format(Constants.PlayerFlashAzurePage, HttpUtility.UrlEncode(Urlstr));
-                        break;
-
-                    case PlayerType.FlashAESToken:
-                        FullPlayBackLink = string.Format(Constants.PlayerFlashAESToken, HttpUtility.UrlEncode(Urlstr), tokenresult);
                         break;
 
                     case PlayerType.MP4AzurePage:
@@ -3153,8 +3171,112 @@ namespace AMSExplorer
             }
         }
 
+        private static readonly List<string> InvalidFileNamePrefixList = new List<string>
+                {
+                    "CON",
+                    "PRN",
+                    "AUX",
+                    "NUL",
+                    "COM1",
+                    "COM2",
+                    "COM3",
+                    "COM4",
+                    "COM5",
+                    "COM6",
+                    "COM7",
+                    "COM8",
+                    "COM9",
+                    "LPT1",
+                    "LPT2",
+                    "LPT3",
+                    "LPT4",
+                    "LPT5",
+                    "LPT6",
+                    "LPT7",
+                    "LPT8",
+                    "LPT9"
+                };
 
+        private static readonly char[] NtfsInvalidChars = System.IO.Path.GetInvalidFileNameChars();
+
+
+        public static bool AssetFileNameIsOk(string filename)
+        {
+            // check if the filename is compatible with AMS
+            // Validates if the asset file name conforms to the following requirements
+            // AssetFile name must be a valid blob name.
+            // AssetFile name must be a valid NTFS file name.
+            // AssetFile name length must be limited to 248 characters. 
+            // AssetFileName should not contain the following characters: + % and #
+            // AssetFileName should not contain only space(s)
+            // AssetFileName should not start with certain prefixes restricted by NTFS such as CON1, PRN ... 
+            // An AssetFileName constructed using the above mentioned criteria shall be encoded, streamed and played back successfully.
+
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                return false;
+            }
+
+            // let's make sure we exract the file name (without the path)
+            filename = Path.GetFileName(filename);
+
+            // white space
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                return false;
+            }
+
+            if (filename.Length > 248)
+            {
+                return false;
+            }
+
+            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || Regex.IsMatch(filename, @"[+%#]+"))
+            {
+                return false;
+            }
+
+            //// Invalid NTFS Filename prefix checks
+            if (InvalidFileNamePrefixList.Any(x => filename.StartsWith(x + ".", StringComparison.OrdinalIgnoreCase)) ||
+                InvalidFileNamePrefixList.Any(x => filename.Equals(x, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // Return the list of problematic filenames
+        public static List<string> ReturnFilenamesWithProblem(List<string> filenames)
+        {
+            List<string> listreturn = new List<string>();
+            foreach (string f in filenames)
+            {
+                if (!AssetFileNameIsOk(f))
+                {
+                    listreturn.Add(Path.GetFileName(f));
+                }
+            }
+            return listreturn;
+        }
+
+        public static string FileNameProblemMessage(List<string> listpb)
+
+        {
+            if (listpb.Count == 1)
+            {
+                return "This file name is not compatible with Media Services :\n\n" + listpb.FirstOrDefault() + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+
+            }
+            else
+            {
+                return "These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+
+            }
+        }
     }
+
+
 
     public class TaskSizeAndPrice
     {
@@ -3553,13 +3675,6 @@ namespace AMSExplorer
     {
         AzureMediaPlayer = 0,
         AzureMediaPlayerFrame,
-        FlashAzurePage,
-        SilverlightAzurePage,
-        SilverlightMonitoring,
-        SilverlightPlayReadyToken,
-        FlashAESToken,
-        DASHAzurePage,
-        DASHLiveAzure,
         DASHIFRefPlayer,
         MP4AzurePage,
         CustomPlayer
@@ -3641,6 +3756,10 @@ namespace AMSExplorer
         public FileSystemWatcher Watcher { get; set; }
         public INotificationEndPoint NotificationEndPoint { get; set; }
         public bool ProcessRohzetXML { get; set; }
+        public bool ProcessJSONSemaphore { get; set; }
+        public string CallAPIUrl { get; set; }
+        public string CallAPJson { get; set; }
+
 
         public WatchFolderSettings()
         {
@@ -3653,6 +3772,8 @@ namespace AMSExplorer
             ExtraInputAssets = null;
             TypeInputExtraInput = TypeInputExtraInput.None;
             ProcessRohzetXML = false;
+            CallAPIUrl = null;
+            CallAPJson = null;
         }
     }
 
@@ -3803,6 +3924,7 @@ namespace AMSExplorer
         public bool TTML { get; set; }
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
+        public bool ForFullCaptions { get; set; }
     }
 
 
@@ -3954,4 +4076,64 @@ namespace AMSExplorer
                                                               ThisListView.Sorting);
         }
     }
+
+    public class ListViewItemComparerQuickNoDate : IComparer
+    {
+        private int col;
+        private SortOrder order;
+        public ListViewItemComparerQuickNoDate()
+        {
+            col = 0;
+            order = SortOrder.Ascending;
+        }
+        public ListViewItemComparerQuickNoDate(int column, SortOrder order)
+        {
+            col = column;
+            this.order = order;
+        }
+        public int Compare(object x, object y)
+        {
+            int returnVal;
+            // Determine whether the type being compared is a date type.
+
+            // Compare the two items as a string.
+            returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
+                        ((ListViewItem)y).SubItems[col].Text);
+
+            // Determine whether the sort order is descending.
+            if (order == SortOrder.Descending)
+                // Invert the value returned by String.Compare.
+                returnVal *= -1;
+            return returnVal;
+        }
+
+        static public void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListView ThisListView = (ListView)sender;
+            // Determine whether the column is the same as the last column clicked.
+            if (e.Column != ((int)ThisListView.Tag))
+            {
+                // Set the sort column to the new column.
+                ThisListView.Tag = e.Column;
+                // Set the sort order to ascending by default.
+                ThisListView.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                // Determine what the last sort order was and change it.
+                if (ThisListView.Sorting == SortOrder.Ascending)
+                    ThisListView.Sorting = SortOrder.Descending;
+                else
+                    ThisListView.Sorting = SortOrder.Ascending;
+            }
+
+            // Call the sort method to manually sort.
+            ThisListView.Sort();
+            // Set the ListViewItemSorter property to a new ListViewItemComparer
+            // object.
+            ThisListView.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                                                              ThisListView.Sorting);
+        }
+    }
+
 }

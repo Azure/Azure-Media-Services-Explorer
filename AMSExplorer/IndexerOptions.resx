@@ -120,4 +120,12 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="checkBoxForceFullCaptions.ToolTip" xml:space="preserve">
+    <value>Specify whether or not to force full captions (regardless of confidence level).
+If unchecked, words and phrases which have a less than 50% confidence level are omitted from the final caption outputs and replaced by ellipses ("..."). The ellipses are useful for caption quality control and auditing.
+</value>
+  </data>
 </root>

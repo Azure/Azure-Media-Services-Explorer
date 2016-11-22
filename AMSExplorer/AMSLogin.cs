@@ -155,7 +155,7 @@ namespace AMSExplorer
                 buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             }
 
-            accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, "http://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/"));
+            accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             foreach (var map in Mappings)
             {
                 comboBoxMappingList.Items.Add(map.Name);

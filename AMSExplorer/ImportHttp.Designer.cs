@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportHttp));
             this.buttonImport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -43,8 +44,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -108,7 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAssetName.Location = new System.Drawing.Point(10, 44);
             this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(702, 23);
+            this.textBoxAssetName.Size = new System.Drawing.Size(686, 23);
             this.textBoxAssetName.TabIndex = 1;
             // 
             // label3
@@ -126,8 +131,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAssetFileName.Location = new System.Drawing.Point(10, 96);
             this.textBoxAssetFileName.Name = "textBoxAssetFileName";
-            this.textBoxAssetFileName.Size = new System.Drawing.Size(702, 23);
+            this.textBoxAssetFileName.Size = new System.Drawing.Size(686, 23);
             this.textBoxAssetFileName.TabIndex = 2;
+            this.textBoxAssetFileName.TextChanged += new System.EventHandler(this.textBoxAssetFileName_TextChanged);
             // 
             // label4
             // 
@@ -152,13 +158,15 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label33);
+            this.groupBox1.Controls.Add(this.comboBoxStorage);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxAssetName);
             this.groupBox1.Controls.Add(this.textBoxAssetFileName);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(36, 200);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(720, 137);
+            this.groupBox1.Size = new System.Drawing.Size(720, 191);
             this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Asset creation";
@@ -170,7 +178,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonImport);
-            this.panel1.Location = new System.Drawing.Point(1, 354);
+            this.panel1.Location = new System.Drawing.Point(1, 406);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 55);
             this.panel1.TabIndex = 63;
@@ -198,6 +206,30 @@
             this.labelSASListExample.Text = resources.GetString("labelSASListExample.Text");
             this.labelSASListExample.Visible = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(7, 132);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(93, 15);
+            this.label33.TabIndex = 57;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(11, 151);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(327, 23);
+            this.comboBoxStorage.TabIndex = 56;
+            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
@@ -205,7 +237,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(798, 410);
+            this.ClientSize = new System.Drawing.Size(798, 462);
             this.Controls.Add(this.labelSASListExample);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel1);
@@ -222,6 +254,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,5 +276,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTitle;
         public System.Windows.Forms.Label labelSASListExample;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }

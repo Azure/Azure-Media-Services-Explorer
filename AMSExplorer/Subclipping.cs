@@ -332,16 +332,17 @@ namespace AMSExplorer
 
                     if (checkBoxUseEDL.Checked) // EDL
                     {
+                        var offset = timeControlStart.GetOffSetAsTimeSpan();
                         foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
-                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End });
+                            list.Add(new ExplorerEDLEntryInOut() { Start = entry.Start, End = entry.End, Offset = offset });
                         }
-                        config.OffsetForReencode = timeControlStart.GetOffSetAsTimeSpan();
+                        config.OffsetForReencode = offset;
                     }
                     else  // No EDL
                     {
                         var subdata = GetSubClipTrimmingDataTimeSpan();
-                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset });
+                        list.Add(new ExplorerEDLEntryInOut() { Start = subdata.StartTime - subdata.Offset, End = subdata.EndTime - subdata.Offset, Offset = subdata.Offset });
                         config.OffsetForReencode = subdata.Offset;
                     }
                     config.InOutForReencode = list;
@@ -612,7 +613,7 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, processor.Version, _mainform, subclipConfig, disableOverlay: true)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, new List<IAsset>(), processor.Version, _mainform, subclipConfig, disableOverlay: true)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
@@ -621,8 +622,8 @@ namespace AMSExplorer
 
                     EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
-                    EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                    EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                    EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
+                    EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                     SelectedAssets = _selectedAssets
                 };
 
@@ -691,7 +692,8 @@ namespace AMSExplorer
             buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
             {
                 Start = timeControlStart.TimeStampWithoutOffset,
-                End = timeControlEnd.TimeStampWithoutOffset
+                End = timeControlEnd.TimeStampWithoutOffset,
+                Offset = timeControlStart.GetOffSetAsTimeSpan()
             });
             //ResetConfigXML();
         }

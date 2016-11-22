@@ -85,12 +85,13 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
 
-        private int _nbInputAssets;
+        //private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
         private bool _disableOverlay;
         private bool _disableSourceTrimming;
         private Mainform _main;
+        private List<IAsset> _inputAssetsForJob;
 
         public List<IAsset> SelectedAssets
         {
@@ -158,7 +159,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, Mainform main, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
+        public EncodingAMEStandard(CloudMediaContext context, List<IAsset> inputAssetsForJob, string processorVersion, Mainform main, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly = false, bool disableOverlay = false, bool disableSourceTrimming = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -166,10 +167,13 @@ namespace AMSExplorer
             _processorVersion = processorVersion;
             _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
-            _nbInputAssets = nbInputAssets;
+            //_nbInputAssets = nbInputAssets;
             _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
             _disableOverlay = disableOverlay;
             _disableSourceTrimming = disableSourceTrimming;
+            _inputAssetsForJob = inputAssetsForJob;
+            if (_inputAssetsForJob.Count == 0) _disableOverlay = true; // if stiching, let's disable overlay
+
             _main = main;
 
         }
@@ -207,6 +211,7 @@ namespace AMSExplorer
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
             linkLabelMESFeatures.Links.Add(new LinkLabel.Link(0, linkLabelMESFeatures.Text.Length, Constants.LinkMESAdvFeatures));
+            comboBoxRotation.SelectedIndex = 0;
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
@@ -223,10 +228,28 @@ namespace AMSExplorer
 
                 if (_subclipConfig.InOutForReencode.Count == 1) // one entry only, let's display in the two visible controls
                 {
-                    timeControlStartTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].Start);
+                    if (_subclipConfig.InOutForReencode[0].Start != null)
+                    {
+                        timeControlStartTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].Start);
+                        checkBoxSourceTrimmingStart.Checked = true;
+                    }
+                    else
+                    {
+                        checkBoxSourceTrimmingStart.Checked = false;
+
+                    }
+
+                    if (_subclipConfig.InOutForReencode[0].End != null)
+                    {
+                        timeControlEndTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].End);
+                        checkBoxSourceTrimmingEnd.Checked = true;
+                    }
+                    else
+                    {
+                        checkBoxSourceTrimmingEnd.Checked = false;
+
+                    }
                     timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
-                    timeControlEndTime.SetTimeStamp(_subclipConfig.InOutForReencode[0].End);
-                    checkBoxSourceTrimmingStart.Checked = checkBoxSourceTrimmingEnd.Checked = true;
                 }
                 else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
                 {
@@ -237,7 +260,7 @@ namespace AMSExplorer
                 _disableOverlay = true;
             }
 
-            if (_nbInputAssets > 1)
+            if (_disableOverlay)//_nbInputAssets > 1)
             {
                 checkBoxOverlay.Enabled = false; // no overlay if several assets have been selected
             }
@@ -262,6 +285,17 @@ namespace AMSExplorer
             if (_disableSourceTrimming)
             {
                 groupBox1.Enabled = false;
+            }
+
+            if (_inputAssetsForJob.Count > 1)
+            {
+                comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
+                _inputAssetsForJob.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Id), a.Id)));
+                comboBoxSourceAsset.SelectedIndex = 0;
+            }
+            else
+            {
+                labelInfoSeveralAssetStitching.Visible = true;
             }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
@@ -329,6 +363,7 @@ namespace AMSExplorer
                     // clean deinterlace filter
                     // clean overlay
                     // clean cropping
+                    // clean rotation
 
 
                     if (obj.Sources != null)
@@ -388,6 +423,20 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Clean StretchMode
+                    if (obj.Codecs != null)
+                    {
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.Type != null &&
+                                (codec.Type == "H264Video") &&
+                                codec.StretchMode != null)
+                            {
+                                codec.StretchMode.Parent.Remove();
+                            }
+                        }
+                    }
+
                     if (obj.Codecs != null) // clean thumbnail entry in Codecs
                     {
                         var listDelete = new List<dynamic>();
@@ -438,9 +487,29 @@ namespace AMSExplorer
                         foreach (var entry in buttonShowEDL.GetEDLEntries())
                         {
                             dynamic time = new JObject();
-                            time.StartTime = entry.Start + buttonShowEDL.Offset;
-                            time.Duration = entry.Duration;
-                            obj.Sources.Add(time);
+
+                            bool insert = false;
+                            if (entry.AssetID != null)
+                            {
+                                time.AssetID = entry.AssetID;
+                                insert = true;
+                            }
+                            if (entry.Start != null)
+                            {
+                                time.StartTime = entry.Start + buttonShowEDL.Offset;
+                                insert = true;
+
+                            }
+                            if (entry.Duration != null)
+                            {
+                                time.Duration = entry.Duration;
+                                insert = true;
+                            }
+
+                            if (insert)
+                            {
+                                obj.Sources.Add(time);
+                            }
                         }
                     }
                     else if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked) // Only start or end or both (no edl)
@@ -451,6 +520,11 @@ namespace AMSExplorer
                         }
 
                         dynamic time = new JObject();
+                        if (comboBoxSourceAsset.Items.Count > 1)
+                        {
+                            time.AssetId = ((Item)comboBoxSourceAsset.SelectedItem).Value;
+                        }
+
                         if (checkBoxSourceTrimmingStart.Checked)
                         {
                             time.StartTime = timeControlStartTime.TimeStampWithOffset;
@@ -463,6 +537,16 @@ namespace AMSExplorer
                         {
                             time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
+                        obj.Sources.Add(time);
+                    }
+                    else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+                        dynamic time = new JObject();
+                        time.AssetId = ((Item)comboBoxSourceAsset.SelectedItem).Value;
                         obj.Sources.Add(time);
                     }
 
@@ -759,6 +843,72 @@ namespace AMSExplorer
                     }
 
 
+                    // Auto rotation
+                    if (comboBoxRotation.SelectedIndex > 0)
+
+                    {
+                        /*
+                       {
+"Version": 1.0,
+  "Sources": [
+    {
+      "Filters": {
+        "Rotation": "90"
+      }
+    }
+  ]
+],
+"Codecs": [
+{
+
+    */
+
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        // let's prepare objects
+                        dynamic RotEntry = new JObject();
+                        RotEntry.Rotation = (string)comboBoxRotation.SelectedItem;
+
+
+                        // now we put these objects in the preset
+                        if (obj.Sources.Count > 0)
+                        {
+                            foreach (dynamic entry in obj.Sources)
+                            {
+                                if (entry.Filters != null)
+                                {
+                                    entry.Filters.Rotation = comboBoxRotation.SelectedText;
+                                }
+                                else
+                                {
+                                    entry.Filters = RotEntry;
+
+                                }
+
+                                if (entry.Streams == null)
+                                {
+                                    entry.Streams = new JArray() as dynamic;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dynamic Source = new JObject();
+                            obj.Sources.Add(Source);
+                            Source.Filters = RotEntry;
+
+
+                            if (Source.Streams == null)
+                            {
+                                Source.Streams = new JArray() as dynamic;
+                            }
+                        }
+                    }
+
+
                     // Insert silent audio track
                     if (checkBoxInsertSilentAudioTrack.Checked)
                     {
@@ -799,6 +949,21 @@ namespace AMSExplorer
                                 if (codec.Type != null && codec.Type == "H264Video")
                                 {
                                     codec.Condition = radioButtonOnlyLowestBitrate.Checked ? "InsertBlackIfNoVideoBottomLayerOnly" : "InsertBlackIfNoVideo";
+                                }
+                            }
+                        }
+                    }
+
+                    // Autostrech mode to none ?
+                    if (checkBoxDisableAutoStretchMode.Checked)
+                    {
+                        if (obj.Codecs != null)
+                        {
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null && codec.Type == "H264Video")
+                                {
+                                    codec.StretchMode = "None";
                                 }
                             }
                         }
@@ -1121,7 +1286,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
+            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1268,7 +1433,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = checkBoxSourceTrimmingEnd.Checked;
-            buttonAddEDLEntry.Enabled = checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked;
+            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1293,14 +1458,33 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
-            if (checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked)
+
+            if (checkBoxSourceTrimmingEnd.Checked && !checkBoxSourceTrimmingStart.Checked)
             {
+                MessageBox.Show("You cannot specify only an end time.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (checkBoxSourceTrimmingStart.Checked)
+            {
+
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
                     Start = timeControlStartTime.TimeStampWithoutOffset,
-                    End = timeControlEndTime.TimeStampWithoutOffset
+                    End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
                 });
             }
+            else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked)
+            {
+                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                {
+                    Start = new TimeSpan(0),
+                    //End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
+                });
+            }
+
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)

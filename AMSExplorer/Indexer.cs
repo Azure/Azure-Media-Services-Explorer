@@ -35,7 +35,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions();
-        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
+        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true, ForFullCaptions = false };
         private string _version;
 
         public IndexerOptionsVar IndexerGenerationOptions
@@ -178,6 +178,7 @@ namespace AMSExplorer
             settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
             settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
             settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
+            settings.Add(new XElement("add", new XAttribute("key", "ForceFullCaption"), new XAttribute("value", optionsVar.ForFullCaptions.ToString())));
 
             string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
             cformats += optionsVar.SAMI ? "sami;" : string.Empty;

@@ -1,9 +1,14 @@
-Version 3.44.1.0 (September 9, 2016) brings the following features and improvements :
+Version 3.46.0.0 (November 21, 2016) brings the following features and improvements :
 
-* New **Import from SAS Container Path** option
-  * AMS Explorer now generates SAS locators that include the list permission
-  * A SAS Container Path can be used to import an asset to the current AMS account. This is useful to share multiple files asset or a live archive with another user using only one URL.
-* Additional **advanced features** with Media Encoder Standard (MES)
-  * Insert black video, non interleaved mode for audio streams
-* Update to **Azure Media Analytics** (Redaction, Face detection)
+* Support for new **“Blob storage accounts”** including **hot and cool** tiers
+  * Only for additional (attached) storage accounts
+  * Primary storage account still needs to be regular storage account and only LRS/GRS/GRS-RA is supported
+  * Uploading to new blob storage accounts is supported
+* New dialog box when a single file or multiple files are uploaded
+  * User can select the destination storage account, storage encryption or not, single asset option 
+* Update to **Azure Media Telemetry**
+* Support for JSON semaphore file in Watchfolder
+* Added support for Japanese in Media Indexer v2
+* Documentation links update
+* Updated the Media Services SDK to version 3.8.0.3
 * Bug fixes

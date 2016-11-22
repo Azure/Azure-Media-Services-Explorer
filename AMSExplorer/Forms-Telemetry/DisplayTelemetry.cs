@@ -52,8 +52,7 @@ namespace AMSExplorer
         private string _storagePassword = "";
         private bool boolSavedStoragePassword = false;
         private bool channelMode = true;
-        private int overlapCountCol;
-        private int discontCountCol;
+        private int healthyCountCol;
         private int statusCodeCol;
 
         public DisplayTelemetry(Mainform mainform, object entity, CloudMediaContext context, CredentialsEntry credentials)
@@ -260,7 +259,16 @@ namespace AMSExplorer
                 {
                     if (!showErrors || (showErrors && (log.StatusCode >= 400)))
                     {
-                        dataGridViewTelemetry.Rows.Add(radioButtonLocal.Checked ? log.ObservedTime.ToLocalTime() : log.ObservedTime.ToUniversalTime(), log.BytesSent, log.EndToEndLatency, log.HostName, log.RequestCount, log.ResultCode, log.RowKey, log.ServerLatency, log.StatusCode);
+                        dataGridViewTelemetry.Rows.Add(
+                            radioButtonLocal.Checked ? log.ObservedTime.ToLocalTime() : log.ObservedTime.ToUniversalTime(),
+                            log.BytesSent,
+                            log.EndToEndLatency,
+                            log.HostName,
+                            log.RequestCount,
+                            log.ResultCode,
+                            log.RowKey,
+                            log.ServerLatency,
+                            log.StatusCode);
                     }
                 }
             }
@@ -279,20 +287,26 @@ namespace AMSExplorer
         {
             if (_firsttime)
             {
-                dataGridViewTelemetry.ColumnCount = 9;
+                dataGridViewTelemetry.ColumnCount = 14;
 
                 dataGridViewTelemetry.Columns[0].HeaderText = "Observed time";
-                dataGridViewTelemetry.Columns[1].HeaderText = "Track type";
-                dataGridViewTelemetry.Columns[2].HeaderText = "track name";
-                dataGridViewTelemetry.Columns[3].HeaderText = "Bitrate";
-                dataGridViewTelemetry.Columns[4].HeaderText = "Incoming bitrate";
-                dataGridViewTelemetry.Columns[5].HeaderText = "Overlap count";
-                dataGridViewTelemetry.Columns[6].HeaderText = "Discontinuity count";
-                dataGridViewTelemetry.Columns[7].HeaderText = "Last timestamp";
-                dataGridViewTelemetry.Columns[8].HeaderText = "Custom attributes";
+                dataGridViewTelemetry.Columns[1].HeaderText = "Healthy";
+                dataGridViewTelemetry.Columns[2].HeaderText = "Track type";
+                dataGridViewTelemetry.Columns[3].HeaderText = "track name";
+                dataGridViewTelemetry.Columns[4].HeaderText = "Bitrate";
+                dataGridViewTelemetry.Columns[5].HeaderText = "Incoming bitrate";
+                dataGridViewTelemetry.Columns[6].HeaderText = "Overlap count";
+                dataGridViewTelemetry.Columns[7].HeaderText = "Discontinuity count";
+                dataGridViewTelemetry.Columns[8].HeaderText = "Last timestamp";
+                dataGridViewTelemetry.Columns[9].HeaderText = "Non increasing Count";
+                dataGridViewTelemetry.Columns[10].HeaderText = "Unaligned Key Frames";
+                dataGridViewTelemetry.Columns[11].HeaderText = "Unaligned Presentation Time";
+                dataGridViewTelemetry.Columns[12].HeaderText = "Unexpected Bitrate";
+                dataGridViewTelemetry.Columns[13].HeaderText = "Custom attributes";
 
-                overlapCountCol = 5;
-                discontCountCol = 6;
+                healthyCountCol = 1;
+                //   overlapCountCol = 6;
+                //   discontCountCol = 7;
 
                 labelTelemetryUI.Text = string.Format("Telemetry for channel '{0}'", channel.Name);
 
@@ -322,7 +336,21 @@ namespace AMSExplorer
                 {
                     if (!showErrors || (showErrors && (cHB.OverlapCount > 0 || cHB.DiscontinuityCount > 0)))
                     {
-                        dataGridViewTelemetry.Rows.Add(radioButtonLocal.Checked ? cHB.ObservedTime.ToLocalTime() : cHB.ObservedTime.ToUniversalTime(), cHB.TrackType, cHB.TrackName, cHB.Bitrate, cHB.IncomingBitrate, cHB.OverlapCount, cHB.DiscontinuityCount, cHB.LastTimestamp, cHB.CustomAttributes);
+                        dataGridViewTelemetry.Rows.Add(
+                            radioButtonLocal.Checked ? cHB.ObservedTime.ToLocalTime() : cHB.ObservedTime.ToUniversalTime(),
+                            cHB.Healthy,
+                            cHB.TrackType,
+                            cHB.TrackName,
+                            cHB.Bitrate,
+                            cHB.IncomingBitrate,
+                            cHB.OverlapCount,
+                            cHB.DiscontinuityCount,
+                            cHB.LastTimestamp,
+                            cHB.NonincreasingCount,
+                            cHB.UnalignedKeyFrames,
+                            cHB.UnalignedPresentationTime,
+                            cHB.UnexpectedBitrate,
+                            cHB.CustomAttributes);
                     }
                 }
             }
@@ -411,18 +439,8 @@ namespace AMSExplorer
             }
             else
             {
-                int celloverlap = (int)dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[overlapCountCol].Index].Value;
-                int celldisc = (int)dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[discontCountCol].Index].Value;
-
-                if (celloverlap > 0 || celldisc > 0)
-                {
-                    e.CellStyle.ForeColor = Color.Red;
-                }
-                else
-                {
-                    e.CellStyle.ForeColor = Color.DarkGreen;
-                }
-
+                bool healthy = (bool)dataGridViewTelemetry.Rows[e.RowIndex].Cells[dataGridViewTelemetry.Columns[healthyCountCol].Index].Value;
+                e.CellStyle.ForeColor = healthy ? Color.DarkGreen : Color.Red;
             }
         }
 

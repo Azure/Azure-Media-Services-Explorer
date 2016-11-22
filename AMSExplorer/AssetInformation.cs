@@ -76,64 +76,6 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItemPlaybackFlash_Click(object sender, EventArgs e)
-        {
-            DoFlashPlayer();
-        }
-
-        private void DoFlashPlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._smooth_legacy:
-                        case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        default:
-                            break;
-                    }
-
-            }
-        }
-
-        private void toolStripMenuItemPlaybackSilverlight_Click(object sender, EventArgs e)
-        {
-            DoSLPlayer();
-        }
-
-        private void DoSLPlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._smooth_legacy:
-                        case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-
-                }
-            }
-        }
 
         private void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
@@ -169,9 +111,6 @@ namespace AMSExplorer
                 {
                     toolStripMenuItemAzureMediaPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
-                    toolStripMenuItemDASHLiveAzure.Enabled = false;
-                    toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                    toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                     toolStripMenuItemPlaybackMP4.Enabled = false;
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
@@ -179,40 +118,28 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) | TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = true;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = true;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
-                        toolStripMenuItemDASHLiveAzure.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = true;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
-                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackFlashAzure.Enabled = false;
-                        toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
                     }
@@ -816,7 +743,6 @@ namespace AMSExplorer
                     foreach (var conf in ADP.AssetDeliveryConfiguration)
                     {
                         DGDelPol.Rows.Add(string.Format("Config #{0}, \"{1}\"", i, conf.Key), conf.Value);
-                        //DGDelPol.Rows.Add(string.Format("Configuration #{0}, Value", i), conf.Value);
                         i++;
                     }
                 }
@@ -1142,12 +1068,6 @@ namespace AMSExplorer
             DoDASHIFPlayer();
         }
 
-        private void buttonFlash_Click(object sender, EventArgs e)
-        {
-            DoFlashPlayer();
-        }
-
-
 
         private void buttonHTML_Click(object sender, EventArgs e)
         {
@@ -1162,8 +1082,6 @@ namespace AMSExplorer
                 {
                     buttonDASH.Enabled = false;
                     buttonAzureMediaPlayer.Enabled = false;
-                    buttonDashLiveAzure.Enabled = false;
-                    buttonFlash.Enabled = false;
                     buttonHTML.Enabled = false;
                     buttonOpen.Enabled = false;
                     buttonDel.Enabled = false;
@@ -1175,8 +1093,6 @@ namespace AMSExplorer
 
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1184,8 +1100,6 @@ namespace AMSExplorer
                         case AssetInfo._dash:
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonDashLiveAzure.Enabled = true;
-                            buttonFlash.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
@@ -1193,8 +1107,6 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_https_SAS:
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = false;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = true;
                             break;
@@ -1202,8 +1114,6 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_http_streaming:
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonDashLiveAzure.Enabled = false;
-                            buttonFlash.Enabled = false;
                             buttonHTML.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".ism"));
                             break;
@@ -1259,11 +1169,6 @@ namespace AMSExplorer
                     }
                 }
             }
-        }
-
-        private void buttonSLMonitor_Click(object sender, EventArgs e)
-        {
-            DoSLPlayer();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1576,8 +1481,8 @@ namespace AMSExplorer
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
-            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled = buttonGetTestToken.Enabled = false;
+            buttonRemoveKey.Enabled = buttonAddExistingAutPol.Enabled = listViewKeys.SelectedItems.Count > 0;
+            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled =  buttonGetTestToken.Enabled = false;
             DoDisplayKeyPropertiesAndAutOptions();
         }
 
@@ -1721,32 +1626,6 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonDashLiveAzure_Click(object sender, EventArgs e)
-        {
-            DoDashLiveAzurePlayer();
-        }
-
-        private void DoDashLiveAzurePlayer()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    switch (TreeViewLocators.SelectedNode.Parent.Text)
-                    {
-                        case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
-                            break;
-
-
-                        default:
-                            break;
-                    }
-
-                }
-            }
-        }
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
@@ -2020,6 +1899,7 @@ namespace AMSExplorer
                             try
                             {
                                 key.AuthorizationPolicyId = null;
+                                key.Update();
 
                                 if (DR == DialogResult.Yes) // user wants also to delete the auth policy
                                 {
@@ -2402,11 +2282,8 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-
-
-            var editform = new EditorXMLJSON("Clear key value", key.ToString(), false, false);
+            var editform = new EditorXMLJSON("Value", key.ToString(), false, false);
             editform.Display();
-
         }
 
         private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -2512,5 +2389,89 @@ namespace AMSExplorer
             DoRemoveAuthPol();
 
         }
+
+        private void buttonAddExistingDelPol_Click(object sender, EventArgs e)
+        {
+            DoAddExistingDelPol();
+        }
+
+
+        private void DoAddExistingDelPol()
+        {
+
+            var form = new SelectDeliveryPolicy(myContext);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                IAssetDeliveryPolicy DP = form.SelectedPolicy;
+                if (DP != null)
+                {
+
+                    try
+                    {
+                        myAsset.DeliveryPolicies.Add(DP);
+                    }
+
+                    catch (Exception e)
+                    {
+                        string messagestr = string.Format("Error when attaching the delivery policy.");
+                        if (e.InnerException != null)
+                        {
+                            messagestr += Constants.endline + Program.GetErrorMessage(e);
+                        }
+                        MessageBox.Show(messagestr);
+                    }
+
+                    ListAssetDeliveryPolicies();
+                }
+            }
+        }
+
+        private void buttonAddExistingAutPol_Click(object sender, EventArgs e)
+        {
+            DoAddExistingAutPol();
+        }
+
+        private void DoAddExistingAutPol()
+        {
+
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                if (listViewKeys.SelectedItems[0] != null)
+                {
+                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                    var form = new SelectAutPolicy(myContext, key.ContentKeyType);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        var AutPol = form.SelectedPolicy;
+                        if (AutPol != null)
+                        {
+
+
+                            try
+                            {
+                                key.AuthorizationPolicyId = AutPol.Id;
+                                key.Update();
+                            }
+
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when attaching an existing authorization policy.");
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
+
+                            DoDisplayKeyPropertiesAndAutOptions();
+                        }
+                    }
+
+                }
+            }
+        }
     }
+
 }
+

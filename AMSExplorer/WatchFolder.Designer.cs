@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WatchFolder));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,6 +61,11 @@
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
             this.buttonSeeRhozetExample = new System.Windows.Forms.Button();
             this.checkBoxProcessXMLRohzet = new System.Windows.Forms.CheckBox();
+            this.checkBoxCallAPI = new System.Windows.Forms.CheckBox();
+            this.textBoxAPIUrl = new System.Windows.Forms.TextBox();
+            this.buttonJsonBody = new System.Windows.Forms.Button();
+            this.checkBoxProcessJSONSemaphore = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -76,199 +80,322 @@
             // 
             // buttonOk
             // 
-            resources.ApplyResources(this.buttonOk, "buttonOk");
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.Location = new System.Drawing.Point(570, 15);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(115, 27);
+            this.buttonOk.TabIndex = 17;
+            this.buttonOk.Text = "Apply";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(693, 14);
             this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
+            this.buttonCancel.TabIndex = 16;
+            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
+            this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(17, 35);
             this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(693, 45);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Specify a watch folder.\r\nAny file copied to this folder will be uploaded to Azure" +
+    " Media Services as a new asset and the specified operations will be executed.\r\nY" +
+    "ou must keep the application opened.";
             // 
             // radioButtonON
             // 
-            resources.ApplyResources(this.radioButtonON, "radioButtonON");
+            this.radioButtonON.AutoSize = true;
+            this.radioButtonON.Location = new System.Drawing.Point(41, 33);
             this.radioButtonON.Name = "radioButtonON";
+            this.radioButtonON.Size = new System.Drawing.Size(43, 19);
+            this.radioButtonON.TabIndex = 44;
+            this.radioButtonON.Text = "ON";
             this.radioButtonON.UseVisualStyleBackColor = true;
             // 
             // radioButtonOFF
             // 
-            resources.ApplyResources(this.radioButtonOFF, "radioButtonOFF");
+            this.radioButtonOFF.AutoSize = true;
             this.radioButtonOFF.Checked = true;
+            this.radioButtonOFF.Location = new System.Drawing.Point(41, 61);
             this.radioButtonOFF.Name = "radioButtonOFF";
+            this.radioButtonOFF.Size = new System.Drawing.Size(46, 19);
+            this.radioButtonOFF.TabIndex = 46;
             this.radioButtonOFF.TabStop = true;
+            this.radioButtonOFF.Text = "OFF";
             this.radioButtonOFF.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
+            this.groupBox4.Location = new System.Drawing.Point(61, 143);
             this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(156, 99);
+            this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Activation";
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.watch_folder;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 33);
             this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 49;
             this.pictureBox1.TabStop = false;
             // 
             // buttonSelFolder
             // 
-            resources.ApplyResources(this.buttonSelFolder, "buttonSelFolder");
+            this.buttonSelFolder.Location = new System.Drawing.Point(26, 93);
             this.buttonSelFolder.Name = "buttonSelFolder";
+            this.buttonSelFolder.Size = new System.Drawing.Size(132, 27);
+            this.buttonSelFolder.TabIndex = 44;
+            this.buttonSelFolder.Text = "Select folder...";
             this.buttonSelFolder.UseVisualStyleBackColor = true;
             this.buttonSelFolder.Click += new System.EventHandler(this.buttonSelFolder_Click);
             // 
             // textBoxFolder
             // 
-            resources.ApplyResources(this.textBoxFolder, "textBoxFolder");
+            this.textBoxFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFolder.Enabled = false;
+            this.textBoxFolder.Location = new System.Drawing.Point(166, 96);
             this.textBoxFolder.Name = "textBoxFolder";
+            this.textBoxFolder.Size = new System.Drawing.Size(636, 23);
+            this.textBoxFolder.TabIndex = 45;
             this.textBoxFolder.TextChanged += new System.EventHandler(this.textBoxFolder_TextChanged);
             // 
             // checkBoxDeleteFile
             // 
-            resources.ApplyResources(this.checkBoxDeleteFile, "checkBoxDeleteFile");
+            this.checkBoxDeleteFile.AutoSize = true;
+            this.checkBoxDeleteFile.Location = new System.Drawing.Point(37, 34);
             this.checkBoxDeleteFile.Name = "checkBoxDeleteFile";
+            this.checkBoxDeleteFile.Size = new System.Drawing.Size(160, 19);
+            this.checkBoxDeleteFile.TabIndex = 49;
+            this.checkBoxDeleteFile.Text = "Delete file once uploaded";
             this.checkBoxDeleteFile.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.delete;
+            this.pictureBox2.Location = new System.Drawing.Point(15, 34);
             this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 50;
             this.pictureBox2.TabStop = false;
             // 
             // checkBoxRunJobTemplate
             // 
-            resources.ApplyResources(this.checkBoxRunJobTemplate, "checkBoxRunJobTemplate");
+            this.checkBoxRunJobTemplate.AutoSize = true;
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 264);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
+            this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
+            this.checkBoxRunJobTemplate.TabIndex = 51;
+            this.checkBoxRunJobTemplate.Text = "Process the asset";
             this.checkBoxRunJobTemplate.UseVisualStyleBackColor = true;
             this.checkBoxRunJobTemplate.CheckedChanged += new System.EventHandler(this.checkBoxRunJobTemplate_CheckedChanged);
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-2, 661);
             this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(823, 55);
+            this.panel1.TabIndex = 64;
             // 
             // pictureBox3
             // 
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.pictureBox3.Location = new System.Drawing.Point(26, 570);
             this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 66;
             this.pictureBox3.TabStop = false;
             // 
             // checkBoxPublishOAssets
             // 
-            resources.ApplyResources(this.checkBoxPublishOAssets, "checkBoxPublishOAssets");
+            this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxPublishOAssets.AutoSize = true;
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 571);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
+            this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
+            this.checkBoxPublishOAssets.TabIndex = 65;
+            this.checkBoxPublishOAssets.Text = "Publish the output asset(s) - using the default value of {0} days";
             this.checkBoxPublishOAssets.UseVisualStyleBackColor = true;
             // 
             // pictureBox4
             // 
-            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
+            this.pictureBox4.Location = new System.Drawing.Point(26, 603);
             this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox4.TabIndex = 68;
             this.pictureBox4.TabStop = false;
             // 
             // checkBoxSendEMail
             // 
-            resources.ApplyResources(this.checkBoxSendEMail, "checkBoxSendEMail");
+            this.checkBoxSendEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxSendEMail.AutoSize = true;
+            this.checkBoxSendEMail.Location = new System.Drawing.Point(61, 604);
             this.checkBoxSendEMail.Name = "checkBoxSendEMail";
+            this.checkBoxSendEMail.Size = new System.Drawing.Size(310, 19);
+            this.checkBoxSendEMail.TabIndex = 67;
+            this.checkBoxSendEMail.Text = "Send an email when completed or in case of error, to :";
             this.checkBoxSendEMail.UseVisualStyleBackColor = true;
             this.checkBoxSendEMail.CheckedChanged += new System.EventHandler(this.checkBoxSendEMail_CheckedChanged);
             // 
             // textBoxEMail
             // 
-            resources.ApplyResources(this.textBoxEMail, "textBoxEMail");
+            this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEMail.Enabled = false;
+            this.textBoxEMail.Location = new System.Drawing.Point(394, 600);
             this.textBoxEMail.Name = "textBoxEMail";
+            this.textBoxEMail.Size = new System.Drawing.Size(301, 23);
+            this.textBoxEMail.TabIndex = 69;
             // 
             // buttonTestEmail
             // 
-            resources.ApplyResources(this.buttonTestEmail, "buttonTestEmail");
+            this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTestEmail.Enabled = false;
+            this.buttonTestEmail.Location = new System.Drawing.Point(715, 598);
             this.buttonTestEmail.Name = "buttonTestEmail";
+            this.buttonTestEmail.Size = new System.Drawing.Size(87, 27);
+            this.buttonTestEmail.TabIndex = 70;
+            this.buttonTestEmail.Text = "Test now";
             this.buttonTestEmail.UseVisualStyleBackColor = true;
             this.buttonTestEmail.Click += new System.EventHandler(this.buttonTestEmail_Click);
             // 
             // radioButtonInsertWorkflowAsset
             // 
-            resources.ApplyResources(this.radioButtonInsertWorkflowAsset, "radioButtonInsertWorkflowAsset");
+            this.radioButtonInsertWorkflowAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonInsertWorkflowAsset.AutoSize = true;
+            this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(16, 51);
             this.radioButtonInsertWorkflowAsset.Name = "radioButtonInsertWorkflowAsset";
+            this.radioButtonInsertWorkflowAsset.Size = new System.Drawing.Size(144, 34);
+            this.radioButtonInsertWorkflowAsset.TabIndex = 72;
+            this.radioButtonInsertWorkflowAsset.Text = "Insert a workflow asset\r\nas first asset";
             this.radioButtonInsertWorkflowAsset.UseVisualStyleBackColor = true;
             this.radioButtonInsertWorkflowAsset.CheckedChanged += new System.EventHandler(this.radioButtonInsertWorkflowAsset_CheckedChanged);
             // 
             // radioButtonInsertSelectedAssets
             // 
-            resources.ApplyResources(this.radioButtonInsertSelectedAssets, "radioButtonInsertSelectedAssets");
+            this.radioButtonInsertSelectedAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonInsertSelectedAssets.AutoSize = true;
             this.radioButtonInsertSelectedAssets.Checked = true;
+            this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(16, 9);
             this.radioButtonInsertSelectedAssets.Name = "radioButtonInsertSelectedAssets";
+            this.radioButtonInsertSelectedAssets.Size = new System.Drawing.Size(161, 34);
+            this.radioButtonInsertSelectedAssets.TabIndex = 73;
             this.radioButtonInsertSelectedAssets.TabStop = true;
+            this.radioButtonInsertSelectedAssets.Text = "Insert the selected assets\r\nbefore the uploaded asset";
             this.radioButtonInsertSelectedAssets.UseVisualStyleBackColor = true;
             this.radioButtonInsertSelectedAssets.CheckedChanged += new System.EventHandler(this.radioButtonInsertSelectedAssets_CheckedChanged);
             // 
             // groupBoxProcess
             // 
-            resources.ApplyResources(this.groupBoxProcess, "groupBoxProcess");
+            this.groupBoxProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxProcess.Controls.Add(this.labelWarning);
             this.groupBoxProcess.Controls.Add(this.panelInsertAsset);
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
+            this.groupBoxProcess.Enabled = false;
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 291);
             this.groupBoxProcess.Name = "groupBoxProcess";
+            this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
+            this.groupBoxProcess.TabIndex = 74;
             this.groupBoxProcess.TabStop = false;
+            this.groupBoxProcess.Text = "Job template and input assets";
             // 
             // labelWarning
             // 
-            resources.ApplyResources(this.labelWarning, "labelWarning");
+            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(211, 106);
             this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(52, 15);
+            this.labelWarning.TabIndex = 76;
+            this.labelWarning.Text = "Warning";
             // 
             // panelInsertAsset
             // 
-            resources.ApplyResources(this.panelInsertAsset, "panelInsertAsset");
+            this.panelInsertAsset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelInsertAsset.Controls.Add(this.listViewWorkflows1);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertSelectedAssets);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertWorkflowAsset);
+            this.panelInsertAsset.Enabled = false;
+            this.panelInsertAsset.Location = new System.Drawing.Point(19, 125);
             this.panelInsertAsset.Name = "panelInsertAsset";
+            this.panelInsertAsset.Size = new System.Drawing.Size(723, 126);
+            this.panelInsertAsset.TabIndex = 75;
             // 
             // listViewWorkflows1
             // 
-            resources.ApplyResources(this.listViewWorkflows1, "listViewWorkflows1");
+            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows1.Enabled = false;
             this.listViewWorkflows1.FullRowSelect = true;
             this.listViewWorkflows1.HideSelection = false;
+            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
             this.listViewWorkflows1.MultiSelect = false;
             this.listViewWorkflows1.Name = "listViewWorkflows1";
+            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
+            this.listViewWorkflows1.TabIndex = 61;
             this.listViewWorkflows1.Tag = -1;
             this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
             this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
             // 
             // checkBoAddAssetsToInput
             // 
-            resources.ApplyResources(this.checkBoAddAssetsToInput, "checkBoAddAssetsToInput");
+            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoAddAssetsToInput.AutoSize = true;
+            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(19, 106);
             this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
+            this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(164, 19);
+            this.checkBoAddAssetsToInput.TabIndex = 74;
+            this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
             this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
             this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
             // 
             // listViewTemplates
             // 
-            resources.ApplyResources(this.listViewTemplates, "listViewTemplates");
+            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewTemplates.FullRowSelect = true;
             this.listViewTemplates.HideSelection = false;
+            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
             this.listViewTemplates.MultiSelect = false;
             this.listViewTemplates.Name = "listViewTemplates";
+            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
+            this.listViewTemplates.TabIndex = 61;
             this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
@@ -276,53 +403,134 @@
             // 
             // pictureBox5
             // 
-            resources.ApplyResources(this.pictureBox5, "pictureBox5");
             this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.pictureBox5.Location = new System.Drawing.Point(26, 265);
             this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox5.TabIndex = 75;
             this.pictureBox5.TabStop = false;
             // 
             // label13
             // 
-            resources.ApplyResources(this.label13, "label13");
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label13.Location = new System.Drawing.Point(16, 9);
             this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 20);
+            this.label13.TabIndex = 78;
+            this.label13.Text = "Watch Folder";
             // 
             // panel2
             // 
-            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Location = new System.Drawing.Point(812, 661);
             this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(23, 44);
+            this.panel2.TabIndex = 79;
             // 
             // groupBoxOptions
             // 
-            resources.ApplyResources(this.groupBoxOptions, "groupBoxOptions");
+            this.groupBoxOptions.Controls.Add(this.button1);
+            this.groupBoxOptions.Controls.Add(this.checkBoxProcessJSONSemaphore);
             this.groupBoxOptions.Controls.Add(this.buttonSeeRhozetExample);
             this.groupBoxOptions.Controls.Add(this.checkBoxProcessXMLRohzet);
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteFile);
             this.groupBoxOptions.Controls.Add(this.pictureBox2);
+            this.groupBoxOptions.Location = new System.Drawing.Point(245, 143);
             this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Size = new System.Drawing.Size(557, 100);
+            this.groupBoxOptions.TabIndex = 80;
             this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "Upload Options";
             // 
             // buttonSeeRhozetExample
             // 
-            resources.ApplyResources(this.buttonSeeRhozetExample, "buttonSeeRhozetExample");
+            this.buttonSeeRhozetExample.Location = new System.Drawing.Point(409, 75);
             this.buttonSeeRhozetExample.Name = "buttonSeeRhozetExample";
+            this.buttonSeeRhozetExample.Size = new System.Drawing.Size(113, 23);
+            this.buttonSeeRhozetExample.TabIndex = 52;
+            this.buttonSeeRhozetExample.Text = "See an example";
             this.buttonSeeRhozetExample.UseVisualStyleBackColor = true;
             this.buttonSeeRhozetExample.Click += new System.EventHandler(this.buttonSeeRhozetExample_Click);
             // 
             // checkBoxProcessXMLRohzet
             // 
-            resources.ApplyResources(this.checkBoxProcessXMLRohzet, "checkBoxProcessXMLRohzet");
+            this.checkBoxProcessXMLRohzet.AutoSize = true;
+            this.checkBoxProcessXMLRohzet.Location = new System.Drawing.Point(37, 78);
             this.checkBoxProcessXMLRohzet.Name = "checkBoxProcessXMLRohzet";
+            this.checkBoxProcessXMLRohzet.Size = new System.Drawing.Size(363, 19);
+            this.checkBoxProcessXMLRohzet.TabIndex = 51;
+            this.checkBoxProcessXMLRohzet.Text = "Process XML semaphore file (Rhozet) for multi files asset upload";
             this.checkBoxProcessXMLRohzet.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCallAPI
+            // 
+            this.checkBoxCallAPI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxCallAPI.AutoSize = true;
+            this.checkBoxCallAPI.Location = new System.Drawing.Point(61, 636);
+            this.checkBoxCallAPI.Name = "checkBoxCallAPI";
+            this.checkBoxCallAPI.Size = new System.Drawing.Size(110, 19);
+            this.checkBoxCallAPI.TabIndex = 81;
+            this.checkBoxCallAPI.Text = "Call an API, Url :";
+            this.checkBoxCallAPI.UseVisualStyleBackColor = true;
+            this.checkBoxCallAPI.CheckedChanged += new System.EventHandler(this.checkBoxCallAPI_CheckedChanged);
+            // 
+            // textBoxAPIUrl
+            // 
+            this.textBoxAPIUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAPIUrl.Enabled = false;
+            this.textBoxAPIUrl.Location = new System.Drawing.Point(177, 632);
+            this.textBoxAPIUrl.Name = "textBoxAPIUrl";
+            this.textBoxAPIUrl.Size = new System.Drawing.Size(518, 23);
+            this.textBoxAPIUrl.TabIndex = 82;
+            // 
+            // buttonJsonBody
+            // 
+            this.buttonJsonBody.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJsonBody.Enabled = false;
+            this.buttonJsonBody.Location = new System.Drawing.Point(716, 629);
+            this.buttonJsonBody.Name = "buttonJsonBody";
+            this.buttonJsonBody.Size = new System.Drawing.Size(87, 27);
+            this.buttonJsonBody.TabIndex = 83;
+            this.buttonJsonBody.Text = "Json body...";
+            this.buttonJsonBody.UseVisualStyleBackColor = true;
+            this.buttonJsonBody.Click += new System.EventHandler(this.buttonJsonBody_Click);
+            // 
+            // checkBoxProcessJSONSemaphore
+            // 
+            this.checkBoxProcessJSONSemaphore.AutoSize = true;
+            this.checkBoxProcessJSONSemaphore.Location = new System.Drawing.Point(37, 56);
+            this.checkBoxProcessJSONSemaphore.Name = "checkBoxProcessJSONSemaphore";
+            this.checkBoxProcessJSONSemaphore.Size = new System.Drawing.Size(320, 19);
+            this.checkBoxProcessJSONSemaphore.TabIndex = 53;
+            this.checkBoxProcessJSONSemaphore.Text = "Process JSON semaphore file for multi files asset upload";
+            this.checkBoxProcessJSONSemaphore.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(409, 52);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 23);
+            this.button1.TabIndex = 54;
+            this.button1.Text = "See an example";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.buttonJsonBody);
+            this.Controls.Add(this.textBoxAPIUrl);
+            this.Controls.Add(this.checkBoxCallAPI);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label13);
@@ -340,8 +548,11 @@
             this.Controls.Add(this.buttonSelFolder);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WatchFolder";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Watch Folder";
             this.Load += new System.EventHandler(this.WatchFolder_Load);
             this.Shown += new System.EventHandler(this.WatchFolder_Shown);
             this.groupBox4.ResumeLayout(false);
@@ -398,5 +609,10 @@
         private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.CheckBox checkBoxProcessXMLRohzet;
         private System.Windows.Forms.Button buttonSeeRhozetExample;
+        private System.Windows.Forms.CheckBox checkBoxCallAPI;
+        private System.Windows.Forms.TextBox textBoxAPIUrl;
+        private System.Windows.Forms.Button buttonJsonBody;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxProcessJSONSemaphore;
     }
 }

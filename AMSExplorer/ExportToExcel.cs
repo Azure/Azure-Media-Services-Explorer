@@ -107,8 +107,16 @@ namespace AMSExplorer
             var saslocator = saslocators.ToList().OrderByDescending(l => l.ExpirationDateTime).FirstOrDefault();
             if (saslocator != null && asset.AssetFiles.Count() > 0)
             {
-                var ProgressiveDownloadUri = asset.AssetFiles.ToList().OrderByDescending(af => af.ContentFileSize).FirstOrDefault().GetSasUri(saslocator);
-                xlWorkSheet.Cells[row, index++] = ProgressiveDownloadUri.AbsoluteUri;
+                if (asset.AssetFiles.Count() == 1)
+                {
+                    var ProgressiveDownloadUri = asset.AssetFiles.FirstOrDefault().GetSasUri(saslocator);
+                    xlWorkSheet.Cells[row, index++] = ProgressiveDownloadUri.AbsoluteUri;
+                }
+                else
+                {
+                    xlWorkSheet.Cells[row, index++] = saslocator.Path;
+                }
+
                 if (localtime)
                 {
                     xlWorkSheet.Cells[row, index++] = saslocator.ExpirationDateTime.ToLocalTime();

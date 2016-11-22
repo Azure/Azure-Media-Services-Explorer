@@ -42,7 +42,8 @@ namespace AMSExplorer
                     Keywords = checkBoxKeywords.Checked,
                     SAMI = checkBoxSAMI.Checked,
                     TTML = checkBoxTTML.Checked,
-                    WebVTT = checkBoxWEBVTT.Checked
+                    WebVTT = checkBoxWEBVTT.Checked,
+                    ForFullCaptions = checkBoxForceFullCaptions.Checked
                 };
             }
             set
@@ -52,6 +53,7 @@ namespace AMSExplorer
                 checkBoxSAMI.Checked = value.SAMI;
                 checkBoxTTML.Checked = value.TTML;
                 checkBoxWEBVTT.Checked = value.WebVTT;
+                checkBoxForceFullCaptions.Checked = value.ForFullCaptions;
             }
         }
 
@@ -62,10 +64,5 @@ namespace AMSExplorer
             if (IndexerV2) groupBoxOther.Visible = false;
         }
 
-
-        private void IndexerOptions_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

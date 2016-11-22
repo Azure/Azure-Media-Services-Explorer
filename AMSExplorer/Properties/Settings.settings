@@ -89,9 +89,6 @@
     <Setting Name="DefaultSlateCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AMEStandardPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="DynEncTokenIssuer" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://testacs</Value>
     </Setting>
@@ -136,6 +133,9 @@
     </Setting>
     <Setting Name="MigratedLoginListToJSON" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MESPresetFilesCurrentFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

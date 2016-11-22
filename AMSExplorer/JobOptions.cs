@@ -151,6 +151,5 @@ namespace AMSExplorer
         {
             myjoboptions.Options = settings;
         }
-
     }
 }
