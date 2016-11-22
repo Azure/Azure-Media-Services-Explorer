@@ -920,9 +920,6 @@
     <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mainform.ja.resx">
-      <DependentUpon>Mainform.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.resx">
       <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
     </EmbeddedResource>
@@ -940,6 +937,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mainform.ja.resx">
+      <DependentUpon>Mainform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
       <Generator>ResXFileCodeGenerator</Generator>
