@@ -61,6 +61,161 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error reading credentials. Settings have been deleted..
+        /// </summary>
+        internal static string AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted {
+            get {
+                return ResourceManager.GetString("AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azure Global.
+        /// </summary>
+        internal static string AMSLogin_AzureGlobal {
+            get {
+                return ResourceManager.GetString("AMSLogin_AzureGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azure Government.
+        /// </summary>
+        internal static string AMSLogin_AzureGovernment {
+            get {
+                return ResourceManager.GetString("AMSLogin_AzureGovernment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azure in China.
+        /// </summary>
+        internal static string AMSLogin_AzureInChina {
+            get {
+                return ResourceManager.GetString("AMSLogin_AzureInChina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to export all entries ? \n\nSelect &apos;Yes&apos; to export all, &apos;No&apos; to export the selection..
+        /// </summary>
+        internal static string AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoTo" +
+                        "ExportTheSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string AMSLogin_buttonExport_Click_Error {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonExport_Click_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export all entries.
+        /// </summary>
+        internal static string AMSLogin_buttonExport_Click_ExportAllEntries {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonExport_Click_ExportAllEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not recognized or incorrect..
+        /// </summary>
+        internal static string AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import and replace.
+        /// </summary>
+        internal static string AMSLogin_buttonImportAll_Click_ImportAndReplace {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonImportAll_Click_ImportAndReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect &apos;Yes&apos; to replace them, &apos;No&apos; to merge them..
+        /// </summary>
+        internal static string AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceTh" +
+                        "emWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the credentials for {0} ?.
+        /// </summary>
+        internal static string AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0 {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to update the credentials for {0} ?.
+        /// </summary>
+        internal static string AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0 {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save credentials.
+        /// </summary>
+        internal static string AMSLogin_buttonLogin_Click_SaveCredentials {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonLogin_Click_SaveCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account name cannot be empty..
+        /// </summary>
+        internal static string AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is mandatory.
+        /// </summary>
+        internal static string AMSLogin_CheckTextBox_ThisFieldIsMandatory {
+            get {
+                return ResourceManager.GetString("AMSLogin_CheckTextBox_ThisFieldIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad GUID format.
+        /// </summary>
+        internal static string AMSLogin_CheckTextBoxGuid_BadGUIDFormat {
+            get {
+                return ResourceManager.GetString("AMSLogin_CheckTextBoxGuid_BadGUIDFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update credentials.
+        /// </summary>
+        internal static string AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials {
+            get {
+                return ResourceManager.GetString("AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string ButtonCancel {

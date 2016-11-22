@@ -48,11 +48,11 @@ namespace AMSExplorer
 
         public readonly IList<EndPointMapping> Mappings = new List<EndPointMapping> {
             // Global
-            new EndPointMapping() {Name="Azure Global", APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net",ManagementPortal="http://manage.windowsazure.com"}, 
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal, APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net",ManagementPortal="http://manage.windowsazure.com"}, 
             // China
-            new EndPointMapping() {Name="Azure in China",APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="http://manage.windowsazure.cn"}, 
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="http://manage.windowsazure.cn"}, 
             // Government
-            new EndPointMapping() {Name="Azure Government",APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="http://manage.windowsazure.us"}
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="http://manage.windowsazure.us"}
         };
 
         public CredentialsEntry LoginCredentials
@@ -106,7 +106,7 @@ namespace AMSExplorer
                 }
                 catch // error, let's purge all
                 {
-                    MessageBox.Show("Error reading credentials. Settings have been deleted.");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted);
                     Properties.Settings.Default.LoginList.Clear();
                     Program.SaveAndProtectUserConfig();
                     listBoxAcounts.Items.Clear();
@@ -221,7 +221,7 @@ namespace AMSExplorer
             // New code for JSON
             if (string.IsNullOrEmpty(textBoxAccountName.Text))
             {
-                MessageBox.Show("The account name cannot be empty.");
+                MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
                 return;
             }
             CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxAccountID.Text, textBoxDescription.Text, radioButtonPartner.Checked, radioButtonOther.Checked, textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text, textBoxManagementPortal.Text);
@@ -304,7 +304,7 @@ namespace AMSExplorer
             if (entryWithSameName == null)  // not found
             {
                 //CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = myCredentials;
-                var result = MessageBox.Show(string.Format("Do you want to save the credentials for {0} ?", textBoxAccountName.Text), "Save credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0, textBoxAccountName.Text), AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_SaveCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) // ok to save
                 {
                     CredentialList.MediaServicesAccounts.Add(myCredentials);
@@ -322,7 +322,7 @@ namespace AMSExplorer
             {
                 if (!myCredentials.Equals(entryWithSameName)) // changed ?
                 {
-                    var result = MessageBox.Show(string.Format("Do you want to update the credentials for {0} ?", myCredentials.AccountName), "Update credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, myCredentials.AccountName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes) // ok to update the credentials
                     {
                         CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
@@ -380,7 +380,7 @@ namespace AMSExplorer
 
                     if (entryWithSameName != null && !LoginCredentials.Equals(CurrentCredential))
                     {
-                        var result = MessageBox.Show(string.Format("Do you want to update the credentials for {0} ?", CurrentCredential.AccountName), "Update credentials", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, CurrentCredential.AccountName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes) // ok to update the credentials
                         {
                             CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
@@ -482,7 +482,7 @@ namespace AMSExplorer
 
             if (CredentialList.MediaServicesAccounts.Count > 1 && listBoxAcounts.SelectedIndex > -1) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
             {
-                var diag = System.Windows.Forms.MessageBox.Show("Do you want to export all entries ? \n\nSelect 'Yes' to export all, 'No' to export the selection.", "Export all entries", System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var diag = System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_ExportAllEntries, System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 switch (diag)
                 {
                     case DialogResult.Yes:
@@ -514,7 +514,7 @@ namespace AMSExplorer
                 catch (Exception ex)
 
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -525,7 +525,7 @@ namespace AMSExplorer
 
             if (CredentialList.MediaServicesAccounts.Count > 0) // There are entries. Let's ask if user want to delete them or merge
             {
-                if (System.Windows.Forms.MessageBox.Show("There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.", "Import and replace", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                if (System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem, AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_ImportAndReplace, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                 {
                     mergesentries = true;
                 }
@@ -586,7 +586,7 @@ namespace AMSExplorer
                         }
                         catch
                         {
-                            MessageBox.Show("File not recognized or incorrect.");
+                            MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect);
                             return;
 
                         }
@@ -684,7 +684,7 @@ namespace AMSExplorer
 
             if (string.IsNullOrEmpty(tb.Text))
             {
-                errorProvider1.SetError(tb, "This field is mandatory");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.AMSLogin_CheckTextBox_ThisFieldIsMandatory);
             }
             else
             {
@@ -707,7 +707,7 @@ namespace AMSExplorer
 
             catch
             {
-                errorProvider1.SetError(tb, "Bad GUID format");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.AMSLogin_CheckTextBoxGuid_BadGUIDFormat);
             }
         }
 

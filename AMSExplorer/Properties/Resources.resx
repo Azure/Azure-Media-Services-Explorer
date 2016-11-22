@@ -156,4 +156,55 @@
   <data name="TabTransfers" xml:space="preserve">
     <value>Transfers</value>
   </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0" xml:space="preserve">
+    <value>Do you want to save the credentials for {0} ?</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0" xml:space="preserve">
+    <value>Do you want to update the credentials for {0} ?</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_SaveCredentials" xml:space="preserve">
+    <value>Save credentials</value>
+  </data>
+  <data name="AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials" xml:space="preserve">
+    <value>Update credentials</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection" xml:space="preserve">
+    <value>Do you want to export all entries ? \n\nSelect 'Yes' to export all, 'No' to export the selection.</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_ExportAllEntries" xml:space="preserve">
+    <value>Export all entries</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem" xml:space="preserve">
+    <value>There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.</value>
+  </data>
+  <data name="AMSLogin_buttonImportAll_Click_ImportAndReplace" xml:space="preserve">
+    <value>Import and replace</value>
+  </data>
+  <data name="AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect" xml:space="preserve">
+    <value>File not recognized or incorrect.</value>
+  </data>
+  <data name="AMSLogin_CheckTextBox_ThisFieldIsMandatory" xml:space="preserve">
+    <value>This field is mandatory</value>
+  </data>
+  <data name="AMSLogin_CheckTextBoxGuid_BadGUIDFormat" xml:space="preserve">
+    <value>Bad GUID format</value>
+  </data>
+  <data name="AMSLogin_AzureGlobal" xml:space="preserve">
+    <value>Azure Global</value>
+  </data>
+  <data name="AMSLogin_AzureInChina" xml:space="preserve">
+    <value>Azure in China</value>
+  </data>
+  <data name="AMSLogin_AzureGovernment" xml:space="preserve">
+    <value>Azure Government</value>
+  </data>
+  <data name="AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted" xml:space="preserve">
+    <value>Error reading credentials. Settings have been deleted.</value>
+  </data>
+  <data name="AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty" xml:space="preserve">
+    <value>The account name cannot be empty.</value>
+  </data>
 </root>
