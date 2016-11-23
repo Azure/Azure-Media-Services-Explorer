@@ -117,43 +117,149 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>OK</value>
+  <data name="buttonOk.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="LabelChannel" xml:space="preserve">
-    <value>チャネル</value>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="LabelProgram" xml:space="preserve">
-    <value>プログラム</value>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabAssets" xml:space="preserve">
-    <value>アセット</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>254, 20</value>
   </data>
-  <data name="TabFilters" xml:space="preserve">
-    <value>グローバルフィルター</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>nNew bulk ingest for external upload</value>
   </data>
-  <data name="TabJobs" xml:space="preserve">
-    <value>ジョブ</value>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabLive" xml:space="preserve">
-    <value>ライブチャネル</value>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabLog" xml:space="preserve">
-    <value>ログ</value>
+  <data name="buttonSplitSelection.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabOrigins" xml:space="preserve">
-    <value>ストリーミングエンドポイント</value>
+  <data name="buttonGroupSelectionInOneAsset.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabProcessors" xml:space="preserve">
-    <value>プロセッサ</value>
+  <data name="buttonRemoveAll.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabStorage" xml:space="preserve">
-    <value>ストレージ</value>
+  <data name="labelWarningFiles.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TabTransfers" xml:space="preserve">
-    <value>転送</value>
+  <data name="comboBoxStorageAsset.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="ButtonCancel" xml:space="preserve">
-    <value>キャンセル</value>
+  <data name="label33.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelFiles.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridAssetFiles.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonCENCEncryption.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonStorageEncryption.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonEncryptionNone.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonBrowseFile.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxFolderPath.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelInfoAzCopy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxGenerateAzCopy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxSigniantServer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxSigniantAPIKey.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelSigniant.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelSigniantRequestKey.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linklabelSigniantMarket.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxGenerateSigniant.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxGenerateAspera.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelAspera.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxManifestName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxStorageIngest.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

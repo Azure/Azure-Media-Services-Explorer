@@ -207,4 +207,706 @@
   <data name="AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty" xml:space="preserve">
     <value>The account name cannot be empty.</value>
   </data>
+  <data name="AboutBox_AboutBox_About0" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_AssetType" xml:space="preserve">
+    <value>AssetType</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_LastModified" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_CreationOptions" xml:space="preserve">
+    <value>Creation Options</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ProgramId" xml:space="preserve">
+    <value>Program Id</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_IsStreamable" xml:space="preserve">
+    <value>IsStreamable</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_SupportsDynamicEncryption" xml:space="preserve">
+    <value>SupportsDynamicEncryption</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageUrl" xml:space="preserve">
+    <value>Storage Url</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountName" xml:space="preserve">
+    <value>Storage Account Name</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountByteUsed" xml:space="preserve">
+    <value>Storage Account Byte used</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountIsDefault" xml:space="preserve">
+    <value>Storage Account Is Default</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAsset" xml:space="preserve">
+    <value>Parent asset</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetId" xml:space="preserve">
+    <value>Parent asset Id</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetS" xml:space="preserve">
+    <value>Parent asset(s)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ErrorDeleted" xml:space="preserve">
+    <value>&lt;error, deleted?&gt;</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnits" xml:space="preserve">
+    <value>{0} ({1}, {2} scale units)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnit" xml:space="preserve">
+    <value>{0} ({1}, {2} scale unit)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3" xml:space="preserve">
+    <value>{0} ({1}, {2} scale units) Custom hostname : {3}</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3" xml:space="preserve">
+    <value>{0} ({1}, {2} scale unit) Custom hostname : {3}</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_TrackRules" xml:space="preserve">
+    <value>Track Rules</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Rules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_StartDHMS" xml:space="preserve">
+    <value>Start (d.h:m:s)</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_EndDHMS" xml:space="preserve">
+    <value>End (d.h:m:s)</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_DVRDHMS" xml:space="preserve">
+    <value>DVR (d.h:m:s)</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_LiveBackoffDHMS" xml:space="preserve">
+    <value>Live backoff (d.h:m:s)</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_DVR" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_LiveBackoff" xml:space="preserve">
+    <value>LiveBackoff</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Max" xml:space="preserve">
+    <value>max</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Min" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_AssetFilter" xml:space="preserve">
+    <value>Asset filter  : </value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_GlobalFilter" xml:space="preserve">
+    <value>Global filter : </value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_LocatorInformation" xml:space="preserve">
+    <value>Locator information</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Name0" xml:space="preserve">
+    <value>Name: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Type0" xml:space="preserve">
+    <value>Type: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_StartTime0" xml:space="preserve">
+    <value>Start time: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_ExpirationDateTime0" xml:space="preserve">
+    <value>Expiration date time: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Path0" xml:space="preserve">
+    <value>Path: {0}</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_FileSize" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_MimeType" xml:space="preserve">
+    <value>Mime type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_LastModified" xml:space="preserve">
+    <value>Last modified</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_PrimaryFile" xml:space="preserve">
+    <value>Primary file</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Encrypted" xml:space="preserve">
+    <value>Encrypted</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionScheme" xml:space="preserve">
+    <value>Encryption scheme</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionVersion" xml:space="preserve">
+    <value>Encryption version</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionKeyId" xml:space="preserve">
+    <value>Encryption key id</value>
+  </data>
+  <data name="AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol" xml:space="preserve">
+    <value>Protocol</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType" xml:space="preserve">
+    <value>Content key type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum" xml:space="preserve">
+    <value>Checksum</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId" xml:space="preserve">
+    <value>Protection key Id</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType" xml:space="preserve">
+    <value>Protection key type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue" xml:space="preserve">
+    <value>Clear Key Value</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey" xml:space="preserve">
+    <value>see clear key</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2" xml:space="preserve">
+    <value>See clear key</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId" xml:space="preserve">
+    <value>Authorization Policy Id</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName" xml:space="preserve">
+    <value>Authorization Policy Name</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName" xml:space="preserve">
+    <value>&lt;no name&gt;</value>
+  </data>
+  <data name="AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator" xml:space="preserve">
+    <value>Error when accessing temporary SAS locator</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles" xml:space="preserve">
+    <value>The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile" xml:space="preserve">
+    <value>The following file is already in the folder\n\n{0}\n\nOverwite the file ?</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_FileSOverwrite" xml:space="preserve">
+    <value>File(s) overwrite</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_ErrorWhenDeletingFiles" xml:space="preserve">
+    <value>Error when deleting files</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1" xml:space="preserve">
+    <value>Download of file '{0}' from asset '{1}'</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress" xml:space="preserve">
+    <value>Download process has been initiated. See the Transfers tab to check the progress.</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_ErrorWhenDownloadingFileS" xml:space="preserve">
+    <value>Error when downloading file(s)</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAssetStats_AssetReport" xml:space="preserve">
+    <value>Asset report</value>
+  </data>
+  <data name="AssetInformation_MakeItAsPrimary_ErrorWhenMakingThisFilePrimary" xml:space="preserve">
+    <value>Error when making this file primary</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_FileDeletion" xml:space="preserve">
+    <value>File deletion</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_DeleteTheFile0" xml:space="preserve">
+    <value>Delete the file '{0}' ?</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_DeleteThese0Files" xml:space="preserve">
+    <value>Delete these {0} files ?</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS" xml:space="preserve">
+    <value>Error when deleting file(s)</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_PleaseSpecifyTheAccountStorageKeyInTheLoginWindow" xml:space="preserve">
+    <value>Please specify the account storage key in the login window.</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_NewName" xml:space="preserve">
+    <value>New name</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile" xml:space="preserve">
+    <value>Enter the name of the new duplicate file:</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_CopyOf0" xml:space="preserve">
+    <value>Copy of {0}</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile" xml:space="preserve">
+    <value>Error when duplicating this file</value>
+  </data>
+  <data name="AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile" xml:space="preserve">
+    <value>Error when uploading the file</value>
+  </data>
+  <data name="AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator" xml:space="preserve">
+    <value>Are you sure that you want to delete this locator ?</value>
+  </data>
+  <data name="AssetInformation_DoDelLocator_LocatorDeletion" xml:space="preserve">
+    <value>Locator deletion</value>
+  </data>
+  <data name="AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator" xml:space="preserve">
+    <value>Error when trying to delete the locator.</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>This will remove the policy '{0}' from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval" xml:space="preserve">
+    <value>Delivery Policy removal</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_Removing" xml:space="preserve">
+    <value>removing</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_Deleting" xml:space="preserve">
+    <value>deleting</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy" xml:space="preserve">
+    <value>Error when {0} the delivery policy.</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_Null" xml:space="preserve">
+    <value>&lt;null&gt;</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue" xml:space="preserve">
+    <value>See value</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration" xml:space="preserve">
+    <value>KeyDeliveryConfiguration</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType" xml:space="preserve">
+    <value>KeyDeliveryType</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName" xml:space="preserve">
+    <value>Restriction Name</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType" xml:space="preserve">
+    <value>Restriction KeyRestrictionType</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements" xml:space="preserve">
+    <value>Restriction Requirements</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey" xml:space="preserve">
+    <value>Primary Verification Key</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType" xml:space="preserve">
+    <value>Token Type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType" xml:space="preserve">
+    <value>Token Verification Key Type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue" xml:space="preserve">
+    <value>See key value</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey" xml:space="preserve">
+    <value>Alternate Verification Key</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric" xml:space="preserve">
+    <value>Symmetric</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509" xml:space="preserve">
+    <value>Asymmetric (X509)</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri" xml:space="preserve">
+    <value>OpenId Connect Discovery Document Uri</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience" xml:space="preserve">
+    <value>Token Audience</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer" xml:space="preserve">
+    <value>Token Issuer</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType" xml:space="preserve">
+    <value>Required Claim, Type</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue" xml:space="preserve">
+    <value>Required Claim, Value</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0" xml:space="preserve">
+    <value>The authorization test token (without Bearer) is :\n{0}</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0" xml:space="preserve">
+    <value>The authorization test token (with Bearer) is :\n{0}</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0" xml:space="preserve">
+    <value>The test token below has been be copied to the log window and clipboard.\n\n{0}</value>
+  </data>
+  <data name="AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASLocatorToTheMetadataFile" xml:space="preserve">
+    <value>Error when creating the temporary SAS locator to the metadata file.</value>
+  </data>
+  <data name="AssetInformation_ShowFileMetadata_ThereIsNoMetadataForThisFile" xml:space="preserve">
+    <value>There is no metadata for this file.</value>
+  </data>
+  <data name="AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN" xml:space="preserve">
+    <value>Error when creating the temporary SAS locator.\n</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>This will remove the key '{0}' from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_KeyRemoval" xml:space="preserve">
+    <value>Key removal</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_ErrorWhen0TheKey" xml:space="preserve">
+    <value>Error when {0} the key</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>This will remove the authorization policy '{0}' from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval" xml:space="preserve">
+    <value>Authorization policy removal</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy" xml:space="preserve">
+    <value>Error when {0} the authorization policy.</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>This will remove the option '{0}' from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_OptionRemoval" xml:space="preserve">
+    <value>Option removal</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption" xml:space="preserve">
+    <value>Error when {0} the authorization policy option.</value>
+  </data>
+  <data name="AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated" xml:space="preserve">
+    <value>Asset filter '{0}' has been updated.</value>
+  </data>
+  <data name="AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter" xml:space="preserve">
+    <value>Error when updating asset filter.</value>
+  </data>
+  <data name="AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0" xml:space="preserve">
+    <value>Error when updating asset filter '{0}'.</value>
+  </data>
+  <data name="AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated" xml:space="preserve">
+    <value>Asset filter '{0}' has been created.</value>
+  </data>
+  <data name="AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter" xml:space="preserve">
+    <value>Error when creating asset filter.</value>
+  </data>
+  <data name="AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0" xml:space="preserve">
+    <value>Error when creating asset filter '{0}'.</value>
+  </data>
+  <data name="AssetInformation_DoCreateAssetFilter_UnknownName" xml:space="preserve">
+    <value>unknown name</value>
+  </data>
+  <data name="AssetInformation_DoDeleteAssetFilter_ErrorWhenDeletingAssetFilterS" xml:space="preserve">
+    <value>Error when deleting asset filter(s).</value>
+  </data>
+  <data name="AssetInformation_DoDuplicateFilter_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter" xml:space="preserve">
+    <value>Enter the name of the new duplicate filter:</value>
+  </data>
+  <data name="AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter" xml:space="preserve">
+    <value>Error when duplicating asset filter.</value>
+  </data>
+  <data name="AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles" xml:space="preserve">
+    <value>Error when deleting the files</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_FileIsToLargeToEditItOnline" xml:space="preserve">
+    <value>File is to large to edit it online.</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_OnlineEditOf0" xml:space="preserve">
+    <value>Online edit of '{0}'</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_ErrorWhenAccessingEditingAssetFile" xml:space="preserve">
+    <value>Error when accessing/editing asset file.</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses" xml:space="preserve">
+    <value>Please check carefully the content of the generated manifest as the tool makes guesses !</value>
+  </data>
+  <data name="AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy" xml:space="preserve">
+    <value>Error when attaching the delivery policy.</value>
+  </data>
+  <data name="AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy" xml:space="preserve">
+    <value>Error when attaching an existing authorization policy.</value>
+  </data>
+  <data name="AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere" xml:space="preserve">
+    <value>Please insert Azure Service Management URL here</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile" xml:space="preserve">
+    <value>No Subscription data in the file.</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed" xml:space="preserve">
+    <value>There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_SeveralSubscriptions" xml:space="preserve">
+    <value>Several subscriptions</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError" xml:space="preserve">
+    <value>Error when reading the file. Original error: </value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload" xml:space="preserve">
+    <value>None (no encryption before upload)</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload" xml:space="preserve">
+    <value>Storage encryption (content will be encrypted locally to AES 256 before upload)</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady" xml:space="preserve">
+    <value>Common encryption (content is already encrypted with PlayReady)</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist" xml:space="preserve">
+    <value>Folder does not exist</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders" xml:space="preserve">
+    <value>Error when reading files or folders.</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01Files" xml:space="preserve">
+    <value>{0} ({1} files)</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01File" xml:space="preserve">
+    <value>{0} ({1} file)</value>
+  </data>
+  <data name="BatchUploadFrame2_BathUploadFrame2_Load_Default" xml:space="preserve">
+    <value>(default)</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload" xml:space="preserve">
+    <value>Blob Storage URL For Upload</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount" xml:space="preserve">
+    <value>Pending Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount" xml:space="preserve">
+    <value>Finished Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount" xml:space="preserve">
+    <value>Error Files Count</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails" xml:space="preserve">
+    <value>Error Files Details</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetName" xml:space="preserve">
+    <value>Asset Name</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetId" xml:space="preserve">
+    <value>Asset Id</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Name" xml:space="preserve">
+    <value>File #{0} Name</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0State" xml:space="preserve">
+    <value>File #{0} State</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted" xml:space="preserve">
+    <value>File #{0} Encrypted</value>
+  </data>
+  <data name="BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThisIsNotSupportedInsideTheSameBulkIngestContainer" xml:space="preserve">
+    <value>Warning : two files have the same file name. This is not supported inside the same bulk ingest container.</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSStorageAccount" xml:space="preserve">
+    <value>Please select a Signiant server in the same region than the AMS/Storage account.</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey" xml:space="preserve">
+    <value>Please provide a valid Signiant API Key.</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with AD duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with CueID input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0SendingADSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending AD signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal" xml:space="preserve">
+    <value>Channel '{0}' : Error when sending signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput" xml:space="preserve">
+    <value>Channel '{0}' : Error with slate duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending show slate signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_SlateShown" xml:space="preserve">
+    <value>slate shown</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate" xml:space="preserve">
+    <value>Channel '{0}' : Error when showing slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal" xml:space="preserve">
+    <value>Channel '{0}' : sending hide slate signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate" xml:space="preserve">
+    <value>Channel '{0}' : Error when hidding slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_SlateHidden" xml:space="preserve">
+    <value>slate hidden</value>
+  </data>
+  <data name="ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator" xml:space="preserve">
+    <value>Error when creating the temporary SAS locator.</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid" xml:space="preserve">
+    <value>Duration value is not valid</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid" xml:space="preserve">
+    <value>Advertising Cue Id is not valid</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputProtocol" xml:space="preserve">
+    <value>Input protocol</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingType" xml:space="preserve">
+    <value>Encoding Type</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingSystemPreset" xml:space="preserve">
+    <value>Encoding System Preset</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708" xml:space="preserve">
+    <value>Encoding IgnoreCEA708</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount" xml:space="preserve">
+    <value>Encoding Video Streams Count</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount" xml:space="preserve">
+    <value>Encoding Audio Streams Count</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource" xml:space="preserve">
+    <value>Encoding Ad Marker Source</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId" xml:space="preserve">
+    <value>Default Slate Asset Id</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal" xml:space="preserve">
+    <value>Automatic Slate Insertion on AD signal</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_SlateSettings" xml:space="preserve">
+    <value>Slate settings</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_None" xml:space="preserve">
+    <value>(none)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS" xml:space="preserve">
+    <value>Input KeyFrameInterval (s)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Primary" xml:space="preserve">
+    <value>Primary </value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Secondary" xml:space="preserve">
+    <value>Secondary </value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1" xml:space="preserve">
+    <value>{0}Input URL ({1})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1SSL" xml:space="preserve">
+    <value>{0}Input URL ({1}, SSL)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_PreviewURL0" xml:space="preserve">
+    <value>Preview URL ({0})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment" xml:space="preserve">
+    <value>Output HLS Fragments per segment</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected" xml:space="preserve">
+    <value>(multiple channels have been selected)</value>
+  </data>
+  <data name="ChannelInformation_buttonAllowAllInputIP_Click_AllowAll" xml:space="preserve">
+    <value>Allow All</value>
+  </data>
+  <data name="ChannelInformation_checkKeyFrameValue_ValueIsNotValid" xml:space="preserve">
+    <value>Value is not valid</value>
+  </data>
+  <data name="ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated" xml:space="preserve">
+    <value>The audio stream index '{0}' is repeated</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching" xml:space="preserve">
+    <value>Input protocol is not matching.</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning" xml:space="preserve">
+    <value>Channel is not running.</value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter" xml:space="preserve">
+    <value>asset filter : </value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter" xml:space="preserve">
+    <value>global filter : </value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
+    <value>Default browser</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAssets" xml:space="preserve">
+    <value>Copy Assets</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAsset" xml:space="preserve">
+    <value>Copy Asset</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetsSelected" xml:space="preserve">
+    <value>{0} assets selected.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetSelected" xml:space="preserve">
+    <value>{0} asset selected.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAssets" xml:space="preserve">
+    <value>Delete source assets</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAsset" xml:space="preserve">
+    <value>Delete source asset</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>The channels will be cloned with the same name and settings to the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
+    <value>Clone Channel</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>The channel will be cloned with the same name and settings to the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelsSelected" xml:space="preserve">
+    <value>{0} channels selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelSelected" xml:space="preserve">
+    <value>{0} channel selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
+    <value>Clone channels</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>The programs will be cloned to the same channel name in the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>The program will be cloned to the same channel name in the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
+    <value>{0} programs selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
+    <value>{0} program selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
+    <value>Clone programs</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
+    <value>Clone program</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty" xml:space="preserve">
+    <value>Storage key is empty !</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_Default" xml:space="preserve">
+    <value> (default)</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount" xml:space="preserve">
+    <value>Error when connecting to account.</value>
+  </data>
 </root>

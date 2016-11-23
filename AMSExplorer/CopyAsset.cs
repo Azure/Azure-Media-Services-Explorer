@@ -36,7 +36,6 @@ namespace AMSExplorer
     public partial class CopyAsset : Form
     {
         ListCredentials CredentialList = new ListCredentials();
-        //List<CredentialsEntry> CredentialList = new List<CredentialsEntry>();
         CredentialsEntry SelectedCredentials;
         private CloudMediaContext _context;
         private CopyAssetBoxMode Mode;
@@ -148,14 +147,13 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             Mode = mode;
-            string s = numberofobjectselected > 1 ? "s" : "";
 
             switch (Mode)
             {
                 case CopyAssetBoxMode.CopyAsset:
-                    buttonOk.Text = string.Format(buttonOk.Text, s);
-                    labelinfo.Text = string.Format(labelinfo.Text, numberofobjectselected, s);
-                    checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, s);
+                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAssets : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAsset;
+                    labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0AssetsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0AssetSelected, numberofobjectselected);
+                    checkBoxDeleteSource.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_DeleteSourceAssets : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_DeleteSourceAsset;
                     checkBoxTargetSingleAsset.Enabled = numberofobjectselected > 1;
                     checkBoxCopyDynEnc.Checked = false;
                     checkBoxCloneLocators.Checked = false;
@@ -164,21 +162,21 @@ namespace AMSExplorer
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
-                    labelAssetCopy.Text = "Clone Channel";
-                    labelExplanation.Text = string.Format("The channel{0} will be cloned with the same name and settings to the selected account.", s);
+                    labelAssetCopy.Text = AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
+                    labelExplanation.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount: AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount;
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
-                    labelinfo.Text = string.Format("{0} channel{1} selected", numberofobjectselected, s);
-                    buttonOk.Text = this.Text = string.Format("Clone channel{0}", s);
+                    labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelsSelected: AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelSelected, numberofobjectselected);
+                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannels : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
                     panelStorageAccount.Visible = false;
                     groupBoxOptions.Visible = false;
                     break;
 
                 case CopyAssetBoxMode.CloneProgram:
                     labelAssetCopy.Text = "Clone Program";
-                    labelExplanation.Text = string.Format("The program{0} will be cloned to the same channel name in the selected account.", s);
-                    labelinfo.Text = string.Format("{0} program{1} selected", numberofobjectselected, s);
-                    buttonOk.Text = this.Text = string.Format("Clone program{0}", s);
+                    labelExplanation.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount;
+                    labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ProgramsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ProgramSelected, numberofobjectselected);
+                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_ClonePrograms : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneProgram;
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
                     checkBoxDeleteSource.Visible = false;
@@ -208,66 +206,21 @@ namespace AMSExplorer
             {
                 listBoxAccounts.SelectedIndex = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
             }
-
-
-          /*
-            if (CredentialList != null)
-            {
-                for (int i = 0; i < (CredentialList.Count / CredentialsEntry.StringsCount); i++)
-                {
-                    {
-                        int index = listBoxAccounts.Items.Add(CredentialList[i * CredentialsEntry.StringsCount]);
-                        if (CredentialList[i * CredentialsEntry.StringsCount] == _context.Credentials.ClientId)
-                        {
-                            listBoxAccounts.SelectedIndex = index;
-                        }
-                    }
-                }
-            }
-            listBoxAccounts.SelectedItem = _context.DefaultStorageAccount.Name;
-            */
         }
-
-        private string ReturnAzureEndpoint(string mystring)
-        {
-            return mystring.Split("|".ToCharArray())[0];
-
-        }
-
-        private string ReturnManagementPortal(string mystring)
-        {
-            string[] temp = mystring.Split("|".ToCharArray());
-            return temp.Count() > 1 ? temp[1] : string.Empty;
-        }
+    
 
         private void listBoxAcounts_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxAccounts.SelectedIndex > -1) // one selected
             {
-                int index = listBoxAccounts.SelectedIndex;// * CredentialsEntry.StringsCount;
-               // string[] temp = CredentialList[index + 9].Split("|".ToCharArray());
+                int index = listBoxAccounts.SelectedIndex;
                 SelectedCredentials = CredentialList.MediaServicesAccounts[index];
-                /*
-                new CredentialsEntry(
-                   CredentialList[index],
-                   CredentialList[index + 1],
-                   CredentialList[index + 2],
-                   CredentialList[index + 3],
-                   CredentialList[index + 4] == true.ToString() ? true : false,
-                   CredentialList[index + 5] == true.ToString() ? true : false,
-                   CredentialList[index + 6],
-                   CredentialList[index + 7],
-                   CredentialList[index + 8],
-                   ReturnAzureEndpoint(CredentialList[index + 9]),
-                   ReturnManagementPortal(CredentialList[index + 9]),
-                    );
-                    */
-
+               
                 labelDescription.Text = SelectedCredentials.Description;
 
                 if (Mode == CopyAssetBoxMode.CopyAsset)
                 {
-                    labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.DefaultStorageKey)) ? "Storage key is empty !" : string.Empty;
+                    labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.DefaultStorageKey)) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty : string.Empty;
                 }
                 radioButtonDefaultStorage.Checked = true;
                 listBoxStorage.Items.Clear();
@@ -279,14 +232,14 @@ namespace AMSExplorer
                     CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials, true, false);
                     foreach (var storage in newcontext.StorageAccounts)
                     {
-                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
+                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storage.Name));
                     }
                     labelWarningStorage.Text = "";
                     ErrorConnectingAMS = false;
                 }
                 catch
                 {
-                    labelWarningStorage.Text = "Error when connecting to account.";
+                    labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
                     ErrorConnectingAMS = true;
                 }
                 finally
@@ -309,13 +262,13 @@ namespace AMSExplorer
                     CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials, true, false);
                     foreach (var storage in newcontext.StorageAccounts)
                     {
-                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
+                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storage.Name));
                     }
                     ErrorConnectingAMS = false;
                 }
                 catch
                 {
-                    labelWarningStorage.Text = "Error when connecting to account.";
+                    labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
                     ErrorConnectingAMS = true;
                 }
                 finally

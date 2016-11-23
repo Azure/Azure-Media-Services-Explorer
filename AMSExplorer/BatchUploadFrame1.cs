@@ -92,9 +92,9 @@ namespace AMSExplorer
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            comboBoxEncryption.Items.Add(new Item("None (no encryption before upload)", AssetCreationOptions.None.ToString()));
-            comboBoxEncryption.Items.Add(new Item("Storage encryption (content will be encrypted locally to AES 256 before upload)", AssetCreationOptions.StorageEncrypted.ToString()));
-            comboBoxEncryption.Items.Add(new Item("Common encryption (content is already encrypted with PlayReady)", AssetCreationOptions.CommonEncryptionProtected.ToString()));
+            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload, AssetCreationOptions.None.ToString()));
+            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload, AssetCreationOptions.StorageEncrypted.ToString()));
+            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady, AssetCreationOptions.CommonEncryptionProtected.ToString()));
             if (Properties.Settings.Default.useStorageEncryption)
             {
                 comboBoxEncryption.SelectedIndex = 1;
@@ -109,7 +109,7 @@ namespace AMSExplorer
         {
             if (!Directory.Exists(textBoxFolder.Text))
             {
-                MessageBox.Show("Folder does not exist", "Folder", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist, AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_Folder, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.DialogResult = DialogResult.None;
             }
         }

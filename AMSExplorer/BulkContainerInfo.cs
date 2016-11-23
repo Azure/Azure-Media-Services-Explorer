@@ -93,17 +93,17 @@ namespace AMSExplorer
             DGAssetManifest.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
             // Bulk manifest info
-            DGBulkManifest.Rows.Add("Blob Storage URL For Upload", _manifest.BlobStorageUriForUpload);
-            DGBulkManifest.Rows.Add("Name", _manifest.Name);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload, _manifest.BlobStorageUriForUpload);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _manifest.Name);
             DGBulkManifest.Rows.Add("Id", _manifest.Id);
-            DGBulkManifest.Rows.Add("State", (IngestManifestState)_manifest.State);
-            DGBulkManifest.Rows.Add("Created", ((DateTime)_manifest.Created).ToLocalTime().ToString("G"));
-            DGBulkManifest.Rows.Add("Last Modified", ((DateTime)_manifest.LastModified).ToLocalTime().ToString("G"));
-            DGBulkManifest.Rows.Add("Storage Account Name", _manifest.StorageAccountName);
-            DGBulkManifest.Rows.Add("Pending Files Count", _manifest.Statistics.PendingFilesCount);
-            DGBulkManifest.Rows.Add("Finished Files Count", _manifest.Statistics.FinishedFilesCount);
-            DGBulkManifest.Rows.Add("Error Files Count", _manifest.Statistics.ErrorFilesCount);
-            DGBulkManifest.Rows.Add("Error Files Details", _manifest.Statistics.ErrorFilesDetails);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (IngestManifestState)_manifest.State);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)_manifest.Created).ToLocalTime().ToString("G"));
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)_manifest.LastModified).ToLocalTime().ToString("G"));
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountName, _manifest.StorageAccountName);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount, _manifest.Statistics.PendingFilesCount);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount, _manifest.Statistics.FinishedFilesCount);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount, _manifest.Statistics.ErrorFilesCount);
+            DGBulkManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails, _manifest.Statistics.ErrorFilesDetails);
             ListAssetManifests();
             textBoxName.Text = _manifest.Name;
         }
@@ -147,10 +147,10 @@ namespace AMSExplorer
 
                 DGAssetManifest.Rows.Clear();
                 DGAssetManifest.Rows.Add("Id", am.Id);
-                DGAssetManifest.Rows.Add("Created", am.Created);
-                DGAssetManifest.Rows.Add("Last Modified", am.LastModified.ToLocalTime().ToString("G"));
-                DGAssetManifest.Rows.Add("Asset Name", am.Asset.Name);
-                DGAssetManifest.Rows.Add("Asset Id", am.Asset.Id);
+                DGAssetManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, am.Created);
+                DGAssetManifest.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, am.LastModified.ToLocalTime().ToString("G"));
+                DGAssetManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName, am.Asset.Name);
+                DGAssetManifest.Rows.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetId, am.Asset.Id);
 
 
                 var numberpending = am.IngestManifestFiles.AsEnumerable().Count(f => f.State == IngestManifestFileState.Pending);
@@ -163,9 +163,9 @@ namespace AMSExplorer
                 int i = 0;
                 foreach (var f in am.IngestManifestFiles)
                 {
-                    DGAssetManifest.Rows.Add(string.Format("File #{0} Name", i), f.Name);
-                    DGAssetManifest.Rows.Add(string.Format("File #{0} State", i), (IngestManifestFileState)f.State);
-                    DGAssetManifest.Rows.Add(string.Format("File #{0} Encrypted", i), f.IsEncrypted);
+                    DGAssetManifest.Rows.Add(string.Format(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_File0Name, i), f.Name);
+                    DGAssetManifest.Rows.Add(string.Format(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_File0State, i), (IngestManifestFileState)f.State);
+                    DGAssetManifest.Rows.Add(string.Format(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted, i), f.IsEncrypted);
                 }
             }
         }

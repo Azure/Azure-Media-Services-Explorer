@@ -301,43 +301,43 @@ namespace AMSExplorer
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAsset.Rows.Add("Name", myAsset.Name);
-            DGAsset.Rows.Add("Type", myAssetType);
-            DGAsset.Rows.Add("AssetType", myAsset.AssetType);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAsset.Name);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, myAssetType);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_AssetType, myAsset.AssetType);
             DGAsset.Rows.Add("Id", myAsset.Id);
             DGAsset.Rows.Add("AlternateId", myAsset.AlternateId);
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
-            DGAsset.Rows.Add("State", (AssetState)myAsset.State);
-            DGAsset.Rows.Add("Created", ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add("Last Modified", ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add("Creation Options", (AssetCreationOptions)myAsset.Options);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (AssetState)myAsset.State);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_CreationOptions, (AssetCreationOptions)myAsset.Options);
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
             if (program != null) // Asset is linked to a Program
             {
-                DGAsset.Rows.Add("Program Id", program.Id);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ProgramId, program.Id);
             }
 
             if (myAsset.State != AssetState.Deleted)
             {
-                DGAsset.Rows.Add("IsStreamable", myAsset.IsStreamable);
-                DGAsset.Rows.Add("SupportsDynamicEncryption", myAsset.SupportsDynamicEncryption);
-                DGAsset.Rows.Add("Storage Url", myAsset.Uri);
-                DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
-                DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
-                DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_IsStreamable, myAsset.IsStreamable);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_SupportsDynamicEncryption, myAsset.SupportsDynamicEncryption);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl, myAsset.Uri);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountName, myAsset.StorageAccount.Name);
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountByteUsed, AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
+                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountIsDefault, myAsset.StorageAccount.IsDefault);
 
                 try
                 {
                     foreach (IAsset p_asset in myAsset.ParentAssets)
                     {
-                        DGAsset.Rows.Add("Parent asset", p_asset.Name);
-                        DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
+                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAsset, p_asset.Name);
+                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, p_asset.Id);
                     }
                 }
                 catch
                 {
-                    DGAsset.Rows.Add("Parent asset(s)", "<error, deleted?>");
+                    DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetS, AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted);
                 }
 
 
@@ -345,12 +345,12 @@ namespace AMSExplorer
 
                 foreach (var se in myStreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty), se.HostName));
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnits : AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, se.ScaleUnits), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
 
                     foreach (var custom in se.CustomHostNames)
                     {
-                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3}) Custom hostname : {4}", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty, custom), custom));
+                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3 : AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, se.ScaleUnits, custom), custom));
                     }
                 }
                 buttonUpload.Enabled = true;
@@ -369,20 +369,20 @@ namespace AMSExplorer
             if (myAsset == null) return; // Error!
 
             dataGridViewFilters.ColumnCount = 7;
-            dataGridViewFilters.Columns[0].HeaderText = "Name";
-            dataGridViewFilters.Columns[0].Name = "Name";
+            dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
+            dataGridViewFilters.Columns[0].Name = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
             dataGridViewFilters.Columns[1].HeaderText = "Id";
             dataGridViewFilters.Columns[1].Name = "Id";
-            dataGridViewFilters.Columns[2].HeaderText = "Track Rules";
-            dataGridViewFilters.Columns[2].Name = "Rules";
-            dataGridViewFilters.Columns[3].HeaderText = "Start (d.h:m:s)";
-            dataGridViewFilters.Columns[3].Name = "Start";
-            dataGridViewFilters.Columns[4].HeaderText = "End (d.h:m:s)";
-            dataGridViewFilters.Columns[4].Name = "End";
-            dataGridViewFilters.Columns[5].HeaderText = "DVR (d.h:m:s)";
-            dataGridViewFilters.Columns[5].Name = "DVR";
-            dataGridViewFilters.Columns[6].HeaderText = "Live backoff (d.h:m:s)";
-            dataGridViewFilters.Columns[6].Name = "LiveBackoff";
+            dataGridViewFilters.Columns[2].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_TrackRules;
+            dataGridViewFilters.Columns[2].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Rules;
+            dataGridViewFilters.Columns[3].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_StartDHMS;
+            dataGridViewFilters.Columns[3].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Start;
+            dataGridViewFilters.Columns[4].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_EndDHMS;
+            dataGridViewFilters.Columns[4].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_End;
+            dataGridViewFilters.Columns[5].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVRDHMS;
+            dataGridViewFilters.Columns[5].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVR;
+            dataGridViewFilters.Columns[6].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoffDHMS;
+            dataGridViewFilters.Columns[6].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoff;
 
             dataGridViewFilters.Rows.Clear();
             comboBoxLocatorsFilters.Items.Clear(); //drop list in locator tab
@@ -418,17 +418,17 @@ namespace AMSExplorer
 
                     s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
-                    d = ReturnFilterText(dvr, "max");
-                    l = ReturnFilterText(live, "min");
+                    d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
+                    l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
                 }
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
 
                 // droplist
-                comboBoxLocatorsFilters.Items.Add(new Item("Asset filter  : " + filter.Name, filter.Name));
+                comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_AssetFilter + filter.Name, filter.Name));
             }
 
 
-            myContext.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            myContext.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_GlobalFilter + g.Name, g.Name)));
             comboBoxLocatorsFilters.SelectedIndex = 0;
             comboBoxLocatorsFilters.EndUpdate();
         }
@@ -583,34 +583,34 @@ namespace AMSExplorer
 
                     TreeViewLocators.Nodes.Add(myLocNode);
 
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
+                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
                    string.Format("{0}", (locator.Id))
                    ));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                        string.Format("Name: {0}", locator.Name)
+                        string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name)
                         ));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                        string.Format("Type: {0}", locator.Type.ToString())
+                        string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Type0, locator.Type.ToString())
                         ));
 
                     if (locator.StartTime != null)
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                           string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString("G")))
+                           string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, (((DateTime)locator.StartTime).ToLocalTime().ToString("G")))
                            ));
 
                     if (locator.ExpirationDateTime != null)
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                         string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString("G")))
+                         string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString("G")))
                          ));
 
                     if (locator.Type == LocatorType.OnDemandOrigin)
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Path: {0}", AssetInfo.RW(locator.Path, SelectedSE, null, false, SelectedSEHostName))
+                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, false, SelectedSEHostName))
                      ));
 
                         int indexn = 1;
@@ -711,19 +711,19 @@ namespace AMSExplorer
             {
                 IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
                 DGFiles.Rows.Clear();
-                DGFiles.Rows.Add("Name", AF.Name);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, AF.Name);
                 DGFiles.Rows.Add("Id", AF.Id);
-                DGFiles.Rows.Add("File size", AssetInfo.FormatByteSize(AF.ContentFileSize));
-                DGFiles.Rows.Add("Mime type", AF.MimeType);
-                DGFiles.Rows.Add("Created", AF.Created.ToLocalTime().ToString("G"));
-                DGFiles.Rows.Add("Last modified", AF.LastModified.ToLocalTime().ToString("G"));
-                DGFiles.Rows.Add("Primary file", AF.IsPrimary);
-                DGFiles.Rows.Add("Options", AF.AssetFileOptions);
-                DGFiles.Rows.Add("Encrypted", AF.IsEncrypted);
-                DGFiles.Rows.Add("Encryption scheme", AF.EncryptionScheme);
-                DGFiles.Rows.Add("Encryption version", AF.EncryptionVersion);
-                DGFiles.Rows.Add("Encryption key id", AF.EncryptionKeyId);
-                DGFiles.Rows.Add("Parent asset Id", AF.ParentAssetId);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(AF.ContentFileSize));
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_MimeType, AF.MimeType);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, AF.Created.ToLocalTime().ToString("G"));
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, AF.LastModified.ToLocalTime().ToString("G"));
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_PrimaryFile, AF.IsPrimary);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_Options, AF.AssetFileOptions);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_Encrypted, AF.IsEncrypted);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_EncryptionScheme, AF.EncryptionScheme);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_EncryptionVersion, AF.EncryptionVersion);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_EncryptionKeyId, AF.EncryptionKeyId);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, AF.ParentAssetId);
             }
         }
 
@@ -733,10 +733,10 @@ namespace AMSExplorer
             {
                 IAssetDeliveryPolicy ADP = myAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
                 DGDelPol.Rows.Clear();
-                DGDelPol.Rows.Add("Name", ADP.Name);
+                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, ADP.Name);
                 DGDelPol.Rows.Add("Id", ADP.Id);
-                DGDelPol.Rows.Add("Type", ADP.AssetDeliveryPolicyType);
-                DGDelPol.Rows.Add("Protocol", ADP.AssetDeliveryProtocol);
+                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, ADP.AssetDeliveryPolicyType);
+                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol, ADP.AssetDeliveryProtocol);
                 if (ADP.AssetDeliveryConfiguration != null)
                 {
                     int i = 0;
@@ -759,18 +759,18 @@ namespace AMSExplorer
             {
                 IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 dataGridViewKeys.Rows.Clear();
-                dataGridViewKeys.Rows.Add("Name", key.Name != null ? key.Name : "<no name>");
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, key.Name != null ? key.Name : "<no name>");
                 dataGridViewKeys.Rows.Add("Id", key.Id);
-                dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
-                dataGridViewKeys.Rows.Add("Checksum", key.Checksum);
-                dataGridViewKeys.Rows.Add("Created", key.Created.ToLocalTime().ToString("G"));
-                dataGridViewKeys.Rows.Add("Last modified", key.LastModified.ToLocalTime().ToString("G"));
-                dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
-                dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
-                int i = dataGridViewKeys.Rows.Add("Clear Key Value", "see clear key");
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType, key.ContentKeyType);
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum, key.Checksum);
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, key.Created.ToLocalTime().ToString("G"));
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, key.LastModified.ToLocalTime().ToString("G"));
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId, key.ProtectionKeyId);
+                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType, key.ProtectionKeyType);
+                int i = dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey);
                 DataGridViewButtonCell btn = new DataGridViewButtonCell();
                 dataGridViewKeys.Rows[i].Cells[1] = btn;
-                dataGridViewKeys.Rows[i].Cells[1].Value = "See clear key";
+                dataGridViewKeys.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2;
                 dataGridViewKeys.Rows[i].Cells[1].Tag = Convert.ToBase64String(key.GetClearKeyValue());
 
                 listViewAutPolOptions.Items.Clear();
@@ -778,16 +778,16 @@ namespace AMSExplorer
 
                 if (key.AuthorizationPolicyId != null)
                 {
-                    dataGridViewKeys.Rows.Add("Authorization Policy Id", key.AuthorizationPolicyId);
+                    dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId, key.AuthorizationPolicyId);
                     myAuthPolicy = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
                     if (myAuthPolicy != null)
                     {
                         buttonRemoveAuthPol.Enabled = true;
-                        dataGridViewKeys.Rows.Add("Authorization Policy Name", myAuthPolicy.Name);
+                        dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName, myAuthPolicy.Name);
                         listViewAutPolOptions.BeginUpdate();
                         foreach (var option in myAuthPolicy.Options)
                         {
-                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name), 0);
+                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(option.Name) ? AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName : option.Name), 0);
                             listViewAutPolOptions.Items.Add(item);
                         }
                         listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -865,7 +865,7 @@ namespace AMSExplorer
                     }
                     catch
                     {
-                        MessageBox.Show("Error when accessing temporary SAS locator");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator);
                     }
                 }
             }
@@ -893,19 +893,19 @@ namespace AMSExplorer
                         if (listfiles.Count > 1)
                         {
                             text = string.Format(
-                                                "The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?",
+                                                AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles,
                                                 string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
                                                 );
                         }
                         else
                         {
                             text = string.Format(
-                                                 "The following file is already in the folder\n\n{0}\n\nOverwite the file ?",
+                                                 AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile,
                                                  string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
                                                  );
                         }
 
-                        if (MessageBox.Show(text, "File(s) overwrite", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        if (MessageBox.Show(text, AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_FileSOverwrite, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
                         {
                             return;
                         }
@@ -915,7 +915,7 @@ namespace AMSExplorer
                         }
                         catch
                         {
-                            MessageBox.Show("Error when deleting files", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_ErrorWhenDeletingFiles, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
@@ -924,16 +924,16 @@ namespace AMSExplorer
                     {
                         foreach (var assetfile in SelectedAssetFiles)
                         {
-                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, true);
+                            var response = myMainForm.DoGridTransferAddItem(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1, assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, true);
                             // Start a worker thread that does downloading.
                             myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
                         }
-                        MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress);
 
                     }
                     catch
                     {
-                        MessageBox.Show("Error when downloading file(s)");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_ErrorWhenDownloadingFileS);
                     }
                 }
             }
@@ -948,7 +948,7 @@ namespace AMSExplorer
         {
             AssetInfo MyAssetReport = new AssetInfo(myAsset);
             StringBuilder SB = MyAssetReport.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
 
@@ -982,7 +982,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when making this file primary");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_MakeItAsPrimary_ErrorWhenMakingThisFilePrimary);
                 }
                 ListAssetFiles();
                 DoDisplayFileProperties();
@@ -1005,9 +1005,9 @@ namespace AMSExplorer
 
             if (SelectedAssetFiles.Count > 0)
             {
-                string question = SelectedAssetFiles.Count == 1 ? string.Format("Delete the file '{0}' ?", SelectedAssetFiles.FirstOrDefault().Name) : string.Format("Delete these {0} files ?", SelectedAssetFiles.Count);
+                string question = SelectedAssetFiles.Count == 1 ? string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_DeleteTheFile0, SelectedAssetFiles.FirstOrDefault().Name) : string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_DeleteThese0Files, SelectedAssetFiles.Count);
 
-                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     try
                     {
@@ -1021,7 +1021,7 @@ namespace AMSExplorer
                     }
                     catch
                     {
-                        MessageBox.Show("Error when deleting file(s)");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS);
                         ListAssetFiles();
                         BuildLocatorsTree();
                     }
@@ -1191,12 +1191,12 @@ namespace AMSExplorer
                 {
                     if (!Mainform.havestoragecredentials)
                     { // No blob credentials.
-                        MessageBox.Show("Please specify the account storage key in the login window.");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_PleaseSpecifyTheAccountStorageKeyInTheLoginWindow);
                     }
                     else
                     {
-                        string newfilename = "Copy of " + SelectedAssetFile.Name;
-                        if (Program.InputBox("New name", "Enter the name of the new duplicate file:", ref newfilename) == DialogResult.OK)
+                        string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, SelectedAssetFile.Name);
+                        if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
                         {
                             IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
                             CloudMediaContext _context = Mainform._context;
@@ -1255,7 +1255,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when duplicating this file");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile);
                     ListAssetFiles();
                     BuildLocatorsTree();
                 }
@@ -1295,7 +1295,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("Error when uploading the file");
+                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile);
             }
         }
 
@@ -1367,7 +1367,7 @@ namespace AMSExplorer
                 if (TreeViewLocators.SelectedNode.Parent == null)   // user selected the locator title
                 {
 
-                    if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete this locator ?", "Locator deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator, AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_LocatorDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         bool Error = false;
                         try
@@ -1378,7 +1378,7 @@ namespace AMSExplorer
                         catch
                         {
 
-                            MessageBox.Show("Error when trying to delete the locator.");
+                            MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator);
                             Error = true;
                         }
                         if (!Error) BuildLocatorsTree();
@@ -1442,12 +1442,12 @@ namespace AMSExplorer
                     if (DP != null)
                     {
                         string DPid = DP.Id;
-                        string question = string.Format("This will remove the policy '{0}' from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?", DP.Name);
-                        DialogResult DR = MessageBox.Show(question, "Delivery Policy removal", MessageBoxButtons.YesNoCancel);
+                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, DP.Name);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval, MessageBoxButtons.YesNoCancel);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
-                            string step = "removing";
+                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
 
                             try
                             {
@@ -1455,7 +1455,7 @@ namespace AMSExplorer
 
                                 if (DR == DialogResult.Yes) // user wants also to delete the policy
                                 {
-                                    step = "deleting";
+                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
                                     IAssetDeliveryPolicy policyrefreshed = myContext.AssetDeliveryPolicies.Where(p => p.Id == DPid).FirstOrDefault();
                                     if (policyrefreshed != null)
                                     {
@@ -1465,7 +1465,7 @@ namespace AMSExplorer
                             }
                             catch (Exception e)
                             {
-                                string messagestr = string.Format("Error when {0} the delivery policy.", step);
+                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy, step);
                                 if (e.InnerException != null)
                                 {
                                     messagestr += Constants.endline + Program.GetErrorMessage(e);
@@ -1482,7 +1482,7 @@ namespace AMSExplorer
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveKey.Enabled = buttonAddExistingAutPol.Enabled = listViewKeys.SelectedItems.Count > 0;
-            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled =  buttonGetTestToken.Enabled = false;
+            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled = buttonGetTestToken.Enabled = false;
             DoDisplayKeyPropertiesAndAutOptions();
         }
 
@@ -1503,27 +1503,27 @@ namespace AMSExplorer
                 IContentKeyAuthorizationPolicyOption option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
                 if (option != null) // Token option
                 {
-                    dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
+                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, option.Name != null ? option.Name : AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName);
                     dataGridViewAutPolOption.Rows.Add("Id", option.Id);
 
                     // Key delivery configuration
 
-                    int i = dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", "<null>");
+                    int i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
                     if (option.KeyDeliveryConfiguration != null)
                     {
                         DataGridViewButtonCell btn = new DataGridViewButtonCell();
                         dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
-                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
                         dataGridViewAutPolOption.Rows[i].Cells[1].Tag = option.KeyDeliveryConfiguration;
                     }
 
-                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
+                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType, option.KeyDeliveryType);
 
                     List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
                     foreach (var restriction in objList_restriction)
                     {
-                        dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
-                        dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
+                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName, restriction.Name);
+                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType, (ContentKeyRestrictionType)restriction.KeyRestrictionType);
                         if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
                         {
                             DisplayButGetToken = true;
@@ -1531,27 +1531,27 @@ namespace AMSExplorer
                         if (restriction.Requirements != null)
                         {
                             // Restriction Requirements
-                            i = dataGridViewAutPolOption.Rows.Add("Restriction Requirements", "<null>");
+                            i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
                             if (restriction.Requirements != null)
                             {
                                 DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
                                 dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                                dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
                                 dataGridViewAutPolOption.Rows[i].Cells[1].Tag = restriction.Requirements;
 
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                                dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
+                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType, tokenTemplate.TokenType);
 
-                                i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "<null>");
+                                i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
                                 if (tokenTemplate.PrimaryVerificationKey != null)
                                 {
-                                    dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType, (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
                                     if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
                                     {
                                         var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
                                         btn2 = new DataGridViewButtonCell();
                                         dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
+                                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue;
                                         dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
                                     }
                                 }
@@ -1559,16 +1559,16 @@ namespace AMSExplorer
 
                                 foreach (var verifkey in tokenTemplate.AlternateVerificationKeys)
                                 {
-                                    i = dataGridViewAutPolOption.Rows.Add("Alternate Verification Key", "<null>");
+                                    i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
                                     if (verifkey != null)
                                     {
-                                        dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (verifkey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType, (verifkey.GetType() == typeof(SymmetricVerificationKey)) ? AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric : AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509);
                                         if (verifkey.GetType() == typeof(SymmetricVerificationKey))
                                         {
                                             var verifkeySym = (SymmetricVerificationKey)verifkey;
                                             btn2 = new DataGridViewButtonCell();
                                             dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
+                                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue;
                                             dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkeySym.KeyValue);
                                         }
                                     }
@@ -1576,14 +1576,14 @@ namespace AMSExplorer
 
                                 if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                                 {
-                                    dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
+                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri, tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
                                 }
-                                dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
-                                dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
+                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience, tokenTemplate.Audience);
+                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer, tokenTemplate.Issuer);
                                 foreach (var claim in tokenTemplate.RequiredClaims)
                                 {
-                                    dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
-                                    dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
+                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType, claim.ClaimType);
+                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue, claim.ClaimValue);
                                 }
                             }
                         }
@@ -1615,10 +1615,10 @@ namespace AMSExplorer
                             DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(myAsset, myContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
                             if (!string.IsNullOrEmpty(testToken.TokenString))
                             {
-                                myMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
-                                myMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                                myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0, testToken);
+                                myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0, Constants.Bearer + testToken);
                                 System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
-                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken.TokenString), "Test token copied");
+                                MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0, Constants.Bearer + testToken.TokenString), "Test token copied");
                             }
                         }
                     }
@@ -1653,7 +1653,7 @@ namespace AMSExplorer
                     catch
                     {
                         Error = true;
-                        MessageBox.Show("Error when creating the temporary SAS locator to the metadata file.");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASLocatorToTheMetadataFile);
                     }
                 }
 
@@ -1668,7 +1668,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when accessing temporary SAS locator");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator);
                 }
 
 
@@ -1727,7 +1727,7 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        MessageBox.Show("There is no metadata for this file.");
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_ShowFileMetadata_ThereIsNoMetadataForThisFile);
                     }
                 }
             }
@@ -1748,7 +1748,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error when creating the temporary SAS locator." + ex.Message);
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN + ex.Message);
                 }
             }
             return tempLocator;
@@ -1791,18 +1791,18 @@ namespace AMSExplorer
             {
                 IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 string keyid = key.Id;
-                string question = string.Format("This will remove the key '{0}' from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?", key.Name);
-                DialogResult DR = MessageBox.Show(question, "Key removal", MessageBoxButtons.YesNoCancel);
+                string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount, key.Name);
+                DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_KeyRemoval, MessageBoxButtons.YesNoCancel);
 
                 if (DR == DialogResult.Yes || DR == DialogResult.No)
                 {
-                    string step = "removing";
+                    string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
                     try
                     {
                         myAsset.ContentKeys.Remove(key);
                         if (DR == DialogResult.Yes) // user wants also to delete the key
                         {
-                            step = "deleting";
+                            step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
                             IContentKey keyrefreshed = myContext.ContentKeys.Where(k => k.Id == keyid).FirstOrDefault();
                             if (keyrefreshed != null)
                             {
@@ -1812,7 +1812,7 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        string messagestr = string.Format("Error when {0} the key", step);
+                        string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_ErrorWhen0TheKey, step);
                         if (e.InnerException != null)
                         {
                             messagestr += Constants.endline + Program.GetErrorMessage(e);
@@ -1890,12 +1890,12 @@ namespace AMSExplorer
                     if (AuthPol != null)
                     {
                         string AuthPolId = AuthPol.Id;
-                        string question = string.Format("This will remove the authorization policy '{0}' from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?", AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, "Authorization policy removal", MessageBoxButtons.YesNoCancel);
+                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, AuthPol.Name);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval, MessageBoxButtons.YesNoCancel);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
-                            string step = "removing";
+                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
                             try
                             {
                                 key.AuthorizationPolicyId = null;
@@ -1903,13 +1903,13 @@ namespace AMSExplorer
 
                                 if (DR == DialogResult.Yes) // user wants also to delete the auth policy
                                 {
-                                    step = "deleting";
+                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
                                     AuthPol.Delete();
                                 }
                             }
                             catch (Exception e)
                             {
-                                string messagestr = string.Format("Error when {0} the authorization policy.", step);
+                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy, step);
                                 if (e.InnerException != null)
                                 {
                                     messagestr += Constants.endline + Program.GetErrorMessage(e);
@@ -1938,25 +1938,25 @@ namespace AMSExplorer
                     if (option != null)
                     {
                         string AuthPolId = AuthPol.Id;
-                        string question = string.Format("This will remove the option '{0}' from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?", AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, "Option removal", MessageBoxButtons.YesNoCancel);
+                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount, AuthPol.Name);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_OptionRemoval, MessageBoxButtons.YesNoCancel);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
-                            string step = "removing";
+                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
                             try
                             {
                                 AuthPol.Options.Remove(option);
 
                                 if (DR == DialogResult.Yes) // user wants also to delete the option
                                 {
-                                    step = "deleting";
+                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
                                     option.Delete();
                                 }
                             }
                             catch (Exception e)
                             {
-                                string messagestr = string.Format("Error when {0} the authorization policy option.", step);
+                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption, step);
                                 if (e.InnerException != null)
                                 {
                                     messagestr += Constants.endline + Program.GetErrorMessage(e);
@@ -2008,12 +2008,12 @@ namespace AMSExplorer
                         filter.Tracks = filtertoupdate.Trackconditions;
                         filter.FirstQuality = filtertoupdate.Firstquality;
                         filter.Update();
-                        myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
+                        myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated, filtertoupdate.Name);
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when updating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        myMainForm.TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filter.Name, true);
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter + Constants.endline + Program.GetErrorMessage(e), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0, filter.Name, true);
                         myMainForm.TextBoxLogWriteLine(e);
                     }
                     DisplayAssetFilters();
@@ -2038,12 +2038,12 @@ namespace AMSExplorer
                 {
                     filterinfo = form.GetFilterInfo;
                     myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
-                    myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filterinfo.Name);
+                    myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated, filterinfo.Name);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error when creating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0, (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_UnknownName, true);
                     myMainForm.TextBoxLogWriteLine(e);
                 }
                 DisplayAssetFilters();
@@ -2065,7 +2065,7 @@ namespace AMSExplorer
 
             catch
             {
-                MessageBox.Show("Error when deleting asset filter(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteAssetFilter_ErrorWhenDeletingAssetFilterS, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             DisplayAssetFilters();
@@ -2083,8 +2083,8 @@ namespace AMSExplorer
             {
                 IStreamingAssetFilter sourcefilter = filters.FirstOrDefault();
 
-                string newfiltername = sourcefilter.Name + "Copy";
-                if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
+                string newfiltername = sourcefilter.Name + AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_Copy;
+                if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter, ref newfiltername) == DialogResult.OK)
                 {
                     try
                     {
@@ -2092,7 +2092,7 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when duplicating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter + Constants.endline + Program.GetErrorMessage(e), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     DisplayAssetFilters();
                 }
@@ -2104,7 +2104,7 @@ namespace AMSExplorer
             try
             {
                 string question = "Delete all files ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     var assetArray = myAsset.AssetFiles.ToArray();
                     for (int i = 0; i < assetArray.Length; i++)
@@ -2118,7 +2118,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("Error when deleting the files");
+                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles);
                 ListAssetFiles();
                 BuildLocatorsTree();
             }
@@ -2198,7 +2198,7 @@ namespace AMSExplorer
 
                 if (assetFileToEdit.ContentFileSize > 500 * 1024)
                 {
-                    MessageBox.Show("File is to big to edit it online.");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_FileIsToLargeToEditItOnline);
                     return;
                 }
 
@@ -2227,7 +2227,7 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true, false);
+                    var editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, assetFileToEdit.Name), datastring, true, false);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
 
@@ -2264,7 +2264,7 @@ namespace AMSExplorer
 
                 catch
                 {
-                    MessageBox.Show("Error when accessing/editing asset file.");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_ErrorWhenAccessingEditingAssetFile);
                 }
 
             }
@@ -2282,7 +2282,7 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-            var editform = new EditorXMLJSON("Value", key.ToString(), false, false);
+            var editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false, false);
             editform.Display();
         }
 
@@ -2326,8 +2326,8 @@ namespace AMSExplorer
             {
                 var smildata = Program.LoadAndUpdateManifestTemplate(myAsset);
 
-                var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", smildata.FileName), smildata.Content, true, false, true,
-                    "Please check carefully the content of the generated manifest as the tool makes guesses !");
+                var editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
+                    AMSExplorer.Properties.Resources.AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses);
 
                 if (editform.Display() == DialogResult.OK)
                 { // OK
@@ -2413,7 +2413,7 @@ namespace AMSExplorer
 
                     catch (Exception e)
                     {
-                        string messagestr = string.Format("Error when attaching the delivery policy.");
+                        string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy);
                         if (e.InnerException != null)
                         {
                             messagestr += Constants.endline + Program.GetErrorMessage(e);
@@ -2456,7 +2456,7 @@ namespace AMSExplorer
 
                             catch (Exception e)
                             {
-                                string messagestr = string.Format("Error when attaching an existing authorization policy.");
+                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy);
                                 if (e.InnerException != null)
                                 {
                                     messagestr += Constants.endline + Program.GetErrorMessage(e);

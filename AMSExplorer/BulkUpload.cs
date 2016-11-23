@@ -197,7 +197,7 @@ namespace AMSExplorer
             comboBoxStorageAsset.Items.Clear();
             foreach (var storage in _context.StorageAccounts)
             {
-                var it = new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name);
+                var it = new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name);
                 comboBoxStorageIngest.Items.Add(it);
                 comboBoxStorageAsset.Items.Add(it);
                 if (storage.Name == _context.DefaultStorageAccount.Name)
@@ -280,7 +280,7 @@ namespace AMSExplorer
             var listfilenames = assetFiles.Select(a => Path.GetFileName(a.FileName)).Distinct().ToList();
             if (listfilenames.Count != assetFiles.Count)
             {
-                labelWarningFiles.Text = "Warning : two files have the same file name. This is not supported inside the same bulk ingest container.";
+                labelWarningFiles.Text = AMSExplorer.Properties.Resources.BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThisIsNotSupportedInsideTheSameBulkIngestContainer;
             }
             else
             {
@@ -366,7 +366,7 @@ namespace AMSExplorer
                 var listpb = AssetInfo.ReturnFilenamesWithProblem(openFileDialogAssetFiles.FileNames.ToList());
                 if (listpb.Count > 0)
                 {
-                    MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -411,7 +411,7 @@ namespace AMSExplorer
                     var listpb = AssetInfo.ReturnFilenamesWithProblem(files);
                     if (listpb.Count > 0)
                     {
-                        MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -434,7 +434,7 @@ namespace AMSExplorer
                         var listpb = AssetInfo.ReturnFilenamesWithProblem(filesinfolder);
                         if (listpb.Count > 0)
                         {
-                            MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -508,12 +508,12 @@ namespace AMSExplorer
             if (checkBoxGenerateSigniant.Checked && comboBoxSigniantServer.SelectedIndex < 0)
             {
                 // problem
-                MessageBox.Show("Please select a Signiant server in the same region than the AMS/Storage account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(AMSExplorer.Properties.Resources.BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSStorageAccount, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (checkBoxGenerateSigniant.Checked && string.IsNullOrWhiteSpace(textBoxSigniantAPIKey.Text))
             {
                 // problem
-                MessageBox.Show("Please provide a valid Signiant API Key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(AMSExplorer.Properties.Resources.BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {

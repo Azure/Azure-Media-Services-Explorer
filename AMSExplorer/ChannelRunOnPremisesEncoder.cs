@@ -110,10 +110,10 @@ namespace AMSExplorer
             LocalEncoder SelectedEncoder = Encoders.Where(m => m.Name == comboBoxEncoder.Text).FirstOrDefault();
             if (SelectedEncoder != null)
             {
-                labelWarning.Text = (_channels.FirstOrDefault().State != ChannelState.Running) ? "Channel is not running. " : "";
+                labelWarning.Text = (_channels.FirstOrDefault().State != ChannelState.Running) ? AMSExplorer.Properties.Resources.ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning : "";
                 if (SelectedEncoder.Protocol != null && ((StreamingProtocol)SelectedEncoder.Protocol != _channels.FirstOrDefault().Input.StreamingProtocol))
                 {
-                    labelWarning.Text += "Input protocol is not matching.";
+                    labelWarning.Text += AMSExplorer.Properties.Resources.ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching;
                 }
 
                 textBoxCommand.Text = SelectedEncoder.Command.Replace("%output%", _channels.FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri)

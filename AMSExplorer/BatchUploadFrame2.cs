@@ -102,7 +102,7 @@ namespace AMSExplorer
                     foreach (var folder in folders)
                     {
                         filecount = Directory.GetFiles(folder).Count();
-                        s = filecount > 1 ? "{0} ({1} files)" : "{0} ({1} file)";
+                        s = filecount > 1 ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01Files : AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01File;
                         var it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
                         it.Checked = true;
                         if (AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
@@ -116,7 +116,7 @@ namespace AMSExplorer
             {
                 ErrorConnect = true;
                 this.DialogResult = DialogResult.None;
-                MessageBox.Show("Error when reading files or folders." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders + Constants.endline + e.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,7 +128,7 @@ namespace AMSExplorer
             }
             foreach (var storage in _context.StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
