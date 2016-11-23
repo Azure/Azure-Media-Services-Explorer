@@ -846,4 +846,67 @@
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
     <value>Default browser</value>
   </data>
+  <data name="CopyAsset_CopyAsset_CopyAssets" xml:space="preserve">
+    <value>Copy Assets</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAsset" xml:space="preserve">
+    <value>Copy Asset</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetsSelected" xml:space="preserve">
+    <value>{0} assets selected.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetSelected" xml:space="preserve">
+    <value>{0} asset selected.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAssets" xml:space="preserve">
+    <value>Delete source assets</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAsset" xml:space="preserve">
+    <value>Delete source asset</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>The channels will be cloned with the same name and settings to the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
+    <value>Clone Channel</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>The channel will be cloned with the same name and settings to the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelsSelected" xml:space="preserve">
+    <value>{0} channels selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelSelected" xml:space="preserve">
+    <value>{0} channel selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
+    <value>Clone channels</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>The programs will be cloned to the same channel name in the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>The program will be cloned to the same channel name in the selected account.</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
+    <value>{0} programs selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
+    <value>{0} program selected</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
+    <value>Clone programs</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
+    <value>Clone program</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty" xml:space="preserve">
+    <value>Storage key is empty !</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_Default" xml:space="preserve">
+    <value> (default)</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount" xml:space="preserve">
+    <value>Error when connecting to account.</value>
+  </data>
 </root>

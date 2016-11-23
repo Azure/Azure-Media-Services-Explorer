@@ -47,6 +47,7 @@
             this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxUnPublishSourceAsset = new System.Windows.Forms.CheckBox();
             this.labelCloneFilters = new System.Windows.Forms.Label();
             this.checkBoxCloneAssetFilters = new System.Windows.Forms.CheckBox();
             this.labelCloneLocators = new System.Windows.Forms.Label();
@@ -54,12 +55,11 @@
             this.checkBoxCopyDynEnc = new System.Windows.Forms.CheckBox();
             this.checkBoxRewriteURL = new System.Windows.Forms.CheckBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
+            this.labelCloneLocatorForPrograms = new System.Windows.Forms.Label();
             this.labelExplanation = new System.Windows.Forms.Label();
             this.labelAssetCopy = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBoxUnPublishSourceAsset = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelCloneLocatorForPrograms = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelStorageAccount.SuspendLayout();
@@ -74,7 +74,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(112, 27);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Copy Asset{0}";
+            this.buttonOk.Text = "Copy Asset";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -253,9 +253,9 @@
             this.checkBoxDeleteSource.AutoSize = true;
             this.checkBoxDeleteSource.Location = new System.Drawing.Point(22, 30);
             this.checkBoxDeleteSource.Name = "checkBoxDeleteSource";
-            this.checkBoxDeleteSource.Size = new System.Drawing.Size(140, 19);
+            this.checkBoxDeleteSource.Size = new System.Drawing.Size(126, 19);
             this.checkBoxDeleteSource.TabIndex = 67;
-            this.checkBoxDeleteSource.Text = "Delete source asset{0}";
+            this.checkBoxDeleteSource.Text = "Delete source asset";
             this.checkBoxDeleteSource.UseVisualStyleBackColor = true;
             // 
             // groupBoxOptions
@@ -278,6 +278,16 @@
             this.groupBoxOptions.TabIndex = 68;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
+            // 
+            // checkBoxUnPublishSourceAsset
+            // 
+            this.checkBoxUnPublishSourceAsset.AutoSize = true;
+            this.checkBoxUnPublishSourceAsset.Location = new System.Drawing.Point(45, 260);
+            this.checkBoxUnPublishSourceAsset.Name = "checkBoxUnPublishSourceAsset";
+            this.checkBoxUnPublishSourceAsset.Size = new System.Drawing.Size(147, 19);
+            this.checkBoxUnPublishSourceAsset.TabIndex = 74;
+            this.checkBoxUnPublishSourceAsset.Text = "Unpublish source asset";
+            this.checkBoxUnPublishSourceAsset.UseVisualStyleBackColor = true;
             // 
             // labelCloneFilters
             // 
@@ -358,6 +368,16 @@
             this.checkBoxTargetSingleAsset.UseVisualStyleBackColor = true;
             this.checkBoxTargetSingleAsset.CheckedChanged += new System.EventHandler(this.checkBoxTargetSingleAsset_CheckedChanged);
             // 
+            // labelCloneLocatorForPrograms
+            // 
+            this.labelCloneLocatorForPrograms.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneLocatorForPrograms.Location = new System.Drawing.Point(35, 255);
+            this.labelCloneLocatorForPrograms.Name = "labelCloneLocatorForPrograms";
+            this.labelCloneLocatorForPrograms.Size = new System.Drawing.Size(193, 37);
+            this.labelCloneLocatorForPrograms.TabIndex = 75;
+            this.labelCloneLocatorForPrograms.Text = "Source and destination must be in different regions";
+            this.labelCloneLocatorForPrograms.Visible = false;
+            // 
             // labelExplanation
             // 
             this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -387,26 +407,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(24, 41);
             this.panel2.TabIndex = 77;
-            // 
-            // checkBoxUnPublishSourceAsset
-            // 
-            this.checkBoxUnPublishSourceAsset.AutoSize = true;
-            this.checkBoxUnPublishSourceAsset.Location = new System.Drawing.Point(45, 260);
-            this.checkBoxUnPublishSourceAsset.Name = "checkBoxUnPublishSourceAsset";
-            this.checkBoxUnPublishSourceAsset.Size = new System.Drawing.Size(147, 19);
-            this.checkBoxUnPublishSourceAsset.TabIndex = 74;
-            this.checkBoxUnPublishSourceAsset.Text = "Unpublish source asset";
-            this.checkBoxUnPublishSourceAsset.UseVisualStyleBackColor = true;
-            // 
-            // labelCloneLocatorForPrograms
-            // 
-            this.labelCloneLocatorForPrograms.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelCloneLocatorForPrograms.Location = new System.Drawing.Point(35, 255);
-            this.labelCloneLocatorForPrograms.Name = "labelCloneLocatorForPrograms";
-            this.labelCloneLocatorForPrograms.Size = new System.Drawing.Size(193, 37);
-            this.labelCloneLocatorForPrograms.TabIndex = 75;
-            this.labelCloneLocatorForPrograms.Text = "Source and destination must be in different regions";
-            this.labelCloneLocatorForPrograms.Visible = false;
             // 
             // CopyAsset
             // 

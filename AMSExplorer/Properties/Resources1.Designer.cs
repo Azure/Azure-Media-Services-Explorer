@@ -2171,6 +2171,199 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} asset selected..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0AssetSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0AssetSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} assets selected..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0AssetsSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0AssetsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} channel selected.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0ChannelSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0ChannelSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} channels selected.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0ChannelsSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0ChannelsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} program selected.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0ProgramSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0ProgramSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} programs selected.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_0ProgramsSelected {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_0ProgramsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clone Channel.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_CloneChannel {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_CloneChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clone channels.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_CloneChannels {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_CloneChannels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clone program.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_CloneProgram {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_CloneProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clone programs.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_ClonePrograms {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_ClonePrograms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Asset.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_CopyAsset {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_CopyAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Assets.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_CopyAssets {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_CopyAssets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete source asset.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_DeleteSourceAsset {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_DeleteSourceAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete source assets.
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_DeleteSourceAssets {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_DeleteSourceAssets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The channels will be cloned with the same name and settings to the selected account..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelecte" +
+                        "dAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The channel will be cloned with the same name and settings to the selected account..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelected" +
+                        "Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The programs will be cloned to the same channel name in the selected account..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccou" +
+                        "nt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The program will be cloned to the same channel name in the selected account..
+        /// </summary>
+        internal static string CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount {
+            get {
+                return ResourceManager.GetString("CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccoun" +
+                        "t", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (default).
+        /// </summary>
+        internal static string CopyAsset_listBoxAcounts_SelectedIndexChanged_Default {
+            get {
+                return ResourceManager.GetString("CopyAsset_listBoxAcounts_SelectedIndexChanged_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when connecting to account..
+        /// </summary>
+        internal static string CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount {
+            get {
+                return ResourceManager.GetString("CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage key is empty !.
+        /// </summary>
+        internal static string CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty {
+            get {
+                return ResourceManager.GetString("CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {
