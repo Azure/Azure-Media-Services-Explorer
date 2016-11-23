@@ -2126,6 +2126,51 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channel is not running..
+        /// </summary>
+        internal static string ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning {
+            get {
+                return ResourceManager.GetString("ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input protocol is not matching..
+        /// </summary>
+        internal static string ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching {
+            get {
+                return ResourceManager.GetString("ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to asset filter : .
+        /// </summary>
+        internal static string ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter {
+            get {
+                return ResourceManager.GetString("ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default browser.
+        /// </summary>
+        internal static string ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser {
+            get {
+                return ResourceManager.GetString("ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to global filter : .
+        /// </summary>
+        internal static string ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter {
+            get {
+                return ResourceManager.GetString("ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

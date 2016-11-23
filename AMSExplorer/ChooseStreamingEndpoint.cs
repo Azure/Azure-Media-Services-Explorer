@@ -159,11 +159,11 @@ namespace AMSExplorer
             IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
             foreach (var se in _context.StreamingEndpoints)
             {
-                listBoxSE.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty), se.Id + "|" + se.HostName));
+                listBoxSE.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ?  AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnits: AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, se.ScaleUnits), se.Id + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
                 foreach (var custom in se.CustomHostNames)
                 {
-                    listBoxSE.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3}) Custom hostname : {4}", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty, custom), se.Id + "|" + custom));
+                    listBoxSE.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3: AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, se.ScaleUnits, custom), se.Id + "|" + custom));
                 }
             }
 
@@ -174,7 +174,7 @@ namespace AMSExplorer
             var afiltersnames = afilters.Select(a => a.Name).ToList();
             afilters.ForEach(f =>
             {
-                var lvitem = new ListViewItem(new string[] { "asset filter : " + f.Name, f.Name });
+                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
                 {
                     lvitem.Checked = true;
@@ -186,7 +186,7 @@ namespace AMSExplorer
             // global filters
             _context.Filters.ToList().ForEach(f =>
            {
-               var lvitem = new ListViewItem(new string[] { "global filter : " + f.Name, f.Name });
+               var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
                if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > global filter)
                {
                    lvitem.Checked = true;
@@ -205,7 +205,7 @@ namespace AMSExplorer
                 radioButtonDASH.Checked = true;
             }
 
-            comboBoxBrowser.Items.Add(new Item("Default browser", string.Empty));
+            comboBoxBrowser.Items.Add(new Item(AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser, string.Empty));
             if (_displayBrowserSelection)
             { // let's add the browser options to lplayback the content (IE, Edge, Chrome...)
                 if (IsWindows10()) comboBoxBrowser.Items.Add(new Item(Constants.BrowserEdge[0], Constants.BrowserEdge[1]));

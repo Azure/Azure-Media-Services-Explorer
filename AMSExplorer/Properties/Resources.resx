@@ -831,4 +831,19 @@
   <data name="ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated" xml:space="preserve">
     <value>The audio stream index '{0}' is repeated</value>
   </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching" xml:space="preserve">
+    <value>Input protocol is not matching.</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning" xml:space="preserve">
+    <value>Channel is not running.</value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter" xml:space="preserve">
+    <value>asset filter : </value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter" xml:space="preserve">
+    <value>global filter : </value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
+    <value>Default browser</value>
+  </data>
 </root>
