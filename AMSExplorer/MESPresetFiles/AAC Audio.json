@@ -11,7 +11,7 @@
   ],
   "Outputs": [
     {
-      "FileName": "{Basename}_AAC_{AudioBitrate}.m4a",
+      "FileName": "{Basename}_AAC_{AudioBitrate}.mp4",
       "Format": {
         "Type": "MP4Format"
       }

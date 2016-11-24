@@ -172,7 +172,7 @@ namespace AMSExplorer
             _disableOverlay = disableOverlay;
             _disableSourceTrimming = disableSourceTrimming;
             _inputAssetsForJob = inputAssetsForJob;
-            if (_inputAssetsForJob.Count == 0) _disableOverlay = true; // if stiching, let's disable overlay
+            if (_inputAssetsForJob.Count > 0) _disableOverlay = true; // if stiching, let's disable overlay
 
             _main = main;
 
