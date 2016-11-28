@@ -40,6 +40,7 @@ namespace AMSExplorer
         private bool InitPhase = true;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultEncodingPreset = "";
+        private string defaultLanguageString = "und";
 
         public string ChannelName
         {
@@ -167,11 +168,11 @@ namespace AMSExplorer
                 {
                     if (checkBoxRestrictIngestIP.Checked)
                     {
-                        ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
                     }
                     else
                     {
-                        ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
                     }
                     ips.Add(ip);
                     return ips;
@@ -194,7 +195,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                        IPRange ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
                         ips.Add(ip);
                     }
                     catch
@@ -204,7 +205,6 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    //ip = null;// new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
                     ips = null;
                 }
                 return ips;
@@ -230,11 +230,11 @@ namespace AMSExplorer
             FillComboProtocols(false);
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
-            comboBoxEncodingType.Items.Add(new Item("None", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item("Standard", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
+            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_None, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
+            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Standard, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
             if (Properties.Settings.Default.ShowLivePremiumChannel)
             {
-                comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+                comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
             }
             comboBoxEncodingType.SelectedIndex = 0;
 
@@ -245,7 +245,7 @@ namespace AMSExplorer
             dataGridViewAudioStreams.DataSource = audiostreams;
             dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            Item myitem = new Item("Undefined", "und");
+            Item myitem = new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Undefined, defaultLanguageString);
             comboBoxAudioLanguageMain.Items.Add(myitem);
             comboBoxAudioLanguageMain.SelectedItem = myitem;
             comboBoxAudioLanguageAddition.Items.Add(myitem);
@@ -267,7 +267,7 @@ namespace AMSExplorer
         }
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("Wrong format");
+            MessageBox.Show(AMSExplorer.Properties.Resources.CreateLiveChannel_dataGridView_DataError_WrongFormat);
         }
 
         private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
@@ -297,11 +297,11 @@ namespace AMSExplorer
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxAdMarkerSource.Items.Clear();
-            comboBoxAdMarkerSource.Items.Add(new Item("API (default)", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
+            comboBoxAdMarkerSource.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault, Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
             // SCTE-35 only available or RTP input
             if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
             { // RTP
-                comboBoxAdMarkerSource.Items.Add(new Item("SCTE-35 Cue Messages", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
+                comboBoxAdMarkerSource.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages, Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
                 panelRTP.Enabled = panelAudioControl.Enabled = true;
                 labelRTPWarning.Visible = true;
             }
@@ -434,7 +434,7 @@ namespace AMSExplorer
                 string errorString = ListViewSlateJPG.CheckSlateFile(file);
                 if (!string.IsNullOrEmpty(errorString))
                 {
-                    MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(errorString, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else // file has been validated
                 {
@@ -511,7 +511,7 @@ namespace AMSExplorer
         {
             if (checkBoxInsertSlateOnAdMarker.Checked && listViewJPG1.GetSelectedJPG.Count == 0)
             {
-                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, "No JPG selected");
+                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, AMSExplorer.Properties.Resources.CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected);
             }
             else
             {
@@ -529,11 +529,11 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(tb.Text) };
+                IPRange ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text) };
             }
             catch
             {
-                errorProvider1.SetError(tb, "Incorrect IP address");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateLiveChannel_checkIPAddress_IncorrectIPAddress);
                 Error = true;
             }
             if (!Error)
@@ -582,7 +582,7 @@ namespace AMSExplorer
                     }
                     else // no specific audio language specified
                     {
-                        profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                        profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
                     }
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
@@ -632,7 +632,7 @@ namespace AMSExplorer
 
             if (!IsChannelNameValid(tb.Text))
             {
-                errorProvider1.SetError(tb, "Channel name is not valid");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateLiveChannel_checkChannelName_ChannelNameIsNotValid);
             }
             else
             {
@@ -644,7 +644,7 @@ namespace AMSExplorer
         {
             if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
             {
-                errorProvider1.SetError(textBoxKeyFrame, "Value is not valid");
+                errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }
             else
             {
@@ -667,7 +667,7 @@ namespace AMSExplorer
             var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
             if (defaultaudiostream != null)
             {
-                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format("The audio stream index '{0}' is repeated", defaultaudiostream.Index));
+                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, defaultaudiostream.Index));
             }
             else
             {
@@ -680,7 +680,7 @@ namespace AMSExplorer
             if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
             || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
             {
-                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format("The audio stream index '{0}' is repeated", numericUpDownAudioIndexAddition.Value));
+                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, numericUpDownAudioIndexAddition.Value));
             }
             else
             {

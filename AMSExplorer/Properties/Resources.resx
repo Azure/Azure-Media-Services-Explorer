@@ -909,4 +909,46 @@
   <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount" xml:space="preserve">
     <value>Error when connecting to account.</value>
   </data>
+  <data name="CreateLiveChannel_inputIPAllow_Default" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview" xml:space="preserve">
+    <value>Premium (preview)</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_Undefined" xml:space="preserve">
+    <value>Undefined</value>
+  </data>
+  <data name="CreateLiveChannel_dataGridView_DataError_WrongFormat" xml:space="preserve">
+    <value>Wrong format</value>
+  </data>
+  <data name="CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault" xml:space="preserve">
+    <value>API (default)</value>
+  </data>
+  <data name="CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages" xml:space="preserve">
+    <value>SCTE-35 Cue Messages</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_FragmentedMP4Smooth" xml:space="preserve">
+    <value>Fragmented MP4 (Smooth)</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_RTMP" xml:space="preserve">
+    <value>RTMP</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_RTPMPEG2TransportStream" xml:space="preserve">
+    <value>RTP/MPEG-2 Transport Stream</value>
+  </data>
+  <data name="CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected" xml:space="preserve">
+    <value>No JPG selected</value>
+  </data>
+  <data name="CreateLiveChannel_checkIPAddress_IncorrectIPAddress" xml:space="preserve">
+    <value>Incorrect IP address</value>
+  </data>
+  <data name="CreateLiveChannel_checkChannelName_ChannelNameIsNotValid" xml:space="preserve">
+    <value>Channel name is not valid</value>
+  </data>
 </root>

@@ -2364,6 +2364,105 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No JPG selected.
+        /// </summary>
+        internal static string CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel name is not valid.
+        /// </summary>
+        internal static string CreateLiveChannel_checkChannelName_ChannelNameIsNotValid {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_checkChannelName_ChannelNameIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect IP address.
+        /// </summary>
+        internal static string CreateLiveChannel_checkIPAddress_IncorrectIPAddress {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_checkIPAddress_IncorrectIPAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API (default).
+        /// </summary>
+        internal static string CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SCTE-35 Cue Messages.
+        /// </summary>
+        internal static string CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string CreateLiveChannel_CreateLiveChannel_Load_None {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Premium (preview).
+        /// </summary>
+        internal static string CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard.
+        /// </summary>
+        internal static string CreateLiveChannel_CreateLiveChannel_Load_Standard {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_Standard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undefined.
+        /// </summary>
+        internal static string CreateLiveChannel_CreateLiveChannel_Load_Undefined {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_Undefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong format.
+        /// </summary>
+        internal static string CreateLiveChannel_dataGridView_DataError_WrongFormat {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_dataGridView_DataError_WrongFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to default.
+        /// </summary>
+        internal static string CreateLiveChannel_inputIPAllow_Default {
+            get {
+                return ResourceManager.GetString("CreateLiveChannel_inputIPAllow_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {
@@ -2378,6 +2477,33 @@ namespace AMSExplorer.Properties {
         internal static string LabelProgram {
             get {
                 return ResourceManager.GetString("LabelProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fragmented MP4 (Smooth).
+        /// </summary>
+        internal static string Program_ReturnNameForProtocol_FragmentedMP4Smooth {
+            get {
+                return ResourceManager.GetString("Program_ReturnNameForProtocol_FragmentedMP4Smooth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RTMP.
+        /// </summary>
+        internal static string Program_ReturnNameForProtocol_RTMP {
+            get {
+                return ResourceManager.GetString("Program_ReturnNameForProtocol_RTMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RTP/MPEG-2 Transport Stream.
+        /// </summary>
+        internal static string Program_ReturnNameForProtocol_RTPMPEG2TransportStream {
+            get {
+                return ResourceManager.GetString("Program_ReturnNameForProtocol_RTPMPEG2TransportStream", resourceCulture);
             }
         }
         

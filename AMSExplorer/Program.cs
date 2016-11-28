@@ -799,15 +799,15 @@ namespace AMSExplorer
             switch (protocol)
             {
                 case StreamingProtocol.FragmentedMP4:
-                    name = "Fragmented MP4 (Smooth)";
+                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_FragmentedMP4Smooth;
                     break;
 
                 case StreamingProtocol.RTMP:
-                    name = "RTMP";
+                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_RTMP;
                     break;
 
                 case StreamingProtocol.RTPMPEG2TS:
-                    name = "RTP/MPEG-2 Transport Stream";
+                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_RTPMPEG2TransportStream;
                     break;
             }
             return name;
