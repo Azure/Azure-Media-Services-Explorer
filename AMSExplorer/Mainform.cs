@@ -1165,7 +1165,10 @@ namespace AMSExplorer
             {
                 comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i + 1)));
             }
-            comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
+            if (dataGridViewAssetsV.CurrentPage <= comboBoxPageAssets.Items.Count)
+            {
+                comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
+            }
 
             tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
