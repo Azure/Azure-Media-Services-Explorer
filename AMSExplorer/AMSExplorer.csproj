@@ -890,6 +890,12 @@
     <EmbeddedResource Include="DynManifestFilter.ja.resx">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditorXMLJSON.ja.resx">
+      <DependentUpon>EditorXMLJSON.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EDL.ja.resx">
+      <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>

@@ -46,10 +46,10 @@ namespace AMSExplorer
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private bool bMultiAssetMode = true;
-        private const string strEditTimes = "Edit times";
-        private const string strStitch = "Stitch";
-        private const string strAudiooverlay = "Audio overlay";
-        private const string strVisualoverlay = "Visual overlay";
+        private string strEditTimes = AMSExplorer.Properties.Resources.EncodingAMEAdv_EditTimes;
+        private string strStitch = AMSExplorer.Properties.Resources.EncodingAMEAdv_Stitch;
+        private string strAudiooverlay = AMSExplorer.Properties.Resources.EncodingAMEAdv_AudioOverlay;
+        private string strVisualoverlay = AMSExplorer.Properties.Resources.EncodingAMEAdv_VisualOverlay;
 
         public string EncodingLabel
         {
@@ -551,7 +551,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAAMEPreset);
                     doc = docbackup;
                     Error = true;
                 }
@@ -660,7 +660,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
+                    MessageBox.Show(AMSExplorer.Properties.Resources.EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAAMEPreset);
                     doc = docbackup;
                     Error = true;
                 }
@@ -981,9 +981,8 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
+                    MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0, ex.Message));
                 }
-                
             }
         }
 
@@ -991,7 +990,6 @@ namespace AMSExplorer
         {
             // let's normalize the line breaks
             textBoxConfiguration.Text = textBoxConfiguration.Text.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
-
         }
     }
 }

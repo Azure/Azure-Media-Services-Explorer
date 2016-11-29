@@ -1086,4 +1086,28 @@
   <data name="DynManifestFilter_textBoxRawulong_Validating_IncorrectValue" xml:space="preserve">
     <value>Incorrect value</value>
   </data>
+  <data name="EditorXMLJSON_EditorXMLJSON_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="EditorXMLJSON_EditorXMLJSON_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="EncodingAMEAdv_EditTimes" xml:space="preserve">
+    <value>Edit times</value>
+  </data>
+  <data name="EncodingAMEAdv_Stitch" xml:space="preserve">
+    <value>Stitch</value>
+  </data>
+  <data name="EncodingAMEAdv_AudioOverlay" xml:space="preserve">
+    <value>Audio overlay</value>
+  </data>
+  <data name="EncodingAMEAdv_VisualOverlay" xml:space="preserve">
+    <value>Visual overlay</value>
+  </data>
+  <data name="EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAAMEPreset" xml:space="preserve">
+    <value>Error when processing the XML preset. Is it a AME preset?</value>
+  </data>
+  <data name="EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0" xml:space="preserve">
+    <value>Error: Could not save file to disk. Original error: {0}</value>
+  </data>
 </root>

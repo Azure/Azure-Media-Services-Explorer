@@ -53,11 +53,11 @@ namespace AMSExplorer
             textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
             if (editMode)
             {
-                buttonOk.Text = "Save";
+                buttonOk.Text = AMSExplorer.Properties.Resources.EditorXMLJSON_EditorXMLJSON_Save;
             }
             else // readonly mode
             {
-                buttonCancel.Text = "Close";
+                buttonCancel.Text = AMSExplorer.Properties.Resources.EditorXMLJSON_EditorXMLJSON_Close;
                 buttonOk.Visible = false;
                 textBoxConfiguration.ReadOnly = true;
             }

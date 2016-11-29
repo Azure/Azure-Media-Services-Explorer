@@ -2879,6 +2879,79 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string EditorXMLJSON_EditorXMLJSON_Close {
+            get {
+                return ResourceManager.GetString("EditorXMLJSON_EditorXMLJSON_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string EditorXMLJSON_EditorXMLJSON_Save {
+            get {
+                return ResourceManager.GetString("EditorXMLJSON_EditorXMLJSON_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio overlay.
+        /// </summary>
+        internal static string EncodingAMEAdv_AudioOverlay {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_AudioOverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Could not save file to disk. Original error: {0}.
+        /// </summary>
+        internal static string EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0 {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit times.
+        /// </summary>
+        internal static string EncodingAMEAdv_EditTimes {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_EditTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stitch.
+        /// </summary>
+        internal static string EncodingAMEAdv_Stitch {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_Stitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when processing the XML preset. Is it a AME preset?.
+        /// </summary>
+        internal static string EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAAMEPreset {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAA" +
+                        "MEPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visual overlay.
+        /// </summary>
+        internal static string EncodingAMEAdv_VisualOverlay {
+            get {
+                return ResourceManager.GetString("EncodingAMEAdv_VisualOverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {
