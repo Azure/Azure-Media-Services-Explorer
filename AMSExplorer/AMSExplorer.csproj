@@ -998,6 +998,9 @@
     <EmbeddedResource Include="EncodingMESPickOverlay.resx">
       <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Hyperlapse.ja.resx">
+      <DependentUpon>Hyperlapse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
     </EmbeddedResource>

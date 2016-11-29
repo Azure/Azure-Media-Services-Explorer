@@ -1197,4 +1197,37 @@
   <data name="ExportToExcel_backgroundWorker1_DoWork_Error" xml:space="preserve">
     <value>Error : </value>
   </data>
+  <data name="Mainform_DoGridTransferInit_SubmitTime" xml:space="preserve">
+    <value>Submit time</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_StartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_EndTime" xml:space="preserve">
+    <value>End time</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_ProgressDetail" xml:space="preserve">
+    <value>Progress detail</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_TransferCompleted" xml:space="preserve">
+    <value>Transfer completed</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_Transfer0Completed" xml:space="preserve">
+    <value>Transfer '{0}' completed.</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser" xml:space="preserve">
+    <value>Transfer '{0}' cancelled by user.</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Transfer0Error" xml:space="preserve">
+    <value>Transfer '{0}': Error</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started" xml:space="preserve">
+    <value>Transfer '{0}': started</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
 </root>

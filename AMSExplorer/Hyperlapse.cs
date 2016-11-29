@@ -284,7 +284,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
+                    labelWarningJSON.Text = string.Format(AMSExplorer.Properties.Resources.EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0, ex.Message);
                     Error = true;
                 }
             }

@@ -3233,6 +3233,105 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transfer &apos;{0}&apos; cancelled by user..
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer &apos;{0}&apos; completed..
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareCompleted_Transfer0Completed {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareCompleted_Transfer0Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer completed.
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareCompleted_TransferCompleted {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareCompleted_TransferCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: .
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareError_Error {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareError_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer &apos;{0}&apos;: Error.
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareError_Transfer0Error {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareError_Transfer0Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer &apos;{0}&apos;: started.
+        /// </summary>
+        internal static string Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        internal static string Mainform_DoGridTransferInit_Destination {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferInit_Destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time.
+        /// </summary>
+        internal static string Mainform_DoGridTransferInit_EndTime {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferInit_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress detail.
+        /// </summary>
+        internal static string Mainform_DoGridTransferInit_ProgressDetail {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferInit_ProgressDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        internal static string Mainform_DoGridTransferInit_StartTime {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferInit_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit time.
+        /// </summary>
+        internal static string Mainform_DoGridTransferInit_SubmitTime {
+            get {
+                return ResourceManager.GetString("Mainform_DoGridTransferInit_SubmitTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fragmented MP4 (Smooth).
         /// </summary>
         internal static string Program_ReturnNameForProtocol_FragmentedMP4Smooth {

@@ -253,20 +253,20 @@ namespace AMSExplorer
             dataGridViewTransfer.Columns["Id"].Visible = false;
 
             dataGridViewTransfer.Columns["SubmitTime"].Width = 140;
-            dataGridViewTransfer.Columns["SubmitTime"].HeaderText = "Submit time";
+            dataGridViewTransfer.Columns["SubmitTime"].HeaderText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferInit_SubmitTime;
 
             dataGridViewTransfer.Columns["StartTime"].Width = 140;
-            dataGridViewTransfer.Columns["StartTime"].HeaderText = "Start time";
+            dataGridViewTransfer.Columns["StartTime"].HeaderText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferInit_StartTime;
 
 
             dataGridViewTransfer.Columns["EndTime"].Width = 140;
-            dataGridViewTransfer.Columns["EndTime"].HeaderText = "End time";
+            dataGridViewTransfer.Columns["EndTime"].HeaderText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferInit_EndTime;
 
             dataGridViewTransfer.Columns["ProgressText"].Width = 140;
-            dataGridViewTransfer.Columns["ProgressText"].HeaderText = "Progress detail";
+            dataGridViewTransfer.Columns["ProgressText"].HeaderText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferInit_ProgressDetail;
 
             dataGridViewTransfer.Columns["DestLocation"].Width = 140;
-            dataGridViewTransfer.Columns["DestLocation"].HeaderText = "Destination";
+            dataGridViewTransfer.Columns["DestLocation"].HeaderText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferInit_Destination;
 
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", 0)));
         }
@@ -355,8 +355,8 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() =>
             {
-                this.Notify("Transfer completed", string.Format("{0}", transfer.Name));
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", transfer.Name));
+                this.Notify(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_TransferCompleted, string.Format("{0}", transfer.Name));
+                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_Transfer0Completed, transfer.Name));
             }));
 
         }
@@ -372,7 +372,7 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() =>
             {
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' cancelled by user.", transfer.Name), true);
+                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser, transfer.Name), true);
             }));
         }
 
@@ -394,13 +394,13 @@ namespace AMSExplorer
             transfer.Progress = 101d;
             transfer.EndTime = DateTime.Now.ToString();
             transfer.State = TransferState.Error;
-            transfer.ProgressText = "Error: " + ErrorDesc;
+            transfer.ProgressText = AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Error + ErrorDesc;
             transfer.ErrorDescription = ErrorDesc;
 
             this.BeginInvoke(new Action(() =>
             {
                 this.Notify("Transfer Error", string.Format("{0}", transfer.Name), true);
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}': Error", transfer.Name), true);
+                this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Transfer0Error, transfer.Name), true);
                 this.TextBoxLogWriteLine(ErrorDesc, true);
 
             }));
@@ -423,7 +423,7 @@ namespace AMSExplorer
             transfer.Progress = 0;
             transfer.State = TransferState.Processing;
             transfer.StartTime = DateTime.Now;
-            this.TextBoxLogWriteLine(string.Format("Transfer '{0}': started", transfer.Name));
+            this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started, transfer.Name));
         }
 
         private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
