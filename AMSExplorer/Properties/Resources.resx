@@ -1110,4 +1110,25 @@
   <data name="EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0" xml:space="preserve">
     <value>Error: Could not save file to disk. Original error: {0}</value>
   </data>
+  <data name="EncodingPremium_UpdateJobSummary_YouAreGoingToSubmit0JobSWith1TaskS" xml:space="preserve">
+    <value>You are going to submit {0} job(s) with {1} task(s).</value>
+  </data>
+  <data name="EncodingMES_buttonLoadJSON_Click_ErrorCouldNotReadFileFromDiskOriginalError0" xml:space="preserve">
+    <value>Error: Could not read file from disk. Original error: {0}</value>
+  </data>
+  <data name="EncodingMES_listboxPresets_SelectedIndexChanged_ErrorCouldNotReadFileFromDiskOrProcessTheJSONDataOriginalError" xml:space="preserve">
+    <value>Error: Could not read file from disk or process the JSON data. Original error :</value>
+  </data>
+  <data name="EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0" xml:space="preserve">
+    <value>Error in XML data: {0}</value>
+  </data>
+  <data name="EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset" xml:space="preserve">
+    <value>Select a file in the source asset</value>
+  </data>
+  <data name="EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime" xml:space="preserve">
+    <value>You cannot specify only an end time.</value>
+  </data>
+  <data name="EncodingMES_EncodingAMEStandard_Load_CroppingEditor" xml:space="preserve">
+    <value>Cropping Editor</value>
+  </data>
 </root>

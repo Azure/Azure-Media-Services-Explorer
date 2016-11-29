@@ -39,7 +39,7 @@ namespace AMSExplorer
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
         private CloudMediaContext _context;
         private string _processorVersion;
-              
+
 
         public string XMLData
         {
@@ -133,11 +133,10 @@ namespace AMSExplorer
         {
             if (listViewWorkflows.SelectedIndices.Count > 0)
             {
-                labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}.",
+                labelsummaryjob.Text = string.Format(AMSExplorer.Properties.Resources.EncodingPremium_UpdateJobSummary_YouAreGoingToSubmit0JobSWith1TaskS,
                 EncodingNumberOfInputAssets,
-                EncodingNumberOfInputAssets > 1 ? "s" : "",
-                listViewWorkflows.SelectedIndices.Count,
-                 listViewWorkflows.SelectedIndices.Count > 1 ? "s" : "");
+                listViewWorkflows.SelectedIndices.Count
+                 );
             }
             else
             {

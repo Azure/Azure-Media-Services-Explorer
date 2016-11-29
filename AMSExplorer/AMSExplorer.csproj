@@ -313,11 +313,11 @@
       <DependentUpon>EDL.cs</DependentUpon>
     </Compile>
     <Compile Include="SortableBindingList.cs" />
-    <Compile Include="EncodingAMEStandardPickOverlay.cs">
+    <Compile Include="EncodingMESPickOverlay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EncodingAMEStandardPickOverlay.Designer.cs">
-      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
+    <Compile Include="EncodingMESPickOverlay.Designer.cs">
+      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeRangeSelection.cs">
       <SubType>Form</SubType>
@@ -404,11 +404,11 @@
     <Compile Include="DynManifestFilter.Designer.cs">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="EncodingAMEStandard.cs">
+    <Compile Include="EncodingMES.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EncodingAMEStandard.designer.cs">
-      <DependentUpon>EncodingAMEStandard.cs</DependentUpon>
+    <Compile Include="EncodingMES.designer.cs">
+      <DependentUpon>EncodingMES.cs</DependentUpon>
     </Compile>
     <Compile Include="GridTransfer.cs" />
     <Compile Include="JobOptions.cs">
@@ -896,6 +896,12 @@
     <EmbeddedResource Include="EDL.ja.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EncodingMES.ja.resx">
+      <DependentUpon>EncodingMES.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingPremium.ja.resx">
+      <DependentUpon>EncodingPremium.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -980,8 +986,8 @@
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEStandardPickOverlay.resx">
-      <DependentUpon>EncodingAMEStandardPickOverlay.cs</DependentUpon>
+    <EmbeddedResource Include="EncodingMESPickOverlay.resx">
+      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
@@ -1057,8 +1063,8 @@
     <EmbeddedResource Include="DynManifestFilter.resx">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEStandard.resx">
-      <DependentUpon>EncodingAMEStandard.cs</DependentUpon>
+    <EmbeddedResource Include="EncodingMES.resx">
+      <DependentUpon>EncodingMES.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>

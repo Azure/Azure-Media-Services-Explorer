@@ -2952,6 +2952,70 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot specify only an end time..
+        /// </summary>
+        internal static string EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime {
+            get {
+                return ResourceManager.GetString("EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Could not read file from disk. Original error: {0}.
+        /// </summary>
+        internal static string EncodingMES_buttonLoadJSON_Click_ErrorCouldNotReadFileFromDiskOriginalError0 {
+            get {
+                return ResourceManager.GetString("EncodingMES_buttonLoadJSON_Click_ErrorCouldNotReadFileFromDiskOriginalError0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a file in the source asset.
+        /// </summary>
+        internal static string EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset {
+            get {
+                return ResourceManager.GetString("EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cropping Editor.
+        /// </summary>
+        internal static string EncodingMES_EncodingAMEStandard_Load_CroppingEditor {
+            get {
+                return ResourceManager.GetString("EncodingMES_EncodingAMEStandard_Load_CroppingEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Could not read file from disk or process the JSON data. Original error :.
+        /// </summary>
+        internal static string EncodingMES_listboxPresets_SelectedIndexChanged_ErrorCouldNotReadFileFromDiskOrProcessTheJSONDataOriginalError {
+            get {
+                return ResourceManager.GetString("EncodingMES_listboxPresets_SelectedIndexChanged_ErrorCouldNotReadFileFromDiskOrPr" +
+                        "ocessTheJSONDataOriginalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error in XML data: {0}.
+        /// </summary>
+        internal static string EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0 {
+            get {
+                return ResourceManager.GetString("EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are going to submit {0} job(s) with {1} task(s)..
+        /// </summary>
+        internal static string EncodingPremium_UpdateJobSummary_YouAreGoingToSubmit0JobSWith1TaskS {
+            get {
+                return ResourceManager.GetString("EncodingPremium_UpdateJobSummary_YouAreGoingToSubmit0JobSWith1TaskS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {
