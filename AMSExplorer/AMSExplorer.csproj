@@ -851,6 +851,12 @@
     <EmbeddedResource Include="BulkUpload.ja.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
+      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadToLocal.ja.resx">
+      <DependentUpon>DownloadToLocal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>

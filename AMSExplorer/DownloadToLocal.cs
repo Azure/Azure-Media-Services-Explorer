@@ -60,7 +60,7 @@ namespace AMSExplorer
                 }
                 return option;
             }
-            
+
         }
 
         public bool OpenFolderAfterDownload
@@ -81,7 +81,7 @@ namespace AMSExplorer
 
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_backupfolder) ||  !Directory.Exists(_backupfolder))
+            if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
             }
@@ -89,9 +89,9 @@ namespace AMSExplorer
             {
                 textBoxFolderPath.Text = _backupfolder;
             }
-            labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count(), _selassets.Count() > 1 ? "s" : "");
+            labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count());
         }
-      
+
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = textBoxFolderPath.Text };
