@@ -113,8 +113,8 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             if (extendlocator) // dialog box used to extend locator expiration date
             {
-                buttonOk.Text = "Update locator(s)";
-                this.Text = "Update locators";
+                buttonOk.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocatorS;
+                this.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocators2;
                 radioButtonSAS.Enabled = false; // only streaming locator can be updated
                 groupBox2.Enabled = false; // do not propose to specificy start date
             }

@@ -50,7 +50,7 @@ namespace AMSExplorer
         {
             get
             {
-                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
+                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0);
             }
             set
             {
@@ -165,7 +165,7 @@ namespace AMSExplorer
 
             foreach (var storage in _context.StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
             checkProgramName();
@@ -200,12 +200,12 @@ namespace AMSExplorer
             {
                 Uri myUri = new Uri(url);
                 filename = System.IO.Path.GetFileNameWithoutExtension((myUri).LocalPath);
-                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath).Replace(@"\", "nb:lid:UUID:");
+                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath).Replace(@"\", Constants.LocatorIdPrefix);
             }
             catch
             {
                 Error = true;
-                labelURLFileNameWarning.Text = "URL cannot be analyzed";
+                labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed;
                 labelManifestFile.Text = string.Empty;
                 labelLocatorID.Text = string.Empty;
             }
@@ -230,7 +230,7 @@ namespace AMSExplorer
 
             if (!IsProgramNameValid(tb.Text))
             {
-                errorProvider1.SetError(tb, "Program name is not valid");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateProgram_checkProgramName_ProgramNameIsNotValid);
             }
             else
             {

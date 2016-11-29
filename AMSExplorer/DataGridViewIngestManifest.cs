@@ -199,7 +199,7 @@ namespace AMSExplorer
             {
                 Name = "Progress",
                 DataPropertyName = "Progress",
-                HeaderText = "Progress"
+                HeaderText = AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_Progress
             };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
@@ -211,13 +211,12 @@ namespace AMSExplorer
             this.Columns["Progress"].DisplayIndex = 6;
             this.Columns["Progress"].Width = 150;
             this.Columns["URLForUpload"].Width = 200;
-            this.Columns["LastModified"].HeaderText = "Last modified";
+            this.Columns["LastModified"].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified;
             this.Columns["LastModified"].Width = 140;
             this.Columns["Storage"].Width = 140;
-            this.Columns["PendingFiles"].HeaderText = "Pending Files";
-            this.Columns["FinishedFiles"].HeaderText = "Finished Files";
-            this.Columns["URLForUpload"].HeaderText = "Ingest Url";
-            this.Columns["LastModified"].HeaderText = "Last modified";
+            this.Columns["PendingFiles"].HeaderText = AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_PendingFiles;
+            this.Columns["FinishedFiles"].HeaderText = AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_FinishedFiles;
+            this.Columns["URLForUpload"].HeaderText = AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_IngestUrl;
 
             WorkerUpdateIngestManifest = new BackgroundWorker()
             {
@@ -269,8 +268,8 @@ namespace AMSExplorer
                         if (im.Statistics.PendingFilesCount == 0 && img.PendingFiles != im.Statistics.PendingFilesCount)
                         {
                             // Notify if upload completed for one bulk ingest container
-                            myform.Notify(string.Format("Bulk ingest completed with {0} error(s)", im.Statistics.ErrorFilesCount), string.Format("Container '{0}'", im.Name), im.Statistics.ErrorFilesCount > 0);
-                            myform.TextBoxLogWriteLine(string.Format("Bulk ingest on container '{0}' completed with {1} error(s)", im.Name, im.Statistics.ErrorFilesCount), im.Statistics.ErrorFilesCount > 0);
+                            myform.Notify(string.Format(AMSExplorer.Properties.Resources.DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedWith0ErrorS, im.Statistics.ErrorFilesCount), string.Format(AMSExplorer.Properties.Resources.DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0, im.Name), im.Statistics.ErrorFilesCount > 0);
+                            myform.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContainer0CompletedWith1ErrorS, im.Name, im.Statistics.ErrorFilesCount), im.Statistics.ErrorFilesCount > 0);
                             myform.DoRefreshGridAssetV(false);
                         }
 

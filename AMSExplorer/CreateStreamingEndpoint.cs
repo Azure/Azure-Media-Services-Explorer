@@ -95,7 +95,7 @@ namespace AMSExplorer
 
             if (!IsSENameValid(tb.Text))
             {
-                errorProvider1.SetError(tb, "Streaming Endpoint name is not valid");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid);
             }
             else
             {

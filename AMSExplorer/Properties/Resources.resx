@@ -951,4 +951,46 @@
   <data name="CreateLiveChannel_checkChannelName_ChannelNameIsNotValid" xml:space="preserve">
     <value>Channel name is not valid</value>
   </data>
+  <data name="CreateLocator_CreateLocator_UpdateLocatorS" xml:space="preserve">
+    <value>Update locator(s)</value>
+  </data>
+  <data name="CreateLocator_CreateLocator_UpdateLocators2" xml:space="preserve">
+    <value>Update locators</value>
+  </data>
+  <data name="CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed" xml:space="preserve">
+    <value>URL cannot be analyzed</value>
+  </data>
+  <data name="CreateProgram_checkProgramName_ProgramNameIsNotValid" xml:space="preserve">
+    <value>Program name is not valid</value>
+  </data>
+  <data name="CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid" xml:space="preserve">
+    <value>Streaming Endpoint name is not valid</value>
+  </data>
+  <data name="CreateTestToken_UpdateButtonOk_TestTokenCannotBeGeneratedOpenIDOrNoX509CertificateLoaded" xml:space="preserve">
+    <value>Test token cannot be generated (OpenID or no X509 Certificate loaded</value>
+  </data>
+  <data name="CreateTestToken_buttonImportPFX_Click_Error" xml:space="preserve">
+    <value>(Error)</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContainer0CompletedWith1ErrorS" xml:space="preserve">
+    <value>Bulk ingest on container '{0}' completed with {1} error(s)</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedWith0ErrorS" xml:space="preserve">
+    <value>Bulk ingest completed with {0} error(s)</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0" xml:space="preserve">
+    <value>Container '{0}'</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_PendingFiles" xml:space="preserve">
+    <value>Pending Files</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_FinishedFiles" xml:space="preserve">
+    <value>Finished Files</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_IngestUrl" xml:space="preserve">
+    <value>Ingest Url</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
 </root>

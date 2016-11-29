@@ -2463,6 +2463,135 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update locator(s).
+        /// </summary>
+        internal static string CreateLocator_CreateLocator_UpdateLocatorS {
+            get {
+                return ResourceManager.GetString("CreateLocator_CreateLocator_UpdateLocatorS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update locators.
+        /// </summary>
+        internal static string CreateLocator_CreateLocator_UpdateLocators2 {
+            get {
+                return ResourceManager.GetString("CreateLocator_CreateLocator_UpdateLocators2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program name is not valid.
+        /// </summary>
+        internal static string CreateProgram_checkProgramName_ProgramNameIsNotValid {
+            get {
+                return ResourceManager.GetString("CreateProgram_checkProgramName_ProgramNameIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL cannot be analyzed.
+        /// </summary>
+        internal static string CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed {
+            get {
+                return ResourceManager.GetString("CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming Endpoint name is not valid.
+        /// </summary>
+        internal static string CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid {
+            get {
+                return ResourceManager.GetString("CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Error).
+        /// </summary>
+        internal static string CreateTestToken_buttonImportPFX_Click_Error {
+            get {
+                return ResourceManager.GetString("CreateTestToken_buttonImportPFX_Click_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test token cannot be generated (OpenID or no X509 Certificate loaded.
+        /// </summary>
+        internal static string CreateTestToken_UpdateButtonOk_TestTokenCannotBeGeneratedOpenIDOrNoX509CertificateLoaded {
+            get {
+                return ResourceManager.GetString("CreateTestToken_UpdateButtonOk_TestTokenCannotBeGeneratedOpenIDOrNoX509Certificat" +
+                        "eLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished Files.
+        /// </summary>
+        internal static string DataGridViewIngestManifest_Init_FinishedFiles {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_Init_FinishedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingest Url.
+        /// </summary>
+        internal static string DataGridViewIngestManifest_Init_IngestUrl {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_Init_IngestUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Files.
+        /// </summary>
+        internal static string DataGridViewIngestManifest_Init_PendingFiles {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_Init_PendingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress.
+        /// </summary>
+        internal static string DataGridViewIngestManifest_Init_Progress {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_Init_Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk ingest completed with {0} error(s).
+        /// </summary>
+        internal static string DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedWith0ErrorS {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedW" +
+                        "ith0ErrorS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk ingest on container &apos;{0}&apos; completed with {1} error(s).
+        /// </summary>
+        internal static string DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContainer0CompletedWith1ErrorS {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContaine" +
+                        "r0CompletedWith1ErrorS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container &apos;{0}&apos;.
+        /// </summary>
+        internal static string DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0 {
+            get {
+                return ResourceManager.GetString("DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

@@ -329,7 +329,7 @@ namespace AMSExplorer
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
             cert = DynamicEncryption.GetCertificateFromFile(false).Certificate;
-            labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
+            labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : AMSExplorer.Properties.Resources.CreateTestToken_buttonImportPFX_Click_Error;
             UpdateButtonOk();
         }
 
@@ -343,7 +343,7 @@ namespace AMSExplorer
 
             if (!buttonOk.Enabled)
             {
-                errorProvider1.SetError(buttonOk, "Test token cannot be generated (OpenID or no X509 Certificate loaded");
+                errorProvider1.SetError(buttonOk, AMSExplorer.Properties.Resources.CreateTestToken_UpdateButtonOk_TestTokenCannotBeGeneratedOpenIDOrNoX509CertificateLoaded);
             }
             else
             {
