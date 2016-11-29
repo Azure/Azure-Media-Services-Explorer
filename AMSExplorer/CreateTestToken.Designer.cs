@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateTestToken));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,111 +69,103 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(380, 14);
+            this.errorProvider1.SetError(this.buttonOk, resources.GetString("buttonOk.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonOk, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonOk.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonOk, ((int)(resources.GetObject("buttonOk.IconPadding"))));
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(156, 27);
-            this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Create Test Token";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(558, 14);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(112, 27);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
             this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
-            this.groupBox1.Location = new System.Drawing.Point(350, 493);
+            this.errorProvider1.SetError(this.groupBox1, resources.GetString("groupBox1.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox1, ((int)(resources.GetObject("groupBox1.IconPadding"))));
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(313, 150);
-            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "End date/time";
             // 
             // dateTimePickerEndTime
             // 
-            this.dateTimePickerEndTime.CustomFormat = "";
+            resources.ApplyResources(this.dateTimePickerEndTime, "dateTimePickerEndTime");
+            this.errorProvider1.SetError(this.dateTimePickerEndTime, resources.GetString("dateTimePickerEndTime.Error"));
             this.dateTimePickerEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerEndTime.Location = new System.Drawing.Point(10, 99);
+            this.errorProvider1.SetIconAlignment(this.dateTimePickerEndTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dateTimePickerEndTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dateTimePickerEndTime, ((int)(resources.GetObject("dateTimePickerEndTime.IconPadding"))));
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.Size = new System.Drawing.Size(294, 23);
-            this.dateTimePickerEndTime.TabIndex = 2;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
             // dateTimePickerEndDate
             // 
-            this.dateTimePickerEndDate.CustomFormat = "";
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(10, 69);
+            resources.ApplyResources(this.dateTimePickerEndDate, "dateTimePickerEndDate");
+            this.errorProvider1.SetError(this.dateTimePickerEndDate, resources.GetString("dateTimePickerEndDate.Error"));
+            this.errorProvider1.SetIconAlignment(this.dateTimePickerEndDate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dateTimePickerEndDate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dateTimePickerEndDate, ((int)(resources.GetObject("dateTimePickerEndDate.IconPadding"))));
             this.dateTimePickerEndDate.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(294, 23);
-            this.dateTimePickerEndDate.TabIndex = 1;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
             // groupBoxStartDate
             // 
-            this.groupBoxStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.groupBoxStartDate, "groupBoxStartDate");
             this.groupBoxStartDate.Controls.Add(this.checkBoxStartDate);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartTime);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartDate);
-            this.groupBoxStartDate.Location = new System.Drawing.Point(19, 492);
+            this.errorProvider1.SetError(this.groupBoxStartDate, resources.GetString("groupBoxStartDate.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBoxStartDate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBoxStartDate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBoxStartDate, ((int)(resources.GetObject("groupBoxStartDate.IconPadding"))));
             this.groupBoxStartDate.Name = "groupBoxStartDate";
-            this.groupBoxStartDate.Size = new System.Drawing.Size(313, 150);
-            this.groupBoxStartDate.TabIndex = 1;
             this.groupBoxStartDate.TabStop = false;
-            this.groupBoxStartDate.Text = "Start date/time";
             // 
             // checkBoxStartDate
             // 
-            this.checkBoxStartDate.AutoSize = true;
-            this.checkBoxStartDate.Location = new System.Drawing.Point(12, 30);
+            resources.ApplyResources(this.checkBoxStartDate, "checkBoxStartDate");
+            this.errorProvider1.SetError(this.checkBoxStartDate, resources.GetString("checkBoxStartDate.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxStartDate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxStartDate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxStartDate, ((int)(resources.GetObject("checkBoxStartDate.IconPadding"))));
             this.checkBoxStartDate.Name = "checkBoxStartDate";
-            this.checkBoxStartDate.Size = new System.Drawing.Size(157, 19);
-            this.checkBoxStartDate.TabIndex = 0;
-            this.checkBoxStartDate.Text = "Specify a start date/time:";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
             this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged_1);
             // 
             // dateTimePickerStartTime
             // 
-            this.dateTimePickerStartTime.CustomFormat = "";
-            this.dateTimePickerStartTime.Enabled = false;
+            resources.ApplyResources(this.dateTimePickerStartTime, "dateTimePickerStartTime");
+            this.errorProvider1.SetError(this.dateTimePickerStartTime, resources.GetString("dateTimePickerStartTime.Error"));
             this.dateTimePickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerStartTime.Location = new System.Drawing.Point(13, 99);
+            this.errorProvider1.SetIconAlignment(this.dateTimePickerStartTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dateTimePickerStartTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dateTimePickerStartTime, ((int)(resources.GetObject("dateTimePickerStartTime.IconPadding"))));
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.Size = new System.Drawing.Size(292, 23);
-            this.dateTimePickerStartTime.TabIndex = 2;
             this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
             // 
-            this.dateTimePickerStartDate.Enabled = false;
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(13, 69);
+            resources.ApplyResources(this.dateTimePickerStartDate, "dateTimePickerStartDate");
+            this.errorProvider1.SetError(this.dateTimePickerStartDate, resources.GetString("dateTimePickerStartDate.Error"));
+            this.errorProvider1.SetIconAlignment(this.dateTimePickerStartDate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dateTimePickerStartDate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dateTimePickerStartDate, ((int)(resources.GetObject("dateTimePickerStartDate.IconPadding"))));
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(292, 23);
-            this.dateTimePickerStartDate.TabIndex = 1;
             this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
             this.groupBox4.Controls.Add(this.dataGridViewTokenClaims);
             this.groupBox4.Controls.Add(this.label4);
@@ -181,195 +174,177 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.textBoxAudience);
-            this.groupBox4.Location = new System.Drawing.Point(19, 14);
+            this.errorProvider1.SetError(this.groupBox4, resources.GetString("groupBox4.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox4, ((int)(resources.GetObject("groupBox4.IconPadding"))));
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(644, 458);
-            this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Select an authorization option";
             // 
             // checkBoxAddContentKeyIdentifierClaim
             // 
-            this.checkBoxAddContentKeyIdentifierClaim.AutoSize = true;
+            resources.ApplyResources(this.checkBoxAddContentKeyIdentifierClaim, "checkBoxAddContentKeyIdentifierClaim");
             this.checkBoxAddContentKeyIdentifierClaim.Checked = true;
             this.checkBoxAddContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddContentKeyIdentifierClaim.Enabled = false;
-            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(8, 324);
+            this.errorProvider1.SetError(this.checkBoxAddContentKeyIdentifierClaim, resources.GetString("checkBoxAddContentKeyIdentifierClaim.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxAddContentKeyIdentifierClaim, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxAddContentKeyIdentifierClaim.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxAddContentKeyIdentifierClaim, ((int)(resources.GetObject("checkBoxAddContentKeyIdentifierClaim.IconPadding"))));
             this.checkBoxAddContentKeyIdentifierClaim.Name = "checkBoxAddContentKeyIdentifierClaim";
-            this.checkBoxAddContentKeyIdentifierClaim.Size = new System.Drawing.Size(200, 19);
-            this.checkBoxAddContentKeyIdentifierClaim.TabIndex = 71;
-            this.checkBoxAddContentKeyIdentifierClaim.Text = "Add Content Key Identifier Claim";
             this.checkBoxAddContentKeyIdentifierClaim.UseVisualStyleBackColor = true;
             // 
             // dataGridViewTokenClaims
             // 
+            resources.ApplyResources(this.dataGridViewTokenClaims, "dataGridViewTokenClaims");
             this.dataGridViewTokenClaims.AllowUserToAddRows = false;
             this.dataGridViewTokenClaims.AllowUserToDeleteRows = false;
-            this.dataGridViewTokenClaims.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(7, 366);
+            this.errorProvider1.SetError(this.dataGridViewTokenClaims, resources.GetString("dataGridViewTokenClaims.Error"));
+            this.errorProvider1.SetIconAlignment(this.dataGridViewTokenClaims, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dataGridViewTokenClaims.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dataGridViewTokenClaims, ((int)(resources.GetObject("dataGridViewTokenClaims.IconPadding"))));
             this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
             this.dataGridViewTokenClaims.ReadOnly = true;
             this.dataGridViewTokenClaims.RowHeadersVisible = false;
             this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(630, 85);
-            this.dataGridViewTokenClaims.TabIndex = 53;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 347);
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 15);
-            this.label4.TabIndex = 63;
-            this.label4.Text = "Others claims :";
             // 
             // listViewAutOptions
             // 
-            this.listViewAutOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.listViewAutOptions, "listViewAutOptions");
             this.listViewAutOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderContentKeyType,
             this.columnHeaderAutPolName,
             this.columnHeaderId,
             this.columnHeaderType,
             this.columnHeaderKeyType});
+            this.errorProvider1.SetError(this.listViewAutOptions, resources.GetString("listViewAutOptions.Error"));
             this.listViewAutOptions.FullRowSelect = true;
             this.listViewAutOptions.HideSelection = false;
-            this.listViewAutOptions.Location = new System.Drawing.Point(8, 22);
+            this.errorProvider1.SetIconAlignment(this.listViewAutOptions, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listViewAutOptions.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listViewAutOptions, ((int)(resources.GetObject("listViewAutOptions.IconPadding"))));
             this.listViewAutOptions.MultiSelect = false;
             this.listViewAutOptions.Name = "listViewAutOptions";
-            this.listViewAutOptions.Size = new System.Drawing.Size(628, 161);
-            this.listViewAutOptions.TabIndex = 62;
             this.listViewAutOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutOptions.View = System.Windows.Forms.View.Details;
             this.listViewAutOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutOptions_SelectedIndexChanged);
             // 
             // columnHeaderContentKeyType
             // 
-            this.columnHeaderContentKeyType.Text = "Content Key Type";
+            resources.ApplyResources(this.columnHeaderContentKeyType, "columnHeaderContentKeyType");
             // 
             // columnHeaderAutPolName
             // 
-            this.columnHeaderAutPolName.Text = "Option Name";
+            resources.ApplyResources(this.columnHeaderAutPolName, "columnHeaderAutPolName");
             // 
             // columnHeaderId
             // 
-            this.columnHeaderId.Text = "Option Id";
+            resources.ApplyResources(this.columnHeaderId, "columnHeaderId");
             // 
             // columnHeaderType
             // 
-            this.columnHeaderType.Text = "Token Type";
+            resources.ApplyResources(this.columnHeaderType, "columnHeaderType");
             // 
             // columnHeaderKeyType
             // 
-            this.columnHeaderKeyType.Text = "Token Key Type";
+            resources.ApplyResources(this.columnHeaderKeyType, "columnHeaderKeyType");
             // 
             // textBoxIssuer
             // 
-            this.textBoxIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIssuer.Location = new System.Drawing.Point(10, 225);
+            resources.ApplyResources(this.textBoxIssuer, "textBoxIssuer");
+            this.errorProvider1.SetError(this.textBoxIssuer, resources.GetString("textBoxIssuer.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxIssuer, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxIssuer.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxIssuer, ((int)(resources.GetObject("textBoxIssuer.IconPadding"))));
             this.textBoxIssuer.Name = "textBoxIssuer";
             this.textBoxIssuer.ReadOnly = true;
-            this.textBoxIssuer.Size = new System.Drawing.Size(626, 23);
-            this.textBoxIssuer.TabIndex = 56;
-            this.textBoxIssuer.Text = "http://testacs.com";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 207);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 15);
-            this.label2.TabIndex = 58;
-            this.label2.Text = "Issuer of the token Url :";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 263);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(196, 15);
-            this.label3.TabIndex = 59;
-            this.label3.Text = "Audience or scope of the token Url :";
             // 
             // textBoxAudience
             // 
-            this.textBoxAudience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAudience.Location = new System.Drawing.Point(10, 282);
+            resources.ApplyResources(this.textBoxAudience, "textBoxAudience");
+            this.errorProvider1.SetError(this.textBoxAudience, resources.GetString("textBoxAudience.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAudience, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAudience.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAudience, ((int)(resources.GetObject("textBoxAudience.IconPadding"))));
             this.textBoxAudience.Name = "textBoxAudience";
             this.textBoxAudience.ReadOnly = true;
-            this.textBoxAudience.Size = new System.Drawing.Size(626, 23);
-            this.textBoxAudience.TabIndex = 57;
-            this.textBoxAudience.Text = "urn:test";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 708);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(685, 55);
-            this.panel1.TabIndex = 60;
             // 
             // panelJWTX509Cert
             // 
-            this.panelJWTX509Cert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.panelJWTX509Cert, "panelJWTX509Cert");
             this.panelJWTX509Cert.Controls.Add(this.buttonImportPFX);
             this.panelJWTX509Cert.Controls.Add(this.labelCertificateFile);
-            this.panelJWTX509Cert.Enabled = false;
-            this.panelJWTX509Cert.Location = new System.Drawing.Point(14, 659);
+            this.errorProvider1.SetError(this.panelJWTX509Cert, resources.GetString("panelJWTX509Cert.Error"));
+            this.errorProvider1.SetIconAlignment(this.panelJWTX509Cert, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panelJWTX509Cert.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panelJWTX509Cert, ((int)(resources.GetObject("panelJWTX509Cert.IconPadding"))));
             this.panelJWTX509Cert.Name = "panelJWTX509Cert";
-            this.panelJWTX509Cert.Size = new System.Drawing.Size(649, 36);
-            this.panelJWTX509Cert.TabIndex = 68;
             // 
             // buttonImportPFX
             // 
-            this.buttonImportPFX.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.buttonImportPFX, "buttonImportPFX");
+            this.errorProvider1.SetError(this.buttonImportPFX, resources.GetString("buttonImportPFX.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonImportPFX, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonImportPFX.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonImportPFX, ((int)(resources.GetObject("buttonImportPFX.IconPadding"))));
             this.buttonImportPFX.Name = "buttonImportPFX";
-            this.buttonImportPFX.Size = new System.Drawing.Size(227, 27);
-            this.buttonImportPFX.TabIndex = 66;
-            this.buttonImportPFX.Text = "Import X509 Certificate (.PFX)...";
             this.buttonImportPFX.UseVisualStyleBackColor = true;
             this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
             // 
             // labelCertificateFile
             // 
-            this.labelCertificateFile.Location = new System.Drawing.Point(238, 9);
+            resources.ApplyResources(this.labelCertificateFile, "labelCertificateFile");
+            this.errorProvider1.SetError(this.labelCertificateFile, resources.GetString("labelCertificateFile.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelCertificateFile, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelCertificateFile.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelCertificateFile, ((int)(resources.GetObject("labelCertificateFile.IconPadding"))));
             this.labelCertificateFile.Name = "labelCertificateFile";
-            this.labelCertificateFile.Size = new System.Drawing.Size(405, 21);
-            this.labelCertificateFile.TabIndex = 67;
-            this.labelCertificateFile.Text = "(no file selected)";
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // CreateTestToken
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.panelJWTX509Cert);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBoxStartDate);
             this.Controls.Add(this.groupBox1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "CreateTestToken";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Create a Test Token";
             this.Load += new System.EventHandler(this.CreateTestToken_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBoxStartDate.ResumeLayout(false);

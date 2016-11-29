@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateStreamingEndpoint));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.labelCloneFilters = new System.Windows.Forms.Label();
             this.checkBoxEnableAzureCDN = new System.Windows.Forms.CheckBox();
             this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +43,6 @@
             this.textBoxOriginDescription = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelCloneFilters = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.panel1.SuspendLayout();
@@ -50,60 +51,65 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(265, 15);
+            this.errorProvider1.SetError(this.buttonOk, resources.GetString("buttonOk.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonOk, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonOk.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonOk, ((int)(resources.GetObject("buttonOk.IconPadding"))));
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(173, 27);
-            this.buttonOk.TabIndex = 3;
-            this.buttonOk.Text = "Create streaming endpoint";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(444, 15);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
-            this.buttonCancel.TabIndex = 4;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.labelCloneFilters);
             this.groupBox4.Controls.Add(this.checkBoxEnableAzureCDN);
             this.groupBox4.Controls.Add(this.numericUpDownRU);
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(16, 152);
+            this.errorProvider1.SetError(this.groupBox4, resources.GetString("groupBox4.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox4, ((int)(resources.GetObject("groupBox4.IconPadding"))));
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(524, 148);
-            this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Settings";
+            // 
+            // labelCloneFilters
+            // 
+            resources.ApplyResources(this.labelCloneFilters, "labelCloneFilters");
+            this.errorProvider1.SetError(this.labelCloneFilters, resources.GetString("labelCloneFilters.Error"));
+            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.errorProvider1.SetIconAlignment(this.labelCloneFilters, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelCloneFilters.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelCloneFilters, ((int)(resources.GetObject("labelCloneFilters.IconPadding"))));
+            this.labelCloneFilters.Name = "labelCloneFilters";
             // 
             // checkBoxEnableAzureCDN
             // 
-            this.checkBoxEnableAzureCDN.AutoSize = true;
-            this.checkBoxEnableAzureCDN.Location = new System.Drawing.Point(27, 66);
+            resources.ApplyResources(this.checkBoxEnableAzureCDN, "checkBoxEnableAzureCDN");
+            this.errorProvider1.SetError(this.checkBoxEnableAzureCDN, resources.GetString("checkBoxEnableAzureCDN.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxEnableAzureCDN, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxEnableAzureCDN.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxEnableAzureCDN, ((int)(resources.GetObject("checkBoxEnableAzureCDN.IconPadding"))));
             this.checkBoxEnableAzureCDN.Name = "checkBoxEnableAzureCDN";
-            this.checkBoxEnableAzureCDN.Size = new System.Drawing.Size(122, 19);
-            this.checkBoxEnableAzureCDN.TabIndex = 63;
-            this.checkBoxEnableAzureCDN.Text = "Enable Azure CDN";
             this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
             // 
             // numericUpDownRU
             // 
-            this.numericUpDownRU.Location = new System.Drawing.Point(99, 29);
+            resources.ApplyResources(this.numericUpDownRU, "numericUpDownRU");
+            this.errorProvider1.SetError(this.numericUpDownRU, resources.GetString("numericUpDownRU.Error"));
+            this.errorProvider1.SetIconAlignment(this.numericUpDownRU, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("numericUpDownRU.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.numericUpDownRU, ((int)(resources.GetObject("numericUpDownRU.IconPadding"))));
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.ReadOnly = true;
-            this.numericUpDownRU.Size = new System.Drawing.Size(84, 23);
-            this.numericUpDownRU.TabIndex = 0;
             this.numericUpDownRU.Value = new decimal(new int[] {
             1,
             0,
@@ -113,97 +119,75 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 31);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 15);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Scale units :";
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 22);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 15);
-            this.label3.TabIndex = 45;
-            this.label3.Text = "Streaming endpoint name :";
             // 
             // textboxSEName
             // 
-            this.textboxSEName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxSEName.Location = new System.Drawing.Point(16, 42);
+            resources.ApplyResources(this.textboxSEName, "textboxSEName");
+            this.errorProvider1.SetError(this.textboxSEName, resources.GetString("textboxSEName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textboxSEName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textboxSEName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textboxSEName, ((int)(resources.GetObject("textboxSEName.IconPadding"))));
             this.textboxSEName.Name = "textboxSEName";
-            this.textboxSEName.Size = new System.Drawing.Size(523, 23);
-            this.textboxSEName.TabIndex = 0;
             this.textboxSEName.TextChanged += new System.EventHandler(this.textboxSEName_TextChanged);
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 83);
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 15);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "Description :";
             // 
             // textBoxOriginDescription
             // 
-            this.textBoxOriginDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxOriginDescription.Location = new System.Drawing.Point(16, 103);
+            resources.ApplyResources(this.textBoxOriginDescription, "textBoxOriginDescription");
+            this.errorProvider1.SetError(this.textBoxOriginDescription, resources.GetString("textBoxOriginDescription.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxOriginDescription, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxOriginDescription.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxOriginDescription, ((int)(resources.GetObject("textBoxOriginDescription.IconPadding"))));
             this.textBoxOriginDescription.Name = "textBoxOriginDescription";
-            this.textBoxOriginDescription.Size = new System.Drawing.Size(523, 23);
-            this.textBoxOriginDescription.TabIndex = 1;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 453);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(576, 55);
-            this.panel1.TabIndex = 62;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // labelCloneFilters
-            // 
-            this.labelCloneFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelCloneFilters.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelCloneFilters.Location = new System.Drawing.Point(155, 67);
-            this.labelCloneFilters.Name = "labelCloneFilters";
-            this.labelCloneFilters.Size = new System.Drawing.Size(340, 36);
-            this.labelCloneFilters.TabIndex = 74;
-            this.labelCloneFilters.Text = "It takes up to 90 mins for CDN configuration to fully propagate and ready to use";
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // CreateStreamingEndpoint
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(572, 509);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxOriginDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxSEName);
             this.Controls.Add(this.groupBox4);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "CreateStreamingEndpoint";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Create a streaming endpoint";
             this.Load += new System.EventHandler(this.CreateStreamingEndpoint_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

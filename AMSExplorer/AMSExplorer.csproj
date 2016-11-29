@@ -848,8 +848,38 @@
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="BulkContainerInfo.ja.resx">
+      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BulkUpload.ja.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
+      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelInformation.ja.resx">
+      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.ja.resx">
+      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseStreamingEndpoint.ja.resx">
+      <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CopyAsset.ja.resx">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateLiveChannel.ja.resx">
+      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateProgram.ja.resx">
+      <DependentUpon>CreateProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
+      <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTestToken.ja.resx">
+      <DependentUpon>CreateTestToken.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
       <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
