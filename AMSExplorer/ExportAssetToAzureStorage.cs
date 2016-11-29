@@ -212,7 +212,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("There is a problem when connecting to the storage account");
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount);
                 ErrorConnect = true;
                 return;
             }
@@ -244,7 +244,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("There is a problem when connecting to the storage account");
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount);
                 ErrorConnect = true;
                 return;
             }
@@ -334,7 +334,7 @@ namespace AMSExplorer
                 if (textBoxNewContainerName.TextLength > 0)
                 {
                     iscontainerok = IsBlobContainerNameValid(textBoxNewContainerName.Text);
-                    if (!iscontainerok) labelContName.Text = "Container name is not valid";
+                    if (!iscontainerok) labelContName.Text = AMSExplorer.Properties.Resources.ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid;
                 }
             }
             if (radioButtonSelectedContainer.Checked) iscontainerok = (listViewBlobs.SelectedIndices.Count > 0);

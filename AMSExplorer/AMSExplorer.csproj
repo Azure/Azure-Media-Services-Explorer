@@ -899,8 +899,17 @@
     <EmbeddedResource Include="EncodingMES.ja.resx">
       <DependentUpon>EncodingMES.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EncodingMESPickOverlay.ja.resx">
+      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EncodingPremium.ja.resx">
       <DependentUpon>EncodingPremium.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportAssetToAzureStorage.ja.resx">
+      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportToExcel.ja.resx">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>

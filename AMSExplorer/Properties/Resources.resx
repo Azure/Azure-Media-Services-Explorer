@@ -1131,4 +1131,70 @@
   <data name="EncodingMES_EncodingAMEStandard_Load_CroppingEditor" xml:space="preserve">
     <value>Cropping Editor</value>
   </data>
+  <data name="ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount" xml:space="preserve">
+    <value>There is a problem when connecting to the storage account</value>
+  </data>
+  <data name="ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid" xml:space="preserve">
+    <value>Container name is not valid</value>
+  </data>
+  <data name="ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0" xml:space="preserve">
+    <value>Exception Occured while releasing object {0}</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0" xml:space="preserve">
+    <value>All assets information, media account '{0}'</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0" xml:space="preserve">
+    <value>Selected assets information, media account '{0}'</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingURL" xml:space="preserve">
+    <value>Streaming URL</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime" xml:space="preserve">
+    <value>Streaming expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASURL" xml:space="preserve">
+    <value>SAS URL</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime" xml:space="preserve">
+    <value>SAS expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AlternateId" xml:space="preserve">
+    <value>Alternate Id</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StorageAccount" xml:space="preserve">
+    <value>Storage Account</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount" xml:space="preserve">
+    <value>Streaming Locators Count</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime" xml:space="preserve">
+    <value>Streaming Min Expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime" xml:space="preserve">
+    <value>Streaming Max Expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount" xml:space="preserve">
+    <value>SAS Locators Count</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime" xml:space="preserve">
+    <value>SAS Min Expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime" xml:space="preserve">
+    <value>SAS Max Expiration time</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption" xml:space="preserve">
+    <value>Dynamic encryption</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount" xml:space="preserve">
+    <value>Asset filters count</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile" xml:space="preserve">
+    <value>Error when saving the Excel file.</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Error" xml:space="preserve">
+    <value>Error : </value>
+  </data>
 </root>

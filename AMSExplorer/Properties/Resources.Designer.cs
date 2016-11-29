@@ -3016,6 +3016,205 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a problem when connecting to the storage account.
+        /// </summary>
+        internal static string ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount {
+            get {
+                return ResourceManager.GetString("ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStor" +
+                        "ageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container name is not valid.
+        /// </summary>
+        internal static string ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid {
+            get {
+                return ResourceManager.GetString("ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All assets information, media account &apos;{0}&apos;.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0 {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternate Id.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_AlternateId {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_AlternateId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset filters count.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dynamic encryption.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error : .
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_Error {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when saving the Excel file..
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAS expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAS Locators Count.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAS Max Expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAS Min Expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAS URL.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SASURL {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SASURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected assets information, media account &apos;{0}&apos;.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0 {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_Size {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage Account.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StorageAccount {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StorageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming Locators Count.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming Max Expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming Min Expiration time.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streaming URL.
+        /// </summary>
+        internal static string ExportToExcel_backgroundWorker1_DoWork_StreamingURL {
+            get {
+                return ResourceManager.GetString("ExportToExcel_backgroundWorker1_DoWork_StreamingURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception Occured while releasing object {0}.
+        /// </summary>
+        internal static string ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0 {
+            get {
+                return ResourceManager.GetString("ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

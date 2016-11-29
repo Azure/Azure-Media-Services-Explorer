@@ -180,7 +180,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 obj = null;
-                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+                MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0, ex.ToString()));
             }
             finally
             {
@@ -219,7 +219,14 @@ namespace AMSExplorer
 
                 xlWorkSheet.get_Range("a1", "f1").Merge(false);
                 Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
-                chartRange.FormulaR1C1 = string.Format("{0} assets information, media account '{1}'", radioButtonAllAssets.Checked ? "All" : "Selected", _context.Credentials.ClientId);
+                if (radioButtonAllAssets.Checked)
+                {
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0,  _context.Credentials.ClientId);
+                }
+                else
+                {
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId);
+                }
                 chartRange.VerticalAlignment = 3;
                 chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
                 chartRange.Font.Size = 20;
@@ -237,34 +244,34 @@ namespace AMSExplorer
 
                 int row = 4;
                 int index = 1;
-                xlWorkSheet.Cells[row, index++] = "Asset Name";
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName;
                 xlWorkSheet.Cells[row, index++] = "Id";
-                xlWorkSheet.Cells[row, index++] = "Last Modified";
-                xlWorkSheet.Cells[row, index++] = "Type";
-                xlWorkSheet.Cells[row, index++] = "Size";
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified;
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type;
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Size;
                 int backindex = index;
                 _context.StreamingEndpoints.ToList().ForEach(se =>
-                xlWorkSheet.Cells[row, index++] = "Streaming URL"
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingURL
                 );
                 index = backindex + _context.StreamingEndpoints.Count();
-                xlWorkSheet.Cells[row, index++] = "Streaming expiration time";
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime;
 
-                xlWorkSheet.Cells[row, index++] = "SAS URL";
-                xlWorkSheet.Cells[row, index++] = "SAS expiration time";
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASURL;
+                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime;
 
                 if (detailed)
                 {
-                    xlWorkSheet.Cells[row, index++] = "Alternate Id";
-                    xlWorkSheet.Cells[row, index++] = "Storage Account";
-                    xlWorkSheet.Cells[row, index++] = "Storage Url";
-                    xlWorkSheet.Cells[row, index++] = "Streaming Locators Count";
-                    xlWorkSheet.Cells[row, index++] = "Streaming Min Expiration time";
-                    xlWorkSheet.Cells[row, index++] = "Streaming Max Expiration time";
-                    xlWorkSheet.Cells[row, index++] = "SAS Locators Count";
-                    xlWorkSheet.Cells[row, index++] = "SAS Min Expiration time";
-                    xlWorkSheet.Cells[row, index++] = "SAS Max Expiration time";
-                    xlWorkSheet.Cells[row, index++] = "Dynamic encryption";
-                    xlWorkSheet.Cells[row, index++] = "Asset filters count";
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AlternateId;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StorageAccount;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption;
+                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount;
                 }
 
                 Excel.Range formatRange;
@@ -370,14 +377,14 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when saving the Excel file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (checkBoxOpenFileAfterExport.Checked) System.Diagnostics.Process.Start(filename);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error : " + ex.Message);
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
             }
         }
 
