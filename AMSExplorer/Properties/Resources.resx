@@ -993,4 +993,97 @@
   <data name="DataGridViewIngestManifest_Init_Progress" xml:space="preserve">
     <value>Progress</value>
   </data>
+  <data name="DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope" xml:space="preserve">
+    <value>ContentKey Envelope</value>
+  </data>
+  <data name="DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy" xml:space="preserve">
+    <value>Open Authorization Policy</value>
+  </data>
+  <data name="DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy" xml:space="preserve">
+    <value>{0} Token Authorization Policy</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatContainsBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToUseTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset" xml:space="preserve">
+    <value>Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_CertificateRequired" xml:space="preserve">
+    <value>Certificate required</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_PFXFilesPfxAllFiles" xml:space="preserve">
+    <value>PFX files|*.pfx|All files|*.*</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_PFXPassword" xml:space="preserve">
+    <value>PFX Password</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_PleaseEnterThePasswordForThePFXFile" xml:space="preserve">
+    <value>Please enter the password for the PFX file :</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0" xml:space="preserve">
+    <value>There is an error when opening the certificate file.\n{0}</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey" xml:space="preserve">
+    <value>The certificate does not contain a private key.</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_NoPrivateKey" xml:space="preserve">
+    <value>No private key</value>
+  </data>
+  <data name="DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc" xml:space="preserve">
+    <value>AssetDeliveryPolicy NoDynEnc</value>
+  </data>
+  <data name="DynamicEncryption_ConfigureFairPlayPolicyOptions_PfxPasswordKey" xml:space="preserve">
+    <value>pfxPasswordKey</value>
+  </data>
+  <data name="DynamicEncryption_CopyDynamicEncryption_Key0IsNotInTheAccountButItCannotBeCreatedSameKeyIdAlreadyExistsInTheDatacenter" xml:space="preserve">
+    <value>Key {0} is not in the account but it cannot be created (same key id already exists in the datacenter? </value>
+  </data>
+  <data name="DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom" xml:space="preserve">
+    <value>Import track filtering from :</value>
+  </data>
+  <data name="DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules" xml:space="preserve">
+    <value>It can take up to 2 minutes for streaming endpoint to refresh the rules</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_GlobalFilter" xml:space="preserve">
+    <value>Global filter</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_AssetFilter" xml:space="preserve">
+    <value>Asset filter</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate" xml:space="preserve">
+    <value>First Quality Bitrate</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_Timescale" xml:space="preserve">
+    <value>Timescale</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_StartTimestamp" xml:space="preserve">
+    <value>Start timestamp</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_EndTimestamp" xml:space="preserve">
+    <value>End timestamp</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration" xml:space="preserve">
+    <value>PresentationWindowDuration</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration" xml:space="preserve">
+    <value>LiveBackoffDuration</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_TrackCount" xml:space="preserve">
+    <value>Track count</value>
+  </data>
+  <data name="DynManifestFilter_textBoxFilterName_Validating_PleaseSpecifyAFilterName" xml:space="preserve">
+    <value>Please specify a filter name</value>
+  </data>
+  <data name="DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead" xml:space="preserve">
+    <value>It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.</value>
+  </data>
+  <data name="DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime" xml:space="preserve">
+    <value>Start time must be lower than end time</value>
+  </data>
+  <data name="DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime" xml:space="preserve">
+    <value>End time must be higher than start time</value>
+  </data>
+  <data name="DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore" xml:space="preserve">
+    <value>The DVR Window must be at least 2 minutes (or more)</value>
+  </data>
+  <data name="DynManifestFilter_textBoxRawulong_Validating_IncorrectValue" xml:space="preserve">
+    <value>Incorrect value</value>
+  </data>
 </root>

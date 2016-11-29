@@ -67,7 +67,7 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.BeginUpdate();
 
-            comboBoxLocatorsFilters.Items.Add(new Item("Import track filtering from :", null));
+            comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
             if (asset != null)
             {
@@ -126,7 +126,7 @@ namespace AMSExplorer
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
-                toolTip1.SetToolTip(this.buttonOk, "It can take up to 2 minutes for streaming endpoint to refresh the rules");
+                toolTip1.SetToolTip(this.buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
 
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
@@ -242,7 +242,7 @@ namespace AMSExplorer
 
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
-                toolTip1.SetToolTip(this.buttonOk, "It can take up to 2 minutes for streaming endpoint to refresh the rules");
+                toolTip1.SetToolTip(this.buttonOk, AMSExplorer.Properties.Resources.DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules);
 
                 labelFilterTitle.Text = "Asset Filter";
                 textBoxAssetName.Visible = true;
@@ -375,26 +375,26 @@ namespace AMSExplorer
             DGInfo.ColumnCount = 2;
             // filter info
             DGInfo.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGInfo.Rows.Add("Name", _filterToDisplay.Name);
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _filterToDisplay.Name);
 
             if (isGlobalFilter)
             {
-                DGInfo.Rows.Add("Type", "Global filter");
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_GlobalFilter);
             }
             else
             {
                 var assetfilter = (IStreamingAssetFilter)_filterToDisplay;
-                DGInfo.Rows.Add("Type", "Asset filter");
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_AssetFilter);
                 DGInfo.Rows.Add("Id", assetfilter.Id);
-                DGInfo.Rows.Add("Parent asset Id", assetfilter.ParentAssetId);
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, assetfilter.ParentAssetId);
             }
-            DGInfo.Rows.Add("First Quality Bitrate", _filterToDisplay.FirstQuality == null ? Constants.stringNull : _filterToDisplay.FirstQuality.Bitrate.ToString());
-            DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
-            DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
-            DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
-            DGInfo.Rows.Add("PresentationWindowDuration", _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
-            DGInfo.Rows.Add("LiveBackoffDuration", _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
-            DGInfo.Rows.Add("Track count", _filterToDisplay.Tracks.Count);
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, _filterToDisplay.FirstQuality == null ? Constants.stringNull : _filterToDisplay.FirstQuality.Bitrate.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
+            DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, _filterToDisplay.Tracks.Count);
         }
 
         private List<ExFilterTrack> ConvertFilterTracksToInternalVar(IList<FilterTrackSelectStatement> tracks)
@@ -773,7 +773,7 @@ namespace AMSExplorer
 
             if (string.IsNullOrEmpty(tb.Text))
             {
-                errorProvider1.SetError(tb, "Please specify a filter name");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.DynManifestFilter_textBoxFilterName_Validating_PleaseSpecifyAFilterName);
             }
             else
             {
@@ -841,11 +841,11 @@ namespace AMSExplorer
             // time start control
             if (checkBoxStartTime.Checked && isGlobalFilter)
             {
-                errorProvider1.SetError(timeControlStart, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
+                errorProvider1.SetError(timeControlStart, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead);
             }
             else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.TimeStampWithoutOffset > timeControlEnd.TimeStampWithoutOffset)
             {
-                errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
+                errorProvider1.SetError(timeControlStart, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime);
             }
             else
             {
@@ -858,11 +858,11 @@ namespace AMSExplorer
             // time end control
             if (checkBoxEndTime.Checked && isGlobalFilter)
             {
-                errorProvider1.SetError(timeControlEnd, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
+                errorProvider1.SetError(timeControlEnd, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead);
             }
             else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.TimeStampWithoutOffset < timeControlStart.TimeStampWithoutOffset)
             {
-                errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
+                errorProvider1.SetError(timeControlEnd, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime);
             }
             else
             {
@@ -873,7 +873,7 @@ namespace AMSExplorer
             // dvr
             if (checkBoxDVRWindow.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(2))
             {
-                errorProvider1.SetError(timeControlDVR, "The DVR Window must be at least 2 minutes (or more)");
+                errorProvider1.SetError(timeControlDVR, AMSExplorer.Properties.Resources.DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore);
             }
             else
             {
@@ -1051,7 +1051,7 @@ namespace AMSExplorer
             }
             catch
             {
-                errorProvider1.SetError(tb, "Incorrect value");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.DynManifestFilter_textBoxRawulong_Validating_IncorrectValue);
                 Error = true;
 
             }
@@ -1072,7 +1072,7 @@ namespace AMSExplorer
             }
             catch
             {
-                errorProvider1.SetError(tb, "Incorrect value");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.DynManifestFilter_textBoxRawulong_Validating_IncorrectValue);
                 Error = true;
 
             }

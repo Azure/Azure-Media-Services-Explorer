@@ -887,6 +887,9 @@
     <EmbeddedResource Include="DownloadToLocal.ja.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DynManifestFilter.ja.resx">
+      <DependentUpon>DynManifestFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>

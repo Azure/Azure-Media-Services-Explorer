@@ -182,7 +182,7 @@ namespace AMSExplorer
             IContentKey key = asset.GetMediaContext().ContentKeys.Create(
                                     (Guid)keyId,
                                     contentKey,
-                                    "ContentKey Envelope",
+                                    AMSExplorer.Properties.Resources.DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope,
                                     ContentKeyType.EnvelopeEncryption);
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
@@ -201,7 +201,7 @@ namespace AMSExplorer
     {
         new ContentKeyAuthorizationPolicyRestriction
         {
-            Name = "Open Authorization Policy",
+            Name = AMSExplorer.Properties.Resources.DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy,
             KeyRestrictionType = (int)ContentKeyRestrictionType.Open,
             Requirements = null
         }
@@ -231,7 +231,7 @@ namespace AMSExplorer
             ContentKeyAuthorizationPolicyRestriction restriction =
                                                                     new ContentKeyAuthorizationPolicyRestriction
                                                                     {
-                                                                        Name = tname + " Token Authorization Policy",
+                                                                        Name = string.Format(AMSExplorer.Properties.Resources.DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy, tname),
                                                                         KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
                                                                         Requirements = tokenTemplateString
                                                                     };
@@ -259,7 +259,7 @@ namespace AMSExplorer
                                                         {
                                                             new ContentKeyAuthorizationPolicyRestriction
                                                             {
-                                                                Name = tname + " Token Authorization Policy",
+                                                                Name = string.Format(AMSExplorer.Properties.Resources.DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy, tname),
                                                                 KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
                                                                 Requirements = tokenTemplateString,
                                                             }
@@ -343,19 +343,24 @@ namespace AMSExplorer
 
             if (informuser)
             {
-                MessageBox.Show("Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.", "Certificate required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatContainsBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToUseTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset,
+                    AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_CertificateRequired,
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                    );
             }
 
             OpenFileDialog openFileDialogCert = new OpenFileDialog()
             {
                 DefaultExt = "PFX",
-                Filter = "PFX files|*.pfx|All files|*.*"
+                Filter = AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_PFXFilesPfxAllFiles
             };
 
             if (openFileDialogCert.ShowDialog() == DialogResult.OK)
             {
 
-                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password, true) == DialogResult.OK)
+                if (Program.InputBox(AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_PFXPassword, AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_PleaseEnterThePasswordForThePFXFile, ref password, true) == DialogResult.OK)
                 {
                     try
                     {
@@ -363,14 +368,14 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(string.Format("There is an error when opening the certificate file.\n{0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0, e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     if (cert != null)
                     {
                         if (!cert.HasPrivateKey)
                         {
-                            MessageBox.Show("The certificate does not contain a private key.", "No private key", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey, AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_NoPrivateKey, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             cert = null;
                         }
                     }
@@ -424,11 +429,9 @@ namespace AMSExplorer
                 CreateTestToken form = new CreateTestToken(MyAsset, _context, keytype, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-
                     if (form.GetOption != null)
                     {
                         string tokenTemplateString = form.GetOption.Restrictions.FirstOrDefault().Requirements;
-                        //form.GetOption.KeyDeliveryType == ContentKeyDeliveryType.PlayReadyLicense
                         if (!string.IsNullOrEmpty(tokenTemplateString))
                         {
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
@@ -555,11 +558,11 @@ namespace AMSExplorer
 
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
                new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
-                       
-            
+
+
             if (finalAcquisitionUrl)
             {
-                assetDeliveryPolicyConfiguration.Add( AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString());
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString());
             }
             else
             {
@@ -571,7 +574,7 @@ namespace AMSExplorer
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.EnvelopeBaseKeyAcquisitionUrl, keyAcquisitionUri.ToString());
 
             }
-                                    
+
             IAssetDeliveryPolicy assetDeliveryPolicy =
                 _context.AssetDeliveryPolicies.Create(
                             name,
@@ -588,7 +591,7 @@ namespace AMSExplorer
         {
             IAssetDeliveryPolicy assetDeliveryPolicy =
                 _context.AssetDeliveryPolicies.Create(
-                            "AssetDeliveryPolicy NoDynEnc",
+                            AMSExplorer.Properties.Resources.DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc,
                             AssetDeliveryPolicyType.NoDynamicEncryption,
                             assetdeliveryprotocol,
                             null); //  no dyn enc then no need for configuration
@@ -743,7 +746,7 @@ namespace AMSExplorer
             IContentKey pfxPasswordKey = _context.ContentKeys.Create(
                                     pfxPasswordId,
                                     pfxPasswordBytes,
-                                    "pfxPasswordKey",
+                                    AMSExplorer.Properties.Resources.DynamicEncryption_ConfigureFairPlayPolicyOptions_PfxPasswordKey,
                                     ContentKeyType.FairPlayPfxPassword);
 
             // iv - 16 bytes random value, must match the iv in the asset delivery policy.
@@ -1000,7 +1003,7 @@ namespace AMSExplorer
                     catch
                     {
                         // we cannot create the key but the guid is taken.
-                        throw new Exception(String.Format("Key {0} is not in the account but it cannot be created (same key id already exists in the datacenter? ", key.Id));
+                        throw new Exception(String.Format(AMSExplorer.Properties.Resources.DynamicEncryption_CopyDynamicEncryption_Key0IsNotInTheAccountButItCannotBeCreatedSameKeyIdAlreadyExistsInTheDatacenter, key.Id));
                     }
 
                 }

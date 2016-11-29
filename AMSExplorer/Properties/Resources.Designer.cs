@@ -2592,6 +2592,293 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Authorization Policy.
+        /// </summary>
+        internal static string DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Token Authorization Policy.
+        /// </summary>
+        internal static string DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPol" +
+                        "icy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pfxPasswordKey.
+        /// </summary>
+        internal static string DynamicEncryption_ConfigureFairPlayPolicyOptions_PfxPasswordKey {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_ConfigureFairPlayPolicyOptions_PfxPasswordKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key {0} is not in the account but it cannot be created (same key id already exists in the datacenter? .
+        /// </summary>
+        internal static string DynamicEncryption_CopyDynamicEncryption_Key0IsNotInTheAccountButItCannotBeCreatedSameKeyIdAlreadyExistsInTheDatacenter {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_CopyDynamicEncryption_Key0IsNotInTheAccountButItCannotBeCreated" +
+                        "SameKeyIdAlreadyExistsInTheDatacenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AssetDeliveryPolicy NoDynEnc.
+        /// </summary>
+        internal static string DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ContentKey Envelope.
+        /// </summary>
+        internal static string DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certificate required.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_CertificateRequired {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_CertificateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No private key.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_NoPrivateKey {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_NoPrivateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PFX files|*.pfx|All files|*.*.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_PFXFilesPfxAllFiles {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_PFXFilesPfxAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PFX Password.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_PFXPassword {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_PFXPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the password for the PFX file :.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_PleaseEnterThePasswordForThePFXFile {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_PleaseEnterThePasswordForThePFXFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset..
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatContainsBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToUseTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatConta" +
+                        "insBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToU" +
+                        "seTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The certificate does not contain a private key..
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is an error when opening the certificate file.\n{0}.
+        /// </summary>
+        internal static string DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0 {
+            get {
+                return ResourceManager.GetString("DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateF" +
+                        "ileN0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time must be higher than start time.
+        /// </summary>
+        internal static string DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead..
+        /// </summary>
+        internal static string DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterTo" +
+                        "DoTimeTrimmingConsiderCreatingAnAssetFilterInstead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time must be lower than end time.
+        /// </summary>
+        internal static string DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DVR Window must be at least 2 minutes (or more).
+        /// </summary>
+        internal static string DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMor" +
+                        "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset filter.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_AssetFilter {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_AssetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End timestamp.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_EndTimestamp {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_EndTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Quality Bitrate.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global filter.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_GlobalFilter {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_GlobalFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LiveBackoffDuration.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PresentationWindowDuration.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start timestamp.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_StartTimestamp {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_StartTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timescale.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_Timescale {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_Timescale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track count.
+        /// </summary>
+        internal static string DynManifestFilter_DisplayFilterInfo_TrackCount {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DisplayFilterInfo_TrackCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It can take up to 2 minutes for streaming endpoint to refresh the rules.
+        /// </summary>
+        internal static string DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpoin" +
+                        "tToRefreshTheRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import track filtering from :.
+        /// </summary>
+        internal static string DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify a filter name.
+        /// </summary>
+        internal static string DynManifestFilter_textBoxFilterName_Validating_PleaseSpecifyAFilterName {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_textBoxFilterName_Validating_PleaseSpecifyAFilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect value.
+        /// </summary>
+        internal static string DynManifestFilter_textBoxRawulong_Validating_IncorrectValue {
+            get {
+                return ResourceManager.GetString("DynManifestFilter_textBoxRawulong_Validating_IncorrectValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

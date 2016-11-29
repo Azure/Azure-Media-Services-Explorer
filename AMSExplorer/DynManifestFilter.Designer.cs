@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DynManifestFilter));
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -115,7 +116,6 @@
             this.DGInfo = new System.Windows.Forms.DataGridView();
             this.contextMenuStripInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelFilterTitle = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
@@ -127,6 +127,7 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -148,210 +149,188 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(0, 705);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1077, 55);
-            this.panel1.TabIndex = 60;
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(946, 14);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(114, 27);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Cancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Enabled = false;
-            this.buttonOk.Location = new System.Drawing.Point(825, 14);
+            this.errorProvider1.SetError(this.buttonOk, resources.GetString("buttonOk.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonOk, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonOk.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonOk, ((int)(resources.GetObject("buttonOk.IconPadding"))));
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(114, 27);
-            this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Create Filter";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // textBoxFilterName
             // 
-            this.textBoxFilterName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFilterName.Location = new System.Drawing.Point(14, 63);
+            resources.ApplyResources(this.textBoxFilterName, "textBoxFilterName");
+            this.errorProvider1.SetError(this.textBoxFilterName, resources.GetString("textBoxFilterName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxFilterName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxFilterName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxFilterName, ((int)(resources.GetObject("textBoxFilterName.IconPadding"))));
             this.textBoxFilterName.Name = "textBoxFilterName";
-            this.textBoxFilterName.Size = new System.Drawing.Size(202, 23);
-            this.textBoxFilterName.TabIndex = 62;
+            this.toolTip1.SetToolTip(this.textBoxFilterName, resources.GetString("textBoxFilterName.ToolTip"));
             this.textBoxFilterName.TextChanged += new System.EventHandler(this.textBoxFilterName_TextChanged);
             this.textBoxFilterName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxFilterName_Validating);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 45);
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 15);
-            this.label4.TabIndex = 61;
-            this.label4.Text = "Filter name :";
+            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
             // 
             // buttonInsertSample
             // 
-            this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertSample.Location = new System.Drawing.Point(800, 214);
+            resources.ApplyResources(this.buttonInsertSample, "buttonInsertSample");
+            this.errorProvider1.SetError(this.buttonInsertSample, resources.GetString("buttonInsertSample.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonInsertSample, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonInsertSample.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonInsertSample, ((int)(resources.GetObject("buttonInsertSample.IconPadding"))));
             this.buttonInsertSample.Name = "buttonInsertSample";
-            this.buttonInsertSample.Size = new System.Drawing.Size(215, 28);
-            this.buttonInsertSample.TabIndex = 79;
-            this.buttonInsertSample.Text = "Insert a track filtering example";
-            this.toolTip1.SetToolTip(this.buttonInsertSample, "Video no more than 1 mbps, only audio tracks with AAC codec, and text tracks limi" +
-        "ted to english");
+            this.toolTip1.SetToolTip(this.buttonInsertSample, resources.GetString("buttonInsertSample.ToolTip"));
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
             // checkBoxLiveBackoff
             // 
-            this.checkBoxLiveBackoff.AutoSize = true;
-            this.checkBoxLiveBackoff.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxLiveBackoff.Location = new System.Drawing.Point(390, 478);
+            resources.ApplyResources(this.checkBoxLiveBackoff, "checkBoxLiveBackoff");
+            this.errorProvider1.SetError(this.checkBoxLiveBackoff, resources.GetString("checkBoxLiveBackoff.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxLiveBackoff, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxLiveBackoff.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxLiveBackoff, ((int)(resources.GetObject("checkBoxLiveBackoff.IconPadding"))));
             this.checkBoxLiveBackoff.Name = "checkBoxLiveBackoff";
-            this.checkBoxLiveBackoff.Size = new System.Drawing.Size(96, 19);
-            this.checkBoxLiveBackoff.TabIndex = 108;
-            this.checkBoxLiveBackoff.Text = "Live Backoff :";
-            this.toolTip1.SetToolTip(this.checkBoxLiveBackoff, "Live only, ignored for VOD to enable smooth transitions when the presentation end" +
-        "s.");
+            this.toolTip1.SetToolTip(this.checkBoxLiveBackoff, resources.GetString("checkBoxLiveBackoff.ToolTip"));
             this.checkBoxLiveBackoff.UseVisualStyleBackColor = true;
             this.checkBoxLiveBackoff.CheckedChanged += new System.EventHandler(this.checkBoxLiveBackoff_CheckedChanged);
             // 
             // checkBoxDVRWindow
             // 
-            this.checkBoxDVRWindow.AutoSize = true;
-            this.checkBoxDVRWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDVRWindow.Location = new System.Drawing.Point(390, 324);
+            resources.ApplyResources(this.checkBoxDVRWindow, "checkBoxDVRWindow");
+            this.errorProvider1.SetError(this.checkBoxDVRWindow, resources.GetString("checkBoxDVRWindow.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxDVRWindow, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxDVRWindow.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxDVRWindow, ((int)(resources.GetObject("checkBoxDVRWindow.IconPadding"))));
             this.checkBoxDVRWindow.Name = "checkBoxDVRWindow";
-            this.checkBoxDVRWindow.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxDVRWindow.TabIndex = 106;
-            this.toolTip1.SetToolTip(this.checkBoxDVRWindow, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
-        "20s");
+            this.toolTip1.SetToolTip(this.checkBoxDVRWindow, resources.GetString("checkBoxDVRWindow.ToolTip"));
             this.checkBoxDVRWindow.UseVisualStyleBackColor = true;
             this.checkBoxDVRWindow.CheckedChanged += new System.EventHandler(this.checkBoxDVRWindow_CheckedChanged);
             // 
             // checkBoxEndTime
             // 
-            this.checkBoxEndTime.AutoSize = true;
-            this.checkBoxEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEndTime.Location = new System.Drawing.Point(390, 156);
+            resources.ApplyResources(this.checkBoxEndTime, "checkBoxEndTime");
+            this.errorProvider1.SetError(this.checkBoxEndTime, resources.GetString("checkBoxEndTime.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxEndTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxEndTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxEndTime, ((int)(resources.GetObject("checkBoxEndTime.IconPadding"))));
             this.checkBoxEndTime.Name = "checkBoxEndTime";
-            this.checkBoxEndTime.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxEndTime.TabIndex = 104;
-            this.toolTip1.SetToolTip(this.checkBoxEndTime, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
-        "GOP start.");
+            this.toolTip1.SetToolTip(this.checkBoxEndTime, resources.GetString("checkBoxEndTime.ToolTip"));
             this.checkBoxEndTime.UseVisualStyleBackColor = true;
             this.checkBoxEndTime.CheckedChanged += new System.EventHandler(this.checkBoxEndTime_CheckedChanged);
             // 
             // checkBoxStartTime
             // 
-            this.checkBoxStartTime.AutoSize = true;
-            this.checkBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStartTime.Location = new System.Drawing.Point(390, 38);
+            resources.ApplyResources(this.checkBoxStartTime, "checkBoxStartTime");
+            this.errorProvider1.SetError(this.checkBoxStartTime, resources.GetString("checkBoxStartTime.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxStartTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxStartTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxStartTime, ((int)(resources.GetObject("checkBoxStartTime.IconPadding"))));
             this.checkBoxStartTime.Name = "checkBoxStartTime";
-            this.checkBoxStartTime.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxStartTime.TabIndex = 103;
-            this.toolTip1.SetToolTip(this.checkBoxStartTime, "Live and VOD. Value rounded to the closest next GOP start.");
+            this.toolTip1.SetToolTip(this.checkBoxStartTime, resources.GetString("checkBoxStartTime.ToolTip"));
             this.checkBoxStartTime.UseVisualStyleBackColor = true;
             this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
             // 
             // timeControlStart
             // 
-            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.timeControlStart, "timeControlStart");
             this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorProvider1.SetError(this.timeControlStart, resources.GetString("timeControlStart.Error"));
+            this.errorProvider1.SetIconAlignment(this.timeControlStart, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("timeControlStart.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.timeControlStart, ((int)(resources.GetObject("timeControlStart.IconPadding"))));
             this.timeControlStart.Label1 = "Start time :";
             this.timeControlStart.Label2 = "(Live and VOD)";
-            this.timeControlStart.Location = new System.Drawing.Point(408, 27);
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.Size = new System.Drawing.Size(589, 110);
-            this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlStart, "Live and VOD. Value rounded to the closest next GOP start.");
+            this.toolTip1.SetToolTip(this.timeControlStart, resources.GetString("timeControlStart.ToolTip"));
             this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // timeControlDVR
             // 
-            this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
             this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlDVR.DisplayTrackBar = true;
-            this.timeControlDVR.Enabled = false;
-            this.timeControlDVR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorProvider1.SetError(this.timeControlDVR, resources.GetString("timeControlDVR.Error"));
+            this.errorProvider1.SetIconAlignment(this.timeControlDVR, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("timeControlDVR.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.timeControlDVR, ((int)(resources.GetObject("timeControlDVR.IconPadding"))));
             this.timeControlDVR.Label1 = "";
             this.timeControlDVR.Label2 = "DVR Window :";
-            this.timeControlDVR.Location = new System.Drawing.Point(408, 303);
             this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
             this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.Name = "timeControlDVR";
             this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDVR.Size = new System.Drawing.Size(589, 81);
-            this.timeControlDVR.TabIndex = 107;
             this.timeControlDVR.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlDVR, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
-        "20s");
+            this.toolTip1.SetToolTip(this.timeControlDVR, resources.GetString("timeControlDVR.ToolTip"));
             this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
             this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
             // 
             // timeControlEnd
             // 
-            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
             this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorProvider1.SetError(this.timeControlEnd, resources.GetString("timeControlEnd.Error"));
+            this.errorProvider1.SetIconAlignment(this.timeControlEnd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("timeControlEnd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.timeControlEnd, ((int)(resources.GetObject("timeControlEnd.IconPadding"))));
             this.timeControlEnd.Label1 = "End time :";
             this.timeControlEnd.Label2 = "(VOD)";
-            this.timeControlEnd.Location = new System.Drawing.Point(408, 144);
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.Size = new System.Drawing.Size(589, 92);
-            this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlEnd, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
-        "GOP start.");
+            this.toolTip1.SetToolTip(this.timeControlEnd, resources.GetString("timeControlEnd.ToolTip"));
             this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPageTR);
             this.tabControl1.Controls.Add(this.tabPageTRRaw);
             this.tabControl1.Controls.Add(this.tabPageTF);
             this.tabControl1.Controls.Add(this.tabPageInformation);
-            this.tabControl1.Location = new System.Drawing.Point(14, 105);
+            this.errorProvider1.SetError(this.tabControl1, resources.GetString("tabControl1.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabControl1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabControl1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabControl1, ((int)(resources.GetObject("tabControl1.IconPadding"))));
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1047, 585);
-            this.tabControl1.TabIndex = 78;
+            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
             // 
             // tabPageTR
             // 
+            resources.ApplyResources(this.tabPageTR, "tabPageTR");
             this.tabPageTR.Controls.Add(this.textBoxDurationTime);
             this.tabPageTR.Controls.Add(this.label39);
             this.tabPageTR.Controls.Add(this.labelDefaultBakckoff);
@@ -370,131 +349,134 @@
             this.tabPageTR.Controls.Add(this.checkBoxEndTime);
             this.tabPageTR.Controls.Add(this.checkBoxStartTime);
             this.tabPageTR.Controls.Add(this.pictureBox2);
-            this.tabPageTR.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPageTR, resources.GetString("tabPageTR.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPageTR, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPageTR.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPageTR, ((int)(resources.GetObject("tabPageTR.IconPadding"))));
             this.tabPageTR.Name = "tabPageTR";
-            this.tabPageTR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTR.Size = new System.Drawing.Size(1039, 557);
-            this.tabPageTR.TabIndex = 0;
-            this.tabPageTR.Text = "Time Range";
+            this.toolTip1.SetToolTip(this.tabPageTR, resources.GetString("tabPageTR.ToolTip"));
             this.tabPageTR.UseVisualStyleBackColor = true;
             this.tabPageTR.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // textBoxDurationTime
             // 
-            this.textBoxDurationTime.Enabled = false;
-            this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxDurationTime.Location = new System.Drawing.Point(710, 250);
+            resources.ApplyResources(this.textBoxDurationTime, "textBoxDurationTime");
+            this.errorProvider1.SetError(this.textBoxDurationTime, resources.GetString("textBoxDurationTime.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxDurationTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxDurationTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxDurationTime, ((int)(resources.GetObject("textBoxDurationTime.IconPadding"))));
             this.textBoxDurationTime.Name = "textBoxDurationTime";
             this.textBoxDurationTime.ReadOnly = true;
-            this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
-            this.textBoxDurationTime.TabIndex = 137;
+            this.toolTip1.SetToolTip(this.textBoxDurationTime, resources.GetString("textBoxDurationTime.ToolTip"));
             // 
             // label39
             // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label39, "label39");
+            this.errorProvider1.SetError(this.label39, resources.GetString("label39.Error"));
             this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label39.Location = new System.Drawing.Point(707, 232);
+            this.errorProvider1.SetIconAlignment(this.label39, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label39.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label39, ((int)(resources.GetObject("label39.IconPadding"))));
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(59, 15);
-            this.label39.TabIndex = 136;
-            this.label39.Text = "Duration :";
+            this.toolTip1.SetToolTip(this.label39, resources.GetString("label39.ToolTip"));
             // 
             // labelDefaultBakckoff
             // 
-            this.labelDefaultBakckoff.AutoSize = true;
-            this.labelDefaultBakckoff.Location = new System.Drawing.Point(413, 502);
+            resources.ApplyResources(this.labelDefaultBakckoff, "labelDefaultBakckoff");
+            this.errorProvider1.SetError(this.labelDefaultBakckoff, resources.GetString("labelDefaultBakckoff.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelDefaultBakckoff, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelDefaultBakckoff.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelDefaultBakckoff, ((int)(resources.GetObject("labelDefaultBakckoff.IconPadding"))));
             this.labelDefaultBakckoff.Name = "labelDefaultBakckoff";
-            this.labelDefaultBakckoff.Size = new System.Drawing.Size(65, 15);
-            this.labelDefaultBakckoff.TabIndex = 125;
             this.labelDefaultBakckoff.Tag = "(Default: 0)";
-            this.labelDefaultBakckoff.Text = "(Default: 0)";
+            this.toolTip1.SetToolTip(this.labelDefaultBakckoff, resources.GetString("labelDefaultBakckoff.ToolTip"));
             // 
             // labelDefaultDVR
             // 
-            this.labelDefaultDVR.AutoSize = true;
-            this.labelDefaultDVR.Location = new System.Drawing.Point(413, 387);
+            resources.ApplyResources(this.labelDefaultDVR, "labelDefaultDVR");
+            this.errorProvider1.SetError(this.labelDefaultDVR, resources.GetString("labelDefaultDVR.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelDefaultDVR, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelDefaultDVR.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelDefaultDVR, ((int)(resources.GetObject("labelDefaultDVR.IconPadding"))));
             this.labelDefaultDVR.Name = "labelDefaultDVR";
-            this.labelDefaultDVR.Size = new System.Drawing.Size(81, 15);
-            this.labelDefaultDVR.TabIndex = 124;
             this.labelDefaultDVR.Tag = "(Default: Max)";
-            this.labelDefaultDVR.Text = "(Default: Max)";
+            this.toolTip1.SetToolTip(this.labelDefaultDVR, resources.GetString("labelDefaultDVR.ToolTip"));
             // 
             // labelDefaultEnd
             // 
-            this.labelDefaultEnd.AutoSize = true;
-            this.labelDefaultEnd.Location = new System.Drawing.Point(413, 227);
+            resources.ApplyResources(this.labelDefaultEnd, "labelDefaultEnd");
+            this.errorProvider1.SetError(this.labelDefaultEnd, resources.GetString("labelDefaultEnd.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelDefaultEnd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelDefaultEnd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelDefaultEnd, ((int)(resources.GetObject("labelDefaultEnd.IconPadding"))));
             this.labelDefaultEnd.Name = "labelDefaultEnd";
-            this.labelDefaultEnd.Size = new System.Drawing.Size(81, 15);
-            this.labelDefaultEnd.TabIndex = 123;
             this.labelDefaultEnd.Tag = "(Default: Max)";
-            this.labelDefaultEnd.Text = "(Default: Max)";
+            this.toolTip1.SetToolTip(this.labelDefaultEnd, resources.GetString("labelDefaultEnd.ToolTip"));
             // 
             // labelStartTimeDefault
             // 
-            this.labelStartTimeDefault.AutoSize = true;
-            this.labelStartTimeDefault.Location = new System.Drawing.Point(413, 110);
+            resources.ApplyResources(this.labelStartTimeDefault, "labelStartTimeDefault");
+            this.errorProvider1.SetError(this.labelStartTimeDefault, resources.GetString("labelStartTimeDefault.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelStartTimeDefault, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelStartTimeDefault.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelStartTimeDefault, ((int)(resources.GetObject("labelStartTimeDefault.IconPadding"))));
             this.labelStartTimeDefault.Name = "labelStartTimeDefault";
-            this.labelStartTimeDefault.Size = new System.Drawing.Size(68, 15);
-            this.labelStartTimeDefault.TabIndex = 86;
             this.labelStartTimeDefault.Tag = "(Default : 0)";
-            this.labelStartTimeDefault.Text = "(Default : 0)";
+            this.toolTip1.SetToolTip(this.labelStartTimeDefault, resources.GetString("labelStartTimeDefault.ToolTip"));
             // 
             // pictureBox1
             // 
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.errorProvider1.SetError(this.pictureBox1, resources.GetString("pictureBox1.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBox1, ((int)(resources.GetObject("pictureBox1.IconPadding"))));
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.media_services_dvr_filter;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 302);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(360, 59);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 97;
             this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // pictureBox3
             // 
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.errorProvider1.SetError(this.pictureBox3, resources.GetString("pictureBox3.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBox3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBox3, ((int)(resources.GetObject("pictureBox3.IconPadding"))));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
-            this.pictureBox3.Location = new System.Drawing.Point(16, 76);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(360, 85);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 99;
             this.pictureBox3.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox3, resources.GetString("pictureBox3.ToolTip"));
             // 
             // label42
             // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(569, 458);
+            resources.ApplyResources(this.label42, "label42");
+            this.errorProvider1.SetError(this.label42, resources.GetString("label42.Error"));
+            this.errorProvider1.SetIconAlignment(this.label42, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label42.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label42, ((int)(resources.GetObject("label42.IconPadding"))));
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(51, 15);
-            this.label42.TabIndex = 119;
-            this.label42.Text = "Seconds";
+            this.toolTip1.SetToolTip(this.label42, resources.GetString("label42.ToolTip"));
             // 
             // numericUpDownBackoffSeconds
             // 
+            resources.ApplyResources(this.numericUpDownBackoffSeconds, "numericUpDownBackoffSeconds");
             this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
-            this.numericUpDownBackoffSeconds.Enabled = false;
-            this.numericUpDownBackoffSeconds.Location = new System.Drawing.Point(573, 477);
+            this.errorProvider1.SetError(this.numericUpDownBackoffSeconds, resources.GetString("numericUpDownBackoffSeconds.Error"));
+            this.errorProvider1.SetIconAlignment(this.numericUpDownBackoffSeconds, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("numericUpDownBackoffSeconds.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.numericUpDownBackoffSeconds, ((int)(resources.GetObject("numericUpDownBackoffSeconds.IconPadding"))));
             this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
             60,
             0,
             0,
             0});
             this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
-            this.numericUpDownBackoffSeconds.Size = new System.Drawing.Size(73, 23);
-            this.numericUpDownBackoffSeconds.TabIndex = 118;
+            this.toolTip1.SetToolTip(this.numericUpDownBackoffSeconds, resources.GetString("numericUpDownBackoffSeconds.ToolTip"));
             // 
             // pictureBox2
             // 
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.errorProvider1.SetError(this.pictureBox2, resources.GetString("pictureBox2.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBox2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBox2, ((int)(resources.GetObject("pictureBox2.IconPadding"))));
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.media_services_livebackoff_filter;
-            this.pictureBox2.Location = new System.Drawing.Point(16, 458);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(360, 59);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 98;
             this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, resources.GetString("pictureBox2.ToolTip"));
             // 
             // tabPageTRRaw
             // 
+            resources.ApplyResources(this.tabPageTRRaw, "tabPageTRRaw");
             this.tabPageTRRaw.Controls.Add(this.label21);
             this.tabPageTRRaw.Controls.Add(this.label19);
             this.tabPageTRRaw.Controls.Add(this.label18);
@@ -510,151 +492,161 @@
             this.tabPageTRRaw.Controls.Add(this.label7);
             this.tabPageTRRaw.Controls.Add(this.label5);
             this.tabPageTRRaw.Controls.Add(this.label3);
-            this.tabPageTRRaw.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPageTRRaw, resources.GetString("tabPageTRRaw.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPageTRRaw, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPageTRRaw.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPageTRRaw, ((int)(resources.GetObject("tabPageTRRaw.IconPadding"))));
             this.tabPageTRRaw.Name = "tabPageTRRaw";
-            this.tabPageTRRaw.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTRRaw.Size = new System.Drawing.Size(1039, 557);
-            this.tabPageTRRaw.TabIndex = 2;
-            this.tabPageTRRaw.Text = "Time Range (Raw)";
+            this.toolTip1.SetToolTip(this.tabPageTRRaw, resources.GetString("tabPageTRRaw.ToolTip"));
             this.tabPageTRRaw.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
+            resources.ApplyResources(this.label21, "label21");
+            this.errorProvider1.SetError(this.label21, resources.GetString("label21.Error"));
             this.label21.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label21.Location = new System.Drawing.Point(519, 293);
+            this.errorProvider1.SetIconAlignment(this.label21, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label21.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label21, ((int)(resources.GetObject("label21.IconPadding"))));
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(243, 18);
-            this.label21.TabIndex = 125;
-            this.label21.Text = "Keep it empty to use default (min)";
+            this.toolTip1.SetToolTip(this.label21, resources.GetString("label21.ToolTip"));
             // 
             // label19
             // 
+            resources.ApplyResources(this.label19, "label19");
+            this.errorProvider1.SetError(this.label19, resources.GetString("label19.Error"));
             this.label19.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label19.Location = new System.Drawing.Point(519, 225);
+            this.errorProvider1.SetIconAlignment(this.label19, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label19.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label19, ((int)(resources.GetObject("label19.IconPadding"))));
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(243, 18);
-            this.label19.TabIndex = 124;
-            this.label19.Text = "Keep it empty to use default (max)";
+            this.toolTip1.SetToolTip(this.label19, resources.GetString("label19.ToolTip"));
             // 
             // label18
             // 
+            resources.ApplyResources(this.label18, "label18");
+            this.errorProvider1.SetError(this.label18, resources.GetString("label18.Error"));
             this.label18.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label18.Location = new System.Drawing.Point(519, 163);
+            this.errorProvider1.SetIconAlignment(this.label18, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label18.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label18, ((int)(resources.GetObject("label18.IconPadding"))));
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(243, 18);
-            this.label18.TabIndex = 123;
-            this.label18.Text = "Keep it empty to use default (max)";
+            this.toolTip1.SetToolTip(this.label18, resources.GetString("label18.ToolTip"));
             // 
             // label17
             // 
+            resources.ApplyResources(this.label17, "label17");
+            this.errorProvider1.SetError(this.label17, resources.GetString("label17.Error"));
             this.label17.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label17.Location = new System.Drawing.Point(519, 99);
+            this.errorProvider1.SetIconAlignment(this.label17, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label17.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label17, ((int)(resources.GetObject("label17.IconPadding"))));
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(243, 18);
-            this.label17.TabIndex = 122;
-            this.label17.Text = "Keep it empty to use default (min)";
+            this.toolTip1.SetToolTip(this.label17, resources.GetString("label17.ToolTip"));
             // 
             // label16
             // 
+            resources.ApplyResources(this.label16, "label16");
+            this.errorProvider1.SetError(this.label16, resources.GetString("label16.Error"));
             this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label16.Location = new System.Drawing.Point(519, 34);
+            this.errorProvider1.SetIconAlignment(this.label16, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label16.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label16, ((int)(resources.GetObject("label16.IconPadding"))));
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(321, 18);
-            this.label16.TabIndex = 121;
-            this.label16.Text = "Keep it empty to use default (10000000 ticks per second)";
+            this.toolTip1.SetToolTip(this.label16, resources.GetString("label16.ToolTip"));
             // 
             // textBoxRawTimescale
             // 
-            this.textBoxRawTimescale.Location = new System.Drawing.Point(217, 31);
+            resources.ApplyResources(this.textBoxRawTimescale, "textBoxRawTimescale");
+            this.errorProvider1.SetError(this.textBoxRawTimescale, resources.GetString("textBoxRawTimescale.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxRawTimescale, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxRawTimescale.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxRawTimescale, ((int)(resources.GetObject("textBoxRawTimescale.IconPadding"))));
             this.textBoxRawTimescale.Name = "textBoxRawTimescale";
-            this.textBoxRawTimescale.Size = new System.Drawing.Size(278, 23);
-            this.textBoxRawTimescale.TabIndex = 120;
+            this.toolTip1.SetToolTip(this.textBoxRawTimescale, resources.GetString("textBoxRawTimescale.ToolTip"));
             this.textBoxRawTimescale.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(23, 35);
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 15);
-            this.label9.TabIndex = 119;
-            this.label9.Text = "Timescale :";
+            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
             // 
             // textBoxRawBackoff
             // 
-            this.textBoxRawBackoff.Location = new System.Drawing.Point(217, 290);
+            resources.ApplyResources(this.textBoxRawBackoff, "textBoxRawBackoff");
+            this.errorProvider1.SetError(this.textBoxRawBackoff, resources.GetString("textBoxRawBackoff.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxRawBackoff, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxRawBackoff.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxRawBackoff, ((int)(resources.GetObject("textBoxRawBackoff.IconPadding"))));
             this.textBoxRawBackoff.Name = "textBoxRawBackoff";
-            this.textBoxRawBackoff.Size = new System.Drawing.Size(278, 23);
-            this.textBoxRawBackoff.TabIndex = 118;
+            this.toolTip1.SetToolTip(this.textBoxRawBackoff, resources.GetString("textBoxRawBackoff.ToolTip"));
             this.textBoxRawBackoff.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawTimeSpan_Validating);
             // 
             // textBoxRawDVR
             // 
-            this.textBoxRawDVR.Location = new System.Drawing.Point(217, 225);
+            resources.ApplyResources(this.textBoxRawDVR, "textBoxRawDVR");
+            this.errorProvider1.SetError(this.textBoxRawDVR, resources.GetString("textBoxRawDVR.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxRawDVR, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxRawDVR.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxRawDVR, ((int)(resources.GetObject("textBoxRawDVR.IconPadding"))));
             this.textBoxRawDVR.Name = "textBoxRawDVR";
-            this.textBoxRawDVR.Size = new System.Drawing.Size(278, 23);
-            this.textBoxRawDVR.TabIndex = 117;
+            this.toolTip1.SetToolTip(this.textBoxRawDVR, resources.GetString("textBoxRawDVR.ToolTip"));
             this.textBoxRawDVR.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawTimeSpan_Validating);
             // 
             // textBoxRawEnd
             // 
-            this.textBoxRawEnd.Location = new System.Drawing.Point(217, 160);
+            resources.ApplyResources(this.textBoxRawEnd, "textBoxRawEnd");
+            this.errorProvider1.SetError(this.textBoxRawEnd, resources.GetString("textBoxRawEnd.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxRawEnd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxRawEnd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxRawEnd, ((int)(resources.GetObject("textBoxRawEnd.IconPadding"))));
             this.textBoxRawEnd.Name = "textBoxRawEnd";
-            this.textBoxRawEnd.Size = new System.Drawing.Size(278, 23);
-            this.textBoxRawEnd.TabIndex = 116;
+            this.toolTip1.SetToolTip(this.textBoxRawEnd, resources.GetString("textBoxRawEnd.ToolTip"));
             this.textBoxRawEnd.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // textBoxRawStart
             // 
-            this.textBoxRawStart.Location = new System.Drawing.Point(217, 96);
+            resources.ApplyResources(this.textBoxRawStart, "textBoxRawStart");
+            this.errorProvider1.SetError(this.textBoxRawStart, resources.GetString("textBoxRawStart.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxRawStart, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxRawStart.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxRawStart, ((int)(resources.GetObject("textBoxRawStart.IconPadding"))));
             this.textBoxRawStart.Name = "textBoxRawStart";
-            this.textBoxRawStart.Size = new System.Drawing.Size(278, 23);
-            this.textBoxRawStart.TabIndex = 91;
+            this.toolTip1.SetToolTip(this.textBoxRawStart, resources.GetString("textBoxRawStart.ToolTip"));
             this.textBoxRawStart.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(27, 293);
+            resources.ApplyResources(this.label8, "label8");
+            this.errorProvider1.SetError(this.label8, resources.GetString("label8.Error"));
+            this.errorProvider1.SetIconAlignment(this.label8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label8, ((int)(resources.GetObject("label8.IconPadding"))));
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(77, 15);
-            this.label8.TabIndex = 115;
-            this.label8.Text = "Live Backoff :";
+            this.toolTip1.SetToolTip(this.label8, resources.GetString("label8.ToolTip"));
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(27, 228);
+            resources.ApplyResources(this.label7, "label7");
+            this.errorProvider1.SetError(this.label7, resources.GetString("label7.Error"));
+            this.errorProvider1.SetIconAlignment(this.label7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label7, ((int)(resources.GetObject("label7.IconPadding"))));
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 15);
-            this.label7.TabIndex = 114;
-            this.label7.Text = "DVR Window :";
+            this.toolTip1.SetToolTip(this.label7, resources.GetString("label7.ToolTip"));
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 164);
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 15);
-            this.label5.TabIndex = 113;
-            this.label5.Text = "End time (VOD) :";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 99);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 15);
-            this.label3.TabIndex = 91;
-            this.label3.Text = "Start time (Live and VOD) :";
+            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // tabPageTF
             // 
+            resources.ApplyResources(this.tabPageTF, "tabPageTF");
             this.tabPageTF.Controls.Add(this.numericUpDownFirstQualityBitrate);
             this.tabPageTF.Controls.Add(this.checkBoxFirstQualityBitrate);
             this.tabPageTF.Controls.Add(this.label40);
@@ -670,84 +662,74 @@
             this.tabPageTF.Controls.Add(this.listBoxTracks);
             this.tabPageTF.Controls.Add(this.dataGridViewTracks);
             this.tabPageTF.Controls.Add(this.buttonInsertSample);
-            this.tabPageTF.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPageTF, resources.GetString("tabPageTF.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPageTF, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPageTF.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPageTF, ((int)(resources.GetObject("tabPageTF.IconPadding"))));
             this.tabPageTF.Name = "tabPageTF";
-            this.tabPageTF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTF.Size = new System.Drawing.Size(1039, 557);
-            this.tabPageTF.TabIndex = 1;
-            this.tabPageTF.Text = "Track filtering";
+            this.toolTip1.SetToolTip(this.tabPageTF, resources.GetString("tabPageTF.ToolTip"));
             this.tabPageTF.UseVisualStyleBackColor = true;
             // 
             // numericUpDownFirstQualityBitrate
             // 
-            this.numericUpDownFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownFirstQualityBitrate.Enabled = false;
-            this.numericUpDownFirstQualityBitrate.Location = new System.Drawing.Point(189, 516);
+            resources.ApplyResources(this.numericUpDownFirstQualityBitrate, "numericUpDownFirstQualityBitrate");
+            this.errorProvider1.SetError(this.numericUpDownFirstQualityBitrate, resources.GetString("numericUpDownFirstQualityBitrate.Error"));
+            this.errorProvider1.SetIconAlignment(this.numericUpDownFirstQualityBitrate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("numericUpDownFirstQualityBitrate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.numericUpDownFirstQualityBitrate, ((int)(resources.GetObject("numericUpDownFirstQualityBitrate.IconPadding"))));
             this.numericUpDownFirstQualityBitrate.Maximum = new decimal(new int[] {
             100000000,
             0,
             0,
             0});
             this.numericUpDownFirstQualityBitrate.Name = "numericUpDownFirstQualityBitrate";
-            this.numericUpDownFirstQualityBitrate.Size = new System.Drawing.Size(81, 23);
-            this.numericUpDownFirstQualityBitrate.TabIndex = 126;
+            this.toolTip1.SetToolTip(this.numericUpDownFirstQualityBitrate, resources.GetString("numericUpDownFirstQualityBitrate.ToolTip"));
             // 
             // checkBoxFirstQualityBitrate
             // 
-            this.checkBoxFirstQualityBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxFirstQualityBitrate.AutoSize = true;
-            this.checkBoxFirstQualityBitrate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxFirstQualityBitrate.Location = new System.Drawing.Point(22, 517);
+            resources.ApplyResources(this.checkBoxFirstQualityBitrate, "checkBoxFirstQualityBitrate");
+            this.errorProvider1.SetError(this.checkBoxFirstQualityBitrate, resources.GetString("checkBoxFirstQualityBitrate.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxFirstQualityBitrate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxFirstQualityBitrate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxFirstQualityBitrate, ((int)(resources.GetObject("checkBoxFirstQualityBitrate.IconPadding"))));
             this.checkBoxFirstQualityBitrate.Name = "checkBoxFirstQualityBitrate";
-            this.checkBoxFirstQualityBitrate.Size = new System.Drawing.Size(165, 19);
-            this.checkBoxFirstQualityBitrate.TabIndex = 125;
-            this.checkBoxFirstQualityBitrate.Text = "First Quality Bitrate (HLS) :";
+            this.toolTip1.SetToolTip(this.checkBoxFirstQualityBitrate, resources.GetString("checkBoxFirstQualityBitrate.ToolTip"));
             this.checkBoxFirstQualityBitrate.UseVisualStyleBackColor = true;
             this.checkBoxFirstQualityBitrate.CheckedChanged += new System.EventHandler(this.checkBoxFirstQualityBitrate_CheckedChanged);
             // 
             // label40
             // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.label40, "label40");
+            this.errorProvider1.SetError(this.label40, resources.GetString("label40.Error"));
             this.label40.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label40.Location = new System.Drawing.Point(276, 518);
+            this.errorProvider1.SetIconAlignment(this.label40, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label40.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label40, ((int)(resources.GetObject("label40.IconPadding"))));
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(45, 18);
-            this.label40.TabIndex = 124;
-            this.label40.Text = "bps";
+            this.toolTip1.SetToolTip(this.label40, resources.GetString("label40.ToolTip"));
             // 
             // comboBoxLocatorsFilters
             // 
-            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.comboBoxLocatorsFilters, "comboBoxLocatorsFilters");
             this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLocatorsFilters.Enabled = false;
-            this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.errorProvider1.SetError(this.comboBoxLocatorsFilters, resources.GetString("comboBoxLocatorsFilters.Error"));
             this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(802, 248);
+            this.errorProvider1.SetIconAlignment(this.comboBoxLocatorsFilters, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comboBoxLocatorsFilters.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comboBoxLocatorsFilters, ((int)(resources.GetObject("comboBoxLocatorsFilters.IconPadding"))));
             this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
-            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(213, 23);
-            this.comboBoxLocatorsFilters.TabIndex = 101;
+            this.toolTip1.SetToolTip(this.comboBoxLocatorsFilters, resources.GetString("comboBoxLocatorsFilters.ToolTip"));
             this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.errorProvider1.SetError(this.pictureBox4, resources.GetString("pictureBox4.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBox4, ((int)(resources.GetObject("pictureBox4.IconPadding"))));
             this.pictureBox4.Image = global::AMSExplorer.Bitmaps.media_services_rendition_filter2;
-            this.pictureBox4.Location = new System.Drawing.Point(767, 29);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(248, 129);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 100;
             this.pictureBox4.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox4, resources.GetString("pictureBox4.ToolTip"));
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.25616F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.63054F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.40887F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.70443F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label11, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label12, 2, 0);
@@ -772,603 +754,510 @@
             this.tableLayoutPanel1.Controls.Add(this.label38, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label28, 0, 5);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(22, 337);
+            this.errorProvider1.SetError(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.tableLayoutPanel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tableLayoutPanel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tableLayoutPanel1, ((int)(resources.GetObject("tableLayoutPanel1.IconPadding"))));
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(993, 143);
-            this.tableLayoutPanel1.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
             this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
             // 
             // label10
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(3, 3);
-            this.label10.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(155, 19);
-            this.label10.TabIndex = 83;
-            this.label10.Text = "Property";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // label11
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label11, "label11");
+            this.errorProvider1.SetError(this.label11, resources.GetString("label11.Error"));
             this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label11.Location = new System.Drawing.Point(164, 3);
-            this.label11.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label11, ((int)(resources.GetObject("label11.IconPadding"))));
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(238, 19);
-            this.label11.TabIndex = 84;
-            this.label11.Text = "Description";
+            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
             // 
             // label12
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label12, "label12");
+            this.errorProvider1.SetError(this.label12, resources.GetString("label12.Error"));
             this.label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label12.Location = new System.Drawing.Point(408, 3);
-            this.label12.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label12, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label12.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label12, ((int)(resources.GetObject("label12.IconPadding"))));
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(385, 19);
-            this.label12.TabIndex = 85;
-            this.label12.Text = "Constraints";
+            this.toolTip1.SetToolTip(this.label12, resources.GetString("label12.ToolTip"));
             // 
             // label14
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label14, "label14");
+            this.errorProvider1.SetError(this.label14, resources.GetString("label14.Error"));
             this.label14.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label14.Location = new System.Drawing.Point(3, 53);
-            this.label14.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label14, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label14.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label14, ((int)(resources.GetObject("label14.IconPadding"))));
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(155, 17);
-            this.label14.TabIndex = 87;
-            this.label14.Text = "Name";
+            this.toolTip1.SetToolTip(this.label14, resources.GetString("label14.ToolTip"));
             // 
             // label15
             // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label15, "label15");
+            this.errorProvider1.SetError(this.label15, resources.GetString("label15.Error"));
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(3, 76);
-            this.label15.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label15.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label15, ((int)(resources.GetObject("label15.IconPadding"))));
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(155, 17);
-            this.label15.TabIndex = 88;
-            this.label15.Text = "Language";
+            this.toolTip1.SetToolTip(this.label15, resources.GetString("label15.ToolTip"));
             // 
             // label20
             // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label20, "label20");
+            this.errorProvider1.SetError(this.label20, resources.GetString("label20.Error"));
             this.label20.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label20.Location = new System.Drawing.Point(3, 99);
-            this.label20.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label20, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label20.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label20, ((int)(resources.GetObject("label20.IconPadding"))));
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(155, 17);
-            this.label20.TabIndex = 89;
-            this.label20.Text = "FourCC";
+            this.toolTip1.SetToolTip(this.label20, resources.GetString("label20.ToolTip"));
             // 
             // label23
             // 
-            this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label23, "label23");
+            this.errorProvider1.SetError(this.label23, resources.GetString("label23.Error"));
             this.label23.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label23.Location = new System.Drawing.Point(799, 3);
-            this.label23.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label23, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label23.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label23, ((int)(resources.GetObject("label23.IconPadding"))));
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(191, 19);
-            this.label23.TabIndex = 91;
-            this.label23.Text = "Examples";
+            this.toolTip1.SetToolTip(this.label23, resources.GetString("label23.ToolTip"));
             // 
             // label24
             // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label24, "label24");
+            this.errorProvider1.SetError(this.label24, resources.GetString("label24.Error"));
             this.label24.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label24.Location = new System.Drawing.Point(164, 28);
-            this.label24.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label24, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label24.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label24, ((int)(resources.GetObject("label24.IconPadding"))));
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(238, 19);
-            this.label24.TabIndex = 92;
-            this.label24.Text = "Type of the track";
+            this.toolTip1.SetToolTip(this.label24, resources.GetString("label24.ToolTip"));
             // 
             // label25
             // 
-            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label25, "label25");
+            this.errorProvider1.SetError(this.label25, resources.GetString("label25.Error"));
             this.label25.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label25.Location = new System.Drawing.Point(164, 53);
-            this.label25.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label25, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label25.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label25, ((int)(resources.GetObject("label25.IconPadding"))));
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(238, 17);
-            this.label25.TabIndex = 93;
-            this.label25.Text = "Name of the Track";
+            this.toolTip1.SetToolTip(this.label25, resources.GetString("label25.ToolTip"));
             // 
             // label26
             // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label26, "label26");
+            this.errorProvider1.SetError(this.label26, resources.GetString("label26.Error"));
             this.label26.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label26.Location = new System.Drawing.Point(164, 76);
-            this.label26.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label26, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label26.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label26, ((int)(resources.GetObject("label26.IconPadding"))));
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(238, 17);
-            this.label26.TabIndex = 94;
-            this.label26.Text = "Track language";
+            this.toolTip1.SetToolTip(this.label26, resources.GetString("label26.ToolTip"));
             // 
             // label27
             // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label27, "label27");
+            this.errorProvider1.SetError(this.label27, resources.GetString("label27.Error"));
             this.label27.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label27.Location = new System.Drawing.Point(164, 99);
-            this.label27.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label27, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label27.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label27, ((int)(resources.GetObject("label27.IconPadding"))));
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(238, 17);
-            this.label27.TabIndex = 95;
-            this.label27.Text = "Track FourCC value";
+            this.toolTip1.SetToolTip(this.label27, resources.GetString("label27.ToolTip"));
             // 
             // label22
             // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label22, "label22");
+            this.errorProvider1.SetError(this.label22, resources.GetString("label22.Error"));
             this.label22.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label22.Location = new System.Drawing.Point(164, 122);
-            this.label22.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label22, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label22.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label22, ((int)(resources.GetObject("label22.IconPadding"))));
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(238, 18);
-            this.label22.TabIndex = 90;
-            this.label22.Text = "Bitrate of the track";
+            this.toolTip1.SetToolTip(this.label22, resources.GetString("label22.ToolTip"));
             // 
             // label29
             // 
-            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label29, "label29");
+            this.errorProvider1.SetError(this.label29, resources.GetString("label29.Error"));
             this.label29.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label29.Location = new System.Drawing.Point(408, 28);
-            this.label29.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label29, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label29.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label29, ((int)(resources.GetObject("label29.IconPadding"))));
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(385, 19);
-            this.label29.TabIndex = 97;
-            this.label29.Text = "video, audio, or text";
+            this.toolTip1.SetToolTip(this.label29, resources.GetString("label29.ToolTip"));
             // 
             // label30
             // 
-            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label30, "label30");
+            this.errorProvider1.SetError(this.label30, resources.GetString("label30.Error"));
             this.label30.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label30.Location = new System.Drawing.Point(408, 53);
-            this.label30.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label30, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label30.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label30, ((int)(resources.GetObject("label30.IconPadding"))));
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(385, 17);
-            this.label30.TabIndex = 98;
+            this.toolTip1.SetToolTip(this.label30, resources.GetString("label30.ToolTip"));
             // 
             // label31
             // 
-            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label31, "label31");
+            this.errorProvider1.SetError(this.label31, resources.GetString("label31.Error"));
             this.label31.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label31.Location = new System.Drawing.Point(408, 76);
-            this.label31.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label31, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label31.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label31, ((int)(resources.GetObject("label31.IconPadding"))));
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(385, 17);
-            this.label31.TabIndex = 99;
-            this.label31.Text = "Format specified in RFC 5646";
+            this.toolTip1.SetToolTip(this.label31, resources.GetString("label31.ToolTip"));
             // 
             // label32
             // 
-            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label32, "label32");
+            this.errorProvider1.SetError(this.label32, resources.GetString("label32.Error"));
             this.label32.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label32.Location = new System.Drawing.Point(408, 99);
-            this.label32.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label32, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label32.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label32, ((int)(resources.GetObject("label32.IconPadding"))));
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(385, 17);
-            this.label32.TabIndex = 100;
-            this.label32.Text = "First element of codecs format specified in RFC 6381";
+            this.toolTip1.SetToolTip(this.label32, resources.GetString("label32.ToolTip"));
             // 
             // label33
             // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label33, "label33");
+            this.errorProvider1.SetError(this.label33, resources.GetString("label33.Error"));
             this.label33.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label33.Location = new System.Drawing.Point(408, 122);
-            this.label33.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label33, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label33.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label33, ((int)(resources.GetObject("label33.IconPadding"))));
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(385, 18);
-            this.label33.TabIndex = 101;
-            this.label33.Text = "Can be a range value or exact value";
+            this.toolTip1.SetToolTip(this.label33, resources.GetString("label33.ToolTip"));
             // 
             // label34
             // 
-            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label34, "label34");
+            this.errorProvider1.SetError(this.label34, resources.GetString("label34.Error"));
             this.label34.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label34.Location = new System.Drawing.Point(799, 28);
-            this.label34.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label34, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label34.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label34, ((int)(resources.GetObject("label34.IconPadding"))));
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(191, 19);
-            this.label34.TabIndex = 102;
-            this.label34.Text = "video";
+            this.toolTip1.SetToolTip(this.label34, resources.GetString("label34.ToolTip"));
             // 
             // label35
             // 
-            this.label35.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label35, "label35");
+            this.errorProvider1.SetError(this.label35, resources.GetString("label35.Error"));
             this.label35.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label35.Location = new System.Drawing.Point(799, 53);
-            this.label35.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label35, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label35.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label35, ((int)(resources.GetObject("label35.IconPadding"))));
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(191, 17);
-            this.label35.TabIndex = 103;
-            this.label35.Text = "trackname";
+            this.toolTip1.SetToolTip(this.label35, resources.GetString("label35.ToolTip"));
             // 
             // label36
             // 
-            this.label36.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label36, "label36");
+            this.errorProvider1.SetError(this.label36, resources.GetString("label36.Error"));
             this.label36.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label36.Location = new System.Drawing.Point(799, 76);
-            this.label36.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label36, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label36.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label36, ((int)(resources.GetObject("label36.IconPadding"))));
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(191, 17);
-            this.label36.TabIndex = 104;
-            this.label36.Text = "en";
+            this.toolTip1.SetToolTip(this.label36, resources.GetString("label36.ToolTip"));
             // 
             // label37
             // 
-            this.label37.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label37, "label37");
+            this.errorProvider1.SetError(this.label37, resources.GetString("label37.Error"));
             this.label37.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label37.Location = new System.Drawing.Point(799, 99);
-            this.label37.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label37, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label37.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label37, ((int)(resources.GetObject("label37.IconPadding"))));
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(191, 17);
-            this.label37.TabIndex = 105;
-            this.label37.Text = "mp4a, mp4v, avc1 or ec-3";
+            this.toolTip1.SetToolTip(this.label37, resources.GetString("label37.ToolTip"));
             // 
             // label38
             // 
-            this.label38.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label38, "label38");
+            this.errorProvider1.SetError(this.label38, resources.GetString("label38.Error"));
             this.label38.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label38.Location = new System.Drawing.Point(799, 122);
-            this.label38.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label38, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label38.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label38, ((int)(resources.GetObject("label38.IconPadding"))));
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(191, 18);
-            this.label38.TabIndex = 106;
-            this.label38.Text = "0-1048576 or 1048576";
+            this.toolTip1.SetToolTip(this.label38, resources.GetString("label38.ToolTip"));
             // 
             // label13
             // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label13, "label13");
+            this.errorProvider1.SetError(this.label13, resources.GetString("label13.Error"));
             this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label13.Location = new System.Drawing.Point(3, 28);
-            this.label13.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label13, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label13.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label13, ((int)(resources.GetObject("label13.IconPadding"))));
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(155, 19);
-            this.label13.TabIndex = 107;
-            this.label13.Text = "Type";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // label28
             // 
-            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.label28, "label28");
+            this.errorProvider1.SetError(this.label28, resources.GetString("label28.Error"));
             this.label28.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label28.Location = new System.Drawing.Point(3, 122);
-            this.label28.Margin = new System.Windows.Forms.Padding(3);
+            this.errorProvider1.SetIconAlignment(this.label28, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label28.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label28, ((int)(resources.GetObject("label28.IconPadding"))));
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(155, 18);
-            this.label28.TabIndex = 108;
-            this.label28.Text = "Bitrate";
+            this.toolTip1.SetToolTip(this.label28, resources.GetString("label28.ToolTip"));
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(166, 8);
+            resources.ApplyResources(this.label6, "label6");
+            this.errorProvider1.SetError(this.label6, resources.GetString("label6.Error"));
+            this.errorProvider1.SetIconAlignment(this.label6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label6, ((int)(resources.GetObject("label6.IconPadding"))));
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 15);
-            this.label6.TabIndex = 80;
-            this.label6.Text = "Conditions :";
+            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(19, 8);
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 15);
-            this.label1.TabIndex = 79;
-            this.label1.Text = "Rules :";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // buttonDeleteCondition
             // 
-            this.buttonDeleteCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteCondition.Location = new System.Drawing.Point(651, 276);
+            resources.ApplyResources(this.buttonDeleteCondition, "buttonDeleteCondition");
+            this.errorProvider1.SetError(this.buttonDeleteCondition, resources.GetString("buttonDeleteCondition.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonDeleteCondition, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonDeleteCondition.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonDeleteCondition, ((int)(resources.GetObject("buttonDeleteCondition.IconPadding"))));
             this.buttonDeleteCondition.Name = "buttonDeleteCondition";
-            this.buttonDeleteCondition.Size = new System.Drawing.Size(68, 27);
-            this.buttonDeleteCondition.TabIndex = 46;
-            this.buttonDeleteCondition.Text = "Delete";
+            this.toolTip1.SetToolTip(this.buttonDeleteCondition, resources.GetString("buttonDeleteCondition.ToolTip"));
             this.buttonDeleteCondition.UseVisualStyleBackColor = true;
             this.buttonDeleteCondition.Click += new System.EventHandler(this.buttonDeleteCondition_Click);
             // 
             // buttonDeleteTrack
             // 
-            this.buttonDeleteTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteTrack.Location = new System.Drawing.Point(96, 276);
+            resources.ApplyResources(this.buttonDeleteTrack, "buttonDeleteTrack");
+            this.errorProvider1.SetError(this.buttonDeleteTrack, resources.GetString("buttonDeleteTrack.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonDeleteTrack, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonDeleteTrack.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonDeleteTrack, ((int)(resources.GetObject("buttonDeleteTrack.IconPadding"))));
             this.buttonDeleteTrack.Name = "buttonDeleteTrack";
-            this.buttonDeleteTrack.Size = new System.Drawing.Size(65, 27);
-            this.buttonDeleteTrack.TabIndex = 44;
-            this.buttonDeleteTrack.Text = "Delete";
+            this.toolTip1.SetToolTip(this.buttonDeleteTrack, resources.GetString("buttonDeleteTrack.ToolTip"));
             this.buttonDeleteTrack.UseVisualStyleBackColor = true;
             this.buttonDeleteTrack.Click += new System.EventHandler(this.buttonDeleteTrack_Click);
             // 
             // buttonAddCondition
             // 
-            this.buttonAddCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddCondition.Location = new System.Drawing.Point(577, 276);
+            resources.ApplyResources(this.buttonAddCondition, "buttonAddCondition");
+            this.errorProvider1.SetError(this.buttonAddCondition, resources.GetString("buttonAddCondition.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonAddCondition, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonAddCondition.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonAddCondition, ((int)(resources.GetObject("buttonAddCondition.IconPadding"))));
             this.buttonAddCondition.Name = "buttonAddCondition";
-            this.buttonAddCondition.Size = new System.Drawing.Size(68, 27);
-            this.buttonAddCondition.TabIndex = 45;
-            this.buttonAddCondition.Text = "Add";
+            this.toolTip1.SetToolTip(this.buttonAddCondition, resources.GetString("buttonAddCondition.ToolTip"));
             this.buttonAddCondition.UseVisualStyleBackColor = true;
             this.buttonAddCondition.Click += new System.EventHandler(this.buttonAddCondition_Click);
             // 
             // buttonAddTrack
             // 
-            this.buttonAddTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddTrack.Location = new System.Drawing.Point(22, 277);
+            resources.ApplyResources(this.buttonAddTrack, "buttonAddTrack");
+            this.errorProvider1.SetError(this.buttonAddTrack, resources.GetString("buttonAddTrack.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonAddTrack, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonAddTrack.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonAddTrack, ((int)(resources.GetObject("buttonAddTrack.IconPadding"))));
             this.buttonAddTrack.Name = "buttonAddTrack";
-            this.buttonAddTrack.Size = new System.Drawing.Size(68, 27);
-            this.buttonAddTrack.TabIndex = 43;
-            this.buttonAddTrack.Text = "Add";
+            this.toolTip1.SetToolTip(this.buttonAddTrack, resources.GetString("buttonAddTrack.ToolTip"));
             this.buttonAddTrack.UseVisualStyleBackColor = true;
             this.buttonAddTrack.Click += new System.EventHandler(this.buttonAddTrack_Click);
             // 
             // listBoxTracks
             // 
-            this.listBoxTracks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.listBoxTracks, "listBoxTracks");
+            this.errorProvider1.SetError(this.listBoxTracks, resources.GetString("listBoxTracks.Error"));
             this.listBoxTracks.FormattingEnabled = true;
-            this.listBoxTracks.ItemHeight = 15;
-            this.listBoxTracks.Location = new System.Drawing.Point(22, 27);
+            this.errorProvider1.SetIconAlignment(this.listBoxTracks, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listBoxTracks.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listBoxTracks, ((int)(resources.GetObject("listBoxTracks.IconPadding"))));
             this.listBoxTracks.Name = "listBoxTracks";
-            this.listBoxTracks.Size = new System.Drawing.Size(139, 229);
-            this.listBoxTracks.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.listBoxTracks, resources.GetString("listBoxTracks.ToolTip"));
             this.listBoxTracks.SelectedIndexChanged += new System.EventHandler(this.listBoxTracks_SelectedIndexChanged);
             // 
             // dataGridViewTracks
             // 
+            resources.ApplyResources(this.dataGridViewTracks, "dataGridViewTracks");
             this.dataGridViewTracks.AllowUserToAddRows = false;
             this.dataGridViewTracks.AllowUserToDeleteRows = false;
-            this.dataGridViewTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTracks.Location = new System.Drawing.Point(169, 29);
+            this.errorProvider1.SetError(this.dataGridViewTracks, resources.GetString("dataGridViewTracks.Error"));
+            this.errorProvider1.SetIconAlignment(this.dataGridViewTracks, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dataGridViewTracks.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dataGridViewTracks, ((int)(resources.GetObject("dataGridViewTracks.IconPadding"))));
             this.dataGridViewTracks.Name = "dataGridViewTracks";
             this.dataGridViewTracks.RowHeadersVisible = false;
             this.dataGridViewTracks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTracks.Size = new System.Drawing.Size(550, 241);
-            this.dataGridViewTracks.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.dataGridViewTracks, resources.GetString("dataGridViewTracks.ToolTip"));
             this.dataGridViewTracks.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTracks_CellValueChanged);
             this.dataGridViewTracks.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewTracks_CurrentCellDirtyStateChanged);
             // 
             // tabPageInformation
             // 
+            resources.ApplyResources(this.tabPageInformation, "tabPageInformation");
             this.tabPageInformation.Controls.Add(this.DGInfo);
-            this.tabPageInformation.Location = new System.Drawing.Point(4, 24);
+            this.errorProvider1.SetError(this.tabPageInformation, resources.GetString("tabPageInformation.Error"));
+            this.errorProvider1.SetIconAlignment(this.tabPageInformation, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPageInformation.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPageInformation, ((int)(resources.GetObject("tabPageInformation.IconPadding"))));
             this.tabPageInformation.Name = "tabPageInformation";
-            this.tabPageInformation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInformation.Size = new System.Drawing.Size(1039, 557);
-            this.tabPageInformation.TabIndex = 3;
-            this.tabPageInformation.Text = "Filter information";
+            this.toolTip1.SetToolTip(this.tabPageInformation, resources.GetString("tabPageInformation.ToolTip"));
             this.tabPageInformation.UseVisualStyleBackColor = true;
             // 
             // DGInfo
             // 
+            resources.ApplyResources(this.DGInfo, "DGInfo");
             this.DGInfo.AllowUserToAddRows = false;
             this.DGInfo.AllowUserToDeleteRows = false;
             this.DGInfo.AllowUserToResizeRows = false;
-            this.DGInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGInfo.ColumnHeadersVisible = false;
             this.DGInfo.ContextMenuStrip = this.contextMenuStripInfo;
-            this.DGInfo.Location = new System.Drawing.Point(3, 6);
+            this.errorProvider1.SetError(this.DGInfo, resources.GetString("DGInfo.Error"));
+            this.errorProvider1.SetIconAlignment(this.DGInfo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("DGInfo.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.DGInfo, ((int)(resources.GetObject("DGInfo.IconPadding"))));
             this.DGInfo.MultiSelect = false;
             this.DGInfo.Name = "DGInfo";
             this.DGInfo.ReadOnly = true;
             this.DGInfo.RowHeadersVisible = false;
-            this.DGInfo.Size = new System.Drawing.Size(1030, 545);
-            this.DGInfo.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.DGInfo, resources.GetString("DGInfo.ToolTip"));
             // 
             // contextMenuStripInfo
             // 
+            resources.ApplyResources(this.contextMenuStripInfo, "contextMenuStripInfo");
+            this.errorProvider1.SetError(this.contextMenuStripInfo, resources.GetString("contextMenuStripInfo.Error"));
+            this.errorProvider1.SetIconAlignment(this.contextMenuStripInfo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("contextMenuStripInfo.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.contextMenuStripInfo, ((int)(resources.GetObject("contextMenuStripInfo.IconPadding"))));
             this.contextMenuStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripInfo.Name = "contextMenuStripDG";
-            this.contextMenuStripInfo.Size = new System.Drawing.Size(170, 26);
+            this.toolTip1.SetToolTip(this.contextMenuStripInfo, resources.GetString("contextMenuStripInfo.ToolTip"));
             this.contextMenuStripInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripInfo_MouseClick);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
+            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
-            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
             this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // moreinfoprofilelink
             // 
-            this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(964, 16);
+            resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
+            this.errorProvider1.SetError(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.Error"));
+            this.errorProvider1.SetIconAlignment(this.moreinfoprofilelink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("moreinfoprofilelink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.moreinfoprofilelink, ((int)(resources.GetObject("moreinfoprofilelink.IconPadding"))));
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(101, 15);
-            this.moreinfoprofilelink.TabIndex = 80;
             this.moreinfoprofilelink.TabStop = true;
-            this.moreinfoprofilelink.Text = "More information";
+            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // labelFilterTitle
             // 
-            this.labelFilterTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelFilterTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.labelFilterTitle, "labelFilterTitle");
+            this.errorProvider1.SetError(this.labelFilterTitle, resources.GetString("labelFilterTitle.Error"));
             this.labelFilterTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelFilterTitle.Location = new System.Drawing.Point(10, 16);
+            this.errorProvider1.SetIconAlignment(this.labelFilterTitle, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelFilterTitle.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelFilterTitle, ((int)(resources.GetObject("labelFilterTitle.IconPadding"))));
             this.labelFilterTitle.Name = "labelFilterTitle";
-            this.labelFilterTitle.Size = new System.Drawing.Size(930, 21);
-            this.labelFilterTitle.TabIndex = 81;
-            this.labelFilterTitle.Text = "Global Filter";
+            this.toolTip1.SetToolTip(this.labelFilterTitle, resources.GetString("labelFilterTitle.ToolTip"));
             // 
             // textBoxAssetName
             // 
-            this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(372, 63);
+            resources.ApplyResources(this.textBoxAssetName, "textBoxAssetName");
+            this.errorProvider1.SetError(this.textBoxAssetName, resources.GetString("textBoxAssetName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAssetName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAssetName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAssetName, ((int)(resources.GetObject("textBoxAssetName.IconPadding"))));
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.ReadOnly = true;
-            this.textBoxAssetName.Size = new System.Drawing.Size(250, 23);
-            this.textBoxAssetName.TabIndex = 83;
-            this.textBoxAssetName.Visible = false;
+            this.toolTip1.SetToolTip(this.textBoxAssetName, resources.GetString("textBoxAssetName.ToolTip"));
             // 
             // labelassetname
             // 
-            this.labelassetname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(368, 45);
+            resources.ApplyResources(this.labelassetname, "labelassetname");
+            this.errorProvider1.SetError(this.labelassetname, resources.GetString("labelassetname.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelassetname, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelassetname.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelassetname, ((int)(resources.GetObject("labelassetname.IconPadding"))));
             this.labelassetname.Name = "labelassetname";
-            this.labelassetname.Size = new System.Drawing.Size(74, 15);
-            this.labelassetname.TabIndex = 82;
-            this.labelassetname.Text = "Asset name :";
-            this.labelassetname.Visible = false;
+            this.toolTip1.SetToolTip(this.labelassetname, resources.GetString("labelassetname.ToolTip"));
             // 
             // textBoxAssetDuration
             // 
-            this.textBoxAssetDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetDuration.Location = new System.Drawing.Point(630, 63);
+            resources.ApplyResources(this.textBoxAssetDuration, "textBoxAssetDuration");
+            this.errorProvider1.SetError(this.textBoxAssetDuration, resources.GetString("textBoxAssetDuration.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAssetDuration, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAssetDuration.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAssetDuration, ((int)(resources.GetObject("textBoxAssetDuration.IconPadding"))));
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
             this.textBoxAssetDuration.ReadOnly = true;
-            this.textBoxAssetDuration.Size = new System.Drawing.Size(132, 23);
-            this.textBoxAssetDuration.TabIndex = 85;
-            this.textBoxAssetDuration.Visible = false;
+            this.toolTip1.SetToolTip(this.textBoxAssetDuration, resources.GetString("textBoxAssetDuration.ToolTip"));
             // 
             // labelassetduration
             // 
-            this.labelassetduration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(626, 45);
+            resources.ApplyResources(this.labelassetduration, "labelassetduration");
+            this.errorProvider1.SetError(this.labelassetduration, resources.GetString("labelassetduration.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelassetduration, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelassetduration.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelassetduration, ((int)(resources.GetObject("labelassetduration.IconPadding"))));
             this.labelassetduration.Name = "labelassetduration";
-            this.labelassetduration.Size = new System.Drawing.Size(89, 15);
-            this.labelassetduration.TabIndex = 84;
-            this.labelassetduration.Text = "Asset duration :";
-            this.labelassetduration.Visible = false;
+            this.toolTip1.SetToolTip(this.labelassetduration, resources.GetString("labelassetduration.ToolTip"));
             // 
             // textBoxFilterTimeScale
             // 
-            this.textBoxFilterTimeScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(251, 63);
+            resources.ApplyResources(this.textBoxFilterTimeScale, "textBoxFilterTimeScale");
+            this.errorProvider1.SetError(this.textBoxFilterTimeScale, resources.GetString("textBoxFilterTimeScale.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxFilterTimeScale, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxFilterTimeScale.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxFilterTimeScale, ((int)(resources.GetObject("textBoxFilterTimeScale.IconPadding"))));
             this.textBoxFilterTimeScale.Name = "textBoxFilterTimeScale";
             this.textBoxFilterTimeScale.ReadOnly = true;
-            this.textBoxFilterTimeScale.Size = new System.Drawing.Size(114, 23);
-            this.textBoxFilterTimeScale.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.textBoxFilterTimeScale, resources.GetString("textBoxFilterTimeScale.ToolTip"));
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 45);
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 15);
-            this.label2.TabIndex = 86;
-            this.label2.Text = "Filter timescale :";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // textBoxOffset
             // 
-            this.textBoxOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxOffset.Location = new System.Drawing.Point(770, 63);
+            resources.ApplyResources(this.textBoxOffset, "textBoxOffset");
+            this.errorProvider1.SetError(this.textBoxOffset, resources.GetString("textBoxOffset.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxOffset, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxOffset.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxOffset, ((int)(resources.GetObject("textBoxOffset.IconPadding"))));
             this.textBoxOffset.Name = "textBoxOffset";
             this.textBoxOffset.ReadOnly = true;
-            this.textBoxOffset.Size = new System.Drawing.Size(123, 23);
-            this.textBoxOffset.TabIndex = 89;
-            this.textBoxOffset.Visible = false;
+            this.toolTip1.SetToolTip(this.textBoxOffset, resources.GetString("textBoxOffset.ToolTip"));
             // 
             // labelOffset
             // 
-            this.labelOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(766, 45);
+            resources.ApplyResources(this.labelOffset, "labelOffset");
+            this.errorProvider1.SetError(this.labelOffset, resources.GetString("labelOffset.Error"));
+            this.errorProvider1.SetIconAlignment(this.labelOffset, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelOffset.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelOffset, ((int)(resources.GetObject("labelOffset.IconPadding"))));
             this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(74, 15);
-            this.labelOffset.TabIndex = 88;
-            this.labelOffset.Text = "Asset offset :";
-            this.labelOffset.Visible = false;
+            this.toolTip1.SetToolTip(this.labelOffset, resources.GetString("labelOffset.ToolTip"));
             // 
             // checkBoxRawMode
             // 
-            this.checkBoxRawMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxRawMode.AutoSize = true;
-            this.checkBoxRawMode.Location = new System.Drawing.Point(924, 66);
+            resources.ApplyResources(this.checkBoxRawMode, "checkBoxRawMode");
+            this.errorProvider1.SetError(this.checkBoxRawMode, resources.GetString("checkBoxRawMode.Error"));
+            this.errorProvider1.SetIconAlignment(this.checkBoxRawMode, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("checkBoxRawMode.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.checkBoxRawMode, ((int)(resources.GetObject("checkBoxRawMode.IconPadding"))));
             this.checkBoxRawMode.Name = "checkBoxRawMode";
-            this.checkBoxRawMode.Size = new System.Drawing.Size(145, 19);
-            this.checkBoxRawMode.TabIndex = 90;
-            this.checkBoxRawMode.Text = "Time range Raw mode";
+            this.toolTip1.SetToolTip(this.checkBoxRawMode, resources.GetString("checkBoxRawMode.ToolTip"));
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // DynManifestFilter
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(1077, 761);
             this.Controls.Add(this.checkBoxRawMode);
             this.Controls.Add(this.textBoxOffset);
             this.Controls.Add(this.labelOffset);
@@ -1384,10 +1273,8 @@
             this.Controls.Add(this.textBoxFilterName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "DynManifestFilter";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Dynamic Manifest Filter";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.DynManifestFilter_Load);
             this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
             this.panel1.ResumeLayout(false);
