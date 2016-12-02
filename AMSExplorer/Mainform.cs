@@ -9991,7 +9991,7 @@ namespace AMSExplorer
         {
             foreach (var channel in ReturnSelectedChannels())
             {
-                if (channel != null)
+                if (channel != null && channel.Preview != null)
                 {
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
@@ -10013,9 +10013,13 @@ namespace AMSExplorer
 
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
-            string preview = ReturnSelectedChannels().FirstOrDefault().Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri;
-            EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
-            DisplayForm.Display();
+            var channel = ReturnSelectedChannels().FirstOrDefault();
+            if (channel != null && channel.Preview != null)
+            {
+                string preview = channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri;
+                EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
+                DisplayForm.Display();
+            }
         }
 
         private void generateThumbnailsForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12957,7 +12961,7 @@ namespace AMSExplorer
         private void copyInputURLToClipboardToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-
+           
             inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count == 1);
             inputSSLURLToolStripMenuItem1.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
             primaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
@@ -13015,8 +13019,8 @@ namespace AMSExplorer
             // on premises encoder if only one channel
             ContextMenuItemChannelRunOnPremisesLiveEncoder.Enabled = single;
 
-            // copy preview url if only one channel
-            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = single;
+            // copy preview url if only one channel and preview is available
+            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = single && channels.FirstOrDefault().Preview != null;
 
             // start, stop, reset, delete, clone channel
             ContextMenuItemChannelStart.Enabled = oneOrMore;
@@ -13051,7 +13055,7 @@ namespace AMSExplorer
             runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = single;
 
             // copy preview url if only one channel
-            copyPreviewURLToClipboardToolStripMenuItem.Enabled = single;
+            copyPreviewURLToClipboardToolStripMenuItem.Enabled = single && channels.FirstOrDefault().Preview != null;
 
             // start, stop, reset, delete, clone channel
             startChannelsToolStripMenuItem.Enabled = oneOrMore;
