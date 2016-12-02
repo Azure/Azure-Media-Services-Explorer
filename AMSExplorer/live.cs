@@ -466,8 +466,8 @@ namespace AMSExplorer
                            InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
                            EncodingPreset = (c.EncodingType != ChannelEncodingType.None && c.Encoding != null) ? c.Encoding.SystemPreset : string.Empty,
-                           InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                           PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                           InputUrl = c.Input.Endpoints.First().Url,
+                           PreviewUrl = c.Preview != null ? c.Preview.Endpoints.First().Url : null,
                            State = c.State,
                            LastModified = c.LastModified.ToLocalTime()
                        });

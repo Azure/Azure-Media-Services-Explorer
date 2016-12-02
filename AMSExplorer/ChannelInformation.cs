@@ -258,10 +258,15 @@ namespace AMSExplorer
                     }
                     i++;
                 }
-                foreach (var endpoint in MyChannel.Preview.Endpoints)
+
+                if (MyChannel.Preview != null)
                 {
-                    DGChannel.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Url);
+                    foreach (var endpoint in MyChannel.Preview.Endpoints)
+                    {
+                        DGChannel.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Url);
+                    }
                 }
+
                 if (MyChannel.Output != null)
                 {
                     if (MyChannel.Output.Hls != null)
@@ -450,17 +455,15 @@ namespace AMSExplorer
             dataGridViewInputIP.DataSource = InputEndpointSettingList;
             dataGridViewInputIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            if (MyChannel.Preview.AccessControl != null)
+            if (MyChannel.Preview != null && MyChannel.Preview.AccessControl != null && MyChannel.Preview.AccessControl.IPAllowList != null)
             {
-                if (MyChannel.Preview.AccessControl.IPAllowList != null)
+                checkBoxPreviewSet.Checked = true;
+                foreach (var endpoint in MyChannel.Preview.AccessControl.IPAllowList)
                 {
-                    checkBoxPreviewSet.Checked = true;
-                    foreach (var endpoint in MyChannel.Preview.AccessControl.IPAllowList)
-                    {
-                        PreviewEndpointSettingList.Add(endpoint);
-                    }
+                    PreviewEndpointSettingList.Add(endpoint);
                 }
             }
+
             dataGridViewPreviewIP.DataSource = PreviewEndpointSettingList;
             dataGridViewPreviewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
@@ -630,7 +633,7 @@ namespace AMSExplorer
 
         private void tabPage4_Enter(object sender, EventArgs e)
         {
-            if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+            if (MyChannel.State == ChannelState.Running && MyChannel.Preview != null && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
             {
                 string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: MyMainForm);
                 webBrowserPreview.Url = new Uri(myurl);
