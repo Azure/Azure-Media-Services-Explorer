@@ -1,3 +1,8 @@
+Version 3.46.1.0 (December 2, 2016) brings the following features and improvements :
+
+* Bug fixes
+
+
 Version 3.46.0.0 (November 21, 2016) brings the following features and improvements :
 
 * Support for new **“Blob storage accounts”** including **hot and cool** tiers
