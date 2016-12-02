@@ -455,7 +455,7 @@ namespace AMSExplorer
             dataGridViewInputIP.DataSource = InputEndpointSettingList;
             dataGridViewInputIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            if (MyChannel.Preview != null && MyChannel.Preview.AccessControl.IPAllowList != null)
+            if (MyChannel.Preview != null && MyChannel.Preview.AccessControl != null && MyChannel.Preview.AccessControl.IPAllowList != null)
             {
                 checkBoxPreviewSet.Checked = true;
                 foreach (var endpoint in MyChannel.Preview.AccessControl.IPAllowList)
