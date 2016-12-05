@@ -1001,8 +1001,26 @@
     <EmbeddedResource Include="Hyperlapse.ja.resx">
       <DependentUpon>Hyperlapse.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImportFromAzureStorage.ja.resx">
+      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportHttp.ja.resx">
+      <DependentUpon>ImportHttp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Indexer.ja.resx">
+      <DependentUpon>Indexer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexerOptions.ja.resx">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexerV2.ja.resx">
+      <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobInformation.ja.resx">
+      <DependentUpon>JobInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.ja.resx">
       <DependentUpon>Mainform.cs</DependentUpon>

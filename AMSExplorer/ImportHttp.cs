@@ -82,12 +82,12 @@ namespace AMSExplorer
                 label4.Visible = textBoxAssetFileName.Visible = false;
                 labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
-                labelTitle.Text = this.Text = "Import from SAS Container Path";
+                labelTitle.Text = this.Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
             }
 
             foreach (var storage in _context.StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
@@ -103,7 +103,7 @@ namespace AMSExplorer
             catch
             {
                 Error = true;
-                labelURLFileNameWarning.Text = "Error detected in the URL";
+                labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL;
                 buttonImport.Enabled = false;
                 return;
             }
@@ -119,7 +119,7 @@ namespace AMSExplorer
                 catch
                 {
                     Error = true;
-                    labelURLFileNameWarning.Text = "File name not found in the URL";
+                    labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL;
                 }
                 if (!Error)
                 {
@@ -140,7 +140,7 @@ namespace AMSExplorer
 
             if (!AssetInfo.AssetFileNameIsOk(tb.Text))
             {
-                errorProvider1.SetError(tb, "Asset file name is not compatible with Media Services");
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices);
             }
             else
             {

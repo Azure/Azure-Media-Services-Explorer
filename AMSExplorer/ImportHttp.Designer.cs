@@ -41,12 +41,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -54,190 +54,166 @@
             // 
             // buttonImport
             // 
-            this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonImport, "buttonImport");
             this.buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonImport.Enabled = false;
-            this.buttonImport.Location = new System.Drawing.Point(545, 15);
+            this.errorProvider1.SetError(this.buttonImport, resources.GetString("buttonImport.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonImport, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonImport.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonImport, ((int)(resources.GetObject("buttonImport.IconPadding"))));
             this.buttonImport.Name = "buttonImport";
-            this.buttonImport.Size = new System.Drawing.Size(115, 27);
-            this.buttonImport.TabIndex = 3;
-            this.buttonImport.Text = "Import";
             this.buttonImport.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(667, 15);
+            this.errorProvider1.SetError(this.buttonCancel, resources.GetString("buttonCancel.Error"));
+            this.errorProvider1.SetIconAlignment(this.buttonCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("buttonCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.buttonCancel, ((int)(resources.GetObject("buttonCancel.IconPadding"))));
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
-            this.buttonCancel.TabIndex = 4;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 45);
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 15);
-            this.label1.TabIndex = 38;
-            this.label1.Text = "Enter the HTTP or HTTPS Source :";
             // 
             // textBoxURL
             // 
-            this.textBoxURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxURL.Location = new System.Drawing.Point(36, 63);
+            resources.ApplyResources(this.textBoxURL, "textBoxURL");
+            this.errorProvider1.SetError(this.textBoxURL, resources.GetString("textBoxURL.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxURL, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxURL.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxURL, ((int)(resources.GetObject("textBoxURL.IconPadding"))));
             this.textBoxURL.Name = "textBoxURL";
-            this.textBoxURL.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textBoxURL.Size = new System.Drawing.Size(719, 23);
-            this.textBoxURL.TabIndex = 0;
             this.textBoxURL.TextChanged += new System.EventHandler(this.textBoxURL_TextChanged);
             // 
             // labelExamples
             // 
-            this.labelExamples.AutoSize = true;
+            resources.ApplyResources(this.labelExamples, "labelExamples");
+            this.errorProvider1.SetError(this.labelExamples, resources.GetString("labelExamples.Error"));
             this.labelExamples.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelExamples.Location = new System.Drawing.Point(33, 115);
+            this.errorProvider1.SetIconAlignment(this.labelExamples, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelExamples.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelExamples, ((int)(resources.GetObject("labelExamples.IconPadding"))));
             this.labelExamples.Name = "labelExamples";
-            this.labelExamples.Size = new System.Drawing.Size(396, 60);
-            this.labelExamples.TabIndex = 42;
-            this.labelExamples.Text = "Examples :\r\nhttp://login:password@hostname.com/path\r\nAmazon : http://awskey:awsse" +
-    "cretkey@bucket.s3.amazonaws.com/object\r\nDropbox : http://dl.dropbox.com/object\r\n" +
-    "";
             // 
             // textBoxAssetName
             // 
-            this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(10, 44);
+            resources.ApplyResources(this.textBoxAssetName, "textBoxAssetName");
+            this.errorProvider1.SetError(this.textBoxAssetName, resources.GetString("textBoxAssetName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAssetName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAssetName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAssetName, ((int)(resources.GetObject("textBoxAssetName.IconPadding"))));
             this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(686, 23);
-            this.textBoxAssetName.TabIndex = 1;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 26);
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 15);
-            this.label3.TabIndex = 43;
-            this.label3.Text = "Name :";
             // 
             // textBoxAssetFileName
             // 
-            this.textBoxAssetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetFileName.Location = new System.Drawing.Point(10, 96);
+            resources.ApplyResources(this.textBoxAssetFileName, "textBoxAssetFileName");
+            this.errorProvider1.SetError(this.textBoxAssetFileName, resources.GetString("textBoxAssetFileName.Error"));
+            this.errorProvider1.SetIconAlignment(this.textBoxAssetFileName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxAssetFileName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.textBoxAssetFileName, ((int)(resources.GetObject("textBoxAssetFileName.IconPadding"))));
             this.textBoxAssetFileName.Name = "textBoxAssetFileName";
-            this.textBoxAssetFileName.Size = new System.Drawing.Size(686, 23);
-            this.textBoxAssetFileName.TabIndex = 2;
             this.textBoxAssetFileName.TextChanged += new System.EventHandler(this.textBoxAssetFileName_TextChanged);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 78);
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 15);
-            this.label4.TabIndex = 45;
-            this.label4.Text = "File name :";
             // 
             // labelURLFileNameWarning
             // 
-            this.labelURLFileNameWarning.AutoSize = true;
+            resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
+            this.errorProvider1.SetError(this.labelURLFileNameWarning, resources.GetString("labelURLFileNameWarning.Error"));
             this.labelURLFileNameWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelURLFileNameWarning.Location = new System.Drawing.Point(36, 89);
+            this.errorProvider1.SetIconAlignment(this.labelURLFileNameWarning, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelURLFileNameWarning.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelURLFileNameWarning, ((int)(resources.GetObject("labelURLFileNameWarning.IconPadding"))));
             this.labelURLFileNameWarning.Name = "labelURLFileNameWarning";
-            this.labelURLFileNameWarning.Size = new System.Drawing.Size(52, 15);
-            this.labelURLFileNameWarning.TabIndex = 46;
-            this.labelURLFileNameWarning.Text = "Warning";
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.comboBoxStorage);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxAssetName);
             this.groupBox1.Controls.Add(this.textBoxAssetFileName);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(36, 200);
+            this.errorProvider1.SetError(this.groupBox1, resources.GetString("groupBox1.Error"));
+            this.errorProvider1.SetIconAlignment(this.groupBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox1, ((int)(resources.GetObject("groupBox1.IconPadding"))));
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(720, 191);
-            this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Asset creation";
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.errorProvider1.SetError(this.label33, resources.GetString("label33.Error"));
+            this.errorProvider1.SetIconAlignment(this.label33, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label33.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label33, ((int)(resources.GetObject("label33.IconPadding"))));
+            this.label33.Name = "label33";
+            // 
+            // comboBoxStorage
+            // 
+            resources.ApplyResources(this.comboBoxStorage, "comboBoxStorage");
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.errorProvider1.SetError(this.comboBoxStorage, resources.GetString("comboBoxStorage.Error"));
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.errorProvider1.SetIconAlignment(this.comboBoxStorage, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comboBoxStorage.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comboBoxStorage, ((int)(resources.GetObject("comboBoxStorage.IconPadding"))));
+            this.comboBoxStorage.Name = "comboBoxStorage";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonImport);
-            this.panel1.Location = new System.Drawing.Point(1, 406);
+            this.errorProvider1.SetError(this.panel1, resources.GetString("panel1.Error"));
+            this.errorProvider1.SetIconAlignment(this.panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panel1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panel1, ((int)(resources.GetObject("panel1.IconPadding"))));
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 55);
-            this.panel1.TabIndex = 63;
             // 
             // labelTitle
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.errorProvider1.SetError(this.labelTitle, resources.GetString("labelTitle.Error"));
             this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelTitle.Location = new System.Drawing.Point(32, 9);
+            this.errorProvider1.SetIconAlignment(this.labelTitle, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelTitle.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelTitle, ((int)(resources.GetObject("labelTitle.IconPadding"))));
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(124, 20);
-            this.labelTitle.TabIndex = 73;
-            this.labelTitle.Text = "Import from Http";
             // 
             // labelSASListExample
             // 
-            this.labelSASListExample.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.labelSASListExample, "labelSASListExample");
+            this.errorProvider1.SetError(this.labelSASListExample, resources.GetString("labelSASListExample.Error"));
             this.labelSASListExample.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelSASListExample.Location = new System.Drawing.Point(36, 115);
+            this.errorProvider1.SetIconAlignment(this.labelSASListExample, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labelSASListExample.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labelSASListExample, ((int)(resources.GetObject("labelSASListExample.IconPadding"))));
             this.labelSASListExample.Name = "labelSASListExample";
-            this.labelSASListExample.Size = new System.Drawing.Size(719, 82);
-            this.labelSASListExample.TabIndex = 74;
-            this.labelSASListExample.Text = resources.GetString("labelSASListExample.Text");
-            this.labelSASListExample.Visible = false;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(7, 132);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(93, 15);
-            this.label33.TabIndex = 57;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(11, 151);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(327, 23);
-            this.comboBoxStorage.TabIndex = 56;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(798, 462);
             this.Controls.Add(this.labelSASListExample);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel1);
@@ -246,10 +222,7 @@
             this.Controls.Add(this.labelExamples);
             this.Controls.Add(this.textBoxURL);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ImportHttp";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Import from HTTP";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

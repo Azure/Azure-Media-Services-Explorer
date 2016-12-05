@@ -42,9 +42,9 @@
             this.checkBoxAIB = new System.Windows.Forms.CheckBox();
             this.checkBoxKeywords = new System.Windows.Forms.CheckBox();
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.checkBoxForceFullCaptions = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxForceFullCaptions = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxOther.SuspendLayout();
@@ -52,172 +52,131 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(288, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
-            this.buttonCancel.TabIndex = 16;
-            this.buttonCancel.Text = "Cancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(166, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(115, 27);
-            this.buttonOk.TabIndex = 17;
-            this.buttonOk.Text = "Ok";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 189);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(418, 55);
-            this.panel1.TabIndex = 66;
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // checkBoxTTML
             // 
-            this.checkBoxTTML.AutoSize = true;
+            resources.ApplyResources(this.checkBoxTTML, "checkBoxTTML");
             this.checkBoxTTML.Checked = true;
             this.checkBoxTTML.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTTML.Location = new System.Drawing.Point(34, 38);
             this.checkBoxTTML.Name = "checkBoxTTML";
-            this.checkBoxTTML.Size = new System.Drawing.Size(57, 19);
-            this.checkBoxTTML.TabIndex = 67;
-            this.checkBoxTTML.Text = "TTML";
+            this.toolTip1.SetToolTip(this.checkBoxTTML, resources.GetString("checkBoxTTML.ToolTip"));
             this.checkBoxTTML.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.checkBoxWEBVTT);
             this.groupBox1.Controls.Add(this.checkBoxSAMI);
             this.groupBox1.Controls.Add(this.checkBoxTTML);
-            this.groupBox1.Location = new System.Drawing.Point(12, 39);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(163, 136);
-            this.groupBox1.TabIndex = 68;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Caption Formats";
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // checkBoxWEBVTT
             // 
-            this.checkBoxWEBVTT.AutoSize = true;
+            resources.ApplyResources(this.checkBoxWEBVTT, "checkBoxWEBVTT");
             this.checkBoxWEBVTT.Checked = true;
             this.checkBoxWEBVTT.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWEBVTT.Location = new System.Drawing.Point(34, 91);
             this.checkBoxWEBVTT.Name = "checkBoxWEBVTT";
-            this.checkBoxWEBVTT.Size = new System.Drawing.Size(71, 19);
-            this.checkBoxWEBVTT.TabIndex = 69;
-            this.checkBoxWEBVTT.Text = "WebVTT";
+            this.toolTip1.SetToolTip(this.checkBoxWEBVTT, resources.GetString("checkBoxWEBVTT.ToolTip"));
             this.checkBoxWEBVTT.UseVisualStyleBackColor = true;
             // 
             // checkBoxSAMI
             // 
-            this.checkBoxSAMI.AutoSize = true;
+            resources.ApplyResources(this.checkBoxSAMI, "checkBoxSAMI");
             this.checkBoxSAMI.Checked = true;
             this.checkBoxSAMI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSAMI.Location = new System.Drawing.Point(34, 65);
             this.checkBoxSAMI.Name = "checkBoxSAMI";
-            this.checkBoxSAMI.Size = new System.Drawing.Size(54, 19);
-            this.checkBoxSAMI.TabIndex = 68;
-            this.checkBoxSAMI.Text = "SAMI";
+            this.toolTip1.SetToolTip(this.checkBoxSAMI, resources.GetString("checkBoxSAMI.ToolTip"));
             this.checkBoxSAMI.UseVisualStyleBackColor = true;
             // 
             // checkBoxAIB
             // 
-            this.checkBoxAIB.AutoSize = true;
+            resources.ApplyResources(this.checkBoxAIB, "checkBoxAIB");
             this.checkBoxAIB.Checked = true;
             this.checkBoxAIB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAIB.Location = new System.Drawing.Point(27, 38);
             this.checkBoxAIB.Name = "checkBoxAIB";
-            this.checkBoxAIB.Size = new System.Drawing.Size(145, 19);
-            this.checkBoxAIB.TabIndex = 70;
-            this.checkBoxAIB.Text = "Audio Index Blob (AIB)";
-            this.toolTip1.SetToolTip(this.checkBoxAIB, "For use with SQL Server and the customer Indexer IFilter");
+            this.toolTip1.SetToolTip(this.checkBoxAIB, resources.GetString("checkBoxAIB.ToolTip"));
             this.checkBoxAIB.UseVisualStyleBackColor = true;
             // 
             // checkBoxKeywords
             // 
-            this.checkBoxKeywords.AutoSize = true;
+            resources.ApplyResources(this.checkBoxKeywords, "checkBoxKeywords");
             this.checkBoxKeywords.Checked = true;
             this.checkBoxKeywords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxKeywords.Location = new System.Drawing.Point(27, 65);
             this.checkBoxKeywords.Name = "checkBoxKeywords";
-            this.checkBoxKeywords.Size = new System.Drawing.Size(77, 19);
-            this.checkBoxKeywords.TabIndex = 71;
-            this.checkBoxKeywords.Text = "Keywords";
+            this.toolTip1.SetToolTip(this.checkBoxKeywords, resources.GetString("checkBoxKeywords.ToolTip"));
             this.checkBoxKeywords.UseVisualStyleBackColor = true;
             // 
             // groupBoxOther
             // 
+            resources.ApplyResources(this.groupBoxOther, "groupBoxOther");
             this.groupBoxOther.Controls.Add(this.checkBoxForceFullCaptions);
             this.groupBoxOther.Controls.Add(this.checkBoxKeywords);
             this.groupBoxOther.Controls.Add(this.checkBoxAIB);
-            this.groupBoxOther.Location = new System.Drawing.Point(190, 39);
             this.groupBoxOther.Name = "groupBoxOther";
-            this.groupBoxOther.Size = new System.Drawing.Size(211, 136);
-            this.groupBoxOther.TabIndex = 70;
             this.groupBoxOther.TabStop = false;
-            this.groupBoxOther.Text = "Other";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(12, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(138, 20);
-            this.label5.TabIndex = 74;
-            this.label5.Text = "Generation Options";
+            this.toolTip1.SetToolTip(this.groupBoxOther, resources.GetString("groupBoxOther.ToolTip"));
             // 
             // checkBoxForceFullCaptions
             // 
-            this.checkBoxForceFullCaptions.AutoSize = true;
-            this.checkBoxForceFullCaptions.Location = new System.Drawing.Point(27, 90);
+            resources.ApplyResources(this.checkBoxForceFullCaptions, "checkBoxForceFullCaptions");
             this.checkBoxForceFullCaptions.Name = "checkBoxForceFullCaptions";
-            this.checkBoxForceFullCaptions.Size = new System.Drawing.Size(123, 19);
-            this.checkBoxForceFullCaptions.TabIndex = 72;
-            this.checkBoxForceFullCaptions.Text = "Force full captions";
             this.toolTip1.SetToolTip(this.checkBoxForceFullCaptions, resources.GetString("checkBoxForceFullCaptions.ToolTip"));
             this.checkBoxForceFullCaptions.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Name = "label5";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // IndexerOptions
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(415, 245);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBoxOther);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "IndexerOptions";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Generation Options";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

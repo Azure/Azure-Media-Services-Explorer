@@ -200,7 +200,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("There is a problem when connecting to the storage account");
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount);
                 ErrorConnect = true;
                 return;
             }
@@ -234,7 +234,7 @@ namespace AMSExplorer
             }
             catch
             {
-                MessageBox.Show("There is a problem when connecting to the storage account");
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount);
                 ErrorConnect = true;
                 listViewBlobs.Items.Clear();
                 listViewBlobs.EndUpdate();

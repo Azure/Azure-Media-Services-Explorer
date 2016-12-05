@@ -1230,4 +1230,100 @@
   <data name="Mainform_DoGridTransferDeclareError_Error" xml:space="preserve">
     <value>Error: </value>
   </data>
+  <data name="ImportHttp_ImportHttp_Load_ImportFromSASContainerPath" xml:space="preserve">
+    <value>Import from SAS Container Path</value>
+  </data>
+  <data name="ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL" xml:space="preserve">
+    <value>Error detected in the URL</value>
+  </data>
+  <data name="ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL" xml:space="preserve">
+    <value>File name not found in the URL</value>
+  </data>
+  <data name="ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices" xml:space="preserve">
+    <value>Asset file name is not compatible with Media Services</value>
+  </data>
+  <data name="JobInformation_DoJobStats_JobReport" xml:space="preserve">
+    <value>Job report</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_ErrorDetail" xml:space="preserve">
+    <value>Error detail</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_OverallProgress" xml:space="preserve">
+    <value>Overall progress</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_StartTime" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_EndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_JobDuration" xml:space="preserve">
+    <value>Job Duration</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_CPUDuration" xml:space="preserve">
+    <value>CPU Duration</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_TemplateId" xml:space="preserve">
+    <value>Template Id</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputSize" xml:space="preserve">
+    <value>Input size</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_OutputSize" xml:space="preserve">
+    <value>Output size</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_ProcessedSize" xml:space="preserve">
+    <value>Processed size</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_EstimatedPrice" xml:space="preserve">
+    <value>Estimated price</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputOutputSize" xml:space="preserve">
+    <value>Input/output size</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted" xml:space="preserve">
+    <value>undefined, task did not finish or one of the assets has been deleted</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage" xml:space="preserve">
+    <value>Perf Message</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId" xml:space="preserve">
+    <value>Encryption Key Id</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme" xml:space="preserve">
+    <value>Encryption Scheme</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion" xml:space="preserve">
+    <value>Encryption Version</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue" xml:space="preserve">
+    <value>See clear value</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId" xml:space="preserve">
+    <value>Mediaprocessor Id</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName" xml:space="preserve">
+    <value>Mediaprocessor Name</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector" xml:space="preserve">
+    <value>Initialization Vector</value>
+  </data>
 </root>

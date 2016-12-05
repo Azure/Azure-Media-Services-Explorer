@@ -3215,6 +3215,296 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import from SAS Container Path.
+        /// </summary>
+        internal static string ImportHttp_ImportHttp_Load_ImportFromSASContainerPath {
+            get {
+                return ResourceManager.GetString("ImportHttp_ImportHttp_Load_ImportFromSASContainerPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset file name is not compatible with Media Services.
+        /// </summary>
+        internal static string ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices {
+            get {
+                return ResourceManager.GetString("ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMedia" +
+                        "Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error detected in the URL.
+        /// </summary>
+        internal static string ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL {
+            get {
+                return ResourceManager.GetString("ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File name not found in the URL.
+        /// </summary>
+        internal static string ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL {
+            get {
+                return ResourceManager.GetString("ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job report.
+        /// </summary>
+        internal static string JobInformation_DoJobStats_JobReport {
+            get {
+                return ResourceManager.GetString("JobInformation_DoJobStats_JobReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_Code {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CPU Duration.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_CPUDuration {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_CPUDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Time.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_EndTime {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error detail.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_ErrorDetail {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_ErrorDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estimated price.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_EstimatedPrice {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_EstimatedPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input/output size.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_InputOutputSize {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_InputOutputSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input size.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_InputSize {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_InputSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job Duration.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_JobDuration {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_JobDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output size.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_OutputSize {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_OutputSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overall progress.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_OverallProgress {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_OverallProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_Priority {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processed size.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_ProcessedSize {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_ProcessedSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Time.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_StartTime {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_Task {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template Id.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_TemplateId {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_TemplateId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to undefined, task did not finish or one of the assets has been deleted.
+        /// </summary>
+        internal static string JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted {
+            get {
+                return ResourceManager.GetString("JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBe" +
+                        "enDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Body.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_Body {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_Configuration {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_Duration {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption Key Id.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption Scheme.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption Version.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialization Vector.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mediaprocessor Id.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mediaprocessor Name.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perf Message.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See clear value.
+        /// </summary>
+        internal static string JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue {
+            get {
+                return ResourceManager.GetString("JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         internal static string LabelChannel {

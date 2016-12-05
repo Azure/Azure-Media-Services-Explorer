@@ -53,7 +53,6 @@ namespace AMSExplorer
                 if (DG.SelectedCells[0].Value != null)
                 {
                     System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
-
                 }
                 else
                 {
@@ -71,7 +70,7 @@ namespace AMSExplorer
         {
             JobInfo JR = new JobInfo(MyJob);
             StringBuilder SB = JR.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
+            var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.JobInformation_DoJobStats_JobReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
 
@@ -84,40 +83,40 @@ namespace AMSExplorer
             DGTasks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
             DGErrors.ColumnCount = 3;
-            DGErrors.Columns[0].HeaderText = "Task";
-            DGErrors.Columns[1].HeaderText = "Error detail";
-            DGErrors.Columns[2].HeaderText = "Code";
+            DGErrors.Columns[0].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Task;
+            DGErrors.Columns[1].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_ErrorDetail;
+            DGErrors.Columns[2].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Code;
 
             DGJob.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGJob.Rows.Add("Name", MyJob.Name);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyJob.Name);
             DGJob.Rows.Add("Id", MyJob.Id);
-            DGJob.Rows.Add("State", MyJob.State);
-            DGJob.Rows.Add("Priority", MyJob.Priority);
-            DGJob.Rows.Add("Overall progress", MyJob.GetOverallProgress());
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, MyJob.State);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, MyJob.Priority);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
 
-            if (MyJob.StartTime != null) DGJob.Rows.Add("Start Time", ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
-            if (MyJob.EndTime != null) DGJob.Rows.Add("End Time", ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
+            if (MyJob.StartTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
+            if (MyJob.EndTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
 
             if ((MyJob.StartTime != null) && (MyJob.EndTime != null))
             {
-                DGJob.Rows.Add("Job Duration", ((DateTime)MyJob.EndTime).Subtract((DateTime)MyJob.StartTime));
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_JobDuration, ((DateTime)MyJob.EndTime).Subtract((DateTime)MyJob.StartTime));
             }
-            DGJob.Rows.Add("CPU Duration", MyJob.RunningDuration);
-            DGJob.Rows.Add("Created", ((DateTime)MyJob.Created).ToLocalTime().ToString("G"));
-            DGJob.Rows.Add("Last Modified", ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
-            DGJob.Rows.Add("Template Id", MyJob.TemplateId);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyJob.Created).ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
             TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
             {
-                DGJob.Rows.Add("Input size", AssetInfo.FormatByteSize(jobSizePrice.InputSize));
-                DGJob.Rows.Add("Output size", AssetInfo.FormatByteSize(jobSizePrice.OutputSize));
-                DGJob.Rows.Add("Processed size", AssetInfo.FormatByteSize(jobSizePrice.InputSize + jobSizePrice.OutputSize));
-                if (jobSizePrice.Price != -1) DGJob.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, jobSizePrice.Price));
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_InputSize, AssetInfo.FormatByteSize(jobSizePrice.InputSize));
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OutputSize, AssetInfo.FormatByteSize(jobSizePrice.OutputSize));
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_ProcessedSize, AssetInfo.FormatByteSize(jobSizePrice.InputSize + jobSizePrice.OutputSize));
+                if (jobSizePrice.Price != -1) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EstimatedPrice, string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, jobSizePrice.Price));
             }
             else
             {
-                DGJob.Rows.Add("Input/output size", "undefined, task did not finish or one of the assets has been deleted");
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_InputOutputSize, AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted);
             }
 
             bool btaskinjob = (MyJob.Tasks.Count() > 0);
@@ -154,7 +153,7 @@ namespace AMSExplorer
             }
             catch
             {
-                ListViewItem item = new ListViewItem("<error, deleted?>", 0);
+                ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
                 listViewInputAssets.Items.Add(item);
             }
             listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -172,7 +171,7 @@ namespace AMSExplorer
             }
             catch
             {
-                ListViewItem item = new ListViewItem("<error, deleted?>", 0);
+                ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
                 listViewOutputAssets.Items.Add(item);
             }
             listViewOutputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -198,39 +197,39 @@ namespace AMSExplorer
 
             DGTasks.Rows.Clear();
 
-            DGTasks.Rows.Add("Name", task.Name);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, task.Name);
 
-            int i = DGTasks.Rows.Add("Configuration", "");
+            int i = DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Configuration, "");
             DataGridViewButtonCell btn = new DataGridViewButtonCell();
             DGTasks.Rows[i].Cells[1] = btn;
-            DGTasks.Rows[i].Cells[1].Value = "See clear value";
+            DGTasks.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue;
             DGTasks.Rows[i].Cells[1].Tag = task.GetClearConfiguration();
 
-            i = DGTasks.Rows.Add("Body", "");
+            i = DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Body, "");
             btn = new DataGridViewButtonCell();
             DGTasks.Rows[i].Cells[1] = btn;
-            DGTasks.Rows[i].Cells[1].Value = "See value";
+            DGTasks.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
             DGTasks.Rows[i].Cells[1].Tag = task.TaskBody;
 
             DGTasks.Rows.Add("Id", task.Id);
-            DGTasks.Rows.Add("State", task.State);
-            DGTasks.Rows.Add("Priority", task.Priority);
-            if (task.StartTime != null) DGTasks.Rows.Add("Start Time", ((DateTime)task.StartTime).ToLocalTime().ToString("G"));
-            if (task.EndTime != null) DGTasks.Rows.Add("End Time", ((DateTime)task.EndTime).ToLocalTime().ToString("G"));
-            DGTasks.Rows.Add("Progress", task.Progress);
-            DGTasks.Rows.Add("Duration", task.RunningDuration);
-            DGTasks.Rows.Add("Perf Message", task.PerfMessage);
-            DGTasks.Rows.Add("Encryption Key Id", task.EncryptionKeyId);
-            DGTasks.Rows.Add("Encryption Scheme", task.EncryptionScheme);
-            DGTasks.Rows.Add("Encryption Version", task.EncryptionVersion);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, task.State);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, task.Priority);
+            if (task.StartTime != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)task.StartTime).ToLocalTime().ToString("G"));
+            if (task.EndTime != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)task.EndTime).ToLocalTime().ToString("G"));
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_Progress, task.Progress);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Duration, task.RunningDuration);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage, task.PerfMessage);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId, task.EncryptionKeyId);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme, task.EncryptionScheme);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion, task.EncryptionVersion);
 
             // let's get the name of the processor
             IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, _context);
-            DGTasks.Rows.Add("Mediaprocessor Id", task.MediaProcessorId);
-            if (processor != null) DGTasks.Rows.Add("Mediaprocessor Name", processor.Name);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId, task.MediaProcessorId);
+            if (processor != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName, processor.Name);
 
-            DGTasks.Rows.Add("Options", task.Options);
-            DGTasks.Rows.Add("Initialization Vector", task.InitializationVector);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_Options, task.Options);
+            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector, task.InitializationVector);
 
             string sid = "";
             try
