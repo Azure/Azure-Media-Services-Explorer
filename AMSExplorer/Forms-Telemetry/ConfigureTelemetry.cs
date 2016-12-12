@@ -101,9 +101,14 @@ namespace AMSExplorer
 
         private void ConfigureTelemetry_Load(object sender, EventArgs e)
         {
+            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoTelemetry));
 
         }
 
+        private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
     }
 
 }

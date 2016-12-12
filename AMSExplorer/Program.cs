@@ -1049,7 +1049,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
         public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/media-services-protect-hls-with-fairplay";
-        public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/media-services-telemetry";
+        public const string LinkMoreInfoTelemetry = "https://azure.microsoft.com/en-us/blog/telemetry-platform-features-in-azure-media-services/";
 
         public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
         public const string LinkMoreInfoMotionDetection = "https://docs.microsoft.com/en-us/azure/media-services/media-services-motion-detection";
@@ -3943,6 +3943,7 @@ namespace AMSExplorer
         public TaskOptions TasksOptionsSetting { get; set; }
         public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
+        public AssetFormatOption OutputAssetsFormatOption { get; set; }
     }
 
 

@@ -4625,7 +4625,7 @@ namespace AMSExplorer
                         task.InputAssets.Add(asset); // we add one asset
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
-                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
                     }
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                     // Submit the job and wait until it is completed. 
@@ -4689,6 +4689,7 @@ namespace AMSExplorer
                     form.EncodingOutputAssetName,
                     form.EncodingSelectedPreset,
                     form.JobOptions.OutputAssetsCreationOptions,
+                    form.JobOptions.OutputAssetsFormatOption,
                     form.JobOptions.TasksOptionsSetting,
                     form.JobOptions.StorageSelected);
             }
@@ -4928,6 +4929,7 @@ namespace AMSExplorer
                     taskname, outputassetname,
                     new List<string> { configHLS },
                     Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
@@ -4978,6 +4980,7 @@ namespace AMSExplorer
                         outputassetname,
                         new List<string> { smoothConfig },
                         Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                        Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None,
                         Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
                         );
                 }
@@ -5020,6 +5023,7 @@ namespace AMSExplorer
                         form.MIOutputAssetName,
                         preset == null ? new List<string> { @"{'Version':'1.0'}" } : new List<string> { preset },
                         form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.OutputAssetsFormatOption,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
                 }
@@ -5067,6 +5071,7 @@ namespace AMSExplorer
                         form.MIOutputAssetName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
                          new List<string> { form.JsonConfig() },
                         form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.OutputAssetsFormatOption,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
                 }
@@ -5109,6 +5114,7 @@ namespace AMSExplorer
                         form.MIOutputAssetName,
                         new List<string> { form.JsonConfig() },
                         form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.OutputAssetsFormatOption,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
                 }
@@ -5151,6 +5157,7 @@ namespace AMSExplorer
                         form.MIOutputAssetName,
                         new List<string> { form.JsonConfig() },
                         form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.OutputAssetsFormatOption,
                         form.JobOptions.TasksOptionsSetting,
                         form.JobOptions.StorageSelected);
                 }
@@ -5222,13 +5229,14 @@ namespace AMSExplorer
                     form.PlayReadyOutputAssetName,
                     new List<string> { configPlayReady },
                     AssetCreationOptions.CommonEncryptionProtected,
+                    AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
 
         }
 
 
-        public void LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
+        public void LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, AssetFormatOption myAssetFormatOption, TaskOptions myTaskOptions, string storageaccountname = "")
         {
             // a job per asset, one task per config
             Task.Factory.StartNew(() =>
@@ -5252,11 +5260,11 @@ namespace AMSExplorer
                         string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                         if (storageaccountname == "")
                         {
-                            myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions); // let's use the same storage account than the input asset
+                            myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
                         }
                         else
                         {
-                            myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
+                            myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions, myAssetFormatOption);
                         }
                     }
 
@@ -5292,7 +5300,7 @@ namespace AMSExplorer
         }
 
 
-        public void LaunchJobs_OneJobPerInputAssetWithSpecificConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "", bool copySubtitlesToInput = false)
+        public void LaunchJobs_OneJobPerInputAssetWithSpecificConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, AssetFormatOption myAssetFormatOption, TaskOptions myTaskOptions, string storageaccountname = "", bool copySubtitlesToInput = false)
         {
             // a job per asset, one task per job, but each task has a specific config
             Task.Factory.StartNew(() =>
@@ -5320,11 +5328,11 @@ namespace AMSExplorer
                     string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                     if (storageaccountname == "")
                     {
-                        myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions); // let's use the same storage account than the input asset
+                        myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
                     }
                     else
                     {
-                        myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
+                        myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions, myAssetFormatOption);
                     }
 
                     // Submit the job and wait until it is completed. 
@@ -5407,6 +5415,7 @@ namespace AMSExplorer
                     outputassetname,
                     new List<string> { configMp4Validation },
                     Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
@@ -5477,6 +5486,7 @@ namespace AMSExplorer
                             form.IndexerOutputAssetName,
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.OutputAssetsFormatOption,
                             form.JobOptions.TasksOptionsSetting,
                             form.JobOptions.StorageSelected,
                             copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
@@ -5536,6 +5546,7 @@ namespace AMSExplorer
                             form.IndexerOutputAssetName,
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.OutputAssetsFormatOption,
                             form.JobOptions.TasksOptionsSetting,
                             form.JobOptions.StorageSelected,
                             copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
@@ -5592,6 +5603,7 @@ namespace AMSExplorer
                             form.IndexerOutputAssetName,
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.OutputAssetsFormatOption,
                             form.JobOptions.TasksOptionsSetting,
                             form.JobOptions.StorageSelected
                                 );
@@ -5648,6 +5660,7 @@ namespace AMSExplorer
                             form.IndexerOutputAssetName,
                             ListConfig,
                             form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.OutputAssetsFormatOption,
                             form.JobOptions.TasksOptionsSetting,
                             form.JobOptions.StorageSelected
                                 );
@@ -5683,7 +5696,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string configHyperlapse = form.JsonConfig();
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }
 
@@ -5883,6 +5896,7 @@ namespace AMSExplorer
                     outputassetname,
                     new List<string> { "" },
                     AssetCreationOptions.None,
+                    AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
@@ -6219,7 +6233,7 @@ namespace AMSExplorer
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                AMETask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                AMETask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                 // if UserControl wants also aboutToolStripMenuItem thumbnails task
                 if (form.EncodingGenerateThumbnails)
@@ -6235,7 +6249,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnamelocthumbnails = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name) + " (Thumbnails)";
-                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
                 }
                 // Submit the job and wait until it is completed. 
                 try
@@ -6335,7 +6349,7 @@ namespace AMSExplorer
                             else
                             {
                                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                                OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+                                OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions, usertask.TaskOptions.OutputAssetsFormatOption);
                             }
                         }
                         // let(s branch the input assets
@@ -6417,7 +6431,7 @@ namespace AMSExplorer
                         else
                         {
                             string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                            OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
+                            OutputAsset = task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions, usertask.TaskOptions.OutputAssetsFormatOption);
                         }
                     }
                     // let(s branch the input assets
@@ -9548,9 +9562,9 @@ namespace AMSExplorer
 
                     AMEStandardTask.InputAssets.Add(asset);
 
-                    // Add an output asset to contain the results of the job.  
+                    // Add an output asset to contain the results of the job. 
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -12186,7 +12200,7 @@ namespace AMSExplorer
                 // Specify the graph asset to be encoded, followed by the input video asset to be used
                 task.InputAssets.AddRange(myJob.InputMediaAssets.ToList());
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
-                task.OutputAssets.AddNew(outputassetnameloc, form.SingleTaskOptions.StorageSelected, form.SingleTaskOptions.OutputAssetsCreationOptions);
+                task.OutputAssets.AddNew(outputassetnameloc, form.SingleTaskOptions.StorageSelected, form.SingleTaskOptions.OutputAssetsCreationOptions, form.SingleTaskOptions.OutputAssetsFormatOption);
 
                 TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                 // Submit the job and wait until it is completed. 
@@ -12961,12 +12975,11 @@ namespace AMSExplorer
         private void copyInputURLToClipboardToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-           
+
             inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count == 1);
             inputSSLURLToolStripMenuItem1.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
             primaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
             secondaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
-
         }
 
         private void inputURLToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -13405,7 +13418,7 @@ namespace AMSExplorer
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -13446,7 +13459,7 @@ namespace AMSExplorer
 
                         // Add an output asset to contain the results of the job.  
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                        AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                        AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                         // Submit the job  
                         TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -15126,6 +15139,7 @@ namespace AMSExplorer
                    outputname,
                    new List<string>() { jsonwithid },
                   AssetCreationOptions.None,
+                  AssetFormatOption.None,
                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
                    _context.DefaultStorageAccount.Name);
             }

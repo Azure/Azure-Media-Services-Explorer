@@ -44,10 +44,15 @@
             this.labelJobOptions = new System.Windows.Forms.Label();
             this.checkBoxDoNotDeleteOutputAssetOnFailure = new System.Windows.Forms.CheckBox();
             this.checkBoxDoNotCancelOnJobFailure = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxFragmented = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -80,7 +85,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 272);
+            this.panel1.Location = new System.Drawing.Point(-2, 338);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(403, 55);
             this.panel1.TabIndex = 66;
@@ -88,17 +93,17 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(44, 104);
+            this.label33.Location = new System.Drawing.Point(39, 19);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(93, 15);
+            this.label33.Size = new System.Drawing.Size(53, 15);
             this.label33.TabIndex = 70;
-            this.label33.Text = "Output storage :";
+            this.label33.Text = "Storage :";
             // 
             // comboBoxStorage
             // 
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(45, 122);
+            this.comboBoxStorage.Location = new System.Drawing.Point(40, 37);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(221, 23);
             this.comboBoxStorage.TabIndex = 69;
@@ -106,7 +111,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(44, 48);
+            this.label7.Location = new System.Drawing.Point(39, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 15);
             this.label7.TabIndex = 68;
@@ -114,7 +119,7 @@
             // 
             // numericUpDownPriority
             // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(45, 68);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(40, 38);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
             this.numericUpDownPriority.TabIndex = 67;
@@ -122,7 +127,7 @@
             // checkBoxUseProtectedConfig
             // 
             this.checkBoxUseProtectedConfig.AutoSize = true;
-            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(45, 161);
+            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(40, 67);
             this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
             this.checkBoxUseProtectedConfig.Size = new System.Drawing.Size(196, 19);
             this.checkBoxUseProtectedConfig.TabIndex = 71;
@@ -132,17 +137,17 @@
             // checkBoxUseStorageEncryption
             // 
             this.checkBoxUseStorageEncryption.AutoSize = true;
-            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(45, 236);
+            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(40, 91);
             this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
-            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(210, 19);
+            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(109, 19);
             this.checkBoxUseStorageEncryption.TabIndex = 72;
-            this.checkBoxUseStorageEncryption.Text = "Storage encrypt the output asset(s)";
+            this.checkBoxUseStorageEncryption.Text = "Storage encrypt";
             this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
-            this.pictureBox2.Location = new System.Drawing.Point(14, 68);
+            this.pictureBox2.Location = new System.Drawing.Point(9, 38);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -152,7 +157,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 236);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 91);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -176,14 +181,14 @@
             this.labelJobOptions.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelJobOptions.Location = new System.Drawing.Point(12, 9);
             this.labelJobOptions.Name = "labelJobOptions";
-            this.labelJobOptions.Size = new System.Drawing.Size(164, 20);
+            this.labelJobOptions.Size = new System.Drawing.Size(237, 20);
             this.labelJobOptions.TabIndex = 75;
-            this.labelJobOptions.Text = "Job and Task(s) Options";
+            this.labelJobOptions.Text = "Task(s) and Ouput Asset(s) Options";
             // 
             // checkBoxDoNotDeleteOutputAssetOnFailure
             // 
             this.checkBoxDoNotDeleteOutputAssetOnFailure.AutoSize = true;
-            this.checkBoxDoNotDeleteOutputAssetOnFailure.Location = new System.Drawing.Point(45, 186);
+            this.checkBoxDoNotDeleteOutputAssetOnFailure.Location = new System.Drawing.Point(40, 66);
             this.checkBoxDoNotDeleteOutputAssetOnFailure.Name = "checkBoxDoNotDeleteOutputAssetOnFailure";
             this.checkBoxDoNotDeleteOutputAssetOnFailure.Size = new System.Drawing.Size(218, 19);
             this.checkBoxDoNotDeleteOutputAssetOnFailure.TabIndex = 76;
@@ -193,12 +198,51 @@
             // checkBoxDoNotCancelOnJobFailure
             // 
             this.checkBoxDoNotCancelOnJobFailure.AutoSize = true;
-            this.checkBoxDoNotCancelOnJobFailure.Location = new System.Drawing.Point(45, 211);
+            this.checkBoxDoNotCancelOnJobFailure.Location = new System.Drawing.Point(40, 92);
             this.checkBoxDoNotCancelOnJobFailure.Name = "checkBoxDoNotCancelOnJobFailure";
             this.checkBoxDoNotCancelOnJobFailure.Size = new System.Drawing.Size(209, 19);
             this.checkBoxDoNotCancelOnJobFailure.TabIndex = 77;
             this.checkBoxDoNotCancelOnJobFailure.Text = "Do not cancel task(s) on job failure";
             this.checkBoxDoNotCancelOnJobFailure.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.numericUpDownPriority);
+            this.groupBox1.Controls.Add(this.checkBoxDoNotCancelOnJobFailure);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Controls.Add(this.checkBoxUseProtectedConfig);
+            this.groupBox1.Location = new System.Drawing.Point(16, 40);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(370, 120);
+            this.groupBox1.TabIndex = 78;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Task(s)";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxFragmented);
+            this.groupBox2.Controls.Add(this.comboBoxStorage);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.checkBoxDoNotDeleteOutputAssetOnFailure);
+            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.checkBoxUseStorageEncryption);
+            this.groupBox2.Location = new System.Drawing.Point(16, 177);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(370, 144);
+            this.groupBox2.TabIndex = 79;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Output Asset(s)";
+            // 
+            // checkBoxFragmented
+            // 
+            this.checkBoxFragmented.AutoSize = true;
+            this.checkBoxFragmented.Location = new System.Drawing.Point(40, 116);
+            this.checkBoxFragmented.Name = "checkBoxFragmented";
+            this.checkBoxFragmented.Size = new System.Drawing.Size(203, 19);
+            this.checkBoxFragmented.TabIndex = 77;
+            this.checkBoxFragmented.Text = "Adaptive Streaming (fragmented)";
+            this.checkBoxFragmented.UseVisualStyleBackColor = true;
             // 
             // JobOptions
             // 
@@ -207,18 +251,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(400, 328);
-            this.Controls.Add(this.checkBoxDoNotCancelOnJobFailure);
-            this.Controls.Add(this.checkBoxDoNotDeleteOutputAssetOnFailure);
+            this.ClientSize = new System.Drawing.Size(400, 394);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelJobOptions);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.checkBoxUseStorageEncryption);
-            this.Controls.Add(this.checkBoxUseProtectedConfig);
-            this.Controls.Add(this.label33);
-            this.Controls.Add(this.comboBoxStorage);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "JobOptions";
@@ -229,6 +265,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,5 +292,8 @@
         private System.Windows.Forms.Label labelJobOptions;
         private System.Windows.Forms.CheckBox checkBoxDoNotDeleteOutputAssetOnFailure;
         private System.Windows.Forms.CheckBox checkBoxDoNotCancelOnJobFailure;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBoxFragmented;
     }
 }

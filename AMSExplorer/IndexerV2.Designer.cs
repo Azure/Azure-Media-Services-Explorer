@@ -48,7 +48,6 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.labelPreview = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBoxCopyToInput = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
@@ -239,16 +238,6 @@
             this.labelPreview.Text = "Preview";
             this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(14, 191);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(612, 19);
-            this.label4.TabIndex = 75;
-            this.label4.Text = "The preview is limited to ~10 minutes of processing.";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._01_indexer;
@@ -278,7 +267,6 @@
             this.ClientSize = new System.Drawing.Size(645, 414);
             this.Controls.Add(this.checkBoxCopyToInput);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -326,7 +314,6 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label labelProcessorVersion;
         public System.Windows.Forms.Label labelPreview;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBoxCopyToInput;
     }

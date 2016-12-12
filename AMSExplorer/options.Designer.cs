@@ -48,6 +48,11 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDownAssetAnalysisStep = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
             this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
@@ -82,13 +87,11 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDownAssetAnalysisStep = new System.Windows.Forms.NumericUpDown();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -105,8 +108,6 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -324,6 +325,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStep);
             this.groupBox2.Controls.Add(this.label12);
@@ -347,6 +349,72 @@
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label13.Location = new System.Drawing.Point(376, 239);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(69, 15);
+            this.label13.TabIndex = 61;
+            this.label13.Text = "Step (%) :";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numericUpDownAssetAnalysisStep
+            // 
+            this.numericUpDownAssetAnalysisStep.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownAssetAnalysisStep.Location = new System.Drawing.Point(446, 237);
+            this.numericUpDownAssetAnalysisStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownAssetAnalysisStep.Name = "numericUpDownAssetAnalysisStep";
+            this.numericUpDownAssetAnalysisStep.Size = new System.Drawing.Size(108, 23);
+            this.numericUpDownAssetAnalysisStep.TabIndex = 60;
+            this.numericUpDownAssetAnalysisStep.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label12.Location = new System.Drawing.Point(158, 239);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(86, 15);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Start (%) :";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label5.Location = new System.Drawing.Point(47, 239);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 15);
+            this.label5.TabIndex = 57;
+            this.label5.Text = "Asset analysis job";
+            // 
+            // numericUpDownAssetAnalysisStart
+            // 
+            this.numericUpDownAssetAnalysisStart.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.numericUpDownAssetAnalysisStart.Location = new System.Drawing.Point(250, 237);
+            this.numericUpDownAssetAnalysisStart.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownAssetAnalysisStart.Name = "numericUpDownAssetAnalysisStart";
+            this.numericUpDownAssetAnalysisStart.Size = new System.Drawing.Size(108, 23);
+            this.numericUpDownAssetAnalysisStart.TabIndex = 58;
+            this.numericUpDownAssetAnalysisStart.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // checkBoxShowPremiumLiveEncoding
             // 
@@ -763,71 +831,16 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
-            // label5
+            // checkBox1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(47, 239);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 15);
-            this.label5.TabIndex = 57;
-            this.label5.Text = "Asset analysis job";
-            // 
-            // numericUpDownAssetAnalysisStart
-            // 
-            this.numericUpDownAssetAnalysisStart.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAssetAnalysisStart.Location = new System.Drawing.Point(250, 237);
-            this.numericUpDownAssetAnalysisStart.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownAssetAnalysisStart.Name = "numericUpDownAssetAnalysisStart";
-            this.numericUpDownAssetAnalysisStart.Size = new System.Drawing.Size(108, 23);
-            this.numericUpDownAssetAnalysisStart.TabIndex = 58;
-            this.numericUpDownAssetAnalysisStart.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label12.Location = new System.Drawing.Point(158, 239);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 15);
-            this.label12.TabIndex = 59;
-            this.label12.Text = "Start (%) :";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label13.Location = new System.Drawing.Point(376, 239);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(69, 15);
-            this.label13.TabIndex = 61;
-            this.label13.Text = "Step (%) :";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // numericUpDownAssetAnalysisStep
-            // 
-            this.numericUpDownAssetAnalysisStep.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numericUpDownAssetAnalysisStep.Location = new System.Drawing.Point(446, 237);
-            this.numericUpDownAssetAnalysisStep.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownAssetAnalysisStep.Name = "numericUpDownAssetAnalysisStep";
-            this.numericUpDownAssetAnalysisStep.Size = new System.Drawing.Size(108, 23);
-            this.numericUpDownAssetAnalysisStep.TabIndex = 60;
-            this.numericUpDownAssetAnalysisStep.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBox1.Location = new System.Drawing.Point(49, 78);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(352, 19);
+            this.checkBox1.TabIndex = 62;
+            this.checkBox1.Text = "Use adaptive streaming format (fragmented) for output assets";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -848,6 +861,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -867,8 +882,6 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -933,5 +946,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

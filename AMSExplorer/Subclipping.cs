@@ -639,6 +639,7 @@ namespace AMSExplorer
                        form2.EncodingOutputAssetName,
                        new List<string>() { form2.EncodingConfiguration },
                        form2.JobOptions.OutputAssetsCreationOptions,
+                       form2.JobOptions.OutputAssetsFormatOption,
                        form2.JobOptions.TasksOptionsSetting,
                        form2.JobOptions.StorageSelected);
                 }
@@ -680,6 +681,7 @@ namespace AMSExplorer
                     this.EncodingOutputAssetName,
                     new List<string>() { subclipConfig.Configuration },
                     this.JobOptions.OutputAssetsCreationOptions,
+                    this.JobOptions.OutputAssetsFormatOption,
                     this.JobOptions.TasksOptionsSetting,
                     this.JobOptions.StorageSelected);
 
