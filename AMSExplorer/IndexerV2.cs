@@ -29,6 +29,7 @@ using System.Xml.Linq;
 using System.Security;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace AMSExplorer
 {
@@ -39,10 +40,11 @@ namespace AMSExplorer
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
         private string _version;
 
+        /*
         public readonly List<Item> LanguagesIndexV2 = new List<Item> {
             new Item("English", "EnUs"),
             new Item("Spanish", "EsEs"),
-            new Item("Chinese", "ZhCn"),
+            new Item("Mandarin Chinese", "ZhCn"),
             new Item("French", "FrFr"),
             new Item("German", "DeDe"),
             new Item("Italian", "ItIt"),
@@ -50,6 +52,9 @@ namespace AMSExplorer
             new Item("Arabic (Egyptian)", "ArEg"),
             new Item("Japanese", "JaJp")
         };
+        */
+
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "EnUs", "EsEs", "ZhCn", "FrFr", "DeDe", "ItIt", "PtBr", "ArEg", "JaJp" };
 
         public IndexerOptionsVar IndexerGenerationOptions
         {
@@ -63,7 +68,7 @@ namespace AMSExplorer
         {
             get
             {
-                return checkBoxCopyToInput.Checked; ;
+                return checkBoxCopyToInput.Checked;
             }
 
         }
@@ -129,7 +134,8 @@ namespace AMSExplorer
 
         private void IndexerV2_Load(object sender, EventArgs e)
         {
-            comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
+            //comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
+            LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c.Substring(0, 2) + "-" + c.Substring(2, 2))).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexerV2));

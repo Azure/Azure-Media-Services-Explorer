@@ -39,12 +39,11 @@
             this.comboBoxLevelSE = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTableURL = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.labelPreview = new System.Windows.Forms.Label();
-            this.labelProcessorVersion = new System.Windows.Forms.Label();
+            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,16 +163,6 @@
             this.textBoxTableURL.TabIndex = 80;
             this.textBoxTableURL.Visible = false;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -192,29 +181,27 @@
             this.label3.TabIndex = 82;
             this.label3.Text = "Streaming endpoints :";
             // 
-            // labelPreview
+            // moreinfoLiveEncodingProfilelink
             // 
-            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPreview.AutoSize = true;
-            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.labelPreview.Location = new System.Drawing.Point(280, 9);
-            this.labelPreview.Name = "labelPreview";
-            this.labelPreview.Size = new System.Drawing.Size(108, 20);
-            this.labelPreview.TabIndex = 83;
-            this.labelPreview.Text = "Private Preview";
-            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.moreinfoLiveEncodingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(217, 29);
+            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
+            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(171, 15);
+            this.moreinfoLiveEncodingProfilelink.TabIndex = 83;
+            this.moreinfoLiveEncodingProfilelink.TabStop = true;
+            this.moreinfoLiveEncodingProfilelink.Text = "More information on telemetry";
+            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // labelProcessorVersion
+            // dataGridViewTextBoxColumn1
             // 
-            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProcessorVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.labelProcessorVersion.Location = new System.Drawing.Point(218, 34);
-            this.labelProcessorVersion.Name = "labelProcessorVersion";
-            this.labelProcessorVersion.Size = new System.Drawing.Size(168, 34);
-            this.labelProcessorVersion.TabIndex = 84;
-            this.labelProcessorVersion.Text = "For selected customers only";
-            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // ConfigureTelemetry
             // 
@@ -224,8 +211,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(400, 328);
-            this.Controls.Add(this.labelProcessorVersion);
-            this.Controls.Add(this.labelPreview);
+            this.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -264,7 +250,6 @@
         private System.Windows.Forms.TextBox textBoxTableURL;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.Label labelPreview;
-        private System.Windows.Forms.Label labelProcessorVersion;
+        private System.Windows.Forms.LinkLabel moreinfoLiveEncodingProfilelink;
     }
 }

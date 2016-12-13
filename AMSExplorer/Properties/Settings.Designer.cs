@@ -562,5 +562,17 @@ namespace AMSExplorer.Properties {
                 this["MESPresetFilesCurrentFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OutputAssetsAdaptiveStreamingFormat {
+            get {
+                return ((bool)(this["OutputAssetsAdaptiveStreamingFormat"]));
+            }
+            set {
+                this["OutputAssetsAdaptiveStreamingFormat"] = value;
+            }
+        }
     }
 }

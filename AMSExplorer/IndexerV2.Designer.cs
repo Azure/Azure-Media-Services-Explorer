@@ -47,7 +47,6 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.labelPreview = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBoxCopyToInput = new System.Windows.Forms.CheckBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -170,13 +169,6 @@
             this.labelPreview.Name = "labelPreview";
             this.toolTip1.SetToolTip(this.labelPreview, resources.GetString("labelPreview.ToolTip"));
             // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Name = "label4";
-            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
-            // 
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
@@ -210,7 +202,6 @@
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.checkBoxCopyToInput);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -256,7 +247,6 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label labelProcessorVersion;
         public System.Windows.Forms.Label labelPreview;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBoxCopyToInput;
     }

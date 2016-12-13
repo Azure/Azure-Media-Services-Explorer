@@ -324,12 +324,12 @@ namespace AMSExplorer
             try
             {
                 var channelMetrics = _context.ChannelMetrics.GetChannelMetrics(
-              currentConfig.EndPointAddress,
-                   _storagePassword,
-                   new Guid(_credentials.AccountId).ToString(),
-                   channel.Id,
-               _timerangeStart,
-               _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
+                                                                                currentConfig.EndPointAddress,
+                                                                                _storagePassword,
+                                                                                new Guid(_credentials.AccountId).ToString(),
+                                                                                channel.Id,
+                                                                                _timerangeStart,
+                                                                                _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
                );
 
                 foreach (var cHB in channelMetrics.OrderByDescending(x => x.ObservedTime))
