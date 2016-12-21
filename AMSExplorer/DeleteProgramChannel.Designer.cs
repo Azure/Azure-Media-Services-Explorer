@@ -55,8 +55,8 @@
             // 
             // labelmain
             // 
-            resources.ApplyResources(this.labelmain, "labelmain");
             this.labelmain.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.labelmain, "labelmain");
             this.labelmain.Name = "labelmain";
             // 
             // checkBoxDeleteAsset
@@ -67,8 +67,8 @@
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
             // panel1

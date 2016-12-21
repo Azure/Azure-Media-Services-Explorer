@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessFromJobTemplate));
             this.label = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,122 +48,71 @@
             // 
             // label
             // 
-            this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(37, 47);
+            resources.ApplyResources(this.label, "label");
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(576, 20);
-            this.label.TabIndex = 0;
-            this.label.Text = "label1";
             // 
             // textBoxJobName
             // 
-            this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(41, 438);
+            resources.ApplyResources(this.textBoxJobName, "textBoxJobName");
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(521, 23);
-            this.textBoxJobName.TabIndex = 1;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 84);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Please select a job template :";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(642, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
-            this.buttonCancel.TabIndex = 4;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 420);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Job(s) name :";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(471, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(164, 27);
-            this.buttonOk.TabIndex = 5;
-            this.buttonOk.Text = "Launch process";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label31
             // 
-            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.label31, "label31");
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label31.Location = new System.Drawing.Point(577, 22);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(176, 25);
-            this.label31.TabIndex = 60;
-            this.label31.Text = "From job template";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // openFileDialogWorkflow
             // 
-            this.openFileDialogWorkflow.Filter = "Worflow files|*.workflow;*.kayak;*.xenio;*.zenium;*.graph;*.blueprint|All files (" +
-    "*.*)|*.*";
+            resources.ApplyResources(this.openFileDialogWorkflow, "openFileDialogWorkflow");
             // 
             // buttonDeleteTemplate
             // 
-            this.buttonDeleteTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteTemplate.Enabled = false;
-            this.buttonDeleteTemplate.Location = new System.Drawing.Point(672, 378);
+            resources.ApplyResources(this.buttonDeleteTemplate, "buttonDeleteTemplate");
             this.buttonDeleteTemplate.Name = "buttonDeleteTemplate";
-            this.buttonDeleteTemplate.Size = new System.Drawing.Size(82, 27);
-            this.buttonDeleteTemplate.TabIndex = 63;
-            this.buttonDeleteTemplate.Text = "Delete";
             this.buttonDeleteTemplate.UseVisualStyleBackColor = true;
             this.buttonDeleteTemplate.Click += new System.EventHandler(this.buttonDeleteTemplate_Click);
             // 
             // labelWarning
             // 
-            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelWarning.AutoSize = true;
+            resources.ApplyResources(this.labelWarning, "labelWarning");
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(37, 384);
             this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(52, 15);
-            this.labelWarning.TabIndex = 64;
-            this.labelWarning.Text = "Warning";
             // 
             // listViewTemplates
             // 
-            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.listViewTemplates, "listViewTemplates");
             this.listViewTemplates.FullRowSelect = true;
             this.listViewTemplates.HideSelection = false;
-            this.listViewTemplates.Location = new System.Drawing.Point(41, 103);
             this.listViewTemplates.MultiSelect = false;
             this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(712, 268);
-            this.listViewTemplates.TabIndex = 61;
             this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
@@ -170,43 +120,31 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 505);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(773, 55);
-            this.panel1.TabIndex = 65;
             // 
             // buttonJobOptions
             // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(593, 435);
+            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
             this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(762, 505);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(25, 42);
-            this.panel2.TabIndex = 77;
             // 
             // ProcessFromJobTemplate
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
@@ -218,11 +156,8 @@
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProcessFromJobTemplate";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Process from job template";
             this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

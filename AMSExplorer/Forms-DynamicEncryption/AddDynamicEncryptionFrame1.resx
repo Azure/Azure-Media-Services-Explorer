@@ -117,974 +117,998 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableDynEnc.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxPlayReadyPackaging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 19</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Custom attributes :</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="radioButtonNoDynEnc.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;panelPackaging.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolDASH.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="radioButtonDecryptStorage.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCKey.Name" xml:space="preserve">
-    <value>radioButtonCENCKey</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxDelivery.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="checkBoxPlayReadyPackaging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAESClearKey.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="checkBoxProtocolSmooth.Text" xml:space="preserve">
-    <value>Smooth Streaming</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDelivery.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;pictureBox4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelPackagingCENC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="radioButtonAESClearKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 32</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>323, 84</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomAttributes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoDynEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolHLS.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxProtocolHLS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 19</value>
-  </data>
-  <data name="checkBoxPlayReadyPackaging.Text" xml:space="preserve">
-    <value>PlayReady DRM</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="&gt;&gt;panelDynEnc.Parent" xml:space="preserve">
-    <value>groupBoxDelivery</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>423, 70</value>
-  </data>
-  <data name="groupBoxKeyType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 93</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomAttributes.Parent" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>panelPackaging</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>IE 11, Edge, Chrome, iOS, Firefox, Flash...</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>684, 55</value>
-  </data>
-  <data name="groupBoxDelivery.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 287</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxWidevinePackaging.Text" xml:space="preserve">
-    <value>Widevine Modular DRM (DASH only)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolDASH.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>323, 60</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 143</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolHLS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonDecryptStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 108</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="checkBoxProtocolDASH.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 115</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="radioButtonCENCKey.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolHLS.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="radioButtonCENCKey.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableDynEnc.Name" xml:space="preserve">
-    <value>checkBoxEnableDynEnc</value>
-  </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 15</value>
-  </data>
-  <data name="groupBoxKeyType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 171</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
-  </data>
-  <data name="textBoxCustomAttributes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 23</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 19</value>
-  </data>
-  <data name="checkBoxProtocolDASH.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 19</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevinePackaging.Name" xml:space="preserve">
-    <value>checkBoxWidevinePackaging</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableDynEnc.Parent" xml:space="preserve">
-    <value>groupBoxDelivery</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>323, 34</value>
-  </data>
-  <data name="&gt;&gt;panelDynEnc.Name" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="checkBoxProtocolSmooth.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 19</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoDynEnc.Name" xml:space="preserve">
-    <value>radioButtonNoDynEnc</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDecryptStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>621, 18</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAESClearKey.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="&gt;&gt;panelPackaging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonCENCCbcsKey.Text" xml:space="preserve">
-    <value>Common encryption cbcs (FairPlay)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxEnableDynEnc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 22</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomAttributes.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonCENCKey.Text" xml:space="preserve">
-    <value>Common encryption (PlayReady, Widevine...)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevinePackaging.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxProtocolHLS.Text" xml:space="preserve">
-    <value>HLS</value>
-  </data>
-  <data name="radioButtonCENCKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAESClearKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 19</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Delivery protocols</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Name" xml:space="preserve">
-    <value>radioButtonCENCCbcsKey</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxDelivery.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 367</value>
-  </data>
-  <data name="radioButtonAESClearKey.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;pictureBox3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelPackaging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 146</value>
-  </data>
-  <data name="checkBoxWidevinePackaging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 87</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoDynEnc.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="radioButtonDecryptStorage.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="groupBoxKeyType.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>364, 42</value>
-  </data>
-  <data name="radioButtonAESClearKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>569, 13</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="pictureBox4.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;pictureBox3.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="&gt;&gt;groupBoxKeyType.Name" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="checkBoxProtocolSmooth.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 90</value>
-  </data>
-  <data name="pictureBox3.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="checkBoxWidevinePackaging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 19</value>
-  </data>
-  <data name="&gt;&gt;panelPackaging.Name" xml:space="preserve">
-    <value>panelPackaging</value>
-  </data>
-  <data name="&gt;&gt;panelDynEnc.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Step 1 
-Select protection mode and dynamic encryption</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Name" xml:space="preserve">
-    <value>checkBoxProtocolProgressiveDownload</value>
-  </data>
-  <data name="radioButtonCENCCbcsKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 83</value>
-  </data>
-  <data name="panelPackagingCENC.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 15</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="groupBoxKeyType.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="panelPackaging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>625, 165</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;groupBoxKeyType.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="panelDynEnc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>633, 314</value>
-  </data>
-  <data name="radioButtonNoDynEnc.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxCustomAttributes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 15</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 7</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Name" xml:space="preserve">
-    <value>checkBoxPlayReadyPackaging</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolSmooth.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 15</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDecryptStorage.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevinePackaging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pictureBox4.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="radioButtonNoDynEnc.Text" xml:space="preserve">
-    <value>None - Asset already CENC encrypted</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPlayReadyPackaging.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupBoxDelivery.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
-    <value>buttonOk</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox4.Name" xml:space="preserve">
-    <value>pictureBox4</value>
-  </data>
-  <data name="textBoxCustomAttributes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 44</value>
-  </data>
-  <data name="radioButtonCENCKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 58</value>
-  </data>
-  <data name="textBoxCustomAttributes.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAESClearKey.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="&gt;&gt;panelPackagingCENC.Parent" xml:space="preserve">
-    <value>panelPackaging</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="checkBoxProtocolSmooth.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
-    <value>pictureBox2</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>IE 11, Edge, Chrome, Android, Silverlight...</value>
-  </data>
-  <data name="groupBoxKeyType.Text" xml:space="preserve">
-    <value>Protection</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlayPackaging.Name" xml:space="preserve">
-    <value>checkBoxFairPlayPackaging</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="panelPackaging.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.Text" xml:space="preserve">
-    <value>Progressive Download</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolSmooth.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDelivery.Name" xml:space="preserve">
-    <value>groupBoxDelivery</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>618, 18</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;groupBoxKeyType.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableDynEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxProtocolDASH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 65</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 21</value>
-  </data>
-  <data name="&gt;&gt;groupBoxKeyType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxDelivery.Text" xml:space="preserve">
-    <value>Delivery</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomAttributes.Name" xml:space="preserve">
-    <value>textBoxCustomAttributes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolDASH.Name" xml:space="preserve">
-    <value>checkBoxProtocolDASH</value>
-  </data>
-  <data name="panelPackaging.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="checkBoxPlayReadyPackaging.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Packaging</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AddDynamicEncryptionFrame1</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
-  </data>
-  <data name="checkBoxProtocolProgressiveDownload.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolSmooth.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDecryptStorage.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Parent" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="radioButtonDecryptStorage.Text" xml:space="preserve">
-    <value>Decryption (stream storage encrypted asset(s) in clear)</value>
-  </data>
-  <data name="panelPackagingCENC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>615, 109</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevinePackaging.Parent" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="checkBoxPlayReadyPackaging.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="checkBoxEnableDynEnc.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="radioButtonCENCCbcsKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 19</value>
-  </data>
-  <data name="radioButtonNoDynEnc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 133</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 83</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.Text" xml:space="preserve">
-    <value>Apple FairPlay Streaming (HLS Only)</value>
-  </data>
-  <data name="radioButtonDecryptStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="&gt;&gt;panelDynEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCENCKey.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
+  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>386, 13</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>176, 27</value>
   </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>name1:value1,name2:value2</value>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
+    <value>buttonOk</value>
   </data>
   <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="checkBoxEnableDynEnc.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 58</value>
-  </data>
-  <data name="checkBoxProtocolDASH.Text" xml:space="preserve">
-    <value>DASH</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlayPackaging.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelPackagingCENC.Name" xml:space="preserve">
-    <value>panelPackagingCENC</value>
-  </data>
-  <data name="panelPackagingCENC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 28</value>
-  </data>
-  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 33</value>
-  </data>
-  <data name="checkBoxProtocolHLS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 40</value>
-  </data>
-  <data name="panelDynEnc.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxCustomAttributes.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>iOS, Apple TV, Safari on OS X...</value>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>569, 13</value>
   </data>
-  <data name="checkBoxWidevinePackaging.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 27</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
   </data>
-  <data name="&gt;&gt;pictureBox3.Name" xml:space="preserve">
-    <value>pictureBox3</value>
-  </data>
-  <data name="panelDynEnc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 47</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolHLS.Name" xml:space="preserve">
-    <value>checkBoxProtocolHLS</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxKeyType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonAESClearKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonAESClearKey.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonAESClearKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 32</value>
+  </data>
+  <data name="radioButtonAESClearKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 19</value>
+  </data>
+  <data name="radioButtonAESClearKey.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="radioButtonAESClearKey.Text" xml:space="preserve">
+    <value>Envelope clear key</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAESClearKey.Name" xml:space="preserve">
+    <value>radioButtonAESClearKey</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAESClearKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAESClearKey.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAESClearKey.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="radioButtonCENCKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonCENCKey.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonCENCKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 58</value>
+  </data>
+  <data name="radioButtonCENCKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 19</value>
+  </data>
+  <data name="radioButtonCENCKey.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="radioButtonCENCKey.Text" xml:space="preserve">
+    <value>Common encryption (PlayReady, Widevine...)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCENCKey.Name" xml:space="preserve">
+    <value>radioButtonCENCKey</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCENCKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCENCKey.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
   </data>
   <data name="&gt;&gt;radioButtonCENCKey.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupBoxKeyType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="radioButtonNoDynEnc.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
+  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
-  <data name="radioButtonDecryptStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 19</value>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="checkBoxProtocolSmooth.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
+  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="&gt;&gt;checkBoxFairPlayPackaging.Parent" xml:space="preserve">
-    <value>panelPackaging</value>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 60</value>
   </data>
-  <data name="radioButtonNoDynEnc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 19</value>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 15</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>IE 11, Edge, Chrome, Android, Silverlight...</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 84</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>iOS, Apple TV, Safari on OS X...</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 34</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 15</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
   </data>
-  <data name="checkBoxEnableDynEnc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 19</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>IE 11, Edge, Chrome, iOS, Firefox, Flash...</value>
   </data>
-  <data name="&gt;&gt;panelPackagingCENC.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
-  <data name="checkBoxWidevinePackaging.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 83</value>
+  </data>
+  <data name="pictureBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox4.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Name" xml:space="preserve">
+    <value>pictureBox4</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonCENCCbcsKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="radioButtonCENCCbcsKey.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="checkBoxFairPlayPackaging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 19</value>
+  <data name="radioButtonCENCCbcsKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 83</value>
   </data>
-  <data name="&gt;&gt;radioButtonAESClearKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxEnableDynEnc.Text" xml:space="preserve">
-    <value>Enable dynamic encryption</value>
-  </data>
-  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>681, 741</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDelivery.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 111</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAESClearKey.Name" xml:space="preserve">
-    <value>radioButtonAESClearKey</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Dynamic Encryption - Step 1</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;pictureBox4.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
+  <data name="radioButtonCENCCbcsKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>215, 19</value>
   </data>
   <data name="radioButtonCENCCbcsKey.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
+  <data name="radioButtonCENCCbcsKey.Text" xml:space="preserve">
+    <value>Common encryption cbcs (FairPlay)</value>
   </data>
-  <data name="&gt;&gt;checkBoxFairPlayPackaging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButtonCENCCbcsKey.Name" xml:space="preserve">
+    <value>radioButtonCENCCbcsKey</value>
   </data>
-  <data name="checkBoxProtocolDASH.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;radioButtonCENCCbcsKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCENCCbcsKey.Parent" xml:space="preserve">
     <value>groupBoxKeyType</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 27</value>
+  <data name="&gt;&gt;radioButtonCENCCbcsKey.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
+  <data name="radioButtonNoDynEnc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panelPackaging.Parent" xml:space="preserve">
-    <value>panelDynEnc</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-1, 688</value>
-  </data>
-  <data name="checkBoxFairPlayPackaging.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="radioButtonNoDynEnc.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="radioButtonAESClearKey.Text" xml:space="preserve">
-    <value>Envelope clear key</value>
+  <data name="radioButtonNoDynEnc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 133</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="radioButtonNoDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 19</value>
   </data>
-  <data name="pictureBox3.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="radioButtonNoDynEnc.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="radioButtonNoDynEnc.Text" xml:space="preserve">
+    <value>None - Asset already CENC encrypted</value>
   </data>
-  <data name="checkBoxProtocolHLS.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;radioButtonNoDynEnc.Name" xml:space="preserve">
+    <value>radioButtonNoDynEnc</value>
   </data>
-  <data name="checkBoxProtocolHLS.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDecryptStorage.Name" xml:space="preserve">
-    <value>radioButtonDecryptStorage</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 26</value>
-  </data>
-  <data name="&gt;&gt;checkBoxProtocolDASH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonCENCKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 19</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDelivery.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
-    <value>groupBoxKeyType</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
+  <data name="&gt;&gt;radioButtonNoDynEnc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonNoDynEnc.Parent" xml:space="preserve">
     <value>groupBoxKeyType</value>
   </data>
-  <data name="&gt;&gt;checkBoxProtocolSmooth.Name" xml:space="preserve">
-    <value>checkBoxProtocolSmooth</value>
+  <data name="&gt;&gt;radioButtonNoDynEnc.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 111</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="radioButtonDecryptStorage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 108</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>311, 19</value>
+  </data>
+  <data name="radioButtonDecryptStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Text" xml:space="preserve">
+    <value>Decryption (stream storage encrypted asset(s) in clear)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDecryptStorage.Name" xml:space="preserve">
+    <value>radioButtonDecryptStorage</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDecryptStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDecryptStorage.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDecryptStorage.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 58</value>
+  </data>
+  <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox3.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Name" xml:space="preserve">
+    <value>pictureBox3</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 33</value>
+  </data>
+  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
+    <value>pictureBox2</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="groupBoxKeyType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBoxKeyType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 93</value>
+  </data>
+  <data name="groupBoxKeyType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 171</value>
+  </data>
+  <data name="groupBoxKeyType.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="groupBoxKeyType.Text" xml:space="preserve">
+    <value>Protection</value>
+  </data>
+  <data name="&gt;&gt;groupBoxKeyType.Name" xml:space="preserve">
+    <value>groupBoxKeyType</value>
+  </data>
+  <data name="&gt;&gt;groupBoxKeyType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxKeyType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxKeyType.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxDelivery.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 115</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 19</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Text" xml:space="preserve">
+    <value>Progressive Download</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Name" xml:space="preserve">
+    <value>checkBoxProtocolProgressiveDownload</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolProgressiveDownload.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelPackaging.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 4</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 19</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.Text" xml:space="preserve">
+    <value>PlayReady DRM</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Name" xml:space="preserve">
+    <value>checkBoxPlayReadyPackaging</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPlayReadyPackaging.Parent" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPlayReadyPackaging.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCustomAttributes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCustomAttributes.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="textBoxCustomAttributes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 44</value>
+  </data>
+  <data name="textBoxCustomAttributes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>534, 23</value>
+  </data>
+  <data name="textBoxCustomAttributes.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomAttributes.Name" xml:space="preserve">
+    <value>textBoxCustomAttributes</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomAttributes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomAttributes.Parent" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomAttributes.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>423, 70</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 15</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>84</value>
   </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>name1:value1,name2:value2</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 26</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Custom attributes :</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 87</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 19</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.Text" xml:space="preserve">
+    <value>Widevine Modular DRM (DASH only)</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevinePackaging.Name" xml:space="preserve">
+    <value>checkBoxWidevinePackaging</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevinePackaging.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevinePackaging.Parent" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevinePackaging.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panelPackagingCENC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 28</value>
+  </data>
+  <data name="panelPackagingCENC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>615, 109</value>
+  </data>
+  <data name="panelPackagingCENC.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="&gt;&gt;panelPackagingCENC.Name" xml:space="preserve">
+    <value>panelPackagingCENC</value>
+  </data>
+  <data name="&gt;&gt;panelPackagingCENC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelPackagingCENC.Parent" xml:space="preserve">
+    <value>panelPackaging</value>
+  </data>
+  <data name="&gt;&gt;panelPackagingCENC.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 143</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 19</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Text" xml:space="preserve">
+    <value>Apple FairPlay Streaming (HLS Only)</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlayPackaging.Name" xml:space="preserve">
+    <value>checkBoxFairPlayPackaging</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlayPackaging.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlayPackaging.Parent" xml:space="preserve">
+    <value>panelPackaging</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlayPackaging.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 7</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>618, 18</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Packaging</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>panelPackaging</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panelPackaging.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 146</value>
+  </data>
+  <data name="panelPackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>625, 165</value>
+  </data>
+  <data name="panelPackaging.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="&gt;&gt;panelPackaging.Name" xml:space="preserve">
+    <value>panelPackaging</value>
+  </data>
+  <data name="&gt;&gt;panelPackaging.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelPackaging.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;panelPackaging.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 18</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Delivery protocols</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBoxProtocolHLS.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxProtocolHLS.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 40</value>
+  </data>
+  <data name="checkBoxProtocolHLS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 19</value>
+  </data>
+  <data name="checkBoxProtocolHLS.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="checkBoxProtocolHLS.Text" xml:space="preserve">
+    <value>HLS</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolHLS.Name" xml:space="preserve">
+    <value>checkBoxProtocolHLS</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolHLS.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolHLS.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolHLS.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxProtocolDASH.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxProtocolDASH.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 65</value>
+  </data>
+  <data name="checkBoxProtocolDASH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 19</value>
+  </data>
+  <data name="checkBoxProtocolDASH.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="checkBoxProtocolDASH.Text" xml:space="preserve">
+    <value>DASH</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolDASH.Name" xml:space="preserve">
+    <value>checkBoxProtocolDASH</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolDASH.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolDASH.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolDASH.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 90</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 19</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.Text" xml:space="preserve">
+    <value>Smooth Streaming</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolSmooth.Name" xml:space="preserve">
+    <value>checkBoxProtocolSmooth</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolSmooth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolSmooth.Parent" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;checkBoxProtocolSmooth.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panelDynEnc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 47</value>
+  </data>
+  <data name="panelDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>633, 314</value>
+  </data>
+  <data name="panelDynEnc.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="&gt;&gt;panelDynEnc.Name" xml:space="preserve">
+    <value>panelDynEnc</value>
+  </data>
+  <data name="&gt;&gt;panelDynEnc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelDynEnc.Parent" xml:space="preserve">
+    <value>groupBoxDelivery</value>
+  </data>
+  <data name="&gt;&gt;panelDynEnc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 22</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 19</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.Text" xml:space="preserve">
+    <value>Enable dynamic encryption</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableDynEnc.Name" xml:space="preserve">
+    <value>checkBoxEnableDynEnc</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableDynEnc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableDynEnc.Parent" xml:space="preserve">
+    <value>groupBoxDelivery</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableDynEnc.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxDelivery.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 287</value>
+  </data>
+  <data name="groupBoxDelivery.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 367</value>
+  </data>
+  <data name="groupBoxDelivery.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="groupBoxDelivery.Text" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="&gt;&gt;groupBoxDelivery.Name" xml:space="preserve">
+    <value>groupBoxDelivery</value>
+  </data>
+  <data name="&gt;&gt;groupBoxDelivery.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxDelivery.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxDelivery.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 12pt, style=Bold</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 21</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>364, 42</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Step 1 
+Select protection mode and dynamic encryption</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 688</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>684, 55</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxSelectPolicies.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxSelectPolicies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 660</value>
+  </data>
+  <data name="checkBoxSelectPolicies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 19</value>
+  </data>
+  <data name="checkBoxSelectPolicies.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="checkBoxSelectPolicies.Text" xml:space="preserve">
+    <value>Select existing authorization and delivery policies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSelectPolicies.Name" xml:space="preserve">
+    <value>checkBoxSelectPolicies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSelectPolicies.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSelectPolicies.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSelectPolicies.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ja</value>
-  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>681, 741</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Dynamic Encryption - Step 1</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AddDynamicEncryptionFrame1</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

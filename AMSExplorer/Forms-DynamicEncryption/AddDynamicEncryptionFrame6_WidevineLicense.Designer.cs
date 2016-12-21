@@ -83,7 +83,6 @@
             // 
             // groupBoxAdvLicense
             // 
-            resources.ApplyResources(this.groupBoxAdvLicense, "groupBoxAdvLicense");
             this.groupBoxAdvLicense.Controls.Add(this.checkBoxCanPlay);
             this.groupBoxAdvLicense.Controls.Add(this.checkBoxAllowTrackType);
             this.groupBoxAdvLicense.Controls.Add(this.checkBoxCanPersist);
@@ -95,6 +94,7 @@
             this.groupBoxAdvLicense.Controls.Add(this.numericUpDownSecLevel);
             this.groupBoxAdvLicense.Controls.Add(this.label2);
             this.groupBoxAdvLicense.Controls.Add(this.textBoxTrackType);
+            resources.ApplyResources(this.groupBoxAdvLicense, "groupBoxAdvLicense");
             this.groupBoxAdvLicense.Name = "groupBoxAdvLicense";
             this.groupBoxAdvLicense.TabStop = false;
             // 
@@ -127,9 +127,9 @@
             // 
             // comboBoxAllowedTrackTypes
             // 
-            resources.ApplyResources(this.comboBoxAllowedTrackTypes, "comboBoxAllowedTrackTypes");
             this.comboBoxAllowedTrackTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAllowedTrackTypes.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAllowedTrackTypes, "comboBoxAllowedTrackTypes");
             this.comboBoxAllowedTrackTypes.Name = "comboBoxAllowedTrackTypes";
             this.comboBoxAllowedTrackTypes.SelectedIndexChanged += new System.EventHandler(this.StateChanged);
             // 
@@ -160,9 +160,9 @@
             // 
             // comboBoxReqOutputProtection
             // 
-            resources.ApplyResources(this.comboBoxReqOutputProtection, "comboBoxReqOutputProtection");
             this.comboBoxReqOutputProtection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxReqOutputProtection.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxReqOutputProtection, "comboBoxReqOutputProtection");
             this.comboBoxReqOutputProtection.Name = "comboBoxReqOutputProtection";
             this.comboBoxReqOutputProtection.SelectedIndexChanged += new System.EventHandler(this.StateChanged);
             // 

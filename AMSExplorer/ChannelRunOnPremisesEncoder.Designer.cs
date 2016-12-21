@@ -104,7 +104,6 @@
             // 
             // panelAVSettings
             // 
-            resources.ApplyResources(this.panelAVSettings, "panelAVSettings");
             this.panelAVSettings.Controls.Add(this.label4);
             this.panelAVSettings.Controls.Add(this.textBoxAudioDeviceName);
             this.panelAVSettings.Controls.Add(this.label5);
@@ -113,6 +112,7 @@
             this.panelAVSettings.Controls.Add(this.label6);
             this.panelAVSettings.Controls.Add(this.label7);
             this.panelAVSettings.Controls.Add(this.textBoxVideoBitRate);
+            resources.ApplyResources(this.panelAVSettings, "panelAVSettings");
             this.panelAVSettings.Name = "panelAVSettings";
             // 
             // label4
@@ -178,9 +178,9 @@
             // 
             // comboBoxEncoder
             // 
-            resources.ApplyResources(this.comboBoxEncoder, "comboBoxEncoder");
             this.comboBoxEncoder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEncoder.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxEncoder, "comboBoxEncoder");
             this.comboBoxEncoder.Name = "comboBoxEncoder";
             this.comboBoxEncoder.SelectedIndexChanged += new System.EventHandler(this.comboBoxEncoder_SelectedIndexChanged);
             // 
@@ -191,8 +191,8 @@
             // 
             // labelcdn
             // 
-            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.Name = "labelcdn";
             // 
             // label1

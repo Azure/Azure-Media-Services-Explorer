@@ -58,43 +58,34 @@
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
+            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
             this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
-            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
+            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonClose, "buttonClose");
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(748, 12);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(124, 27);
-            this.buttonClose.TabIndex = 41;
-            this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonDisregard_Click);
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(905, 55);
-            this.panel1.TabIndex = 58;
             // 
             // openFileDialogSlate
             // 
-            this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
+            resources.ApplyResources(this.openFileDialogSlate, "openFileDialogSlate");
             // 
             // errorProvider1
             // 
@@ -102,135 +93,85 @@
             // 
             // moreinfoLiveEncodingProfilelink
             // 
-            this.moreinfoLiveEncodingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
-            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(730, 19);
+            resources.ApplyResources(this.moreinfoLiveEncodingProfilelink, "moreinfoLiveEncodingProfilelink");
             this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
-            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(171, 15);
-            this.moreinfoLiveEncodingProfilelink.TabIndex = 62;
             this.moreinfoLiveEncodingProfilelink.TabStop = true;
-            this.moreinfoLiveEncodingProfilelink.Text = "More information on telemetry";
             this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // labelTelemetryUI
             // 
-            this.labelTelemetryUI.AutoSize = true;
-            this.labelTelemetryUI.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.labelTelemetryUI, "labelTelemetryUI");
             this.labelTelemetryUI.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelTelemetryUI.Location = new System.Drawing.Point(12, 15);
             this.labelTelemetryUI.Name = "labelTelemetryUI";
-            this.labelTelemetryUI.Size = new System.Drawing.Size(170, 20);
-            this.labelTelemetryUI.TabIndex = 76;
-            this.labelTelemetryUI.Text = "Streaming endpoint : {0}";
             // 
             // dataGridViewTelemetry
             // 
             this.dataGridViewTelemetry.AllowUserToAddRows = false;
             this.dataGridViewTelemetry.AllowUserToDeleteRows = false;
             this.dataGridViewTelemetry.AllowUserToResizeRows = false;
-            this.dataGridViewTelemetry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.dataGridViewTelemetry, "dataGridViewTelemetry");
             this.dataGridViewTelemetry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTelemetry.Location = new System.Drawing.Point(16, 53);
             this.dataGridViewTelemetry.Name = "dataGridViewTelemetry";
             this.dataGridViewTelemetry.ReadOnly = true;
             this.dataGridViewTelemetry.RowHeadersVisible = false;
             this.dataGridViewTelemetry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTelemetry.Size = new System.Drawing.Size(885, 503);
-            this.dataGridViewTelemetry.TabIndex = 77;
             this.dataGridViewTelemetry.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTelemetry_CellFormatting);
             this.dataGridViewTelemetry.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTelemetry_RowPostPaint);
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(152, 562);
+            resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 27);
-            this.button1.TabIndex = 78;
-            this.button1.Text = "Set time range...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRefresh.Location = new System.Drawing.Point(408, 12);
+            resources.ApplyResources(this.buttonRefresh, "buttonRefresh");
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(78, 28);
-            this.buttonRefresh.TabIndex = 79;
-            this.buttonRefresh.Text = "Refresh";
-            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // labelTimeRange
             // 
-            this.labelTimeRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTimeRange.AutoSize = true;
-            this.labelTimeRange.Location = new System.Drawing.Point(288, 568);
+            resources.ApplyResources(this.labelTimeRange, "labelTimeRange");
             this.labelTimeRange.Name = "labelTimeRange";
-            this.labelTimeRange.Size = new System.Drawing.Size(76, 15);
-            this.labelTimeRange.TabIndex = 80;
-            this.labelTimeRange.Text = "From .... to ...";
             // 
             // checkBoxShowOnlyErrors
             // 
-            this.checkBoxShowOnlyErrors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxShowOnlyErrors.AutoSize = true;
-            this.checkBoxShowOnlyErrors.Location = new System.Drawing.Point(16, 567);
+            resources.ApplyResources(this.checkBoxShowOnlyErrors, "checkBoxShowOnlyErrors");
             this.checkBoxShowOnlyErrors.Name = "checkBoxShowOnlyErrors";
-            this.checkBoxShowOnlyErrors.Size = new System.Drawing.Size(114, 19);
-            this.checkBoxShowOnlyErrors.TabIndex = 81;
-            this.checkBoxShowOnlyErrors.Text = "Show errors only";
             this.checkBoxShowOnlyErrors.UseVisualStyleBackColor = true;
             this.checkBoxShowOnlyErrors.CheckedChanged += new System.EventHandler(this.checkBoxShowOnlyErrors_CheckedChanged);
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(892, 595);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(25, 42);
-            this.panel2.TabIndex = 110;
             // 
             // radioButtonLocal
             // 
-            this.radioButtonLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonLocal.AutoSize = true;
+            resources.ApplyResources(this.radioButtonLocal, "radioButtonLocal");
             this.radioButtonLocal.Checked = true;
-            this.radioButtonLocal.Location = new System.Drawing.Point(795, 566);
             this.radioButtonLocal.Name = "radioButtonLocal";
-            this.radioButtonLocal.Size = new System.Drawing.Size(53, 19);
-            this.radioButtonLocal.TabIndex = 111;
             this.radioButtonLocal.TabStop = true;
-            this.radioButtonLocal.Text = "Local";
             this.radioButtonLocal.UseVisualStyleBackColor = true;
             this.radioButtonLocal.CheckedChanged += new System.EventHandler(this.radioButtonLocal_CheckedChanged);
             // 
             // radioButtonUTC
             // 
-            this.radioButtonUTC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButtonUTC.AutoSize = true;
-            this.radioButtonUTC.Location = new System.Drawing.Point(854, 566);
+            resources.ApplyResources(this.radioButtonUTC, "radioButtonUTC");
             this.radioButtonUTC.Name = "radioButtonUTC";
-            this.radioButtonUTC.Size = new System.Drawing.Size(47, 19);
-            this.radioButtonUTC.TabIndex = 112;
-            this.radioButtonUTC.Text = "UTC";
             this.radioButtonUTC.UseVisualStyleBackColor = true;
             // 
             // DisplayTelemetry
             // 
             this.AcceptButton = this.buttonClose;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
-            this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.radioButtonUTC);
             this.Controls.Add(this.radioButtonLocal);
             this.Controls.Add(this.panel2);
@@ -242,11 +183,8 @@
             this.Controls.Add(this.labelTelemetryUI);
             this.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "DisplayTelemetry";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Telemetry";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChannelAdSlateControl_FormClosed);
             this.Load += new System.EventHandler(this.DisplayTelemetry_Load);
             this.Shown += new System.EventHandler(this.DisplayTelemetry_Shown);

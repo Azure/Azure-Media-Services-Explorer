@@ -150,8 +150,8 @@
             // 
             // label6
             // 
-            resources.ApplyResources(this.label6, "label6");
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
             // panel1

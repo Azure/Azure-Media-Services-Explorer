@@ -74,9 +74,9 @@
             // 
             // DGErrors
             // 
-            resources.ApplyResources(this.DGErrors, "DGErrors");
             this.DGErrors.AllowUserToAddRows = false;
             this.DGErrors.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGErrors, "DGErrors");
             this.DGErrors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DGErrors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGErrors.ContextMenuStrip = this.contextMenuStrip;
@@ -87,16 +87,16 @@
             // 
             // contextMenuStrip
             // 
-            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemCopyClipboard});
             this.contextMenuStrip.Name = "contextMenuStrip";
+            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStrip_MouseClick);
             // 
             // toolStripMenuItemCopyClipboard
             // 
-            resources.ApplyResources(this.toolStripMenuItemCopyClipboard, "toolStripMenuItemCopyClipboard");
             this.toolStripMenuItemCopyClipboard.Name = "toolStripMenuItemCopyClipboard";
+            resources.ApplyResources(this.toolStripMenuItemCopyClipboard, "toolStripMenuItemCopyClipboard");
             // 
             // label3
             // 
@@ -112,10 +112,10 @@
             // 
             // DGJob
             // 
-            resources.ApplyResources(this.DGJob, "DGJob");
             this.DGJob.AllowUserToAddRows = false;
             this.DGJob.AllowUserToDeleteRows = false;
             this.DGJob.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGJob, "DGJob");
             this.DGJob.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGJob.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGJob.ColumnHeadersVisible = false;
@@ -157,13 +157,13 @@
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
             this.tabPage1.Controls.Add(this.buttonCreateMail);
             this.tabPage1.Controls.Add(this.DGErrors);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.DGJob);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -174,11 +174,11 @@
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.listViewOutputAssets);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.listViewInputAssets);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -205,16 +205,16 @@
             // 
             // contextMenuStripOutputAsset
             // 
-            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
             this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuStripOutputAsset.Name = "contextMenuStripAsset";
+            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
             // 
             // toolStripMenuItem1
             // 
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // label2
@@ -250,32 +250,32 @@
             // 
             // contextMenuStripInputAsset
             // 
-            resources.ApplyResources(this.contextMenuStripInputAsset, "contextMenuStripInputAsset");
             this.contextMenuStripInputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetInformationToolStripMenuItem});
             this.contextMenuStripInputAsset.Name = "contextMenuStripInputAsset";
+            resources.ApplyResources(this.contextMenuStripInputAsset, "contextMenuStripInputAsset");
             // 
             // assetInformationToolStripMenuItem
             // 
-            resources.ApplyResources(this.assetInformationToolStripMenuItem, "assetInformationToolStripMenuItem");
             this.assetInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.assetInformationToolStripMenuItem.Name = "assetInformationToolStripMenuItem";
+            resources.ApplyResources(this.assetInformationToolStripMenuItem, "assetInformationToolStripMenuItem");
             this.assetInformationToolStripMenuItem.Click += new System.EventHandler(this.assetInformationToolStripMenuItem_Click);
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.DGTasks);
             this.tabPage2.Controls.Add(this.listBoxTasks);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // DGTasks
             // 
-            resources.ApplyResources(this.DGTasks, "DGTasks");
             this.DGTasks.AllowUserToAddRows = false;
             this.DGTasks.AllowUserToDeleteRows = false;
             this.DGTasks.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGTasks, "DGTasks");
             this.DGTasks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGTasks.ColumnHeadersVisible = false;

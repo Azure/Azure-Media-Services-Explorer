@@ -848,69 +848,6 @@
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="BulkContainerInfo.ja.resx">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BulkUpload.ja.resx">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelInformation.ja.resx">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.ja.resx">
-      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChooseStreamingEndpoint.ja.resx">
-      <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CopyAsset.ja.resx">
-      <DependentUpon>CopyAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveChannel.ja.resx">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateProgram.ja.resx">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
-      <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateTestToken.ja.resx">
-      <DependentUpon>CreateTestToken.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownloadToLocal.ja.resx">
-      <DependentUpon>DownloadToLocal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DynManifestFilter.ja.resx">
-      <DependentUpon>DynManifestFilter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditorXMLJSON.ja.resx">
-      <DependentUpon>EditorXMLJSON.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EDL.ja.resx">
-      <DependentUpon>EDL.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMES.ja.resx">
-      <DependentUpon>EncodingMES.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingMESPickOverlay.ja.resx">
-      <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremium.ja.resx">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportAssetToAzureStorage.ja.resx">
-      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExportToExcel.ja.resx">
-      <DependentUpon>ExportToExcel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -935,21 +872,6 @@
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame6_WidevineLicense.resx">
       <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.ja.resx">
-      <DependentUpon>AMSLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssetInformation.ja.resx">
-      <DependentUpon>AssetInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AttachStorage.ja.resx">
-      <DependentUpon>AttachStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BatchUploadFrame1.ja.resx">
-      <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
-      <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
       <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
     </EmbeddedResource>
@@ -964,9 +886,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BulkUpload.resx">
       <DependentUpon>BulkUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateLocator.ja.resx">
-      <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
@@ -998,32 +917,8 @@
     <EmbeddedResource Include="EncodingMESPickOverlay.resx">
       <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.ja.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportFromAzureStorage.ja.resx">
-      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportHttp.ja.resx">
-      <DependentUpon>ImportHttp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Indexer.ja.resx">
-      <DependentUpon>Indexer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IndexerOptions.ja.resx">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IndexerV2.ja.resx">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="IndexerV2.resx">
       <DependentUpon>IndexerV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="JobInformation.ja.resx">
-      <DependentUpon>JobInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mainform.ja.resx">
-      <DependentUpon>Mainform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1041,18 +936,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SoftwareUpdate.ja.resx">
-      <DependentUpon>SoftwareUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Splash.ja.resx">
-      <DependentUpon>Splash.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StorageSettings.ja.resx">
-      <DependentUpon>StorageSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StreamingEndpointInformation.ja.resx">
-      <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeRangeSelection.resx">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
@@ -1183,9 +1066,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WatchFolder.ja.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WatchFolder.resx">
       <DependentUpon>WatchFolder.cs</DependentUpon>

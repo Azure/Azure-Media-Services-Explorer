@@ -49,8 +49,8 @@
             // 
             // logoPictureBox
             // 
-            resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
             this.logoPictureBox.Image = global::AMSExplorer.Bitmaps.Azure_Explorer;
+            resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
             this.logoPictureBox.Name = "logoPictureBox";
             this.logoPictureBox.TabStop = false;
             // 

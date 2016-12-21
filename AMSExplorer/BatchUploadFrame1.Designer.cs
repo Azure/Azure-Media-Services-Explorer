@@ -48,16 +48,16 @@
             // 
             // buttonNext
             // 
-            resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
+            resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonCancel
             // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -96,9 +96,9 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboBoxEncryption);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -109,16 +109,16 @@
             // 
             // comboBoxEncryption
             // 
-            resources.ApplyResources(this.comboBoxEncryption, "comboBoxEncryption");
             this.comboBoxEncryption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEncryption.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxEncryption, "comboBoxEncryption");
             this.comboBoxEncryption.Name = "comboBoxEncryption";
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.checkBoxProcessFiles);
             this.groupBox2.Controls.Add(this.checkBoxSubFolder);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 

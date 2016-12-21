@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaAnalyticsMotionDetection));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -59,6 +60,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panelSelectRegions = new System.Windows.Forms.Panel();
             this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelWarningJSON = new System.Windows.Forms.Label();
@@ -68,7 +70,6 @@
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelSelectRegions = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMergeTimeHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameSampling)).BeginInit();
@@ -78,111 +79,67 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPageConfig.SuspendLayout();
             this.panelSelectRegions.SuspendLayout();
+            this.tabPageConfig.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 389);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 15);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "Output asset name :";
             // 
             // textboxoutputassetname
             // 
-            this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 408);
+            resources.ApplyResources(this.textboxoutputassetname, "textboxoutputassetname");
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(364, 23);
-            this.textboxoutputassetname.TabIndex = 21;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(506, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
-            this.buttonCancel.TabIndex = 16;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // labelAssetName
             // 
-            this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetName.Location = new System.Drawing.Point(207, 77);
+            resources.ApplyResources(this.labelAssetName, "labelAssetName");
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(312, 35);
-            this.labelAssetName.TabIndex = 50;
-            this.labelAssetName.Text = "assetname";
             // 
             // textBoxJobName
             // 
-            this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(17, 352);
+            resources.ApplyResources(this.textBoxJobName, "textBoxJobName");
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(364, 23);
-            this.textBoxJobName.TabIndex = 54;
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 334);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 15);
-            this.label5.TabIndex = 53;
-            this.label5.Text = "Job name :";
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.motion_detector;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(329, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(170, 27);
-            this.buttonOk.TabIndex = 17;
-            this.buttonOk.Text = "Launch processing";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label34
             // 
-            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            resources.ApplyResources(this.label34, "label34");
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(457, 7);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(169, 25);
-            this.label34.TabIndex = 65;
-            this.label34.Text = "Motion Detection";
-            this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 452);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(635, 55);
-            this.panel1.TabIndex = 66;
             // 
             // numericUpDownMergeTimeHours
             // 
-            this.numericUpDownMergeTimeHours.Location = new System.Drawing.Point(272, 120);
+            resources.ApplyResources(this.numericUpDownMergeTimeHours, "numericUpDownMergeTimeHours");
             this.numericUpDownMergeTimeHours.Maximum = new decimal(new int[] {
             25,
             0,
@@ -190,21 +147,17 @@
             0});
             this.numericUpDownMergeTimeHours.Name = "numericUpDownMergeTimeHours";
             this.numericUpDownMergeTimeHours.ReadOnly = true;
-            this.numericUpDownMergeTimeHours.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownMergeTimeHours.TabIndex = 108;
-            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeHours, "Specifies the time window between motion events where 2 events will be combined a" +
-        "nd reported as 1.");
+            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeHours, resources.GetString("numericUpDownMergeTimeHours.ToolTip"));
             this.numericUpDownMergeTimeHours.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // numericUpDownFrameSampling
             // 
-            this.numericUpDownFrameSampling.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.numericUpDownFrameSampling, "numericUpDownFrameSampling");
             this.numericUpDownFrameSampling.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownFrameSampling.Location = new System.Drawing.Point(23, 120);
             this.numericUpDownFrameSampling.Maximum = new decimal(new int[] {
             200,
             0,
@@ -216,10 +169,7 @@
             0,
             0});
             this.numericUpDownFrameSampling.Name = "numericUpDownFrameSampling";
-            this.numericUpDownFrameSampling.Size = new System.Drawing.Size(140, 23);
-            this.numericUpDownFrameSampling.TabIndex = 87;
-            this.toolTip1.SetToolTip(this.numericUpDownFrameSampling, "Sets the frequency at which algorithm runs. 1 equals every frame, 2 means every 2" +
-        "nd frame, and so on.");
+            this.toolTip1.SetToolTip(this.numericUpDownFrameSampling, resources.GetString("numericUpDownFrameSampling.ToolTip"));
             this.numericUpDownFrameSampling.Value = new decimal(new int[] {
             1,
             0,
@@ -230,19 +180,15 @@
             // comboBoxSensitivity
             // 
             this.comboBoxSensitivity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSensitivity.Font = new System.Drawing.Font("Segoe UI", 9F);
+            resources.ApplyResources(this.comboBoxSensitivity, "comboBoxSensitivity");
             this.comboBoxSensitivity.FormattingEnabled = true;
-            this.comboBoxSensitivity.Location = new System.Drawing.Point(23, 32);
             this.comboBoxSensitivity.Name = "comboBoxSensitivity";
-            this.comboBoxSensitivity.Size = new System.Drawing.Size(140, 23);
-            this.comboBoxSensitivity.TabIndex = 68;
-            this.toolTip1.SetToolTip(this.comboBoxSensitivity, "Sets the sensitivity level at which motions is reported. Adjust this to adjust am" +
-        "ount of false positives.");
+            this.toolTip1.SetToolTip(this.comboBoxSensitivity, resources.GetString("comboBoxSensitivity.ToolTip"));
             this.comboBoxSensitivity.SelectedIndexChanged += new System.EventHandler(this.control_changed);
             // 
             // numericUpDownMergeTimeMinutes
             // 
-            this.numericUpDownMergeTimeMinutes.Location = new System.Drawing.Point(334, 120);
+            resources.ApplyResources(this.numericUpDownMergeTimeMinutes, "numericUpDownMergeTimeMinutes");
             this.numericUpDownMergeTimeMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -250,28 +196,20 @@
             0});
             this.numericUpDownMergeTimeMinutes.Name = "numericUpDownMergeTimeMinutes";
             this.numericUpDownMergeTimeMinutes.ReadOnly = true;
-            this.numericUpDownMergeTimeMinutes.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownMergeTimeMinutes.TabIndex = 109;
-            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeMinutes, "Specifies the time window between motion events where 2 events will be combined a" +
-        "nd reported as 1.");
+            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeMinutes, resources.GetString("numericUpDownMergeTimeMinutes.ToolTip"));
             this.numericUpDownMergeTimeMinutes.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // checkBoxDetectLightChange
             // 
-            this.checkBoxDetectLightChange.AutoSize = true;
-            this.checkBoxDetectLightChange.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDetectLightChange.Location = new System.Drawing.Point(23, 71);
+            resources.ApplyResources(this.checkBoxDetectLightChange, "checkBoxDetectLightChange");
             this.checkBoxDetectLightChange.Name = "checkBoxDetectLightChange";
-            this.checkBoxDetectLightChange.Size = new System.Drawing.Size(129, 19);
-            this.checkBoxDetectLightChange.TabIndex = 106;
-            this.checkBoxDetectLightChange.Text = "Detect light change";
-            this.toolTip1.SetToolTip(this.checkBoxDetectLightChange, "Sets whether light changes are reported in the results");
+            this.toolTip1.SetToolTip(this.checkBoxDetectLightChange, resources.GetString("checkBoxDetectLightChange.ToolTip"));
             this.checkBoxDetectLightChange.UseVisualStyleBackColor = true;
             this.checkBoxDetectLightChange.CheckedChanged += new System.EventHandler(this.control_changed);
             // 
             // numericUpDownMergeTimeSeconds
             // 
-            this.numericUpDownMergeTimeSeconds.Location = new System.Drawing.Point(396, 120);
+            resources.ApplyResources(this.numericUpDownMergeTimeSeconds, "numericUpDownMergeTimeSeconds");
             this.numericUpDownMergeTimeSeconds.Maximum = new decimal(new int[] {
             59,
             0,
@@ -279,83 +217,50 @@
             0});
             this.numericUpDownMergeTimeSeconds.Name = "numericUpDownMergeTimeSeconds";
             this.numericUpDownMergeTimeSeconds.ReadOnly = true;
-            this.numericUpDownMergeTimeSeconds.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownMergeTimeSeconds.TabIndex = 112;
-            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeSeconds, "Specifies the time window between motion events where 2 events will be combined a" +
-        "nd reported as 1.");
+            this.toolTip1.SetToolTip(this.numericUpDownMergeTimeSeconds, resources.GetString("numericUpDownMergeTimeSeconds.ToolTip"));
             this.numericUpDownMergeTimeSeconds.ValueChanged += new System.EventHandler(this.control_changed);
             // 
             // moreinfoprofilelink
             // 
-            this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(525, 86);
+            resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(101, 15);
-            this.moreinfoprofilelink.TabIndex = 71;
             this.moreinfoprofilelink.TabStop = true;
-            this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // labelProcessorVersion
             // 
-            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.labelProcessorVersion, "labelProcessorVersion");
             this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelProcessorVersion.Location = new System.Drawing.Point(502, 57);
             this.labelProcessorVersion.Name = "labelProcessorVersion";
-            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
-            this.labelProcessorVersion.TabIndex = 72;
-            this.labelProcessorVersion.Text = "Version {0}";
-            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelPreview
             // 
-            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPreview.AutoSize = true;
-            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.labelPreview, "labelPreview");
             this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.labelPreview.Location = new System.Drawing.Point(567, 32);
             this.labelPreview.Name = "labelPreview";
-            this.labelPreview.Size = new System.Drawing.Size(59, 20);
-            this.labelPreview.TabIndex = 74;
-            this.labelPreview.Text = "Preview";
-            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // checkBoxRestrictDetection
             // 
-            this.checkBoxRestrictDetection.AutoSize = true;
-            this.checkBoxRestrictDetection.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxRestrictDetection.Location = new System.Drawing.Point(19, 48);
+            resources.ApplyResources(this.checkBoxRestrictDetection, "checkBoxRestrictDetection");
             this.checkBoxRestrictDetection.Name = "checkBoxRestrictDetection";
-            this.checkBoxRestrictDetection.Size = new System.Drawing.Size(174, 19);
-            this.checkBoxRestrictDetection.TabIndex = 65;
-            this.checkBoxRestrictDetection.Text = "Restrict detection to regions";
             this.checkBoxRestrictDetection.UseVisualStyleBackColor = true;
             this.checkBoxRestrictDetection.CheckedChanged += new System.EventHandler(this.checkBoxRestrictDetection_CheckedChanged);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._03_motion_detection;
-            this.pictureBox1.Location = new System.Drawing.Point(17, 12);
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(184, 98);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 106;
             this.pictureBox1.TabStop = false;
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPageConfig);
-            this.tabControl1.Location = new System.Drawing.Point(17, 122);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(609, 197);
-            this.tabControl1.TabIndex = 107;
             // 
             // tabPage1
             // 
@@ -371,93 +276,58 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.numericUpDownMergeTimeHours);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(601, 169);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label4.Location = new System.Drawing.Point(393, 102);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 15);
-            this.label4.TabIndex = 113;
-            this.label4.Text = "Seconds";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label6.Location = new System.Drawing.Point(20, 14);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 15);
-            this.label6.TabIndex = 67;
-            this.label6.Text = "Sensivity level :";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label11.Location = new System.Drawing.Point(331, 102);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(50, 15);
-            this.label11.TabIndex = 111;
-            this.label11.Text = "Minutes";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label2.Location = new System.Drawing.Point(269, 75);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 15);
-            this.label2.TabIndex = 107;
-            this.label2.Text = "Merge time :";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label1.Location = new System.Drawing.Point(20, 103);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 15);
-            this.label1.TabIndex = 106;
-            this.label1.Text = "Frame sampling :";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label10.Location = new System.Drawing.Point(269, 102);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(39, 15);
-            this.label10.TabIndex = 110;
-            this.label10.Text = "Hours";
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panelSelectRegions);
             this.tabPage3.Controls.Add(this.checkBoxRestrictDetection);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(601, 169);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Regions";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panelSelectRegions
+            // 
+            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
+            resources.ApplyResources(this.panelSelectRegions, "panelSelectRegions");
+            this.panelSelectRegions.Name = "panelSelectRegions";
             // 
             // buttonRegionEditor
             // 
-            this.buttonRegionEditor.Location = new System.Drawing.Point(10, 23);
+            resources.ApplyResources(this.buttonRegionEditor, "buttonRegionEditor");
             this.buttonRegionEditor.Name = "buttonRegionEditor";
-            this.buttonRegionEditor.Size = new System.Drawing.Size(110, 23);
-            this.buttonRegionEditor.TabIndex = 106;
-            this.buttonRegionEditor.Text = "Select...";
             this.buttonRegionEditor.UseVisualStyleBackColor = true;
             // 
             // tabPageConfig
@@ -465,97 +335,57 @@
             this.tabPageConfig.Controls.Add(this.labelWarningJSON);
             this.tabPageConfig.Controls.Add(this.textBoxConfiguration);
             this.tabPageConfig.Controls.Add(this.label7);
-            this.tabPageConfig.Location = new System.Drawing.Point(4, 24);
+            resources.ApplyResources(this.tabPageConfig, "tabPageConfig");
             this.tabPageConfig.Name = "tabPageConfig";
-            this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfig.Size = new System.Drawing.Size(601, 169);
-            this.tabPageConfig.TabIndex = 1;
-            this.tabPageConfig.Text = "Generated JSON configuration";
             this.tabPageConfig.UseVisualStyleBackColor = true;
             this.tabPageConfig.Enter += new System.EventHandler(this.control_changed);
             // 
             // labelWarningJSON
             // 
-            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.labelWarningJSON, "labelWarningJSON");
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(143, 7);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(452, 19);
-            this.labelWarningJSON.TabIndex = 80;
             this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
-            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
-            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelWarningJSON.Visible = false;
             // 
             // textBoxConfiguration
             // 
-            this.textBoxConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(6, 29);
-            this.textBoxConfiguration.Multiline = true;
+            resources.ApplyResources(this.textBoxConfiguration, "textBoxConfiguration");
             this.textBoxConfiguration.Name = "textBoxConfiguration";
-            this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(589, 134);
-            this.textBoxConfiguration.TabIndex = 78;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(2, 10);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(135, 15);
-            this.label7.TabIndex = 79;
-            this.label7.Text = "JSON or XML (editable) :";
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(625, 452);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(25, 42);
-            this.panel2.TabIndex = 108;
             // 
             // buttonJobOptions
             // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(466, 349);
+            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
             this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 70;
-            this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // panelSelectRegions
-            // 
-            this.panelSelectRegions.Controls.Add(this.buttonRegionEditor);
-            this.panelSelectRegions.Enabled = false;
-            this.panelSelectRegions.Location = new System.Drawing.Point(189, 22);
-            this.panelSelectRegions.Name = "panelSelectRegions";
-            this.panelSelectRegions.Size = new System.Drawing.Size(406, 100);
-            this.panelSelectRegions.TabIndex = 107;
             // 
             // MediaAnalyticsMotionDetection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(645, 508);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pictureBox1);
@@ -570,11 +400,8 @@
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "MediaAnalyticsMotionDetection";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Motion Detection";
             this.Load += new System.EventHandler(this.MediaAnalyticsMotionDetection_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMergeTimeHours)).EndInit();
@@ -587,9 +414,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panelSelectRegions.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
-            this.panelSelectRegions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

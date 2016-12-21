@@ -95,7 +95,6 @@
             // 
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.Name = "buttonOk";
-            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -104,7 +103,6 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -115,18 +113,15 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // openFileDialogAssetFiles
             // 
-            resources.ApplyResources(this.openFileDialogAssetFiles, "openFileDialogAssetFiles");
             this.openFileDialogAssetFiles.Multiselect = true;
             // 
             // tabControl1
@@ -140,11 +135,9 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonSplitSelection);
             this.tabPage1.Controls.Add(this.buttonGroupSelectionInOneAsset);
@@ -157,8 +150,8 @@
             this.tabPage1.Controls.Add(this.buttonDelFiles);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.dataGridAssetFiles);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
-            this.toolTip1.SetToolTip(this.tabPage1, resources.GetString("tabPage1.ToolTip"));
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -166,13 +159,11 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // buttonSplitSelection
             // 
             resources.ApplyResources(this.buttonSplitSelection, "buttonSplitSelection");
             this.buttonSplitSelection.Name = "buttonSplitSelection";
-            this.toolTip1.SetToolTip(this.buttonSplitSelection, resources.GetString("buttonSplitSelection.ToolTip"));
             this.buttonSplitSelection.UseVisualStyleBackColor = true;
             this.buttonSplitSelection.Click += new System.EventHandler(this.buttonSplitSelection_Click);
             // 
@@ -180,7 +171,6 @@
             // 
             resources.ApplyResources(this.buttonGroupSelectionInOneAsset, "buttonGroupSelectionInOneAsset");
             this.buttonGroupSelectionInOneAsset.Name = "buttonGroupSelectionInOneAsset";
-            this.toolTip1.SetToolTip(this.buttonGroupSelectionInOneAsset, resources.GetString("buttonGroupSelectionInOneAsset.ToolTip"));
             this.buttonGroupSelectionInOneAsset.UseVisualStyleBackColor = true;
             this.buttonGroupSelectionInOneAsset.Click += new System.EventHandler(this.buttonGroupSelectionInOneAsset_Click);
             // 
@@ -188,7 +178,6 @@
             // 
             resources.ApplyResources(this.buttonRemoveAll, "buttonRemoveAll");
             this.buttonRemoveAll.Name = "buttonRemoveAll";
-            this.toolTip1.SetToolTip(this.buttonRemoveAll, resources.GetString("buttonRemoveAll.ToolTip"));
             this.buttonRemoveAll.UseVisualStyleBackColor = true;
             this.buttonRemoveAll.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -198,7 +187,6 @@
             this.labelWarningFiles.ForeColor = System.Drawing.Color.Red;
             this.labelWarningFiles.Name = "labelWarningFiles";
             this.labelWarningFiles.Tag = "";
-            this.toolTip1.SetToolTip(this.labelWarningFiles, resources.GetString("labelWarningFiles.ToolTip"));
             // 
             // buttonSelectFolder
             // 
@@ -222,19 +210,16 @@
             this.comboBoxStorageAsset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorageAsset.FormattingEnabled = true;
             this.comboBoxStorageAsset.Name = "comboBoxStorageAsset";
-            this.toolTip1.SetToolTip(this.comboBoxStorageAsset, resources.GetString("comboBoxStorageAsset.ToolTip"));
             // 
             // label33
             // 
             resources.ApplyResources(this.label33, "label33");
             this.label33.Name = "label33";
-            this.toolTip1.SetToolTip(this.label33, resources.GetString("label33.ToolTip"));
             // 
             // buttonDelFiles
             // 
             resources.ApplyResources(this.buttonDelFiles, "buttonDelFiles");
             this.buttonDelFiles.Name = "buttonDelFiles";
-            this.toolTip1.SetToolTip(this.buttonDelFiles, resources.GetString("buttonDelFiles.ToolTip"));
             this.buttonDelFiles.UseVisualStyleBackColor = true;
             this.buttonDelFiles.Click += new System.EventHandler(this.buttonDelFiles_Click);
             // 
@@ -242,25 +227,22 @@
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // dataGridAssetFiles
             // 
-            resources.ApplyResources(this.dataGridAssetFiles, "dataGridAssetFiles");
             this.dataGridAssetFiles.AllowUserToAddRows = false;
             this.dataGridAssetFiles.AllowUserToDeleteRows = false;
             this.dataGridAssetFiles.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridAssetFiles, "dataGridAssetFiles");
             this.dataGridAssetFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridAssetFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAssetFiles.Name = "dataGridAssetFiles";
             this.dataGridAssetFiles.RowHeadersVisible = false;
             this.dataGridAssetFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.toolTip1.SetToolTip(this.dataGridAssetFiles, resources.GetString("dataGridAssetFiles.ToolTip"));
             this.dataGridAssetFiles.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAssetFiles_CellEndEdit);
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.radioButtonCENCEncryption);
             this.tabPage2.Controls.Add(this.radioButtonStorageEncryption);
@@ -268,22 +250,20 @@
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.buttonBrowseFile);
             this.tabPage2.Controls.Add(this.textBoxFolderPath);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
-            this.toolTip1.SetToolTip(this.tabPage2, resources.GetString("tabPage2.ToolTip"));
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // radioButtonCENCEncryption
             // 
             resources.ApplyResources(this.radioButtonCENCEncryption, "radioButtonCENCEncryption");
             this.radioButtonCENCEncryption.Name = "radioButtonCENCEncryption";
             this.radioButtonCENCEncryption.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonCENCEncryption, resources.GetString("radioButtonCENCEncryption.ToolTip"));
             this.radioButtonCENCEncryption.UseVisualStyleBackColor = true;
             this.radioButtonCENCEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
             // 
@@ -292,7 +272,6 @@
             resources.ApplyResources(this.radioButtonStorageEncryption, "radioButtonStorageEncryption");
             this.radioButtonStorageEncryption.Name = "radioButtonStorageEncryption";
             this.radioButtonStorageEncryption.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonStorageEncryption, resources.GetString("radioButtonStorageEncryption.ToolTip"));
             this.radioButtonStorageEncryption.UseVisualStyleBackColor = true;
             this.radioButtonStorageEncryption.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
             // 
@@ -302,22 +281,19 @@
             this.radioButtonEncryptionNone.Checked = true;
             this.radioButtonEncryptionNone.Name = "radioButtonEncryptionNone";
             this.radioButtonEncryptionNone.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonEncryptionNone, resources.GetString("radioButtonEncryptionNone.ToolTip"));
             this.radioButtonEncryptionNone.UseVisualStyleBackColor = true;
             this.radioButtonEncryptionNone.CheckedChanged += new System.EventHandler(this.radioButtonStorageEncryption_CheckedChanged);
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
             // 
             // buttonBrowseFile
             // 
             resources.ApplyResources(this.buttonBrowseFile, "buttonBrowseFile");
             this.buttonBrowseFile.Name = "buttonBrowseFile";
-            this.toolTip1.SetToolTip(this.buttonBrowseFile, resources.GetString("buttonBrowseFile.ToolTip"));
             this.buttonBrowseFile.UseVisualStyleBackColor = true;
             this.buttonBrowseFile.Click += new System.EventHandler(this.buttonBrowseFile_Click);
             // 
@@ -325,15 +301,13 @@
             // 
             resources.ApplyResources(this.textBoxFolderPath, "textBoxFolderPath");
             this.textBoxFolderPath.Name = "textBoxFolderPath";
-            this.toolTip1.SetToolTip(this.textBoxFolderPath, resources.GetString("textBoxFolderPath.ToolTip"));
             // 
             // tabPage5
             // 
-            resources.ApplyResources(this.tabPage5, "tabPage5");
             this.tabPage5.Controls.Add(this.linkLabelInfoAzCopy);
             this.tabPage5.Controls.Add(this.checkBoxGenerateAzCopy);
+            resources.ApplyResources(this.tabPage5, "tabPage5");
             this.tabPage5.Name = "tabPage5";
-            this.toolTip1.SetToolTip(this.tabPage5, resources.GetString("tabPage5.ToolTip"));
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // linkLabelInfoAzCopy
@@ -341,25 +315,22 @@
             resources.ApplyResources(this.linkLabelInfoAzCopy, "linkLabelInfoAzCopy");
             this.linkLabelInfoAzCopy.Name = "linkLabelInfoAzCopy";
             this.linkLabelInfoAzCopy.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelInfoAzCopy, resources.GetString("linkLabelInfoAzCopy.ToolTip"));
             this.linkLabelInfoAzCopy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
             // checkBoxGenerateAzCopy
             // 
             resources.ApplyResources(this.checkBoxGenerateAzCopy, "checkBoxGenerateAzCopy");
             this.checkBoxGenerateAzCopy.Name = "checkBoxGenerateAzCopy";
-            this.toolTip1.SetToolTip(this.checkBoxGenerateAzCopy, resources.GetString("checkBoxGenerateAzCopy.ToolTip"));
             this.checkBoxGenerateAzCopy.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Controls.Add(this.panelSigniant);
             this.tabPage4.Controls.Add(this.linkLabelSigniantRequestKey);
             this.tabPage4.Controls.Add(this.linklabelSigniantMarket);
             this.tabPage4.Controls.Add(this.checkBoxGenerateSigniant);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Name = "tabPage4";
-            this.toolTip1.SetToolTip(this.tabPage4, resources.GetString("tabPage4.ToolTip"));
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // panelSigniant
@@ -370,40 +341,34 @@
             this.panelSigniant.Controls.Add(this.label9);
             this.panelSigniant.Controls.Add(this.textBoxSigniantAPIKey);
             this.panelSigniant.Name = "panelSigniant";
-            this.toolTip1.SetToolTip(this.panelSigniant, resources.GetString("panelSigniant.ToolTip"));
             // 
             // comboBoxSigniantServer
             // 
-            resources.ApplyResources(this.comboBoxSigniantServer, "comboBoxSigniantServer");
             this.comboBoxSigniantServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSigniantServer.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxSigniantServer, "comboBoxSigniantServer");
             this.comboBoxSigniantServer.Name = "comboBoxSigniantServer";
-            this.toolTip1.SetToolTip(this.comboBoxSigniantServer, resources.GetString("comboBoxSigniantServer.ToolTip"));
             // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.toolTip1.SetToolTip(this.label8, resources.GetString("label8.ToolTip"));
             // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
             // 
             // textBoxSigniantAPIKey
             // 
             resources.ApplyResources(this.textBoxSigniantAPIKey, "textBoxSigniantAPIKey");
             this.textBoxSigniantAPIKey.Name = "textBoxSigniantAPIKey";
-            this.toolTip1.SetToolTip(this.textBoxSigniantAPIKey, resources.GetString("textBoxSigniantAPIKey.ToolTip"));
             // 
             // linkLabelSigniantRequestKey
             // 
             resources.ApplyResources(this.linkLabelSigniantRequestKey, "linkLabelSigniantRequestKey");
             this.linkLabelSigniantRequestKey.Name = "linkLabelSigniantRequestKey";
             this.linkLabelSigniantRequestKey.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelSigniantRequestKey, resources.GetString("linkLabelSigniantRequestKey.ToolTip"));
             this.linkLabelSigniantRequestKey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
             // linklabelSigniantMarket
@@ -411,31 +376,27 @@
             resources.ApplyResources(this.linklabelSigniantMarket, "linklabelSigniantMarket");
             this.linklabelSigniantMarket.Name = "linklabelSigniantMarket";
             this.linklabelSigniantMarket.TabStop = true;
-            this.toolTip1.SetToolTip(this.linklabelSigniantMarket, resources.GetString("linklabelSigniantMarket.ToolTip"));
             this.linklabelSigniantMarket.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
             // checkBoxGenerateSigniant
             // 
             resources.ApplyResources(this.checkBoxGenerateSigniant, "checkBoxGenerateSigniant");
             this.checkBoxGenerateSigniant.Name = "checkBoxGenerateSigniant";
-            this.toolTip1.SetToolTip(this.checkBoxGenerateSigniant, resources.GetString("checkBoxGenerateSigniant.ToolTip"));
             this.checkBoxGenerateSigniant.UseVisualStyleBackColor = true;
             this.checkBoxGenerateSigniant.CheckedChanged += new System.EventHandler(this.checkBoxGenerateSigniant_CheckedChanged);
             // 
             // tabPage6
             // 
-            resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Controls.Add(this.checkBoxGenerateAspera);
             this.tabPage6.Controls.Add(this.linkLabelAspera);
+            resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Name = "tabPage6";
-            this.toolTip1.SetToolTip(this.tabPage6, resources.GetString("tabPage6.ToolTip"));
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // checkBoxGenerateAspera
             // 
             resources.ApplyResources(this.checkBoxGenerateAspera, "checkBoxGenerateAspera");
             this.checkBoxGenerateAspera.Name = "checkBoxGenerateAspera";
-            this.toolTip1.SetToolTip(this.checkBoxGenerateAspera, resources.GetString("checkBoxGenerateAspera.ToolTip"));
             this.checkBoxGenerateAspera.UseVisualStyleBackColor = true;
             // 
             // linkLabelAspera
@@ -443,35 +404,30 @@
             resources.ApplyResources(this.linkLabelAspera, "linkLabelAspera");
             this.linkLabelAspera.Name = "linkLabelAspera";
             this.linkLabelAspera.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelAspera, resources.GetString("linkLabelAspera.ToolTip"));
             this.linkLabelAspera.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklabel_LinkClicked);
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.label6);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
-            this.toolTip1.SetToolTip(this.tabPage3, resources.GetString("tabPage3.ToolTip"));
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
-            resources.ApplyResources(this.label6, "label6");
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // textBoxManifestName
             // 
             resources.ApplyResources(this.textBoxManifestName, "textBoxManifestName");
             this.textBoxManifestName.Name = "textBoxManifestName";
-            this.toolTip1.SetToolTip(this.textBoxManifestName, resources.GetString("textBoxManifestName.ToolTip"));
             // 
             // comboBoxStorageIngest
             // 
@@ -479,13 +435,11 @@
             this.comboBoxStorageIngest.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorageIngest.FormattingEnabled = true;
             this.comboBoxStorageIngest.Name = "comboBoxStorageIngest";
-            this.toolTip1.SetToolTip(this.comboBoxStorageIngest, resources.GetString("comboBoxStorageIngest.ToolTip"));
             // 
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.toolTip1.SetToolTip(this.label7, resources.GetString("label7.ToolTip"));
             // 
             // BulkUpload
             // 
@@ -502,7 +456,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Name = "BulkUpload";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.UploadBulk_Load);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

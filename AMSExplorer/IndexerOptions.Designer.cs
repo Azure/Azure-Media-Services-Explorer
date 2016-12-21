@@ -55,7 +55,6 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
@@ -63,7 +62,6 @@
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
-            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -73,7 +71,6 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -91,18 +88,16 @@
             this.checkBoxTTML.Checked = true;
             this.checkBoxTTML.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxTTML.Name = "checkBoxTTML";
-            this.toolTip1.SetToolTip(this.checkBoxTTML, resources.GetString("checkBoxTTML.ToolTip"));
             this.checkBoxTTML.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.checkBoxWEBVTT);
             this.groupBox1.Controls.Add(this.checkBoxSAMI);
             this.groupBox1.Controls.Add(this.checkBoxTTML);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // checkBoxWEBVTT
             // 
@@ -110,7 +105,6 @@
             this.checkBoxWEBVTT.Checked = true;
             this.checkBoxWEBVTT.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxWEBVTT.Name = "checkBoxWEBVTT";
-            this.toolTip1.SetToolTip(this.checkBoxWEBVTT, resources.GetString("checkBoxWEBVTT.ToolTip"));
             this.checkBoxWEBVTT.UseVisualStyleBackColor = true;
             // 
             // checkBoxSAMI
@@ -119,7 +113,6 @@
             this.checkBoxSAMI.Checked = true;
             this.checkBoxSAMI.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxSAMI.Name = "checkBoxSAMI";
-            this.toolTip1.SetToolTip(this.checkBoxSAMI, resources.GetString("checkBoxSAMI.ToolTip"));
             this.checkBoxSAMI.UseVisualStyleBackColor = true;
             // 
             // checkBoxAIB
@@ -137,18 +130,16 @@
             this.checkBoxKeywords.Checked = true;
             this.checkBoxKeywords.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxKeywords.Name = "checkBoxKeywords";
-            this.toolTip1.SetToolTip(this.checkBoxKeywords, resources.GetString("checkBoxKeywords.ToolTip"));
             this.checkBoxKeywords.UseVisualStyleBackColor = true;
             // 
             // groupBoxOther
             // 
-            resources.ApplyResources(this.groupBoxOther, "groupBoxOther");
             this.groupBoxOther.Controls.Add(this.checkBoxForceFullCaptions);
             this.groupBoxOther.Controls.Add(this.checkBoxKeywords);
             this.groupBoxOther.Controls.Add(this.checkBoxAIB);
+            resources.ApplyResources(this.groupBoxOther, "groupBoxOther");
             this.groupBoxOther.Name = "groupBoxOther";
             this.groupBoxOther.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBoxOther, resources.GetString("groupBoxOther.ToolTip"));
             // 
             // checkBoxForceFullCaptions
             // 
@@ -162,7 +153,6 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // IndexerOptions
             // 
@@ -176,7 +166,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "IndexerOptions";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

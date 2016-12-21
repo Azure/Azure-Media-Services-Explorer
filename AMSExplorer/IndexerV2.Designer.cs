@@ -59,39 +59,33 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // textboxoutputassetname
             // 
             resources.ApplyResources(this.textboxoutputassetname, "textboxoutputassetname");
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.toolTip1.SetToolTip(this.textboxoutputassetname, resources.GetString("textboxoutputassetname.ToolTip"));
             // 
             // buttonCancel
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // labelAssetName
             // 
             resources.ApplyResources(this.labelAssetName, "labelAssetName");
             this.labelAssetName.Name = "labelAssetName";
-            this.toolTip1.SetToolTip(this.labelAssetName, resources.GetString("labelAssetName.ToolTip"));
             // 
             // textBoxJobName
             // 
             resources.ApplyResources(this.textBoxJobName, "textBoxJobName");
             this.textBoxJobName.Name = "textBoxJobName";
-            this.toolTip1.SetToolTip(this.textBoxJobName, resources.GetString("textBoxJobName.ToolTip"));
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // buttonOk
             // 
@@ -99,7 +93,6 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.index;
             this.buttonOk.Name = "buttonOk";
-            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label34
@@ -107,7 +100,6 @@
             resources.ApplyResources(this.label34, "label34");
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.label34.Name = "label34";
-            this.toolTip1.SetToolTip(this.label34, resources.GetString("label34.ToolTip"));
             // 
             // panel1
             // 
@@ -116,19 +108,17 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
             // 
             // comboBoxLanguage
             // 
-            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLanguage.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
             // 
@@ -136,7 +126,6 @@
             // 
             resources.ApplyResources(this.buttonGenOptions, "buttonGenOptions");
             this.buttonGenOptions.Name = "buttonGenOptions";
-            this.toolTip1.SetToolTip(this.buttonGenOptions, resources.GetString("buttonGenOptions.ToolTip"));
             this.buttonGenOptions.UseVisualStyleBackColor = true;
             this.buttonGenOptions.Click += new System.EventHandler(this.buttonGenOptions_Click);
             // 
@@ -144,7 +133,6 @@
             // 
             resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
             this.buttonJobOptions.Name = "buttonJobOptions";
-            this.toolTip1.SetToolTip(this.buttonJobOptions, resources.GetString("buttonJobOptions.ToolTip"));
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // moreinfoprofilelink
@@ -152,7 +140,6 @@
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
-            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // labelProcessorVersion
@@ -160,28 +147,24 @@
             resources.ApplyResources(this.labelProcessorVersion, "labelProcessorVersion");
             this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelProcessorVersion.Name = "labelProcessorVersion";
-            this.toolTip1.SetToolTip(this.labelProcessorVersion, resources.GetString("labelProcessorVersion.ToolTip"));
             // 
             // labelPreview
             // 
             resources.ApplyResources(this.labelPreview, "labelPreview");
             this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelPreview.Name = "labelPreview";
-            this.toolTip1.SetToolTip(this.labelPreview, resources.GetString("labelPreview.ToolTip"));
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._01_indexer;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // checkBoxCopyToInput
             // 
             resources.ApplyResources(this.checkBoxCopyToInput, "checkBoxCopyToInput");
             this.checkBoxCopyToInput.Name = "checkBoxCopyToInput";
-            this.toolTip1.SetToolTip(this.checkBoxCopyToInput, resources.GetString("checkBoxCopyToInput.ToolTip"));
             this.checkBoxCopyToInput.UseVisualStyleBackColor = true;
             // 
             // dataGridViewTextBoxColumn1
@@ -217,7 +200,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Name = "IndexerV2";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.IndexerV2_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

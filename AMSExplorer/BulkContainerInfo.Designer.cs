@@ -58,31 +58,31 @@
             // 
             // contextMenuStripDG
             // 
-            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
+            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
-            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
+            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.DGBulkManifest);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // DGBulkManifest
             // 
-            resources.ApplyResources(this.DGBulkManifest, "DGBulkManifest");
             this.DGBulkManifest.AllowUserToAddRows = false;
             this.DGBulkManifest.AllowUserToDeleteRows = false;
             this.DGBulkManifest.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGBulkManifest, "DGBulkManifest");
             this.DGBulkManifest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGBulkManifest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGBulkManifest.ColumnHeadersVisible = false;
@@ -103,9 +103,9 @@
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textBoxName);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
@@ -121,18 +121,18 @@
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.DGAssetManifest);
             this.tabPage3.Controls.Add(this.listViewAssetManifests);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // DGAssetManifest
             // 
-            resources.ApplyResources(this.DGAssetManifest, "DGAssetManifest");
             this.DGAssetManifest.AllowUserToAddRows = false;
             this.DGAssetManifest.AllowUserToDeleteRows = false;
             this.DGAssetManifest.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGAssetManifest, "DGAssetManifest");
             this.DGAssetManifest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGAssetManifest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAssetManifest.ColumnHeadersVisible = false;

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramInformation));
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
@@ -68,25 +69,20 @@
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
+            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
             this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
-            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
+            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             // 
             // tabPageInfo
             // 
             this.tabPageInfo.Controls.Add(this.DGChannel);
-            this.tabPageInfo.Location = new System.Drawing.Point(4, 24);
+            resources.ApplyResources(this.tabPageInfo, "tabPageInfo");
             this.tabPageInfo.Name = "tabPageInfo";
-            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(748, 378);
-            this.tabPageInfo.TabIndex = 0;
-            this.tabPageInfo.Text = "Program information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
             // 
             // DGChannel
@@ -94,76 +90,50 @@
             this.DGChannel.AllowUserToAddRows = false;
             this.DGChannel.AllowUserToDeleteRows = false;
             this.DGChannel.AllowUserToResizeRows = false;
-            this.DGChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.DGChannel, "DGChannel");
             this.DGChannel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGChannel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGChannel.ColumnHeadersVisible = false;
             this.DGChannel.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGChannel.Location = new System.Drawing.Point(7, 7);
             this.DGChannel.MultiSelect = false;
             this.DGChannel.Name = "DGChannel";
             this.DGChannel.ReadOnly = true;
             this.DGChannel.RowHeadersVisible = false;
-            this.DGChannel.Size = new System.Drawing.Size(732, 360);
-            this.DGChannel.TabIndex = 0;
             // 
             // buttonDisplayRelatedAsset
             // 
             this.buttonDisplayRelatedAsset.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.buttonDisplayRelatedAsset.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDisplayRelatedAsset.Location = new System.Drawing.Point(19, 48);
+            resources.ApplyResources(this.buttonDisplayRelatedAsset, "buttonDisplayRelatedAsset");
             this.buttonDisplayRelatedAsset.Name = "buttonDisplayRelatedAsset";
-            this.buttonDisplayRelatedAsset.Size = new System.Drawing.Size(252, 27);
-            this.buttonDisplayRelatedAsset.TabIndex = 24;
-            this.buttonDisplayRelatedAsset.Text = "Display related asset information";
             this.buttonDisplayRelatedAsset.UseVisualStyleBackColor = true;
             this.buttonDisplayRelatedAsset.Click += new System.EventHandler(this.buttonOpenAsset_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageSettings);
-            this.tabControl1.Location = new System.Drawing.Point(14, 93);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(756, 406);
-            this.tabControl1.TabIndex = 34;
             // 
             // tabPageSettings
             // 
             this.tabPageSettings.Controls.Add(this.label2);
             this.tabPageSettings.Controls.Add(this.textBoxDescription);
             this.tabPageSettings.Controls.Add(this.groupBox4);
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 24);
+            resources.ApplyResources(this.tabPageSettings, "tabPageSettings");
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettings.Size = new System.Drawing.Size(748, 378);
-            this.tabPageSettings.TabIndex = 3;
-            this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 21);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 15);
-            this.label2.TabIndex = 52;
-            this.label2.Text = "Description :";
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(23, 39);
+            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(699, 23);
-            this.textBoxDescription.TabIndex = 51;
             this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
             // 
             // groupBox4
@@ -175,158 +145,108 @@
             this.groupBox4.Controls.Add(this.numericUpDownArchiveHours);
             this.groupBox4.Controls.Add(this.pictureBox2);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(23, 110);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(699, 148);
-            this.groupBox4.TabIndex = 50;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "DVR / Archive Settings";
             // 
             // label9
             // 
             this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(325, 43);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(144, 15);
-            this.label9.TabIndex = 74;
-            this.label9.Text = "5 min to 25 hours max";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(260, 22);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(50, 15);
-            this.label11.TabIndex = 63;
-            this.label11.Text = "Minutes";
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(264, 41);
+            resources.ApplyResources(this.numericUpDownArchiveMinutes, "numericUpDownArchiveMinutes");
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
-            this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownArchiveMinutes.TabIndex = 62;
             this.numericUpDownArchiveMinutes.ValueChanged += new System.EventHandler(this.numericUpDownArchiveMinutes_ValueChanged);
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(198, 22);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(39, 15);
-            this.label10.TabIndex = 61;
-            this.label10.Text = "Hours";
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(202, 41);
+            resources.ApplyResources(this.numericUpDownArchiveHours, "numericUpDownArchiveHours");
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
-            this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownArchiveHours.TabIndex = 59;
             this.numericUpDownArchiveHours.ValueChanged += new System.EventHandler(this.numericUpDownArchiveHours_ValueChanged);
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox2.Location = new System.Drawing.Point(19, 39);
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 49;
             this.pictureBox2.TabStop = false;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(56, 43);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(140, 15);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Archive Window Length :";
             // 
             // labelProgramName
             // 
-            this.labelProgramName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgramName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.labelProgramName.Location = new System.Drawing.Point(21, 10);
+            resources.ApplyResources(this.labelProgramName, "labelProgramName");
             this.labelProgramName.Name = "labelProgramName";
-            this.labelProgramName.Size = new System.Drawing.Size(737, 23);
-            this.labelProgramName.TabIndex = 38;
-            this.labelProgramName.Text = "Program : ";
             this.labelProgramName.Click += new System.EventHandler(this.labelProgramName_Click);
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonClose, "buttonClose");
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(645, 15);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(115, 27);
-            this.buttonClose.TabIndex = 41;
-            this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // buttonUpdateClose
             // 
-            this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonUpdateClose, "buttonUpdateClose");
             this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Location = new System.Drawing.Point(452, 15);
             this.buttonUpdateClose.Name = "buttonUpdateClose";
-            this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
-            this.buttonUpdateClose.TabIndex = 40;
-            this.buttonUpdateClose.Text = "Update settings and close";
             this.buttonUpdateClose.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Location = new System.Drawing.Point(-5, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(777, 55);
-            this.panel1.TabIndex = 63;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(761, 506);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(27, 42);
-            this.panel2.TabIndex = 77;
             // 
             // ProgramInformation
             // 
             this.AcceptButton = this.buttonClose;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
-            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProgramInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Program Information";
             this.Load += new System.EventHandler(this.ProgramInformation_Load);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);

@@ -118,2355 +118,1761 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxCrossDomPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DGChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabPagePreview.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
+  <metadata name="contextMenuStripDG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>212, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tabPageChannelInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
   </data>
-  <data name="&gt;&gt;buttonAddPreviewIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>Copy to clipboard</value>
   </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewVideoProf.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxclientpolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 7</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewInputIP.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Description :</value>
-  </data>
-  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxPreviewSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageChannelInfo.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonAddPreviewIP.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;tabPageEncoding.Name" xml:space="preserve">
-    <value>tabPageEncoding</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="tabPageSettings.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAllowAllPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewVideoProf.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageChannelInfo.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddAudioStream.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Language :</value>
-  </data>
-  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelPreviewIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>For a custom preset, contact amslived@microsoft.com</value>
-  </data>
-  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 18</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 19</value>
-  </data>
-  <data name="checkBoxHLSFragPerSeg.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioProf.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 31</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioStreams.Name" xml:space="preserve">
-    <value>dataGridViewAudioStreams</value>
-  </data>
-  <data name="&gt;&gt;tabPagePreview.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="openFileDialogSlate.Filter" xml:space="preserve">
-    <value>Image|*.jpg|All files (*.*)|*.*</value>
-  </data>
-  <data name="buttonAddInputIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxClientPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 217</value>
-  </data>
-  <data name="&gt;&gt;buttonDelInputIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexMain.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewInputIP.Name" xml:space="preserve">
-    <value>dataGridViewInputIP</value>
-  </data>
-  <data name="buttonAddAudioStream.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 27</value>
-  </data>
-  <data name="dataGridViewAudioStreams.TabIndex" type="System.Int32, mscorlib">
-    <value>97</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAudioStream.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="radioButtonCustomPreset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>groupBoxVideoStream</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 433</value>
-  </data>
-  <data name="label9.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;labelChannelMustBeStopped.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelChannelMustBeStopped.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateClose.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="label11.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
-    <value>panelDisplayEncProfile</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Name" xml:space="preserve">
-    <value>checkBoxclientpolicy</value>
-  </data>
-  <data name="groupBoxEncoding.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label16.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewVideoProf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 121</value>
-  </data>
-  <data name="panel2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label17.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 16</value>
-  </data>
-  <data name="label11.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
-    <value>buttonClose</value>
-  </data>
-  <data name="buttonClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="contextMenuStripDG.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownAudioIndexMain.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Name" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="labelChannelName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 10</value>
-  </data>
-  <data name="textboxchannedesc.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="textBoxClientPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="buttonDelPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Name" xml:space="preserve">
-    <value>textBoxCrossDomPolicy</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAudioStream.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
-    <value>Define client policy :</value>
-  </data>
-  <data name="radioButtonDefaultPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="webBrowserPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="buttonAddAudioStream.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="webBrowserPreview.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFilesCopyClipboard.Name" xml:space="preserve">
-    <value>toolStripMenuItemFilesCopyClipboard</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 23</value>
-  </data>
-  <data name="groupBoxVideoStream.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 405</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="dataGridViewAudioStreams.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 226</value>
-  </data>
-  <data name="DGChannel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.Text" xml:space="preserve">
-    <value>Allow all IP addresses</value>
-  </data>
-  <data name="radioButtonDefaultPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;DGChannel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonDelAddOption.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;checkBoxPreviewSet.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="contextMenuStripDG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 26</value>
   </data>
   <data name="&gt;&gt;contextMenuStripDG.Name" xml:space="preserve">
     <value>contextMenuStripDG</value>
   </data>
-  <data name="dataGridViewAudioProf.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewInputIP.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="textBoxClientPolicy.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioStreams.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="textBoxClientPolicy.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label19.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;tabPageChannelInfo.Name" xml:space="preserve">
-    <value>tabPageChannelInfo</value>
-  </data>
-  <data name="&gt;&gt;tabPageChannelInfo.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="tabPageChannelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ChannelInformation</value>
-  </data>
-  <data name="checkBoxIgnore708.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;groupBoxVideoStream.Parent" xml:space="preserve">
-    <value>tabPageEncoding</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tabPageIndexes.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="buttonDelInputIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 362</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomPreset.Parent" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="labelChannelName.Text" xml:space="preserve">
-    <value>Channel : </value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dataGridViewAudioProf.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxInputSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 19</value>
-  </data>
-  <data name="labelIndexesChannelMustBeStopped.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Name" xml:space="preserve">
-    <value>labelChannelStoppedOrStartedSettings</value>
-  </data>
-  <data name="labelIndexesChannelMustBeStopped.Text" xml:space="preserve">
-    <value>Channel must be stopped to change encoding settings</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageMain.Name" xml:space="preserve">
-    <value>comboBoxAudioLanguageMain</value>
-  </data>
-  <data name="webBrowserPreview.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>23, 23</value>
-  </data>
-  <data name="panelDisplayEncProfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 105</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Audio Stream Index :</value>
-  </data>
-  <data name="&gt;&gt;webBrowserPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;tabPageEncoding.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelChannelMustBeStopped.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 19</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomPreset.Name" xml:space="preserve">
-    <value>textBoxCustomPreset</value>
-  </data>
-  <data name="&gt;&gt;panelDisplayEncProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label19.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label17.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="webBrowserPreview.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxCustomPreset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxClientPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePreview.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxKeyFrame.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>887, 539</value>
-  </data>
-  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageIndexes.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDefaultPreset.Name" xml:space="preserve">
-    <value>radioButtonDefaultPreset</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Name" xml:space="preserve">
-    <value>numericUpDownVideoStreamIndex</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPreviewSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="buttonDelPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>542, 261</value>
-  </data>
-  <data name="radioButtonCustomPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label12.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="labelIndexesChannelMustBeStopped.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 19</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 75</value>
-  </data>
-  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
-    <value>errorProvider1</value>
-  </data>
-  <data name="&gt;&gt;openFileDialogSlate.Name" xml:space="preserve">
-    <value>openFileDialogSlate</value>
-  </data>
-  <data name="&gt;&gt;panelDisplayEncProfile.Parent" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDefaultPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAudioStream.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewAudioStreams.Size" type="System.Drawing.Size, System.Drawing">
-    <value>359, 133</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 19</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.TabIndex" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
-  <data name="numericUpDownAudioIndexMain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageMain.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="label7.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxclientpolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAddOption.Name" xml:space="preserve">
-    <value>buttonDelAddOption</value>
-  </data>
-  <data name="buttonDelAddOption.Text" xml:space="preserve">
-    <value>Del</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateClose.Name" xml:space="preserve">
-    <value>buttonUpdateClose</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 23</value>
-  </data>
-  <data name="textBoxKeyFrame.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 19</value>
-  </data>
-  <data name="buttonAllowAllInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="contextMenuStripDG.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewVideoProf.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="checkBoxHLSFragPerSeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 19</value>
-  </data>
-  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label16.Name" xml:space="preserve">
-    <value>label16</value>
-  </data>
-  <data name="buttonAddAudioStream.Location" type="System.Drawing.Point, System.Drawing">
-    <value>399, 193</value>
-  </data>
-  <data name="textboxchannedesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>808, 23</value>
-  </data>
-  <data name="textboxchannedesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 42</value>
-  </data>
-  <data name="&gt;&gt;buttonAddPreviewIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="dataGridViewInputIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
-  </data>
-  <data name="checkBoxcrossdomains.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Parent" xml:space="preserve">
-    <value>groupBoxVideoStream</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 23</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewVideoProf.Parent" xml:space="preserve">
-    <value>panelDisplayEncProfile</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonAllowAllInputIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>260, 261</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelStreamIndexes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>508, 381</value>
-  </data>
-  <data name="&gt;&gt;webBrowserPreview.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 57</value>
-  </data>
-  <data name="&gt;&gt;buttonAddPreviewIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomPreset.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelDisplayEncProfile.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageAddition.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Language :</value>
-  </data>
-  <data name="labelChannelMustBeStopped.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBoxEncoding.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 48</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>890, 595</value>
-  </data>
-  <data name="labelChannelName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Video Stream Index :</value>
-  </data>
-  <data name="labelChannelMustBeStopped.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numericUpDownAudioIndexAddition.TabIndex" type="System.Int32, mscorlib">
-    <value>93</value>
-  </data>
-  <data name="&gt;&gt;labelChannelName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabPageChannelInfo.Text" xml:space="preserve">
-    <value>Channel information</value>
-  </data>
-  <data name="tabPageChannelInfo.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 177</value>
-  </data>
-  <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioStreams.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabPageIndexes.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Channel Information</value>
-  </data>
-  <data name="buttonDelAddOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 27</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownVideoStreamIndex.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxclientpolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 15</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="tabPageEncoding.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="buttonUpdateClose.Text" xml:space="preserve">
-    <value>Update settings and close</value>
-  </data>
-  <data name="tabPageEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageMain.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="labelChannelMustBeStopped.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="&gt;&gt;buttonDelPreviewIP.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 297</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAddOption.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Parent" xml:space="preserve">
-    <value>tabPageEncoding</value>
-  </data>
-  <data name="tabPagePreview.Text" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="checkBoxclientpolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="checkBoxPreviewSet.Text" xml:space="preserve">
-    <value>Define PREVIEW allowed IP addresses :</value>
-  </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
-    <value>panelDisplayEncProfile</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewInputIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;buttonDelPreviewIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
+  <data name="&gt;&gt;contextMenuStripDG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DGChannel.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 7</value>
   </data>
-  <data name="panelDisplayEncProfile.IconPadding" type="System.Int32, mscorlib">
+  <data name="DGChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>863, 493</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DGChannel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Name" xml:space="preserve">
-    <value>textBoxClientPolicy</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Name" xml:space="preserve">
-    <value>checkBoxIgnore708</value>
-  </data>
-  <data name="&gt;&gt;buttonAddInputIP.Name" xml:space="preserve">
-    <value>buttonAddInputIP</value>
-  </data>
-  <data name="buttonUpdateClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 27</value>
-  </data>
-  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label19.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label19.Name" xml:space="preserve">
-    <value>label19</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllInputIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label13.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxKeyFrame.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBoxVideoStream.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DGChannel.Name" xml:space="preserve">
     <value>DGChannel</value>
   </data>
-  <data name="&gt;&gt;tabPagePreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;DGChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;DGChannel.Parent" xml:space="preserve">
+    <value>tabPageChannelInfo</value>
   </data>
-  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonDelInputIP.IconPadding" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;DGChannel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonAddInputIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="dataGridViewInputIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 148</value>
+  <data name="tabPageChannelInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
   </data>
-  <data name="panelDisplayEncProfile.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
+  <data name="tabPageChannelInfo.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexAddition.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="tabPageChannelInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
   </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
-    <value>textBoxKeyFrame</value>
+  <data name="tabPageChannelInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="labelIndexesChannelMustBeStopped.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="tabPageChannelInfo.Text" xml:space="preserve">
+    <value>Channel information</value>
+  </data>
+  <data name="&gt;&gt;tabPageChannelInfo.Name" xml:space="preserve">
+    <value>tabPageChannelInfo</value>
+  </data>
+  <data name="&gt;&gt;tabPageChannelInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageChannelInfo.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;tabPageChannelInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.ZOrder" xml:space="preserve">
+  <data name="buttonAllowAllPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>677, 261</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 27</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.Text" xml:space="preserve">
+    <value>Allow all IP addresses</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllPreviewIP.Name" xml:space="preserve">
+    <value>buttonAllowAllPreviewIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllPreviewIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllPreviewIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllPreviewIP.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonAllowAllInputIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 261</value>
+  </data>
+  <data name="buttonAllowAllInputIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 27</value>
+  </data>
+  <data name="buttonAllowAllInputIP.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="buttonAllowAllInputIP.Text" xml:space="preserve">
+    <value>Allow all IP addresses</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllInputIP.Name" xml:space="preserve">
+    <value>buttonAllowAllInputIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllInputIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllInputIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllInputIP.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 433</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Name" xml:space="preserve">
+    <value>numericUpDownHLSFragPerSeg</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 406</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 19</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.Text" xml:space="preserve">
+    <value>HLS fragments per segment :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Name" xml:space="preserve">
+    <value>checkBoxHLSFragPerSeg</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHLSFragPerSeg.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 339</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 19</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
     <value>Key frame interval (s) :</value>
   </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
+    <value>checkBoxKeyFrameIntDefined</value>
   </data>
-  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
     <value>tabPageSettings</value>
   </data>
-  <data name="checkBoxclientpolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="tabPagePolicies.Error" xml:space="preserve">
-    <value />
+  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 362</value>
+  </data>
+  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
+    <value>textBoxKeyFrame</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="checkBoxInputSet.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxInputSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 83</value>
+  </data>
+  <data name="checkBoxInputSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>214, 19</value>
+  </data>
+  <data name="checkBoxInputSet.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="checkBoxInputSet.Text" xml:space="preserve">
+    <value>Define INPUT allowed IP addresses :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxInputSet.Name" xml:space="preserve">
+    <value>checkBoxInputSet</value>
+  </data>
+  <data name="&gt;&gt;checkBoxInputSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxInputSet.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxInputSet.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="checkBoxPreviewSet.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="checkBoxPreviewSet.Location" type="System.Drawing.Point, System.Drawing">
     <value>447, 83</value>
   </data>
-  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="checkBoxPreviewSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 19</value>
+  </data>
+  <data name="checkBoxPreviewSet.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="checkBoxPreviewSet.Text" xml:space="preserve">
+    <value>Define PREVIEW allowed IP addresses :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreviewSet.Name" xml:space="preserve">
+    <value>checkBoxPreviewSet</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreviewSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreviewSet.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreviewSet.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="dataGridViewInputIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dataGridViewInputIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 106</value>
+  </data>
+  <data name="dataGridViewInputIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 148</value>
+  </data>
+  <data name="dataGridViewInputIP.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewInputIP.Name" xml:space="preserve">
+    <value>dataGridViewInputIP</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewInputIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewInputIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewInputIP.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="dataGridViewPreviewIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dataGridViewPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>447, 110</value>
+  </data>
+  <data name="dataGridViewPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 144</value>
+  </data>
+  <data name="dataGridViewPreviewIP.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewPreviewIP.Name" xml:space="preserve">
+    <value>dataGridViewPreviewIP</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewPreviewIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewPreviewIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewPreviewIP.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="buttonDelPreviewIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDelPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>542, 261</value>
+  </data>
+  <data name="buttonDelPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonDelPreviewIP.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="buttonDelPreviewIP.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;buttonDelPreviewIP.Name" xml:space="preserve">
+    <value>buttonDelPreviewIP</value>
+  </data>
+  <data name="&gt;&gt;buttonDelPreviewIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelPreviewIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonDelPreviewIP.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="buttonDelInputIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDelInputIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>117, 261</value>
+  </data>
+  <data name="buttonDelInputIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonDelInputIP.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="buttonDelInputIP.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;buttonDelInputIP.Name" xml:space="preserve">
+    <value>buttonDelInputIP</value>
+  </data>
+  <data name="&gt;&gt;buttonDelInputIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelInputIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonDelInputIP.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="buttonAddPreviewIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonAddPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>447, 261</value>
+  </data>
+  <data name="buttonAddPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonAddPreviewIP.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="buttonAddPreviewIP.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;buttonAddPreviewIP.Name" xml:space="preserve">
+    <value>buttonAddPreviewIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAddPreviewIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddPreviewIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonAddPreviewIP.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 23</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="buttonAddInputIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonAddInputIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 261</value>
+  </data>
+  <data name="buttonAddInputIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonAddInputIP.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="buttonAddInputIP.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;buttonAddInputIP.Name" xml:space="preserve">
+    <value>buttonAddInputIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAddInputIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddInputIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;buttonAddInputIP.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="textboxchannedesc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 42</value>
+  </data>
+  <data name="textboxchannedesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>808, 23</value>
+  </data>
+  <data name="textboxchannedesc.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;textboxchannedesc.Name" xml:space="preserve">
+    <value>textboxchannedesc</value>
+  </data>
+  <data name="&gt;&gt;textboxchannedesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textboxchannedesc.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;textboxchannedesc.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
   </data>
-  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="tabPageSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="buttonAllowAllInputIP.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
   </data>
-  <data name="buttonAddInputIP.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="buttonDelPreviewIP.IconPadding" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;tabPageSettings.Name" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxIgnore708.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxIgnore708.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxIgnore708.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 489</value>
+  </data>
+  <data name="checkBoxIgnore708.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 19</value>
+  </data>
+  <data name="checkBoxIgnore708.TabIndex" type="System.Int32, mscorlib">
+    <value>103</value>
+  </data>
+  <data name="checkBoxIgnore708.Text" xml:space="preserve">
+    <value>Ignore CEA-708 closed captions</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnore708.Name" xml:space="preserve">
+    <value>checkBoxIgnore708</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnore708.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnore708.Parent" xml:space="preserve">
+    <value>tabPageEncoding</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnore708.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="groupBoxVideoStream.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 30</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 15</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Video Stream Index :</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>groupBoxVideoStream</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownVideoStreamIndex.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 48</value>
+  </data>
+  <data name="numericUpDownVideoStreamIndex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="numericUpDownVideoStreamIndex.TabIndex" type="System.Int32, mscorlib">
+    <value>102</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Name" xml:space="preserve">
+    <value>numericUpDownVideoStreamIndex</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownVideoStreamIndex.Parent" xml:space="preserve">
+    <value>groupBoxVideoStream</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownVideoStreamIndex.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxVideoStream.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 405</value>
+  </data>
+  <data name="groupBoxVideoStream.Size" type="System.Drawing.Size, System.Drawing">
+    <value>510, 81</value>
+  </data>
+  <data name="groupBoxVideoStream.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="groupBoxVideoStream.Text" xml:space="preserve">
+    <value>Video Stream</value>
+  </data>
+  <data name="&gt;&gt;groupBoxVideoStream.Name" xml:space="preserve">
+    <value>groupBoxVideoStream</value>
+  </data>
+  <data name="&gt;&gt;groupBoxVideoStream.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxVideoStream.Parent" xml:space="preserve">
+    <value>tabPageEncoding</value>
+  </data>
+  <data name="&gt;&gt;groupBoxVideoStream.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 16</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 19</value>
+  </data>
+  <data name="labelChannelMustBeStopped.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Text" xml:space="preserve">
+    <value>Channel must be stopped to change encoding settings</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelChannelMustBeStopped.Name" xml:space="preserve">
+    <value>labelChannelMustBeStopped</value>
+  </data>
+  <data name="&gt;&gt;labelChannelMustBeStopped.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannelMustBeStopped.Parent" xml:space="preserve">
+    <value>tabPageEncoding</value>
+  </data>
+  <data name="&gt;&gt;labelChannelMustBeStopped.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBoxEncoding.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="panelDisplayEncProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="dataGridViewVideoProf.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="dataGridViewVideoProf.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="dataGridViewVideoProf.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 121</value>
+  </data>
+  <data name="dataGridViewVideoProf.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewVideoProf.Name" xml:space="preserve">
+    <value>dataGridViewVideoProf</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewVideoProf.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewVideoProf.Parent" xml:space="preserve">
+    <value>panelDisplayEncProfile</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewVideoProf.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewAudioProf.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="dataGridViewAudioProf.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 166</value>
+  </data>
+  <data name="dataGridViewAudioProf.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 68</value>
+  </data>
+  <data name="dataGridViewAudioProf.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioProf.Name" xml:space="preserve">
+    <value>dataGridViewAudioProf</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioProf.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioProf.Parent" xml:space="preserve">
+    <value>panelDisplayEncProfile</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioProf.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 2</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 15</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Video profile (read-only) :</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>panelDisplayEncProfile</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label17.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="label17.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 148</value>
+  </data>
+  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 15</value>
+  </data>
+  <data name="label17.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>Audio profile (read-only) :</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>panelDisplayEncProfile</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panelDisplayEncProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 105</value>
+  </data>
+  <data name="panelDisplayEncProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>498, 237</value>
+  </data>
+  <data name="panelDisplayEncProfile.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;panelDisplayEncProfile.Name" xml:space="preserve">
+    <value>panelDisplayEncProfile</value>
+  </data>
+  <data name="&gt;&gt;panelDisplayEncProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelDisplayEncProfile.Parent" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;panelDisplayEncProfile.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>195, 82</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 16</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
-  <data name="tabPageIndexes.Text" xml:space="preserve">
-    <value>Audio Options</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>For a custom preset, contact amslived@microsoft.com</value>
+  </data>
+  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonCustomPreset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 57</value>
+  </data>
+  <data name="radioButtonCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 19</value>
+  </data>
+  <data name="radioButtonCustomPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="radioButtonCustomPreset.Text" xml:space="preserve">
+    <value>Use custom preset :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCustomPreset.Name" xml:space="preserve">
+    <value>radioButtonCustomPreset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCustomPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCustomPreset.Parent" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;radioButtonCustomPreset.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBoxCustomPreset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCustomPreset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>159, 56</value>
+  </data>
+  <data name="textBoxCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>332, 23</value>
+  </data>
+  <data name="textBoxCustomPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomPreset.Name" xml:space="preserve">
+    <value>textBoxCustomPreset</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomPreset.Parent" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomPreset.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonDefaultPreset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonDefaultPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 31</value>
+  </data>
+  <data name="radioButtonDefaultPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 19</value>
+  </data>
+  <data name="radioButtonDefaultPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
+    <value>Use "{0}" preset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDefaultPreset.Name" xml:space="preserve">
+    <value>radioButtonDefaultPreset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDefaultPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDefaultPreset.Parent" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDefaultPreset.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxEncoding.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 48</value>
+  </data>
+  <data name="groupBoxEncoding.Size" type="System.Drawing.Size, System.Drawing">
+    <value>510, 351</value>
+  </data>
+  <data name="groupBoxEncoding.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="groupBoxEncoding.Text" xml:space="preserve">
+    <value>Encoding Preset</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEncoding.Name" xml:space="preserve">
+    <value>groupBoxEncoding</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEncoding.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEncoding.Parent" xml:space="preserve">
+    <value>tabPageEncoding</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEncoding.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPageEncoding.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageEncoding.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageEncoding.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPageEncoding.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="tabPageEncoding.Text" xml:space="preserve">
+    <value>Live Encoding</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncoding.Name" xml:space="preserve">
+    <value>tabPageEncoding</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncoding.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncoding.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncoding.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>267, 76</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 23</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexMain.Name" xml:space="preserve">
+    <value>numericUpDownAudioIndexMain</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexMain.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 57</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Language :</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxAudioLanguageMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 75</value>
+  </data>
+  <data name="comboBoxAudioLanguageMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 23</value>
+  </data>
+  <data name="comboBoxAudioLanguageMain.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageMain.Name" xml:space="preserve">
+    <value>comboBoxAudioLanguageMain</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageMain.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageMain.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 57</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 15</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Audio Stream Index :</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 137</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>470, 18</value>
+  </data>
+  <data name="label19.TabIndex" type="System.Int32, mscorlib">
+    <value>99</value>
   </data>
   <data name="label19.Text" xml:space="preserve">
     <value>Additional Audio Streams</value>
   </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label18.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 31</value>
+  </data>
+  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>470, 18</value>
+  </data>
+  <data name="label18.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>Default Audio Stream</value>
+  </data>
+  <data name="&gt;&gt;label18.Name" xml:space="preserve">
+    <value>label18</value>
+  </data>
+  <data name="&gt;&gt;label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="comboBoxAudioLanguageAddition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 195</value>
+  </data>
+  <data name="comboBoxAudioLanguageAddition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 23</value>
+  </data>
+  <data name="comboBoxAudioLanguageAddition.TabIndex" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Name" xml:space="preserve">
+    <value>comboBoxAudioLanguageAddition</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAudioLanguageAddition.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonAddAudioStream.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 193</value>
+  </data>
+  <data name="buttonAddAudioStream.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 27</value>
+  </data>
+  <data name="buttonAddAudioStream.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
+  </data>
+  <data name="buttonAddAudioStream.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAudioStream.Name" xml:space="preserve">
+    <value>buttonAddAudioStream</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAudioStream.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAudioStream.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAudioStream.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonDelAddOption.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 332</value>
+  </data>
+  <data name="buttonDelAddOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 27</value>
+  </data>
+  <data name="buttonDelAddOption.TabIndex" type="System.Int32, mscorlib">
+    <value>98</value>
+  </data>
+  <data name="buttonDelAddOption.Text" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAddOption.Name" xml:space="preserve">
+    <value>buttonDelAddOption</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAddOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAddOption.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAddOption.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="dataGridViewAudioStreams.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 226</value>
+  </data>
+  <data name="dataGridViewAudioStreams.Size" type="System.Drawing.Size, System.Drawing">
+    <value>359, 133</value>
+  </data>
+  <data name="dataGridViewAudioStreams.TabIndex" type="System.Int32, mscorlib">
+    <value>97</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioStreams.Name" xml:space="preserve">
+    <value>dataGridViewAudioStreams</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioStreams.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioStreams.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAudioStreams.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 177</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 15</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Audio Stream Index :</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>267, 196</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 23</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Name" xml:space="preserve">
+    <value>numericUpDownAudioIndexAddition</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Parent" xml:space="preserve">
+    <value>panelStreamIndexes</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAudioIndexAddition.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 177</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Language :</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label12.Parent" xml:space="preserve">
     <value>panelStreamIndexes</value>
   </data>
-  <data name="&gt;&gt;checkBoxcrossdomains.Name" xml:space="preserve">
-    <value>checkBoxcrossdomains</value>
-  </data>
-  <data name="label17.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
-    <value>checkBoxKeyFrameIntDefined</value>
-  </data>
-  <data name="checkBoxInputSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 83</value>
-  </data>
-  <data name="labelIndexesChannelMustBeStopped.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>915, 647</value>
-  </data>
-  <data name="labelChannelName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonAddPreviewIP.Name" xml:space="preserve">
-    <value>buttonAddPreviewIP</value>
-  </data>
-  <data name="numericUpDownAudioIndexMain.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 82</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 55</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 30</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewVideoProf.Name" xml:space="preserve">
-    <value>dataGridViewVideoProf</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="dataGridViewVideoProf.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 137</value>
-  </data>
-  <data name="checkBoxPreviewSet.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="webBrowserPreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewAudioProf.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="tabPageIndexes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxIgnore708.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 489</value>
-  </data>
-  <data name="checkBoxHLSFragPerSeg.Text" xml:space="preserve">
-    <value>HLS fragments per segment :</value>
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomains.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label12.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageIndexes.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDefaultPreset.Parent" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="&gt;&gt;textboxchannedesc.Name" xml:space="preserve">
-    <value>textboxchannedesc</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewInputIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabPageSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="checkBoxcrossdomains.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 270</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCustomPreset.Parent" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 50</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 205</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>92</value>
-  </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 2</value>
-  </data>
-  <data name="&gt;&gt;labelChannelName.Name" xml:space="preserve">
-    <value>labelChannelName</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label19.TabIndex" type="System.Int32, mscorlib">
-    <value>99</value>
-  </data>
-  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="panelDisplayEncProfile.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
-  <data name="groupBoxEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label18.TabIndex" type="System.Int32, mscorlib">
-    <value>91</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllPreviewIP.Name" xml:space="preserve">
-    <value>buttonAllowAllPreviewIP</value>
-  </data>
-  <data name="groupBoxEncoding.Size" type="System.Drawing.Size, System.Drawing">
-    <value>510, 351</value>
-  </data>
-  <data name="buttonAllowAllInputIP.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="checkBoxIgnore708.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 19</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="label17.Text" xml:space="preserve">
-    <value>Audio profile (read-only) :</value>
-  </data>
-  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="dataGridViewVideoProf.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewVideoProf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 20</value>
-  </data>
-  <data name="&gt;&gt;panelStreamIndexes.Name" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="label18.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxPreviewSet.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="&gt;&gt;webBrowserPreview.Name" xml:space="preserve">
-    <value>webBrowserPreview</value>
-  </data>
-  <data name="webBrowserPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;labelChannelMustBeStopped.Parent" xml:space="preserve">
-    <value>tabPageEncoding</value>
-  </data>
-  <data name="buttonUpdateClose.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioProf.Parent" xml:space="preserve">
-    <value>panelDisplayEncProfile</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddAudioStream.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label19.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonAddInputIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 18</value>
-  </data>
-  <data name="dataGridViewPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonUpdateClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 15</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="&gt;&gt;groupBoxVideoStream.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabPageSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="buttonAddPreviewIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panelDisplayEncProfile.Name" xml:space="preserve">
-    <value>panelDisplayEncProfile</value>
-  </data>
-  <data name="DGChannel.Error" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="panelStreamIndexes.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 34</value>
   </data>
-  <data name="numericUpDownAudioIndexAddition.Error" xml:space="preserve">
-    <value />
+  <data name="panelStreamIndexes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>508, 381</value>
   </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="panelStreamIndexes.TabIndex" type="System.Int32, mscorlib">
+    <value>104</value>
   </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
+  <data name="&gt;&gt;panelStreamIndexes.Name" xml:space="preserve">
+    <value>panelStreamIndexes</value>
   </data>
-  <data name="tabPageChannelInfo.Error" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;panelStreamIndexes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;panelStreamIndexes.Parent" xml:space="preserve">
+    <value>tabPageIndexes</value>
   </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="webBrowserPreview.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelChannelMustBeStopped.Text" xml:space="preserve">
-    <value>Channel must be stopped to change encoding settings</value>
-  </data>
-  <data name="&gt;&gt;labelChannelMustBeStopped.Name" xml:space="preserve">
-    <value>labelChannelMustBeStopped</value>
-  </data>
-  <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;checkBoxInputSet.Name" xml:space="preserve">
-    <value>checkBoxInputSet</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 48</value>
-  </data>
-  <data name="dataGridViewAudioStreams.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAudioStreams.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxPreviewSet.IconPadding" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;panelStreamIndexes.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="labelIndexesChannelMustBeStopped.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 16</value>
   </data>
-  <data name="&gt;&gt;dataGridViewPreviewIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewPreviewIP.Name" xml:space="preserve">
-    <value>dataGridViewPreviewIP</value>
-  </data>
-  <data name="&gt;&gt;buttonDelInputIP.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;groupBoxVideoStream.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonClose.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="DGChannel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonCustomPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="tabPageEncoding.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonAllowAllInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>101</value>
-  </data>
-  <data name="radioButtonCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 57</value>
-  </data>
-  <data name="&gt;&gt;labelChannelName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="textBoxCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>159, 56</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomains.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="checkBoxIgnore708.TabIndex" type="System.Int32, mscorlib">
-    <value>103</value>
-  </data>
-  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Parent" xml:space="preserve">
-    <value>tabPageIndexes</value>
-  </data>
-  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 15</value>
-  </data>
-  <data name="dataGridViewPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="checkBoxclientpolicy.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelChannelName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;openFileDialogSlate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioStreams.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="checkBoxIgnore708.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelStreamIndexes.TabIndex" type="System.Int32, mscorlib">
-    <value>104</value>
-  </data>
-  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="checkBoxInputSet.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxIgnore708.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label12.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 19</value>
-  </data>
-  <data name="groupBoxEncoding.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonDelPreviewIP.Name" xml:space="preserve">
-    <value>buttonDelPreviewIP</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.TabIndex" type="System.Int32, mscorlib">
-    <value>102</value>
-  </data>
-  <data name="buttonAddPreviewIP.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="label7.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAudioProf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 68</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFilesCopyClipboard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPagePolicies.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxVideoStream.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Name" xml:space="preserve">
-    <value>numericUpDownHLSFragPerSeg</value>
-  </data>
-  <data name="numericUpDownAudioIndexMain.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="radioButtonCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dataGridViewPreviewIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonDelInputIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="tabPageEncoding.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;DGChannel.Parent" xml:space="preserve">
-    <value>tabPageChannelInfo</value>
-  </data>
-  <data name="buttonAllowAllInputIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 27</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonCustomPreset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 15</value>
-  </data>
-  <data name="buttonClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textboxchannedesc.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxVideoStream.Name" xml:space="preserve">
-    <value>groupBoxVideoStream</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextMenuStripDG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 26</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCustomPreset.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonUpdateClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>570, 12</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>27, 37</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioProf.Name" xml:space="preserve">
-    <value>dataGridViewAudioProf</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.TabIndex" type="System.Int32, mscorlib">
-    <value>89</value>
-  </data>
-  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label17.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewPreviewIP.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAudioStream.Name" xml:space="preserve">
-    <value>buttonAddAudioStream</value>
-  </data>
-  <data name="numericUpDownAudioIndexAddition.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelChannelName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
-  </data>
-  <data name="labelChannelName.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="checkBoxcrossdomains.Text" xml:space="preserve">
-    <value>Define cross domains policy</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllPreviewIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Name" xml:space="preserve">
-    <value>comboBoxAudioLanguageAddition</value>
-  </data>
-  <data name="groupBoxVideoStream.Size" type="System.Drawing.Size, System.Drawing">
-    <value>510, 81</value>
-  </data>
-  <data name="checkBoxcrossdomains.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonAddPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>447, 261</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label11.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonDefaultPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="&gt;&gt;webBrowserPreview.Parent" xml:space="preserve">
-    <value>tabPagePreview</value>
-  </data>
-  <data name="checkBoxInputSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;textboxchannedesc.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPreviewSet.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="numericUpDownAudioIndexAddition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 196</value>
-  </data>
-  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 148</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 15</value>
-  </data>
-  <data name="buttonDelPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonAddInputIP.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;labelChannelMustBeStopped.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 18</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddInputIP.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;panelStreamIndexes.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonDelPreviewIP.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 15</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripDG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexMain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCustomPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="tabPageEncoding.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="groupBoxVideoStream.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelDisplayEncProfile.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="buttonDelAddOption.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewInputIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 106</value>
-  </data>
-  <data name="textBoxCustomPreset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="tabPageSettings.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>447, 110</value>
-  </data>
-  <data name="dataGridViewAudioProf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 166</value>
-  </data>
-  <data name="tabPagePolicies.Text" xml:space="preserve">
-    <value>Policies</value>
-  </data>
-  <data name="checkBoxIgnore708.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;tabPageIndexes.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelStreamIndexes.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>762, 12</value>
-  </data>
-  <data name="label17.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonUpdateClose.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Name" xml:space="preserve">
-    <value>numericUpDownAudioIndexAddition</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Name" xml:space="preserve">
-    <value>checkBoxHLSFragPerSeg</value>
-  </data>
-  <data name="buttonAddPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxEncoding.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomains.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAddOption.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAudioLanguageAddition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageChannelInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonUpdateClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxInputSet.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="numericUpDownAudioIndexMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 23</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 57</value>
-  </data>
-  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonDelPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Name" xml:space="preserve">
-    <value>labelIndexesChannelMustBeStopped</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllInputIP.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="dataGridViewPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 144</value>
-  </data>
-  <data name="tabPageIndexes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="&gt;&gt;radioButtonCustomPreset.Name" xml:space="preserve">
-    <value>radioButtonCustomPreset</value>
-  </data>
-  <data name="&gt;&gt;buttonAddInputIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxclientpolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 19</value>
-  </data>
-  <data name="tabPagePreview.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="buttonDelInputIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 261</value>
-  </data>
-  <data name="radioButtonDefaultPreset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxInputSet.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonCustomPreset.Text" xml:space="preserve">
-    <value>Use custom preset :</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelDisplayEncProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 339</value>
-  </data>
-  <data name="checkBoxHLSFragPerSeg.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 27</value>
-  </data>
-  <data name="&gt;&gt;label18.Name" xml:space="preserve">
-    <value>label18</value>
-  </data>
-  <data name="&gt;&gt;tabPageEncoding.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="numericUpDownAudioIndexAddition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 23</value>
-  </data>
-  <data name="textBoxClientPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 33</value>
-  </data>
-  <data name="&gt;&gt;textboxchannedesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxVideoStream.Text" xml:space="preserve">
-    <value>Video Stream</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllInputIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllPreviewIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxHLSFragPerSeg.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAddOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="dataGridViewPreviewIP.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="dataGridViewInputIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonDelInputIP.Name" xml:space="preserve">
-    <value>buttonDelInputIP</value>
-  </data>
-  <data name="tabPageChannelInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
-    <value>Use "{0}" preset</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="label17.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxHLSFragPerSeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 406</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="buttonAddAudioStream.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelIndexesChannelMustBeStopped.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label13.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelInputIP.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 27</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
-  </data>
-  <data name="textBoxCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 23</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>panelStreamIndexes</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewAudioProf.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEncoding.Parent" xml:space="preserve">
-    <value>tabPageEncoding</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 177</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
-  <data name="checkBoxInputSet.Text" xml:space="preserve">
-    <value>Define INPUT allowed IP addresses :</value>
-  </data>
-  <data name="textBoxCustomPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="DGChannel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>863, 493</value>
-  </data>
-  <data name="labelChannelMustBeStopped.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label18.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>90</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexAddition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelDisplayEncProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>498, 237</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 31</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAudioIndexMain.Name" xml:space="preserve">
-    <value>numericUpDownAudioIndexMain</value>
-  </data>
-  <data name="buttonDelAddOption.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="comboBoxAudioLanguageMain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="buttonUpdateClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textboxchannedesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSeg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 15</value>
-  </data>
-  <data name="&gt;&gt;panelStreamIndexes.Parent" xml:space="preserve">
-    <value>tabPageIndexes</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;panelStreamIndexes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonDelInputIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="DGChannel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panelStreamIndexes.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>Video profile (read-only) :</value>
-  </data>
-  <data name="buttonAddInputIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 261</value>
-  </data>
-  <data name="checkBoxcrossdomains.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;DGChannel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewVideoProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelChannelMustBeStopped.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 16</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllInputIP.Name" xml:space="preserve">
-    <value>buttonAllowAllInputIP</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewPreviewIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxClientPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label18.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="groupBoxVideoStream.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonDelPreviewIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="buttonAllowAllPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>677, 261</value>
-  </data>
-  <data name="&gt;&gt;tabPagePreview.Name" xml:space="preserve">
-    <value>tabPagePreview</value>
-  </data>
-  <data name="&gt;&gt;label17.Name" xml:space="preserve">
-    <value>label17</value>
-  </data>
-  <data name="checkBoxIgnore708.Text" xml:space="preserve">
-    <value>Ignore CEA-708 closed captions</value>
-  </data>
-  <data name="buttonDelAddOption.TabIndex" type="System.Int32, mscorlib">
-    <value>98</value>
-  </data>
-  <data name="checkBoxcrossdomains.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonDelInputIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabPageEncoding.Text" xml:space="preserve">
-    <value>Live Encoding</value>
-  </data>
-  <data name="checkBoxPreviewSet.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tabPageSettings.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="&gt;&gt;checkBoxInputSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxCustomPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPagePreview.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panelStreamIndexes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownVideoStreamIndex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="numericUpDownAudioIndexAddition.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="comboBoxAudioLanguageAddition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 195</value>
-  </data>
-  <data name="&gt;&gt;tabPageIndexes.Name" xml:space="preserve">
-    <value>tabPageIndexes</value>
-  </data>
-  <data name="checkBoxPreviewSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 19</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEncoding.Name" xml:space="preserve">
-    <value>groupBoxEncoding</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEncoding.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxInputSet.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="groupBoxEncoding.Text" xml:space="preserve">
-    <value>Encoding Preset</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="tabPageIndexes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEncoding.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxcrossdomains.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="tabPageIndexes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxcrossdomains.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 19</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelChannelStoppedOrStartedSettings.Text" xml:space="preserve">
-    <value>Channel must be in stopped or running state to update settings</value>
-  </data>
-  <data name="dataGridViewAudioProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="checkBoxInputSet.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAudioStreams.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label16.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxInputSet.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="numericUpDownAudioIndexMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 76</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="webBrowserPreview.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelChannelName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabPageIndexes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label18.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageEncoding.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="buttonAddInputIP.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
+  <data name="labelIndexesChannelMustBeStopped.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 19</value>
   </data>
   <data name="labelIndexesChannelMustBeStopped.TabIndex" type="System.Int32, mscorlib">
     <value>103</value>
   </data>
-  <data name="checkBoxHLSFragPerSeg.Error" xml:space="preserve">
-    <value />
+  <data name="labelIndexesChannelMustBeStopped.Text" xml:space="preserve">
+    <value>Channel must be stopped to change encoding settings</value>
   </data>
-  <data name="numericUpDownHLSFragPerSeg.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="labelIndexesChannelMustBeStopped.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="label16.Error" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Name" xml:space="preserve">
+    <value>labelIndexesChannelMustBeStopped</value>
   </data>
-  <data name="&gt;&gt;dataGridViewVideoProf.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
+  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.Parent" xml:space="preserve">
+    <value>tabPageIndexes</value>
   </data>
-  <data name="labelChannelName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="&gt;&gt;labelIndexesChannelMustBeStopped.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="textBoxCrossDomPolicy.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageIndexes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
   </data>
-  <data name="textboxchannedesc.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
+  <data name="tabPageIndexes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="label13.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="tabPageIndexes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
   </data>
-  <data name="&gt;&gt;tabPageEncoding.Type" xml:space="preserve">
+  <data name="tabPageIndexes.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tabPageIndexes.Text" xml:space="preserve">
+    <value>Audio Options</value>
+  </data>
+  <data name="&gt;&gt;tabPageIndexes.Name" xml:space="preserve">
+    <value>tabPageIndexes</value>
+  </data>
+  <data name="&gt;&gt;tabPageIndexes.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonDelAddOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>399, 332</value>
+  <data name="&gt;&gt;tabPageIndexes.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;radioButtonDefaultPreset.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;tabPageIndexes.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;buttonUpdateClose.ZOrder" xml:space="preserve">
+  <data name="checkBoxcrossdomains.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxcrossdomains.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 270</value>
+  </data>
+  <data name="checkBoxcrossdomains.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 19</value>
+  </data>
+  <data name="checkBoxcrossdomains.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="checkBoxcrossdomains.Text" xml:space="preserve">
+    <value>Define cross domains policy</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomains.Name" xml:space="preserve">
+    <value>checkBoxcrossdomains</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomains.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomains.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomains.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 297</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>866, 205</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Name" xml:space="preserve">
+    <value>textBoxCrossDomPolicy</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxclientpolicy.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxclientpolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 7</value>
+  </data>
+  <data name="checkBoxclientpolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 19</value>
+  </data>
+  <data name="checkBoxclientpolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>Define client policy :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Name" xml:space="preserve">
+    <value>checkBoxclientpolicy</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="buttonDelInputIP.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="groupBoxVideoStream.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;buttonAllowAllPreviewIP.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="textBoxClientPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="labelChannelName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>868, 23</value>
+  <data name="textBoxClientPolicy.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;checkBoxPreviewSet.Name" xml:space="preserve">
-    <value>checkBoxPreviewSet</value>
+  <data name="textBoxClientPolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 33</value>
   </data>
-  <data name="label16.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
+  <data name="textBoxClientPolicy.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSeg.ZOrder" xml:space="preserve">
+  <data name="textBoxClientPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="textBoxClientPolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>866, 217</value>
+  </data>
+  <data name="textBoxClientPolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Name" xml:space="preserve">
+    <value>textBoxClientPolicy</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="buttonAddAudioStream.TabIndex" type="System.Int32, mscorlib">
-    <value>96</value>
+  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
   </data>
-  <data name="checkBoxHLSFragPerSeg.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
+  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>Policies</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
+    <value>tabPagePolicies</value>
   </data>
   <data name="&gt;&gt;tabPagePolicies.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
+  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
-  <data name="tabPageEncoding.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="buttonAddPreviewIP.Error" xml:space="preserve">
-    <value />
+  <data name="webBrowserPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="buttonAddPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
+  <data name="webBrowserPreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="textboxchannedesc.IconPadding" type="System.Int32, mscorlib">
+  <data name="webBrowserPreview.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="webBrowserPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="webBrowserPreview.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxCustomPreset.Error" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;webBrowserPreview.Name" xml:space="preserve">
+    <value>webBrowserPreview</value>
   </data>
-  <data name="dataGridViewPreviewIP.IconPadding" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;webBrowserPreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;webBrowserPreview.Parent" xml:space="preserve">
+    <value>tabPagePreview</value>
+  </data>
+  <data name="&gt;&gt;webBrowserPreview.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPagePreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPagePreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPagePreview.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabPagePreview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="&gt;&gt;tabPagePreview.Name" xml:space="preserve">
+    <value>tabPagePreview</value>
+  </data>
+  <data name="&gt;&gt;tabPagePreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPagePreview.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPagePreview.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 50</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>887, 539</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelChannelName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelChannelName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 12pt, style=Bold</value>
+  </data>
+  <data name="labelChannelName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 10</value>
+  </data>
+  <data name="labelChannelName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>868, 23</value>
+  </data>
+  <data name="labelChannelName.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="labelChannelName.Text" xml:space="preserve">
+    <value>Channel : </value>
+  </data>
+  <data name="&gt;&gt;labelChannelName.Name" xml:space="preserve">
+    <value>labelChannelName</value>
+  </data>
+  <data name="&gt;&gt;labelChannelName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannelName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelChannelName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>762, 12</value>
+  </data>
+  <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 27</value>
+  </data>
+  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
+    <value>buttonClose</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonUpdateClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonUpdateClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>570, 12</value>
+  </data>
+  <data name="buttonUpdateClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 27</value>
+  </data>
+  <data name="buttonUpdateClose.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="buttonUpdateClose.Text" xml:space="preserve">
+    <value>Update settings and close</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateClose.Name" xml:space="preserve">
+    <value>buttonUpdateClose</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateClose.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateClose.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 18</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 19</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Text" xml:space="preserve">
+    <value>Channel must be in stopped or running state to update settings</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Name" xml:space="preserve">
+    <value>labelChannelStoppedOrStartedSettings</value>
+  </data>
+  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-2, 595</value>
   </data>
-  <data name="&gt;&gt;label16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>905, 55</value>
   </data>
-  <data name="&gt;&gt;labelChannelStoppedOrStartedSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
   </data>
-  <data name="DGChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="buttonAddPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label18.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="contextMenuStripDG.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Audio Stream Index :</value>
-  </data>
-  <data name="tabPagePolicies.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;tabPagePreview.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAudioProf.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxIgnore708.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>Default Audio Stream</value>
-  </data>
-  <data name="buttonClose.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="&gt;&gt;label17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonDelPreviewIP.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="groupBoxEncoding.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAllowAllInputIP.Text" xml:space="preserve">
-    <value>Allow all IP addresses</value>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="openFileDialogSlate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>769, 17</value>
   </metadata>
-  <metadata name="contextMenuStripDG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>212, 17</value>
+  <data name="openFileDialogSlate.Filter" xml:space="preserve">
+    <value>Image|*.jpg|All files (*.*)|*.*</value>
+  </data>
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>929, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>929, 17</value>
-  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>915, 647</value>
+  </data>
+  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>890, 595</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 37</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Channel Information</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemFilesCopyClipboard.Name" xml:space="preserve">
+    <value>toolStripMenuItemFilesCopyClipboard</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemFilesCopyClipboard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogSlate.Name" xml:space="preserve">
+    <value>openFileDialogSlate</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogSlate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
+    <value>errorProvider1</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ChannelInformation</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

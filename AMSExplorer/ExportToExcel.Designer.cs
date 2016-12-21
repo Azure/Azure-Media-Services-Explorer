@@ -94,14 +94,14 @@
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
             // label8
             // 
-            resources.ApplyResources(this.label8, "label8");
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
             // radioButtonDetailledMode
@@ -120,8 +120,8 @@
             // 
             // labelAssetName
             // 
-            resources.ApplyResources(this.labelAssetName, "labelAssetName");
             this.labelAssetName.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelAssetName, "labelAssetName");
             this.labelAssetName.Name = "labelAssetName";
             // 
             // radioButtonSelectedAssets
