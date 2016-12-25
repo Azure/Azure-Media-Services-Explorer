@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="radioButtonAESClearKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 19</value>
+  </data>
+  <data name="radioButtonAESClearKey.Text" xml:space="preserve">
+    <value>AES Clear-Key 方式 (Envelope clear key 方式)</value>
+  </data>
+  <data name="radioButtonCENCKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 19</value>
+  </data>
+  <data name="radioButtonCENCKey.Text" xml:space="preserve">
+    <value>Common encryption 方式 (PlayReady, Widevine...)</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 60</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 84</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>iOS, Apple TV, MacOS の Safari...</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 34</value>
+  </data>
+  <data name="radioButtonCENCCbcsKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 19</value>
+  </data>
+  <data name="radioButtonCENCCbcsKey.Text" xml:space="preserve">
+    <value>Common encryption cbcs 方式 (FairPlay)</value>
+  </data>
+  <data name="radioButtonNoDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 19</value>
+  </data>
+  <data name="radioButtonNoDynEnc.Text" xml:space="preserve">
+    <value>なし - すでに CENC 暗号化済みのアセット</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 19</value>
+  </data>
+  <data name="radioButtonDecryptStorage.Text" xml:space="preserve">
+    <value>復号のみ (stream storage encrypted asset(s) in clear)</value>
+  </data>
+  <data name="groupBoxKeyType.Text" xml:space="preserve">
+    <value>コンテンツ保護</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 19</value>
+  </data>
+  <data name="checkBoxProtocolProgressiveDownload.Text" xml:space="preserve">
+    <value>プログレッシブ ダウンロード</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>カスタム属性 :</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 19</value>
+  </data>
+  <data name="checkBoxWidevinePackaging.Text" xml:space="preserve">
+    <value>Widevine Modular DRM (MPEG-DASH のみ対応)</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>254, 19</value>
+  </data>
+  <data name="checkBoxFairPlayPackaging.Text" xml:space="preserve">
+    <value>Apple FairPlay ストリーミング (HLS のみ対応)</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>パッケージング</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>配信プロトコル</value>
+  </data>
+  <data name="checkBoxProtocolDASH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 19</value>
+  </data>
+  <data name="checkBoxProtocolDASH.Text" xml:space="preserve">
+    <value>MPEG-DASH</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 19</value>
+  </data>
+  <data name="checkBoxEnableDynEnc.Text" xml:space="preserve">
+    <value>動的暗号化の有効化</value>
+  </data>
+  <data name="groupBoxDelivery.Text" xml:space="preserve">
+    <value>配信方式</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 42</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>ステップ 1 
+コンテンツ保護のモードと動的暗号化の構成</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>動的暗号化 - ステップ 1</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>IE 11, Edge, Chrome, Android, Silverlight...</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>IE 11, Edge, Chrome, iOS, Firefox, Flash...</value>
+  </data>
+  <data name="checkBoxPlayReadyPackaging.Text" xml:space="preserve">
+    <value>PlayReady DRM</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>名前1:値1,名前2:値2</value>
+  </data>
+  <data name="checkBoxProtocolHLS.Text" xml:space="preserve">
+    <value>HLS</value>
+  </data>
+  <data name="checkBoxProtocolSmooth.Text" xml:space="preserve">
+    <value>Smooth Streaming</value>
+  </data>
+  <data name="checkBoxSelectPolicies.Text" xml:space="preserve">
+    <value>既存の承認ポリシー・配信ポリシーを選択</value>
+  </data>
+</root>
