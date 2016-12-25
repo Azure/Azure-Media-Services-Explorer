@@ -1,0 +1,851 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonClose.Error" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonClose.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panel2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonUpdateClose.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonUpdateClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonUpdateClose.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelChannelName.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelChannelName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelChannelName.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageChannelInfo.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageChannelInfo.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageChannelInfo.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAllowAllPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAllowAllInputIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAllowAllInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAllowAllInputIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownHLSFragPerSeg.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxHLSFragPerSeg.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxKeyFrame.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxKeyFrame.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxKeyFrame.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxInputSet.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxInputSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxInputSet.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxPreviewSet.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxPreviewSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxPreviewSet.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewInputIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewInputIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewPreviewIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewPreviewIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelPreviewIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelPreviewIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelInputIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelInputIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddPreviewIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddPreviewIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddInputIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddInputIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textboxchannedesc.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textboxchannedesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textboxchannedesc.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageSettings.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageSettings.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxIgnore708.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxIgnore708.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxIgnore708.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label7.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label7.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownVideoStreamIndex.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownVideoStreamIndex.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownVideoStreamIndex.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxVideoStream.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBoxVideoStream.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="groupBoxVideoStream.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelChannelMustBeStopped.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelChannelMustBeStopped.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewVideoProf.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewVideoProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewVideoProf.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewAudioProf.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewAudioProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewAudioProf.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label16.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label16.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label16.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label17.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label17.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label17.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelDisplayEncProfile.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelDisplayEncProfile.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelDisplayEncProfile.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label6.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label6.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonCustomPreset.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonCustomPreset.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxCustomPreset.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxCustomPreset.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonDefaultPreset.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonDefaultPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonDefaultPreset.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxEncoding.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBoxEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="groupBoxEncoding.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageEncoding.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageEncoding.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownAudioIndexMain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label11.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label11.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label11.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="comboBoxAudioLanguageMain.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxAudioLanguageMain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="comboBoxAudioLanguageMain.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label9.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label19.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label19.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label19.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label18.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label18.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label18.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="comboBoxAudioLanguageAddition.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxAudioLanguageAddition.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="comboBoxAudioLanguageAddition.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddAudioStream.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddAudioStream.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddAudioStream.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelAddOption.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelAddOption.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelAddOption.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewAudioStreams.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewAudioStreams.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewAudioStreams.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label13.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label13.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label13.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownAudioIndexAddition.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label12.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label12.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label12.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelStreamIndexes.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelStreamIndexes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelStreamIndexes.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelIndexesChannelMustBeStopped.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelIndexesChannelMustBeStopped.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelIndexesChannelMustBeStopped.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageIndexes.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageIndexes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageIndexes.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxcrossdomains.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxcrossdomains.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxcrossdomains.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxCrossDomPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxclientpolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxclientpolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxclientpolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxClientPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPagePolicies.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPagePolicies.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPagePolicies.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="webBrowserPreview.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="webBrowserPreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="webBrowserPreview.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPagePreview.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPagePreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPagePreview.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabControl1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>チャネル情報</value>
+  </data>
+  <data name="contextMenuStripDG.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="contextMenuStripDG.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="contextMenuStripDG.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="DGChannel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DGChannel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="DGChannel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>Key ID: </value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>言語: </value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>言語: </value>
+  </data>
+  <data name="buttonAddPreviewIP.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="buttonAddInputIP.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="buttonAddAudioStream.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="labelChannelName.Text" xml:space="preserve">
+    <value>チャネル: </value>
+  </data>
+  <data name="tabPageChannelInfo.Text" xml:space="preserve">
+    <value>チャネル情報</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="buttonDelAddOption.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDelPreviewIP.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDelInputIP.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>説明: </value>
+  </data>
+  <data name="checkBoxHLSFragPerSeg.Text" xml:space="preserve">
+    <value>セグメントごとのHLS フラグメント :</value>
+  </data>
+  <data name="openFileDialogSlate.Filter" xml:space="preserve">
+    <value>JPEGファイル|*.jpg|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>ポリシー</value>
+  </data>
+  <data name="tabPagePreview.Text" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="buttonUpdateClose.Text" xml:space="preserve">
+    <value>設定を更新して閉じる</value>
+  </data>
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>追加のオーディオ ストリーム</value>
+  </data>
+  <data name="buttonAllowAllInputIP.Text" xml:space="preserve">
+    <value>すべての IP アドレスを許可</value>
+  </data>
+  <data name="buttonAllowAllPreviewIP.Text" xml:space="preserve">
+    <value>すべての IP アドレスを許可</value>
+  </data>
+  <data name="tabPageIndexes.Text" xml:space="preserve">
+    <value>オーディオ オプション</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>オーディオ プロファイル (読み込み専用) :</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>オーディオ ストリーム インデックス :</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>オーディオ ストリーム インデックス :</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ビデオ ストリーム インデックス :</value>
+  </data>
+  <data name="groupBoxVideoStream.Text" xml:space="preserve">
+    <value>ビデオ ストリーム</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>ビデオ プロファイル (読み込み専用) :</value>
+  </data>
+  <data name="radioButtonCustomPreset.Text" xml:space="preserve">
+    <value>カスタム プリセットを使用 :</value>
+  </data>
+  <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
+    <value>カスタム プリセット "{0}" を使用</value>
+  </data>
+  <data name="tabPageEncoding.Text" xml:space="preserve">
+    <value>ライブ エンコーディング</value>
+  </data>
+  <data name="checkBoxIgnore708.Text" xml:space="preserve">
+    <value>CEA-708 クローズド キャプションを無視</value>
+  </data>
+  <data name="groupBoxEncoding.Text" xml:space="preserve">
+    <value>エンコーディング プリセット</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>カスタム プリセットを使用する場合は、amslived@microsoft.com まで連絡ください</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>既定のオーディオ ストリーム</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Text" xml:space="preserve">
+    <value>設定を更新する場合は、チャネルは停止状態か実行状態である必要があります</value>
+  </data>
+  <data name="labelIndexesChannelMustBeStopped.Text" xml:space="preserve">
+    <value>エンコーディング設定を変更する場合は、チャネルは停止状態である必要があります</value>
+  </data>
+  <data name="labelChannelMustBeStopped.Text" xml:space="preserve">
+    <value>エンコーディング設定を変更する場合は、チャネルは停止状態である必要があります</value>
+  </data>
+  <data name="checkBoxInputSet.Text" xml:space="preserve">
+    <value>入力映像のアクセス許可 IP アドレスの設定 :</value>
+  </data>
+  <data name="checkBoxPreviewSet.Text" xml:space="preserve">
+    <value>プレビュー映像のアクセス許可 IP アドレスの設定 :</value>
+  </data>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>クライアント ポリシーの設定 :</value>
+  </data>
+  <data name="checkBoxcrossdomains.Text" xml:space="preserve">
+    <value>クロスドメイン ポリシーの設定 :</value>
+  </data>
+</root>
