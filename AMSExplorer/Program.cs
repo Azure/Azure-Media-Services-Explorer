@@ -919,6 +919,7 @@ namespace AMSExplorer
         public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
         public const string AzureMediaVideoOCR = "Azure Media OCR";
         public const string AzureMediaContentModerator = "Azure Media Content Moderator";
+        public const string AzureMediaVideoAnnotator = "Azure Media Video Annotator";
 
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
@@ -1623,10 +1624,15 @@ namespace AMSExplorer
     public class AssetInfo
     {
         private List<IAsset> SelectedAssets;
-        public const string Type_Workflow = "Workflow";
-        public const string Type_LiveArchive = "Live Archive";
-        public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
+        public const string Type_Workflow = "Workflow";
+        public const string Type_Single = "Single Bitrate MP4";
+        public const string Type_Multi = "Multi Bitrate MP4";
+        public const string Type_Smooth = "Smooth Streaming";
+        public const string Type_LiveArchive = "Live Archive";
+        public const string Type_Fragmented = "Pre-fragmented";
+        public const string Type_AMSHLS = "Media Services HLS";
+        public const string Type_Thumbnails = "Thumbnails";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
         public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
         public const string _hls_v4 = "HLS v4  URL";
@@ -2339,7 +2345,7 @@ namespace AMSExplorer
             switch (asset.AssetType)
             {
                 case AssetType.MediaServicesHLS:
-                    type = "Media Services HLS";
+                    type = Type_AMSHLS;
                     break;
 
                 case AssetType.MP4:
@@ -2348,22 +2354,33 @@ namespace AMSExplorer
                 case AssetType.MultiBitrateMP4:
                     var mp4files = AssetFiles.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = mp4files.Count();
-                    type = number == 1 ? "Single Bitrate MP4" : "Multi Bitrate MP4";
+                    type = number == 1 ? Type_Single : Type_Multi;
                     break;
 
                 case AssetType.SmoothStreaming:
-                    type = "Smooth Streaming";
+                    type = Type_Smooth;
                     var cfffiles = AssetFiles.Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = cfffiles.Count();
-                    //if (number == 0 && asset.AssetFiles.Count() > 2)
 
                     if (number == 0
                         && AssetFiles.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).Count() == 2
-                        && (AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count() == AssetFiles.Count - 2)
+
                         )
                     {
-                        number = AssetFiles.Count - 2;  // tracks - 2 manifest files
-                        type = Type_LiveArchive;
+                        var fragmentedFilesCount = AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count();
+                        if (fragmentedFilesCount == AssetFiles.Count - 2)
+                        {
+                            number = AssetFiles.Count - 2;  // tracks - 2 manifest files
+                            type = Type_LiveArchive;
+                        }
+                        else if ((fragmentedFilesCount == AssetFiles.Count - 4)
+                            &&
+                            AssetFiles.Where(f => f.Name.EndsWith("_manifest.xml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith("_metadata.xml", StringComparison.OrdinalIgnoreCase)).Count() == 2
+                            )
+                        {
+                            number = AssetFiles.Count - 4;  // tracks - 4 manifest files
+                            type = Type_Fragmented;
+                        }
                     }
                     break;
 
@@ -2371,7 +2388,7 @@ namespace AMSExplorer
                     string ext;
                     string pr = string.Empty;
 
-                    if (assetfilescount == 0) return "(empty)";
+                    if (assetfilescount == 0) return Type_Empty;
 
                     if (assetfilescount == 1)
                     {

@@ -865,6 +865,12 @@
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Text" xml:space="preserve">
     <value>Process asset(s) with Azure Media Content Moderator...</value>
   </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 22</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Process asset(s) with Azure Media Video Annotator...</value>
+  </data>
   <data name="mediaIntelligenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
@@ -1101,7 +1107,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 452</value>
+    <value>289, 474</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -4981,6 +4987,12 @@
   </data>
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Text" xml:space="preserve">
     <value>Process asset(s) with Azure Media Content Moderator...</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 22</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Text" xml:space="preserve">
+    <value>Process asset(s) with Azure Media Video Annotator...</value>
   </data>
   <data name="mediaAnalyticsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>419, 22</value>
@@ -11075,6 +11087,18 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name" xml:space="preserve">
+    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name" xml:space="preserve">
+    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

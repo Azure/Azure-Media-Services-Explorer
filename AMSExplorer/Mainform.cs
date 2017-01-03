@@ -89,6 +89,8 @@ namespace AMSExplorer
         private bool AMIndexerV2Present = true;
         private bool AMVideoOCRPresent = true;
         private bool AMContentModerator = true;
+        private bool AMVideoAnnotator = true;
+
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -226,55 +228,61 @@ namespace AMSExplorer
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
             {
-                AMFaceDetectorPresent = false;
-                ProcessFaceDetectortoolStripMenuItem.Visible = false;
+                AMFaceDetectorPresent =
+                ProcessFaceDetectortoolStripMenuItem.Visible =
                 toolStripMenuItemFaceDetector.Visible = false;
             }
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
             {
-                AMMotionDetectorPresent = false;
-                ProcessMotionDetectortoolStripMenuItem.Visible = false;
+                AMMotionDetectorPresent =
+                ProcessMotionDetectortoolStripMenuItem.Visible =
                 toolStripMenuItemMotionDetector.Visible = false;
             }
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaRedactor) == null)
             {
-                AMRedactorPresent = false;
-                ProcessRedactortoolStripMenuItem.Visible = false;
+                AMRedactorPresent =
+                ProcessRedactortoolStripMenuItem.Visible =
                 toolStripMenuItemRedactor.Visible = false;
             }
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
             {
-                AMStabilizerPresent = false;
-                ProcessStabilizertoolStripMenuItem.Visible = false;
+                AMStabilizerPresent =
+                ProcessStabilizertoolStripMenuItem.Visible =
                 toolStripMenuItemStabilizer.Visible = false;
             }
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
             {
-                AMVideoThumbnailsPresent = false;
-                ProcessVideoThumbnailstoolStripMenuItem.Visible = false;
+                AMVideoThumbnailsPresent =
+                ProcessVideoThumbnailstoolStripMenuItem.Visible =
                 toolStripMenuItemVideoThumbnails.Visible = false;
             }
             if (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview) == null)
             {
-                AMIndexerV2Present = false;
-                toolStripMenuItemIndexv2.Visible = false;
+                AMIndexerV2Present =
+                toolStripMenuItemIndexv2.Visible =
                 toolStripMenuItem38Indexer2.Visible = false;
             }
             if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
             {
                 AMVideoOCRPresent = false;
-                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
                 processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
             }
             if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
             {
-                AMContentModerator = false;
-                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible = false;
+                AMContentModerator =
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible =
                 processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
+            }
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoAnnotator) == null)
+            {
+                AMVideoAnnotator =
+                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Visible =
+                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -4980,7 +4988,7 @@ namespace AMSExplorer
                         outputassetname,
                         new List<string> { smoothConfig },
                         Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                        Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None,
+                        Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
                         Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
                         );
                 }
@@ -5415,7 +5423,7 @@ namespace AMSExplorer
                     outputassetname,
                     new List<string> { configMp4Validation },
                     Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                    Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None,
+                    Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
@@ -7667,64 +7675,71 @@ namespace AMSExplorer
             // let's disable Premium Workflow if not present
             if (!AMEPremiumWorkflowPresent)
             {
-                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled =   //menu
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
 
             // let's disable FaceDetector if not present
             if (!AMFaceDetectorPresent)
             {
-                ProcessFaceDetectortoolStripMenuItem.Enabled = false;
+                ProcessFaceDetectortoolStripMenuItem.Enabled = 
                 toolStripMenuItemFaceDetector.Enabled = false;
             }
 
             // let's disable Motion Detector if not present
             if (!AMMotionDetectorPresent)
             {
-                ProcessMotionDetectortoolStripMenuItem.Enabled = false;
+                ProcessMotionDetectortoolStripMenuItem.Enabled = 
                 toolStripMenuItemMotionDetector.Enabled = false;
             }
 
             // let's disable Redactor if not present
             if (!AMRedactorPresent)
             {
-                ProcessRedactortoolStripMenuItem.Enabled = false;
+                ProcessRedactortoolStripMenuItem.Enabled = 
                 toolStripMenuItemRedactor.Enabled = false;
             }
 
             // let's disable Stabilizer if not present
             if (!AMStabilizerPresent)
             {
-                ProcessStabilizertoolStripMenuItem.Enabled = false;
+                ProcessStabilizertoolStripMenuItem.Enabled = 
                 toolStripMenuItemStabilizer.Enabled = false;
             }
 
             // let's disable video thumbnails if not present
             if (!AMVideoThumbnailsPresent)
             {
-                ProcessVideoThumbnailstoolStripMenuItem.Enabled = false;
+                ProcessVideoThumbnailstoolStripMenuItem.Enabled = 
                 toolStripMenuItemVideoThumbnails.Enabled = false;
             }
 
             // let's disable Indexer v2 if not present
             if (!AMIndexerV2Present)
             {
-                toolStripMenuItemIndexv2.Enabled = false;
+                toolStripMenuItemIndexv2.Enabled = 
                 toolStripMenuItem38Indexer2.Enabled = false;
             }
 
             // let's disable Video OCR if not present
             if (!AMVideoOCRPresent)
             {
-                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = false;
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = 
                 processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Enabled = false;
             }
 
             // let's disable Video OCR if not present
             if (!AMContentModerator)
             {
-                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled = false;
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled = 
                 processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Enabled = false;
+            }
+
+            // let's disable Video Annotator if not present
+            if (!AMVideoAnnotator)
+            {
+                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Enabled = 
+                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Enabled = false;
             }
         }
 
@@ -15054,19 +15069,23 @@ namespace AMSExplorer
             DoMenuVideoOCR();
         }
 
-        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuContentModerator();
-        }
-
         private void DoMenuContentModerator()
         {
             DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "sdv=true");
         }
 
-        private void processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DoMenuContentModerator_Click(object sender, EventArgs e)
         {
             DoMenuContentModerator();
+        }
+
+        private void DoMenuVideoAnnotator_Click(object sender, EventArgs e)
+        {
+            DoMenuVideoAnnotator();
+        }
+        private void DoMenuVideoAnnotator()
+        {
+            DoMenuVideoAnalytics(Constants.AzureMediaVideoAnnotator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration);
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

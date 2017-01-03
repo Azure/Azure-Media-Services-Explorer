@@ -524,6 +524,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1045,7 +1047,8 @@
             this.toolStripMenuItemStabilizer,
             this.toolStripMenuItemVideoThumbnails,
             this.processAssetsWithAzureMediaOCRToolStripMenuItem,
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1});
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1,
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1});
             this.mediaIntelligenceToolStripMenuItem.Name = "mediaIntelligenceToolStripMenuItem";
             resources.ApplyResources(this.mediaIntelligenceToolStripMenuItem, "mediaIntelligenceToolStripMenuItem");
             // 
@@ -1115,7 +1118,7 @@
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1";
             resources.ApplyResources(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1, "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1");
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Click += new System.EventHandler(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1_Click);
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuContentModerator_Click);
             // 
             // advancedProcessingToolStripMenuItem
             // 
@@ -3256,7 +3259,8 @@
             this.ProcessStabilizertoolStripMenuItem,
             this.ProcessVideoThumbnailstoolStripMenuItem,
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem,
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem});
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem,
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem});
             this.mediaAnalyticsToolStripMenuItem.Name = "mediaAnalyticsToolStripMenuItem";
             resources.ApplyResources(this.mediaAnalyticsToolStripMenuItem, "mediaAnalyticsToolStripMenuItem");
             // 
@@ -3326,7 +3330,7 @@
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem";
             resources.ApplyResources(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem, "processAssetsWithAzureMediaContentModeratorToolStripMenuItem");
-            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem_Click);
+            this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuContentModerator_Click);
             // 
             // toolStripSeparator39
             // 
@@ -4255,6 +4259,20 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
+            // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -4817,6 +4835,8 @@
         private System.Windows.Forms.ToolStripMenuItem fromAzureStorageSASContainerPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tHEOPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesReleaseNotesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem;
     }
 }
 
