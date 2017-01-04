@@ -80,13 +80,14 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
 
-        //private int _nbInputAssets;
         private string _processorVersion;
         private bool _ThumbnailsModeOnly;
         private bool _disableOverlay;
         private bool _disableSourceTrimming;
         private Mainform _main;
         private List<IAsset> _inputAssetsForJob;
+        private string _multiplierlabel;
+        private string _labelWarningJSON;
 
         public List<IAsset> SelectedAssets
         {
@@ -169,7 +170,8 @@ namespace AMSExplorer
             if (_inputAssetsForJob.Count > 0) _disableOverlay = true; // if stiching, let's disable overlay
 
             _main = main;
-
+            _multiplierlabel = labelOutputMinuteMultiplier.Text;
+            _labelWarningJSON = labelWarningJSON.Text;
         }
 
 
@@ -1069,6 +1071,54 @@ namespace AMSExplorer
             {
                 textBoxConfiguration.Text = jsondata;
             }
+
+           
+        }
+
+        private double calculateMultiplier(dynamic obj)
+        {
+            double multiplier = 0;
+
+            if (obj.Codecs != null)
+            {
+                foreach (var codec in obj.Codecs)
+                {
+                    if (codec.Type != null && codec.Type == "H264Video" && codec.H264Layers != null)
+                    {
+                        foreach (var h264 in codec.H264Layers)
+                        {
+                            if (h264.Width != null && h264.Height != null)
+                            {
+                                int res = h264.Width * h264.Height;
+                                int value;
+                                if (res < 1280 * 720)
+                                {
+                                    value = 1;
+                                }
+                                else if (res < 1920 * 1080)
+                                {
+                                    value = 2;
+                                }
+                                else if (res < 4096 * 2304)
+                                {
+                                    value = 4;
+                                }
+                                else
+                                {
+                                    value = 4; // Can be changed in the future
+                                }
+                                multiplier += value;
+                            }
+                        }
+                    }
+                    else if (codec.Type != null && codec.Type == "AACAudio")
+                    {
+                        multiplier += 0.25;
+                    }
+                }
+            }
+
+            return multiplier;
         }
 
         private void AddThumbnailJSON(ref dynamic obj, ThumbnailType thtype, string fileName, string timeStart, string TimeStep, string TimeRange, int width, int height, bool preserveResolutionRotation, bool pixelmode, int quality = -1)
@@ -1204,6 +1254,8 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
+            double multiplier = 0;
+
             if (usereditmode)
             {
                 listboxPresets.SelectedIndex = -1;
@@ -1222,10 +1274,11 @@ namespace AMSExplorer
                 try
                 {
                     var jo = JObject.Parse(textBoxConfiguration.Text);
+                    multiplier = calculateMultiplier(jo);
                 }
                 catch (Exception ex)
                 {
-                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    labelWarningJSON.Text = string.Format(_labelWarningJSON, ex.Message);
                     Error = true;
                 }
             }
@@ -1242,6 +1295,16 @@ namespace AMSExplorer
                 }
             }
             labelWarningJSON.Visible = Error;
+
+            // Display multiplier
+            if (multiplier > 0)
+            {
+                labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier);
+            }
+            else
+            {
+                labelOutputMinuteMultiplier.Text = "";
+            }
         }
 
 
