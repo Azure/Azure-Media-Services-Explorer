@@ -528,6 +528,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -4288,6 +4290,20 @@
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
+            // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
+            // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
             // 
             // Mainform
             // 
