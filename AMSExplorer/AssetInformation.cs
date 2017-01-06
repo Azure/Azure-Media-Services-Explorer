@@ -1293,9 +1293,9 @@ namespace AMSExplorer
                 UploadedAssetFile.UploadProgressChanged += MyUploadProgressChanged;
                 UploadedAssetFile.Upload(FileName as string);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile);
+                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile + Constants.endline + Program.GetErrorMessage(ex));
             }
         }
 
