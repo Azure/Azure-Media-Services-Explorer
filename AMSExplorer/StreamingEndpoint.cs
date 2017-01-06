@@ -52,9 +52,10 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public StreamingEndpointState State { get; set; }
+        public StreamingEndpointInformation.StreamEndpointType Type { get; set; }
         public string CDN { get; set; }
         public string Description { get; set; }
-        public int? ScaleUnits { get; set; }
+        public string ScaleUnits { get; set; }
         public DateTime LastModified { get; set; }
 
     }
@@ -152,7 +153,8 @@ namespace AMSExplorer
                               Name = o.Name,
                               Id = o.Id,
                               Description = o.Description,
-                              ScaleUnits = o.ScaleUnits,
+                              ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "N/A": ((int) o.ScaleUnits).ToString(),
+                              Type = StreamingEndpointInformation.ReturnTypeSE(o),
                               State = o.State,
                               LastModified = o.LastModified.ToLocalTime()
                           };
@@ -198,9 +200,11 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].State = origin.State;
                     _MyObservStreamingEndpoints[index].Description = origin.Description;
                     _MyObservStreamingEndpoints[index].LastModified = origin.LastModified.ToLocalTime();
+                    _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(origin);
+
                     if (origin.ScaleUnits != null)
                     {
-                        _MyObservStreamingEndpoints[index].ScaleUnits = (int)origin.ScaleUnits;
+                        _MyObservStreamingEndpoints[index].ScaleUnits = ((int)origin.ScaleUnits).ToString();
                         this.Refresh();
                     }
                 }
@@ -277,9 +281,10 @@ namespace AMSExplorer
                                 Id = c.Id,
                                 Description = c.Description,
                                 CDN = c.CdnEnabled ? "CDN" : string.Empty,
-                                ScaleUnits = c.ScaleUnits,
+                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "N/A": ((int)c.ScaleUnits).ToString(),
                                 State = c.State,
                                 LastModified = c.LastModified.ToLocalTime(),
+                                Type = StreamingEndpointInformation.ReturnTypeSE(c)
                             };
 
             _MyObservStreamingEndpoints = new SortableBindingList<StreamingEndpointEntry>(endpointquery.ToList());

@@ -104,6 +104,7 @@
             this.toolStripMenuItemVideoThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithAzureMediaOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedProcessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem39 = new System.Windows.Forms.ToolStripMenuItem();
@@ -292,6 +293,7 @@
             this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemOriginDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optinToStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator33 = new System.Windows.Forms.ToolStripSeparator();
@@ -391,6 +393,7 @@
             this.ProcessVideoThumbnailstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithAzureMediaVideoOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
             this.processAssetsWithAJobTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsadvancedModeWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -475,6 +478,7 @@
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.telemetryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optinToStandardStreamingEndpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator34 = new System.Windows.Forms.ToolStripSeparator();
@@ -524,8 +528,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1119,6 +1121,13 @@
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Name = "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1";
             resources.ApplyResources(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1, "processAssetsWithAzureMediaContentModeratorToolStripMenuItem1");
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuContentModerator_Click);
+            // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
             // 
             // advancedProcessingToolStripMenuItem
             // 
@@ -2565,6 +2574,7 @@
             this.toolStripSeparator25,
             this.ContextMenuItemOriginDisplayInformation,
             this.loadToolStripMenuItem,
+            this.optinToStandardToolStripMenuItem,
             this.enableAzureCDNToolStripMenuItem,
             this.disableAzureCDNToolStripMenuItem,
             this.toolStripSeparator33,
@@ -2599,6 +2609,12 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             resources.ApplyResources(this.loadToolStripMenuItem, "loadToolStripMenuItem");
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // optinToStandardToolStripMenuItem
+            // 
+            this.optinToStandardToolStripMenuItem.Name = "optinToStandardToolStripMenuItem";
+            resources.ApplyResources(this.optinToStandardToolStripMenuItem, "optinToStandardToolStripMenuItem");
+            this.optinToStandardToolStripMenuItem.Click += new System.EventHandler(this.optinToStandardToolStripMenuItem_Click);
             // 
             // enableAzureCDNToolStripMenuItem
             // 
@@ -3332,6 +3348,13 @@
             resources.ApplyResources(this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem, "processAssetsWithAzureMediaContentModeratorToolStripMenuItem");
             this.processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuContentModerator_Click);
             // 
+            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem
+            // 
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem";
+            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem");
+            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
+            // 
             // toolStripSeparator39
             // 
             this.toolStripSeparator39.Name = "toolStripSeparator39";
@@ -3906,6 +3929,7 @@
             this.originToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.displayOriginInformationToolStripMenuItem,
             this.telemetryToolStripMenuItem,
+            this.optinToStandardStreamingEndpointToolStripMenuItem,
             this.enableAzureCDNToolStripMenuItem1,
             this.disableAzureCDNToolStripMenuItem1,
             this.toolStripSeparator34,
@@ -3928,6 +3952,12 @@
             this.telemetryToolStripMenuItem.Name = "telemetryToolStripMenuItem";
             resources.ApplyResources(this.telemetryToolStripMenuItem, "telemetryToolStripMenuItem");
             this.telemetryToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // optinToStandardStreamingEndpointToolStripMenuItem
+            // 
+            this.optinToStandardStreamingEndpointToolStripMenuItem.Name = "optinToStandardStreamingEndpointToolStripMenuItem";
+            resources.ApplyResources(this.optinToStandardStreamingEndpointToolStripMenuItem, "optinToStandardStreamingEndpointToolStripMenuItem");
+            this.optinToStandardStreamingEndpointToolStripMenuItem.Click += new System.EventHandler(this.optinToStandardStreamingEndpointToolStripMenuItem_Click);
             // 
             // enableAzureCDNToolStripMenuItem1
             // 
@@ -4258,20 +4288,6 @@
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
-            // 
-            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem
-            // 
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.contentmoderation;
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem";
-            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem");
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
-            // 
-            // processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1
-            // 
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.contentmoderation;
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name = "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1";
-            resources.ApplyResources(this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1, "processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1");
-            this.processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Click += new System.EventHandler(this.DoMenuVideoAnnotator_Click);
             // 
             // Mainform
             // 
@@ -4837,6 +4853,8 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optinToStandardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optinToStandardStreamingEndpointToolStripMenuItem;
     }
 }
 
