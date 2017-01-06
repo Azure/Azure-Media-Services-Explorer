@@ -37,6 +37,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.groupBoxTypeScale = new System.Windows.Forms.GroupBox();
+            this.radioButtonPremium = new System.Windows.Forms.RadioButton();
+            this.radioButtonStandard = new System.Windows.Forms.RadioButton();
+            this.radioButtonClassic = new System.Windows.Forms.RadioButton();
+            this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.labelcdn = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
             this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
@@ -59,8 +64,6 @@
             this.textboxorigindesc = new System.Windows.Forms.TextBox();
             this.textBoxMaxCacheAge = new System.Windows.Forms.TextBox();
             this.lblMaxCacheAge = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.buttonAddExampleCrossDomainPolicy = new System.Windows.Forms.Button();
             this.buttonAddExampleClientPolicy = new System.Windows.Forms.Button();
@@ -74,18 +77,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelInfoMigration = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
+            this.groupBoxTypeScale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.panelAkamai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).BeginInit();
             this.panelStreamingAllowedIP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIP)).BeginInit();
             this.panelCustomHostnames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.tabPagePolicies.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -144,6 +149,7 @@
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.groupBoxTypeScale);
             this.tabPageSettings.Controls.Add(this.labelcdn);
             this.tabPageSettings.Controls.Add(this.panelAkamai);
             this.tabPageSettings.Controls.Add(this.panelStreamingAllowedIP);
@@ -152,12 +158,57 @@
             this.tabPageSettings.Controls.Add(this.textboxorigindesc);
             this.tabPageSettings.Controls.Add(this.textBoxMaxCacheAge);
             this.tabPageSettings.Controls.Add(this.lblMaxCacheAge);
-            this.tabPageSettings.Controls.Add(this.label1);
-            this.tabPageSettings.Controls.Add(this.numericUpDownRU);
             resources.ApplyResources(this.tabPageSettings, "tabPageSettings");
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
             this.tabPageSettings.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // groupBoxTypeScale
+            // 
+            this.groupBoxTypeScale.Controls.Add(this.labelInfoMigration);
+            this.groupBoxTypeScale.Controls.Add(this.radioButtonPremium);
+            this.groupBoxTypeScale.Controls.Add(this.radioButtonStandard);
+            this.groupBoxTypeScale.Controls.Add(this.radioButtonClassic);
+            this.groupBoxTypeScale.Controls.Add(this.numericUpDownRU);
+            resources.ApplyResources(this.groupBoxTypeScale, "groupBoxTypeScale");
+            this.groupBoxTypeScale.Name = "groupBoxTypeScale";
+            this.groupBoxTypeScale.TabStop = false;
+            // 
+            // radioButtonPremium
+            // 
+            resources.ApplyResources(this.radioButtonPremium, "radioButtonPremium");
+            this.radioButtonPremium.Name = "radioButtonPremium";
+            this.radioButtonPremium.UseVisualStyleBackColor = true;
+            this.radioButtonPremium.CheckedChanged += new System.EventHandler(this.radioButtonPremium_CheckedChanged);
+            // 
+            // radioButtonStandard
+            // 
+            resources.ApplyResources(this.radioButtonStandard, "radioButtonStandard");
+            this.radioButtonStandard.Checked = true;
+            this.radioButtonStandard.Name = "radioButtonStandard";
+            this.radioButtonStandard.TabStop = true;
+            this.radioButtonStandard.UseVisualStyleBackColor = true;
+            this.radioButtonStandard.CheckedChanged += new System.EventHandler(this.radioButtonStandard_CheckedChanged);
+            // 
+            // radioButtonClassic
+            // 
+            resources.ApplyResources(this.radioButtonClassic, "radioButtonClassic");
+            this.radioButtonClassic.Name = "radioButtonClassic";
+            this.radioButtonClassic.UseVisualStyleBackColor = true;
+            this.radioButtonClassic.CheckedChanged += new System.EventHandler(this.radioButtonClassic_CheckedChanged);
+            // 
+            // numericUpDownRU
+            // 
+            resources.ApplyResources(this.numericUpDownRU, "numericUpDownRU");
+            this.numericUpDownRU.Name = "numericUpDownRU";
+            this.numericUpDownRU.ReadOnly = true;
+            this.toolTip1.SetToolTip(this.numericUpDownRU, resources.GetString("numericUpDownRU.ToolTip"));
+            this.numericUpDownRU.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownRU.ValueChanged += new System.EventHandler(this.numericUpDownRU_ValueChanged);
             // 
             // labelcdn
             // 
@@ -326,19 +377,6 @@
             resources.ApplyResources(this.lblMaxCacheAge, "lblMaxCacheAge");
             this.lblMaxCacheAge.Name = "lblMaxCacheAge";
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // numericUpDownRU
-            // 
-            resources.ApplyResources(this.numericUpDownRU, "numericUpDownRU");
-            this.numericUpDownRU.Name = "numericUpDownRU";
-            this.numericUpDownRU.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.numericUpDownRU, resources.GetString("numericUpDownRU.ToolTip"));
-            this.numericUpDownRU.ValueChanged += new System.EventHandler(this.numericUpDownRU_ValueChanged);
-            // 
             // tabPagePolicies
             // 
             this.tabPagePolicies.Controls.Add(this.buttonAddExampleCrossDomainPolicy);
@@ -422,6 +460,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // labelInfoMigration
+            // 
+            this.labelInfoMigration.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelInfoMigration, "labelInfoMigration");
+            this.labelInfoMigration.Name = "labelInfoMigration";
+            // 
             // StreamingEndpointInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -444,6 +488,9 @@
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageSettings.PerformLayout();
+            this.groupBoxTypeScale.ResumeLayout(false);
+            this.groupBoxTypeScale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
             this.panelAkamai.ResumeLayout(false);
             this.panelAkamai.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).EndInit();
@@ -453,7 +500,6 @@
             this.panelCustomHostnames.ResumeLayout(false);
             this.panelCustomHostnames.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
             this.tabPagePolicies.ResumeLayout(false);
             this.tabPagePolicies.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -472,7 +518,6 @@
         private System.Windows.Forms.Label labelSEName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOI;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownRU;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Label lblMaxCacheAge;
@@ -508,5 +553,10 @@
         private System.Windows.Forms.Button buttonAllowAllStreamingIP;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBoxTypeScale;
+        private System.Windows.Forms.RadioButton radioButtonPremium;
+        private System.Windows.Forms.RadioButton radioButtonStandard;
+        private System.Windows.Forms.RadioButton radioButtonClassic;
+        private System.Windows.Forms.Label labelInfoMigration;
     }
 }

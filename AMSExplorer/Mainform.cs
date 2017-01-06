@@ -295,15 +295,16 @@ namespace AMSExplorer
                 if (_context.StreamingEndpoints.AsEnumerable().Where(o => o.State == StreamingEndpointState.Running).ToList().Count == 0)
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
-                // Let's check if there is one streaming scale units
-                if (_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0)
-                    TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging and live streaming output will not work.", true); // Warning
+                // Let's check if there is classic streaming endpoints
+                if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
+                    TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
 
                 // Let's check if there is enough streaming scale units for the channels
                 double nbchannels = (double)_context.Channels.Count();
-                double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
+                double nbse = (double)_context.StreamingEndpoints.AsEnumerable().Where(o => StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Classic).ToList().Count;
                 if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                    TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+                    TextBoxLogWriteLine("There are {0} channels and {1} Standard/Premium streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+
             }
             catch (Exception ex)
             {
@@ -7682,63 +7683,63 @@ namespace AMSExplorer
             // let's disable FaceDetector if not present
             if (!AMFaceDetectorPresent)
             {
-                ProcessFaceDetectortoolStripMenuItem.Enabled = 
+                ProcessFaceDetectortoolStripMenuItem.Enabled =
                 toolStripMenuItemFaceDetector.Enabled = false;
             }
 
             // let's disable Motion Detector if not present
             if (!AMMotionDetectorPresent)
             {
-                ProcessMotionDetectortoolStripMenuItem.Enabled = 
+                ProcessMotionDetectortoolStripMenuItem.Enabled =
                 toolStripMenuItemMotionDetector.Enabled = false;
             }
 
             // let's disable Redactor if not present
             if (!AMRedactorPresent)
             {
-                ProcessRedactortoolStripMenuItem.Enabled = 
+                ProcessRedactortoolStripMenuItem.Enabled =
                 toolStripMenuItemRedactor.Enabled = false;
             }
 
             // let's disable Stabilizer if not present
             if (!AMStabilizerPresent)
             {
-                ProcessStabilizertoolStripMenuItem.Enabled = 
+                ProcessStabilizertoolStripMenuItem.Enabled =
                 toolStripMenuItemStabilizer.Enabled = false;
             }
 
             // let's disable video thumbnails if not present
             if (!AMVideoThumbnailsPresent)
             {
-                ProcessVideoThumbnailstoolStripMenuItem.Enabled = 
+                ProcessVideoThumbnailstoolStripMenuItem.Enabled =
                 toolStripMenuItemVideoThumbnails.Enabled = false;
             }
 
             // let's disable Indexer v2 if not present
             if (!AMIndexerV2Present)
             {
-                toolStripMenuItemIndexv2.Enabled = 
+                toolStripMenuItemIndexv2.Enabled =
                 toolStripMenuItem38Indexer2.Enabled = false;
             }
 
             // let's disable Video OCR if not present
             if (!AMVideoOCRPresent)
             {
-                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled = 
+                processAssetsWithAzureMediaOCRToolStripMenuItem.Enabled =
                 processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Enabled = false;
             }
 
             // let's disable Video OCR if not present
             if (!AMContentModerator)
             {
-                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled = 
+                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Enabled =
                 processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Enabled = false;
             }
 
             // let's disable Video Annotator if not present
             if (!AMVideoAnnotator)
             {
-                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Enabled = 
+                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Enabled =
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Enabled = false;
             }
         }
@@ -9660,7 +9661,7 @@ namespace AMSExplorer
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
-                MyStreamingEndpoint = streamingendpoints.FirstOrDefault(),
+                MySE = streamingendpoints.FirstOrDefault(),
                 MyContext = _context,
                 MultipleSelection = multiselection
             };
@@ -12771,33 +12772,44 @@ namespace AMSExplorer
         {
             IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-            if (streamingendpoint.State == StreamingEndpointState.Stopped)
+            if (StreamingEndpointInformation.ReturnTypeSE(streamingendpoint) != StreamingEndpointInformation.StreamEndpointType.Classic)
             {
-                if (streamingendpoint.ScaleUnits > 0)
+                MessageBox.Show("Streaming endpoint must be Standard or Premium in order to enable CDN.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (streamingendpoint.State != StreamingEndpointState.Stopped)
+            {
+                MessageBox.Show("Streaming endpoint must be stopped in order to enable CDN.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!enable)
+            {
+                if (MessageBox.Show(string.Format("Are you sure you want to disable CDN on Streaming Endpoint '{0}' ?", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    if (MessageBox.Show(string.Format("Are you sure you want to {0} CDN on Streaming Endpoint '{1}' ?", enable ? "enable" : "disable", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    Task.Run(async () =>
                     {
-                        Task.Run(async () =>
-                        {
-                            streamingendpoint.CdnEnabled = enable;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            DoRefreshGridStreamingEndpointV(false);
-                        });
-                    }
+                        streamingendpoint.CdnEnabled = false;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                        DoRefreshGridStreamingEndpointV(false);
+                    });
                 }
-                else if (enable) // 0 scale unit and user wants to enable cdn
+            }
+            else // enable
+            {
+                var form = new StreamingEndpointCDNEnable();
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    if (MessageBox.Show(string.Format("The Streaming Endpoint '{0}' does not have a reserved unit. Explorer will add a unit and enable CDN. Do you want to continue ?", streamingendpoint.Name), "Unit and Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    Task.Run(async () =>
                     {
-                        Task.Run(async () =>
-                        {
-                            TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
-                            await ScaleStreamingEndpoint(streamingendpoint, 1);
-                            streamingendpoint.CdnEnabled = enable;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            DoRefreshGridStreamingEndpointV(false);
-                        });
-                    }
+                        streamingendpoint.CdnEnabled = true;
+                        streamingendpoint.CdnProvider = form.ProviderSelected;
+                        streamingendpoint.CdnProfile = form.Profile;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                        DoRefreshGridStreamingEndpointV(false);
+                    });
+
                 }
             }
         }
@@ -12807,6 +12819,41 @@ namespace AMSExplorer
             ChangeAzureCDN(false);
         }
 
+        private void OptinToStandardSE()
+        {
+            IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+
+
+            if (streamingendpoint.State != StreamingEndpointState.Stopped)
+            {
+                MessageBox.Show("Streaming endpoint must be stopped in order to migrate it to Standard.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (new Version(streamingendpoint.StreamingEndpointVersion) > new Version("1.0"))
+            {
+                MessageBox.Show("Only Classic Streaming Endpoint can be migrated to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (streamingendpoint.ScaleUnits > 0)
+            {
+                MessageBox.Show("Streaming endpoint must have 0 scale unit to migrate it to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (MessageBox.Show(string.Format("Are you sure you want to migrate the Classic Streaming Endpoint '{0}' to Standard ?\n\nMigrating from classic to standard endpoint cannot be rolled back and has a pricing impact. Please check Azure Media Services pricing page. After migration, it can take up to 30 minutes for full propagation and dynamic packaging and streaming requests might fail during this period.", streamingendpoint.Name), "Migrating from classic to standard", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                Task.Run(async () =>
+                {
+                    streamingendpoint.StreamingEndpointVersion = "2.0";
+                    await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "migration initiated");
+                    DoRefreshGridStreamingEndpointV(false);
+                });
+            }
+        }
+
+
         private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
         {
             // enable Azure CDN operation if one se selected and in stopped state
@@ -12814,6 +12861,10 @@ namespace AMSExplorer
 
             // telemetry
             loadToolStripMenuItem.Enabled = enableTelemetry;
+
+            // optinstandard
+            ManageMenuOptionsOptinStandard(optinToStandardToolStripMenuItem);
+
         }
 
         private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12833,6 +12884,10 @@ namespace AMSExplorer
 
             // telemetry
             telemetryToolStripMenuItem.Enabled = enableTelemetry;
+
+            // optinstandard
+            ManageMenuOptionsOptinStandard(optinToStandardToolStripMenuItem);
+
         }
 
         private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
@@ -12842,11 +12897,13 @@ namespace AMSExplorer
 
             if (streamingendpoints.Count == 1)
             {
-                bool sestopped = (streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
-                bool cdnenabled = streamingendpoints.FirstOrDefault().CdnEnabled;
+                var se = streamingendpoints.FirstOrDefault();
+                bool sestopped = (se.State == StreamingEndpointState.Stopped);
+                bool cdnenabled = se.CdnEnabled;
+                bool secompatible = StreamingEndpointInformation.ReturnTypeSE(se) != StreamingEndpointInformation.StreamEndpointType.Classic;
 
-                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
-                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
+                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled && secompatible;
+                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled && secompatible;
                 enableAzureCDNToolStripMenuItem1.Visible = !cdnenabled;
                 disableAzureCDNToolStripMenuItem1.Visible = cdnenabled;
             }
@@ -12858,6 +12915,33 @@ namespace AMSExplorer
                 disableAzureCDNToolStripMenuItem1.Visible = true;
             }
         }
+
+        private void ManageMenuOptionsOptinStandard(ToolStripMenuItem menu)
+        {
+            // enable Optin Standard if one se selected and type is classic
+            List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+
+            if (streamingendpoints.Count == 1)
+            {
+                bool classic = StreamingEndpointInformation.ReturnTypeSE(streamingendpoints.FirstOrDefault()) == StreamingEndpointInformation.StreamEndpointType.Classic;
+                menu.Enabled = classic;
+                menu.Visible = classic;
+
+            }
+            else if (streamingendpoints.Any(se => StreamingEndpointInformation.ReturnTypeSE(se) == StreamingEndpointInformation.StreamEndpointType.Classic))
+            // so the user can see the feature
+            {
+                menu.Visible = true;
+                menu.Enabled = false;
+            }
+            else
+            {
+                menu.Visible = false;
+                menu.Enabled = false;
+            }
+        }
+
+
 
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
@@ -15306,6 +15390,16 @@ namespace AMSExplorer
         private void azureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
+        }
+
+        private void optinToStandardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptinToStandardSE();
+        }
+
+        private void optinToStandardStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptinToStandardSE();
         }
     }
 }

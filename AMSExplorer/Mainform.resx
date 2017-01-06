@@ -168,6 +168,9 @@
   <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
     <value>307, 417</value>
   </data>
@@ -228,6 +231,9 @@
   <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>460, 417</value>
   </data>
@@ -284,6 +290,9 @@
   </data>
   <data name="buttonAssetSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonAssetSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
     <value>236, 413</value>
@@ -350,6 +359,9 @@
   </data>
   <data name="butPrevPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="butPrevPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="butPrevPageAsset.Location" type="System.Drawing.Point, System.Drawing">
     <value>871, 413</value>
@@ -1107,7 +1119,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 474</value>
+    <value>289, 452</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1128,7 +1140,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1144,6 +1156,9 @@
   </data>
   <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>638, 417</value>
@@ -1201,6 +1216,9 @@
   </data>
   <data name="butNextPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="butNextPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="butNextPageAsset.Location" type="System.Drawing.Point, System.Drawing">
     <value>972, 413</value>
@@ -1261,6 +1279,9 @@
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>830, 417</value>
@@ -1412,6 +1433,9 @@
   <data name="trackBarConcurrentTransfers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
+  <data name="trackBarConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBarConcurrentTransfers.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 393</value>
   </data>
@@ -1441,6 +1465,9 @@
   </data>
   <data name="labelConcurrentTransfers.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="labelConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelConcurrentTransfers.Location" type="System.Drawing.Point, System.Drawing">
     <value>167, 406</value>
@@ -1475,6 +1502,9 @@
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt, style=Bold</value>
   </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 120</value>
   </data>
@@ -1504,6 +1534,9 @@
   </data>
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 3</value>
@@ -1664,7 +1697,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -1702,6 +1735,9 @@
   <data name="trackBarEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="trackBarEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBarEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
     <value>268, 393</value>
   </data>
@@ -1728,6 +1764,9 @@
   </data>
   <data name="buttonUpdateEncodingRU.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonUpdateEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonUpdateEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
     <value>926, 401</value>
@@ -1789,6 +1828,9 @@
   <data name="labelnbunits.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="labelnbunits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
     <value>847, 405</value>
   </data>
@@ -1825,6 +1867,9 @@
   <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>327, 362</value>
   </data>
@@ -1857,6 +1902,9 @@
   </data>
   <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 406</value>
@@ -1942,6 +1990,9 @@
   <data name="buttonJobSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="buttonJobSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
     <value>262, 358</value>
   </data>
@@ -2005,6 +2056,9 @@
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>482, 362</value>
   </data>
@@ -2065,6 +2119,9 @@
   <data name="butPrevPageJob.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="butPrevPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
     <value>871, 358</value>
   </data>
@@ -2097,6 +2154,9 @@
   </data>
   <data name="butNextPageJob.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="butNextPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
     <value>972, 358</value>
@@ -2158,6 +2218,9 @@
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>651, 362</value>
   </data>
@@ -2190,6 +2253,9 @@
   </data>
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>829, 362</value>
@@ -2469,7 +2535,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2785,7 +2851,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -2798,6 +2864,9 @@
   </data>
   <data name="labelPrograms.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelPrograms.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 2</value>
@@ -2828,6 +2897,9 @@
   </data>
   <data name="radioButtonChNone.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonChNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
     <value>941, 179</value>
@@ -2885,6 +2957,9 @@
   </data>
   <data name="radioButtonChAll.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonChAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
     <value>896, 179</value>
@@ -2949,6 +3024,9 @@
   <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
     <value>734, 181</value>
   </data>
@@ -2979,6 +3057,9 @@
   <data name="buttonSetFilterProgram.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="buttonSetFilterProgram.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
     <value>299, 177</value>
   </data>
@@ -3008,6 +3089,9 @@
   </data>
   <data name="radioButtonChSelected.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonChSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
     <value>821, 179</value>
@@ -3041,6 +3125,9 @@
   </data>
   <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
     <value>539, 181</value>
@@ -3101,6 +3188,9 @@
   </data>
   <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
     <value>385, 181</value>
@@ -3408,7 +3498,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3421,6 +3511,9 @@
   </data>
   <data name="labelChannels.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelChannels.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelChannels.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 1</value>
@@ -3509,6 +3602,9 @@
   <data name="buttonSetFilterChannel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="buttonSetFilterChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonSetFilterChannel.Location" type="System.Drawing.Point, System.Drawing">
     <value>298, 186</value>
   </data>
@@ -3541,6 +3637,9 @@
   </data>
   <data name="label25.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label25.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
     <value>538, 190</value>
@@ -3601,6 +3700,9 @@
   </data>
   <data name="label24.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
     <value>384, 190</value>
@@ -3813,6 +3915,12 @@
   <data name="loadToolStripMenuItem.Text" xml:space="preserve">
     <value>Load Telemetry...</value>
   </data>
+  <data name="optinToStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 22</value>
+  </data>
+  <data name="optinToStandardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Migrate from Classic to Standard...</value>
+  </data>
   <data name="enableAzureCDNToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 22</value>
   </data>
@@ -3891,7 +3999,7 @@
     <value>Delete streaming endpoint(s)</value>
   </data>
   <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 214</value>
+    <value>341, 236</value>
   </data>
   <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Name" xml:space="preserve">
     <value>contextMenuStripStreaminEndpoints</value>
@@ -3912,7 +4020,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4034,6 +4142,9 @@
   <data name="label21.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
     <value>261, 9</value>
   </data>
@@ -4087,6 +4198,9 @@
   </data>
   <data name="label20.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 9</value>
@@ -4165,6 +4279,9 @@
   </data>
   <data name="buttonbuildchart.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonbuildchart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonbuildchart.Location" type="System.Drawing.Point, System.Drawing">
     <value>512, 5</value>
@@ -4345,6 +4462,9 @@
   </data>
   <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 15.75pt, style=Bold</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 27</value>
@@ -5812,6 +5932,12 @@
   <data name="telemetryToolStripMenuItem.Text" xml:space="preserve">
     <value>Telemetry...</value>
   </data>
+  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 22</value>
+  </data>
+  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Migrate from Classic to Standard...</value>
+  </data>
   <data name="enableAzureCDNToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 22</value>
   </data>
@@ -6336,6 +6462,9 @@
   <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt</value>
   </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>632, 38</value>
   </data>
@@ -6376,6 +6505,9 @@
   <data name="buttonRefresh.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="buttonRefresh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 30</value>
   </data>
@@ -6408,6 +6540,9 @@
   </data>
   <data name="linkLabelFeedbackAMS.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="linkLabelFeedbackAMS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="linkLabelFeedbackAMS.Location" type="System.Drawing.Point, System.Drawing">
     <value>831, 38</value>
@@ -9102,6 +9237,12 @@
   <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name" xml:space="preserve">
+    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;advancedProcessingToolStripMenuItem.Name" xml:space="preserve">
     <value>advancedProcessingToolStripMenuItem</value>
   </data>
@@ -9804,6 +9945,12 @@
   <data name="&gt;&gt;loadToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;optinToStandardToolStripMenuItem.Name" xml:space="preserve">
+    <value>optinToStandardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;optinToStandardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;enableAzureCDNToolStripMenuItem.Name" xml:space="preserve">
     <value>enableAzureCDNToolStripMenuItem</value>
   </data>
@@ -10314,6 +10461,12 @@
   <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name" xml:space="preserve">
+    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator39.Name" xml:space="preserve">
     <value>toolStripSeparator39</value>
   </data>
@@ -10818,6 +10971,12 @@
   <data name="&gt;&gt;telemetryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;optinToStandardStreamingEndpointToolStripMenuItem.Name" xml:space="preserve">
+    <value>optinToStandardStreamingEndpointToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;optinToStandardStreamingEndpointToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;enableAzureCDNToolStripMenuItem1.Name" xml:space="preserve">
     <value>enableAzureCDNToolStripMenuItem1</value>
   </data>
@@ -11087,18 +11246,6 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

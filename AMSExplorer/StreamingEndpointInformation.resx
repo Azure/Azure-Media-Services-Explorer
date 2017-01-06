@@ -125,12 +125,6 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
-  </data>
   <data name="contextMenuStripOI.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 26</value>
   </data>
@@ -161,6 +155,12 @@
   </data>
   <data name="&gt;&gt;DGOrigin.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Copy to clipboard</value>
   </data>
   <data name="buttonUpdateClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -219,6 +219,174 @@
   <data name="&gt;&gt;tabPageInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="labelInfoMigration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelInfoMigration.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 14</value>
+  </data>
+  <data name="labelInfoMigration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 46</value>
+  </data>
+  <data name="labelInfoMigration.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="labelInfoMigration.Text" xml:space="preserve">
+    <value>To enable Standard, switch to classic, stop and migrate the streaming endpoint</value>
+  </data>
+  <data name="&gt;&gt;labelInfoMigration.Name" xml:space="preserve">
+    <value>labelInfoMigration</value>
+  </data>
+  <data name="&gt;&gt;labelInfoMigration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelInfoMigration.Parent" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;labelInfoMigration.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonPremium.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonPremium.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonPremium.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 75</value>
+  </data>
+  <data name="radioButtonPremium.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 19</value>
+  </data>
+  <data name="radioButtonPremium.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="radioButtonPremium.Text" xml:space="preserve">
+    <value>Premium. Scale units :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPremium.Name" xml:space="preserve">
+    <value>radioButtonPremium</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPremium.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPremium.Parent" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPremium.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonStandard.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonStandard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonStandard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 48</value>
+  </data>
+  <data name="radioButtonStandard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 19</value>
+  </data>
+  <data name="radioButtonStandard.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radioButtonStandard.Text" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStandard.Name" xml:space="preserve">
+    <value>radioButtonStandard</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStandard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStandard.Parent" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStandard.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonClassic.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonClassic.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 23</value>
+  </data>
+  <data name="radioButtonClassic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 19</value>
+  </data>
+  <data name="radioButtonClassic.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonClassic.Text" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="&gt;&gt;radioButtonClassic.Name" xml:space="preserve">
+    <value>radioButtonClassic</value>
+  </data>
+  <data name="&gt;&gt;radioButtonClassic.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonClassic.Parent" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;radioButtonClassic.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>178, 17</value>
+  </metadata>
+  <data name="numericUpDownRU.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownRU.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 71</value>
+  </data>
+  <data name="numericUpDownRU.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 23</value>
+  </data>
+  <data name="numericUpDownRU.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownRU.ToolTip" xml:space="preserve">
+    <value>1 unit = 200 mbps</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRU.Name" xml:space="preserve">
+    <value>numericUpDownRU</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRU.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRU.Parent" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRU.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxTypeScale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 21</value>
+  </data>
+  <data name="groupBoxTypeScale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 100</value>
+  </data>
+  <data name="groupBoxTypeScale.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="groupBoxTypeScale.Text" xml:space="preserve">
+    <value>Type and scale</value>
+  </data>
+  <data name="&gt;&gt;groupBoxTypeScale.Name" xml:space="preserve">
+    <value>groupBoxTypeScale</value>
+  </data>
+  <data name="&gt;&gt;groupBoxTypeScale.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxTypeScale.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBoxTypeScale.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelcdn.Location" type="System.Drawing.Point, System.Drawing">
     <value>437, 358</value>
   </data>
@@ -243,7 +411,481 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;labelcdn.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAkamai.Name" xml:space="preserve">
+    <value>dataGridViewAkamai</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAkamai.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAkamai.Parent" xml:space="preserve">
+    <value>panelAkamai</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAkamai.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAkamai.Name" xml:space="preserve">
+    <value>buttonAddAkamai</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAkamai.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAkamai.Parent" xml:space="preserve">
+    <value>panelAkamai</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAkamai.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAkamai.Name" xml:space="preserve">
+    <value>buttonDelAkamai</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAkamai.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAkamai.Parent" xml:space="preserve">
+    <value>panelAkamai</value>
+  </data>
+  <data name="&gt;&gt;buttonDelAkamai.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAkamai.Name" xml:space="preserve">
+    <value>checkBoxAkamai</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAkamai.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAkamai.Parent" xml:space="preserve">
+    <value>panelAkamai</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAkamai.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panelAkamai.Location" type="System.Drawing.Point, System.Drawing">
+    <value>436, 130</value>
+  </data>
+  <data name="panelAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>419, 200</value>
+  </data>
+  <data name="panelAkamai.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;panelAkamai.Name" xml:space="preserve">
+    <value>panelAkamai</value>
+  </data>
+  <data name="&gt;&gt;panelAkamai.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelAkamai.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;panelAkamai.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllStreamingIP.Name" xml:space="preserve">
+    <value>buttonAllowAllStreamingIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllStreamingIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllStreamingIP.Parent" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAllowAllStreamingIP.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewIP.Name" xml:space="preserve">
+    <value>dataGridViewIP</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewIP.Parent" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewIP.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonAddIP.Name" xml:space="preserve">
+    <value>buttonAddIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAddIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddIP.Parent" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;buttonAddIP.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonDelIP.Name" xml:space="preserve">
+    <value>buttonDelIP</value>
+  </data>
+  <data name="&gt;&gt;buttonDelIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelIP.Parent" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;buttonDelIP.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Name" xml:space="preserve">
+    <value>checkBoxStreamingIPlistSet</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Parent" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStreamingIPlistSet.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panelStreamingAllowedIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 130</value>
+  </data>
+  <data name="panelStreamingAllowedIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>422, 200</value>
+  </data>
+  <data name="panelStreamingAllowedIP.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;panelStreamingAllowedIP.Name" xml:space="preserve">
+    <value>panelStreamingAllowedIP</value>
+  </data>
+  <data name="&gt;&gt;panelStreamingAllowedIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelStreamingAllowedIP.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;panelStreamingAllowedIP.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewCustomHostname.Name" xml:space="preserve">
+    <value>dataGridViewCustomHostname</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewCustomHostname.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewCustomHostname.Parent" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewCustomHostname.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAddHostName.Name" xml:space="preserve">
+    <value>buttonAddHostName</value>
+  </data>
+  <data name="&gt;&gt;buttonAddHostName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddHostName.Parent" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;buttonAddHostName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonDelHostName.Name" xml:space="preserve">
+    <value>buttonDelHostName</value>
+  </data>
+  <data name="&gt;&gt;buttonDelHostName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelHostName.Parent" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;buttonDelHostName.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;hostnamelink.Name" xml:space="preserve">
+    <value>hostnamelink</value>
+  </data>
+  <data name="&gt;&gt;hostnamelink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hostnamelink.Parent" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;hostnamelink.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panelCustomHostnames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 337</value>
+  </data>
+  <data name="panelCustomHostnames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>422, 165</value>
+  </data>
+  <data name="panelCustomHostnames.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;panelCustomHostnames.Name" xml:space="preserve">
+    <value>panelCustomHostnames</value>
+  </data>
+  <data name="&gt;&gt;panelCustomHostnames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelCustomHostnames.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;panelCustomHostnames.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labeldesc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labeldesc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>303, 22</value>
+  </data>
+  <data name="labeldesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="labeldesc.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="labeldesc.Text" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="&gt;&gt;labeldesc.Name" xml:space="preserve">
+    <value>labeldesc</value>
+  </data>
+  <data name="&gt;&gt;labeldesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labeldesc.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;labeldesc.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="textboxorigindesc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>306, 40</value>
+  </data>
+  <data name="textboxorigindesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 23</value>
+  </data>
+  <data name="textboxorigindesc.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;textboxorigindesc.Name" xml:space="preserve">
+    <value>textboxorigindesc</value>
+  </data>
+  <data name="&gt;&gt;textboxorigindesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textboxorigindesc.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;textboxorigindesc.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="textBoxMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
+    <value>306, 98</value>
+  </data>
+  <data name="textBoxMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 23</value>
+  </data>
+  <data name="textBoxMaxCacheAge.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;textBoxMaxCacheAge.Name" xml:space="preserve">
+    <value>textBoxMaxCacheAge</value>
+  </data>
+  <data name="&gt;&gt;textBoxMaxCacheAge.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxMaxCacheAge.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;textBoxMaxCacheAge.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lblMaxCacheAge.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
+    <value>303, 80</value>
+  </data>
+  <data name="lblMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 15</value>
+  </data>
+  <data name="lblMaxCacheAge.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lblMaxCacheAge.Text" xml:space="preserve">
+    <value>Max Cache Age (s) :</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCacheAge.Name" xml:space="preserve">
+    <value>lblMaxCacheAge</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCacheAge.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCacheAge.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCacheAge.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPageSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.Name" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Name" xml:space="preserve">
+    <value>buttonAddExampleCrossDomainPolicy</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleClientPolicy.Name" xml:space="preserve">
+    <value>buttonAddExampleClientPolicy</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleClientPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleClientPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;buttonAddExampleClientPolicy.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomain.Name" xml:space="preserve">
+    <value>checkBoxcrossdomain</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomain.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxcrossdomain.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Name" xml:space="preserve">
+    <value>textBoxCrossDomPolicy</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;textBoxCrossDomPolicy.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Name" xml:space="preserve">
+    <value>checkBoxclientpolicy</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxclientpolicy.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Name" xml:space="preserve">
+    <value>textBoxClientPolicy</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.Parent" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>Policies</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 50</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>887, 539</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="dataGridViewAkamai.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -257,9 +899,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="dataGridViewAkamai.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>178, 17</value>
-  </metadata>
   <data name="dataGridViewAkamai.ToolTip" xml:space="preserve">
     <value>Rule name / IP address, CIDR or subnet mask</value>
   </data>
@@ -355,27 +994,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;checkBoxAkamai.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="panelAkamai.Location" type="System.Drawing.Point, System.Drawing">
-    <value>436, 130</value>
-  </data>
-  <data name="panelAkamai.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 200</value>
-  </data>
-  <data name="panelAkamai.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="&gt;&gt;panelAkamai.Name" xml:space="preserve">
-    <value>panelAkamai</value>
-  </data>
-  <data name="&gt;&gt;panelAkamai.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelAkamai.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;panelAkamai.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="buttonAllowAllStreamingIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>248, 170</value>
@@ -509,27 +1127,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;checkBoxStreamingIPlistSet.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="panelStreamingAllowedIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 130</value>
-  </data>
-  <data name="panelStreamingAllowedIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 200</value>
-  </data>
-  <data name="panelStreamingAllowedIP.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;panelStreamingAllowedIP.Name" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;panelStreamingAllowedIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelStreamingAllowedIP.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;panelStreamingAllowedIP.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="dataGridViewCustomHostname.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 21</value>
   </data>
@@ -658,201 +1255,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="panelCustomHostnames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 337</value>
-  </data>
-  <data name="panelCustomHostnames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 165</value>
-  </data>
-  <data name="panelCustomHostnames.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="&gt;&gt;panelCustomHostnames.Name" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;panelCustomHostnames.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelCustomHostnames.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;panelCustomHostnames.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labeldesc.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labeldesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 17</value>
-  </data>
-  <data name="labeldesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="labeldesc.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="labeldesc.Text" xml:space="preserve">
-    <value>Description :</value>
-  </data>
-  <data name="&gt;&gt;labeldesc.Name" xml:space="preserve">
-    <value>labeldesc</value>
-  </data>
-  <data name="&gt;&gt;labeldesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labeldesc.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;labeldesc.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="textboxorigindesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 36</value>
-  </data>
-  <data name="textboxorigindesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>523, 23</value>
-  </data>
-  <data name="textboxorigindesc.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="&gt;&gt;textboxorigindesc.Name" xml:space="preserve">
-    <value>textboxorigindesc</value>
-  </data>
-  <data name="&gt;&gt;textboxorigindesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textboxorigindesc.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;textboxorigindesc.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="textBoxMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 99</value>
-  </data>
-  <data name="textBoxMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 23</value>
-  </data>
-  <data name="textBoxMaxCacheAge.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;textBoxMaxCacheAge.Name" xml:space="preserve">
-    <value>textBoxMaxCacheAge</value>
-  </data>
-  <data name="&gt;&gt;textBoxMaxCacheAge.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxMaxCacheAge.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;textBoxMaxCacheAge.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="lblMaxCacheAge.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 82</value>
-  </data>
-  <data name="lblMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 15</value>
-  </data>
-  <data name="lblMaxCacheAge.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="lblMaxCacheAge.Text" xml:space="preserve">
-    <value>Max Cache Age (s) :</value>
-  </data>
-  <data name="&gt;&gt;lblMaxCacheAge.Name" xml:space="preserve">
-    <value>lblMaxCacheAge</value>
-  </data>
-  <data name="&gt;&gt;lblMaxCacheAge.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblMaxCacheAge.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;lblMaxCacheAge.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 82</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Streaming Units : </value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="numericUpDownRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 100</value>
-  </data>
-  <data name="numericUpDownRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
-  </data>
-  <data name="numericUpDownRU.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownRU.ToolTip" xml:space="preserve">
-    <value>1 unit = 200 mbps</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRU.Name" xml:space="preserve">
-    <value>numericUpDownRU</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRU.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRU.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPageSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="tabPageSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageSettings.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Name" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="buttonAddExampleCrossDomainPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1040,54 +1442,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPagePolicies.Text" xml:space="preserve">
-    <value>Policies</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 50</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>887, 539</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="labelSEName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1145,6 +1499,9 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>178, 17</value>
+  </metadata>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
