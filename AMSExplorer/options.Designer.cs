@@ -444,19 +444,19 @@
             // 
             // numericUpDownMESPrice
             // 
-            this.numericUpDownMESPrice.DecimalPlaces = 2;
+            this.numericUpDownMESPrice.DecimalPlaces = 3;
             resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            131072});
+            196608});
             this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
             this.numericUpDownMESPrice.Value = new decimal(new int[] {
-            199,
+            15,
             0,
             0,
-            131072});
+            196608});
             // 
             // numericUpDownIndexingPrice
             // 
@@ -506,19 +506,19 @@
             // 
             // numericUpDownPremiumWorkflowPrice
             // 
-            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 2;
+            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 3;
             resources.ApplyResources(this.numericUpDownPremiumWorkflowPrice, "numericUpDownPremiumWorkflowPrice");
             this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            131072});
+            196608});
             this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
             this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
-            399,
+            35,
             0,
             0,
-            131072});
+            196608});
             // 
             // amspriceslink
             // 

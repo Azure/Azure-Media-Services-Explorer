@@ -73,7 +73,7 @@
             this.radioButtonArchiveAllBitrate = new System.Windows.Forms.RadioButton();
             this.radioButtonClipWithReencode = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.labeloutoutputasset = new System.Windows.Forms.Label();
+            this.labeloutputasset = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
@@ -113,7 +113,6 @@
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Tag = "Subclip";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -284,7 +283,6 @@
             // 
             resources.ApplyResources(this.labelAccurate, "labelAccurate");
             this.labelAccurate.Name = "labelAccurate";
-            this.labelAccurate.Tag = "({0} accurate)";
             // 
             // webBrowserPreview
             // 
@@ -414,11 +412,10 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
-            // labeloutoutputasset
+            // labeloutputasset
             // 
-            resources.ApplyResources(this.labeloutoutputasset, "labeloutoutputasset");
-            this.labeloutoutputasset.Name = "labeloutoutputasset";
-            this.labeloutoutputasset.Tag = "Output asset(s) name :";
+            resources.ApplyResources(this.labeloutputasset, "labeloutputasset");
+            this.labeloutputasset.Name = "labeloutputasset";
             // 
             // textboxoutputassetname
             // 
@@ -441,7 +438,7 @@
             this.panelJob.Controls.Add(this.textboxoutputassetname);
             this.panelJob.Controls.Add(this.textBoxJobName);
             this.panelJob.Controls.Add(this.buttonJobOptions);
-            this.panelJob.Controls.Add(this.labeloutoutputasset);
+            this.panelJob.Controls.Add(this.labeloutputasset);
             this.panelJob.Controls.Add(this.label5);
             this.panelJob.Name = "panelJob";
             // 
@@ -533,7 +530,7 @@
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxConfiguration;
-        public System.Windows.Forms.Label labeloutoutputasset;
+        public System.Windows.Forms.Label labeloutputasset;
         private System.Windows.Forms.TextBox textboxoutputassetname;
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxJobName;

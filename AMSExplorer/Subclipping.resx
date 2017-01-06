@@ -532,7 +532,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
@@ -736,7 +736,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -766,7 +766,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -1402,7 +1402,7 @@
     <value>buttonJobOptions</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
     <value>panelJob</value>
@@ -1410,34 +1410,34 @@
   <data name="&gt;&gt;buttonJobOptions.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labeloutoutputasset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labeloutputasset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="labeloutoutputasset.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labeloutputasset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labeloutoutputasset.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labeloutputasset.Location" type="System.Drawing.Point, System.Drawing">
     <value>31, 70</value>
   </data>
-  <data name="labeloutoutputasset.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labeloutputasset.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 15</value>
   </data>
-  <data name="labeloutoutputasset.TabIndex" type="System.Int32, mscorlib">
+  <data name="labeloutputasset.TabIndex" type="System.Int32, mscorlib">
     <value>134</value>
   </data>
-  <data name="labeloutoutputasset.Text" xml:space="preserve">
+  <data name="labeloutputasset.Text" xml:space="preserve">
     <value>Output asset(s) name :</value>
   </data>
-  <data name="&gt;&gt;labeloutoutputasset.Name" xml:space="preserve">
-    <value>labeloutoutputasset</value>
+  <data name="&gt;&gt;labeloutputasset.Name" xml:space="preserve">
+    <value>labeloutputasset</value>
   </data>
-  <data name="&gt;&gt;labeloutoutputasset.Type" xml:space="preserve">
+  <data name="&gt;&gt;labeloutputasset.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labeloutoutputasset.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labeloutputasset.Parent" xml:space="preserve">
     <value>panelJob</value>
   </data>
-  <data name="&gt;&gt;labeloutoutputasset.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labeloutputasset.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

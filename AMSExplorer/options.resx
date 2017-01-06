@@ -1234,13 +1234,13 @@
     <value>47, 68</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 15</value>
+    <value>245, 15</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>Standard Encoding price, per output GB :</value>
+    <value>Standard Encoding price, per output minute :</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -1372,13 +1372,13 @@
     <value>47, 98</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 15</value>
+    <value>284, 15</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>64</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>Premium Workflow encoding price, per output GB :</value>
+    <value>Premium Workflow encoding price, per output min :</value>
   </data>
   <data name="&gt;&gt;label9.Name" xml:space="preserve">
     <value>label9</value>

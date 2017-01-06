@@ -277,18 +277,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.99")]
-        public decimal AMEPrice {
-            get {
-                return ((decimal)(this["AMEPrice"]));
-            }
-            set {
-                this["AMEPrice"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("$")]
         public string Currency {
             get {
@@ -392,18 +380,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DynEncTokenAudience"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.99")]
-        public decimal MEPremiumWorkflowPrice {
-            get {
-                return ((decimal)(this["MEPremiumWorkflowPrice"]));
-            }
-            set {
-                this["MEPremiumWorkflowPrice"] = value;
             }
         }
         
@@ -572,6 +548,30 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["OutputAssetsAdaptiveStreamingFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.015")]
+        public decimal MESPricePerMin {
+            get {
+                return ((decimal)(this["MESPricePerMin"]));
+            }
+            set {
+                this["MESPricePerMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.035")]
+        public decimal MEPWPricePerMin {
+            get {
+                return ((decimal)(this["MEPWPricePerMin"]));
+            }
+            set {
+                this["MEPWPricePerMin"] = value;
             }
         }
     }

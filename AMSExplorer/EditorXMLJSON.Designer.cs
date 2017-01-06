@@ -107,7 +107,6 @@
             this.labelInfoText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.labelInfoText.ForeColor = System.Drawing.Color.Black;
             this.labelInfoText.Name = "labelInfoText";
-            this.labelInfoText.Tag = "";
             // 
             // panel2
             // 

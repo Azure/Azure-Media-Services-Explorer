@@ -41,6 +41,7 @@ namespace AMSExplorer
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultEncodingPreset = "";
         private string defaultLanguageString = "und";
+        private string _radioButtonDefaultPreset;
 
         public string ChannelName
         {
@@ -227,6 +228,8 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
+            _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
+
             FillComboProtocols(false);
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
@@ -367,7 +370,7 @@ namespace AMSExplorer
             if (profileliveselected != null)
             {
                 defaultEncodingPreset = profileliveselected.Name;
-                radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
+                radioButtonDefaultPreset.Text = string.Format(_radioButtonDefaultPreset, defaultEncodingPreset);
             }
         }
 

@@ -79,6 +79,7 @@ namespace AMSExplorer
             new Item("Right", "Right")
         };
         private IAsset _firstAsset;
+        private string _labelWarningJSON;
 
         public string IndexerInputAssetName
         {
@@ -149,6 +150,7 @@ namespace AMSExplorer
 
         private void MediaAnalyticsVideoOCR_Load(object sender, EventArgs e)
         {
+            _labelWarningJSON = labelWarningJSON.Text;
             comboBoxLanguage.Items.AddRange(VideOCRLanguages.ToArray());
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxOrientation.Items.AddRange(TextOrientations.ToArray());
@@ -288,7 +290,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    labelWarningJSON.Text = string.Format(_labelWarningJSON, ex.Message);
                     Error = true;
                 }
             }

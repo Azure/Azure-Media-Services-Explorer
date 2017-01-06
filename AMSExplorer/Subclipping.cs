@@ -41,6 +41,9 @@ namespace AMSExplorer
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
         bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
+        private string _buttonOk;
+        private string _labelAccurate;
+        private string _labeloutoutputasset;
 
         public JobOptionsVar JobOptions
         {
@@ -150,6 +153,9 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
+            _buttonOk = buttonOk.Text;
+            _labelAccurate = labelAccurate.Text;
+            _labeloutoutputasset = labeloutputasset.Text;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoSubClipAMSE));
             CheckIfErrorTimeControls();
             DisplayAccuracy();
@@ -503,11 +509,11 @@ namespace AMSExplorer
         {
             if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked)
             {
-                buttonOk.Text = ((string)buttonOk.Tag);
+                buttonOk.Text = _buttonOk;
             }
             else if (radioButtonClipWithReencode.Checked)
             {
-                buttonOk.Text = ((string)buttonOk.Tag) + "...";
+                buttonOk.Text = _buttonOk + "...";
             }
             else if (radioButtonAssetFilter.Checked)
             {
@@ -517,15 +523,15 @@ namespace AMSExplorer
 
         private void DisplayAccuracy()
         {
-            labelAccurate.Text = string.Format((labelAccurate.Tag as string), radioButtonClipWithReencode.Checked ? "Frame" : "GOP");
+            labelAccurate.Text = string.Format(_labelAccurate, radioButtonClipWithReencode.Checked ? "Frame" : "GOP");
 
             if (radioButtonAssetFilter.Checked)
             {
-                labeloutoutputasset.Text = "Asset Filter Name :";
+                labeloutputasset.Text = "Asset Filter Name :";
             }
             else
             {
-                labeloutoutputasset.Text = (string)labeloutoutputasset.Tag;
+                labeloutputasset.Text = _labeloutoutputasset;
             }
 
         }

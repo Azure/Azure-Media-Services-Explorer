@@ -39,6 +39,7 @@ namespace AMSExplorer
         private IMediaProcessor _processor;
         private bool _preview;
         private Image _processorImage;
+        private string _labelWarningJSON;
 
         public string MIInputAssetName
         {
@@ -146,6 +147,8 @@ namespace AMSExplorer
 
         private void MediaAnalyticsVideoThumbnails_Load(object sender, EventArgs e)
         {
+            _labelWarningJSON = labelWarningJSON.Text;
+
             // we don't have yet link or picture for Video Analytics Greneric. Let's use Yammer group
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoSummarization));
             moreinfoprofilelink.Visible = true;
@@ -206,7 +209,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    labelWarningJSON.Text = string.Format(_labelWarningJSON, ex.Message);
                     Error = true;
                 }
             }

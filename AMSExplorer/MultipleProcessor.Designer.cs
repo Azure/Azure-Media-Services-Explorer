@@ -381,7 +381,6 @@
             // 
             resources.ApplyResources(this.labelsummaryjob, "labelsummaryjob");
             this.labelsummaryjob.Name = "labelsummaryjob";
-            this.labelsummaryjob.Tag = "You are going to submit {0} job{1} with {2} task{3}";
             // 
             // tabPageTask1
             // 
@@ -404,7 +403,6 @@
             resources.ApplyResources(this.labelWarningJSON1, "labelWarningJSON1");
             this.labelWarningJSON1.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON1.Name = "labelWarningJSON1";
-            this.labelWarningJSON1.Tag = "XML Syntax error. {0}";
             // 
             // buttonTaskOptions1
             // 
@@ -462,7 +460,6 @@
             resources.ApplyResources(this.labelWarningJSON2, "labelWarningJSON2");
             this.labelWarningJSON2.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON2.Name = "labelWarningJSON2";
-            this.labelWarningJSON2.Tag = "XML Syntax error. {0}";
             // 
             // label7
             // 
@@ -557,7 +554,6 @@
             resources.ApplyResources(this.labelWarningJSON3, "labelWarningJSON3");
             this.labelWarningJSON3.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON3.Name = "labelWarningJSON3";
-            this.labelWarningJSON3.Tag = "XML Syntax error. {0}";
             // 
             // label9
             // 
@@ -652,7 +648,6 @@
             resources.ApplyResources(this.labelWarningJSON4, "labelWarningJSON4");
             this.labelWarningJSON4.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON4.Name = "labelWarningJSON4";
-            this.labelWarningJSON4.Tag = "XML Syntax error. {0}";
             // 
             // label11
             // 
@@ -747,7 +742,6 @@
             resources.ApplyResources(this.labelWarningJSON5, "labelWarningJSON5");
             this.labelWarningJSON5.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON5.Name = "labelWarningJSON5";
-            this.labelWarningJSON5.Tag = "XML Syntax error. {0}";
             // 
             // label13
             // 

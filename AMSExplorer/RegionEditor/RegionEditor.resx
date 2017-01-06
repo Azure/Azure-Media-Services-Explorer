@@ -469,7 +469,7 @@
     <value>myPictureBox1</value>
   </data>
   <data name="&gt;&gt;myPictureBox1.Type" xml:space="preserve">
-    <value>AMSExplorer.myPictureBox, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.myPictureBox, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;myPictureBox1.Parent" xml:space="preserve">
     <value>$this</value>

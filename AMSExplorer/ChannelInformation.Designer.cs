@@ -435,7 +435,6 @@
             this.radioButtonDefaultPreset.Checked = true;
             this.radioButtonDefaultPreset.Name = "radioButtonDefaultPreset";
             this.radioButtonDefaultPreset.TabStop = true;
-            this.radioButtonDefaultPreset.Tag = "Use \"{0}\" preset";
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
             this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
             // 

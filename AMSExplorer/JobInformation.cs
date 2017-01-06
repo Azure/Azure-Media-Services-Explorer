@@ -106,13 +106,14 @@ namespace AMSExplorer
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
+            
             TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
             {
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_InputSize, AssetInfo.FormatByteSize(jobSizePrice.InputSize));
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OutputSize, AssetInfo.FormatByteSize(jobSizePrice.OutputSize));
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_ProcessedSize, AssetInfo.FormatByteSize(jobSizePrice.InputSize + jobSizePrice.OutputSize));
-                if (jobSizePrice.Price != -1) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EstimatedPrice, string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, jobSizePrice.Price));
+                //if (jobSizePrice.Price != -1) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EstimatedPrice, string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, jobSizePrice.Price));
             }
             else
             {
@@ -265,7 +266,7 @@ namespace AMSExplorer
             {
                 DGTasks.Rows.Add("Input size", AssetInfo.FormatByteSize(taskSizePrice.InputSize));
                 DGTasks.Rows.Add("Output size", AssetInfo.FormatByteSize(taskSizePrice.OutputSize));
-                DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(taskSizePrice.InputSize + taskSizePrice.OutputSize));
+                //DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(taskSizePrice.InputSize + taskSizePrice.OutputSize));
                 if (taskSizePrice.Price != -1) DGTasks.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, taskSizePrice.Price));
             }
             else

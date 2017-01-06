@@ -323,21 +323,6 @@ The order of the assets is important.</value>
   <data name="listViewProcessors1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="ListViewVendor.Text" xml:space="preserve">
-    <value>Vendor</value>
-  </data>
-  <data name="ListViewVendor.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="ListViewName.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="ListViewVersion.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="ListViewDesc.Text" xml:space="preserve">
-    <value>Description</value>
-  </data>
   <data name="listViewProcessors1.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 93</value>
   </data>
@@ -359,23 +344,23 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;listViewProcessors1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="ListViewVendor.Text" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="ListViewVendor.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="ListViewName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ListViewVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="ListViewDesc.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="tabcontrolgeneric.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Input asset(s) : (readonly)</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -389,24 +374,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 405</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Output asset name :</value>
-  </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
   </data>
@@ -419,18 +386,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="textboxoutputassetname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textboxoutputassetname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 425</value>
-  </data>
-  <data name="textboxoutputassetname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 23</value>
-  </data>
-  <data name="textboxoutputassetname.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
   <data name="&gt;&gt;textboxoutputassetname.Name" xml:space="preserve">
     <value>textboxoutputassetname</value>
   </data>
@@ -442,27 +397,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;textboxoutputassetname.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="listViewInputAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Position</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="listViewInputAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 37</value>
-  </data>
-  <data name="listViewInputAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>818, 337</value>
-  </data>
-  <data name="listViewInputAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
   </data>
   <data name="&gt;&gt;listViewInputAssets.Name" xml:space="preserve">
     <value>listViewInputAssets</value>
@@ -503,24 +437,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;tabPageAssets.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxSingleOutputAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxSingleOutputAsset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxSingleOutputAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 403</value>
-  </data>
-  <data name="checkBoxSingleOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 19</value>
-  </data>
-  <data name="checkBoxSingleOutputAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="checkBoxSingleOutputAsset.Text" xml:space="preserve">
-    <value>Single output asset</value>
-  </data>
   <data name="&gt;&gt;checkBoxSingleOutputAsset.Name" xml:space="preserve">
     <value>checkBoxSingleOutputAsset</value>
   </data>
@@ -532,18 +448,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;checkBoxSingleOutputAsset.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 276</value>
-  </data>
-  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
   </data>
   <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
     <value>pictureBox2</value>
@@ -557,21 +461,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 256</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Priority:</value>
-  </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
   </data>
@@ -583,15 +472,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="numericUpDownPriority.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 276</value>
-  </data>
-  <data name="numericUpDownPriority.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 23</value>
-  </data>
-  <data name="numericUpDownPriority.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
   </data>
   <data name="&gt;&gt;numericUpDownPriority.Name" xml:space="preserve">
     <value>numericUpDownPriority</value>
@@ -605,21 +485,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;numericUpDownPriority.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 355</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 15</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Number of tasks :</value>
-  </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
   </data>
@@ -631,15 +496,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="numericUpDownTasks.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 373</value>
-  </data>
-  <data name="numericUpDownTasks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 23</value>
-  </data>
-  <data name="numericUpDownTasks.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
   </data>
   <data name="&gt;&gt;numericUpDownTasks.Name" xml:space="preserve">
     <value>numericUpDownTasks</value>
@@ -653,45 +509,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;numericUpDownTasks.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="radioButtonOneJobPerVisibleAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonOneJobPerVisibleAsset.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="radioButtonOneJobPerVisibleAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 122</value>
-  </data>
-  <data name="radioButtonOneJobPerVisibleAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 19</value>
-  </data>
-  <data name="radioButtonOneJobPerVisibleAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="radioButtonOneJobPerVisibleAsset.Text" xml:space="preserve">
-    <value>One job per visible input asset in grid</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Name" xml:space="preserve">
-    <value>radioButtonOneJobPerVisibleAsset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Parent" xml:space="preserve">
-    <value>panelJobMode</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelJobMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="panelJobMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 180</value>
-  </data>
-  <data name="panelJobMode.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
   <data name="&gt;&gt;panelJobMode.Name" xml:space="preserve">
     <value>panelJobMode</value>
   </data>
@@ -704,18 +521,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;panelJobMode.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="pictureBoxJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>485, 6</value>
-  </data>
-  <data name="pictureBoxJob.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 190</value>
-  </data>
-  <data name="pictureBoxJob.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="pictureBoxJob.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
   <data name="&gt;&gt;pictureBoxJob.Name" xml:space="preserve">
     <value>pictureBoxJob</value>
   </data>
@@ -727,21 +532,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;pictureBoxJob.ZOrder" xml:space="preserve">
     <value>7</value>
-  </data>
-  <data name="labelsummaryjob.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Italic</value>
-  </data>
-  <data name="labelsummaryjob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 466</value>
-  </data>
-  <data name="labelsummaryjob.Size" type="System.Drawing.Size, System.Drawing">
-    <value>426, 25</value>
-  </data>
-  <data name="labelsummaryjob.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="labelsummaryjob.Text" xml:space="preserve">
-    <value>You are going to submit {0} job{1} with {2} task{3}</value>
   </data>
   <data name="&gt;&gt;labelsummaryjob.Name" xml:space="preserve">
     <value>labelsummaryjob</value>
@@ -785,24 +575,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="labelWarningJSON1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelWarningJSON1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 291</value>
-  </data>
-  <data name="labelWarningJSON1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 21</value>
-  </data>
-  <data name="labelWarningJSON1.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
-  <data name="labelWarningJSON1.Text" xml:space="preserve">
-    <value>XML Syntax error. {0}</value>
-  </data>
-  <data name="labelWarningJSON1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
   <data name="&gt;&gt;labelWarningJSON1.Name" xml:space="preserve">
     <value>labelWarningJSON1</value>
   </data>
@@ -815,41 +587,17 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;labelWarningJSON1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonTaskOptions1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonTaskOptions1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>684, 489</value>
-  </data>
-  <data name="buttonTaskOptions1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 27</value>
-  </data>
-  <data name="buttonTaskOptions1.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="buttonTaskOptions1.Text" xml:space="preserve">
-    <value>Task options...</value>
-  </data>
   <data name="&gt;&gt;buttonTaskOptions1.Name" xml:space="preserve">
     <value>buttonTaskOptions1</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions1.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions1.Parent" xml:space="preserve">
     <value>tabPageTask1</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions1.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="comboBoxAssetInput1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 33</value>
-  </data>
-  <data name="comboBoxAssetInput1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>829, 23</value>
-  </data>
-  <data name="comboBoxAssetInput1.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
   </data>
   <data name="&gt;&gt;comboBoxAssetInput1.Name" xml:space="preserve">
     <value>comboBoxAssetInput1</value>
@@ -863,18 +611,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;comboBoxAssetInput1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 14</value>
-  </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 15</value>
-  </data>
-  <data name="label15.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>Input asset(s) :</value>
-  </data>
   <data name="&gt;&gt;label15.Name" xml:space="preserve">
     <value>label15</value>
   </data>
@@ -886,21 +622,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 294</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>249, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Configuration String, XML or JSON (editable) :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -914,21 +635,6 @@ The order of the assets is important.</value>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="buttonLoadXML1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonLoadXML1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>687, 279</value>
-  </data>
-  <data name="buttonLoadXML1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 27</value>
-  </data>
-  <data name="buttonLoadXML1.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="buttonLoadXML1.Text" xml:space="preserve">
-    <value>Load a custom XML file</value>
-  </data>
   <data name="&gt;&gt;buttonLoadXML1.Name" xml:space="preserve">
     <value>buttonLoadXML1</value>
   </data>
@@ -940,27 +646,6 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;buttonLoadXML1.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="textBoxConfiguration1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxConfiguration1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 8.25pt</value>
-  </data>
-  <data name="textBoxConfiguration1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 312</value>
-  </data>
-  <data name="textBoxConfiguration1.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxConfiguration1.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="textBoxConfiguration1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>829, 174</value>
-  </data>
-  <data name="textBoxConfiguration1.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
   </data>
   <data name="&gt;&gt;textBoxConfiguration1.Name" xml:space="preserve">
     <value>textBoxConfiguration1</value>
@@ -1209,7 +894,7 @@ The order of the assets is important.</value>
     <value>buttonTaskOptions2</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions2.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions2.Parent" xml:space="preserve">
     <value>tabPageTask2</value>
@@ -1219,21 +904,6 @@ The order of the assets is important.</value>
   </data>
   <data name="listViewProcessors2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="columnHeader3.Text" xml:space="preserve">
-    <value>Vendor</value>
-  </data>
-  <data name="columnHeader3.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="columnHeader4.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader5.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="columnHeader6.Text" xml:space="preserve">
-    <value>Description</value>
   </data>
   <data name="listViewProcessors2.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 93</value>
@@ -1485,7 +1155,7 @@ The order of the assets is important.</value>
     <value>buttonTaskOptions3</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions3.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions3.Parent" xml:space="preserve">
     <value>tabPageTask3</value>
@@ -1495,21 +1165,6 @@ The order of the assets is important.</value>
   </data>
   <data name="listViewProcessors3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="columnHeader7.Text" xml:space="preserve">
-    <value>Vendor</value>
-  </data>
-  <data name="columnHeader7.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="columnHeader8.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader9.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="columnHeader10.Text" xml:space="preserve">
-    <value>Description</value>
   </data>
   <data name="listViewProcessors3.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 93</value>
@@ -1761,7 +1416,7 @@ The order of the assets is important.</value>
     <value>buttonTaskOptions4</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions4.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions4.Parent" xml:space="preserve">
     <value>tabPageTask4</value>
@@ -1771,21 +1426,6 @@ The order of the assets is important.</value>
   </data>
   <data name="listViewProcessors4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="columnHeader11.Text" xml:space="preserve">
-    <value>Vendor</value>
-  </data>
-  <data name="columnHeader11.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="columnHeader12.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader13.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="columnHeader14.Text" xml:space="preserve">
-    <value>Description</value>
   </data>
   <data name="listViewProcessors4.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 93</value>
@@ -2037,7 +1677,7 @@ The order of the assets is important.</value>
     <value>buttonTaskOptions5</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions5.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonTaskOptions5.Parent" xml:space="preserve">
     <value>tabPageTask5</value>
@@ -2047,21 +1687,6 @@ The order of the assets is important.</value>
   </data>
   <data name="listViewProcessors5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="columnHeader15.Text" xml:space="preserve">
-    <value>Vendor</value>
-  </data>
-  <data name="columnHeader15.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="columnHeader16.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader17.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="columnHeader18.Text" xml:space="preserve">
-    <value>Description</value>
   </data>
   <data name="listViewProcessors5.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 93</value>
@@ -2131,6 +1756,633 @@ The order of the assets is important.</value>
   </data>
   <data name="&gt;&gt;tabcontrolgeneric.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Input asset(s) : (readonly)</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 405</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Output asset name :</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textboxoutputassetname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textboxoutputassetname.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 425</value>
+  </data>
+  <data name="textboxoutputassetname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 23</value>
+  </data>
+  <data name="textboxoutputassetname.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;textboxoutputassetname.Name" xml:space="preserve">
+    <value>textboxoutputassetname</value>
+  </data>
+  <data name="&gt;&gt;textboxoutputassetname.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textboxoutputassetname.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;textboxoutputassetname.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="listViewInputAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listViewInputAssets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 37</value>
+  </data>
+  <data name="listViewInputAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>818, 337</value>
+  </data>
+  <data name="listViewInputAssets.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;listViewInputAssets.Name" xml:space="preserve">
+    <value>listViewInputAssets</value>
+  </data>
+  <data name="&gt;&gt;listViewInputAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewInputAssets.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;listViewInputAssets.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 403</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 19</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="checkBoxSingleOutputAsset.Text" xml:space="preserve">
+    <value>Single output asset</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSingleOutputAsset.Name" xml:space="preserve">
+    <value>checkBoxSingleOutputAsset</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSingleOutputAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSingleOutputAsset.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSingleOutputAsset.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 276</value>
+  </data>
+  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
+    <value>pictureBox2</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 256</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 15</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Priority:</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownPriority.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 276</value>
+  </data>
+  <data name="numericUpDownPriority.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 23</value>
+  </data>
+  <data name="numericUpDownPriority.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownPriority.Name" xml:space="preserve">
+    <value>numericUpDownPriority</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownPriority.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownPriority.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownPriority.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 355</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 15</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Number of tasks :</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="numericUpDownTasks.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 373</value>
+  </data>
+  <data name="numericUpDownTasks.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 23</value>
+  </data>
+  <data name="numericUpDownTasks.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTasks.Name" xml:space="preserve">
+    <value>numericUpDownTasks</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTasks.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTasks.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTasks.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Name" xml:space="preserve">
+    <value>radioButtonOneJobPerVisibleAsset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Parent" xml:space="preserve">
+    <value>panelJobMode</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelJobMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="panelJobMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>472, 180</value>
+  </data>
+  <data name="panelJobMode.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;panelJobMode.Name" xml:space="preserve">
+    <value>panelJobMode</value>
+  </data>
+  <data name="&gt;&gt;panelJobMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelJobMode.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;panelJobMode.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 122</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 19</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="radioButtonOneJobPerVisibleAsset.Text" xml:space="preserve">
+    <value>One job per visible input asset in grid</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Name" xml:space="preserve">
+    <value>radioButtonOneJobPerVisibleAsset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.Parent" xml:space="preserve">
+    <value>panelJobMode</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOneJobPerVisibleAsset.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pictureBoxJob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>485, 6</value>
+  </data>
+  <data name="pictureBoxJob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>367, 190</value>
+  </data>
+  <data name="pictureBoxJob.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="pictureBoxJob.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxJob.Name" xml:space="preserve">
+    <value>pictureBoxJob</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxJob.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxJob.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="labelsummaryjob.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Italic</value>
+  </data>
+  <data name="labelsummaryjob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 466</value>
+  </data>
+  <data name="labelsummaryjob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 25</value>
+  </data>
+  <data name="labelsummaryjob.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="labelsummaryjob.Text" xml:space="preserve">
+    <value>You are going to submit {0} job{1} with {2} task{3}</value>
+  </data>
+  <data name="&gt;&gt;labelsummaryjob.Name" xml:space="preserve">
+    <value>labelsummaryjob</value>
+  </data>
+  <data name="&gt;&gt;labelsummaryjob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelsummaryjob.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;labelsummaryjob.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="labelWarningJSON1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelWarningJSON1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>267, 291</value>
+  </data>
+  <data name="labelWarningJSON1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 21</value>
+  </data>
+  <data name="labelWarningJSON1.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="labelWarningJSON1.Text" xml:space="preserve">
+    <value>XML Syntax error. {0}</value>
+  </data>
+  <data name="labelWarningJSON1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelWarningJSON1.Name" xml:space="preserve">
+    <value>labelWarningJSON1</value>
+  </data>
+  <data name="&gt;&gt;labelWarningJSON1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelWarningJSON1.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;labelWarningJSON1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonTaskOptions1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonTaskOptions1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>684, 489</value>
+  </data>
+  <data name="buttonTaskOptions1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 27</value>
+  </data>
+  <data name="buttonTaskOptions1.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="buttonTaskOptions1.Text" xml:space="preserve">
+    <value>Task options...</value>
+  </data>
+  <data name="&gt;&gt;buttonTaskOptions1.Name" xml:space="preserve">
+    <value>buttonTaskOptions1</value>
+  </data>
+  <data name="&gt;&gt;buttonTaskOptions1.Type" xml:space="preserve">
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;buttonTaskOptions1.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;buttonTaskOptions1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxAssetInput1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 33</value>
+  </data>
+  <data name="comboBoxAssetInput1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>829, 23</value>
+  </data>
+  <data name="comboBoxAssetInput1.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAssetInput1.Name" xml:space="preserve">
+    <value>comboBoxAssetInput1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAssetInput1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAssetInput1.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAssetInput1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 14</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 15</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Input asset(s) :</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 294</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>249, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Configuration String, XML or JSON (editable) :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="buttonLoadXML1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonLoadXML1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>687, 279</value>
+  </data>
+  <data name="buttonLoadXML1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 27</value>
+  </data>
+  <data name="buttonLoadXML1.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="buttonLoadXML1.Text" xml:space="preserve">
+    <value>Load a custom XML file</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadXML1.Name" xml:space="preserve">
+    <value>buttonLoadXML1</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadXML1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadXML1.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadXML1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="textBoxConfiguration1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxConfiguration1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 8.25pt</value>
+  </data>
+  <data name="textBoxConfiguration1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 312</value>
+  </data>
+  <data name="textBoxConfiguration1.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxConfiguration1.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="textBoxConfiguration1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>829, 174</value>
+  </data>
+  <data name="textBoxConfiguration1.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;textBoxConfiguration1.Name" xml:space="preserve">
+    <value>textBoxConfiguration1</value>
+  </data>
+  <data name="&gt;&gt;textBoxConfiguration1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxConfiguration1.Parent" xml:space="preserve">
+    <value>tabPageTask1</value>
+  </data>
+  <data name="&gt;&gt;textBoxConfiguration1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="columnHeader3.Text" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="columnHeader3.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="columnHeader4.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader5.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="columnHeader6.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="columnHeader7.Text" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="columnHeader7.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="columnHeader8.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader9.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="columnHeader10.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="columnHeader11.Text" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="columnHeader11.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="columnHeader12.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader13.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="columnHeader14.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="columnHeader15.Text" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="columnHeader15.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="columnHeader16.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader17.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="columnHeader18.Text" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>

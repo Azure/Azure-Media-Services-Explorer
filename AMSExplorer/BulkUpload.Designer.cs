@@ -186,7 +186,6 @@
             resources.ApplyResources(this.labelWarningFiles, "labelWarningFiles");
             this.labelWarningFiles.ForeColor = System.Drawing.Color.Red;
             this.labelWarningFiles.Name = "labelWarningFiles";
-            this.labelWarningFiles.Tag = "";
             // 
             // buttonSelectFolder
             // 

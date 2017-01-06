@@ -65,9 +65,6 @@
     <Setting Name="PremiumWorkflowPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AMEPrice" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1.99</Value>
-    </Setting>
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
     </Setting>
@@ -94,9 +91,6 @@
     </Setting>
     <Setting Name="DynEncTokenAudience" Type="System.String" Scope="User">
       <Value Profile="(Default)">urn:test</Value>
-    </Setting>
-    <Setting Name="MEPremiumWorkflowPrice" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">3.99</Value>
     </Setting>
     <Setting Name="DefaultLocatorDurationDaysNew" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3650</Value>
@@ -139,6 +133,12 @@
     </Setting>
     <Setting Name="OutputAssetsAdaptiveStreamingFormat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MESPricePerMin" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.015</Value>
+    </Setting>
+    <Setting Name="MEPWPricePerMin" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.035</Value>
     </Setting>
   </Settings>
 </SettingsFile>

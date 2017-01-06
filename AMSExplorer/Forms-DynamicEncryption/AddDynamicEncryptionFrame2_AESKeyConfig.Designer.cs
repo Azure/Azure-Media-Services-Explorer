@@ -97,7 +97,6 @@
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Tag = "";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // radioButtonContentKeyBase64

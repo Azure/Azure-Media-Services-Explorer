@@ -1317,11 +1317,11 @@ namespace AMSExplorer
                             case (Constants.AzureMediaEncoder):
                             case (Constants.AzureMediaEncoderStandard):
                                 // AME or Media Standard Encoding task
-                                pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
+                                //pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
                                 break;
                             case (Constants.AzureMediaEncoderPremiumWorkflow):
                                 // Premium Workflow Encoding task
-                                pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.MEPremiumWorkflowPrice;
+                                //pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.MEPremiumWorkflowPrice;
                                 break;
                             case (MediaProcessorNames.StorageDecryption):
                             case (MediaProcessorNames.WindowsAzureMediaEncryptor):
@@ -1573,13 +1573,11 @@ namespace AMSExplorer
                         {
                             TaskSizeAndPrice MyTaskSizePrice = CalculateTaskSizeAndPrice(task, (CloudMediaContext)theJob.GetMediaContext());
 
-
-
                             if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
                             {
                                 sb.AppendLine("Input size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize) : cannotcalc));
                                 sb.AppendLine("Output size processed by the task : " + ((MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.OutputSize) : cannotcalc));
-                                sb.AppendLine("Total size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize) : cannotcalc));
+                                //sb.AppendLine("Total size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize) : cannotcalc));
 
                                 if (MyTaskSizePrice.Price >= 0)
                                 {
@@ -1599,10 +1597,13 @@ namespace AMSExplorer
                     sb.AppendLine("Output size processed by the job : " + ((MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize) : cannotcalc));
                     sb.AppendLine("Total size processed by the job  : " + ((MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize) : cannotcalc));
 
+                    /*
                     if (MyJobSizePrice.Price != -1)
                     {
                         sb.AppendLine(string.Format("Estimated cost of the job        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyJobSizePrice.Price));
                     }
+                    */
+
                     sb.AppendLine("");
                     sb.AppendLine(section);
                     sb.AppendLine(" END OF JOB REPORT");

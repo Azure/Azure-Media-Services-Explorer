@@ -38,6 +38,7 @@ namespace AMSExplorer
     public partial class AddDynamicEncryptionFrame6_WidevineLicense : Form
     {
         private string _widevineTempUrl;
+        private string _labelWarningJSON;
 
         public string WidevinePolicyName
         {
@@ -141,6 +142,8 @@ namespace AMSExplorer
 
         private void AddDynamicEncryptionFrame6_WidevineLicense_Load(object sender, EventArgs e)
         {
+            _labelWarningJSON = labelWarningJSON.Text;
+
             comboBoxAllowedTrackTypes.Items.AddRange(Enum.GetNames(typeof(AllowedTrackTypes)).ToArray());
             comboBoxAllowedTrackTypes.SelectedItem = Enum.GetName(typeof(AllowedTrackTypes), AllowedTrackTypes.SD_HD);
 
@@ -194,7 +197,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    labelWarningJSON.Text = string.Format(_labelWarningJSON, ex.Message);
                     Error = true;
                 }
             }

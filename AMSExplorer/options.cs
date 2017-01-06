@@ -63,8 +63,8 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.ShowLivePremiumChannel = checkBoxShowPremiumLiveEncoding.Checked;
-            Properties.Settings.Default.AMEPrice = numericUpDownMESPrice.Value;
-            Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownPremiumWorkflowPrice.Value;
+            Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
+            Properties.Settings.Default.MEPWPricePerMin = numericUpDownPremiumWorkflowPrice.Value;
             Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
 
@@ -158,8 +158,8 @@ namespace AMSExplorer
             numericUpDownAssetAnalysisStep.Value = Properties.Settings.Default.AssetAnalysisStep;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
-            numericUpDownMESPrice.Value = Properties.Settings.Default.AMEPrice;
-            numericUpDownPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
+            numericUpDownMESPrice.Value = Properties.Settings.Default.MESPricePerMin;
+            numericUpDownPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPWPricePerMin;
             numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin;
 
             textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;

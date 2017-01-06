@@ -53,6 +53,7 @@
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPagePreset = new System.Windows.Forms.TabPage();
+            this.labelOutputMinuteMultiplier = new System.Windows.Forms.Label();
             this.TabPageAdvanced = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBoxRotation = new System.Windows.Forms.ComboBox();
@@ -200,7 +201,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelOutputMinuteMultiplier = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.buttonRegionEditor = new AMSExplorer.ButtonRegionEditor();
             this.buttonShowEDL = new AMSExplorer.ButtonEDL();
@@ -268,7 +268,6 @@
             resources.ApplyResources(this.labelWarningJSON, "labelWarningJSON");
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Tag = "";
             // 
             // moreinfopresetslink
             // 
@@ -289,7 +288,6 @@
             resources.ApplyResources(this.label4KWarning, "label4KWarning");
             this.label4KWarning.ForeColor = System.Drawing.Color.Red;
             this.label4KWarning.Name = "label4KWarning";
-            this.label4KWarning.Tag = "Warning : you should use a S3 Media RU for 4K";
             // 
             // label4
             // 
@@ -403,6 +401,11 @@
             resources.ApplyResources(this.TabPagePreset, "TabPagePreset");
             this.TabPagePreset.Name = "TabPagePreset";
             this.TabPagePreset.UseVisualStyleBackColor = true;
+            // 
+            // labelOutputMinuteMultiplier
+            // 
+            resources.ApplyResources(this.labelOutputMinuteMultiplier, "labelOutputMinuteMultiplier");
+            this.labelOutputMinuteMultiplier.Name = "labelOutputMinuteMultiplier";
             // 
             // TabPageAdvanced
             // 
@@ -1589,11 +1592,6 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
-            // 
-            // labelOutputMinuteMultiplier
-            // 
-            resources.ApplyResources(this.labelOutputMinuteMultiplier, "labelOutputMinuteMultiplier");
-            this.labelOutputMinuteMultiplier.Name = "labelOutputMinuteMultiplier";
             // 
             // buttonJobOptions
             // 

@@ -227,7 +227,6 @@
             resources.ApplyResources(this.labelWarningJSON, "labelWarningJSON");
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
             // 
             // textBoxConfiguration
             // 

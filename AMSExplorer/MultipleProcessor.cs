@@ -49,6 +49,7 @@ namespace AMSExplorer
         private int numberoftasks = 1;
 
         private new List<List<GenericTaskAsset>> listofinputassets;  // for each task
+        private string _labelsummaryjob;
 
         public string EncodingJobName
         {
@@ -304,6 +305,7 @@ namespace AMSExplorer
 
         private void GenericProcessor_Load(object sender, EventArgs e)
         {
+            _labelsummaryjob = labelsummaryjob.Text;
             UpdateJobSummary();
             UpdateGeneralWarning();
         }
@@ -361,7 +363,7 @@ namespace AMSExplorer
                 nbjobs = VisibleAssets.Count();
             }
 
-            labelsummaryjob.Text = string.Format(labelsummaryjob.Tag as string,
+            labelsummaryjob.Text = string.Format(_labelsummaryjob,
                 nbjobs,
                 nbjobs > 1 ? "s" : "",
                 numberoftasks,

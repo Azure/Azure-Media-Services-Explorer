@@ -1075,9 +1075,9 @@ namespace AMSExplorer
            
         }
 
-        private double calculateMultiplier(dynamic obj)
+        private decimal calculateMultiplier(dynamic obj)
         {
-            double multiplier = 0;
+            decimal multiplier = 0;
 
             if (obj.Codecs != null)
             {
@@ -1113,7 +1113,7 @@ namespace AMSExplorer
                     }
                     else if (codec.Type != null && codec.Type == "AACAudio")
                     {
-                        multiplier += 0.25;
+                        multiplier += 0.25m;
                     }
                 }
             }
@@ -1231,12 +1231,12 @@ namespace AMSExplorer
 
                 if (listboxPresets.SelectedItem.ToString().Contains("4K") && _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Premium)
                 {
-                    label4KWarning.Text = (string)label4KWarning.Tag;
+                    label4KWarning.Visible = true;
                     buttonOk.Enabled = false;
                 }
                 else
                 {
-                    label4KWarning.Text = string.Empty;
+                    label4KWarning.Visible = false;
                     buttonOk.Enabled = true;
                 }
 
@@ -1254,7 +1254,7 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
-            double multiplier = 0;
+            decimal multiplier = 0;
 
             if (usereditmode)
             {
@@ -1299,7 +1299,7 @@ namespace AMSExplorer
             // Display multiplier
             if (multiplier > 0)
             {
-                labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier);
+                labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier, Properties.Settings.Default.Currency, multiplier* Properties.Settings.Default.MESPricePerMin);
             }
             else
             {

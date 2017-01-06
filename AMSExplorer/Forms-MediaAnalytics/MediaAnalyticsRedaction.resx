@@ -616,7 +616,7 @@
     <value>buttonJobOptions</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
     <value>$this</value>

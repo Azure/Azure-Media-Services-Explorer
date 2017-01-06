@@ -50,6 +50,10 @@ namespace AMSExplorer
         private ulong? _timescale = null;
         private SubClipConfiguration _subclipconfig;
         private IStreamingFilter _filterToDisplay;
+        private string _labelStartTimeDefault;
+        private string _labelDefaultEnd;
+        private string _labelDefaultDVR;
+        private string _labelDefaultBakckoff;
 
         public DynManifestFilter(CloudMediaContext context, IStreamingFilter filterToDisplay = null, IAsset parentAsset = null, SubClipConfiguration subclipconfig = null)
         {
@@ -85,6 +89,11 @@ namespace AMSExplorer
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
+            _labelStartTimeDefault = labelStartTimeDefault.Text;
+            _labelDefaultEnd = labelDefaultEnd.Text;
+            _labelDefaultDVR = labelDefaultDVR.Text;
+            _labelDefaultBakckoff = labelDefaultBakckoff.Text;
+
             _parentassetmanifestdata = new ManifestTimingData();
             tabControl1.TabPages.Remove(tabPageTRRaw);
             FillComboBoxImportFilters(_parentAsset);
@@ -895,7 +904,7 @@ namespace AMSExplorer
         private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStart.Enabled = checkBoxStartTime.Checked;
-            labelStartTimeDefault.Text = checkBoxStartTime.Checked ? string.Empty : (string)labelStartTimeDefault.Tag;
+            labelStartTimeDefault.Text = checkBoxStartTime.Checked ? string.Empty : _labelStartTimeDefault;
             CheckIfErrorTimeControls();
             UpdateDurationText();
         }
@@ -918,7 +927,7 @@ namespace AMSExplorer
         private void checkBoxEndTime_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEnd.Enabled = checkBoxEndTime.Checked;
-            labelDefaultEnd.Text = checkBoxEndTime.Checked ? string.Empty : (string)labelDefaultEnd.Tag;
+            labelDefaultEnd.Text = checkBoxEndTime.Checked ? string.Empty : _labelDefaultEnd;
             CheckIfErrorTimeControls();
             UpdateDurationText();
         }
@@ -926,14 +935,14 @@ namespace AMSExplorer
         private void checkBoxLiveBackoff_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownBackoffSeconds.Enabled = checkBoxLiveBackoff.Checked;
-            labelDefaultBakckoff.Text = checkBoxLiveBackoff.Checked ? string.Empty : (string)labelDefaultBakckoff.Tag;
+            labelDefaultBakckoff.Text = checkBoxLiveBackoff.Checked ? string.Empty : _labelDefaultBakckoff;
             CheckIfErrorTimeControls();
         }
 
         private void checkBoxDVRWindow_CheckedChanged(object sender, EventArgs e)
         {
             timeControlDVR.Enabled = checkBoxDVRWindow.Checked;
-            labelDefaultDVR.Text = checkBoxDVRWindow.Checked ? string.Empty : (string)labelDefaultDVR.Tag;
+            labelDefaultDVR.Text = checkBoxDVRWindow.Checked ? string.Empty : _labelDefaultDVR;
             CheckIfErrorTimeControls();
         }
 

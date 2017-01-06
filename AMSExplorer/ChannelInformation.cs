@@ -51,6 +51,7 @@ namespace AMSExplorer
         private string defaultEncodingPreset = "";
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultAudioStreamCode = null;
+        private string _radioButtonDefaultPreset;
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -201,6 +202,7 @@ namespace AMSExplorer
 
         private void ChannelInformation_Load(object sender, EventArgs e)
         {
+            _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
 
             if (!MultipleSelection) // one channel
             {
@@ -316,7 +318,7 @@ namespace AMSExplorer
                 if (profileliveselected != null)
                 {
                     defaultEncodingPreset = profileliveselected.Name;
-                    radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
+                    radioButtonDefaultPreset.Text = string.Format(_radioButtonDefaultPreset, defaultEncodingPreset);
                 }
 
                 if (MyChannel.Encoding != null && MyChannel.Encoding.SystemPreset != null)
