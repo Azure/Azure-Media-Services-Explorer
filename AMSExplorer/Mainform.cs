@@ -9803,11 +9803,18 @@ namespace AMSExplorer
 
                     if (modifications.StreamingUnits && streamingendpoint.ScaleUnits != form.GetScaleUnits)
                     {
+                        if (new Version(streamingendpoint.StreamingEndpointVersion) == new Version("1.0") && form.GetScaleUnits == 0)
+                        { // special case. Going to classic mode. CDN should be disabled.
+                            streamingendpoint.CdnEnabled = false;
+                        }
+
                         Task.Run(async () =>
                         {
                             await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                             await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
                         });
+
+
                     }
                     else // no scaling
                     {
