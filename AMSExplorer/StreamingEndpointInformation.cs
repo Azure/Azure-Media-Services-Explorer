@@ -216,12 +216,12 @@ namespace AMSExplorer
                         labelInfoMigration.Visible = false; // no need
                     }
 
-                    if (type== StreamEndpointType.Classic)
+                    if (type == StreamEndpointType.Classic)
                     {
                         radioButtonClassic.Checked = true;
                         radioButtonStandard.Enabled = false;
                     }
-                    else if (type== StreamEndpointType.Standard)
+                    else if (type == StreamEndpointType.Standard)
                     {
                         radioButtonClassic.Enabled = false;
                         radioButtonStandard.Checked = true;
@@ -229,14 +229,14 @@ namespace AMSExplorer
                     else // Premium
                     {
                         radioButtonPremium.Checked = true;
-                       
+
                     }
                 }
                 else
                 {
                     groupBoxTypeScale.Enabled = false;
                 }
-               // if (numericUpDownRU.Maximum < MySE.ScaleUnits) numericUpDownRU.Maximum = (int)MySE.ScaleUnits * 2;
+                // if (numericUpDownRU.Maximum < MySE.ScaleUnits) numericUpDownRU.Maximum = (int)MySE.ScaleUnits * 2;
             }
 
             if (MySE.CacheControl != null)
@@ -338,7 +338,23 @@ namespace AMSExplorer
             {
                 return StreamEndpointType.Unknown;
             }
+        }
 
+        // StreamingEndpointCDNEnable
+
+        static public string ReturnDisplayedProvider(string cdnprovider)
+        {
+            if (cdnprovider == null) return null;
+
+            var cdnp = StreamingEndpointCDNEnable.CDNProviders.Where(p => p.Value == cdnprovider).FirstOrDefault();
+            if (cdnp != null)
+            {
+                return cdnp.Name;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public enum StreamEndpointType

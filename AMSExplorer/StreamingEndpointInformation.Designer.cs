@@ -38,6 +38,7 @@
             this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.groupBoxTypeScale = new System.Windows.Forms.GroupBox();
+            this.labelInfoMigration = new System.Windows.Forms.Label();
             this.radioButtonPremium = new System.Windows.Forms.RadioButton();
             this.radioButtonStandard = new System.Windows.Forms.RadioButton();
             this.radioButtonClassic = new System.Windows.Forms.RadioButton();
@@ -77,7 +78,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelInfoMigration = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -174,6 +174,12 @@
             this.groupBoxTypeScale.Name = "groupBoxTypeScale";
             this.groupBoxTypeScale.TabStop = false;
             // 
+            // labelInfoMigration
+            // 
+            this.labelInfoMigration.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelInfoMigration, "labelInfoMigration");
+            this.labelInfoMigration.Name = "labelInfoMigration";
+            // 
             // radioButtonPremium
             // 
             resources.ApplyResources(this.radioButtonPremium, "radioButtonPremium");
@@ -200,6 +206,11 @@
             // numericUpDownRU
             // 
             resources.ApplyResources(this.numericUpDownRU, "numericUpDownRU");
+            this.numericUpDownRU.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.ReadOnly = true;
             this.toolTip1.SetToolTip(this.numericUpDownRU, resources.GetString("numericUpDownRU.ToolTip"));
@@ -459,12 +470,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // labelInfoMigration
-            // 
-            this.labelInfoMigration.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.labelInfoMigration, "labelInfoMigration");
-            this.labelInfoMigration.Name = "labelInfoMigration";
             // 
             // StreamingEndpointInformation
             // 

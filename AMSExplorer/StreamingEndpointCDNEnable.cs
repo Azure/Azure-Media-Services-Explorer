@@ -25,21 +25,31 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.WindowsAzure.MediaServices.Client.Live;
 
 
 namespace AMSExplorer
 {
 
-   
+
     public partial class StreamingEndpointCDNEnable : Form
     {
 
-        public readonly List<Item> CDNProviders = new List<Item> {
-            new Item("Standard Verizon", "StandardVerizon"),
-            new Item("Premium Verizon", "PremiumVerizon"),
-            new Item("Standard Akamai", "StandardAkamai")
+        public static readonly List<Item> CDNProviders = new List<Item> {
+            new Item("Standard Verizon",  CdnProviderType.StandardVerizon.ToString("F") ),
+            new Item("Premium Verizon", CdnProviderType.PremiumVerizon.ToString("F")),
+            new Item("Standard Akamai", CdnProviderType.StandardAkamai.ToString("F"))
                    };
-        public string ProviderSelected
+
+        public CdnProviderType ProviderSelected
+        {
+            get
+            {
+                return (CdnProviderType) Enum.Parse(typeof(CdnProviderType), ((Item)comboBoxProvider.SelectedItem).Value);
+            }
+        }
+
+        public string ProviderSelectedString
         {
             get
             {
@@ -72,7 +82,7 @@ namespace AMSExplorer
 
             ControlsResetToDefault();
 
-           
+
         }
 
         private void ControlsResetToDefault()

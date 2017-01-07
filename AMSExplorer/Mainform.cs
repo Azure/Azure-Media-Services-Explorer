@@ -299,6 +299,10 @@ namespace AMSExplorer
                 if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
                     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
 
+                // Let's check if there is an old CDN config
+                if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider==null))
+                    TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new configuration by disabling/re-enabling CDN.", true); // Warning
+
                 // Let's check if there is enough streaming scale units for the channels
                 double nbchannels = (double)_context.Channels.Count();
                 double nbse = (double)_context.StreamingEndpoints.AsEnumerable().Where(o => StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Classic).ToList().Count;
@@ -8379,14 +8383,21 @@ namespace AMSExplorer
         }
 
 
-        private async Task<IOperation> ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit)
+        private async Task<IOperation> ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit, string newmode = null)
         {
             IOperation operation = null;
             if (myO != null)
             {
                 try
                 {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' : scaling to {1} unit(s)...", myO.Name, unit.ToString());
+                    if (newmode != null)
+                    {
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' : switching to {1} type...", myO.Name, newmode);
+                    }
+                    else
+                    {
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' : scaling to {1} unit(s)...", myO.Name, unit.ToString());
+                    }
                     operation = await myO.SendScaleOperationAsync(unit);
                     while (operation.State == OperationState.InProgress)
                     {
@@ -8396,7 +8407,14 @@ namespace AMSExplorer
                     }
                     if (operation.State == OperationState.Succeeded)
                     {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' : scaled.", myO.Name);
+                        if (newmode != null)
+                        {
+                            TextBoxLogWriteLine("Streaming endpoint '{0}' : type changed to {1}.", myO.Name, newmode);
+                        }
+                        else
+                        {
+                            TextBoxLogWriteLine("Streaming endpoint '{0}' : scaled.", myO.Name);
+                        }
                     }
                     else
                     {
@@ -9342,7 +9360,7 @@ namespace AMSExplorer
                     StartProgram = false,
                     ProposeStartProgram = (channel.State == ChannelState.Running),
                     AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
-                    ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
+                    ProposeScaleUnit = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic)
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -9803,15 +9821,26 @@ namespace AMSExplorer
 
                     if (modifications.StreamingUnits && streamingendpoint.ScaleUnits != form.GetScaleUnits)
                     {
+                        string newmode = null;
+
                         if (new Version(streamingendpoint.StreamingEndpointVersion) == new Version("1.0") && form.GetScaleUnits == 0)
                         { // special case. Going to classic mode. CDN should be disabled.
                             streamingendpoint.CdnEnabled = false;
+                            newmode = "Classic";
+                        }
+                        else if (new Version(streamingendpoint.StreamingEndpointVersion) == new Version("2.0") && form.GetScaleUnits == 0)
+                        {
+                            newmode = "Standard";
+                        }
+                        else if (streamingendpoint.ScaleUnits == 0 && form.GetScaleUnits > 0)
+                        {
+                            newmode = "Premium";
                         }
 
                         Task.Run(async () =>
                         {
                             await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
+                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits, newmode);
                         });
 
 
@@ -9885,10 +9914,20 @@ namespace AMSExplorer
 
         private async void DoCreateStreamingEndpoint()
         {
-            CreateStreamingEndpoint form = new CreateStreamingEndpoint() { scaleUnits = 1 };
+            var form = new CreateStreamingEndpoint();
+            var cdnform = new StreamingEndpointCDNEnable();
+
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+
+                if (form.EnableAzureCDN)
+                {
+                    if (cdnform.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
                 TextBoxLogWriteLine("Creating streaming endpoint {0}...", form.StreamingEndpointName);
 
                 var options = new StreamingEndpointCreationOptions()
@@ -9898,14 +9937,20 @@ namespace AMSExplorer
                     Description = form.StreamingEndpointDescription,
                     CdnEnabled = form.EnableAzureCDN
                 };
+                if (form.EnableAzureCDN)
+                {
+                    options.CdnProvider = cdnform.ProviderSelected;
+                    options.CdnProfile = cdnform.Profile;
+                }
 
                 await Task.Run(() => IObjectExecuteOperationAsync(
-                       () =>
-                           _context.StreamingEndpoints.SendCreateOperationAsync(options),
-                           form.StreamingEndpointName,
-                           "Streaming Endpoint",
-                           "created",
-                           _context));
+                      () =>
+                          _context.StreamingEndpoints.SendCreateOperationAsync(options),
+                          form.StreamingEndpointName,
+                          "Streaming Endpoint",
+                          "created",
+                          _context));
+
 
                 DoRefreshGridStreamingEndpointV(false);
             }
@@ -12779,15 +12824,15 @@ namespace AMSExplorer
         {
             IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-            if (StreamingEndpointInformation.ReturnTypeSE(streamingendpoint) != StreamingEndpointInformation.StreamEndpointType.Classic)
+            if (StreamingEndpointInformation.ReturnTypeSE(streamingendpoint) == StreamingEndpointInformation.StreamEndpointType.Classic)
             {
-                MessageBox.Show("Streaming endpoint must be Standard or Premium in order to enable CDN.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format("Streaming endpoint must be Standard or Premium in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (streamingendpoint.State != StreamingEndpointState.Stopped)
             {
-                MessageBox.Show("Streaming endpoint must be stopped in order to enable CDN.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format("Streaming endpoint must be stopped in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -12811,7 +12856,7 @@ namespace AMSExplorer
                     Task.Run(async () =>
                     {
                         streamingendpoint.CdnEnabled = true;
-                        streamingendpoint.CdnProvider = form.ProviderSelected;
+                        streamingendpoint.CdnProvider = form.ProviderSelectedString;
                         streamingendpoint.CdnProfile = form.Profile;
                         await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                         DoRefreshGridStreamingEndpointV(false);

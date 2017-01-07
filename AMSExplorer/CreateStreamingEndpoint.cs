@@ -42,8 +42,17 @@ namespace AMSExplorer
 
         public int scaleUnits
         {
-            get { return Convert.ToInt32(numericUpDownRU.Value); }
-            set { numericUpDownRU.Value = value; }
+            get
+            {
+                if (radioButtonPremium.Checked)
+                {
+                    return (int)numericUpDownUnits.Value;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
 
         public bool EnableAzureCDN
@@ -76,18 +85,6 @@ namespace AMSExplorer
 
         }
 
-        private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
-        {
-            if (numericUpDownRU.Value==0)
-            {
-                checkBoxEnableAzureCDN.Enabled = false;
-                checkBoxEnableAzureCDN.Checked = false;
-            }
-            else
-            {
-                checkBoxEnableAzureCDN.Enabled = true;
-            }
-        }
 
         private void checkSEName()
         {
@@ -112,6 +109,11 @@ namespace AMSExplorer
         private void textboxSEName_TextChanged(object sender, EventArgs e)
         {
             checkSEName();
+        }
+
+        private void radioButtonPremium_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownUnits.Enabled = radioButtonPremium.Checked;
         }
     }
 }

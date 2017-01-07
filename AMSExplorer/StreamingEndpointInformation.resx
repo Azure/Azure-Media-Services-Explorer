@@ -125,6 +125,12 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="contextMenuStripOI.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 26</value>
   </data>
@@ -155,12 +161,6 @@
   </data>
   <data name="&gt;&gt;DGOrigin.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
   </data>
   <data name="buttonUpdateClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -333,9 +333,6 @@
   <data name="&gt;&gt;radioButtonClassic.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>178, 17</value>
-  </metadata>
   <data name="numericUpDownRU.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -348,6 +345,9 @@
   <data name="numericUpDownRU.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>178, 17</value>
+  </metadata>
   <data name="numericUpDownRU.ToolTip" xml:space="preserve">
     <value>1 unit = 200 mbps</value>
   </data>
@@ -413,6 +413,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;labelcdn.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="dataGridViewAkamai.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dataGridViewAkamai.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 44</value>
+  </data>
+  <data name="dataGridViewAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 122</value>
+  </data>
+  <data name="dataGridViewAkamai.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="dataGridViewAkamai.ToolTip" xml:space="preserve">
+    <value>Rule name / IP address, CIDR or subnet mask</value>
+  </data>
   <data name="&gt;&gt;dataGridViewAkamai.Name" xml:space="preserve">
     <value>dataGridViewAkamai</value>
   </data>
@@ -424,6 +439,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;dataGridViewAkamai.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttonAddAkamai.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonAddAkamai.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 170</value>
+  </data>
+  <data name="buttonAddAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonAddAkamai.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="buttonAddAkamai.Text" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="&gt;&gt;buttonAddAkamai.Name" xml:space="preserve">
     <value>buttonAddAkamai</value>
@@ -437,6 +467,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonAddAkamai.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonDelAkamai.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDelAkamai.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 170</value>
+  </data>
+  <data name="buttonDelAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonDelAkamai.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="buttonDelAkamai.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="&gt;&gt;buttonDelAkamai.Name" xml:space="preserve">
     <value>buttonDelAkamai</value>
   </data>
@@ -448,6 +493,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;buttonDelAkamai.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="checkBoxAkamai.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAkamai.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 17</value>
+  </data>
+  <data name="checkBoxAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 19</value>
+  </data>
+  <data name="checkBoxAkamai.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="checkBoxAkamai.Text" xml:space="preserve">
+    <value>Define Akamai Signature Header authentication</value>
   </data>
   <data name="&gt;&gt;checkBoxAkamai.Name" xml:space="preserve">
     <value>checkBoxAkamai</value>
@@ -482,6 +542,18 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;panelAkamai.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="buttonAllowAllStreamingIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>248, 170</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 27</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
+    <value>Allow all IP addresses</value>
+  </data>
   <data name="&gt;&gt;buttonAllowAllStreamingIP.Name" xml:space="preserve">
     <value>buttonAllowAllStreamingIP</value>
   </data>
@@ -493,6 +565,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;buttonAllowAllStreamingIP.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="dataGridViewIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dataGridViewIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 44</value>
+  </data>
+  <data name="dataGridViewIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 122</value>
+  </data>
+  <data name="dataGridViewIP.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="dataGridViewIP.ToolTip" xml:space="preserve">
+    <value>Rule name / IP address, CIDR or subnet mask</value>
   </data>
   <data name="&gt;&gt;dataGridViewIP.Name" xml:space="preserve">
     <value>dataGridViewIP</value>
@@ -506,6 +593,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;dataGridViewIP.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonAddIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonAddIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 170</value>
+  </data>
+  <data name="buttonAddIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonAddIP.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="buttonAddIP.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="&gt;&gt;buttonAddIP.Name" xml:space="preserve">
     <value>buttonAddIP</value>
   </data>
@@ -518,6 +620,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonAddIP.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="buttonDelIP.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDelIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 170</value>
+  </data>
+  <data name="buttonDelIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonDelIP.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="buttonDelIP.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="&gt;&gt;buttonDelIP.Name" xml:space="preserve">
     <value>buttonDelIP</value>
   </data>
@@ -529,6 +646,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;buttonDelIP.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 19</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Text" xml:space="preserve">
+    <value>Define streaming allowed IP addresses :</value>
   </data>
   <data name="&gt;&gt;checkBoxStreamingIPlistSet.Name" xml:space="preserve">
     <value>checkBoxStreamingIPlistSet</value>
@@ -563,6 +695,18 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;panelStreamingAllowedIP.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="dataGridViewCustomHostname.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 21</value>
+  </data>
+  <data name="dataGridViewCustomHostname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 89</value>
+  </data>
+  <data name="dataGridViewCustomHostname.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="dataGridViewCustomHostname.ToolTip" xml:space="preserve">
+    <value>Rule name / IP address, CIDR or subnet mask</value>
+  </data>
   <data name="&gt;&gt;dataGridViewCustomHostname.Name" xml:space="preserve">
     <value>dataGridViewCustomHostname</value>
   </data>
@@ -574,6 +718,18 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;dataGridViewCustomHostname.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttonAddHostName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 117</value>
+  </data>
+  <data name="buttonAddHostName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonAddHostName.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="buttonAddHostName.Text" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="&gt;&gt;buttonAddHostName.Name" xml:space="preserve">
     <value>buttonAddHostName</value>
@@ -587,6 +743,18 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonAddHostName.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonDelHostName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 117</value>
+  </data>
+  <data name="buttonDelHostName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="buttonDelHostName.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="buttonDelHostName.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="&gt;&gt;buttonDelHostName.Name" xml:space="preserve">
     <value>buttonDelHostName</value>
   </data>
@@ -599,6 +767,24 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonDelHostName.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="hostnamelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hostnamelink.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hostnamelink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 122</value>
+  </data>
+  <data name="hostnamelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 15</value>
+  </data>
+  <data name="hostnamelink.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="hostnamelink.Text" xml:space="preserve">
+    <value>How custom hostname are verified</value>
+  </data>
   <data name="&gt;&gt;hostnamelink.Name" xml:space="preserve">
     <value>hostnamelink</value>
   </data>
@@ -610,6 +796,21 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;hostnamelink.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 2</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Custom host names :</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -766,495 +967,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   </data>
   <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Name" xml:space="preserve">
-    <value>buttonAddExampleCrossDomainPolicy</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleCrossDomainPolicy.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleClientPolicy.Name" xml:space="preserve">
-    <value>buttonAddExampleClientPolicy</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleClientPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleClientPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;buttonAddExampleClientPolicy.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomain.Name" xml:space="preserve">
-    <value>checkBoxcrossdomain</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomain.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;checkBoxcrossdomain.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Name" xml:space="preserve">
-    <value>textBoxCrossDomPolicy</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;textBoxCrossDomPolicy.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Name" xml:space="preserve">
-    <value>checkBoxclientpolicy</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;checkBoxclientpolicy.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Name" xml:space="preserve">
-    <value>textBoxClientPolicy</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 511</value>
-  </data>
-  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPagePolicies.Text" xml:space="preserve">
-    <value>Policies</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
-    <value>tabPagePolicies</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 50</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>887, 539</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="dataGridViewAkamai.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dataGridViewAkamai.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 44</value>
-  </data>
-  <data name="dataGridViewAkamai.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 122</value>
-  </data>
-  <data name="dataGridViewAkamai.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="dataGridViewAkamai.ToolTip" xml:space="preserve">
-    <value>Rule name / IP address, CIDR or subnet mask</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAkamai.Name" xml:space="preserve">
-    <value>dataGridViewAkamai</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAkamai.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAkamai.Parent" xml:space="preserve">
-    <value>panelAkamai</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAkamai.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonAddAkamai.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonAddAkamai.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 170</value>
-  </data>
-  <data name="buttonAddAkamai.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonAddAkamai.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="buttonAddAkamai.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAkamai.Name" xml:space="preserve">
-    <value>buttonAddAkamai</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAkamai.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAkamai.Parent" xml:space="preserve">
-    <value>panelAkamai</value>
-  </data>
-  <data name="&gt;&gt;buttonAddAkamai.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonDelAkamai.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonDelAkamai.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 170</value>
-  </data>
-  <data name="buttonDelAkamai.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonDelAkamai.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="buttonDelAkamai.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAkamai.Name" xml:space="preserve">
-    <value>buttonDelAkamai</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAkamai.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAkamai.Parent" xml:space="preserve">
-    <value>panelAkamai</value>
-  </data>
-  <data name="&gt;&gt;buttonDelAkamai.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxAkamai.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAkamai.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 17</value>
-  </data>
-  <data name="checkBoxAkamai.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 19</value>
-  </data>
-  <data name="checkBoxAkamai.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="checkBoxAkamai.Text" xml:space="preserve">
-    <value>Define Akamai Signature Header authentication</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAkamai.Name" xml:space="preserve">
-    <value>checkBoxAkamai</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAkamai.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAkamai.Parent" xml:space="preserve">
-    <value>panelAkamai</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAkamai.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>248, 170</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 27</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
-    <value>Allow all IP addresses</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllStreamingIP.Name" xml:space="preserve">
-    <value>buttonAllowAllStreamingIP</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllStreamingIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllStreamingIP.Parent" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;buttonAllowAllStreamingIP.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dataGridViewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 44</value>
-  </data>
-  <data name="dataGridViewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 122</value>
-  </data>
-  <data name="dataGridViewIP.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="dataGridViewIP.ToolTip" xml:space="preserve">
-    <value>Rule name / IP address, CIDR or subnet mask</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewIP.Name" xml:space="preserve">
-    <value>dataGridViewIP</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewIP.Parent" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewIP.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonAddIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonAddIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 170</value>
-  </data>
-  <data name="buttonAddIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonAddIP.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="buttonAddIP.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;buttonAddIP.Name" xml:space="preserve">
-    <value>buttonAddIP</value>
-  </data>
-  <data name="&gt;&gt;buttonAddIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddIP.Parent" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;buttonAddIP.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonDelIP.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonDelIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 170</value>
-  </data>
-  <data name="buttonDelIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonDelIP.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="buttonDelIP.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;buttonDelIP.Name" xml:space="preserve">
-    <value>buttonDelIP</value>
-  </data>
-  <data name="&gt;&gt;buttonDelIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDelIP.Parent" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;buttonDelIP.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 17</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 19</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.Text" xml:space="preserve">
-    <value>Define streaming allowed IP addresses :</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Name" xml:space="preserve">
-    <value>checkBoxStreamingIPlistSet</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStreamingIPlistSet.Parent" xml:space="preserve">
-    <value>panelStreamingAllowedIP</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStreamingIPlistSet.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="dataGridViewCustomHostname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 21</value>
-  </data>
-  <data name="dataGridViewCustomHostname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 89</value>
-  </data>
-  <data name="dataGridViewCustomHostname.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="dataGridViewCustomHostname.ToolTip" xml:space="preserve">
-    <value>Rule name / IP address, CIDR or subnet mask</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewCustomHostname.Name" xml:space="preserve">
-    <value>dataGridViewCustomHostname</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewCustomHostname.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewCustomHostname.Parent" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewCustomHostname.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonAddHostName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 117</value>
-  </data>
-  <data name="buttonAddHostName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonAddHostName.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="buttonAddHostName.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;buttonAddHostName.Name" xml:space="preserve">
-    <value>buttonAddHostName</value>
-  </data>
-  <data name="&gt;&gt;buttonAddHostName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddHostName.Parent" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;buttonAddHostName.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonDelHostName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 117</value>
-  </data>
-  <data name="buttonDelHostName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonDelHostName.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="buttonDelHostName.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;buttonDelHostName.Name" xml:space="preserve">
-    <value>buttonDelHostName</value>
-  </data>
-  <data name="&gt;&gt;buttonDelHostName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDelHostName.Parent" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;buttonDelHostName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="hostnamelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="hostnamelink.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="hostnamelink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 122</value>
-  </data>
-  <data name="hostnamelink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 15</value>
-  </data>
-  <data name="hostnamelink.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="hostnamelink.Text" xml:space="preserve">
-    <value>How custom hostname are verified</value>
-  </data>
-  <data name="&gt;&gt;hostnamelink.Name" xml:space="preserve">
-    <value>hostnamelink</value>
-  </data>
-  <data name="&gt;&gt;hostnamelink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hostnamelink.Parent" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;hostnamelink.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 2</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Custom host names :</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panelCustomHostnames</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="buttonAddExampleCrossDomainPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1442,6 +1154,54 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;textBoxClientPolicy.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="tabPagePolicies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPagePolicies.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPagePolicies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPagePolicies.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>Policies</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
+    <value>tabPagePolicies</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 50</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>887, 539</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="labelSEName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1499,9 +1259,6 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
   <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>178, 17</value>
-  </metadata>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>

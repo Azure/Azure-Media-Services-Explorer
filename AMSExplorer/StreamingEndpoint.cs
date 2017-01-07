@@ -153,8 +153,8 @@ namespace AMSExplorer
                               Name = o.Name,
                               Id = o.Id,
                               Description = o.Description,
-                              CDN = o.CdnEnabled ? o.CdnProvider?? "CDN" : string.Empty,
-                              ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "N/A": ((int) o.ScaleUnits).ToString(),
+                              CDN = o.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
+                              ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)o.ScaleUnits).ToString(),
                               Type = StreamingEndpointInformation.ReturnTypeSE(o),
                               State = o.State,
                               LastModified = o.LastModified.ToLocalTime()
@@ -202,12 +202,10 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].Description = origin.Description;
                     _MyObservStreamingEndpoints[index].LastModified = origin.LastModified.ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(origin);
+                    _MyObservStreamingEndpoints[index].CDN = origin.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(origin.CdnProvider) ?? "CDN" : string.Empty;
+                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(origin) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)origin.ScaleUnits).ToString();
+                    this.Refresh();
 
-                    if (origin.ScaleUnits != null)
-                    {
-                        _MyObservStreamingEndpoints[index].ScaleUnits = ((int)origin.ScaleUnits).ToString();
-                        this.Refresh();
-                    }
                 }
             }
         }
@@ -249,8 +247,8 @@ namespace AMSExplorer
             }
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
-           
-        
+
+
         public void RefreshStreamingEndpoints(CloudMediaContext context)
         {
             if (!_initialized) return;
@@ -281,8 +279,8 @@ namespace AMSExplorer
                                 Name = c.Name,
                                 Id = c.Id,
                                 Description = c.Description,
-                                CDN = c.CdnEnabled ? c.CdnProvider ?? "CDN" : string.Empty,
-                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "N/A": ((int)c.ScaleUnits).ToString(),
+                                CDN = c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
+                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)c.ScaleUnits).ToString(),
                                 State = c.State,
                                 LastModified = c.LastModified.ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)
