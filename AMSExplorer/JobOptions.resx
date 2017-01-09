@@ -520,13 +520,13 @@
     <value>40, 116</value>
   </data>
   <data name="checkBoxFragmented.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 19</value>
+    <value>110, 19</value>
   </data>
   <data name="checkBoxFragmented.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
   </data>
   <data name="checkBoxFragmented.Text" xml:space="preserve">
-    <value>Adaptive Streaming (fragmented)</value>
+    <value>Pre-fragmented</value>
   </data>
   <data name="&gt;&gt;checkBoxFragmented.Name" xml:space="preserve">
     <value>checkBoxFragmented</value>
