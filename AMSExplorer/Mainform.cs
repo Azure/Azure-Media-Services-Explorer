@@ -1938,6 +1938,12 @@ namespace AMSExplorer
                         return;
                     }
 
+                    var form = new UploadOptions(_context, false) { AssetCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None };
+                    if (form.ShowDialog() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+
                     _backuprootfolderupload = SelectedPath;
                     var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
@@ -1945,9 +1951,11 @@ namespace AMSExplorer
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
                           SelectedPath,
                           response.Id,
-                          Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                          response.token
+                          form.AssetCreationOptions,//Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                          response.token,
+                          storageaccount: form.StorageSelected
                           ), response.token);
+
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     DoRefreshGridAssetV(false);
