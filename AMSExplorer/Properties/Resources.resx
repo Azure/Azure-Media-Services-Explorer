@@ -269,17 +269,11 @@ Select 'Yes' to replace them, 'No' to merge them.</value>
   <data name="AssetInformation_AssetInformation_Load_ErrorDeleted" xml:space="preserve">
     <value>&lt;error, deleted?&gt;</value>
   </data>
-  <data name="AssetInformation_AssetInformation_Load_012ScaleUnits" xml:space="preserve">
-    <value>{0} ({1}, {2} scale units)</value>
-  </data>
   <data name="AssetInformation_AssetInformation_Load_012ScaleUnit" xml:space="preserve">
-    <value>{0} ({1}, {2} scale unit)</value>
-  </data>
-  <data name="AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3" xml:space="preserve">
-    <value>{0} ({1}, {2} scale units) Custom hostname : {3}</value>
+    <value>{0} ({1}, {2})</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3" xml:space="preserve">
-    <value>{0} ({1}, {2} scale unit) Custom hostname : {3}</value>
+    <value>{0} ({1}, {2}) Custom hostname : {3}</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_TrackRules" xml:space="preserve">
     <value>Track Rules</value>

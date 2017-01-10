@@ -202,7 +202,7 @@ namespace AMSExplorer
                     var type = ReturnTypeSE(MySE);
                     DGOrigin.Rows.Add("Version", MySE.StreamingEndpointVersion);
                     DGOrigin.Rows.Add("Type", type);
-                    DGOrigin.Rows.Add("Scale Units", MySE.ScaleUnits);
+                    DGOrigin.Rows.Add("Streaming Units", MySE.ScaleUnits);
 
                     numericUpDownRU.Value = units > 0 ? units : 1;
 
@@ -316,15 +316,13 @@ namespace AMSExplorer
         {
             if (mySE.ScaleUnits != null)
             {
-                var units = (int)mySE.ScaleUnits;
-                var version = new Version(mySE.StreamingEndpointVersion);
-                if (units > 0)
+                if ((int)mySE.ScaleUnits > 0)
                 {
                     return StreamEndpointType.Premium;
                 }
                 else
                 {
-                    if (version == new Version("1.0"))
+                    if (new Version(mySE.StreamingEndpointVersion) == new Version("1.0"))
                     {
                         return StreamEndpointType.Classic;
                     }
@@ -338,6 +336,11 @@ namespace AMSExplorer
             {
                 return StreamEndpointType.Unknown;
             }
+        }
+
+        static public bool CanDoDynPackaging(IStreamingEndpoint mySE)
+        {
+            return ReturnTypeSE(mySE) != StreamEndpointType.Classic;
         }
 
         // StreamingEndpointCDNEnable

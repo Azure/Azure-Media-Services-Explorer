@@ -159,11 +159,11 @@ namespace AMSExplorer
             IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
             foreach (var se in _context.StreamingEndpoints)
             {
-                listBoxSE.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ?  AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnits: AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, se.ScaleUnits), se.Id + "|" + se.HostName));
+                listBoxSE.Items.Add(new Item(string.Format( AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.Id + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
                 foreach (var custom in se.CustomHostNames)
                 {
-                    listBoxSE.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3: AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, se.ScaleUnits, custom), se.Id + "|" + custom));
+                    listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se), custom), se.Id + "|" + custom));
                 }
             }
 

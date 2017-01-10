@@ -300,12 +300,12 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
 
                 // Let's check if there is an old CDN config
-                if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider==null))
-                    TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new configuration by disabling/re-enabling CDN.", true); // Warning
+                if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
+                    TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
 
-                // Let's check if there is enough streaming scale units for the channels
+                // Let's check if there is dynamic packaging for the channels
                 double nbchannels = (double)_context.Channels.Count();
-                double nbse = (double)_context.StreamingEndpoints.AsEnumerable().Where(o => StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Classic).ToList().Count;
+                double nbse = (double)_context.StreamingEndpoints.AsEnumerable().Where(o => StreamingEndpointInformation.CanDoDynPackaging(o)).ToList().Count;
                 if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
                     TextBoxLogWriteLine("There are {0} channels and {1} Standard/Premium streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
@@ -2077,7 +2077,7 @@ namespace AMSExplorer
                     LocatorEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
                     LocatorHasStartDate = false,
-                    LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
+                    LocWarning = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic) ? "Dynamic packaging will not work as there are only classic streaming endpoints in this account." : string.Empty
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -2489,7 +2489,7 @@ namespace AMSExplorer
                     LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
                     LocatorHasStartDate = false,
-                    LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
+                    LocWarning = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic) ? "Dynamic packaging will not work as there are only classic streaming endpoints in this account." : string.Empty
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -2562,11 +2562,11 @@ namespace AMSExplorer
 
                 // let's choose a SE that running and with higher number of RU
                 IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
-                bool SESelectedHasRU = SESelected.ScaleUnits > 0;
+                bool SESelectedSupportsDynPackaging = StreamingEndpointInformation.CanDoDynPackaging(SESelected);
 
-                if (!SESelectedHasRU && AssetToP.AssetType != AssetType.SmoothStreaming)
+                if (SESelectedSupportsDynPackaging && AssetToP.AssetType != AssetType.SmoothStreaming)
                 {
-                    TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit.", true);
+                    TextBoxLogWriteLine("There is no running Standard or Premium streaming endpoint", true);
                 }
 
                 StringBuilder sbuilderThisAsset = new StringBuilder();
@@ -2647,13 +2647,13 @@ namespace AMSExplorer
                     }
                     else // It's not Static HLS
                     {
-                        if (!SESelectedHasRU && AssetToP.AssetType == AssetType.SmoothStreaming)
+                        if (!SESelectedSupportsDynPackaging && AssetToP.AssetType == AssetType.SmoothStreaming)
                         // it's smooth streaming with no dynamic packaging
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
                         }
-                        else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
+                        else if (SESelectedSupportsDynPackaging && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                         // Smooth or multi MP4, SE RU so dynamic packaging is possible
                         {
                             if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
@@ -5934,7 +5934,7 @@ namespace AMSExplorer
 
         private void dynamicPackagingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Please create a streaming locator in the Publish menu." + Constants.endline + Constants.endline + "Check that you have, at least, one Streaming endpoint scale Unit" + Constants.endline + "The asset should be:" + Constants.endline + "- a Smooth Streaming asset (Clear or PlayReady protected)," + Constants.endline + "- or a Clear Multi MP4 asset.", "Dynamic Packaging");
+            MessageBox.Show("Please create a streaming locator in the Publish menu." + Constants.endline + Constants.endline + "Check that you have, at least, one Standard or Premium Streaming endpoint" + Constants.endline + "The asset should be:" + Constants.endline + "- a Smooth Streaming asset (Clear or PlayReady protected)," + Constants.endline + "- or a Clear Multi MP4 asset.", "Dynamic Packaging");
         }
 
 
@@ -9328,9 +9328,9 @@ namespace AMSExplorer
                         {
                             _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, newAsset, policy, null);
                         }
-                        if (AssetInfo.GetBestStreamingEndpoint(_context).ScaleUnits == 0)
+                        if (StreamingEndpointInformation.ReturnTypeSE(AssetInfo.GetBestStreamingEndpoint(_context)) == StreamingEndpointInformation.StreamEndpointType.Classic)
                         {
-                            TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit. The locator on the program will not work.", true);
+                            TextBoxLogWriteLine("There is no running Standard or Premium streaming endpoint. The locator on the program will not work.", true);
                         }
                     }
                 }
@@ -12898,7 +12898,7 @@ namespace AMSExplorer
 
             if (streamingendpoint.ScaleUnits > 0)
             {
-                MessageBox.Show("Streaming endpoint must have 0 scale unit to migrate it to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Streaming endpoint must be classic (0 unit) to migrate it to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -12960,7 +12960,7 @@ namespace AMSExplorer
                 var se = streamingendpoints.FirstOrDefault();
                 bool sestopped = (se.State == StreamingEndpointState.Stopped);
                 bool cdnenabled = se.CdnEnabled;
-                bool secompatible = StreamingEndpointInformation.ReturnTypeSE(se) != StreamingEndpointInformation.StreamEndpointType.Classic;
+                bool secompatible = StreamingEndpointInformation.CanDoDynPackaging(se);
 
                 disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled && secompatible;
                 enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled && secompatible;

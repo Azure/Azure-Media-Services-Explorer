@@ -345,12 +345,12 @@ namespace AMSExplorer
 
                 foreach (var se in myStreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnits : AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, se.ScaleUnits), se.HostName));
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
 
                     foreach (var custom in se.CustomHostNames)
                     {
-                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(se.ScaleUnits > 1 ? AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3 : AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, se.ScaleUnits, custom), custom));
+                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
                     }
                 }
                 buttonUpload.Enabled = true;
@@ -544,8 +544,8 @@ namespace AMSExplorer
 
             if (SelectedSE != null)
             {
-                bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
-                Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
+                bool CurrentStreamingEndpointCanDoDynPackaging = StreamingEndpointInformation.CanDoDynPackaging(SelectedSE);
+                Color colornodeRU = CurrentStreamingEndpointCanDoDynPackaging ? Color.Black : Color.Gray;
                 string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();

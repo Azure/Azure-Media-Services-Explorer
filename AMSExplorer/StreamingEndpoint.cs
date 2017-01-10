@@ -166,7 +166,7 @@ namespace AMSExplorer
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             this.Columns["Name"].Width = 300;
             this.Columns["State"].Width = 100;
-            this.Columns["CDN"].Width = 100;
+            this.Columns["CDN"].Width = 120;
             this.Columns["Description"].Width = 230;
             this.Columns["ScaleUnits"].Width = 100;
             this.Columns["ScaleUnits"].HeaderText = "Streaming Units";

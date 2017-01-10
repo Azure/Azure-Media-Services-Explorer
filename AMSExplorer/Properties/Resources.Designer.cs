@@ -230,7 +230,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}, {2} scale unit).
+        ///   Looks up a localized string similar to {0} ({1}, {2}).
         /// </summary>
         internal static string AssetInformation_AssetInformation_Load_012ScaleUnit {
             get {
@@ -239,29 +239,11 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}, {2} scale unit) Custom hostname : {3}.
+        ///   Looks up a localized string similar to {0} ({1}, {2}) Custom hostname : {3}.
         /// </summary>
         internal static string AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3 {
             get {
                 return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}, {2} scale units).
-        /// </summary>
-        internal static string AssetInformation_AssetInformation_Load_012ScaleUnits {
-            get {
-                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}, {2} scale units) Custom hostname : {3}.
-        /// </summary>
-        internal static string AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3 {
-            get {
-                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_012ScaleUnitsCustomHostname3", resourceCulture);
             }
         }
         

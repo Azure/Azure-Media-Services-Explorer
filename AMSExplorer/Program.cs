@@ -1680,7 +1680,7 @@ namespace AMSExplorer
                     _context
                         .StreamingEndpoints
                         .AsEnumerable()
-                          .Where(o => (o.State == StreamingEndpointState.Running) && (o.ScaleUnits > 0))
+                          .Where(o => (o.State == StreamingEndpointState.Running) && (StreamingEndpointInformation.CanDoDynPackaging(o)))
                           .OrderByDescending(o => o.CdnEnabled)
                         .Select(
                             o =>
@@ -3032,9 +3032,9 @@ namespace AMSExplorer
                                 playerurl += string.Format(Constants.AMPtokensyntax, tokenresult);
                             }
                         }
-                        else // format auto. If 0 Reserved Unit, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
+                        else // format auto. If classic se, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
                         {
-                            if (choosenSE.ScaleUnits == 0 && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
+                            if (!StreamingEndpointInformation.CanDoDynPackaging(choosenSE) && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
                                 playerurl += string.Format(Constants.AMPformatsyntax, "smooth");
                         }
 
@@ -3139,7 +3139,7 @@ namespace AMSExplorer
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
-            IStreamingEndpoint SESelected = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running && se.ScaleUnits > 0).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            IStreamingEndpoint SESelected = _context.StreamingEndpoints.AsEnumerable().Where(se => se.State == StreamingEndpointState.Running && StreamingEndpointInformation.CanDoDynPackaging(se)).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
 
             return SESelected;

@@ -36,9 +36,9 @@ namespace AMSExplorer
     {
 
         public static readonly List<Item> CDNProviders = new List<Item> {
-            new Item("Standard Verizon",  CdnProviderType.StandardVerizon.ToString("F") ),
-            new Item("Premium Verizon", CdnProviderType.PremiumVerizon.ToString("F")),
-            new Item("Standard Akamai", CdnProviderType.StandardAkamai.ToString("F"))
+            new Item("Standard Verizon",  CdnProviderType.StandardVerizon.ToString("F")),
+            new Item("Standard Akamai", CdnProviderType.StandardAkamai.ToString("F")),
+            new Item("Premium Verizon", CdnProviderType.PremiumVerizon.ToString("F"))
                    };
 
         public CdnProviderType ProviderSelected
