@@ -106,7 +106,9 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to export all entries ? \n\nSelect &apos;Yes&apos; to export all, &apos;No&apos; to export the selection..
+        ///   Looks up a localized string similar to Do you want to export all entries ?
+        ///
+        ///Select &apos;Yes&apos; to export all, &apos;No&apos; to export the selection..
         /// </summary>
         internal static string AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection {
             get {
@@ -152,7 +154,10 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect &apos;Yes&apos; to replace them, &apos;No&apos; to merge them..
+        ///   Looks up a localized string similar to There are current entries in the list.
+        ///Do you want replace them with the new ones or do a merge?
+        ///
+        ///Select &apos;Yes&apos; to replace them, &apos;No&apos; to merge them..
         /// </summary>
         internal static string AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem {
             get {
@@ -767,7 +772,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This will remove the key &apos;{0}&apos; from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?.
+        ///   Looks up a localized string similar to This will remove the key &apos;{0}&apos; from the asset.
+        ///Do you want to also DELETE the key from the Azure Media Services account ?.
         /// </summary>
         internal static string AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount {
             get {
@@ -1185,7 +1191,11 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following file is already in the folder\n\n{0}\n\nOverwite the file ?.
+        ///   Looks up a localized string similar to The following file is already in the folder
+        ///
+        ///{0}
+        ///
+        ///Overwite the file ?.
         /// </summary>
         internal static string AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile {
             get {
@@ -1195,7 +1205,11 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?.
+        ///   Looks up a localized string similar to The following files are already in the folder(s)
+        ///
+        ///{0}
+        ///
+        ///Overwite the files ?.
         /// </summary>
         internal static string AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles {
             get {
@@ -1350,7 +1364,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The authorization test token (with Bearer) is :\n{0}.
+        ///   Looks up a localized string similar to The authorization test token (with Bearer) is :
+        ///{0}.
         /// </summary>
         internal static string AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0 {
             get {
@@ -1359,7 +1374,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The authorization test token (without Bearer) is :\n{0}.
+        ///   Looks up a localized string similar to The authorization test token (without Bearer) is :
+        ///{0}.
         /// </summary>
         internal static string AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0 {
             get {
@@ -1368,7 +1384,9 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The test token below has been be copied to the log window and clipboard.\n\n{0}.
+        ///   Looks up a localized string similar to The test token below has been be copied to the log window and clipboard.
+        ///
+        ///{0}.
         /// </summary>
         internal static string AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0 {
             get {
@@ -1405,7 +1423,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This will remove the authorization policy &apos;{0}&apos; from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?.
+        ///   Looks up a localized string similar to This will remove the authorization policy &apos;{0}&apos; from the key.
+        ///Do you want to also DELETE the policy from the Azure Media Services account ?.
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
             get {
@@ -1433,7 +1452,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This will remove the option &apos;{0}&apos; from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?.
+        ///   Looks up a localized string similar to This will remove the option &apos;{0}&apos; from the authorization policy.
+        ///Do you want to also DELETE the option from the Azure Media Services account ?.
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount {
             get {
@@ -1479,7 +1499,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This will remove the policy &apos;{0}&apos; from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?.
+        ///   Looks up a localized string similar to This will remove the policy &apos;{0}&apos; from the asset.
+        ///Do you want to also DELETE the policy from the Azure Media Services account ?.
         /// </summary>
         internal static string AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
             get {
@@ -1489,7 +1510,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error when creating the temporary SAS locator.\n.
+        ///   Looks up a localized string similar to Error when creating the temporary SAS locator.
+        ///.
         /// </summary>
         internal static string AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN {
             get {
@@ -1561,7 +1583,9 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are several subscriptions data in the file.\n\nThe first entry &apos;{0}&apos; will be used..
+        ///   Looks up a localized string similar to There are several subscriptions data in the file.
+        ///
+        ///The first entry &apos;{0}&apos; will be used..
         /// </summary>
         internal static string AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed {
             get {
@@ -2713,7 +2737,8 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is an error when opening the certificate file.\n{0}.
+        ///   Looks up a localized string similar to There is an error when opening the certificate file.
+        ///{0}.
         /// </summary>
         internal static string DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0 {
             get {

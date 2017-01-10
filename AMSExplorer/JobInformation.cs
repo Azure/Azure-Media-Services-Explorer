@@ -106,7 +106,7 @@ namespace AMSExplorer
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
-            
+
             TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
             {
@@ -238,8 +238,9 @@ namespace AMSExplorer
                 if (task.InputAssets.Count() > 1) sid = " #{0}"; else sid = "";
                 for (int j = 0; j < task.InputAssets.Count(); j++)
                 {
-                    DGTasks.Rows.Add("Input asset" + string.Format(sid, j + 1) + " Name", task.InputAssets[j].Name);
-                    DGTasks.Rows.Add("Input asset" + string.Format(sid, j + 1) + " Id", task.InputAssets[j].Id);
+                    var s = string.Format(sid, j + 1);
+                    DGTasks.Rows.Add(string.Format("Input asset{0} Name", s), task.InputAssets[j].Name);
+                    DGTasks.Rows.Add(string.Format("Input asset{0} Id", s), task.InputAssets[j].Id);
                 }
             }
             catch
@@ -252,8 +253,10 @@ namespace AMSExplorer
                 if (task.OutputAssets.Count() > 1) sid = " #{0}"; else sid = "";
                 for (int j = 0; j < task.OutputAssets.Count(); j++)
                 {
-                    DGTasks.Rows.Add("Output asset" + string.Format(sid, j + 1) + " Name", task.OutputAssets[j].Name);
-                    DGTasks.Rows.Add("Output asset" + string.Format(sid, j + 1) + " Id", task.OutputAssets[j].Id);
+                    var s = string.Format(sid, j + 1);
+                    DGTasks.Rows.Add(string.Format("Output asset{0} Name", s), task.OutputAssets[j].Name);
+                    DGTasks.Rows.Add(string.Format("Output asset{0} Id", s), task.OutputAssets[j].Id);
+                    DGTasks.Rows.Add(string.Format("Output asset{0} Format Option", s), task.OutputAssets[j].FormatOption);
                 }
             }
             catch
@@ -315,14 +318,14 @@ namespace AMSExplorer
                 asset = MyJob.OutputMediaAssets[index];
             }
 
-            AssetInformation form = new AssetInformation( _mainform, _context)
+            AssetInformation form = new AssetInformation(_mainform, _context)
             {
                 myAsset = asset,
                 myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
             };
             DialogResult dialogResult = form.ShowDialog(this);
 
-            
+
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)

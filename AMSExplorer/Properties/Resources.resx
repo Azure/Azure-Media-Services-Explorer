@@ -169,7 +169,9 @@
     <value>Update credentials</value>
   </data>
   <data name="AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection" xml:space="preserve">
-    <value>Do you want to export all entries ? \n\nSelect 'Yes' to export all, 'No' to export the selection.</value>
+    <value>Do you want to export all entries ?
+
+Select 'Yes' to export all, 'No' to export the selection.</value>
   </data>
   <data name="AMSLogin_buttonExport_Click_ExportAllEntries" xml:space="preserve">
     <value>Export all entries</value>
@@ -178,7 +180,10 @@
     <value>Error</value>
   </data>
   <data name="AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem" xml:space="preserve">
-    <value>There are current entries in the list.\nDo you want replace them with the new ones or do a merge?\n\nSelect 'Yes' to replace them, 'No' to merge them.</value>
+    <value>There are current entries in the list.
+Do you want replace them with the new ones or do a merge?
+
+Select 'Yes' to replace them, 'No' to merge them.</value>
   </data>
   <data name="AMSLogin_buttonImportAll_Click_ImportAndReplace" xml:space="preserve">
     <value>Import and replace</value>
@@ -400,10 +405,18 @@
     <value>Error when accessing temporary SAS locator</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles" xml:space="preserve">
-    <value>The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?</value>
+    <value>The following files are already in the folder(s)
+
+{0}
+
+Overwite the files ?</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile" xml:space="preserve">
-    <value>The following file is already in the folder\n\n{0}\n\nOverwite the file ?</value>
+    <value>The following file is already in the folder
+
+{0}
+
+Overwite the file ?</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_FileSOverwrite" xml:space="preserve">
     <value>File(s) overwrite</value>
@@ -466,7 +479,8 @@
     <value>Error when trying to delete the locator.</value>
   </data>
   <data name="AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
-    <value>This will remove the policy '{0}' from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?</value>
+    <value>This will remove the policy '{0}' from the asset.
+Do you want to also DELETE the policy from the Azure Media Services account ?</value>
   </data>
   <data name="AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval" xml:space="preserve">
     <value>Delivery Policy removal</value>
@@ -538,13 +552,17 @@
     <value>Required Claim, Value</value>
   </data>
   <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0" xml:space="preserve">
-    <value>The authorization test token (without Bearer) is :\n{0}</value>
+    <value>The authorization test token (without Bearer) is :
+{0}</value>
   </data>
   <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0" xml:space="preserve">
-    <value>The authorization test token (with Bearer) is :\n{0}</value>
+    <value>The authorization test token (with Bearer) is :
+{0}</value>
   </data>
   <data name="AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0" xml:space="preserve">
-    <value>The test token below has been be copied to the log window and clipboard.\n\n{0}</value>
+    <value>The test token below has been be copied to the log window and clipboard.
+
+{0}</value>
   </data>
   <data name="AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASLocatorToTheMetadataFile" xml:space="preserve">
     <value>Error when creating the temporary SAS locator to the metadata file.</value>
@@ -553,10 +571,12 @@
     <value>There is no metadata for this file.</value>
   </data>
   <data name="AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN" xml:space="preserve">
-    <value>Error when creating the temporary SAS locator.\n</value>
+    <value>Error when creating the temporary SAS locator.
+</value>
   </data>
   <data name="AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount" xml:space="preserve">
-    <value>This will remove the key '{0}' from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?</value>
+    <value>This will remove the key '{0}' from the asset.
+Do you want to also DELETE the key from the Azure Media Services account ?</value>
   </data>
   <data name="AssetInformation_DoDemoveKey_KeyRemoval" xml:space="preserve">
     <value>Key removal</value>
@@ -565,7 +585,8 @@
     <value>Error when {0} the key</value>
   </data>
   <data name="AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
-    <value>This will remove the authorization policy '{0}' from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?</value>
+    <value>This will remove the authorization policy '{0}' from the key.
+Do you want to also DELETE the policy from the Azure Media Services account ?</value>
   </data>
   <data name="AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval" xml:space="preserve">
     <value>Authorization policy removal</value>
@@ -574,7 +595,8 @@
     <value>Error when {0} the authorization policy.</value>
   </data>
   <data name="AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount" xml:space="preserve">
-    <value>This will remove the option '{0}' from the authorization policy.\nDo you want to also DELETE the option from the Azure Media Services account ?</value>
+    <value>This will remove the option '{0}' from the authorization policy.
+Do you want to also DELETE the option from the Azure Media Services account ?</value>
   </data>
   <data name="AssetInformation_DoRemoveAuthPolOption_OptionRemoval" xml:space="preserve">
     <value>Option removal</value>
@@ -646,7 +668,9 @@
     <value>No Subscription data in the file.</value>
   </data>
   <data name="AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed" xml:space="preserve">
-    <value>There are several subscriptions data in the file.\n\nThe first entry '{0}' will be used.</value>
+    <value>There are several subscriptions data in the file.
+
+The first entry '{0}' will be used.</value>
   </data>
   <data name="AttachStorage_LoadSubscriptionFile_SeveralSubscriptions" xml:space="preserve">
     <value>Several subscriptions</value>
@@ -1018,7 +1042,8 @@
     <value>Please enter the password for the PFX file :</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0" xml:space="preserve">
-    <value>There is an error when opening the certificate file.\n{0}</value>
+    <value>There is an error when opening the certificate file.
+{0}</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey" xml:space="preserve">
     <value>The certificate does not contain a private key.</value>
