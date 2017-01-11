@@ -12902,12 +12902,12 @@ namespace AMSExplorer
                 return;
             }
 
-            if (MessageBox.Show(string.Format("Are you sure you want to migrate the Classic Streaming Endpoint '{0}' to Standard ?\n\nMigrating from classic to standard endpoint cannot be rolled back and has a pricing impact. Please check Azure Media Services pricing page. After migration, it can take up to 30 minutes for full propagation and dynamic packaging and streaming requests might fail during this period.", streamingendpoint.Name), "Migrating from classic to standard", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show(string.Format("Do you confirm the migration from Classic to Standard of the Streaming Endpoint '{0}' ?\n\nMigrating from classic to standard endpoint cannot be rolled back and has a pricing impact. Please check Azure Media Services pricing page. After migration, it can take up to 30 minutes for full propagation and dynamic packaging and streaming requests might fail during this period.", streamingendpoint.Name), "Migrating from classic to standard", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
                     streamingendpoint.StreamingEndpointVersion = "2.0";
-                    await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "migration initiated");
+                    await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "migrated");
                     DoRefreshGridStreamingEndpointV(false);
                 });
             }

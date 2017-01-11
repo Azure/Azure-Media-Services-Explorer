@@ -37,6 +37,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.moreinfoSE = new System.Windows.Forms.LinkLabel();
             this.groupBoxTypeScale = new System.Windows.Forms.GroupBox();
             this.labelInfoMigration = new System.Windows.Forms.Label();
             this.radioButtonPremium = new System.Windows.Forms.RadioButton();
@@ -149,6 +150,7 @@
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.moreinfoSE);
             this.tabPageSettings.Controls.Add(this.groupBoxTypeScale);
             this.tabPageSettings.Controls.Add(this.labelcdn);
             this.tabPageSettings.Controls.Add(this.panelAkamai);
@@ -162,6 +164,13 @@
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
             this.tabPageSettings.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // moreinfoSE
+            // 
+            resources.ApplyResources(this.moreinfoSE, "moreinfoSE");
+            this.moreinfoSE.Name = "moreinfoSE";
+            this.moreinfoSE.TabStop = true;
+            this.moreinfoSE.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoSE_LinkClicked);
             // 
             // groupBoxTypeScale
             // 
@@ -184,6 +193,7 @@
             // 
             resources.ApplyResources(this.radioButtonPremium, "radioButtonPremium");
             this.radioButtonPremium.Name = "radioButtonPremium";
+            this.toolTip1.SetToolTip(this.radioButtonPremium, resources.GetString("radioButtonPremium.ToolTip"));
             this.radioButtonPremium.UseVisualStyleBackColor = true;
             this.radioButtonPremium.CheckedChanged += new System.EventHandler(this.radioButtonPremium_CheckedChanged);
             // 
@@ -193,6 +203,7 @@
             this.radioButtonStandard.Checked = true;
             this.radioButtonStandard.Name = "radioButtonStandard";
             this.radioButtonStandard.TabStop = true;
+            this.toolTip1.SetToolTip(this.radioButtonStandard, resources.GetString("radioButtonStandard.ToolTip"));
             this.radioButtonStandard.UseVisualStyleBackColor = true;
             this.radioButtonStandard.CheckedChanged += new System.EventHandler(this.radioButtonStandard_CheckedChanged);
             // 
@@ -200,6 +211,7 @@
             // 
             resources.ApplyResources(this.radioButtonClassic, "radioButtonClassic");
             this.radioButtonClassic.Name = "radioButtonClassic";
+            this.toolTip1.SetToolTip(this.radioButtonClassic, resources.GetString("radioButtonClassic.ToolTip"));
             this.radioButtonClassic.UseVisualStyleBackColor = true;
             this.radioButtonClassic.CheckedChanged += new System.EventHandler(this.radioButtonClassic_CheckedChanged);
             // 
@@ -563,5 +575,6 @@
         private System.Windows.Forms.RadioButton radioButtonStandard;
         private System.Windows.Forms.RadioButton radioButtonClassic;
         private System.Windows.Forms.Label labelInfoMigration;
+        private System.Windows.Forms.LinkLabel moreinfoSE;
     }
 }

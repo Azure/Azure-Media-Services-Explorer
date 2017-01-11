@@ -151,6 +151,8 @@ namespace AMSExplorer
 
         private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
+            moreinfoSE.Links.Add(new LinkLabel.Link(0, moreinfoSE.Text.Length, Constants.LinkMoreInfoSE));
+
             if (!MultipleSelection) // one SE
             {
                 labelSEName.Text = string.Format(labelSEName.Text, MySE.Name);
@@ -193,7 +195,7 @@ namespace AMSExplorer
             labelcdn.Visible = MySE.CdnEnabled;
             numericUpDownRU.Minimum = MySE.CdnEnabled ? 1 : 0;
 
-            // Scale units
+            // Streaming units
             if (MySE.ScaleUnits != null)
             {
                 var units = (int)MySE.ScaleUnits;
@@ -314,27 +316,20 @@ namespace AMSExplorer
 
         static public StreamEndpointType ReturnTypeSE(IStreamingEndpoint mySE)
         {
-            if (mySE.ScaleUnits != null)
+            if (mySE.ScaleUnits != null && mySE.ScaleUnits > 0)
             {
-                if ((int)mySE.ScaleUnits > 0)
-                {
-                    return StreamEndpointType.Premium;
-                }
-                else
-                {
-                    if (new Version(mySE.StreamingEndpointVersion) == new Version("1.0"))
-                    {
-                        return StreamEndpointType.Classic;
-                    }
-                    else
-                    {
-                        return StreamEndpointType.Standard;
-                    }
-                }
+                return StreamEndpointType.Premium;
             }
             else
             {
-                return StreamEndpointType.Unknown;
+                if (new Version(mySE.StreamingEndpointVersion) == new Version("1.0"))
+                {
+                    return StreamEndpointType.Classic;
+                }
+                else
+                {
+                    return StreamEndpointType.Standard;
+                }
             }
         }
 
@@ -364,13 +359,11 @@ namespace AMSExplorer
         {
             Classic = 0,
             Standard,
-            Premium,
-            Unknown
+            Premium
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-
             MessageBox.Show("Wrong format");
         }
 
@@ -387,7 +380,6 @@ namespace AMSExplorer
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
             DataGridView DG = (DataGridView)contextmenu.SourceControl;
 
-
             if (DG.SelectedCells.Count == 1)
             {
                 if (DG.SelectedCells[0].Value != null)
@@ -399,7 +391,6 @@ namespace AMSExplorer
                 {
                     System.Windows.Forms.Clipboard.Clear();
                 }
-
             }
         }
 
@@ -565,6 +556,12 @@ namespace AMSExplorer
         private void radioButtonStandard_CheckedChanged(object sender, EventArgs e)
         {
             Modifications.StreamingUnits = true;
+
+        }
+
+        private void moreinfoSE_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
 
         }
     }

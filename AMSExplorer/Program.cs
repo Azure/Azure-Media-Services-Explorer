@@ -1018,6 +1018,8 @@ namespace AMSExplorer
         public const string LinkOverlayMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes#overlay";
         public const string LinkCroppingMES = "https://docs.microsoft.com/en-us/azure/media-services/media-services-crop-video";
         public const string LinkMESAdvFeatures = "https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes";
+        public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/media-services-streaming-endpoints-overview";
+
 
         public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy";
 

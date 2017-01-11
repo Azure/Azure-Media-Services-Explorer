@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -73,6 +74,8 @@ namespace AMSExplorer
         private void CreateStreamingEndpoint_Load(object sender, EventArgs e)
         {
             checkSEName();
+            moreinfoSE.Links.Add(new LinkLabel.Link(0, moreinfoSE.Text.Length, Constants.LinkMoreInfoSE));
+
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -114,6 +117,12 @@ namespace AMSExplorer
         private void radioButtonPremium_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownUnits.Enabled = radioButtonPremium.Checked;
+        }
+
+        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
         }
     }
 }

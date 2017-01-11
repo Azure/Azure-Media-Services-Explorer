@@ -219,11 +219,44 @@
   <data name="&gt;&gt;tabPageInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="moreinfoSE.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="moreinfoSE.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="moreinfoSE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="moreinfoSE.Location" type="System.Drawing.Point, System.Drawing">
+    <value>754, 487</value>
+  </data>
+  <data name="moreinfoSE.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 15</value>
+  </data>
+  <data name="moreinfoSE.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="moreinfoSE.Text" xml:space="preserve">
+    <value>More information</value>
+  </data>
+  <data name="&gt;&gt;moreinfoSE.Name" xml:space="preserve">
+    <value>moreinfoSE</value>
+  </data>
+  <data name="&gt;&gt;moreinfoSE.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moreinfoSE.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;moreinfoSE.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelInfoMigration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="labelInfoMigration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 14</value>
+    <value>222, 19</value>
   </data>
   <data name="labelInfoMigration.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 46</value>
@@ -256,13 +289,20 @@
     <value>18, 75</value>
   </data>
   <data name="radioButtonPremium.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 19</value>
+    <value>169, 19</value>
   </data>
   <data name="radioButtonPremium.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="radioButtonPremium.Text" xml:space="preserve">
-    <value>Premium. Scale units :</value>
+    <value>Premium. Streaming units :</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>178, 17</value>
+  </metadata>
+  <data name="radioButtonPremium.ToolTip" xml:space="preserve">
+    <value>Provides dynamic packaging and encryption. 200 Mbps per streaming unit (SU).
+</value>
   </data>
   <data name="&gt;&gt;radioButtonPremium.Name" xml:space="preserve">
     <value>radioButtonPremium</value>
@@ -294,6 +334,9 @@
   <data name="radioButtonStandard.Text" xml:space="preserve">
     <value>Standard</value>
   </data>
+  <data name="radioButtonStandard.ToolTip" xml:space="preserve">
+    <value>Provides dynamic packaging and encryption. Up to 600 Mbps and scales with CDN.</value>
+  </data>
   <data name="&gt;&gt;radioButtonStandard.Name" xml:space="preserve">
     <value>radioButtonStandard</value>
   </data>
@@ -321,6 +364,9 @@
   <data name="radioButtonClassic.Text" xml:space="preserve">
     <value>Classic</value>
   </data>
+  <data name="radioButtonClassic.ToolTip" xml:space="preserve">
+    <value>No dynamic packaging and encryption.</value>
+  </data>
   <data name="&gt;&gt;radioButtonClassic.Name" xml:space="preserve">
     <value>radioButtonClassic</value>
   </data>
@@ -337,7 +383,7 @@
     <value>False</value>
   </data>
   <data name="numericUpDownRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 71</value>
+    <value>193, 75</value>
   </data>
   <data name="numericUpDownRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 23</value>
@@ -345,9 +391,6 @@
   <data name="numericUpDownRU.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>178, 17</value>
-  </metadata>
   <data name="numericUpDownRU.ToolTip" xml:space="preserve">
     <value>1 unit = 200 mbps</value>
   </data>
@@ -367,7 +410,7 @@
     <value>7, 21</value>
   </data>
   <data name="groupBoxTypeScale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 100</value>
+    <value>422, 100</value>
   </data>
   <data name="groupBoxTypeScale.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -385,7 +428,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;groupBoxTypeScale.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="labelcdn.Location" type="System.Drawing.Point, System.Drawing">
     <value>437, 358</value>
@@ -399,7 +442,7 @@
   <data name="labelcdn.Text" xml:space="preserve">
     <value>Azure CDN is enabled.
 
-As a consequence, Allowed IP addresses, Akamai authentication, custom host names and 0 unit are disabled.</value>
+As a consequence, Allowed IP addresses, Akamai authentication and custom host names are disabled.</value>
   </data>
   <data name="&gt;&gt;labelcdn.Name" xml:space="preserve">
     <value>labelcdn</value>
@@ -411,7 +454,7 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;labelcdn.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="dataGridViewAkamai.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -540,7 +583,7 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;panelAkamai.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="buttonAllowAllStreamingIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>248, 170</value>
@@ -693,7 +736,7 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;panelStreamingAllowedIP.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="dataGridViewCustomHostname.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 21</value>
@@ -843,13 +886,13 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;panelCustomHostnames.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="labeldesc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labeldesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>303, 22</value>
+    <value>433, 21</value>
   </data>
   <data name="labeldesc.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 15</value>
@@ -870,13 +913,13 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;labeldesc.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="textboxorigindesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 40</value>
+    <value>436, 40</value>
   </data>
   <data name="textboxorigindesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>549, 23</value>
+    <value>419, 23</value>
   </data>
   <data name="textboxorigindesc.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
@@ -891,10 +934,10 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;textboxorigindesc.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="textBoxMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 98</value>
+    <value>436, 98</value>
   </data>
   <data name="textBoxMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -912,13 +955,13 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;textBoxMaxCacheAge.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="lblMaxCacheAge.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lblMaxCacheAge.Location" type="System.Drawing.Point, System.Drawing">
-    <value>303, 80</value>
+    <value>433, 80</value>
   </data>
   <data name="lblMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 15</value>
@@ -939,7 +982,7 @@ As a consequence, Allowed IP addresses, Akamai authentication, custom host names
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;lblMaxCacheAge.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>

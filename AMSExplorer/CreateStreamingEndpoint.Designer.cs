@@ -33,23 +33,25 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radioButtonPremium = new System.Windows.Forms.RadioButton();
+            this.radioButtonStandard = new System.Windows.Forms.RadioButton();
             this.labelCloneFilters = new System.Windows.Forms.Label();
             this.checkBoxEnableAzureCDN = new System.Windows.Forms.CheckBox();
+            this.numericUpDownUnits = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxSEName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOriginDescription = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.radioButtonPremium = new System.Windows.Forms.RadioButton();
-            this.radioButtonStandard = new System.Windows.Forms.RadioButton();
-            this.numericUpDownUnits = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.moreinfoSE = new System.Windows.Forms.LinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUnits)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUnits)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -81,6 +83,35 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Name = "label2";
+            // 
+            // radioButtonPremium
+            // 
+            resources.ApplyResources(this.radioButtonPremium, "radioButtonPremium");
+            this.radioButtonPremium.Name = "radioButtonPremium";
+            this.toolTip1.SetToolTip(this.radioButtonPremium, resources.GetString("radioButtonPremium.ToolTip"));
+            this.radioButtonPremium.UseVisualStyleBackColor = true;
+            this.radioButtonPremium.CheckedChanged += new System.EventHandler(this.radioButtonPremium_CheckedChanged);
+            // 
+            // radioButtonStandard
+            // 
+            resources.ApplyResources(this.radioButtonStandard, "radioButtonStandard");
+            this.radioButtonStandard.Checked = true;
+            this.radioButtonStandard.Name = "radioButtonStandard";
+            this.radioButtonStandard.TabStop = true;
+            this.toolTip1.SetToolTip(this.radioButtonStandard, resources.GetString("radioButtonStandard.ToolTip"));
+            this.radioButtonStandard.UseVisualStyleBackColor = true;
+            // 
             // labelCloneFilters
             // 
             resources.ApplyResources(this.labelCloneFilters, "labelCloneFilters");
@@ -92,6 +123,22 @@
             resources.ApplyResources(this.checkBoxEnableAzureCDN, "checkBoxEnableAzureCDN");
             this.checkBoxEnableAzureCDN.Name = "checkBoxEnableAzureCDN";
             this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownUnits
+            // 
+            resources.ApplyResources(this.numericUpDownUnits, "numericUpDownUnits");
+            this.numericUpDownUnits.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownUnits.Name = "numericUpDownUnits";
+            this.numericUpDownUnits.ReadOnly = true;
+            this.numericUpDownUnits.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
@@ -126,48 +173,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // radioButtonPremium
+            // moreinfoSE
             // 
-            resources.ApplyResources(this.radioButtonPremium, "radioButtonPremium");
-            this.radioButtonPremium.Name = "radioButtonPremium";
-            this.radioButtonPremium.UseVisualStyleBackColor = true;
-            this.radioButtonPremium.CheckedChanged += new System.EventHandler(this.radioButtonPremium_CheckedChanged);
-            // 
-            // radioButtonStandard
-            // 
-            resources.ApplyResources(this.radioButtonStandard, "radioButtonStandard");
-            this.radioButtonStandard.Checked = true;
-            this.radioButtonStandard.Name = "radioButtonStandard";
-            this.radioButtonStandard.TabStop = true;
-            this.radioButtonStandard.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDownUnits
-            // 
-            resources.ApplyResources(this.numericUpDownUnits, "numericUpDownUnits");
-            this.numericUpDownUnits.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownUnits.Name = "numericUpDownUnits";
-            this.numericUpDownUnits.ReadOnly = true;
-            this.numericUpDownUnits.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Name = "label2";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.moreinfoSE, "moreinfoSE");
+            this.moreinfoSE.Name = "moreinfoSE";
+            this.moreinfoSE.TabStop = true;
+            this.moreinfoSE.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
             // CreateStreamingEndpoint
             // 
@@ -176,6 +187,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.moreinfoSE);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxOriginDescription);
@@ -186,9 +198,9 @@
             this.Load += new System.EventHandler(this.CreateStreamingEndpoint_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUnits)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUnits)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,5 +224,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownUnits;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel moreinfoSE;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
