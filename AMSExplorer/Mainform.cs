@@ -15215,7 +15215,7 @@ namespace AMSExplorer
 
         private void DoMenuContentModerator()
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "sdv=true");
+            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "{\"version\": \"1.0\",\"Options\": { \"Mode\": \"Quality\"}}");
         }
 
         private void DoMenuContentModerator_Click(object sender, EventArgs e)
