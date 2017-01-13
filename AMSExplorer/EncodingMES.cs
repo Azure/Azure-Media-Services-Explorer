@@ -1095,11 +1095,11 @@ namespace AMSExplorer
                                 {
                                     value = 1;
                                 }
-                                else if (res < 1920 * 1080)
+                                else if (res <= 1920 * 1080)
                                 {
                                     value = 2;
                                 }
-                                else if (res < 4096 * 2304)
+                                else if (res <= 4096 * 2304)
                                 {
                                     value = 4;
                                 }

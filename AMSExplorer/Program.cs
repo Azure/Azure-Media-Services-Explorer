@@ -937,6 +937,8 @@ namespace AMSExplorer
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
         public const string NameconvRedactionMode = "{Redaction Mode}";
+        public const string NameconvModerationMode = "{Moderation Mode}";
+
 
         public const string endline = "\r\n";
 
@@ -1079,6 +1081,11 @@ namespace AMSExplorer
         public const string FaceRedactionCombined = "combined";
         public const string FaceRedactionFirstPass = "analyze";
         public const string FaceRedactionSecondPass = "redact";
+
+        public const string ContentModerationBalance = "Balance";
+        public const string ContentModerationQuality = "Quality";
+        public const string ContentModerationSpeed = "Speed";
+
 
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";

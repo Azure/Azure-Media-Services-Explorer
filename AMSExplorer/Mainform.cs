@@ -5185,6 +5185,48 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuVideoAnalyticsContentModeration(string processorStr, Image processorImage, bool preview = true)
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected, or asset is null.");
+            }
+            else
+            {
+                CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+
+                // Get the SDK extension method to  get a reference to the processor.
+                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
+
+                var form = new MediaAnalyticsContentModeration(_context, processor, processorImage, preview)
+                {
+                    MIJobName = string.Format("Moderation ({0} mode) of {1}", Constants.NameconvModerationMode, Constants.NameconvInputasset),
+                    MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation ({1} mode)", Constants.NameconvInputasset, Constants.NameconvModerationMode),
+                    MIInputAssetName = (SelectedAssets.Count > 1) ?
+                    string.Format("{0} assets have been selected for moderation.", SelectedAssets.Count)
+                    : string.Format("Asset '{0}' will be analyzed.", SelectedAssets.FirstOrDefault().Name)
+                };
+
+                string taskname = string.Format("Moderation ({0} mode) of {1} ", form.ModerationMode(), Constants.NameconvInputasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
+                    SelectedAssets,
+                    form.MIJobName.Replace(Constants.NameconvModerationMode, form.ModerationMode()),
+                    form.JobOptions.Priority,
+                    taskname,
+                    form.MIOutputAssetName.Replace(Constants.NameconvModerationMode, form.ModerationMode()),
+                     new List<string> { form.JsonConfig() },
+                    form.JobOptions.OutputAssetsCreationOptions,
+                    form.JobOptions.OutputAssetsFormatOption,
+                    form.JobOptions.TasksOptionsSetting,
+                    form.JobOptions.StorageSelected);
+                }
+            }
+        }
 
         private void DoMenuProtectWithPlayReadyStatic()
         {
@@ -15215,7 +15257,7 @@ namespace AMSExplorer
 
         private void DoMenuContentModerator()
         {
-            DoMenuVideoAnalytics(Constants.AzureMediaContentModerator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration, "{\"version\": \"1.0\",\"Options\": { \"Mode\": \"Quality\"}}");
+            DoMenuVideoAnalyticsContentModeration(Constants.AzureMediaContentModerator, null);
         }
 
         private void DoMenuContentModerator_Click(object sender, EventArgs e)

@@ -236,6 +236,12 @@
     <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.Designer.cs">
       <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.Designer.cs">
+      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-Telemetry\DisplayTelemetry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -896,6 +902,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.resx">
       <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.resx">
+      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-Telemetry\DisplayTelemetry.resx">
       <DependentUpon>DisplayTelemetry.cs</DependentUpon>
