@@ -2564,7 +2564,7 @@ namespace AMSExplorer
                 IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
                 bool SESelectedSupportsDynPackaging = StreamingEndpointInformation.CanDoDynPackaging(SESelected);
 
-                if (SESelectedSupportsDynPackaging && AssetToP.AssetType != AssetType.SmoothStreaming)
+                if (!SESelectedSupportsDynPackaging && AssetToP.AssetType != AssetType.SmoothStreaming)
                 {
                     TextBoxLogWriteLine("There is no running Standard or Premium streaming endpoint", true);
                 }
