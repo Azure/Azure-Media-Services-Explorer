@@ -1,3 +1,11 @@
+
+Version 3.47.2.0 (January 16, 2017) brings the following features and improvements :
+
+* Update for Content Moderator (private preview) which uses a new configuration JSON.
+* Fixes an issue with output minute multiplier calculation.
+* In some cases, a warning message was incorrectly displayed when creating a locator.
+
+
 Version 3.47.0.0 (January 11, 2017) brings the following features and improvements :
 
 * Support for the new auto scaling Standard Streaming Endpoint and new enhanced CDN configuration. See the [announcement here](https://azure.microsoft.com/en-us/blog/standardstreamingendpoint/)
