@@ -88,6 +88,7 @@ namespace AMSExplorer
         private List<IAsset> _inputAssetsForJob;
         private string _multiplierlabel;
         private string _labelWarningJSON;
+        private bool _videostreaminsertedforblackvideo = false;
 
         public List<IAsset> SelectedAssets
         {
@@ -390,22 +391,46 @@ namespace AMSExplorer
                         }
                     }
 
-                    // Clean PreserveResolutionAfterRotation flag
+                    // Clean InsertBlackvideo flag
                     if (obj.Codecs != null)
                     {
-                        foreach (var codec in obj.Codecs)
+                        if (_videostreaminsertedforblackvideo)
                         {
-                            if (codec.Type != null &&
-                                (codec.Type == "H264Video") &&
-                                codec.Condition != null
-                                && (codec.Condition == "InsertBlackIfNoVideoBottomLayerOnly" || codec.Condition == "InsertBlackIfNoVideo"))
+                            int nbvideo = 0;
+                            dynamic codecselected = null;
+                            foreach (var codec in obj.Codecs)
                             {
-                                codec.Condition.Parent.Remove();
+                                if (codec.Type != null &&
+                                   codec.Type == "H264Video")
+                                {
+                                    nbvideo++;
+                                    codecselected = codec;
+                                }
+                            }
+                            if (nbvideo == 1 && codecselected.Condition != null && (codecselected.Condition == "InsertBlackIfNoVideoBottomLayerOnly" || codecselected.Condition == "InsertBlackIfNoVideo"))
+                            {
+                                codecselected.Remove();
+                            }
+
+                        }
+                        else
+                        {
+
+                            foreach (var codec in obj.Codecs)
+                            {
+                                if (codec.Type != null &&
+                                    (codec.Type == "H264Video") &&
+                                    codec.Condition != null
+                                    && (codec.Condition == "InsertBlackIfNoVideoBottomLayerOnly" || codec.Condition == "InsertBlackIfNoVideo"))
+                                {
+                                    codec.Condition.Parent.Remove();
+
+                                }
                             }
                         }
                     }
 
-                    // Clean InsertBlackvideo
+                    // Clean PreserveResolutionAfterRotation
                     if (obj.Codecs != null)
                     {
                         foreach (var codec in obj.Codecs)
@@ -936,16 +961,47 @@ namespace AMSExplorer
                     }
 
                     // Insert video at only the lowest bitrate
+                    _videostreaminsertedforblackvideo = false;
                     if (checkBoxInsertVideo.Checked)
                     {
                         if (obj.Codecs != null)
                         {
+                            bool h264found = false;
                             foreach (var codec in obj.Codecs)
                             {
                                 if (codec.Type != null && codec.Type == "H264Video")
                                 {
+                                    h264found = true;
                                     codec.Condition = radioButtonOnlyLowestBitrate.Checked ? "InsertBlackIfNoVideoBottomLayerOnly" : "InsertBlackIfNoVideo";
                                 }
+                            }
+                            if (!h264found)
+                            {
+                                // no h264 data found. Let's insert a low res stream
+                                dynamic h264 = new JObject() as dynamic;
+                                h264.KeyFrameInterval = "00:00:02";
+                                h264.SceneChangeDetection = true;
+                                h264.Type = "H264Video";
+                                h264.Condition = radioButtonOnlyLowestBitrate.Checked ? "InsertBlackIfNoVideoBottomLayerOnly" : "InsertBlackIfNoVideo";
+
+                                dynamic h264layer = new JObject() as dynamic;
+                                h264layer.Profile = "Auto";
+                                h264layer.Level = "auto";
+                                h264layer.Bitrate = 10;
+                                h264layer.MaxBitrate = 10;
+                                h264layer.BufferWindow = "00:00:05";
+                                h264layer.Width = 64;
+                                h264layer.Height = 64;
+                                h264layer.BFrames = 3;
+                                h264layer.ReferenceFrames = 3;
+                                h264layer.AdaptiveBFrame = true;
+                                h264layer.Type ="H264Layer";
+                                h264layer.FrameRate = "0/1";
+                                h264.H264Layers = new JArray() as dynamic;
+                                h264.H264Layers.Add(h264layer);
+
+                                obj.Codecs.Add(h264);
+                                _videostreaminsertedforblackvideo = true;
                             }
                         }
                     }
@@ -1072,7 +1128,7 @@ namespace AMSExplorer
                 textBoxConfiguration.Text = jsondata;
             }
 
-           
+
         }
 
         private decimal calculateMultiplier(dynamic obj)
@@ -1299,7 +1355,7 @@ namespace AMSExplorer
             // Display multiplier
             if (multiplier > 0)
             {
-                labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier, Properties.Settings.Default.Currency, multiplier* Properties.Settings.Default.MESPricePerMin);
+                labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier, Properties.Settings.Default.Currency, multiplier * Properties.Settings.Default.MESPricePerMin);
             }
             else
             {
