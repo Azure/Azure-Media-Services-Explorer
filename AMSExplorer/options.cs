@@ -49,6 +49,7 @@ namespace AMSExplorer
             Properties.Settings.Default.AutoRefresh = checkBoxAutoRefresh.Checked;
             Properties.Settings.Default.AutoRefreshTime = Convert.ToInt16(comboBoxAutoRefreshTime.SelectedItem);
 
+            Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat = checkBoxUseAdaptiveStreamingFormat.Checked;
             Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
             Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
@@ -88,6 +89,7 @@ namespace AMSExplorer
             checkBoxAutoRefresh.Checked = false;
             comboBoxAutoRefreshTime.SelectedItem = "60";
 
+            checkBoxUseAdaptiveStreamingFormat.Checked = false;
             checkBoxUseProtectedConfig.Checked = false;
             checkBoxUseStorageEncryption.Checked = false;
             checkBoxShowPremiumLiveEncoding.Checked = false;
@@ -142,6 +144,7 @@ namespace AMSExplorer
             checkBoxAutoRefresh.Checked = Properties.Settings.Default.AutoRefresh;
             comboBoxAutoRefreshTime.SelectedItem = Properties.Settings.Default.AutoRefreshTime.ToString();
 
+            checkBoxUseAdaptiveStreamingFormat.Checked = Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat;
             checkBoxUseProtectedConfig.Checked = Properties.Settings.Default.useProtectedConfiguration;
             checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
 

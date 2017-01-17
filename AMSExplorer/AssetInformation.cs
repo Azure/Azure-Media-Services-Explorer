@@ -311,6 +311,7 @@ namespace AMSExplorer
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_CreationOptions, (AssetCreationOptions)myAsset.Options);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_FormatOption, (AssetFormatOption)myAsset.FormatOption);
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
             if (program != null) // Asset is linked to a Program
