@@ -284,6 +284,15 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Format Option.
+        /// </summary>
+        internal static string AssetInformation_AssetInformation_Load_FormatOption {
+            get {
+                return ResourceManager.GetString("AssetInformation_AssetInformation_Load_FormatOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IsStreamable.
         /// </summary>
         internal static string AssetInformation_AssetInformation_Load_IsStreamable {

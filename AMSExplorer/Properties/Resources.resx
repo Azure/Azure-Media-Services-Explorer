@@ -1345,4 +1345,7 @@ The first entry '{0}' will be used.</value>
   <data name="JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector" xml:space="preserve">
     <value>Initialization Vector</value>
   </data>
+  <data name="AssetInformation_AssetInformation_Load_FormatOption" xml:space="preserve">
+    <value>Format Option</value>
+  </data>
 </root>
