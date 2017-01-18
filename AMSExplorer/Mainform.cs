@@ -11061,7 +11061,7 @@ namespace AMSExplorer
                                         case ContentKeyRestrictionType.Open:
 
                                             policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(FairPlayPolicyName, currentAssetKey, ContentKeyDeliveryType.FairPlay, FairPlayLicenseDeliveryConfig, _context);
-                                            TextBoxLogWriteLine("Created PlayReady Open authorization policy for the key '{0}' ", currentAssetKey.Id);
+                                            TextBoxLogWriteLine("Created FairPlay Open authorization policy for the key '{0}' ", currentAssetKey.Id);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
                                             break;

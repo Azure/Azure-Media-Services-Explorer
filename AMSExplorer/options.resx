@@ -654,34 +654,34 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBox1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBoxUseAdaptiveStreamingFormat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBox1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="checkBoxUseAdaptiveStreamingFormat.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="checkBoxUseAdaptiveStreamingFormat.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 78</value>
   </data>
-  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="checkBoxUseAdaptiveStreamingFormat.Size" type="System.Drawing.Size, System.Drawing">
     <value>374, 19</value>
   </data>
-  <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
+  <data name="checkBoxUseAdaptiveStreamingFormat.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
-  <data name="checkBox1.Text" xml:space="preserve">
+  <data name="checkBoxUseAdaptiveStreamingFormat.Text" xml:space="preserve">
     <value>Use adaptive streaming format (pre-fragmented) for output assets</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Name" xml:space="preserve">
-    <value>checkBox1</value>
+  <data name="&gt;&gt;checkBoxUseAdaptiveStreamingFormat.Name" xml:space="preserve">
+    <value>checkBoxUseAdaptiveStreamingFormat</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxUseAdaptiveStreamingFormat.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxUseAdaptiveStreamingFormat.Parent" xml:space="preserve">
     <value>groupBox2</value>
   </data>
-  <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxUseAdaptiveStreamingFormat.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
