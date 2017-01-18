@@ -995,7 +995,7 @@ namespace AMSExplorer
                                 h264layer.BFrames = 3;
                                 h264layer.ReferenceFrames = 3;
                                 h264layer.AdaptiveBFrame = true;
-                                h264layer.Type ="H264Layer";
+                                h264layer.Type = "H264Layer";
                                 h264layer.FrameRate = "0/1";
                                 h264.H264Layers = new JArray() as dynamic;
                                 h264.H264Layers.Add(h264layer);
@@ -1534,7 +1534,7 @@ namespace AMSExplorer
         private void DoSelectFile()
         {
             var form = new EncodingMESPickOverlay(_firstAsset);
-            if (form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK && form.SelectedAssetFile != null)
             {
                 textBoxOverlayFileName.Text = form.SelectedAssetFile.Name;
                 CheckOverlayFile();

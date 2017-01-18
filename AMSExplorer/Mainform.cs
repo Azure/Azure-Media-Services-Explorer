@@ -12734,12 +12734,12 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
+            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
             {
-                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline
-                    + "It is not recommended to copy such live asset with this command. While the copied asset will be streamable, you could have issues to download it or run a processor on it because some asset files will not be tagged as fragments containers." + Constants.endline + Constants.endline
+                MessageBox.Show("One of the source asset is fragmented (live stream, live archive or pre-fragmented asset)." + Constants.endline
+                    + "It is not recommended to copy such asset with this command. While the copied asset will be streamable, you could have issues to download it or run a processor on it because some asset files will not be tagged as fragments containers." + Constants.endline + Constants.endline
                     + "It is recommended to use subclipping (all bitrates) and then to copy the multiple MP4 files asset with this command." + Constants.endline
-                    , "Live archive asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    , "Fragmented asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             CopyAsset form = new CopyAsset(_context, SelectedAssets.Count, CopyAssetBoxMode.CopyAsset)
@@ -13536,6 +13536,9 @@ namespace AMSExplorer
 
         private void DoMenuEncodeWithAMEStandard()
         {
+            bool bLiveArchiveAsset = false;
+            bool bFragmented = false;
+
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
@@ -13546,13 +13549,18 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            bool LiveArchiveAsset = false;
             if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
             {
                 MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline
                     + "You should use the subclipping UI if you plan to trim the source to make sure that that timestamps are correctly managed." + Constants.endline
                     + "Overlay is also disabled.", "Live archive asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                LiveArchiveAsset = true;
+                bLiveArchiveAsset = true;
+            }
+            else if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
+            {
+                MessageBox.Show("One of the source asset is a fragmented asset." + Constants.endline
+                    + "Overlay is disabled.", "Fragmented asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                bFragmented = true;
             }
 
             bool MultipleInputAssets = false;
@@ -13563,14 +13571,14 @@ namespace AMSExplorer
                     MultipleInputAssets = true;
             }
 
-            string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+            string taskname = string.Format("Media Encoder Standard processing of {0} with {1}", Constants.NameconvInputasset, Constants.NameconvEncodername);
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
             string label;
             if (SelectedAssets.Count > 1 && !MultipleInputAssets)
             {
-                label = string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count);
+                label = string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count));
             }
             else if (SelectedAssets.Count > 1 && MultipleInputAssets)
             {
@@ -13585,8 +13593,8 @@ namespace AMSExplorer
             EncodingMES form = new EncodingMES(_context,
                 MultipleInputAssets ? SelectedAssets : new List<IAsset>(),
                 processor.Version,
-                disableOverlay: SelectedAssets.Count > 1 ? true : LiveArchiveAsset, // as only single asset overlay is supported for now
-                disableSourceTrimming: LiveArchiveAsset,
+                disableOverlay: SelectedAssets.Count > 1 ? true : (bLiveArchiveAsset || bFragmented), // as only single asset overlay is supported for now
+                disableSourceTrimming: bLiveArchiveAsset,
                 main: this)
             {
                 EncodingLabel = label,
@@ -13927,9 +13935,9 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
-                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
+                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
                 {
-                    MessageBox.Show("Asset(s) should be a Live stream or archive." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
 

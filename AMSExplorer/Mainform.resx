@@ -394,13 +394,13 @@
     <value>350, 17</value>
   </metadata>
   <data name="refreshToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="refreshToolStripMenuItem1.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -413,7 +413,7 @@
     <value>F4</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
@@ -422,7 +422,7 @@
     <value>Ctrl+F4</value>
   </data>
   <data name="displayParentJobToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="displayParentJobToolStripMenuItem1.Text" xml:space="preserve">
     <value>Display parent job</value>
@@ -461,7 +461,7 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
     <value>Report</value>
@@ -479,13 +479,13 @@
     <value>F2</value>
   </data>
   <data name="ContextMenuItemAssetRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetRename.Text" xml:space="preserve">
     <value>Rename...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit Alternate Id...</value>
@@ -523,7 +523,7 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetDelete.Text" xml:space="preserve">
     <value>Delete</value>
@@ -556,13 +556,13 @@
     <value>Fix systemBitrate in manifests...</value>
   </data>
   <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
     <value>Tools</value>
   </data>
   <data name="toolStripSeparator36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="toolStripMenuItem18.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -625,7 +625,7 @@
 </value>
   </data>
   <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem17.Text" xml:space="preserve">
     <value>Upload</value>
@@ -667,7 +667,7 @@
     <value>From a single HTTP/HTTPS URL...</value>
   </data>
   <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="importToolStripMenuItem1.Text" xml:space="preserve">
     <value>Import</value>
@@ -706,7 +706,7 @@
     <value>Export to another Azure Media Services Account...</value>
   </data>
   <data name="exportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="exportToolStripMenuItem.Text" xml:space="preserve">
     <value>Export</value>
@@ -724,13 +724,13 @@
     <value>Ctrl+X</value>
   </data>
   <data name="toolStripMenuItem37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem37.Text" xml:space="preserve">
     <value>Download to local...</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="encodeAssetsWithAMEStandardToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+R</value>
@@ -792,7 +792,7 @@
     <value>(Deprecated)</value>
   </data>
   <data name="encodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="encodeToolStripMenuItem.Text" xml:space="preserve">
     <value>Encode</value>
@@ -884,7 +884,7 @@
     <value>Process asset(s) with Azure Media Video Annotator...</value>
   </data>
   <data name="mediaIntelligenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="mediaIntelligenceToolStripMenuItem.Text" xml:space="preserve">
     <value>Media Analytics</value>
@@ -938,7 +938,7 @@
     <value>Static packaging</value>
   </data>
   <data name="advancedProcessingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="advancedProcessingToolStripMenuItem.Text" xml:space="preserve">
     <value>Advanced processing</value>
@@ -947,13 +947,13 @@
     <value>Alt+R</value>
   </data>
   <data name="subclipToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="subclipToolStripMenuItem.Text" xml:space="preserve">
-    <value>Subclip live stream(s)/archive(s)...</value>
+    <value>Subclip live/fragmented asset(s)...</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="toolStripMenuItem5.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+D</value>
@@ -1001,13 +1001,13 @@
     <value>Storage decrypt the asset(s)...</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem4.Text" xml:space="preserve">
     <value>Security</value>
   </data>
   <data name="toolStripSeparator30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="createALocatorToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -1067,7 +1067,7 @@
     <value>Copy the publish URL to clipboard...</value>
   </data>
   <data name="publishToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="publishToolStripMenuItem1.Text" xml:space="preserve">
     <value>Publish</value>
@@ -1113,13 +1113,13 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 22</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetPlayback.Text" xml:space="preserve">
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 452</value>
+    <value>290, 452</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1140,7 +1140,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1697,7 +1697,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2535,7 +2535,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2851,7 +2851,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3498,7 +3498,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4020,7 +4020,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=3.46.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -5023,7 +5023,7 @@
     <value>419, 22</value>
   </data>
   <data name="subclipLiveStreamsarchivesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Subclip live stream(s)/archive(s)...</value>
+    <value>Subclip live/fragmented assets()...</value>
   </data>
   <data name="toolStripSeparator43.Size" type="System.Drawing.Size, System.Drawing">
     <value>416, 6</value>

@@ -532,7 +532,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
@@ -736,7 +736,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -766,7 +766,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -820,13 +820,13 @@
     <value>17, 22</value>
   </data>
   <data name="checkBoxTrimming.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 19</value>
+    <value>99, 19</value>
   </data>
   <data name="checkBoxTrimming.TabIndex" type="System.Int32, mscorlib">
     <value>132</value>
   </data>
   <data name="checkBoxTrimming.Text" xml:space="preserve">
-    <value>Trim the live archive/stream</value>
+    <value>Trim the asset</value>
   </data>
   <data name="&gt;&gt;checkBoxTrimming.Name" xml:space="preserve">
     <value>checkBoxTrimming</value>
@@ -1306,16 +1306,16 @@
     <value>Segoe UI, 14.25pt, style=Bold</value>
   </data>
   <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
-    <value>601, 14</value>
+    <value>569, 14</value>
   </data>
   <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>295, 25</value>
+    <value>332, 25</value>
   </data>
   <data name="label34.TabIndex" type="System.Int32, mscorlib">
     <value>136</value>
   </data>
   <data name="label34.Text" xml:space="preserve">
-    <value>Live stream/archive Subclipping</value>
+    <value>Live or pre-fragmented Subclipping</value>
   </data>
   <data name="label34.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
@@ -1402,7 +1402,7 @@
     <value>buttonJobOptions</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
     <value>panelJob</value>
@@ -1525,7 +1525,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Live Subclipping</value>
+    <value>Subclipping</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
