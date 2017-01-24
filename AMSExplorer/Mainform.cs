@@ -5018,7 +5018,8 @@ namespace AMSExplorer
             }
             else
             {
-                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+                // not needed as ism as primary seems to work ok
+                // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -5109,7 +5110,8 @@ namespace AMSExplorer
             }
             else
             {
-                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+                // not needed as ism as primary seems to work ok
+                //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -5152,7 +5154,8 @@ namespace AMSExplorer
             }
             else
             {
-                CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+                // not needed as ism as primary seems to work ok
+                //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -5504,7 +5507,7 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
-
+  
             var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
@@ -5535,7 +5538,7 @@ namespace AMSExplorer
                                                                                 form.IndexerDescription,
                                                                                 form.IndexerLanguage,
                                                                                 form.IndexerGenerationOptions,
-                                                                                proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
+                                                                                null//proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
                                                                                 )
                                                                                 );
 
@@ -5575,7 +5578,8 @@ namespace AMSExplorer
 
             // Removed as not supported by Indexer v2 Preview
             //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
-            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
+
+            //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
@@ -5632,7 +5636,8 @@ namespace AMSExplorer
 
             var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
-            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+            // not needed as ism as primary seems to work ok
+            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
@@ -5689,7 +5694,8 @@ namespace AMSExplorer
 
             var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
-            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
+            // not needed as ism as primary seems to work ok
+            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
 
             // Get the SDK extension method to get a reference to the Azure Media Media Detector.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
@@ -5742,7 +5748,8 @@ namespace AMSExplorer
                 return;
             }
 
-            CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+            // not needed as ism as primary seems to work ok
+            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
