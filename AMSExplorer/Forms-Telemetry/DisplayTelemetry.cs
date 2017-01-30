@@ -334,7 +334,7 @@ namespace AMSExplorer
 
                 foreach (var cHB in channelMetrics.OrderByDescending(x => x.ObservedTime))
                 {
-                    if (!showErrors || (showErrors && (cHB.OverlapCount > 0 || cHB.DiscontinuityCount > 0)))
+                    if (!showErrors || (showErrors && !cHB.Healthy))
                     {
                         dataGridViewTelemetry.Rows.Add(
                             radioButtonLocal.Checked ? cHB.ObservedTime.ToLocalTime() : cHB.ObservedTime.ToUniversalTime(),

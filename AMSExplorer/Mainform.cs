@@ -106,6 +106,11 @@ namespace AMSExplorer
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;
 
+        private static readonly long OneGB = 1024L * 1024L * 1024L;
+        private static readonly int S1AssetSizeLimit = 325; // GBytes
+        private static readonly int S2AssetSizeLimit = 640; // GBytes
+        private static readonly int S3AssetSizeLimit = 240; // GBytes
+
         public Mainform()
         {
             InitializeComponent();
@@ -4597,6 +4602,8 @@ namespace AMSExplorer
                 }
             }
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow);
 
             string taskname = "Premium Workflow Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
@@ -4684,6 +4691,8 @@ namespace AMSExplorer
                 return;
             }
             DisplayDeprecatedMessageAME();
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             CheckQuicktimeAndDisplayMessage(SelectedAssets);
 
@@ -4911,6 +4920,8 @@ namespace AMSExplorer
 
             DisplayDeprecatedMessageStaticPackagers();
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
                 MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -4968,6 +4979,8 @@ namespace AMSExplorer
             {
                 DisplayDeprecatedMessageStaticPackagers();
 
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
                 {
                     MessageBox.Show("Asset(s) should be a multi bitrate or single MP4 file(s).", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -5018,6 +5031,8 @@ namespace AMSExplorer
             }
             else
             {
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 // not needed as ism as primary seems to work ok
                 // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
@@ -5062,6 +5077,8 @@ namespace AMSExplorer
             }
             else
             {
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
@@ -5110,6 +5127,8 @@ namespace AMSExplorer
             }
             else
             {
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 // not needed as ism as primary seems to work ok
                 //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
@@ -5154,6 +5173,8 @@ namespace AMSExplorer
             }
             else
             {
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 // not needed as ism as primary seems to work ok
                 //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
@@ -5198,6 +5219,8 @@ namespace AMSExplorer
             }
             else
             {
+                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
                 CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
@@ -5243,6 +5266,8 @@ namespace AMSExplorer
             if (SelectedAssets.FirstOrDefault() == null) return;
 
             DisplayDeprecatedMessageStaticPackagers();
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
@@ -5445,6 +5470,8 @@ namespace AMSExplorer
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4))
             {
                 MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -5507,8 +5534,10 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
-  
+
             var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
@@ -5573,6 +5602,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
 
             var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
@@ -5633,6 +5663,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
@@ -5691,6 +5722,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
@@ -5747,6 +5779,8 @@ namespace AMSExplorer
                 MessageBox.Show("No asset was selected");
                 return;
             }
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             // not needed as ism as primary seems to work ok
             // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
@@ -5856,6 +5890,53 @@ namespace AMSExplorer
                 MessageBox.Show("Source asset must contain an input annotations JSON file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+        private static void CheckAssetSizeRegardingMediaUnit(List<IAsset> SelectedAssets, bool Indexer = false)
+        {
+            bool Warning = false;
+
+            // let's find the limit
+            var unitype = SelectedAssets.FirstOrDefault().GetMediaContext().EncodingReservedUnits.FirstOrDefault().ReservedUnitType;
+            long limit = S1AssetSizeLimit * OneGB;
+            string unitname = "S1";
+
+            if (!Indexer)
+            {
+                if (unitype == ReservedUnitType.Standard)
+                {
+                    limit = S2AssetSizeLimit * OneGB;
+                    unitname = "S2";
+                }
+                else if (unitype == ReservedUnitType.Premium)
+                {
+                    limit = S3AssetSizeLimit * OneGB;
+                    unitname = "S3";
+                }
+            }
+
+            foreach (var asset in SelectedAssets)
+            {
+                if (AssetInfo.GetSize(asset) >= limit)
+                {
+                    Warning = true;
+                }
+            }
+
+            if (Warning)
+            {
+                if (!Indexer)
+                {
+                    MessageBox.Show(string.Format("You are using {0} media unit(s).\nAt least one of the source assets has a size over {1}.\n\nLimits are :\n{2} GB with S1 media unit\n{3} GB with S2 media unit\n{4} GB with S3 media unit", unitname, AssetInfo.FormatByteSize(limit), S1AssetSizeLimit, S2AssetSizeLimit, S3AssetSizeLimit), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("At least one of the source assets has a size over {0}, which is the maximum supported by Indexer.", AssetInfo.FormatByteSize(limit)), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+        }
+
 
 
         private static Dictionary<string, string> CheckSingleFileIndexerV1SupportedExtensions(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
@@ -6268,6 +6349,8 @@ namespace AMSExplorer
 
             DisplayDeprecatedMessageAME();
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             CheckQuicktimeAndDisplayMessage(SelectedAssets);
 
             string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
@@ -6356,6 +6439,8 @@ namespace AMSExplorer
                 MessageBox.Show("No asset was selected");
                 return;
             }
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             string taskname = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset;
 
@@ -9617,6 +9702,8 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             string taskname = "Media Encoder Standard Thumbnails generation from " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
@@ -12377,6 +12464,8 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+
             ProcessFromJobTemplate form = new ProcessFromJobTemplate(_context, SelectedAssets.Count)
             {
                 ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
@@ -13555,6 +13644,8 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
             {
@@ -15345,11 +15436,14 @@ namespace AMSExplorer
 
             foreach (var asset in assets)
             {
+                bool Error = false;
+
                 string taskname = string.Format("Analysis of asset '{0}'", asset.Name);
                 string jobname = string.Format("Analysis of asset '{0}'", asset.Name);
                 string outputname = string.Format("{0} (metadata and thumbnail)", asset.Name);
                 string jsonwithid = json.Replace("{Basename}", asset.Id.Substring(Constants.AssetIdPrefix.Length));
 
+                /*
                 LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
                    processor,
                    assets,
@@ -15362,7 +15456,42 @@ namespace AMSExplorer
                   AssetFormatOption.None,
                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
                    _context.DefaultStorageAccount.Name);
+*/
+
+                IJob job = _context.Jobs.Create(jobname, Properties.Settings.Default.DefaultJobPriority);
+                ITask AnalyzeTask = job.Tasks.AddNew(
+                    taskname,
+                    processor,
+                    jsonwithid,
+                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
+                  );
+
+                AnalyzeTask.InputAssets.Add(asset);
+
+                // Add an output asset to contain the results of the job.  
+                AnalyzeTask.OutputAssets.AddNew(outputname, _context.DefaultStorageAccount.Name, AssetCreationOptions.None, AssetFormatOption.None);
+
+                // Submit the job  
+                TextBoxLogWriteLine("Submitting job '{0}'", jobname);
+                try
+                {
+                    job.Submit();
+                }
+                catch (Exception e)
+                {
+                    // Add useful information to the exception
+                    if (assets.Count < 5)
+                    {
+                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobname) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobname, true);
+                    TextBoxLogWriteLine(e);
+                    Error = true;
+                }
+                if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
             }
+            DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+            DoRefreshGridJobV(false);
         }
 
         private void analyzeAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
