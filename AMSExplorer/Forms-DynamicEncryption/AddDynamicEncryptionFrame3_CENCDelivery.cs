@@ -31,7 +31,7 @@ namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame3_CENCDelivery : Form
     {
-        private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
+        private readonly string _PlayReadyTestLAURL = "http://playready-testserver.azurewebsites.net/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
 
 

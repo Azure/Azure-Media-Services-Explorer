@@ -4747,7 +4747,7 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="licenseAcquisitionUrl">The URL of your 
         ///        license acquisition server. For example:
-        ///        "http://playready.directtaps.net/pr/svc/rightsmanager.asmx"
+        ///        "http://playready-testserver.azurewebsites.net/rightsmanager.asmx"
         /// </param>
         public static string LoadAndUpdatePlayReadyConfiguration(string xmlFileName, string keyseed, string licenseAcquisitionUrlstr, Guid keyId, string contentkey, bool useSencBox, bool adjustSubSamples, string serviceid, string customattributes)
         {
