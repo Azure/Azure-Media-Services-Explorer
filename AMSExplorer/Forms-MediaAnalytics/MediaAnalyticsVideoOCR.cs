@@ -41,7 +41,7 @@ namespace AMSExplorer
         private bool initPhase = true;
 
         public readonly List<Item> VideOCRLanguages = new List<Item> {
-            new Item("Undefined", ""),
+            new Item("AutoDetect", ""),
             new Item("Arabic", "Arabic"),
             new Item("Chinese Simplified", "ChineseSimplified"),
             new Item("Chinese Traditional", "ChineseTraditional"),
