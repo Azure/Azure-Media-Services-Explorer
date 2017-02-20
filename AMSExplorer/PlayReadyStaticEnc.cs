@@ -33,7 +33,7 @@ namespace AMSExplorer
     public partial class PlayReadyStaticEnc : Form
     {
 
-        private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx";
+        private readonly string _PlayReadyTestLAURL = "http://playready-testserver.azurewebsites.net/rightsmanager.asmx";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
 
         public string PlayReadyAssetName
@@ -196,7 +196,7 @@ namespace AMSExplorer
 
         private void PlayReadyStaticEnc_Load(object sender, EventArgs e)
         {
-            moreinfotestserver.Links.Add(new LinkLabel.Link(0, moreinfotestserver.Text.Length, "http://playready.directtaps.net/"));
+            moreinfotestserver.Links.Add(new LinkLabel.Link(0, moreinfotestserver.Text.Length, "http://playready.azurewebsites.net/"));
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
