@@ -45,13 +45,16 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButtonFormatExcel = new System.Windows.Forms.RadioButton();
             this.checkBoxOpenFileAfterExport = new System.Windows.Forms.CheckBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxExcelFile = new System.Windows.Forms.TextBox();
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerExcel = new System.ComponentModel.BackgroundWorker();
             this.label5 = new System.Windows.Forms.Label();
+            this.backgroundWorkerCSV = new System.ComponentModel.BackgroundWorker();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -168,11 +171,28 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioButtonFormatExcel);
             this.groupBox1.Controls.Add(this.checkBoxOpenFileAfterExport);
             this.groupBox1.Controls.Add(this.buttonBrowseFile);
             this.groupBox1.Controls.Add(this.textBoxExcelFile);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // radioButton1
+            // 
+            resources.ApplyResources(this.radioButton1, "radioButton1");
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButtonFormatExcel
+            // 
+            resources.ApplyResources(this.radioButtonFormatExcel, "radioButtonFormatExcel");
+            this.radioButtonFormatExcel.Checked = true;
+            this.radioButtonFormatExcel.Name = "radioButtonFormatExcel";
+            this.radioButtonFormatExcel.TabStop = true;
+            this.radioButtonFormatExcel.UseVisualStyleBackColor = true;
             // 
             // checkBoxOpenFileAfterExport
             // 
@@ -204,17 +224,27 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // backgroundWorker1
+            // backgroundWorkerExcel
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.backgroundWorkerExcel.WorkerReportsProgress = true;
+            this.backgroundWorkerExcel.WorkerSupportsCancellation = true;
+            this.backgroundWorkerExcel.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerExcel_DoWork);
+            this.backgroundWorkerExcel.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorkerExcel.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Name = "label5";
+            // 
+            // backgroundWorkerCSV
+            // 
+            this.backgroundWorkerCSV.WorkerReportsProgress = true;
+            this.backgroundWorkerCSV.WorkerSupportsCancellation = true;
+            this.backgroundWorkerCSV.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerCSV_DoWork);
+            this.backgroundWorkerCSV.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorkerCSV.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // ExportToExcel
             // 
@@ -264,11 +294,14 @@
         private System.Windows.Forms.TextBox textBoxExcelFile;
         private System.Windows.Forms.ProgressBar progressBarExport;
         private System.Windows.Forms.Label label2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerExcel;
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxLocalTime;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButtonFormatExcel;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerCSV;
     }
 }

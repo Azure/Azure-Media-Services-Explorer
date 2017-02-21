@@ -12065,7 +12065,7 @@ namespace AMSExplorer
                     question += Constants.endline + "- Locator GUID are cached by the streaming endpoints for 5 minutes";
                     question += Constants.endline + "- The old live archive manifest could have been be cached";
 
-                    if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         foreach (IProgram myP in SelectedPrograms)
                         {

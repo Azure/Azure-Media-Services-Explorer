@@ -27,7 +27,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
-
+using System.IO;
 
 namespace AMSExplorer
 {
@@ -47,14 +47,24 @@ namespace AMSExplorer
             _selassets = selassets;
             _visibleassets = visibleassets;
 
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorkerExcel.WorkerReportsProgress = true;
+            backgroundWorkerExcel.WorkerSupportsCancellation = true;
         }
 
 
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
-            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}.xlsx", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+            UpdateFilePathAndname();
+        }
+
+        private void UpdateFilePathAndname()
+        {
+            string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
+            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+            string filter = radioButtonFormatExcel.Checked ? "Excel files| *.xlsx | All files | *.*" : "CSV files| *.csv | All files | *.*";
+            saveFileDialog1.Filter = filter;
+
+
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -62,7 +72,16 @@ namespace AMSExplorer
             buttonOk.Enabled = false;
             filename = textBoxExcelFile.Text;
 
-            backgroundWorker1.RunWorkerAsync();
+            if (radioButtonFormatExcel.Checked)
+            {
+                backgroundWorkerExcel.RunWorkerAsync();
+
+            }
+            else
+            {
+                backgroundWorkerCSV.RunWorkerAsync();
+
+            }
         }
 
         private void ExportAssetExcel(IAsset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime)
@@ -170,6 +189,111 @@ namespace AMSExplorer
             }
         }
 
+        private string ExportAssetCSVLine(IAsset asset, bool detailed, bool localtime)
+        {
+            List<string> linec = new List<string>();
+            linec.Add(asset.Name);
+            linec.Add(asset.Id);
+            linec.Add(localtime ? asset.LastModified.ToLocalTime().ToString() : asset.LastModified.ToString());
+            linec.Add(AssetInfo.GetAssetType(asset));
+            linec.Add(AssetInfo.GetSize(asset).ToString());
+            var urls = AssetInfo.GetURIs(asset);
+            if (urls != null)
+            {
+                foreach (var url in urls)
+                {
+                    linec.Add(url != null ? url.ToString() : string.Empty);
+                }
+
+            }
+            var streamlocators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
+            if (streamlocators.Any())
+            {
+                if (localtime)
+                {
+                    linec.Add(streamlocators.Max(l => l.ExpirationDateTime).ToLocalTime().ToString());
+                }
+                else
+                {
+                    linec.Add(streamlocators.Max(l => l.ExpirationDateTime).ToString());
+                }
+            }
+            else
+            {
+                linec.Add(string.Empty);
+            }
+
+
+            // SAS locator
+            var saslocators = asset.Locators.Where(l => l.Type == LocatorType.Sas);
+            var saslocator = saslocators.ToList().OrderByDescending(l => l.ExpirationDateTime).FirstOrDefault();
+            if (saslocator != null && asset.AssetFiles.Count() > 0)
+            {
+                if (asset.AssetFiles.Count() == 1)
+                {
+                    var ProgressiveDownloadUri = asset.AssetFiles.FirstOrDefault().GetSasUri(saslocator);
+                    linec.Add(ProgressiveDownloadUri.AbsoluteUri);
+                }
+                else
+                {
+                    linec.Add(saslocator.Path);
+                }
+
+                if (localtime)
+                {
+                    linec.Add(saslocator.ExpirationDateTime.ToLocalTime().ToString());
+                }
+                else
+                {
+                    linec.Add(saslocator.ExpirationDateTime.ToString());
+                }
+            }
+            else
+            {
+                linec.Add(string.Empty);
+                linec.Add(string.Empty);
+            }
+
+
+            if (detailed)
+            {
+                linec.Add(asset.AlternateId);
+                linec.Add(asset.StorageAccount.Name);
+                linec.Add(asset.Uri == null ? string.Empty : asset.Uri.ToString());
+                var streamingloc = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
+                linec.Add(streamingloc.Count().ToString());
+                if (localtime)
+                {
+                    linec.Add(streamingloc.Any() ? streamingloc.Min(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
+                    linec.Add(streamingloc.Any() ? streamingloc.Max(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
+                }
+                else
+                {
+                    linec.Add(streamingloc.Any() ? streamingloc.Min(l => l.ExpirationDateTime).ToString() : null);
+                    linec.Add(streamingloc.Any() ? streamingloc.Max(l => l.ExpirationDateTime).ToString() : null);
+                }
+
+                // SAS
+                linec.Add(saslocators.Count().ToString());
+                if (localtime)
+                {
+                    linec.Add(saslocators.Any() ? saslocators.Min(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
+                    linec.Add(saslocators.Any() ? saslocators.Max(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
+                }
+                else
+                {
+                    linec.Add(saslocators.Any() ? saslocators.Min(l => l.ExpirationDateTime).ToString() : null);
+                    linec.Add(saslocators.Any() ? saslocators.Max(l => l.ExpirationDateTime).ToString() : null);
+                }
+
+                linec.Add(asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString());
+                linec.Add(asset.AssetFilters.Count().ToString());
+
+            }
+
+            return string.Join(",", linec);
+        }
+
         private void releaseObject(object obj)
         {
             try
@@ -196,7 +320,7 @@ namespace AMSExplorer
             }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorkerExcel_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -221,7 +345,7 @@ namespace AMSExplorer
                 Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
                 if (radioButtonAllAssets.Checked)
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0,  _context.Credentials.ClientId);
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId);
                 }
                 else
                 {
@@ -298,9 +422,9 @@ namespace AMSExplorer
                             currentBatch++;
                             ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
 
-                            backgroundWorker1.ReportProgress(100 * index2 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                  //if cancellation is pending, cancel work.  
-                            if (backgroundWorker1.CancellationPending)
+                            backgroundWorkerExcel.ReportProgress(100 * index2 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                      //if cancellation is pending, cancel work.  
+                            if (backgroundWorkerExcel.CancellationPending)
                             {
                                 xlApp.DisplayAlerts = false;
                                 xlWorkBook.Close();
@@ -344,9 +468,9 @@ namespace AMSExplorer
                     {
                         row++;
                         ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
-                        backgroundWorker1.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                              //if cancellation is pending, cancel work.  
-                        if (backgroundWorker1.CancellationPending)
+                        backgroundWorkerExcel.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                  //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerExcel.CancellationPending)
                         {
                             xlApp.DisplayAlerts = false;
                             xlWorkBook.Close();
@@ -388,6 +512,147 @@ namespace AMSExplorer
             }
         }
 
+        private void backgroundWorkerCSV_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+
+                bool detailed = radioButtonDetailledMode.Checked;
+                var csv = new StringBuilder();
+
+                if (radioButtonAllAssets.Checked)
+                {
+                    csv.AppendLine("\""+string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId)+ "\"" );
+                }
+                else
+                {
+                    csv.AppendLine("\"" + string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId)+ "\"" );
+                }
+
+                csv.AppendLine(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
+                    Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
+                    checkBoxLocalTime.Checked ? "local" : "UTC based"
+                    ));
+
+                List<string> linec = new List<string>();
+                linec.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName);
+                linec.Add("Id");
+
+                linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified);
+                linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type);
+                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Size);
+
+                _context.StreamingEndpoints.ToList().ForEach(se =>
+                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingURL));
+                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime);
+
+                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASURL);
+                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime);
+
+                if (detailed)
+                {
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AlternateId);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StorageAccount);
+                    linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption);
+                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount);
+                }
+
+                csv.AppendLine(string.Join(",", linec));
+
+                if (radioButtonAllAssets.Checked)
+                {
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentBatch = 0;
+
+                    int total = _context.Assets.Count();
+                    int index2 = 1;
+
+                    while (true)
+                    {
+                        IQueryable _assetsCollectionQuery = _context.Assets.Skip(skipSize).Take(batchSize);
+                        foreach (IAsset asset in _assetsCollectionQuery)
+                        {
+                            currentBatch++;
+
+                            csv.AppendLine(ExportAssetCSVLine(asset, detailed, checkBoxLocalTime.Checked));
+
+                            backgroundWorkerCSV.ReportProgress(100 * index2 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                    //if cancellation is pending, cancel work.  
+                            if (backgroundWorkerCSV.CancellationPending)
+                            {
+
+                                e.Cancel = true;
+                                return;
+                            }
+                            index2++;
+                        }
+
+                        if (currentBatch == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentBatch = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                else // Selected or visible asets
+                {
+                    IEnumerable<IAsset> myassets;
+                    if (radioButtonSelectedAssets.Checked)
+                    {
+                        myassets = _selassets;
+                    }
+                    else
+                    {
+                        myassets = _visibleassets;
+                    }
+
+                    int total = myassets.Count();
+                    int index3 = 1;
+
+                    foreach (IAsset asset in myassets)
+                    {
+                        csv.AppendLine(ExportAssetCSVLine(asset, detailed, checkBoxLocalTime.Checked));
+                        backgroundWorkerCSV.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerCSV.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            return;
+                        }
+                        index3++;
+                    }
+                }
+
+                try
+                {
+                    File.WriteAllText(filename, csv.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (checkBoxOpenFileAfterExport.Checked) System.Diagnostics.Process.Start(filename);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
+            }
+        }
+
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBarExport.Value = e.ProgressPercentage; //update progress bar  
@@ -401,8 +666,16 @@ namespace AMSExplorer
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.CancelAsync();
+            backgroundWorkerExcel.CancelAsync();
+            backgroundWorkerCSV.CancelAsync();
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateFilePathAndname();
+        }
+
+
     }
 
     public enum AssetSelection
