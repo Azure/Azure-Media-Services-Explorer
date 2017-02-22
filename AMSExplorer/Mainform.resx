@@ -676,7 +676,7 @@
     <value>340, 22</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export asset(s) information to Excel...</value>
+    <value>Export asset(s) information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator37.Size" type="System.Drawing.Size, System.Drawing">
     <value>337, 6</value>
@@ -1119,7 +1119,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 452</value>
+    <value>290, 474</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -4761,7 +4761,7 @@
     <value>376, 22</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Information to Excel...</value>
+    <value>Information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>373, 6</value>

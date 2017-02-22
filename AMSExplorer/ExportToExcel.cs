@@ -54,16 +54,22 @@ namespace AMSExplorer
 
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
-            UpdateFilePathAndname();
+            string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
+            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+
         }
 
         private void UpdateFilePathAndname()
         {
             string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
-            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+            string oldExtension = !radioButtonFormatExcel.Checked ? "xlsx" : "csv";
+
+            if (textBoxExcelFile.Text.ToLower().EndsWith(oldExtension))
+            {
+                textBoxExcelFile.Text = textBoxExcelFile.Text.Substring(0, textBoxExcelFile.Text.Length - oldExtension.Length) + extension;
+            }
             string filter = radioButtonFormatExcel.Checked ? "Excel files| *.xlsx | All files | *.*" : "CSV files| *.csv | All files | *.*";
             saveFileDialog1.Filter = filter;
-
 
         }
 
@@ -198,14 +204,21 @@ namespace AMSExplorer
             linec.Add(AssetInfo.GetAssetType(asset));
             linec.Add(AssetInfo.GetSize(asset).ToString());
             var urls = AssetInfo.GetURIs(asset);
-            if (urls != null)
+            if (urls != null && urls.Count() > 0)
             {
                 foreach (var url in urls)
                 {
                     linec.Add(url != null ? url.ToString() : string.Empty);
                 }
-
             }
+            else
+            {
+                for (int i = 0; i < _context.StreamingEndpoints.Count(); i++)
+                {
+                    linec.Add("-");
+                }
+            }
+
             var streamlocators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
             if (streamlocators.Any())
             {
@@ -220,7 +233,7 @@ namespace AMSExplorer
             }
             else
             {
-                linec.Add(string.Empty);
+                linec.Add("+");
             }
 
 
@@ -291,7 +304,7 @@ namespace AMSExplorer
 
             }
 
-            return string.Join(",", linec);
+            return convertCSVLine(linec);
         }
 
         private void releaseObject(object obj)
@@ -522,18 +535,18 @@ namespace AMSExplorer
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    csv.AppendLine("\""+string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId)+ "\"" );
+                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId)));
                 }
                 else
                 {
-                    csv.AppendLine("\"" + string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId)+ "\"" );
+                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId)));
                 }
 
-                csv.AppendLine(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
+                csv.AppendLine(checkStringForCSV(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
                     Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                     checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
                     checkBoxLocalTime.Checked ? "local" : "UTC based"
-                    ));
+                    )));
 
                 List<string> linec = new List<string>();
                 linec.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName);
@@ -565,7 +578,7 @@ namespace AMSExplorer
                     linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount);
                 }
 
-                csv.AppendLine(string.Join(",", linec));
+                csv.AppendLine(convertCSVLine(linec));
 
                 if (radioButtonAllAssets.Checked)
                 {
@@ -653,6 +666,8 @@ namespace AMSExplorer
             }
         }
 
+
+
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBarExport.Value = e.ProgressPercentage; //update progress bar  
@@ -675,6 +690,21 @@ namespace AMSExplorer
             UpdateFilePathAndname();
         }
 
+        private string checkStringForCSV(string s)
+        {
+            string c = "\"";
+            if (s != null && s.Contains(","))
+            {
+                s = c + s + c;
+            }
+            return s;
+        }
+
+        private string convertCSVLine(List<string> linec)
+        {
+            var newlinec = linec.Select(s => checkStringForCSV(s));
+            return string.Join(",", newlinec);
+        }
 
     }
 

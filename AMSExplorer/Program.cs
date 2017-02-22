@@ -2101,6 +2101,7 @@ namespace AMSExplorer
             {
                 ILocator mytemplocator = null;
                 Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
+
                 if (myuri == null)
                 {
                     mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
