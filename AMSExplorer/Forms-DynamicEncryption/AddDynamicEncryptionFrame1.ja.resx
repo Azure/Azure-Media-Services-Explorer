@@ -237,7 +237,7 @@
     <value>PlayReady DRM</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>名前1:値1,名前2:値2</value>
+    <value>名前1=値1,名前2=値2</value>
   </data>
   <data name="checkBoxProtocolHLS.Text" xml:space="preserve">
     <value>HLS</value>
