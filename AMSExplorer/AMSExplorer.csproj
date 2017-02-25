@@ -1032,6 +1032,9 @@
     <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.resx">
       <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.ja.resx">
+      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.resx">
       <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
     </EmbeddedResource>
@@ -1110,6 +1113,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamingEndpointCDNEnable.ja.resx">
+      <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointCDNEnable.resx">
       <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>
