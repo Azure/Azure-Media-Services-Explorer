@@ -646,13 +646,13 @@
     <value>423, 70</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 15</value>
+    <value>166, 15</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>84</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>name1:value1,name2:value2</value>
+    <value>name1=value1,name2=value2</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
