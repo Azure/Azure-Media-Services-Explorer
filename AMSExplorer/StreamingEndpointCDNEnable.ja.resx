@@ -145,4 +145,13 @@
   <data name="label2.Text" xml:space="preserve">
     <value>空欄の場合は既定値を利用</value>
   </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>CDN</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>キー</value>
+  </data>
 </root>

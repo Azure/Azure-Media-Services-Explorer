@@ -156,4 +156,37 @@
   <data name="tabPageTR.Text" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="checkBoxUseEDL.Text" xml:space="preserve">
+    <value>Editing Decision List (EDL) の利用</value>
+  </data>
+  <data name="labelAssetTimescale.Text" xml:space="preserve">
+    <value>アセット タイムスケール :</value>
+  </data>
+  <data name="labelOffset.Text" xml:space="preserve">
+    <value>アセット オフセット :</value>
+  </data>
+  <data name="labelAccurate.Text" xml:space="preserve">
+    <value>({0} accurate)</value>
+  </data>
+  <data name="buttonAddEDLEntry.Text" xml:space="preserve">
+    <value>開始/終了ポイントの時間を EDL に追加</value>
+  </data>
+  <data name="radioButtonArchiveAllBitrate.Text" xml:space="preserve">
+    <value>アーカイブのすべてのビットレート</value>
+  </data>
+  <data name="radioButtonArchiveTopBitrate.Text" xml:space="preserve">
+    <value>アーカイブの最高ビットレートのみ</value>
+  </data>
+  <data name="labelassetduration.Text" xml:space="preserve">
+    <value>アセットの長さ :</value>
+  </data>
+  <data name="labeloutputasset.Text" xml:space="preserve">
+    <value>出力先アセット名 :</value>
+  </data>
+  <data name="buttonShowEDL.Text" xml:space="preserve">
+    <value>EDL を表示...</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Multiple MP4 ファイルへ :</value>
+  </data>
 </root>

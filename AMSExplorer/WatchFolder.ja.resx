@@ -195,4 +195,7 @@
   <data name="groupBoxProcess.Text" xml:space="preserve">
     <value>ジョブ テンプレートと入力元アセット</value>
   </data>
+  <data name="checkBoAddAssetsToInput.Text" xml:space="preserve">
+    <value>入力アセットにアセットを追加する</value>
+  </data>
 </root>

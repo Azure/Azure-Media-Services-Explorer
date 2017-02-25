@@ -237,4 +237,7 @@
   <data name="checkBoxCopyToInput.Text" xml:space="preserve">
     <value>入力元アセットにサブタイトル ファイルをコピー</value>
   </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>アセットの説明</value>
+  </data>
 </root>

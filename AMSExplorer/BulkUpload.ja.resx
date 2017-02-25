@@ -335,7 +335,7 @@
     <value>アセット名はグリッド内で編集できます</value>
   </data>
   <data name="radioButtonCENCEncryption.Text" xml:space="preserve">
-    <value>Common Encryption 暗号化済み (コンテンツはすでに PlayReady で暗号化されている)</value>
+    <value>Common Encryption 暗号化済み (コンテンツはすでに PlayReady で暗号化済み)</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>コンテンツは、フォルダへアップロードする前に、ローカル上でAES-256 で暗号化されます</value>

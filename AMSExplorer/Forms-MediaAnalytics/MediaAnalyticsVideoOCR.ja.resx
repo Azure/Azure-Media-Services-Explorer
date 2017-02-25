@@ -171,4 +171,10 @@
   <data name="buttonRegionEditor.Text" xml:space="preserve">
     <value>選択...</value>
   </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Video Optical Character Recognition (OCR)</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Video OCR 処理実行</value>
+  </data>
 </root>

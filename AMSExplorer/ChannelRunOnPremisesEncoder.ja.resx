@@ -174,4 +174,7 @@
   <data name="label6.Text" xml:space="preserve">
     <value>ビデオ ビットレート (kbps) :</value>
   </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ビデオデバイス名 :</value>
+  </data>
 </root>

@@ -168,9 +168,6 @@
   <data name="$this.Text" xml:space="preserve">
     <value>範囲エディター</value>
   </data>
-  <data name="groupBoxShape.Text" xml:space="preserve">
-    <value>形</value>
-  </data>
   <data name="labelIndexThumbnail.Text" xml:space="preserve">
     <value>サムネイル 1/2</value>
   </data>

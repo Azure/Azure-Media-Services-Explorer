@@ -134,7 +134,7 @@
     <value>74, 15</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>アカウント名 :</value>
+    <value>名前 :</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 15</value>

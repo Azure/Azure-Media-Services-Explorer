@@ -231,7 +231,7 @@
     <value>0</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>説明: </value>
+    <value>説明 :</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>ストリーミングエンドポイント名: </value>
@@ -253,5 +253,11 @@
   </data>
   <data name="labelCloneFilters.Text" xml:space="preserve">
     <value>CDN 構成の展開のため利用可能になるまで、最大で90分を要します</value>
+  </data>
+  <data name="moreinfoSE.Text" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>1ストリーミングユニットあたり 200 Mbps</value>
   </data>
 </root>

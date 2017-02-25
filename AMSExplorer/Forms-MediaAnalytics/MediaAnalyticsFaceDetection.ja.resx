@@ -189,4 +189,7 @@
   <data name="label2.Text" xml:space="preserve">
     <value>ウィンドウ (ms) :</value>
   </data>
+  <data name="groupBoxAggregateSettings.Text" xml:space="preserve">
+    <value>アグリゲーションモードの設定</value>
+  </data>
 </root>

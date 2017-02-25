@@ -486,7 +486,7 @@
     <value>プログラムの作成</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>説明: </value>
+    <value>説明 :</value>
   </data>
   <data name="checkBoxDynEnc.Text" xml:space="preserve">
     <value>動的暗号化の有効化</value>
@@ -508,5 +508,29 @@
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>5分 から 25 時間 (最大) まで</value>
+  </data>
+  <data name="checkBoxAddScaleUnit.Text" xml:space="preserve">
+    <value>1ストリーミングユニットを追加する</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>アーカイブ ウィンドウの長さ :</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>時</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ロケーター ID :</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>マニフェスト名 :</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>マニフェスト ファイル :</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="checkBoxStartProgramNow.Text" xml:space="preserve">
+    <value>プログラムをすぐに開始する</value>
   </data>
 </root>

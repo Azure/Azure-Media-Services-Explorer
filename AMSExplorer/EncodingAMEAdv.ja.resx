@@ -231,4 +231,46 @@
   <data name="textBoxAOverlayEnd.Text" xml:space="preserve">
     <value>00:00:10.2120000</value>
   </data>
+  <data name="checkBoxAddThumbnails.Text" xml:space="preserve">
+    <value>同じジョブにサムネイル生成タスクを追加します</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>オーディオ オーバーレイの設定</value>
+  </data>
+  <data name="checkBoxNamingConvention.Text" xml:space="preserve">
+    <value>カスタム出力ファイル名 :</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>エンコーダーの構成</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>ギャップ</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>ゲイン レベル</value>
+  </data>
+  <data name="buttonLoadXML.Text" xml:space="preserve">
+    <value>プリセット XML ファイルを読み込み...</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>モード</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>モード</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>その他の設定</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
 </root>

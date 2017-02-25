@@ -833,7 +833,7 @@
     <value>260, 114</value>
   </data>
   <data name="tabPageFilters.Text" xml:space="preserve">
-    <value>グローバルフィルター</value>
+    <value>グローバル フィルター</value>
   </data>
   <data name="trackBarConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1833,7 +1833,7 @@
     <value>284, 22</value>
   </data>
   <data name="visibleAssetsInGridToolStripMenuItem.Text" xml:space="preserve">
-    <value>グリッドに表示されたアセットの削除...</value>
+    <value>グリッドに表示されたアセット...</value>
   </data>
   <data name="allAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
@@ -2069,7 +2069,7 @@
     <value>118, 20</value>
   </data>
   <data name="filterToolStripMenuItem.Text" xml:space="preserve">
-    <value>グローバルフィルター</value>
+    <value>グローバル フィルター</value>
   </data>
   <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 22</value>
@@ -5813,10 +5813,10 @@
     <value>3iVX HLS Player</value>
   </data>
   <data name="labelConcurrentTransfers.Text" xml:space="preserve">
-    <value>{0} 同時転送{1}</value>
+    <value>{0} ファイルが転送中です {1}</value>
   </data>
   <data name="labelnbunits.Text" xml:space="preserve">
-    <value>{0} ユニット{1}</value>
+    <value>{0} ユニット {1}</value>
   </data>
   <data name="radioButtonChAll.Text" xml:space="preserve">
     <value>すべて</value>
@@ -5859,5 +5859,11 @@
   </data>
   <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
     <value>プログラム名/プログラム ID/アセットID で検索</value>
+  </data>
+  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Classic から Standard へ移行...</value>
+  </data>
+  <data name="optinToStandardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Classic から Standard へ移行...</value>
   </data>
 </root>

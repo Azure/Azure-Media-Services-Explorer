@@ -717,7 +717,7 @@
     <value>0</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>Key ID: </value>
+    <value>キーフレームの間隔 :</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
     <value>言語: </value>
@@ -756,7 +756,7 @@
     <value>削除</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>説明: </value>
+    <value>説明 :</value>
   </data>
   <data name="checkBoxHLSFragPerSeg.Text" xml:space="preserve">
     <value>セグメントごとのHLS フラグメント :</value>
@@ -822,7 +822,7 @@
     <value>エンコーディング プリセット</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>カスタム プリセットを使用する場合は、amslived@microsoft.com まで連絡ください</value>
+    <value>カスタム プリセットを使用する場合は amslived@microsoft.com まで連絡ください</value>
   </data>
   <data name="label18.Text" xml:space="preserve">
     <value>既定のオーディオ ストリーム</value>

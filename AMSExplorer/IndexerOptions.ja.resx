@@ -186,4 +186,7 @@
   <data name="groupBoxOther.Text" xml:space="preserve">
     <value>そのほか</value>
   </data>
+  <data name="checkBoxAIB.Text" xml:space="preserve">
+    <value>Audio Index Blob (AIB)</value>
+  </data>
 </root>

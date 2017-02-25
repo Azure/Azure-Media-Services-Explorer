@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AssetInformation_AssetInformation_Load_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload" xml:space="preserve">
+    <value>なし (アップロード前の暗号化なし)</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Options" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri" xml:space="preserve">
+    <value>OpenID Connect ディスカバリードキュメント URI</value>
+  </data>
+  <data name="CreateLiveChannel_dataGridView_DataError_WrongFormat" xml:space="preserve">
+    <value>無効なフォーマット</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Type" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="CreateLocator_CreateLocator_UpdateLocatorS" xml:space="preserve">
+    <value>ロケーターの更新</value>
+  </data>
+  <data name="CreateLocator_CreateLocator_UpdateLocators2" xml:space="preserve">
+    <value>ロケーターの更新</value>
+  </data>
+  <data name="AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials" xml:space="preserve">
+    <value>資格情報の更新</value>
+  </data>
+  <data name="CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed" xml:space="preserve">
+    <value>URL が分析できませんでした</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_Value" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="ChannelInformation_checkKeyFrameValue_ValueIsNotValid" xml:space="preserve">
+    <value>値が無効です</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration" xml:space="preserve">
+    <value>ライセンス/キーの配信の構成</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType" xml:space="preserve">
+    <value>ライセンス/キーの配信タイプ</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_LastModified" xml:space="preserve">
+    <value>最終更新</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_LastModified" xml:space="preserve">
+    <value>最終更新</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_KeyRemoval" xml:space="preserve">
+    <value>鍵の削除</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Body" xml:space="preserve">
+    <value>ボディ</value>
+  </data>
+  <data name="AMSLogin_CheckTextBoxGuid_BadGUIDFormat" xml:space="preserve">
+    <value>GUID フォーマットが不正です</value>
+  </data>
+  <data name="AMSLogin_AzureInChina" xml:space="preserve">
+    <value>Azure in China</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval" xml:space="preserve">
+    <value>承認ポリシー 削除</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName" xml:space="preserve">
+    <value>承認ポリシー名</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId" xml:space="preserve">
+    <value>承認ポリシー ID</value>
+  </data>
+  <data name="TabAssets" xml:space="preserve">
+    <value>アセット</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_AssetType" xml:space="preserve">
+    <value>アセットタイプ</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509" xml:space="preserve">
+    <value>公開鍵証明書 (X.509)</value>
+  </data>
+  <data name="DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc" xml:space="preserve">
+    <value>アセット配信ポリシー 動的暗号化なし</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAssetStats_AssetReport" xml:space="preserve">
+    <value>アセットレポート</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetName" xml:space="preserve">
+    <value>アセット名</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount" xml:space="preserve">
+    <value>アセット フィルター数</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetId" xml:space="preserve">
+    <value>アセット ID</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_Default" xml:space="preserve">
+    <value>(既定)</value>
+  </data>
+  <data name="BatchUploadFrame2_BathUploadFrame2_Load_Default" xml:space="preserve">
+    <value>(既定)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_None" xml:space="preserve">
+    <value>(なし)</value>
+  </data>
+  <data name="CreateTestToken_buttonImportPFX_Click_Error" xml:space="preserve">
+    <value>(エラー)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected" xml:space="preserve">
+    <value>(複数のチャネルが選択されています)</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01File" xml:space="preserve">
+    <value>{0} ({1} ファイル)</value>
+  </data>
+  <data name="BatchUploadFrame2_BatchUploadFrame2_01Files" xml:space="preserve">
+    <value>{0} ({1} ファイル)</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnit" xml:space="preserve">
+    <value>{0} ({1}, {2})</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3" xml:space="preserve">
+    <value>{0} ({1}, {2}) カスタムホスト名 : {3}</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetSelected" xml:space="preserve">
+    <value>{0} アセットが選択されました</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetsSelected" xml:space="preserve">
+    <value>{0} アセットが選択されました</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelSelected" xml:space="preserve">
+    <value>{0} チャネルが選択されました</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelsSelected" xml:space="preserve">
+    <value>{0} チャネルが選択されました</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
+    <value>{0} プログラムが選択されました</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
+    <value>{0} プログラムが選択されました</value>
+  </data>
+  <data name="DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy" xml:space="preserve">
+    <value>{0} 承認ポリシー</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1" xml:space="preserve">
+    <value>{0}入力 URL ({1})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_0InputURL1SSL" xml:space="preserve">
+    <value>{0}入力 URL ({1}, SSL)</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName" xml:space="preserve">
+    <value>&lt;名前なし&gt;</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_Null" xml:space="preserve">
+    <value>&lt;なし&gt;</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ErrorDeleted" xml:space="preserve">
+    <value>&lt;エラー, 削除済み?&gt;</value>
+  </data>
+  <data name="AboutBox_AboutBox_About0" xml:space="preserve">
+    <value>{0} について</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid" xml:space="preserve">
+    <value>広告 Cue ID が無効です</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0" xml:space="preserve">
+    <value>すべてのアセットの情報, メディアアカウント '{0}'</value>
+  </data>
+  <data name="ChannelInformation_buttonAllowAllInputIP_Click_AllowAll" xml:space="preserve">
+    <value>すべて許可</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AlternateId" xml:space="preserve">
+    <value>代替 ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey" xml:space="preserve">
+    <value>代替の検証鍵</value>
+  </data>
+  <data name="CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault" xml:space="preserve">
+    <value>API (既定)</value>
+  </data>
+  <data name="AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator" xml:space="preserve">
+    <value>このロケーターを削除してよいですか?</value>
+  </data>
+  <data name="ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices" xml:space="preserve">
+    <value>アセットファイルの名前は Media Services と互換性がありません</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_AssetFilter" xml:space="preserve">
+    <value>アセット フィルター</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_AssetFilter" xml:space="preserve">
+    <value>アセット フィルター :</value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter" xml:space="preserve">
+    <value>アセット フィルター :</value>
+  </data>
+  <data name="AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated" xml:space="preserve">
+    <value>アセット フィルター '{0}' が作成されました</value>
+  </data>
+  <data name="AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated" xml:space="preserve">
+    <value>アセット フィルター '{0}' が更新されました</value>
+  </data>
+  <data name="EncodingAMEAdv_AudioOverlay" xml:space="preserve">
+    <value>オーディオ オーバーレイ</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal" xml:space="preserve">
+    <value>AD シグナルへスレート画像を自動挿入</value>
+  </data>
+  <data name="AMSLogin_AzureGlobal" xml:space="preserve">
+    <value>Azure Global</value>
+  </data>
+  <data name="AMSLogin_AzureGovernment" xml:space="preserve">
+    <value>Azure Government</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload" xml:space="preserve">
+    <value>アップロードのための Blob ストレージ URL</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedWith0ErrorS" xml:space="preserve">
+    <value>バルク取り込みが完了しました ({0} エラー)</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContainer0CompletedWith1ErrorS" xml:space="preserve">
+    <value>'{0}' コンテナーのバルク取り込みが完了しました ({1} エラー)</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_CertificateRequired" xml:space="preserve">
+    <value>証明書が必要です</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate" xml:space="preserve">
+    <value>チャネル '{0}' : Error when hidding slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal" xml:space="preserve">
+    <value>チャネル '{0}' : Error when sending signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate" xml:space="preserve">
+    <value>チャネル '{0}' : Error when showing slate</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput" xml:space="preserve">
+    <value>チャネル '{0}' : Error with AD duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput" xml:space="preserve">
+    <value>チャネル '{0}' : Error with CueID input</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput" xml:space="preserve">
+    <value>チャネル '{0}' : Error with slate duration input</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0SendingADSignal" xml:space="preserve">
+    <value>チャネル '{0}' : sending AD signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal" xml:space="preserve">
+    <value>チャネル '{0}' : sending hide slate signal</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal" xml:space="preserve">
+    <value>チャネル '{0}' : sending show slate signal</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning" xml:space="preserve">
+    <value>チャネルは実行されていません</value>
+  </data>
+  <data name="CreateLiveChannel_checkChannelName_ChannelNameIsNotValid" xml:space="preserve">
+    <value>チャネル名が無効です</value>
+  </data>
+  <data name="LabelChannel" xml:space="preserve">
+    <value>チャネル</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum" xml:space="preserve">
+    <value>チェックサム</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue" xml:space="preserve">
+    <value>クリア キーの値</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
+    <value>チャネルの複製</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
+    <value>チャネルの複製</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
+    <value>プログラムの複製</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
+    <value>プログラムの複製</value>
+  </data>
+  <data name="EditorXMLJSON_EditorXMLJSON_Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Code" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady" xml:space="preserve">
+    <value>Common Encryption 暗号化済み (コンテンツはすでに PlayReady で暗号化済み)</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Configuration" xml:space="preserve">
+    <value>構成</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0" xml:space="preserve">
+    <value>コンテナー '{0}'</value>
+  </data>
+  <data name="ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid" xml:space="preserve">
+    <value>コンテナー名が無効です</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType" xml:space="preserve">
+    <value>コンテンツ鍵タイプ</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAssets" xml:space="preserve">
+    <value>アセットのコピー</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_CopyOf0" xml:space="preserve">
+    <value>{0} のコピー</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAsset" xml:space="preserve">
+    <value>アセットのコピー</value>
+  </data>
+  <data name="AssetInformation_DoDuplicateFilter_Copy" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope" xml:space="preserve">
+    <value>コンテンツ鍵 エンベロープ方式</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_CPUDuration" xml:space="preserve">
+    <value>CPU 時間</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_Created" xml:space="preserve">
+    <value>作成済み</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_CreationOptions" xml:space="preserve">
+    <value>作成のオプション</value>
+  </data>
+  <data name="CreateLiveChannel_inputIPAllow_Default" xml:space="preserve">
+    <value>既定</value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
+    <value>既定のブラウザー</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId" xml:space="preserve">
+    <value>既定のスレート画像のアセット ID</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAsset" xml:space="preserve">
+    <value>ソース アセットの削除</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAssets" xml:space="preserve">
+    <value>ソース アセットの削除</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_DeleteTheFile0" xml:space="preserve">
+    <value>ファイル '{0}' を削除しますか?</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_DeleteThese0Files" xml:space="preserve">
+    <value>選択された {0}ファイルを削除しますか?</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_Deleting" xml:space="preserve">
+    <value>削除中</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval" xml:space="preserve">
+    <value>配信ポリシーの削除</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_Destination" xml:space="preserve">
+    <value>出力先</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0" xml:space="preserve">
+    <value>資格情報 ({0}) を保存しますか?</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0" xml:space="preserve">
+    <value>資格情報 ({0}) を更新しますか?</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection" xml:space="preserve">
+    <value>すべてのエントリをエクスポートしますか?
+
+'はい' ですべてエクスポート, 'いいえ' で選択されたものをエクスポート</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1" xml:space="preserve">
+    <value>{1} アセットから ファイル ({0}) をダウンロード </value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress" xml:space="preserve">
+    <value>ダウンロード処理が開始しました - "転送" タブで進捗を確認ください</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_DVR" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_DVRDHMS" xml:space="preserve">
+    <value>DVR (d.h:m:s)</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption" xml:space="preserve">
+    <value>動的暗号化</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource" xml:space="preserve">
+    <value>広告マーカーのソースをエンコード</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingSystemPreset" xml:space="preserve">
+    <value>エンコーディング システム プリセット</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingType" xml:space="preserve">
+    <value>エンコードタイプ</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Encrypted" xml:space="preserve">
+    <value>暗号化済み</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionKeyId" xml:space="preserve">
+    <value>暗号化 Key ID</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId" xml:space="preserve">
+    <value>暗号化 Key ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionScheme" xml:space="preserve">
+    <value>暗号化方式</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme" xml:space="preserve">
+    <value>暗号化方式</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionVersion" xml:space="preserve">
+    <value>暗号化バージョン</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion" xml:space="preserve">
+    <value>暗号化バージョン</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_EndTime" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_EndTime" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime" xml:space="preserve">
+    <value>終了時間は開始時間よりも先である必要があります</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_EndTimestamp" xml:space="preserve">
+    <value>終了タイムスタンプ</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile" xml:space="preserve">
+    <value>新しい複製ファイルの名前を入力 :</value>
+  </data>
+  <data name="AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter" xml:space="preserve">
+    <value>新しい複製フィルターの名前を入力 :</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Error" xml:space="preserve">
+    <value>エラー :</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_ErrorDetail" xml:space="preserve">
+    <value>エラーの詳細</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount" xml:space="preserve">
+    <value>エラーファイルカウント</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails" xml:space="preserve">
+    <value>エラーファイルの詳細</value>
+  </data>
+  <data name="EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0" xml:space="preserve">
+    <value>エラー XML データ : {0}</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Error" xml:space="preserve">
+    <value>エラー :</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_ExportAllEntries" xml:space="preserve">
+    <value>すべてのエントリーをエクスポート</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_ExpirationDateTime0" xml:space="preserve">
+    <value>有効日時 : {0}</value>
+  </data>
+  <data name="ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0" xml:space="preserve">
+    <value>オブジェクト {0} を開放中にエラーが発生しました</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted" xml:space="preserve">
+    <value>ファイル #{0} 暗号化</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Name" xml:space="preserve">
+    <value>ファイル #{0} 名前</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0State" xml:space="preserve">
+    <value>ファイル #{0} 状態</value>
+  </data>
+  <data name="AssetInformation_DoDeleteFiles_FileDeletion" xml:space="preserve">
+    <value>ファイル削除</value>
+  </data>
+  <data name="AssetInformation_DoEditFile_FileIsToLargeToEditItOnline" xml:space="preserve">
+    <value>ファイルが大きいため、オンラインで編集できません</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_FileSize" xml:space="preserve">
+    <value>ファイル サイズ</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_Folder" xml:space="preserve">
+    <value>フォルダー</value>
+  </data>
+  <data name="BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist" xml:space="preserve">
+    <value>フォルダーが存在しません</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_FragmentedMP4Smooth" xml:space="preserve">
+    <value>Fragmented MP4 (Smooth)</value>
+  </data>
+  <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter" xml:space="preserve">
+    <value>グローバル フィルター :</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_GlobalFilter" xml:space="preserve">
+    <value>グローバル フィルター :</value>
+  </data>
+  <data name="TabFilters" xml:space="preserve">
+    <value>グローバル フィルター</value>
+  </data>
+  <data name="DynManifestFilter_DisplayFilterInfo_GlobalFilter" xml:space="preserve">
+    <value>グローバル フィルター</value>
+  </data>
+  <data name="ImportHttp_ImportHttp_Load_ImportFromSASContainerPath" xml:space="preserve">
+    <value>SAS コンテナー パスからインポート</value>
+  </data>
+  <data name="DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom" xml:space="preserve">
+    <value>トラックフィルターのインポート...</value>
+  </data>
+  <data name="CreateLiveChannel_checkIPAddress_IncorrectIPAddress" xml:space="preserve">
+    <value>無効な IP アドレス</value>
+  </data>
+  <data name="DynManifestFilter_textBoxRawulong_Validating_IncorrectValue" xml:space="preserve">
+    <value>無効な値</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector" xml:space="preserve">
+    <value>初期ベクタ (IV)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputProtocol" xml:space="preserve">
+    <value>入力プロトコル</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching" xml:space="preserve">
+    <value>入力プロトコルがマッチしません</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputSize" xml:space="preserve">
+    <value>入力サイズ</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputOutputSize" xml:space="preserve">
+    <value>入力/出力サイズ</value>
+  </data>
+  <data name="JobInformation_DoJobStats_JobReport" xml:space="preserve">
+    <value>ジョブレポート</value>
+  </data>
+  <data name="TabJobs" xml:space="preserve">
+    <value>ジョブ</value>
+  </data>
+  <data name="TabLive" xml:space="preserve">
+    <value>ライブチャネル</value>
+  </data>
+  <data name="AssetInformation_DoDelLocator_LocatorDeletion" xml:space="preserve">
+    <value>ロケーター削除</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_LocatorInformation" xml:space="preserve">
+    <value>ロケーターの情報</value>
+  </data>
+  <data name="TabLog" xml:space="preserve">
+    <value>ログ</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_MimeType" xml:space="preserve">
+    <value>Mime Type</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName" xml:space="preserve">
+    <value>メディアプロセッサ名</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId" xml:space="preserve">
+    <value>メディアプロセッサ ID</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Name0" xml:space="preserve">
+    <value>名前: {0}</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_NewName" xml:space="preserve">
+    <value>新しい名前</value>
+  </data>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy" xml:space="preserve">
+    <value>承認ポリシーを開く</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_OptionRemoval" xml:space="preserve">
+    <value>オプションの削除</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_OutputSize" xml:space="preserve">
+    <value>出力サイズ</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetId" xml:space="preserve">
+    <value>ペアレント アセット ID</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAsset" xml:space="preserve">
+    <value>ペアレント アセット</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetS" xml:space="preserve">
+    <value>ペアレント アセット</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Path0" xml:space="preserve">
+    <value>パス : {0}</value>
+  </data>
+  <data name="DynamicEncryption_GetCertificateFromFile_PFXPassword" xml:space="preserve">
+    <value>PFX パスワード</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Size" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_StartTime" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_StartTime" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_StartTime0" xml:space="preserve">
+    <value>開始時間 : {0}</value>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>ストレージ</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StorageAccount" xml:space="preserve">
+    <value>ストレージ アカウント</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountName" xml:space="preserve">
+    <value>ストレージ アカウント名</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountByteUsed" xml:space="preserve">
+    <value>ストレージアカウント 使用バイト</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageUrl" xml:space="preserve">
+    <value>ストレージ URL</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload" xml:space="preserve">
+    <value>ストレージ暗号化 (コンテンツはアップロード前に AES-256 でローカルで暗号化されます)</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty" xml:space="preserve">
+    <value>ストレージ アカウント キーがありません!</value>
+  </data>
+  <data name="CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid" xml:space="preserve">
+    <value>ストリーミングエンドポイント名が無効です</value>
+  </data>
+  <data name="TabOrigins" xml:space="preserve">
+    <value>ストリーミングエンドポイント</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingURL" xml:space="preserve">
+    <value>ストリーミング URL</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Task" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_TemplateId" xml:space="preserve">
+    <value>テンプレート ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience" xml:space="preserve">
+    <value>トークン オーディエンス</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer" xml:space="preserve">
+    <value>トークン発行者</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType" xml:space="preserve">
+    <value>トークンのタイプ</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType" xml:space="preserve">
+    <value>トークン検証キーのタイプ</value>
+  </data>
+  <data name="TabTransfers" xml:space="preserve">
+    <value>転送</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_TransferCompleted" xml:space="preserve">
+    <value>転送が完了しました</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser" xml:space="preserve">
+    <value>転送 '{0}' がユーザーによってキャンセルされました</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_Transfer0Completed" xml:space="preserve">
+    <value>転送 '{0}' が完了しました</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started" xml:space="preserve">
+    <value>転送 '{0}' が開始しました</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Transfer0Error" xml:space="preserve">
+    <value>転送 '{0}' でエラーが発生しました</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Type0" xml:space="preserve">
+    <value>タイプ : {0}</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_Secondary" xml:space="preserve">
+    <value>セカンダリ</value>
+  </data>
+  <data name="EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset" xml:space="preserve">
+    <value>ソースアセットのファイルを選択</value>
+  </data>
+</root>

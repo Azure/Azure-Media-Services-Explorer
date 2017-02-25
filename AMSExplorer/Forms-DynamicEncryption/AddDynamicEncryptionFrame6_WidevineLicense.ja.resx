@@ -156,7 +156,7 @@ Widevine ライセンス テンプレートの構成 (ポリシーオプショ�
     <value>70, 15</value>
   </data>
   <data name="linkLabelWidevinePolicy.Text" xml:space="preserve">
-    <value>追加の情報</value>
+    <value>詳細情報</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 15</value>

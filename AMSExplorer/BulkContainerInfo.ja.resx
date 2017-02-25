@@ -127,7 +127,7 @@
     <value>名前</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>名前: </value>
+    <value>名前 :</value>
   </data>
   <data name="labelPBulkName.Text" xml:space="preserve">
     <value>バルク コンテナー名: </value>

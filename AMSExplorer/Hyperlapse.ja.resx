@@ -551,4 +551,16 @@
   <data name="textBoxSourceDurationTime.Text" xml:space="preserve">
     <value>00:00:02</value>
   </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>1 = ビデオ安定化のみ</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>メディア処理実行</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>開始フレーム :</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>開始時間 :</value>
+  </data>
 </root>

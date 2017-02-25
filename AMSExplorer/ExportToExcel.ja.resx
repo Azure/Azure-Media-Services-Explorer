@@ -171,4 +171,10 @@
   <data name="label8.Text" xml:space="preserve">
     <value>名前, ID, 最終更新, タイプ, サイズ, URL</value>
   </data>
+  <data name="radioButtonDisplayedAssets.Text" xml:space="preserve">
+    <value>グリッドに表示されたアセット</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>+ ロケータ数, 有効期限, ストレージアカウント, 動的暗号化 ...</value>
+  </data>
 </root>

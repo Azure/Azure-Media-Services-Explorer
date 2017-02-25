@@ -154,7 +154,7 @@
     <value>接続</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>コピー: </value>
+    <value>コピー :</value>
   </data>
   <data name="buttonExport.Text" xml:space="preserve">
     <value>エクスポート</value>
@@ -176,5 +176,23 @@
   </data>
   <data name="radioButtonNewContainer.Text" xml:space="preserve">
     <value>新しいコンテナー :</value>
+  </data>
+  <data name="radioButtonOtherStorage.Text" xml:space="preserve">
+    <value>その他の Azure ストレージ</value>
+  </data>
+  <data name="radioButtonStorageDefault.Text" xml:space="preserve">
+    <value>既定の Azure Media Services ストレージアカウント</value>
+  </data>
+  <data name="columnHeader5.Text" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="ListViewFilesSize.Text" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="radioButtonSelectedContainer.Text" xml:space="preserve">
+    <value>選択されたコンテナーへ :</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>アセット ファイルを選択</value>
   </data>
 </root>

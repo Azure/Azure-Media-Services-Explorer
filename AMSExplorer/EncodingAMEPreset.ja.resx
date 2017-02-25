@@ -150,4 +150,7 @@
   <data name="label12.Text" xml:space="preserve">
     <value>(Ctrl/Shift キーで複数のプリセットを選択)</value>
   </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>エンコーディングプロファイルを選択 :</value>
+  </data>
 </root>

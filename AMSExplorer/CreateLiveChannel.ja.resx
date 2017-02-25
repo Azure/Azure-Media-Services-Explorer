@@ -995,4 +995,70 @@
   <data name="buttonUploadSlate.Text" xml:space="preserve">
     <value>ファイルをアップロード...</value>
   </data>
+  <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
+    <value>カスタム プリセット "{0}" を使用</value>
+  </data>
+  <data name="radioButtonCustomPreset.Text" xml:space="preserve">
+    <value>カスタム プリセットを使用 :</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>ビデオ プロファイル (読み込み専用) :</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ビデオ プロファイル (読み込み専用) :</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>キーフレームの間隔 :</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>オーディオ ストリーム インデックス :</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>オーディオ ストリーム インデックス :</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>実行中の状態のチャネルは費用がかかります</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>広告マーカーのソース :</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>追加のオーディオ ストリーム</value>
+  </data>
+  <data name="tabPageAdConfig.Text" xml:space="preserve">
+    <value>広告の構成</value>
+  </data>
+  <data name="tabPageAudioOptions.Text" xml:space="preserve">
+    <value>オーディオ オプション</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>オーディオ プロファイル (読み込み専用) :</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>既定のオーディオ ストリーム</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>既定のスレート画像のアセット :</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>説明 :</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>カスタム プリセットを使用する場合は amslived@microsoft.com まで連絡ください</value>
+  </data>
+  <data name="checkBoxIgnore708.Text" xml:space="preserve">
+    <value>CEA-708 クローズド キャプションを無視</value>
+  </data>
+  <data name="tabPageLiveEncoding.Text" xml:space="preserve">
+    <value>ライブ エンコーディング</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>ライブ エンコーディング (Azure Media Services) :</value>
+  </data>
+  <data name="checkBoxStartChannel.Text" xml:space="preserve">
+    <value>新しいチャネルをすぐに開始する</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>名前 または ID で検索 :</value>
+  </data>
 </root>

@@ -139,4 +139,34 @@
   <data name="label9.Text" xml:space="preserve">
     <value>JSON または XML (変種可能) :</value>
   </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="labelProcessorVersion.Text" xml:space="preserve">
+    <value>バージョン {0}</value>
+  </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>アセット名</value>
+  </data>
+  <data name="tabPageConfig.Text" xml:space="preserve">
+    <value>生成された JSON 構成</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ジョブ名 :</value>
+  </data>
+  <data name="labelWarningJSON.Text" xml:space="preserve">
+    <value>JSON シンタックスエラー: {0}</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>モード</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>出力先アセット名 :</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
 </root>
