@@ -223,13 +223,13 @@
     <value>ストリーミング ロケーターの複製</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>アセットのコピー {0}</value>
+    <value>アセットのコピー</value>
   </data>
   <data name="checkBoxCopyDynEnc.Text" xml:space="preserve">
     <value>動的暗号化のコピー</value>
   </data>
   <data name="checkBoxDeleteSource.Text" xml:space="preserve">
-    <value>ソース アセットの削除 {0}</value>
+    <value>ソース アセットの削除</value>
   </data>
   <data name="labelDescription.Text" xml:space="preserve">
     <value>説明</value>
@@ -239,5 +239,20 @@
   </data>
   <data name="labelWarning.Text" xml:space="preserve">
     <value>警告</value>
+  </data>
+  <data name="labelinfo.Text" xml:space="preserve">
+    <value>{0} アセットが選択されました {1}</value>
+  </data>
+  <data name="labelAssetCopy.Text" xml:space="preserve">
+    <value>アセットのコピー</value>
+  </data>
+  <data name="radioButtonDefaultStorage.Text" xml:space="preserve">
+    <value>既定のストレージアカウント</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>出力先</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Media Services アカウント :</value>
   </data>
 </root>

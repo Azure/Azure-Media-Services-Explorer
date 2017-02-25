@@ -149,16 +149,16 @@
     <value>カスタムで日時を指定</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>公開の終了日時</value>
+    <value>終了日時</value>
   </data>
   <data name="checkBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 19</value>
   </data>
   <data name="checkBoxStartDate.Text" xml:space="preserve">
-    <value>公開の開始日時を指定する</value>
+    <value>公開の開始日時を指定する :</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>公開の開始日時</value>
+    <value>開始日時</value>
   </data>
   <data name="radioButtonOrigin.Size" type="System.Drawing.Size, System.Drawing">
     <value>409, 19</value>

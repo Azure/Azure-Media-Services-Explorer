@@ -151,7 +151,7 @@
     <value>削除</value>
   </data>
   <data name="labeldesc.Text" xml:space="preserve">
-    <value>説明: </value>
+    <value>説明 :</value>
   </data>
   <data name="tabPageInfo.Text" xml:space="preserve">
     <value>情報</value>
@@ -167,5 +167,35 @@
   </data>
   <data name="numericUpDownRU.ToolTip" xml:space="preserve">
     <value>1 ユニット = 200 Mbps</value>
+  </data>
+  <data name="moreinfoSE.Text" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="buttonAddExampleClientPolicy.Text" xml:space="preserve">
+    <value>サンプル例を追加する</value>
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.Text" xml:space="preserve">
+    <value>サンプル例を追加する</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
+    <value>すべての IP アドレスを許可</value>
+  </data>
+  <data name="radioButtonClassic.Text" xml:space="preserve">
+    <value>クラシック</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>カスタムホスト名 :</value>
+  </data>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>Microsoft Silverlight クライアント向けの Client Access Policy を定義する</value>
+  </data>
+  <data name="checkBoxAkamai.Text" xml:space="preserve">
+    <value>Akamai Signature Header 認証を定義する</value>
+  </data>
+  <data name="checkBoxcrossdomain.Text" xml:space="preserve">
+    <value>Adobe Flash クライアント向けの Client Domain Access Policy を定義する</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Text" xml:space="preserve">
+    <value>ストリーミングのアクセス許可 IP Address の設定 :</value>
   </data>
 </root>

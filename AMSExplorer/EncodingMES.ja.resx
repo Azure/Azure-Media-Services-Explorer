@@ -249,4 +249,146 @@
   <data name="label14.Text" xml:space="preserve">
     <value>1 (最低) - 100 (最高)</value>
   </data>
+  <data name="label43.Text" xml:space="preserve">
+    <value>Y :</value>
+  </data>
+  <data name="label44.Text" xml:space="preserve">
+    <value>X :</value>
+  </data>
+  <data name="checkBoxUseEDL.Text" xml:space="preserve">
+    <value>Editing Decision List (EDL) の利用</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Video Cropping</value>
+  </data>
+  <data name="label40.Text" xml:space="preserve">
+    <value>幅 :</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>幅 :</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>幅 :</value>
+  </data>
+  <data name="label30.Text" xml:space="preserve">
+    <value>幅 :</value>
+  </data>
+  <data name="comboBoxRotation.Items" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="buttonAddEDLEntry.Text" xml:space="preserve">
+    <value>開始/終了ポイントの時間を EDL に追加</value>
+  </data>
+  <data name="radioButtonAllBitrates.Text" xml:space="preserve">
+    <value>すべてのビットレート</value>
+  </data>
+  <data name="label42.Text" xml:space="preserve">
+    <value>アルファチャネルはサポートされています (ただし opacity はサポートされていません)
+ソースビデオとオーバレイのファイルは同じアセットに含める必要があります</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>オーディオ</value>
+  </data>
+  <data name="checkBoxDisableAutoDeinterlacing.Text" xml:space="preserve">
+    <value>自動デインターレースを無効化</value>
+  </data>
+  <data name="checkBoxDisableAutoStretchMode.Text" xml:space="preserve">
+    <value>自動ストレッチモードを無効化</value>
+  </data>
+  <data name="checkBoxOverlayFade.Text" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>例 : 00:00:01 or 10% or 120</value>
+  </data>
+  <data name="label39.Text" xml:space="preserve">
+    <value>例 : 00:00:01 or 10% or 120</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>例 : 00:00:01 or 10% or 120</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>例 : 00:00:10 or 10% or 120</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>例 : 00:00:10 or 10% or 120</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>例 : 00:00:10 or 10% or 120</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>例 : 00:00:50 or 90% or 120</value>
+  </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>例 : 00:00:50 or 90% or 120</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>例 : 00:00:50 or 90% or 120</value>
+  </data>
+  <data name="groupBoxFade.Text" xml:space="preserve">
+    <value>フェード イン/アウト</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>フェード アウト :</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>フェード イン :</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>高さ : </value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>高さ : </value>
+  </data>
+  <data name="label41.Text" xml:space="preserve">
+    <value>高さ : </value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>高さ : </value>
+  </data>
+  <data name="labelInputAsset.Text" xml:space="preserve">
+    <value>入力アセット :</value>
+  </data>
+  <data name="buttonLoadXML.Text" xml:space="preserve">
+    <value>プリセット JSON ファイルを読み込み...</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Media Encoder Standard</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="radioButtonPixelsJPG.Text" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="radioButtonPixelsPNG.Text" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="radioButtonPixelsBMP.Text" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="buttonShowEDL.Text" xml:space="preserve">
+    <value>EDL を表示...</value>
+  </data>
+  <data name="label50.Text" xml:space="preserve">
+    <value>開始時間 :</value>
+  </data>
+  <data name="label46.Text" xml:space="preserve">
+    <value>開始時間 :</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>サムネイル ファイル名 :</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>サムネイル ファイル名 :</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>サムネイル ファイル名 :</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>プリセットの選択 または JSON ファイルをロード :</value>
+  </data>
 </root>

@@ -134,7 +134,7 @@
     <value>294, 19</value>
   </data>
   <data name="radioButtonCENCKey.Text" xml:space="preserve">
-    <value>Common encryption 方式 (PlayReady, Widevine...)</value>
+    <value>Common Encryption 方式 (PlayReady, Widevine...)</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>360, 60</value>
@@ -155,7 +155,7 @@
     <value>244, 19</value>
   </data>
   <data name="radioButtonCENCCbcsKey.Text" xml:space="preserve">
-    <value>Common encryption cbcs 方式 (FairPlay)</value>
+    <value>Common Encryption CBCS 方式 (FairPlay)</value>
   </data>
   <data name="radioButtonNoDynEnc.Size" type="System.Drawing.Size, System.Drawing">
     <value>238, 19</value>

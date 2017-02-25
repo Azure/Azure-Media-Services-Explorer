@@ -290,4 +290,14 @@
   <data name="label3.Text" xml:space="preserve">
     <value>名前 :</value>
   </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>アセットの作成</value>
+  </data>
+  <data name="labelExamples.Text" xml:space="preserve">
+    <value>例 :
+http://login:password@hostname.com/path
+Amazon : http://awskey:awssecretkey@bucket.s3.amazonaws.com/object
+Dropbox : http://dl.dropbox.com/object
+</value>
+  </data>
 </root>

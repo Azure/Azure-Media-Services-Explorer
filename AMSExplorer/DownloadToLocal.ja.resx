@@ -141,4 +141,13 @@
   <data name="label5.Text" xml:space="preserve">
     <value>アセットのダウンロード</value>
   </data>
+  <data name="checkBoxCreateSubfolder.Text" xml:space="preserve">
+    <value>サブフォルダ―を作成 :</value>
+  </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>ローカルフォルダーへ {0} アセットをダウンロード</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>ローカル フォルダー</value>
+  </data>
 </root>

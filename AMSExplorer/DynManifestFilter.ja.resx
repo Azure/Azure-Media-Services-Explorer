@@ -1302,7 +1302,7 @@
     <value>FourCC</value>
   </data>
   <data name="labelFilterTitle.Text" xml:space="preserve">
-    <value>グローバルフィルター</value>
+    <value>グローバル フィルター</value>
   </data>
   <data name="moreinfoprofilelink.Text" xml:space="preserve">
     <value>詳細情報</value>
@@ -1324,5 +1324,41 @@
   </data>
   <data name="label38.Text" xml:space="preserve">
     <value>0-1048576 or 1048576</value>
+  </data>
+  <data name="labelOffset.Text" xml:space="preserve">
+    <value>アセット オフセット :</value>
+  </data>
+  <data name="labelassetduration.Text" xml:space="preserve">
+    <value>アセットの長さ :</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>ビットレート</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>トラックのビットレート</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>条件 :</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>制約条件</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>DVR ウィンドウ :</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>終了時間 (VOD) :</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>例</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>フィルター タイムスケール :</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>トラック名 :</value>
+  </data>
+  <data name="label42.Text" xml:space="preserve">
+    <value>秒</value>
   </data>
 </root>

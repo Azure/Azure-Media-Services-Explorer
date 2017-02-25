@@ -198,7 +198,4 @@
   <data name="groupBoxVideoSettings.Text" xml:space="preserve">
     <value>Video Summarization</value>
   </data>
-  <data name="numericUpDownVideoDuration.ToolTip" xml:space="preserve">
-    <value>要約された結果を生成する間隔</value>
-  </data>
 </root>

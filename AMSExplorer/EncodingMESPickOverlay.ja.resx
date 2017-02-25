@@ -129,4 +129,10 @@
   <data name="buttonSelect.Text" xml:space="preserve">
     <value>選択</value>
   </data>
+  <data name="ListViewFilesSize.Text" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="labelStorageAccount.Text" xml:space="preserve">
+    <value>ソースアセットのファイルを選択</value>
+  </data>
 </root>

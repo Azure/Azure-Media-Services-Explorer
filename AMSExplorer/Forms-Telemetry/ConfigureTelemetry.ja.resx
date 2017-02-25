@@ -127,7 +127,7 @@
     <value>新しいテレメトリー設定</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>チャネル: </value>
+    <value>チャネル :</value>
   </data>
   <data name="moreinfoLiveEncodingProfilelink.Text" xml:space="preserve">
     <value>テレメトリーの詳細情報</value>

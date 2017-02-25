@@ -242,7 +242,7 @@
     <value>89, 15</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>アセットレポート:</value>
+    <value>アセットレポート :</value>
   </data>
   <data name="buttonCreateMail.Text" xml:space="preserve">
     <value>レポートメールの作成</value>

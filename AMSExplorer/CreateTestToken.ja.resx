@@ -350,4 +350,28 @@
   <data name="columnHeaderKeyType.Text" xml:space="preserve">
     <value>トークンキーのタイプ</value>
   </data>
+  <data name="columnHeaderAutPolName.Text" xml:space="preserve">
+    <value>オプション名</value>
+  </data>
+  <data name="columnHeaderId.Text" xml:space="preserve">
+    <value>オプション ID</value>
+  </data>
+  <data name="checkBoxAddContentKeyIdentifierClaim.Text" xml:space="preserve">
+    <value>コンテンツ鍵の Key ID クレームを追加する</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>トークン URL のオーディエンス または スコープ :</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>終了日時</value>
+  </data>
+  <data name="checkBoxStartDate.Text" xml:space="preserve">
+    <value>公開の開始日時を指定する :</value>
+  </data>
+  <data name="groupBoxStartDate.Text" xml:space="preserve">
+    <value>開始日時</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>承認オプションを選択</value>
+  </data>
 </root>

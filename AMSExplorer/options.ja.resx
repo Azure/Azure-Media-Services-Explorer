@@ -222,4 +222,16 @@
   <data name="label1.Text" xml:space="preserve">
     <value>ページあたりの表示アイテム数</value>
   </data>
+  <data name="checkBoxUseAdaptiveStreamingFormat.Text" xml:space="preserve">
+    <value>出力アセットに Adptive Streaming フォーマット (プレ フラグメント化) を使用</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>グリッド ディスプレイ</value>
+  </data>
+  <data name="checkBoxShowPremiumLiveEncoding.Text" xml:space="preserve">
+    <value>Premium Live Encoding オプションの表示</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>ステップ (%) :</value>
+  </data>
 </root>

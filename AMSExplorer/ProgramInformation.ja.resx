@@ -124,7 +124,7 @@
     <value>クリップボードへコピー</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>説明: </value>
+    <value>説明 :</value>
   </data>
   <data name="buttonDisplayRelatedAsset.Text" xml:space="preserve">
     <value>関連するアセット情報の表示</value>

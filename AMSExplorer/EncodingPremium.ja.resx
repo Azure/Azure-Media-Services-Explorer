@@ -147,4 +147,7 @@
   <data name="buttonUpload.Text" xml:space="preserve">
     <value>新しいワークフローをアップロード</value>
   </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>MMedia Encoder Premium Workflow</value>
+  </data>
 </root>

@@ -234,7 +234,7 @@
     <value>発行者: </value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>オーディエンス または スコープ: </value>
+    <value>オーディエンス または スコープ :</value>
   </data>
   <data name="radioButtonSWT.Text" xml:space="preserve">
     <value>SWT - Simple Web トークン</value>
