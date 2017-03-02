@@ -215,7 +215,7 @@ namespace AMSExplorer
             {
                 for (int i = 0; i < _context.StreamingEndpoints.Count(); i++)
                 {
-                    linec.Add("-");
+                    linec.Add(string.Empty);
                 }
             }
 
@@ -233,7 +233,7 @@ namespace AMSExplorer
             }
             else
             {
-                linec.Add("+");
+                linec.Add(string.Empty);
             }
 
 
@@ -620,7 +620,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-                else // Selected or visible asets
+                else // Selected or visible assets
                 {
                     IEnumerable<IAsset> myassets;
                     if (radioButtonSelectedAssets.Checked)

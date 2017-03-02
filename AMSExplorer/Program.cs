@@ -1674,6 +1674,7 @@ namespace AMSExplorer
             SelectedAssets.Add(asset);
         }
 
+
         public IEnumerable<Uri> GetValidURIs()
         {
             var _context = SelectedAssets.FirstOrDefault().GetMediaContext();
@@ -1704,7 +1705,6 @@ namespace AMSExplorer
                 return null;
             }
         }
-
 
         public static IEnumerable<Uri> GetURIs(IAsset asset)
         {
