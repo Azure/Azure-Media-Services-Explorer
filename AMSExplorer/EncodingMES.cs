@@ -46,11 +46,14 @@ namespace AMSExplorer
         IAsset _firstAsset;
         private CloudMediaContext _context;
 
-        private const string defaultprofile = "H264 Multiple Bitrate 720p";
+        private const string defaultprofile = "Adaptive Streaming (automatic)";
+        private const string defaultprofileSubclipping = "H264 Multiple Bitrate 720p";
+
         bool usereditmode = false;
         private const string strBest = "{Best}";
 
         public readonly IList<Profile> Profiles = new List<Profile> {
+            new Profile() {Prof=@"Adaptive Streaming (automatic)", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. The auto-generated preset will never exceed the input resolution and bitrate. For example, if the input is 720p at 3Mbps, output will remain 720p at best, and will start at rates lower than 3Mbps."},
             new Profile() {Prof=@"AAC Good Quality Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps."},
             new Profile() {Prof=@"AAC Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 128 kbps."},
             new Profile() {Prof=@"H264 Multiple Bitrate 1080p Audio 5.1", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and AAC 5.1 audio."},
@@ -263,11 +266,18 @@ namespace AMSExplorer
             }
 
             // presets list
-            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
+            var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f)).OrderByDescending(f => f.Contains(defaultprofile));
             listboxPresets.Items.AddRange(filePaths.ToArray());
             if (!_ThumbnailsModeOnly)
             {
-                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+                if (_subclipConfig != null && _subclipConfig.Trimming) // subclipping with reencoding
+                {
+                    listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofileSubclipping);
+                }
+                else // normal case
+                {
+                    listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+                }
             }
             else // Thumbnail mode only
             {
@@ -296,6 +306,7 @@ namespace AMSExplorer
             }
 
             UpdateTextBoxJSON(textBoxConfiguration.Text);
+
         }
 
         private void ButtonShowEDL_EDLChanged(object sender, EventArgs e)
@@ -1350,16 +1361,29 @@ namespace AMSExplorer
                     Error = true;
                 }
             }
+
+
+            ((Control)this.TabPageAdvanced).Enabled =
+            ((Control)this.tabPageOverlay).Enabled =
+            ((Control)this.tabPageThBMP).Enabled =
+            ((Control)this.tabPageThJPG).Enabled =
+            ((Control)this.tabPageThPNG).Enabled =
+            ((Control)this.tabPageTrimCrop).Enabled = type != TypeConfig.Other;
+
+            labelInfoTextNoAdvancedFeature.Visible = type == TypeConfig.Other;
+
             labelWarningJSON.Visible = Error;
 
             // Display multiplier
             if (multiplier > 0)
             {
                 labelOutputMinuteMultiplier.Text = string.Format(_multiplierlabel, multiplier, Properties.Settings.Default.Currency, multiplier * Properties.Settings.Default.MESPricePerMin);
+                labelOutputMinuteMultiplier.Visible = true;
             }
             else
             {
-                labelOutputMinuteMultiplier.Text = "";
+                labelOutputMinuteMultiplier.Visible = false;
+                //labelOutputMinuteMultiplier.Text = "";
             }
         }
 
