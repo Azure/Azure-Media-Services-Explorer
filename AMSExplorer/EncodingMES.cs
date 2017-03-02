@@ -211,6 +211,7 @@ namespace AMSExplorer
             linkLabelThumbnail3.Links.Add(new LinkLabel.Link(0, linkLabelThumbnail3.Text.Length, Constants.LinkThumbnailsMES));
             linkLabelInfoOverlay.Links.Add(new LinkLabel.Link(0, linkLabelInfoOverlay.Text.Length, Constants.LinkOverlayMES));
             linkLabelMESFeatures.Links.Add(new LinkLabel.Link(0, linkLabelMESFeatures.Text.Length, Constants.LinkMESAdvFeatures));
+            linkLabelAdaptiveStreamingPreset.Links.Add(new LinkLabel.Link(0, linkLabelAdaptiveStreamingPreset.Text.Length, Constants.LinkMESAutoGenPreset));
             comboBoxRotation.SelectedIndex = 0;
 
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
@@ -1370,7 +1371,8 @@ namespace AMSExplorer
             ((Control)this.tabPageThPNG).Enabled =
             ((Control)this.tabPageTrimCrop).Enabled = type != TypeConfig.Other;
 
-            labelInfoTextNoAdvancedFeature.Visible = type == TypeConfig.Other;
+            labelInfoTextNoAdvancedFeature.Visible =
+            linkLabelAdaptiveStreamingPreset.Visible = listboxPresets.SelectedIndex == 0; // Automatic preset
 
             labelWarningJSON.Visible = Error;
 
