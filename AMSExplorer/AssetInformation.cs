@@ -361,6 +361,8 @@ namespace AMSExplorer
             oktobuildlocator = true;
             BuildLocatorsTree();
 
+            listViewFiles.Tag = -1;
+            listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
         }
 
         private void DisplayAssetFilters()

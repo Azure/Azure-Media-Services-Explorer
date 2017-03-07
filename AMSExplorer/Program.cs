@@ -2091,21 +2091,38 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+        static public TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
+        {
+            var response = ts;
+            ulong timestamp = (ulong)(ts.TotalSeconds * data.TimeScale);
+
+            int i = 0;
+            foreach (var t in data.TimestampList)
+            {
+                if (t < timestamp && i < (data.TimestampList.Count - 1) && timestamp < data.TimestampList[i + 1])
+                {
+                    response = TimeSpan.FromSeconds((double)t / (double)data.TimeScale);
+                    break;
+                }
+                i++;
+            }
+            return response;
+        }
+
 
         static public ManifestTimingData GetManifestTimingData(IAsset asset)
         // Parse the manifest and get data from it
         {
-            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0 };
+            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>() };
 
             try
             {
                 ILocator mytemplocator = null;
-                Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
-
+                Uri myuri = GetValidOnDemandURI(asset);
                 if (myuri == null)
                 {
-                    mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
-                    myuri = AssetInfo.GetValidOnDemandURI(asset);
+                    mytemplocator = CreatedTemporaryOnDemandLocator(asset);
+                    myuri = GetValidOnDemandURI(asset);
                 }
                 if (myuri != null)
                 {
@@ -2132,28 +2149,45 @@ namespace AMSExplorer
                         response.TimestampOffset = 0; // no timestamp, so it should be 0
                     }
 
+                    ulong totalduration = 0;
+                    ulong durationpreviouschunk = 0;
+                    ulong durationchunk;
+                    int repeatchunk;
+                    foreach (var chunk in videotrack.Elements("c"))
+                    {
+                        durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                        repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
+                        totalduration += durationchunk * (ulong)repeatchunk;
+
+                        if (chunk.Attribute("t") != null)
+                        {
+                            //totalduration = ulong.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
+                            response.TimestampList.Add(ulong.Parse(chunk.Attribute("t").Value));
+                        }
+                        else
+                        {
+                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk);
+                        }
+
+                        for (int i = 1; i < repeatchunk; i++)
+                        {
+                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationchunk);
+                        }
+
+                        durationpreviouschunk = durationchunk;
+
+                    }
+                    response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk;
+
                     if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                     { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
                         response.IsLive = true;
-
-                        long duration = 0;
-                        long r, d;
-                        foreach (var chunk in videotrack.Elements("c"))
-                        {
-                            if (chunk.Attribute("t") != null)
-                            {
-                                duration = long.Parse(chunk.Attribute("t").Value) - (long)response.TimestampOffset; // new timestamp, perhaps gap in live stream....
-                            }
-                            d = chunk.Attribute("d") != null ? long.Parse(chunk.Attribute("d").Value) : 0;
-                            r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;
-                            duration += d * r;
-                        }
-                        response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds((double)totalduration / ((double)timescale));
                     }
                     else
                     {
-                        ulong duration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
-                        response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
+                        totalduration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
+                        response.AssetDuration = TimeSpan.FromSeconds((double)totalduration / ((double)timescale));
                     }
                 }
                 else
@@ -2162,12 +2196,13 @@ namespace AMSExplorer
                 }
                 if (mytemplocator != null) mytemplocator.Delete();
             }
-            catch
+            catch (Exception ex)
             {
                 response.Error = true;
             }
             return response;
         }
+
 
         public class ManifestSegmentData
         {
@@ -2619,6 +2654,41 @@ namespace AMSExplorer
             else return null;
         }
 
+        public static long? Inverse_FormatByteSize(string mystring)
+        {
+            var sizes = new List<unitSize> {
+                  new unitSize() { unitn = "B", mult = (long)1 },
+                  new unitSize(){ unitn = "KB", mult = (long)1024 },
+                  new unitSize(){ unitn = "MB", mult = (long)1024*1024 },
+                  new unitSize(){ unitn = "GB", mult = (long)1024*1024*1024 },
+                  new unitSize(){ unitn = "TB", mult = (long)1024*1024*1024*1024 },
+                  new unitSize(){ unitn = "PB", mult = (long)1024*1024*1024 *1024*1024 },
+                  new unitSize(){ unitn = "EB", mult = (long)1024*1024*1024 *1024*1024*1024 }
+                  };
+
+            if (sizes.Any(s => mystring.EndsWith(" " + s.unitn)))
+            {
+                var val = mystring.Substring(0, mystring.Length - 2).Trim();
+                try
+                {
+                    var valdouble = double.Parse(val);
+                    var myunit = mystring.Substring(mystring.Length - 2, 2).Trim();
+                    var mymult = sizes.Where(s => s.unitn == myunit).FirstOrDefault().mult;
+                    return (long)(valdouble * mymult);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        public class unitSize
+        {
+            public string unitn { get; set; }
+            public long mult { get; set; }
+        }
 
 
         public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
@@ -3812,6 +3882,8 @@ namespace AMSExplorer
         public ulong? TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
+        public List<ulong> TimestampList { get; set; }
+        public ulong TimestampEndLastChunk { get; set; }
     }
 
     public class SubClipTrimmingDataXMLSerialized
@@ -4050,26 +4122,63 @@ namespace AMSExplorer
         }
         public int Compare(object x, object y)
         {
-            int returnVal;
+            int returnVal=0;
+            bool Error = false;
+
+            string sx = ((ListViewItem)x).SubItems[col].Text;
+            string sy = ((ListViewItem)y).SubItems[col].Text;
             // Determine whether the type being compared is a date type.
+
+            // Inverse_FormatByteSize
+            // let's compare if the field is a size format (512 B or 45 KB...)
+
+            // Parse the two objects passed as a parameter as a DateTime.
             try
             {
-                // Parse the two objects passed as a parameter as a DateTime.
-                System.DateTime firstDate =
-                        DateTime.Parse(((ListViewItem)x).SubItems[col].Text);
-                System.DateTime secondDate =
-                        DateTime.Parse(((ListViewItem)y).SubItems[col].Text);
-                // Compare the two dates.
-                returnVal = DateTime.Compare(firstDate, secondDate);
+                var firstSize = AssetInfo.Inverse_FormatByteSize(sx);
+                var secondSize = AssetInfo.Inverse_FormatByteSize(sy);
+                if (firstSize != null && secondSize != null)
+                {
+                    var firstSizel = (long)firstSize;
+                    var secondSizel = (long)secondSize;
+                    if (firstSizel < secondSizel)
+                        returnVal = -1;
+                    else if (firstSizel > secondSizel)
+                        returnVal = 1;
+                    else
+                        returnVal = 0;
+                }
+                else
+                {
+                    Error = true;
+                }
             }
-            // If neither compared object has a valid date format, compare
-            // as a string.
             catch
             {
-                // Compare the two items as a string.
-                returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
-                            ((ListViewItem)y).SubItems[col].Text);
+                Error = true;
             }
+
+            if (Error)
+            {
+                try
+                {
+                    // Parse the two objects passed as a parameter as a DateTime.
+                    System.DateTime firstDate =
+                            DateTime.Parse(sx);
+                    System.DateTime secondDate =
+                            DateTime.Parse(sy);
+                    // Compare the two dates.
+                    returnVal = DateTime.Compare(firstDate, secondDate);
+                }
+                // If neither compared object has a valid date format, compare
+                // as a string.
+                catch
+                {
+                    // Compare the two items as a string.
+                    returnVal = String.Compare(sx, sy);
+                }
+            }
+           
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
                 // Invert the value returned by String.Compare.
@@ -4122,12 +4231,50 @@ namespace AMSExplorer
         }
         public int Compare(object x, object y)
         {
-            int returnVal;
-            // Determine whether the type being compared is a date type.
+            int returnVal=0;
+            bool Error = false;
 
-            // Compare the two items as a string.
-            returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
-                        ((ListViewItem)y).SubItems[col].Text);
+            string sx = ((ListViewItem)x).SubItems[col].Text;
+            string sy = ((ListViewItem)y).SubItems[col].Text;
+
+
+            // Inverse_FormatByteSize
+            // let's compare if the field is a size format (512 B or 45 KB...)
+
+            // Parse the two objects passed as a parameter as a DateTime.
+            try
+            {
+                var firstSize = AssetInfo.Inverse_FormatByteSize(sx);
+                var secondSize = AssetInfo.Inverse_FormatByteSize(sy);
+                if (firstSize != null && secondSize != null)
+                {
+                    var firstSizel = (long)firstSize;
+                    var secondSizel = (long)secondSize;
+                    if (firstSizel < secondSizel)
+                        returnVal = -1;
+                    else if (firstSizel > secondSizel)
+                        returnVal = 1;
+                    else
+                        returnVal = 0;
+
+                }
+                else
+                {
+                    Error = true;
+                }
+
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                // Compare the two items as a string.
+                returnVal = String.Compare(sx, sy);
+           }
+
 
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
