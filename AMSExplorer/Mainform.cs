@@ -5604,7 +5604,7 @@ namespace AMSExplorer
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
 
-            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+            // var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
             // Removed as not supported by Indexer v2 Preview
             //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
@@ -5665,7 +5665,7 @@ namespace AMSExplorer
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
-            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+            // var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
             // not needed as ism as primary seems to work ok
             // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
@@ -5724,7 +5724,7 @@ namespace AMSExplorer
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
-            var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
+            //var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
 
             // not needed as ism as primary seems to work ok
             // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
