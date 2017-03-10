@@ -8,7 +8,7 @@ EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "SetupAMSExplorer", "SetupAMSExplorer\SetupAMSExplorer.isproj", "{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}"
 	ProjectSection(ProjectDependencies) = postProject
 		{67573AA5-0316-4C90-8CE4-93A950CD0A86} = {67573AA5-0316-4C90-8CE4-93A950CD0A86}
-	EndProjectSectionEndProject
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

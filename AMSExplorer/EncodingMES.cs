@@ -1157,7 +1157,7 @@ namespace AMSExplorer
                         {
                             if (h264.Width != null && h264.Height != null)
                             {
-                                int res = h264.Width * h264.Height;
+                                int res = (int)h264.Width * (int)h264.Height;
                                 int value;
                                 if (res < 1280 * 720)
                                 {
