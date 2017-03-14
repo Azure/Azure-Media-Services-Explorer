@@ -710,9 +710,14 @@ namespace AMSExplorer
 
         private void DoDisplayFileProperties()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
+            var SelectedAssetFiles = ReturnSelectedAssetFiles();
+
+            if (SelectedAssetFiles.Count > 0)
             {
-                IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
+                IAssetFile AF = SelectedAssetFiles.FirstOrDefault();
+                if (AF == null)
+                    return;
+                
                 DGFiles.Rows.Clear();
                 DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, AF.Name);
                 DGFiles.Rows.Add("Id", AF.Id);
@@ -1666,15 +1671,12 @@ namespace AMSExplorer
                     {
 
                         AssetFileMetadata MyAssetMetada = metadatafile.GetMetadata(tempMetadaLocator);
-
                     }
                 }
                 catch
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator);
                 }
-
-
             }
         }
 
@@ -1690,16 +1692,14 @@ namespace AMSExplorer
 
             foreach (int selectedindex in listViewFiles.SelectedIndices)
             {
-                IAssetFile AF = myAsset.AssetFiles.Skip(selectedindex).Take(1).FirstOrDefault();
+                IAssetFile AF = myAsset.AssetFiles.Where(af => af.Name == listViewFiles.Items[selectedindex].Text).FirstOrDefault();
+
                 if (AF != null)
                 {
                     Selection.Add(AF);
                 }
             }
-
             return Selection;
-
-
         }
 
         private void ShowFileMetadata()

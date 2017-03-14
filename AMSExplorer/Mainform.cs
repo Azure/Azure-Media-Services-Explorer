@@ -12270,6 +12270,7 @@ namespace AMSExplorer
 
                 if (JobToDisplayP2 != null)
                 {
+                    var jobqueue = _context.Jobs.Where(j => j.State == JobState.Processing).Count();
                     if (JobToDisplayP2.State == JobState.Error)
                     {
                         StringBuilder sb = new StringBuilder();

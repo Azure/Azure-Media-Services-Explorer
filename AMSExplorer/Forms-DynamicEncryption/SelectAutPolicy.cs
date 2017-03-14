@@ -43,9 +43,10 @@ namespace AMSExplorer
         {
             get
             {
-                if (listViewPolicies.SelectedIndices.Count > 0)
+                var policies = ReturnSelectedAuthPolicies();
+                if (policies.Count > 0)
                 {
-                    return autPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    return policies.FirstOrDefault();
                 }
                 else
                 {
@@ -111,6 +112,22 @@ namespace AMSExplorer
         }
 
 
+        private List<IContentKeyAuthorizationPolicy> ReturnSelectedAuthPolicies()
+        {
+            List<IContentKeyAuthorizationPolicy> Selection = new List<IContentKeyAuthorizationPolicy>();
+
+            foreach (int selectedindex in listViewPolicies.SelectedIndices)
+            {
+                IContentKeyAuthorizationPolicy DP = autPolicies.Where(pol => pol.Id == listViewPolicies.Items[selectedindex].SubItems[1].Text).FirstOrDefault();
+
+                if (DP != null)
+                {
+                    Selection.Add(DP);
+                }
+            }
+            return Selection;
+        }
+
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonDelete.Enabled = listViewPolicies.SelectedItems.Count > 0;
@@ -153,7 +170,6 @@ namespace AMSExplorer
                 dataGridViewAutPolOption.Rows.Clear();
                 dataGridViewAutPolOption.ColumnCount = 2;
                 dataGridViewAutPolOption.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-
 
                 IContentKeyAuthorizationPolicyOption option = SelectedPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
                 if (option != null) // Token option
@@ -251,14 +267,15 @@ namespace AMSExplorer
 
         private void DoDeleteAutPol()
         {
+            var policies = ReturnSelectedAuthPolicies();
 
-            if (listViewPolicies.SelectedIndices.Count > 0)
+            if (policies.Count > 0)
             {
                 string question;
                 int nbError = 0;
                 string messagestr = "";
 
-                if (listViewPolicies.SelectedIndices.Count == 1)
+                if (policies.Count == 1)
                 {
                     question = "Are you sure that you want to DELETE this policy from the Azure Media Services account ?";
                 }
@@ -270,10 +287,8 @@ namespace AMSExplorer
                 if (MessageBox.Show(question, "Authorization policy deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    foreach (var ind in listViewPolicies.SelectedIndices)
+                    foreach (var AuthPol in policies)
                     {
-                        IContentKeyAuthorizationPolicy AuthPol = autPolicies.Skip((int)ind).Take(1).FirstOrDefault();
-
                         if (AuthPol != null)
                         {
                             try
@@ -307,9 +322,11 @@ namespace AMSExplorer
 
         private void DoMenuRenamePolicy()
         {
-            if (listViewPolicies.SelectedIndices.Count == 1)
+            var policies = ReturnSelectedAuthPolicies();
+
+            if (policies.Count == 1)
             {
-                IContentKeyAuthorizationPolicy AuthPol = autPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+                IContentKeyAuthorizationPolicy AuthPol = policies.FirstOrDefault();
 
                 string value = AuthPol.Name;
 

@@ -43,9 +43,11 @@ namespace AMSExplorer
         {
             get
             {
-                if (listViewPolicies.SelectedIndices.Count > 0)
+                var policies = ReturnSelectedDeliveryPolicies();
+
+                if (policies.Count > 0)
                 {
-                    return delPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    return policies.FirstOrDefault();
                 }
                 else
                 {
@@ -77,8 +79,6 @@ namespace AMSExplorer
             listViewPolicies.Items.Clear();
             DGDelPol.Rows.Clear();
 
-
-
             //  autPolicies = delPolicies = _context.AssetDeliveryPolicies.ToList().Where(p => p.AssetDeliveryPolicyType == _delpoltype).ToList();
             if (_delpoltype != AssetDeliveryPolicyType.None)
             {
@@ -89,10 +89,6 @@ namespace AMSExplorer
             {
                 delPolicies = _context.AssetDeliveryPolicies.ToList();
             }
-
-
-
-            //  delPolicies = _context.AssetDeliveryPolicies.ToList();
 
             listViewPolicies.BeginUpdate();
             foreach (var pol in delPolicies)
@@ -122,9 +118,11 @@ namespace AMSExplorer
 
         private void DoDisplayDeliveryPolicyProperties()
         {
-            if (listViewPolicies.SelectedItems.Count > 0)
+            var selection = ReturnSelectedDeliveryPolicies();
+
+            if (selection.Count > 0)
             {
-                var policy = delPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+                var policy = selection.FirstOrDefault();
                 DGDelPol.Rows.Clear();
                 DGDelPol.ColumnCount = 2;
                 DGDelPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
@@ -145,34 +143,51 @@ namespace AMSExplorer
             }
         }
 
+        private List<IAssetDeliveryPolicy> ReturnSelectedDeliveryPolicies()
+        {
+            List<IAssetDeliveryPolicy> Selection = new List<IAssetDeliveryPolicy>();
+
+            foreach (int selectedindex in listViewPolicies.SelectedIndices)
+            {
+                IAssetDeliveryPolicy DP = delPolicies.Where(pol => pol.Id == listViewPolicies.Items[selectedindex].SubItems[3].Text).FirstOrDefault();
+
+                if (DP != null)
+                {
+                    Selection.Add(DP);
+                }
+            }
+            return Selection;
+        }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             DoDeleteDelPol();
         }
         private void DoDeleteDelPol()
         {
+            var policies = ReturnSelectedDeliveryPolicies();
 
-            if (listViewPolicies.SelectedIndices.Count > 0)
+            if (policies.Count > 0)
             {
                 string question;
                 int nbError = 0;
                 string messagestr = "";
 
-                if (listViewPolicies.SelectedIndices.Count == 1)
+                if (policies.Count == 1)
                 {
                     question = "Are you sure that you want to DELETE this policy from the Azure Media Services account ?";
                 }
                 else
                 {
-                    question = string.Format("Are you sure that you want to DELETE these {0} policies from the Azure Media Services account ?", listViewPolicies.SelectedIndices.Count);
+                    question = string.Format("Are you sure that you want to DELETE these {0} policies from the Azure Media Services account ?", policies.Count);
                 }
 
                 if (MessageBox.Show(question, "Delivery policy deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    foreach (var ind in listViewPolicies.SelectedIndices)
+                    foreach (var DelPol in policies)
                     {
-                        IAssetDeliveryPolicy DelPol = delPolicies.Skip((int)ind).Take(1).FirstOrDefault();
+                        //IAssetDeliveryPolicy DelPol = delPolicies.Skip((int)ind).Take(1).FirstOrDefault();
 
                         if (DelPol != null)
                         {
@@ -212,9 +227,11 @@ namespace AMSExplorer
 
         private void DoMenuRenamePolicy()
         {
-            if (listViewPolicies.SelectedIndices.Count == 1)
+            var policies = ReturnSelectedDeliveryPolicies();
+
+            if (policies.Count == 1)
             {
-                IAssetDeliveryPolicy DelPol = delPolicies.Skip(listViewPolicies.SelectedIndices[0]).Take(1).FirstOrDefault();
+                IAssetDeliveryPolicy DelPol = policies.FirstOrDefault();
 
                 string value = DelPol.Name;
 

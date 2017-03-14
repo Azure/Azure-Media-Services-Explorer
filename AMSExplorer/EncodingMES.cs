@@ -1338,16 +1338,26 @@ namespace AMSExplorer
             if (type == TypeConfig.JSON)
             {
                 // Let's check JSON syntax
-
+                JObject jo = new JObject();
                 try
                 {
-                    var jo = JObject.Parse(textBoxConfiguration.Text);
-                    multiplier = calculateMultiplier(jo);
+                     jo = JObject.Parse(textBoxConfiguration.Text);
                 }
                 catch (Exception ex)
                 {
                     labelWarningJSON.Text = string.Format(_labelWarningJSON, ex.Message);
                     Error = true;
+                }
+                if (!Error)
+                {
+                    try
+                    {
+                        multiplier = calculateMultiplier(jo);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
             else if (type == TypeConfig.XML) // XML 

@@ -4121,7 +4121,7 @@ namespace AMSExplorer
         }
         public int Compare(object x, object y)
         {
-            int returnVal=0;
+            int returnVal = 0;
             bool Error = false;
 
             string sx = ((ListViewItem)x).SubItems[col].Text;
@@ -4159,11 +4159,12 @@ namespace AMSExplorer
 
             if (Error)
             {
+                /*
                 try
                 {
                     // Parse the two objects passed as a parameter as a DateTime.
                     System.DateTime firstDate =
-                            DateTime.Parse(sx);
+                            DateTime.Parse(sx); 
                     System.DateTime secondDate =
                             DateTime.Parse(sy);
                     // Compare the two dates.
@@ -4176,8 +4177,20 @@ namespace AMSExplorer
                     // Compare the two items as a string.
                     returnVal = String.Compare(sx, sy);
                 }
+                */
+
+                // Parse the two objects passed as a parameter as a DateTime.
+                DateTime firstDate, secondDate;
+                if ( DateTime.TryParse(sx, out firstDate) && DateTime.TryParse(sy, out secondDate))
+                {
+                    returnVal = DateTime.Compare(firstDate, secondDate);
+                }
+                else
+                {
+                    returnVal = String.Compare(sx, sy);
+                }
             }
-           
+
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
                 // Invert the value returned by String.Compare.
@@ -4230,7 +4243,7 @@ namespace AMSExplorer
         }
         public int Compare(object x, object y)
         {
-            int returnVal=0;
+            int returnVal = 0;
             bool Error = false;
 
             string sx = ((ListViewItem)x).SubItems[col].Text;
@@ -4272,7 +4285,7 @@ namespace AMSExplorer
             {
                 // Compare the two items as a string.
                 returnVal = String.Compare(sx, sy);
-           }
+            }
 
 
             // Determine whether the sort order is descending.
