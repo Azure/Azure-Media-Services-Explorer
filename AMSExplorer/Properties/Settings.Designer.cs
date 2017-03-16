@@ -574,5 +574,17 @@ namespace AMSExplorer.Properties {
                 this["MEPWPricePerMin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HideTaskbarNotifications {
+            get {
+                return ((bool)(this["HideTaskbarNotifications"]));
+            }
+            set {
+                this["HideTaskbarNotifications"] = value;
+            }
+        }
     }
 }

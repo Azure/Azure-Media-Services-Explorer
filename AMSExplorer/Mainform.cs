@@ -376,7 +376,10 @@ namespace AMSExplorer
 
         public void Notify(string title, string text, bool Error = false)
         {
-            notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
+            if (Properties.Settings.Default.HideTaskbarNotifications == false)
+            {
+                notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
+            }
         }
 
 

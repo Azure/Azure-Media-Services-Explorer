@@ -202,7 +202,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxUseStorageEncryption.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="checkBoxUseProtectedConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -232,7 +232,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxUseProtectedConfig.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -654,6 +654,36 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="checkBoxHideTaskbarNotifications.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 219</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 19</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Text" xml:space="preserve">
+    <value>Hide Taskbar Notifications</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHideTaskbarNotifications.Name" xml:space="preserve">
+    <value>checkBoxHideTaskbarNotifications</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHideTaskbarNotifications.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHideTaskbarNotifications.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHideTaskbarNotifications.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="checkBoxUseAdaptiveStreamingFormat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -682,7 +712,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxUseAdaptiveStreamingFormat.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -712,7 +742,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="numericUpDownAssetAnalysisStep.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -736,7 +766,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;numericUpDownAssetAnalysisStep.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -766,7 +796,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -796,7 +826,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="numericUpDownAssetAnalysisStart.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -820,7 +850,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;numericUpDownAssetAnalysisStart.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="checkBoxShowPremiumLiveEncoding.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -850,7 +880,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxShowPremiumLiveEncoding.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -880,7 +910,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="numericUpDownTokenDuration.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -904,7 +934,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;numericUpDownTokenDuration.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -934,7 +964,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="numericUpDownLocatorDuration.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -958,7 +988,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;numericUpDownLocatorDuration.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 105</value>
@@ -982,7 +1012,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1012,7 +1042,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="numericUpDownPriority.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -1036,7 +1066,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;numericUpDownPriority.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 27</value>
@@ -1060,7 +1090,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
