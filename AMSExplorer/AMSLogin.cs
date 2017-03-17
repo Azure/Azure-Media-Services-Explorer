@@ -720,5 +720,11 @@ namespace AMSExplorer
         {
             CheckTextBoxGuid(sender);
         }
+
+        private void listBoxAcounts_DoubleClick(object sender, EventArgs e)
+        {
+            // Proceed to log in to the selected account in the listbox
+            buttonLogin_Click(sender, e);
+        }
     }
 }
