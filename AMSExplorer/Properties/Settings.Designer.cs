@@ -445,18 +445,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
-        public decimal IndexingPricePerMin {
-            get {
-                return ((decimal)(this["IndexingPricePerMin"]));
-            }
-            set {
-                this["IndexingPricePerMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowLivePremiumChannel {
             get {
@@ -584,6 +572,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["HideTaskbarNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
+        public decimal IndexingPricePerMin2 {
+            get {
+                return ((decimal)(this["IndexingPricePerMin2"]));
+            }
+            set {
+                this["IndexingPricePerMin2"] = value;
             }
         }
     }

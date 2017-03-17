@@ -49,6 +49,7 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.checkBoxUseAdaptiveStreamingFormat = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.numericUpDownAssetAnalysisStep = new System.Windows.Forms.NumericUpDown();
@@ -89,7 +90,6 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
@@ -266,6 +266,12 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // checkBoxHideTaskbarNotifications
+            // 
+            resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
+            this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
+            this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseAdaptiveStreamingFormat
             // 
@@ -471,7 +477,7 @@
             131072});
             this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
             this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            5,
+            2,
             0,
             0,
             131072});
@@ -595,12 +601,6 @@
             // 
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
-            // 
-            // checkBoxHideTaskbarNotifications
-            // 
-            resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
-            this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
-            this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
             // 
             // Options
             // 

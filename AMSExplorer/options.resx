@@ -718,7 +718,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 239</value>
+    <value>371, 255</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 15</value>
@@ -748,7 +748,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="numericUpDownAssetAnalysisStep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>446, 237</value>
+    <value>446, 253</value>
   </data>
   <data name="numericUpDownAssetAnalysisStep.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 23</value>
@@ -772,7 +772,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 239</value>
+    <value>158, 255</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 15</value>
@@ -805,16 +805,16 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>47, 239</value>
+    <value>47, 255</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 15</value>
+    <value>105, 15</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Asset analysis job</value>
+    <value>Asset analysis job :</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -832,7 +832,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="numericUpDownAssetAnalysisStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>250, 237</value>
+    <value>250, 253</value>
   </data>
   <data name="numericUpDownAssetAnalysisStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 23</value>
@@ -1099,7 +1099,7 @@
     <value>9, 305</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 266</value>
+    <value>560, 284</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>50</value>

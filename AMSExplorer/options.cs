@@ -67,7 +67,7 @@ namespace AMSExplorer
             Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;
             Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
             Properties.Settings.Default.MEPWPricePerMin = numericUpDownPremiumWorkflowPrice.Value;
-            Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
+            Properties.Settings.Default.IndexingPricePerMin2 = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
 
             Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
@@ -107,9 +107,9 @@ namespace AMSExplorer
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 3650;
             numericUpDownTokenDuration.Value = 60;
-            numericUpDownMESPrice.Value = ((decimal)1.99);
-            numericUpDownPremiumWorkflowPrice.Value = ((decimal)3.99);
-            numericUpDownIndexingPrice.Value = ((decimal)0.05);
+            numericUpDownMESPrice.Value = ((decimal)0.015);
+            numericUpDownPremiumWorkflowPrice.Value = ((decimal)0.035);
+            numericUpDownIndexingPrice.Value = ((decimal)0.02);
 
             numericUpDownAssetAnalysisStart.Value = 10;
             numericUpDownAssetAnalysisStep.Value = 20;
@@ -166,7 +166,7 @@ namespace AMSExplorer
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownMESPrice.Value = Properties.Settings.Default.MESPricePerMin;
             numericUpDownPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPWPricePerMin;
-            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin;
+            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPricePerMin2;
 
             textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;

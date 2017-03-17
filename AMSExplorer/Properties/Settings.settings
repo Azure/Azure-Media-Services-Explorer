@@ -107,9 +107,6 @@
     <Setting Name="DisplayAssetAltIDinGrid" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="IndexingPricePerMin" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.05</Value>
-    </Setting>
     <Setting Name="ShowLivePremiumChannel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -142,6 +139,9 @@
     </Setting>
     <Setting Name="HideTaskbarNotifications" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IndexingPricePerMin2" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.02</Value>
     </Setting>
   </Settings>
 </SettingsFile>
