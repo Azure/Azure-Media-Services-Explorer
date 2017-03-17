@@ -64,6 +64,7 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.ShowLivePremiumChannel = checkBoxShowPremiumLiveEncoding.Checked;
+            Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;
             Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
             Properties.Settings.Default.MEPWPricePerMin = numericUpDownPremiumWorkflowPrice.Value;
             Properties.Settings.Default.IndexingPricePerMin = numericUpDownIndexingPrice.Value;
@@ -93,6 +94,7 @@ namespace AMSExplorer
             checkBoxUseProtectedConfig.Checked = false;
             checkBoxUseStorageEncryption.Checked = false;
             checkBoxShowPremiumLiveEncoding.Checked = false;
+            checkBoxHideTaskbarNotifications.Checked = false;
 
             int indexc = comboBoxNbItems.Items.IndexOf("50");
             if (indexc == -1) indexc = 1; // not found!
@@ -156,6 +158,7 @@ namespace AMSExplorer
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
             checkBoxShowPremiumLiveEncoding.Checked = Properties.Settings.Default.ShowLivePremiumChannel;
+            checkBoxHideTaskbarNotifications.Checked = Properties.Settings.Default.HideTaskbarNotifications;
 
             numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;
             numericUpDownAssetAnalysisStep.Value = Properties.Settings.Default.AssetAnalysisStep;

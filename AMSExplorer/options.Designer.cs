@@ -89,6 +89,7 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
@@ -244,6 +245,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxHideTaskbarNotifications);
             this.groupBox2.Controls.Add(this.checkBoxUseAdaptiveStreamingFormat);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStep);
@@ -594,6 +596,12 @@
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
+            // checkBoxHideTaskbarNotifications
+            // 
+            resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
+            this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
+            this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -695,5 +703,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
         private System.Windows.Forms.CheckBox checkBoxUseAdaptiveStreamingFormat;
+        private System.Windows.Forms.CheckBox checkBoxHideTaskbarNotifications;
     }
 }
