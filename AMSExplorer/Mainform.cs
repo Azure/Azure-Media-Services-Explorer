@@ -1402,19 +1402,6 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Starting upload of file '{0}'", filename[0]);
                     try
                     {
-                        /*
-                         asset = await _context.Assets.CreateFromFileAsync(
-                                                               filename[0],
-                                                               storageaccount,
-                                                               assetcreationoptions,
-                                                               (af, p) =>
-                                                               {
-                                                                   DoGridTransferUpdateProgress(p.Progress, guidTransfer);
-                                                               },
-                                                               token
-                                                               );
-                                                               */
-
                         asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
                                                               storageaccount,
                                                               assetcreationoptions,
@@ -1429,21 +1416,19 @@ namespace AMSExplorer
                         }
 
                         AssetInfo.SetAFileAsPrimary(asset);
-                        //AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
                     }
                     catch (Exception e)
                     {
                         Error = true;
                         DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", string.Join(", ", filename), true);
+                        TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filename), true);
                         TextBoxLogWriteLine(e);
                         Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
-                        if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + string.Join(", ", filename), e.Message))
+                        if (watchfoldersettings != null && !Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + string.Join(", ", filename), e.Message))
                         {
                             TextBoxLogWriteLine("Error when sending Outlook email...", true);
                         }
                     }
-
                 }
             }
 
