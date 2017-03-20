@@ -129,7 +129,6 @@ namespace AMSExplorer
 
                 }
             }
-
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
             // AME Standard preset folder
@@ -4532,6 +4531,66 @@ namespace AMSExplorer
                     }
 
                     if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    DoRefreshGridJobV(false);
+                }
+          );
+
+
+            }
+        }
+
+
+
+        private void DoCancelAllJobs()
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                Task.Run(async () =>
+                {
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
+
+
+                    // let's build the tasks list
+                    TextBoxLogWriteLine("Listing the jobs...");
+                    List<Task> cancelTasks = new List<Task>();
+
+                    var ongoingJobs = _context.Jobs.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
+
+                    while (true)
+                    {
+                        // Enumerate through all jobs (1000 at a time)
+                        var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listjobs.Count;
+                        cancelTasks.AddRange(listjobs.Select(a => a.CancelAsync()).ToArray());
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", cancelTasks.Count));
+                    try
+                    {
+                        Task.WaitAll(cancelTasks.ToArray());
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (!Error) TextBoxLogWriteLine("Job(s) canceled.");
                     DoRefreshGridJobV(false);
                 }
           );
@@ -15622,6 +15681,28 @@ namespace AMSExplorer
         private void optinToStandardStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptinToStandardSE();
+        }
+
+        private void selectedJobsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCancelJobs();
+
+        }
+
+        private void allJobsToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoCancelAllJobs();
+        }
+
+        private void selectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoCancelJobs();
+
+        }
+
+        private void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoCancelAllJobs();
         }
     }
 }
