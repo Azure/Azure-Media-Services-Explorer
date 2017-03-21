@@ -243,11 +243,44 @@
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="labelDiscountinuity.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelDiscountinuity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelDiscountinuity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 221</value>
+  </data>
+  <data name="labelDiscountinuity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 15</value>
+  </data>
+  <data name="labelDiscountinuity.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="labelDiscountinuity.Text" xml:space="preserve">
+    <value>Discontinuity detected !</value>
+  </data>
+  <data name="labelDiscountinuity.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelDiscountinuity.Name" xml:space="preserve">
+    <value>labelDiscountinuity</value>
+  </data>
+  <data name="&gt;&gt;labelDiscountinuity.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelDiscountinuity.Parent" xml:space="preserve">
+    <value>panelAssetInfo</value>
+  </data>
+  <data name="&gt;&gt;labelDiscountinuity.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelassetname.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelassetname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 27</value>
+    <value>28, 11</value>
   </data>
   <data name="labelassetname.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 15</value>
@@ -268,10 +301,10 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;labelassetname.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="textBoxAssetDuration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 97</value>
+    <value>27, 81</value>
   </data>
   <data name="textBoxAssetDuration.Size" type="System.Drawing.Size, System.Drawing">
     <value>254, 23</value>
@@ -292,10 +325,10 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;textBoxAssetDuration.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="textBoxOffset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 201</value>
+    <value>27, 185</value>
   </data>
   <data name="textBoxOffset.Size" type="System.Drawing.Size, System.Drawing">
     <value>254, 23</value>
@@ -316,13 +349,13 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;textBoxOffset.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="labelOffset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelOffset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 182</value>
+    <value>28, 166</value>
   </data>
   <data name="labelOffset.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 15</value>
@@ -346,10 +379,10 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;labelOffset.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="textBoxFilterTimeScale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 149</value>
+    <value>27, 133</value>
   </data>
   <data name="textBoxFilterTimeScale.Size" type="System.Drawing.Size, System.Drawing">
     <value>254, 23</value>
@@ -370,10 +403,10 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;textBoxFilterTimeScale.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="textBoxAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 45</value>
+    <value>27, 29</value>
   </data>
   <data name="textBoxAssetName.Size" type="System.Drawing.Size, System.Drawing">
     <value>254, 23</value>
@@ -391,13 +424,13 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;textBoxAssetName.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="labelassetduration.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelassetduration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 78</value>
+    <value>28, 62</value>
   </data>
   <data name="labelassetduration.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 15</value>
@@ -421,13 +454,13 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;labelassetduration.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="labelAssetTimescale.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelAssetTimescale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 130</value>
+    <value>28, 114</value>
   </data>
   <data name="labelAssetTimescale.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 15</value>
@@ -451,7 +484,7 @@
     <value>panelAssetInfo</value>
   </data>
   <data name="&gt;&gt;labelAssetTimescale.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="panelAssetInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>1, 260</value>
@@ -532,7 +565,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
@@ -736,7 +769,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -766,7 +799,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -1402,7 +1435,7 @@
     <value>buttonJobOptions</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.47.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
     <value>panelJob</value>

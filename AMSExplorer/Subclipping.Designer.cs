@@ -81,6 +81,7 @@
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label34 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelDiscountinuity = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -212,6 +213,7 @@
             // 
             // panelAssetInfo
             // 
+            this.panelAssetInfo.Controls.Add(this.labelDiscountinuity);
             this.panelAssetInfo.Controls.Add(this.labelassetname);
             this.panelAssetInfo.Controls.Add(this.textBoxAssetDuration);
             this.panelAssetInfo.Controls.Add(this.textBoxOffset);
@@ -460,6 +462,12 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
+            // labelDiscountinuity
+            // 
+            resources.ApplyResources(this.labelDiscountinuity, "labelDiscountinuity");
+            this.labelDiscountinuity.ForeColor = System.Drawing.Color.Red;
+            this.labelDiscountinuity.Name = "labelDiscountinuity";
+            // 
             // Subclipping
             // 
             this.AcceptButton = this.buttonOk;
@@ -551,5 +559,6 @@
         private System.Windows.Forms.CheckBox checkBoxUseEDL;
         private System.Windows.Forms.Panel panelEDL;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label labelDiscountinuity;
     }
 }

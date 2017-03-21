@@ -2112,7 +2112,7 @@ namespace AMSExplorer
         static public ManifestTimingData GetManifestTimingData(IAsset asset)
         // Parse the manifest and get data from it
         {
-            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>() };
+            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
 
             try
             {
@@ -2161,7 +2161,13 @@ namespace AMSExplorer
                         if (chunk.Attribute("t") != null)
                         {
                             //totalduration = ulong.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
-                            response.TimestampList.Add(ulong.Parse(chunk.Attribute("t").Value));
+                            ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
+                            response.TimestampList.Add(tvalue);
+                            if (tvalue != response.TimestampOffset)
+                            {
+                                totalduration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
+                                response.DiscontinuityDetected = true; // let's flag it
+                            }
                         }
                         else
                         {
@@ -2185,7 +2191,7 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        totalduration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
+                        //totalduration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
                         response.AssetDuration = TimeSpan.FromSeconds((double)totalduration / ((double)timescale));
                     }
                 }
@@ -3883,6 +3889,7 @@ namespace AMSExplorer
         public bool Error { get; set; }
         public List<ulong> TimestampList { get; set; }
         public ulong TimestampEndLastChunk { get; set; }
+        public bool DiscontinuityDetected { get; set; }
     }
 
     public class SubClipTrimmingDataXMLSerialized
@@ -4181,7 +4188,7 @@ namespace AMSExplorer
 
                 // Parse the two objects passed as a parameter as a DateTime.
                 DateTime firstDate, secondDate;
-                if ( DateTime.TryParse(sx, out firstDate) && DateTime.TryParse(sy, out secondDate))
+                if (DateTime.TryParse(sx, out firstDate) && DateTime.TryParse(sy, out secondDate))
                 {
                     returnVal = DateTime.Compare(firstDate, secondDate);
                 }

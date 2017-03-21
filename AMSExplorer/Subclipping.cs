@@ -103,6 +103,8 @@ namespace AMSExplorer
                 // let's try to read asset timing
                 _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset);
 
+                labelDiscountinuity.Visible = _parentassetmanifestdata.DiscontinuityDetected;
+
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentassetmanifestdata.TimeScale;
@@ -580,6 +582,7 @@ namespace AMSExplorer
                 IAsset myAsset = _selectedAssets.FirstOrDefault();
 
                 Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+
                 if (myuri == null)
                 {
                     try
