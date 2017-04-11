@@ -2118,6 +2118,7 @@ namespace AMSExplorer
             {
                 ILocator mytemplocator = null;
                 Uri myuri = GetValidOnDemandURI(asset);
+
                 if (myuri == null)
                 {
                     mytemplocator = CreatedTemporaryOnDemandLocator(asset);

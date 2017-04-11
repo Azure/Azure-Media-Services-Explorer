@@ -4732,6 +4732,14 @@ namespace AMSExplorer
 
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
 
+            if (Encoders.Count == 0)
+            {
+                var message = string.Format("Processor '{0}' not found in the account.", Constants.AzureMediaEncoder);
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxLogWriteLine(message, true);
+                return;
+            }
+
             EncodingAMEPreset form = new EncodingAMEPreset(_context)
             {
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",
@@ -4968,6 +4976,14 @@ namespace AMSExplorer
             IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                    MediaProcessorNames.WindowsAzureMediaPackager);
 
+            if (processor == null)
+            {
+                var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxLogWriteLine(message, true);
+                return;
+            }
+
             HLSAESStatic form = new HLSAESStatic()
             {
                 HLSEncrypt = false,
@@ -5034,6 +5050,14 @@ namespace AMSExplorer
                     // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
                     IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                         MediaProcessorNames.WindowsAzureMediaPackager);
+
+                    if (processor == null)
+                    {
+                        var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
+                        MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        TextBoxLogWriteLine(message, true);
+                        return;
+                    }
 
                     // Windows Azure Media Packager does not accept string presets, so load xml configuration
                     string smoothConfig = File.ReadAllText(Path.Combine(
@@ -5315,6 +5339,14 @@ namespace AMSExplorer
             IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                 MediaProcessorNames.WindowsAzureMediaEncryptor);
 
+            if (processor == null)
+            {
+                var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaEncryptor);
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxLogWriteLine(message, true);
+                return;
+            }
+
             PlayReadyStaticEnc form = new PlayReadyStaticEnc(_context)
             {
                 PlayReadyProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
@@ -5533,6 +5565,14 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
+
+                if (processor == null)
+                {
+                    var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
+                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine(message, true);
+                    return;
+                }
 
                 LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
@@ -6389,6 +6429,14 @@ namespace AMSExplorer
 
             string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
+
+            if (Encoders.Count == 0)
+            {
+                var message = string.Format("Processor '{0}' not found in the account.", Constants.AzureMediaEncoder);
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxLogWriteLine(message, true);
+                return;
+            }
 
             EncodingAMEAdv form = new EncodingAMEAdv(_context)
             {
@@ -15500,7 +15548,6 @@ namespace AMSExplorer
                     jsonwithid,
                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
                   );
-
                 AnalyzeTask.InputAssets.Add(asset);
 
                 // Add an output asset to contain the results of the job.  
