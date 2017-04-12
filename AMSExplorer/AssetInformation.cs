@@ -36,6 +36,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -2344,10 +2345,8 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    // let's get the Encoding from XML
-                    var xmlDocument = new XmlDocument();
-                    xmlDocument.Load(new StringReader(editform.TextData));
-                    xmlDocument.Save(filePath);
+                    var doc = XDocument.Parse(editform.TextData);
+                    doc.Save(filePath);
 
                     progressBarUpload.Visible = true;
                     buttonClose.Enabled = false;
