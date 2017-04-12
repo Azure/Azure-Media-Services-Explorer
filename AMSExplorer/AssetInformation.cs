@@ -35,6 +35,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Xml;
 
 namespace AMSExplorer
 {
@@ -717,7 +718,7 @@ namespace AMSExplorer
                 IAssetFile AF = SelectedAssetFiles.FirstOrDefault();
                 if (AF == null)
                     return;
-                
+
                 DGFiles.Rows.Clear();
                 DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, AF.Name);
                 DGFiles.Rows.Add("Id", AF.Id);
@@ -2343,9 +2344,10 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    StreamWriter outfile = new StreamWriter(filePath, false, Encoding.UTF8);
-                    outfile.Write(editform.TextData);
-                    outfile.Close();
+                    // let's get the Encoding from XML
+                    var xmlDocument = new XmlDocument();
+                    xmlDocument.Load(new StringReader(editform.TextData));
+                    xmlDocument.Save(filePath);
 
                     progressBarUpload.Visible = true;
                     buttonClose.Enabled = false;

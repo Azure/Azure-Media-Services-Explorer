@@ -336,6 +336,19 @@ namespace AMSExplorer
             return strReturn;
         }
 
+        public static string FormatXml(string xml)
+        {
+            try
+            {
+                var doc = XDocument.Parse(xml);
+                return doc.Declaration + Environment.NewLine + doc.ToString();
+            }
+            catch (Exception)
+            {
+                return xml;
+            }
+        }
+
         public static string AnalyzeAndIndentXMLJSON(string myText)
         {
             var type = Program.AnalyseConfigurationString(myText);
@@ -355,16 +368,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    XmlDocument document = new XmlDocument();
-                    document.Load(new StringReader(myText));
-
-                    StringBuilder builder = new StringBuilder();
-                    using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
-                    {
-                        writer.Formatting = System.Xml.Formatting.Indented;
-                        document.Save(writer);
-                    }
-                    myText = builder.ToString();
+                    myText = FormatXml(myText); 
                 }
                 catch
                 {
