@@ -169,6 +169,7 @@
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
             this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
+            this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
             this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
@@ -1622,6 +1623,7 @@
             // tabPageJobs
             // 
             this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageJobs.Controls.Add(this.linkLabelMoreInfoMediaUnits);
             this.tabPageJobs.Controls.Add(this.trackBarEncodingRU);
             this.tabPageJobs.Controls.Add(this.buttonUpdateEncodingRU);
             this.tabPageJobs.Controls.Add(this.comboBoxSearchJobOption);
@@ -1643,6 +1645,14 @@
             this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
             resources.ApplyResources(this.tabPageJobs, "tabPageJobs");
             this.tabPageJobs.Name = "tabPageJobs";
+            // 
+            // linkLabelMoreInfoMediaUnits
+            // 
+            resources.ApplyResources(this.linkLabelMoreInfoMediaUnits, "linkLabelMoreInfoMediaUnits");
+            this.linkLabelMoreInfoMediaUnits.Name = "linkLabelMoreInfoMediaUnits";
+            this.linkLabelMoreInfoMediaUnits.TabStop = true;
+            this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
+            this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
             // 
             // trackBarEncodingRU
             // 
@@ -4891,6 +4901,7 @@
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem3;
+        private System.Windows.Forms.LinkLabel linkLabelMoreInfoMediaUnits;
     }
 }
 
