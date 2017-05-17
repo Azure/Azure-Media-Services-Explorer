@@ -405,7 +405,6 @@ namespace AMSExplorer
                 string assetContainerName = uploadUri.Segments[1];
 
                 CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(assetContainerName);
-
                 TextBoxLogWriteLine("Creating the blob container.");
 
                 mediaBlobContainer.CreateIfNotExists();
@@ -4557,14 +4556,14 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> cancelTasks = new List<Task>();
 
-                    var ongoingJobs = _context.Jobs.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
+                    var ongoingJobs = _context.Jobs;//.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
 
                     while (true)
                     {
                         // Enumerate through all jobs (1000 at a time)
                         var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
-                        cancelTasks.AddRange(listjobs.Select(a => a.CancelAsync()).ToArray());
+                        cancelTasks.AddRange(listjobs.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
 
                         if (currentSkipSize == batchSize)
                         {
@@ -17873,27 +17872,34 @@ namespace AMSExplorer
 
                // let's cancel monitor task of non visible jobs
                List<string> listToCancel = new List<string>();
-               foreach (var jobmonitored in _MyListJobsMonitored)
+               try
                {
-                   if (ActiveAndVisibleJobs.Where(j => j.Id == jobmonitored.Key).FirstOrDefault() == null)
+                   foreach (var jobmonitored in _MyListJobsMonitored)
                    {
-                       jobmonitored.Value.Cancel();
-                       listToCancel.Add(jobmonitored.Key);
+                       if (ActiveAndVisibleJobs.Where(j => j.Id == jobmonitored.Key).FirstOrDefault() == null)
+                       {
+                           jobmonitored.Value.Cancel();
+                           listToCancel.Add(jobmonitored.Key);
+                       }
+                   }
+                   listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
+
+                   // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
+                   // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
+                   JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
+
+                   // let's monitor job that are not yet monitored
+                   foreach (IJob job in ActiveAndVisibleJobs.ToList())
+                   {
+                       if (!_MyListJobsMonitored.ContainsKey(job.Id))
+                       {
+                           this.DoJobProgress(job); // token will be added to dictionnary in this function
+                       }
                    }
                }
-               listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
-
-               // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
-               // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
-               JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
-
-               // let's monitor job that are not yet monitored
-               foreach (IJob job in ActiveAndVisibleJobs.ToList())
+               catch
                {
-                   if (!_MyListJobsMonitored.ContainsKey(job.Id))
-                   {
-                       this.DoJobProgress(job); // token will be added to dictionnary in this function
-                   }
+
                }
            });
         }
