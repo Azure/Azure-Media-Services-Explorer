@@ -10303,7 +10303,16 @@ namespace AMSExplorer
                 {
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, UISelectSEFiltersAndProtocols: false, mainForm: this);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(
+                            typeplayer: ptype, 
+                            Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, 
+                            DoNotRewriteURL: true, context: _context, 
+                            formatamp: AzureMediaPlayerFormats.Smooth, 
+                            UISelectSEFiltersAndProtocols: false, 
+                            mainForm: this,
+                            selectedBrowser: Constants.BrowserIE[1],
+                            launchbrowser: true
+                            );
                     }
                 }
             }

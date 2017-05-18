@@ -2949,14 +2949,13 @@ namespace AMSExplorer
         public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, Mainform mainForm,
             IAsset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
-            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true)
+            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "")
         {
             string FullPlayBackLink = null;
 
             if (!string.IsNullOrEmpty(Urlstr))
             {
                 IStreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(context);
-                string selectedBrowser = string.Empty;
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
