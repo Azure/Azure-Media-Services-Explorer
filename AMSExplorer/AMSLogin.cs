@@ -87,6 +87,9 @@ namespace AMSExplorer
         {
             var CredentialsList = Properties.Settings.Default.LoginList;
 
+            // let's purge the old list now.
+            if (CredentialsList != null && CredentialsList.Count > 0) Properties.Settings.Default.LoginList.Clear();
+
             // OLD MODE. XML properties for account entries
             if (!Properties.Settings.Default.MigratedLoginListToJSON && CredentialsList != null && CredentialsList.Count > 0)
             {
