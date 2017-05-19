@@ -368,7 +368,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    myText = FormatXml(myText); 
+                    myText = FormatXml(myText);
                 }
                 catch
                 {
@@ -955,11 +955,11 @@ namespace AMSExplorer
 
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
-        public const string PlayerAMPinOptions = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
-        public const string PlayerAMP = @"http://aka.ms/azuremediaplayer";
-        public const string PlayerAMPToLaunch = @"http://aka.ms/azuremediaplayer?url={0}";
+        public const string PlayerAMPinOptions = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
+        public const string PlayerAMP = @"https://aka.ms/azuremediaplayer";
+        public const string PlayerAMPToLaunch = @"https://aka.ms/azuremediaplayer?url={0}";
 
-        public const string PlayerAMPIFrameToLaunch = @"http://ampdemo.azureedge.net/azuremediaplayer_embed.html?autoplay=true&url={0}";
+        public const string PlayerAMPIFrameToLaunch = @"https://ampdemo.azureedge.net/azuremediaplayer_embed.html?autoplay=true&url={0}";
         public const string AMPprotectionsyntax = "&protection={0}";
         public const string AMPtokensyntax = "&token={0}";
         public const string AMPformatsyntax = "&format={0}";
@@ -975,7 +975,7 @@ namespace AMSExplorer
         public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
         public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.2.0/samples/dash-if-reference-player/index.html?url={0}";
 
-        public const string PlayerMP4AzurePage = @"http://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
+        public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
         public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
@@ -3038,6 +3038,8 @@ namespace AMSExplorer
                 {
                     case PlayerType.AzureMediaPlayer:
                     case PlayerType.AzureMediaPlayerFrame:
+                    case PlayerType.AzureMediaPlayerClear:
+
                         string playerurl = "";
 
                         if (keytype != AssetProtectionType.None)
@@ -3170,9 +3172,19 @@ namespace AMSExplorer
                             }
                         }
 
-                        string playerurlbase = typeplayer == PlayerType.AzureMediaPlayer ?
-                                                Constants.PlayerAMPToLaunch
-                                              : Constants.PlayerAMPIFrameToLaunch;
+                        string playerurlbase = "";
+                        if (typeplayer == PlayerType.AzureMediaPlayer)
+                        {
+                            playerurlbase = Constants.PlayerAMPToLaunch;
+                        }
+                        else if (typeplayer == PlayerType.AzureMediaPlayerFrame)
+                        {
+                            playerurlbase = Constants.PlayerAMPIFrameToLaunch;
+                        }
+                        else if (typeplayer == PlayerType.AzureMediaPlayerClear)
+                        {
+                            playerurlbase = Constants.PlayerAMPToLaunch.Replace("https://", "http://");
+                        }
 
                         FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(Urlstr)) + playerurl;
                         break;
@@ -3783,6 +3795,7 @@ namespace AMSExplorer
     {
         AzureMediaPlayer = 0,
         AzureMediaPlayerFrame,
+        AzureMediaPlayerClear,
         DASHIFRefPlayer,
         MP4AzurePage,
         CustomPlayer

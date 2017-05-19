@@ -1164,14 +1164,24 @@ namespace AMSExplorer
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
             comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(_context, ComboBackupindex + 1)));
-            comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Clear()));
             dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
 
-            for (int i = 0; i < DGpagecount; i++)
+            if (comboBoxPageAssets.Items.Count < DGpagecount) // more assets, let's add pages
             {
-                comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i + 1)));
+                for (int i = comboBoxPageAssets.Items.Count; i < DGpagecount; i++)
+                {
+                    comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i + 1)));
+                }
             }
-            if (dataGridViewAssetsV.CurrentPage <= comboBoxPageAssets.Items.Count)
+            else if (comboBoxPageAssets.Items.Count > DGpagecount) // less assets, let's remove pages
+            {
+                for (int i = comboBoxPageAssets.Items.Count; i > DGpagecount; i--)
+                {
+                    comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Remove(i)));
+                }
+            }
+
+            if ((dataGridViewAssetsV.CurrentPage <= comboBoxPageAssets.Items.Count) && (comboBoxPageAssets.Items.Count > 0)) // if multiple refresh at the same time, it may happen that comboBoxPageAssets.Items.Count =0 which creates an exception
             {
                 comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
             }
@@ -1196,19 +1206,31 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
             int backupindex = 0;
             int pagecount = 0;
-            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
 
+            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
             comboBoxPageJobs.Invoke(new Action(() => backupindex = comboBoxPageJobs.SelectedIndex));
             dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(_context, backupindex + 1)));
-            comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Clear()));
             dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
 
-            // add pages
-            for (int i = 0; i < pagecount; i++)
+            if (comboBoxPageJobs.Items.Count < pagecount) // more assets, let's add pages
             {
-                comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i + 1)));
+                for (int i = comboBoxPageJobs.Items.Count; i < pagecount; i++)
+                {
+                    comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i + 1)));
+                }
             }
-            comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
+            else if (comboBoxPageJobs.Items.Count > pagecount) // less assets, let's remove pages
+            {
+                for (int i = comboBoxPageJobs.Items.Count; i > pagecount; i--)
+                {
+                    comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Remove(i)));
+                }
+            }
+
+            if ((dataGridViewJobsV.CurrentPage <= comboBoxPageJobs.Items.Count) && (comboBoxPageJobs.Items.Count > 0)) // if multiple refresh at the same time, it may happen that comboBoxPageJobs.Items.Count =0 which creates an exception
+            {
+                comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
+            }
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
         }
@@ -10304,11 +10326,11 @@ namespace AMSExplorer
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
-                            typeplayer: ptype, 
-                            Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, 
-                            DoNotRewriteURL: true, context: _context, 
-                            formatamp: AzureMediaPlayerFormats.Smooth, 
-                            UISelectSEFiltersAndProtocols: false, 
+                            typeplayer: ptype,
+                            Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri,
+                            DoNotRewriteURL: true, context: _context,
+                            formatamp: AzureMediaPlayerFormats.Smooth,
+                            UISelectSEFiltersAndProtocols: false,
                             mainForm: this,
                             selectedBrowser: Constants.BrowserIE[1],
                             launchbrowser: true
@@ -12817,12 +12839,12 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayerClear);
         }
 
         private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayerClear);
         }
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)

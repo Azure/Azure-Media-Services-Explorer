@@ -85,15 +85,15 @@
             // radioButtonHttps
             // 
             resources.ApplyResources(this.radioButtonHttps, "radioButtonHttps");
+            this.radioButtonHttps.Checked = true;
             this.radioButtonHttps.Name = "radioButtonHttps";
+            this.radioButtonHttps.TabStop = true;
             this.radioButtonHttps.UseVisualStyleBackColor = true;
             // 
             // radioButtonHttp
             // 
             resources.ApplyResources(this.radioButtonHttp, "radioButtonHttp");
-            this.radioButtonHttp.Checked = true;
             this.radioButtonHttp.Name = "radioButtonHttp";
-            this.radioButtonHttp.TabStop = true;
             this.radioButtonHttp.UseVisualStyleBackColor = true;
             this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.radioButtonHttp_CheckedChanged);
             // 
