@@ -689,15 +689,18 @@ namespace AMSExplorer
         public void RefreshProgram(IProgram program)
         {
             int index = -1;
-            foreach (ProgramEntry CE in _MyObservPrograms) // let's search for index
+
+            if (_MyObservPrograms!=null)
             {
-                if (CE.Id == program.Id)
+                foreach (ProgramEntry CE in _MyObservPrograms) // let's search for index
                 {
-                    index = _MyObservPrograms.IndexOf(CE);
-                    break;
+                    if (CE.Id == program.Id)
+                    {
+                        index = _MyObservPrograms.IndexOf(CE);
+                        break;
+                    }
                 }
             }
-
 
             if (index >= 0) // we found it
             { // we update the observation collection

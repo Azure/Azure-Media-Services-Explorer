@@ -29,7 +29,6 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using System.Configuration;
 using System.Reflection;
-
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.IO;
@@ -182,45 +181,6 @@ namespace AMSExplorer
 
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
-            /*
-            if (string.IsNullOrEmpty(textBoxAccountName.Text))
-            {
-                MessageBox.Show("The account name cannot be empty.");
-                return;
-            }
-            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text, textBoxManagementPortal.Text);
-            if (CredentialsList == null) CredentialsList = new StringCollection();
-
-            //let's find if the account name is already in the list
-            int foundindex = -1;
-            for (int i = 0; i < CredentialsList.Count; i += CredentialsEntry.StringsCount)
-            {
-                if (CredentialsList[i] == textBoxAccountName.Text)
-                {
-                    foundindex = i;
-                    break;
-                }
-            }
-
-            if (foundindex == -1) // not found
-            {
-                CredentialsList.AddRange(myCredentials.ToArray());
-                Properties.Settings.Default.LoginList = CredentialsList;
-
-                Program.SaveAndProtectUserConfig();
-
-                listBoxAcounts.Items.Add(myCredentials.AccountName);
-            }
-            else
-            {
-                //found, let's update the entry et insert the new data
-                for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.RemoveAt(foundindex);
-                for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.Insert(foundindex + i, myCredentials.ToArray().Skip(i).Take(1).FirstOrDefault());
-                Properties.Settings.Default.LoginList = CredentialsList;
-                Program.SaveAndProtectUserConfig();
-            }
-            */
-
             // New code for JSON
             if (string.IsNullOrEmpty(textBoxAccountName.Text))
             {
@@ -245,32 +205,6 @@ namespace AMSExplorer
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
         {
-            /*
-            int index = listBoxAcounts.SelectedIndex;
-            try
-            {
-                for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.RemoveAt(index * CredentialsEntry.StringsCount);
-                Properties.Settings.Default.LoginList = CredentialsList;
-                Program.SaveAndProtectUserConfig();
-                listBoxAcounts.Items.Clear();
-                if (CredentialsList != null)
-                {
-                    for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
-                        listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
-
-                }
-                buttonDeleteAccountEntry.Enabled = false; // no selected item, so login button not active
-
-            }
-            catch // error, let's purge all
-            {
-                CredentialsList.Clear();
-                Properties.Settings.Default.LoginList.Clear();
-                Program.SaveAndProtectUserConfig();
-                listBoxAcounts.Items.Clear();
-            }
-            */
-
             int index = listBoxAcounts.SelectedIndex;
             if (index > -1)
             {
@@ -344,35 +278,8 @@ namespace AMSExplorer
         }
 
 
-
         private void listBoxAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*
-            buttonDeleteAccountEntry.Enabled = (listBoxAcounts.SelectedIndex > -1); // no selected item, so login button not active
-            buttonExportAll.Enabled = (listBoxAcounts.Items.Count > 0);
-            if (listBoxAcounts.SelectedIndex > -1) // one selected
-            {
-                textBoxAccountName.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount];
-                textBoxAccountKey.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 1];
-                textBoxBlobKey.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 2];
-                textBoxDescription.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
-                radioButtonPartner.Checked = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 4] == true.ToString() ? true : false;
-                radioButtonOther.Checked = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 5] == true.ToString() ? true : false;
-                textBoxAPIServer.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 6];
-                textBoxScope.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 7];
-                textBoxACSBaseAddress.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 8];
-                textBoxAzureEndpoint.Text = ReturnAzureEndpoint(CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9]);
-                textBoxManagementPortal.Text = ReturnManagementPortal(CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9]);
-
-                // if not partner or other, then defaut
-                if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
-
-                // to clear or set the error
-                CheckTextBox((object)textBoxAccountName);
-                CheckTextBox((object)textBoxAccountKey);
-            }
-            */
-
             buttonDeleteAccountEntry.Enabled = (listBoxAcounts.SelectedIndex > -1); // no selected item, so login button not active
             buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             if (listBoxAcounts.SelectedIndex > -1) // one selected
@@ -422,8 +329,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         private void buttonClear_Click(object sender, EventArgs e)
         {
             DoClearFields();
@@ -458,29 +363,6 @@ namespace AMSExplorer
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            /*     XDocument xmlexport = new XDocument();
-                 xmlexport.Add(new XComment("Created by Azure Media Services Explorer"));
-                 xmlexport.Add(new XElement("Credentials", new XAttribute("Version", "1.1")));
-
-                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
-                 {
-                     xmlexport.Descendants("Credentials").FirstOrDefault().Add(new XElement("Entry",
-                         new XAttribute("AccountName", CredentialsList[i * CredentialsEntry.StringsCount]),
-                           new XAttribute("AccountKey", CredentialsList[i * CredentialsEntry.StringsCount + 1]),
-                        new XAttribute("StorageKey", CredentialsList[i * CredentialsEntry.StringsCount + 2]),
-                        new XAttribute("Description", CredentialsList[i * CredentialsEntry.StringsCount + 3]),
-                       new XAttribute("UsePartnerAPI", CredentialsList[i * CredentialsEntry.StringsCount + 4]),
-                        new XAttribute("UseOtherAPI", CredentialsList[i * CredentialsEntry.StringsCount + 5]),
-                        new XAttribute("OtherAPIServer", CredentialsList[i * CredentialsEntry.StringsCount + 6]),
-                        new XAttribute("OtherScope", CredentialsList[i * CredentialsEntry.StringsCount + 7]),
-                        new XAttribute("OtherACSBaseAddress", CredentialsList[i * CredentialsEntry.StringsCount + 8]),
-                         new XAttribute("OtherAzureEndpoint", ReturnAzureEndpoint(CredentialsList[i * CredentialsEntry.StringsCount + 9])),
-                           new XAttribute("OtherManagementPortal", ReturnManagementPortal(CredentialsList[i * CredentialsEntry.StringsCount + 9]))
-                        ));
-
-                 }
-                 */
-
             bool exportAll = true;
 
             if (CredentialList.MediaServicesAccounts.Count > 1 && listBoxAcounts.SelectedIndex > -1) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
