@@ -169,7 +169,6 @@
             // 
             // contextMenuStripDG
             // 
-            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
@@ -192,7 +191,6 @@
             // 
             // contextMenuStripLocators
             // 
-            this.contextMenuStripLocators.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemCopy,
             this.deleteLocatorToolStripMenuItem,
@@ -264,7 +262,6 @@
             // 
             // contextMenuStripFiles
             // 
-            this.contextMenuStripFiles.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.makeItPrimaryToolStripMenuItem,
             this.showMetadataToolStripMenuItem,
@@ -563,7 +560,6 @@
             // 
             // contextMenuStripFilter
             // 
-            this.contextMenuStripFilter.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filterInfoupdateToolStripMenuItem,
             this.createAnAssetFilterToolStripMenuItem,
@@ -699,7 +695,6 @@
             // 
             // contextMenuStripAuthPol
             // 
-            this.contextMenuStripAuthPol.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.getTestTokenToolStripMenuItem,
             this.removeOptionToolStripMenuItem,
@@ -762,7 +757,6 @@
             // 
             // contextMenuStripKey
             // 
-            this.contextMenuStripKey.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeKeyToolStripMenuItem});
             this.contextMenuStripKey.Name = "contextMenuStripKey";
@@ -835,7 +829,6 @@
             // 
             // contextMenuStripDelPol
             // 
-            this.contextMenuStripDelPol.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripDelPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeDeliveryPolicyToolStripMenuItem});
             this.contextMenuStripDelPol.Name = "contextMenuStripDelPol";
@@ -882,8 +875,6 @@
             // checkBoxHttps
             // 
             resources.ApplyResources(this.checkBoxHttps, "checkBoxHttps");
-            this.checkBoxHttps.Checked = true;
-            this.checkBoxHttps.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHttps.Name = "checkBoxHttps";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
             this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);

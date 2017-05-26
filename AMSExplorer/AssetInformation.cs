@@ -690,7 +690,7 @@ namespace AMSExplorer
                     if (locator.Type == LocatorType.Sas)
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Container Path: {0}", locator.Path.Replace("http://", "https://"))
+                     string.Format("Container Path: {0}", locator.Path)
                      ));
 
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));

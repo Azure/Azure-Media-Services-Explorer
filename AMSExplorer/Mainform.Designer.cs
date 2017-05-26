@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
@@ -493,7 +493,6 @@
             this.deleteOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureManagementPortalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemClassicPortal = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureTelemetryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -697,9 +696,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject4.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject4.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject4;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.StateFilter = "";
             this.dataGridViewAssetsV.TimeFilter = "Last week";
@@ -713,7 +712,6 @@
             // 
             // contextMenuStripAssets
             // 
-            this.contextMenuStripAssets.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem1,
             this.toolStripSeparator9,
@@ -1410,7 +1408,6 @@
             // 
             // contextMenuStripFilters
             // 
-            this.contextMenuStripFilters.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem12,
             this.filterInfoupdateToolStripMenuItem,
@@ -1514,7 +1511,6 @@
             // 
             // contextMenuStripTransfers
             // 
-            this.contextMenuStripTransfers.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuItemTransferOpenDest,
             this.displayErrorToolStripMenuItem,
@@ -1568,7 +1564,6 @@
             // 
             // contextMenuStripIngestManifests
             // 
-            this.contextMenuStripIngestManifests.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripIngestManifests.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem33Refresh,
             this.toolStripSeparator42,
@@ -1804,7 +1799,6 @@
             // 
             // contextMenuStripJobs
             // 
-            this.contextMenuStripJobs.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripJobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem2,
             this.toolStripSeparator18,
@@ -1993,9 +1987,9 @@
             this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject1.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject1;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.TimeFilter = "Last week";
             this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -2007,7 +2001,6 @@
             // 
             // contextMenuStripPrograms
             // 
-            this.contextMenuStripPrograms.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripPrograms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem4,
             this.toolStripSeparator21,
@@ -2311,9 +2304,9 @@
             this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject2.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject2;
+            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.TimeFilter = "Last week";
             this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
@@ -2326,7 +2319,6 @@
             // 
             // contextMenuStripChannels
             // 
-            this.contextMenuStripChannels.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem3,
             this.toolStripSeparator20,
@@ -2562,7 +2554,6 @@
             // 
             // contextMenuStripProcessors
             // 
-            this.contextMenuStripProcessors.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripProcessors.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem6});
             this.contextMenuStripProcessors.Name = "contextMenuStripStreamingEndpoints";
@@ -2606,7 +2597,6 @@
             // 
             // contextMenuStripStreaminEndpoints
             // 
-            this.contextMenuStripStreaminEndpoints.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripStreaminEndpoints.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem5,
             this.toolStripSeparator25,
@@ -2721,7 +2711,6 @@
             // 
             // contextMenuStripStorage
             // 
-            this.contextMenuStripStorage.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.attachAnotherStorageAccountToolStripMenuItem,
@@ -2784,10 +2773,10 @@
             // chart
             // 
             resources.ApplyResources(this.chart, "chart");
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Name = "chart";
             // 
             // buttonbuildchart
@@ -2809,7 +2798,6 @@
             // 
             // contextMenuStripLog
             // 
-            this.contextMenuStripLog.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyToClipboardToolStripMenuItem,
             this.clearTextToolStripMenuItem});
@@ -2836,7 +2824,6 @@
             // 
             // menuStripMain
             // 
-            this.menuStripMain.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetToolStripMenuItem,
             this.filterToolStripMenuItem,
@@ -4059,7 +4046,6 @@
             // 
             this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureManagementPortalToolStripMenuItem1,
-            this.toolStripMenuItemClassicPortal,
             this.attachAnotherStoragheAccountToolStripMenuItem,
             this.configureTelemetryToolStripMenuItem});
             this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
@@ -4071,13 +4057,6 @@
             this.azureManagementPortalToolStripMenuItem1.Name = "azureManagementPortalToolStripMenuItem1";
             resources.ApplyResources(this.azureManagementPortalToolStripMenuItem1, "azureManagementPortalToolStripMenuItem1");
             this.azureManagementPortalToolStripMenuItem1.Click += new System.EventHandler(this.azureManagementPortalToolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItemClassicPortal
-            // 
-            this.toolStripMenuItemClassicPortal.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.toolStripMenuItemClassicPortal.Name = "toolStripMenuItemClassicPortal";
-            resources.ApplyResources(this.toolStripMenuItemClassicPortal, "toolStripMenuItemClassicPortal");
-            this.toolStripMenuItemClassicPortal.Click += new System.EventHandler(this.toolStripMenuItemClassicPortal_Click);
             // 
             // attachAnotherStoragheAccountToolStripMenuItem
             // 
@@ -4290,7 +4269,6 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConnection,
             this.toolStripStatusLabelWatchFolder,
@@ -4924,7 +4902,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem3;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoMediaUnits;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClassicPortal;
     }
 }
 
