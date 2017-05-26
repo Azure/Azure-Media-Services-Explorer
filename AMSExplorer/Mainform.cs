@@ -2578,7 +2578,7 @@ namespace AMSExplorer
                 if (locatorType == LocatorType.OnDemandOrigin)
                 {
                     sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
-                    sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
+                    sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected, https: true));
                     sbuilderThisAsset.AppendLine("");
 
                     // delivery policies
@@ -2616,14 +2616,14 @@ namespace AMSExplorer
 
 
                     // Get the MPEG-DASH URL of the asset for adaptive streaming.
-                    Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
+                    Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected, https: true);
 
                     // Get the HLS URL of the asset for adaptive streaming.
-                    Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected);
-                    Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected);
+                    Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected, https: true);
+                    Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true);
 
                     // Get the Smooth URL of the asset for adaptive streaming.
-                    Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
+                    Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected, https: true);
 
                     if (
                             (AssetToP.Options == AssetCreationOptions.None && AssetToP.DeliveryPolicies.Count == 0)
@@ -2634,7 +2634,7 @@ namespace AMSExplorer
                         sbuilderThisAsset.AppendLine(AssetInfo._prog_down_http_streaming + " : ");
                         foreach (IAssetFile IAF in AssetToP.AssetFiles)
                         {
-                            sbuilderThisAsset.AppendLine(AddBracket((new Uri(AssetInfo.RW(locator.Path, SESelected) + IAF.Name)).AbsoluteUri));
+                            sbuilderThisAsset.AppendLine(AddBracket((new Uri(AssetInfo.RW(locator.Path, SESelected, https: true) + IAF.Name)).AbsoluteUri));
                         }
                     }
 
@@ -2673,7 +2673,7 @@ namespace AMSExplorer
                                 sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
                                 sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
                                 sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).AbsoluteUri));
+                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true).AbsoluteUri));
                             }
                         }
                     }
@@ -2681,7 +2681,7 @@ namespace AMSExplorer
                 else //SAS
                 {
                     sbuilderThisAsset.AppendLine("SAS Container Path :");
-                    sbuilderThisAsset.AppendLine(locator.Path);
+                    sbuilderThisAsset.AppendLine(locator.Path.Replace("http://", "https://"));
                     sbuilderThisAsset.AppendLine("");
 
                     IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
@@ -2694,7 +2694,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("You can progressively download the following files :");
                     ProgressiveDownloadUris.ForEach(uri =>
                     {
-                        sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
+                        sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri.Replace("http://", "https://")));
                     }
                                         );
                 }
@@ -12413,8 +12413,6 @@ namespace AMSExplorer
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //  string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
-            //     CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
             string PortalUrl;
             if (_credentials.UseOtherAPI)
             {
@@ -12422,7 +12420,7 @@ namespace AMSExplorer
             }
             else
             {
-                PortalUrl = CredentialsEntry.GlobalManagementPortal;
+                PortalUrl = CredentialsEntry.GlobalPortal;
             }
 
             if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
@@ -15786,6 +15784,22 @@ namespace AMSExplorer
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void toolStripMenuItemClassicPortal_Click(object sender, EventArgs e)
+        {
+            string PortalUrl;
+            if (_credentials.UseOtherAPI)
+            {
+                PortalUrl = _credentials.OtherManagementPortal;
+            }
+            else
+            {
+                PortalUrl = CredentialsEntry.GlobalClassicManagementPortal;
+            }
+
+            if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
+
         }
     }
 }

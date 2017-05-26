@@ -3738,7 +3738,9 @@ namespace AMSExplorer
         public static readonly string TableStorage = ".table.core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
-        public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
+        public static readonly string GlobalClassicManagementPortal = "http://manage.windowsazure.com";
+        public static readonly string GlobalPortal = "http://portal.azure.com";
+
 
         public CredentialsEntry(string accountname, string accountkey, string storagekey, string accountid, string description, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {

@@ -47,11 +47,11 @@ namespace AMSExplorer
 
         public readonly IList<EndPointMapping> Mappings = new List<EndPointMapping> {
             // Global
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal, APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net",ManagementPortal="http://manage.windowsazure.com"}, 
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal, APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net",ManagementPortal="https://portal.azure.com"}, 
             // China
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="http://manage.windowsazure.cn"}, 
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="https://portal.azure.cn"}, 
             // Government
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="http://manage.windowsazure.us"}
+            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="https://portal.azure.us"}
         };
 
         public CredentialsEntry LoginCredentials
