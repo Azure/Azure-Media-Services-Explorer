@@ -2395,8 +2395,8 @@ namespace AMSExplorer
         public static string GetAssetType(IAsset asset)
         {
             string type = asset.AssetType.ToString();
+            int assetfilescount = asset.AssetFiles.Count();
             var AssetFiles = asset.AssetFiles.ToList();
-            int assetfilescount = AssetFiles.Count;
             int number = assetfilescount;
 
             switch (asset.AssetType)
@@ -2421,7 +2421,6 @@ namespace AMSExplorer
 
                     if (number == 0
                         && AssetFiles.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).Count() == 2
-
                         )
                     {
                         var fragmentedFilesCount = AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count();
@@ -2960,10 +2959,10 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    if (
-                        (myasset != null && UISelectSEFiltersAndProtocols)
-                        &&
-                        (context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
+                    if (true
+                        //(myasset != null && UISelectSEFiltersAndProtocols)
+                        //&&
+                        //(context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
                     {
                         var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer, true);

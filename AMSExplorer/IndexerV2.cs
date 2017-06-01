@@ -54,7 +54,7 @@ namespace AMSExplorer
         };
         */
 
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "EnUs", "EsEs", "ZhCn", "FrFr", "DeDe", "ItIt", "PtBr", "ArEg", "JaJp" };
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "EnUs", "EsEs", "ZhCn", "FrFr", "DeDe", "ItIt", "PtBr", "ArEg", "JaJp", "RuRu" };
 
         public IndexerOptionsVar IndexerGenerationOptions
         {
