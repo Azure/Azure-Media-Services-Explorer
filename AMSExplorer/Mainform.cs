@@ -5158,7 +5158,7 @@ namespace AMSExplorer
             {
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
-                CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+                // CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
@@ -5300,7 +5300,7 @@ namespace AMSExplorer
             {
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
-                CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
+                // CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
 
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
