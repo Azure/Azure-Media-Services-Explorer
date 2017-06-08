@@ -163,7 +163,6 @@
             // 
             resources.ApplyResources(this.labelPBulkName, "labelPBulkName");
             this.labelPBulkName.Name = "labelPBulkName";
-            this.labelPBulkName.Click += new System.EventHandler(this.labelProgramName_Click);
             // 
             // buttonClose
             // 
@@ -199,7 +198,6 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "BulkContainerInfo";
             this.Load += new System.EventHandler(this.BulkContainerInfo_Load);
-            this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGBulkManifest)).EndInit();

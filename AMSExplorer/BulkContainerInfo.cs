@@ -66,7 +66,6 @@ namespace AMSExplorer
                 if (DG.SelectedCells[0].Value != null)
                 {
                     System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
-
                 }
                 else
                 {
@@ -110,7 +109,6 @@ namespace AMSExplorer
 
         private void ListAssetManifests()
         {
-
             listViewAssetManifests.Items.Clear();
             DGAssetManifest.Rows.Clear();
             listViewAssetManifests.BeginUpdate();
@@ -121,16 +119,6 @@ namespace AMSExplorer
             }
             listViewAssetManifests.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAssetManifests.EndUpdate();
-        }
-        private void labelProgramName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void ProgramInformation_Shown(object sender, EventArgs e)
-        {
-
         }
 
         private void listViewAssetManifest_SelectedIndexChanged(object sender, EventArgs e)

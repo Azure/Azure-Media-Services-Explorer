@@ -983,7 +983,7 @@ namespace AMSExplorer
         public const string PlayerJWPlayerPartnership = @"http://www.jwplayer.com/partners/azure/";
         public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
-        public const string DemoCaptionMaker = @"https://dev.modern.ie/testdrive/demos/captionmaker/";
+        public const string DemoCaptionMaker = @"http://go.microsoft.com/fwlink/p/?LinkID=251121";
         public const string AMSSamples = @"https://github.com/AzureMediaServicesSamples";
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
