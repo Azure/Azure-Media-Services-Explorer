@@ -41,6 +41,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _mainform = mainform;
+            
         }
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -68,7 +69,7 @@ namespace AMSExplorer
 
         public void DoJobStats()
         {
-            JobInfo JR = new JobInfo(MyJob);
+            JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
             StringBuilder SB = JR.GetStats();
             var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.JobInformation_DoJobStats_JobReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
@@ -188,7 +189,7 @@ namespace AMSExplorer
 
         private void DoJobCreateMail()
         {
-            JobInfo JR = new JobInfo(MyJob);
+            JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
             JR.CreateOutlookMail();
         }
 

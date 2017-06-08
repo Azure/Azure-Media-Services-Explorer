@@ -126,30 +126,6 @@ namespace AMSExplorer
                     return;
                 }
             }
-
-            if (string.IsNullOrWhiteSpace(_credentials.AccountId))
-            { // No media service id . Let's ask the user
-                string mediaServicesAccountID = "";
-                if (Program.InputBox("Account Id Needed", "Please enter the Media Service Account ID for " + _credentials.AccountName + " :", ref mediaServicesAccountID, false) == DialogResult.OK)
-                {
-                    try
-                    {
-                        var g = new Guid(mediaServicesAccountID);
-                        _credentials.AccountId = mediaServicesAccountID;
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Incorrect Media Service Account ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.Close();
-                        return;
-                    }
-                }
-                else
-                {
-                    this.Close();
-                    return;
-                }
-            }
         }
 
 
@@ -244,8 +220,13 @@ namespace AMSExplorer
 
             try
             {
+                var telemetry = streamingEndpoint.GetTelemetry();
+
+                var res = telemetry.GetStreamingEndpointRequestLogs(_timerangeStart, _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5));
+
+                /*
                 // Get some streaming endpoint metrics.
-                var res = _context.StreamingEndPointRequestLogs.GetStreamingEndPointMetrics(
+                var res = _context.StreamingEndpoints.FirstOrDefault().GetTelemetry(  .stre.StreamingEndPointRequestLogs.GetStreamingEndPointMetrics(
                         currentConfig.EndPointAddress,
                         _storagePassword,
                         new Guid(_credentials.AccountId).ToString(),
@@ -253,7 +234,7 @@ namespace AMSExplorer
                         _timerangeStart,
                          _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
                          );
-
+*/
 
                 foreach (var log in res.OrderByDescending(l => l.ObservedTime))
                 {
@@ -278,7 +259,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Error when accessing to telemetry.\n\n" + ex.Message);
                 _storagePassword = "";
-                _credentials.AccountId = "";
                 if (boolSavedStoragePassword) _credentials.DefaultStorageKey = "";
             }
         }
@@ -323,6 +303,11 @@ namespace AMSExplorer
             // Get some channel metrics.
             try
             {
+                var telemetry = channel.GetTelemetry();
+
+                var channelMetrics = telemetry.GetChannelHeartbeats(_timerangeStart, _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5));
+
+                /*
                 var channelMetrics = _context.ChannelMetrics.GetChannelMetrics(
                                                                                 currentConfig.EndPointAddress,
                                                                                 _storagePassword,
@@ -331,6 +316,7 @@ namespace AMSExplorer
                                                                                 _timerangeStart,
                                                                                 _timerangeEnd ?? DateTime.UtcNow.AddMinutes(5)
                );
+               */
 
                 foreach (var cHB in channelMetrics.OrderByDescending(x => x.ObservedTime))
                 {
@@ -358,7 +344,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Error when accessing to telemetry.\n\n" + ex.Message);
                 _storagePassword = "";
-                _credentials.AccountId = "";
                 if (boolSavedStoragePassword) _credentials.DefaultStorageKey = "";
             }
 

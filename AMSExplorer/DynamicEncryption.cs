@@ -985,7 +985,7 @@ namespace AMSExplorer
             return contentKey;
         }
 
-        public static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL)
+        public static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL, string sourceAccountName, string destinationAccountName)
         {
             var SourceContext = sourceAsset.GetMediaContext();
             var DestinationContext = destinationAsset.GetMediaContext();
@@ -1050,7 +1050,7 @@ namespace AMSExplorer
                         ))
                     {
                         // let's change the LA URL to use the account in the other datacenter
-                        val = val.Replace(SourceContext.Credentials.ClientId, DestinationContext.Credentials.ClientId);
+                        val = val.Replace(sourceAccountName, destinationAccountName);
                     }
                     assetDeliveryPolicyConfiguration.Add(s.Key, val);
                 }

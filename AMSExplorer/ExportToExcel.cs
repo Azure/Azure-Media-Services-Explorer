@@ -37,11 +37,12 @@ namespace AMSExplorer
         private IEnumerable<IAsset> _selassets;
         private IEnumerable<IAsset> _visibleassets;
         private string filename;
+        private string _accountname;
 
-
-        public ExportToExcel(CloudMediaContext context, IEnumerable<IAsset> selassets, IEnumerable<IAsset> visibleassets)
+        public ExportToExcel(CloudMediaContext context, string accountname, IEnumerable<IAsset> selassets, IEnumerable<IAsset> visibleassets)
         {
             InitializeComponent();
+            _accountname = accountname;
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _selassets = selassets;
@@ -55,7 +56,7 @@ namespace AMSExplorer
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
             string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
-            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _accountname, DateTime.Now.ToString("dMMMyyyy"));
 
         }
 
@@ -358,11 +359,11 @@ namespace AMSExplorer
                 Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
                 if (radioButtonAllAssets.Checked)
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId);
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _accountname);
                 }
                 else
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId);
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _accountname);
                 }
                 chartRange.VerticalAlignment = 3;
                 chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
@@ -535,11 +536,11 @@ namespace AMSExplorer
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _context.Credentials.ClientId)));
+                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _accountname)));
                 }
                 else
                 {
-                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _context.Credentials.ClientId)));
+                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0,_accountname)));
                 }
 
                 csv.AppendLine(checkStringForCSV(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",

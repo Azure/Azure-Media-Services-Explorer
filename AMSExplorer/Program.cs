@@ -98,68 +98,78 @@ namespace AMSExplorer
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
         {
             CloudMediaContext myContext = null;
-            if (credentials.UsePartnerAPI)
+            if (credentials.UseAADInteract)
             {
-                // Get the service context for partner context.
-                try
-                {
-                    Uri partnerAPIServer = new Uri(CredentialsEntry.PartnerAPIServer);
-                    myContext = new CloudMediaContext(partnerAPIServer, credentials.AccountName, credentials.AccountKey, CredentialsEntry.PartnerScope, CredentialsEntry.PartnerACSBaseAddress);
-                }
-                catch (Exception e)
-                {
-                    if (displayErrorMessageAndQuit)
-                    {
-                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (custom API)." + Constants.endline + "Application will close. " + Constants.endline + e.Message);
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        throw e;
-                    }
-                }
-            }
-            else if (credentials.UseOtherAPI)
-            {
-                try
-                {
-                    Uri otherAPIServer = new Uri(credentials.OtherAPIServer);
-                    myContext = new CloudMediaContext(otherAPIServer, credentials.AccountName, credentials.AccountKey, credentials.OtherScope, credentials.OtherACSBaseAddress);
-                }
-                catch (Exception e)
-                {
-                    if (displayErrorMessageAndQuit)
-                    {
-                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (Partner API)." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        throw e;
-                    }
-                }
+                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, AzureEnvironments.AzureCloudEnvironment);
+                var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
+                myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
             }
             else
             {
-                // Get the service context.
-                try
+                if (credentials.UsePartnerAPI)
                 {
-                    myContext = new CloudMediaContext(credentials.AccountName, credentials.AccountKey);
-                }
-                catch (Exception e)
-                {
-                    if (displayErrorMessageAndQuit)
+                    // Get the service context for partner context.
+                    try
                     {
-                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                        Environment.Exit(0);
+                        Uri partnerAPIServer = new Uri(CredentialsEntry.PartnerAPIServer);
+                        myContext = new CloudMediaContext(partnerAPIServer, credentials.AccountName, credentials.AccountKey, CredentialsEntry.PartnerScope, CredentialsEntry.PartnerACSBaseAddress);
                     }
-                    else
+                    catch (Exception e)
                     {
-                        throw e;
+                        if (displayErrorMessageAndQuit)
+                        {
+                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (custom API)." + Constants.endline + "Application will close. " + Constants.endline + e.Message);
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            throw e;
+                        }
+                    }
+                }
+                else if (credentials.UseOtherAPI)
+                {
+                    try
+                    {
+                        Uri otherAPIServer = new Uri(credentials.OtherAPIServer);
+                        myContext = new CloudMediaContext(otherAPIServer, credentials.AccountName, credentials.AccountKey, credentials.OtherScope, credentials.OtherACSBaseAddress);
+                    }
+                    catch (Exception e)
+                    {
+                        if (displayErrorMessageAndQuit)
+                        {
+                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (Partner API)." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            throw e;
+                        }
+                    }
+                }
+                else
+                {
+                    // Get the service context.
+                    try
+                    {
+                        myContext = new CloudMediaContext(credentials.AccountName, credentials.AccountKey);
+                    }
+                    catch (Exception e)
+                    {
+                        if (displayErrorMessageAndQuit)
+                        {
+                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            throw e;
+                        }
                     }
                 }
             }
-            if (refreshToken)
+
+            if (false)//refreshToken)
             {
                 try
                 {
@@ -1105,16 +1115,19 @@ namespace AMSExplorer
     public class JobInfo
     {
         private List<IJob> SelectedJobs;
+        private string _accountname;
 
-        public JobInfo(IJob job)
+        public JobInfo(IJob job, string accountname)
         {
             SelectedJobs = new List<IJob>();
             SelectedJobs.Add(job);
+            _accountname = accountname;
 
         }
-        public JobInfo(List<IJob> MySelectedJobs)
+        public JobInfo(List<IJob> MySelectedJobs, string accountname)
         {
             SelectedJobs = MySelectedJobs;
+            _accountname = accountname;
         }
 
         public void CreateOutlookMail()
@@ -1460,7 +1473,7 @@ namespace AMSExplorer
                         sb.AppendLine("Job Duration        : " + elapsedTime);
                     }
                     sb.AppendLine("Number of tasks     : " + theJob.Tasks.Count);
-                    sb.AppendLine("Media Account       : " + theJob.GetMediaContext().Credentials.ClientId);
+                    sb.AppendLine("Media Account       : " + _accountname);
                     sb.AppendLine("");
                     sb.AppendLine(section);
                     foreach (ITask task in theJob.Tasks)
@@ -3713,10 +3726,12 @@ namespace AMSExplorer
     public class CredentialsEntry : IEquatable<CredentialsEntry>
     {
         public string AccountName { get; set; }
-        public string AccountId { get; set; }
         public string AccountKey { get; set; }
+        public string ADTenantDomain { get; set; }
+        public string ADRestAPIEndpoint { get; set; }
         public string DefaultStorageKey { get; set; }
         public string Description { get; set; }
+        public bool UseAADInteract { get; set; }
         public bool UsePartnerAPI { get; set; }
         public bool UseOtherAPI { get; set; }
         public string OtherAPIServer { get; set; }
@@ -3741,27 +3756,28 @@ namespace AMSExplorer
         public static readonly string GlobalPortal = "http://portal.azure.com";
 
 
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string accountid, string description, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
+        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
-            AccountName = accountname;
-            AccountKey = accountkey;
+            AccountName = string.IsNullOrEmpty(accountname) ? null: accountname;
+            AccountKey = string.IsNullOrEmpty(accountkey) ? null : accountkey; 
+            ADTenantDomain = string.IsNullOrEmpty(adtenantdomain) ? null : adtenantdomain; 
+            ADRestAPIEndpoint = string.IsNullOrEmpty(adrestapiendpoint) ? null : adrestapiendpoint; 
             DefaultStorageKey = storagekey;
-            AccountId = accountid;
             Description = description;
+            UseAADInteract = useaadinterative;
             UsePartnerAPI = usepartnerapi;
             UseOtherAPI = useotherapi;
-            OtherAPIServer = apiserver;
-            OtherScope = scope;
-            OtherACSBaseAddress = acsbaseaddress;
-            OtherAzureEndpoint = azureendpoint;
-            OtherManagementPortal = managementportal;
+            OtherAPIServer = string.IsNullOrEmpty(apiserver) ? null : apiserver; 
+            OtherScope = string.IsNullOrEmpty(scope) ? null : scope; 
+            OtherACSBaseAddress = string.IsNullOrEmpty(acsbaseaddress) ? null : acsbaseaddress; 
+            OtherAzureEndpoint = string.IsNullOrEmpty(azureendpoint) ? null : azureendpoint; 
+            OtherManagementPortal = string.IsNullOrEmpty(managementportal) ? null : managementportal; 
         }
 
         public bool Equals(CredentialsEntry other)
         {
             return
-                this.AccountId == other.AccountId
-                && this.AccountKey == other.AccountKey
+                this.AccountKey == other.AccountKey
                 && this.AccountName == other.AccountName
                 && this.Description == other.Description
                 && this.OtherACSBaseAddress == other.OtherACSBaseAddress
@@ -4129,7 +4145,6 @@ namespace AMSExplorer
             return token;
         }
     }
-
 
     public class ListViewItemComparer : IComparer
     {

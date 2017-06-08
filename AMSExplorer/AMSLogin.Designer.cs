@@ -38,16 +38,19 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBoxAccountID = new System.Windows.Forms.TextBox();
+            this.textBoxRestAPIEndpoint = new System.Windows.Forms.TextBox();
+            this.textBoxAADtenant = new System.Windows.Forms.TextBox();
+            this.textBoxAccountName = new System.Windows.Forms.TextBox();
+            this.labelE1 = new System.Windows.Forms.Label();
+            this.labelE2 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.textBoxAccountKey = new System.Windows.Forms.TextBox();
+            this.radioButtonAADInteract = new System.Windows.Forms.RadioButton();
+            this.radioButtonACS = new System.Windows.Forms.RadioButton();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxBlobKey = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAccountKey = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxAccountName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBoxManagementPortal = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -138,29 +141,76 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage1.Controls.Add(this.textBoxAccountID);
+            this.tabPage1.Controls.Add(this.textBoxRestAPIEndpoint);
+            this.tabPage1.Controls.Add(this.textBoxAADtenant);
+            this.tabPage1.Controls.Add(this.textBoxAccountName);
+            this.tabPage1.Controls.Add(this.labelE1);
+            this.tabPage1.Controls.Add(this.labelE2);
             this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.textBoxAccountKey);
+            this.tabPage1.Controls.Add(this.radioButtonAADInteract);
+            this.tabPage1.Controls.Add(this.radioButtonACS);
             this.tabPage1.Controls.Add(this.textBoxDescription);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.textBoxBlobKey);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.textBoxAccountKey);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBoxAccountName);
-            this.tabPage1.Controls.Add(this.label1);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             // 
-            // textBoxAccountID
+            // textBoxRestAPIEndpoint
             // 
-            resources.ApplyResources(this.textBoxAccountID, "textBoxAccountID");
-            this.textBoxAccountID.Name = "textBoxAccountID";
-            this.textBoxAccountID.Validating += new System.ComponentModel.CancelEventHandler(this.CheckTextBoxGuid);
+            resources.ApplyResources(this.textBoxRestAPIEndpoint, "textBoxRestAPIEndpoint");
+            this.textBoxRestAPIEndpoint.Name = "textBoxRestAPIEndpoint";
+            this.textBoxRestAPIEndpoint.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRestAPIEndpoint_Validating);
+            // 
+            // textBoxAADtenant
+            // 
+            resources.ApplyResources(this.textBoxAADtenant, "textBoxAADtenant");
+            this.textBoxAADtenant.Name = "textBoxAADtenant";
+            this.textBoxAADtenant.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAADtenant_Validating);
+            // 
+            // textBoxAccountName
+            // 
+            resources.ApplyResources(this.textBoxAccountName, "textBoxAccountName");
+            this.textBoxAccountName.Name = "textBoxAccountName";
+            this.textBoxAccountName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountName_Validating);
+            // 
+            // labelE1
+            // 
+            resources.ApplyResources(this.labelE1, "labelE1");
+            this.labelE1.Name = "labelE1";
+            // 
+            // labelE2
+            // 
+            resources.ApplyResources(this.labelE2, "labelE2");
+            this.labelE2.Name = "labelE2";
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            // 
+            // textBoxAccountKey
+            // 
+            resources.ApplyResources(this.textBoxAccountKey, "textBoxAccountKey");
+            this.textBoxAccountKey.Name = "textBoxAccountKey";
+            this.textBoxAccountKey.UseSystemPasswordChar = true;
+            this.textBoxAccountKey.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountKey_Validating);
+            // 
+            // radioButtonAADInteract
+            // 
+            resources.ApplyResources(this.radioButtonAADInteract, "radioButtonAADInteract");
+            this.radioButtonAADInteract.Checked = true;
+            this.radioButtonAADInteract.Name = "radioButtonAADInteract";
+            this.radioButtonAADInteract.TabStop = true;
+            this.radioButtonAADInteract.UseVisualStyleBackColor = true;
+            this.radioButtonAADInteract.CheckedChanged += new System.EventHandler(this.radioButtonAADInteract_CheckedChanged);
+            // 
+            // radioButtonACS
+            // 
+            resources.ApplyResources(this.radioButtonACS, "radioButtonACS");
+            this.radioButtonACS.Name = "radioButtonACS";
+            this.radioButtonACS.UseVisualStyleBackColor = true;
             // 
             // textBoxDescription
             // 
@@ -182,29 +232,6 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            // 
-            // textBoxAccountKey
-            // 
-            resources.ApplyResources(this.textBoxAccountKey, "textBoxAccountKey");
-            this.textBoxAccountKey.Name = "textBoxAccountKey";
-            this.textBoxAccountKey.UseSystemPasswordChar = true;
-            this.textBoxAccountKey.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountKey_Validating);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // textBoxAccountName
-            // 
-            resources.ApplyResources(this.textBoxAccountName, "textBoxAccountName");
-            this.textBoxAccountName.Name = "textBoxAccountName";
-            this.textBoxAccountName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountName_Validating);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // tabPage2
             // 
@@ -439,9 +466,9 @@
         private System.Windows.Forms.TextBox textBoxBlobKey;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxAccountKey;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelE2;
         private System.Windows.Forms.TextBox textBoxAccountName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelE1;
         private System.Windows.Forms.TextBox textBoxACSBaseAddress;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxScope;
@@ -468,7 +495,10 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.TextBox textBoxAccountID;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RadioButton radioButtonAADInteract;
+        private System.Windows.Forms.RadioButton radioButtonACS;
+        private System.Windows.Forms.TextBox textBoxRestAPIEndpoint;
+        private System.Windows.Forms.TextBox textBoxAADtenant;
     }
 }

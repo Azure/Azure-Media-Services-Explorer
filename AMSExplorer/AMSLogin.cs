@@ -32,6 +32,8 @@ using System.Reflection;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.IO;
+using Microsoft.WindowsAzure.MediaServices.Client;
+
 
 namespace AMSExplorer
 {
@@ -54,6 +56,12 @@ namespace AMSExplorer
             new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="https://portal.azure.us"}
         };
 
+        public CloudMediaContext context;
+        public string accountName;
+
+        private string[] labelEntry1;
+        private string[] labelEntry2;
+
         public CredentialsEntry LoginCredentials
         {
             get
@@ -61,9 +69,11 @@ namespace AMSExplorer
                 return new CredentialsEntry(
                textBoxAccountName.Text,
                textBoxAccountKey.Text,
+               textBoxAADtenant.Text,
+               textBoxRestAPIEndpoint.Text,
                textBoxBlobKey.Text,
-               textBoxAccountID.Text,
                textBoxDescription.Text,
+               radioButtonAADInteract.Checked,
                radioButtonPartner.Checked,
                radioButtonOther.Checked,
                textBoxAPIServer.Text,
@@ -84,6 +94,9 @@ namespace AMSExplorer
 
         private void AMSLogin_Load(object sender, EventArgs e)
         {
+            labelEntry1 = labelE1.Text.Split('|');
+            labelEntry2 = labelE2.Text.Split('|');
+
             var CredentialsList = Properties.Settings.Default.LoginList;
 
             // let's purge the old list now.
@@ -92,6 +105,7 @@ namespace AMSExplorer
             // OLD MODE. XML properties for account entries
             if (!Properties.Settings.Default.MigratedLoginListToJSON && CredentialsList != null && CredentialsList.Count > 0)
             {
+                /*
                 try
                 {
                     if (CredentialsList != null && CredentialsList.Count > 0)
@@ -123,7 +137,6 @@ namespace AMSExplorer
                         CredentialsList[i * CredentialsEntry.StringsCount],
                         CredentialsList[i * CredentialsEntry.StringsCount + 1],
                         CredentialsList[i * CredentialsEntry.StringsCount + 2],
-                        string.Empty,
                         CredentialsList[i * CredentialsEntry.StringsCount + 3],
                         CredentialsList[i * CredentialsEntry.StringsCount + 4] == true.ToString() ? true : false,
                         CredentialsList[i * CredentialsEntry.StringsCount + 5] == true.ToString() ? true : false,
@@ -139,6 +152,9 @@ namespace AMSExplorer
                 Properties.Settings.Default.LoginListJSON = NewCredentialListJSON;
                 Properties.Settings.Default.MigratedLoginListToJSON = true;
                 Program.SaveAndProtectUserConfig();
+    */
+                MessageBox.Show("Please use an older version of AMSE to migrate your data");
+                Environment.Exit(0);
 
             }
             else // Standard mode. New installation or migration already done
@@ -152,7 +168,7 @@ namespace AMSExplorer
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
                 {
                     CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
+                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
                 }
                 buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             }
@@ -166,6 +182,8 @@ namespace AMSExplorer
 
             // version
             labelVersion.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
+
+            UpdateTexboxUI();
         }
 
         private string ReturnAzureEndpoint(string mystring)
@@ -179,25 +197,51 @@ namespace AMSExplorer
             return temp.Count() > 1 ? temp[1] : string.Empty;
         }
 
+        public static string ReturnAccountName(CredentialsEntry entry)
+        {
+
+            string accName = "";
+
+            if (!entry.UseAADInteract)
+            {
+                return entry.AccountName;
+            }
+            else if (entry.ADRestAPIEndpoint != "")
+            {
+
+                try
+                {
+                    accName = (new Uri(entry.ADRestAPIEndpoint)).Host.Split('.')[0];
+                }
+
+                catch
+                {
+
+                }
+            }
+
+            return accName;
+        }
+
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
             // New code for JSON
-            if (string.IsNullOrEmpty(textBoxAccountName.Text))
+            if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
                 return;
             }
-            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxAccountID.Text, textBoxDescription.Text, radioButtonPartner.Checked, radioButtonOther.Checked, textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text, textBoxManagementPortal.Text);
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName.ToLower().Trim() == textBoxAccountName.Text.ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(LoginCredentials).ToLower().Trim()).FirstOrDefault();
             // if found the same name
             if (entryWithSameName != null)
             {
-                CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = myCredentials;
+                CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
             }
             else
             {
-                CredentialList.MediaServicesAccounts.Add(myCredentials);
+                CredentialList.MediaServicesAccounts.Add(LoginCredentials);
+                listBoxAcounts.Items.Add(ReturnAccountName(LoginCredentials));
             }
             Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
             Program.SaveAndProtectUserConfig();
@@ -213,7 +257,7 @@ namespace AMSExplorer
                 Program.SaveAndProtectUserConfig();
 
                 listBoxAcounts.Items.Clear();
-                CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
+                CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
 
                 if (listBoxAcounts.Items.Count > 0)
                 {
@@ -228,27 +272,45 @@ namespace AMSExplorer
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxAccountName.Text))
+            if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
             {
                 MessageBox.Show("The account name cannot be empty.");
                 return;
             }
 
-            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxAccountID.Text, textBoxDescription.Text, radioButtonPartner.Checked, radioButtonOther.Checked, textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text, textBoxManagementPortal.Text);
+            /*
+            CredentialsEntry myCredentials = new CredentialsEntry(
+                textBoxAccountName.Text,
+                textBoxAccountKey.Text,
+                textBoxADTenantDomain.Text,
+               textBoxADRestAPIEndpoint.Text,
+               textBoxBlobKey.Text,
+               textBoxDescription.Text,
+               radioButtonAADInteract.Checked,
+               radioButtonPartner.Checked,
+               radioButtonOther.Checked,
+               textBoxAPIServer.Text,
+               textBoxScope.Text,
+               textBoxACSBaseAddress.Text,
+               textBoxAzureEndpoint.Text,
+               textBoxManagementPortal.Text
+                );
+                */
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName.ToLower().Trim() == textBoxAccountName.Text.ToLower().Trim()).FirstOrDefault();
+            var accName = ReturnAccountName(LoginCredentials);
+
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == accName.ToLower().Trim()).FirstOrDefault();
             // if found the same name
             if (entryWithSameName == null)  // not found
             {
-                //CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = myCredentials;
-                var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0, textBoxAccountName.Text), AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_SaveCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_SaveCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) // ok to save
                 {
-                    CredentialList.MediaServicesAccounts.Add(myCredentials);
+                    CredentialList.MediaServicesAccounts.Add(LoginCredentials);
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
 
-                    listBoxAcounts.Items.Add(myCredentials.AccountName);
+                    listBoxAcounts.Items.Add(ReturnAccountName(LoginCredentials));
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -257,9 +319,9 @@ namespace AMSExplorer
             }
             else // found
             {
-                if (!myCredentials.Equals(entryWithSameName)) // changed ?
+                if (!LoginCredentials.Equals(entryWithSameName)) // changed ?
                 {
-                    var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, myCredentials.AccountName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes) // ok to update the credentials
                     {
                         CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
@@ -273,6 +335,22 @@ namespace AMSExplorer
                 }
             }
 
+            // Context creation
+            context = Program.ConnectAndGetNewContext(LoginCredentials, false);
+            accName = ReturnAccountName(LoginCredentials);
+
+            try
+            {
+                var a = context.Assets.FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            accountName = accName;
             this.DialogResult = DialogResult.OK;  // form will close with OK result
                                                   // else --> form won't close...
         }
@@ -286,11 +364,11 @@ namespace AMSExplorer
             {
                 if (CurrentCredential != null)
                 {
-                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName.ToLower().Trim() == CurrentCredential.AccountName.ToLower().Trim()).FirstOrDefault();
+                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(CurrentCredential).ToLower().Trim()).FirstOrDefault();
 
                     if (entryWithSameName != null && !LoginCredentials.Equals(CurrentCredential))
                     {
-                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, CurrentCredential.AccountName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, ReturnAccountName(CurrentCredential)), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes) // ok to update the credentials
                         {
                             CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
@@ -302,11 +380,16 @@ namespace AMSExplorer
 
                 var entry = CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex];
 
+                radioButtonAADInteract.Checked = entry.UseAADInteract;
+                radioButtonACS.Checked = !entry.UseAADInteract;
                 textBoxAccountName.Text = entry.AccountName;
                 textBoxAccountKey.Text = entry.AccountKey;
+                textBoxAADtenant.Text = entry.ADTenantDomain;
+                textBoxRestAPIEndpoint.Text = entry.ADRestAPIEndpoint;
                 textBoxBlobKey.Text = entry.DefaultStorageKey;
-                textBoxAccountID.Text = entry.AccountId;
                 textBoxDescription.Text = entry.Description;
+                radioButtonACS.Checked = !entry.UseAADInteract;
+                radioButtonAADInteract.Checked = entry.UseAADInteract;
                 radioButtonPartner.Checked = entry.UsePartnerAPI;
                 radioButtonOther.Checked = entry.UseOtherAPI;
                 textBoxAPIServer.Text = entry.OtherAPIServer;
@@ -324,8 +407,12 @@ namespace AMSExplorer
                 // to clear or set the error
                 CheckTextBox((object)textBoxAccountName);
                 CheckTextBox((object)textBoxAccountKey);
+                CheckTextBox((object)textBoxAADtenant);
+                CheckTextBox((object)textBoxRestAPIEndpoint);
 
                 CurrentCredential = LoginCredentials;
+
+                UpdateTexboxUI();
             }
         }
 
@@ -336,16 +423,19 @@ namespace AMSExplorer
 
         private void DoClearFields()
         {
-            textBoxAccountName.Text = string.Empty;
-            textBoxAccountKey.Text = string.Empty;
-            textBoxBlobKey.Text = string.Empty;
-            textBoxAccountID.Text = string.Empty;
-            textBoxDescription.Text = string.Empty;
-            textBoxACSBaseAddress.Text = string.Empty; ;
-            textBoxAPIServer.Text = string.Empty;
-            textBoxScope.Text = string.Empty; ;
+            textBoxAccountName.Text =
+            textBoxAccountKey.Text =
+            textBoxAADtenant.Text =
+            textBoxRestAPIEndpoint.Text =
+            textBoxBlobKey.Text =
+            textBoxDescription.Text =
+            textBoxACSBaseAddress.Text =
+            textBoxAPIServer.Text =
+            textBoxScope.Text =
             textBoxAzureEndpoint.Text = string.Empty;
+
             radioButtonProd.Checked = true;
+            radioButtonAADInteract.Checked = false;
             listBoxAcounts.ClearSelected();
         }
 
@@ -385,15 +475,19 @@ namespace AMSExplorer
             {
                 try
                 {
+                    JsonSerializerSettings settings = new JsonSerializerSettings();
+                    settings.NullValueHandling = NullValueHandling.Ignore;
+                    settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
                     if (exportAll)
                     {
-                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, Newtonsoft.Json.Formatting.Indented));
+                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, settings));
                     }
                     else
                     {
                         var copyEntry = new ListCredentials();
                         copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex]);
-                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, Newtonsoft.Json.Formatting.Indented));
+                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, settings));
                     }
                 }
                 catch (Exception ex)
@@ -456,9 +550,11 @@ namespace AMSExplorer
                                 CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
                                         att.Attribute("AccountName").Value.ToString(),
                                         att.Attribute("AccountKey").Value.ToString(),
+                                        string.Empty, // client id not stored in XML
+                                        string.Empty, // client secret not stored in XML
                                         att.Attribute("StorageKey").Value.ToString(),
-                                        string.Empty, // media services id not stored in XML
                                         att.Attribute("Description").Value.ToString(),
+                                        false,
                                         att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
                                         att.Attribute("UseOtherAPI").Value.ToString() == true.ToString() ? true : false,
                                         att.Attribute("OtherAPIServer").Value.ToString(),
@@ -478,7 +574,7 @@ namespace AMSExplorer
 
                         listBoxAcounts.Items.Clear();
                         DoClearFields();
-                        CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
+                        CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
                         buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
 
                         // let's save the list of credentials in settings
@@ -508,7 +604,7 @@ namespace AMSExplorer
 
                     listBoxAcounts.Items.Clear();
                     DoClearFields();
-                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
+                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
                     buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
@@ -610,6 +706,66 @@ namespace AMSExplorer
         {
             // Proceed to log in to the selected account in the listbox
             buttonLogin_Click(sender, e);
+        }
+
+        private void radioButtonAADInteract_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTexboxUI();
+        }
+
+        private void UpdateTexboxUI()
+        {
+            if (radioButtonAADInteract.Checked)
+            {
+                labelE1.Text = labelEntry1[1];
+                labelE2.Text = labelEntry2[1];
+            }
+            else
+            {
+                labelE1.Text = labelEntry1[0];
+                labelE2.Text = labelEntry2[0];
+            }
+
+            textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADInteract.Checked;
+            textBoxAccountName.Visible = textBoxAccountKey.Visible = radioButtonACS.Checked;
+        }
+
+        private void textBoxAADtenant_Validating(object sender, CancelEventArgs e)
+        {
+            CheckTextBox(sender);
+        }
+
+        private void textBoxRestAPIEndpoint_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (string.IsNullOrEmpty(tb.Text))
+            {
+                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.AMSLogin_CheckTextBox_ThisFieldIsMandatory);
+            }
+            else
+            {
+                bool Error = false;
+                try
+                {
+                    var url = new Uri(tb.Text);
+                }
+                catch
+                {
+                    Error = true;
+                }
+
+                if (Error)
+                {
+                    errorProvider1.SetError(tb, "Please insert a valid URL");
+
+                }
+                else
+                {
+                    errorProvider1.SetError(tb, String.Empty);
+
+                }
+            }
         }
     }
 }

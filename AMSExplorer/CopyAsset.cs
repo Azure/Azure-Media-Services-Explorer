@@ -41,6 +41,7 @@ namespace AMSExplorer
         private CopyAssetBoxMode Mode;
         bool ErrorConnectingAMS = false;
         bool ErrorConnectingStorage = false;
+        private string _accountname;
 
         public CredentialsEntry DestinationLoginCredentials
         {
@@ -141,9 +142,10 @@ namespace AMSExplorer
         }
 
 
-        public CopyAsset(CloudMediaContext context, int numberofobjectselected, CopyAssetBoxMode mode)
+        public CopyAsset(CloudMediaContext context, int numberofobjectselected, CopyAssetBoxMode mode, string accountname)
         {
             InitializeComponent();
+            _accountname = accountname;
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             Mode = mode;
@@ -163,10 +165,10 @@ namespace AMSExplorer
 
                 case CopyAssetBoxMode.CloneChannel:
                     labelAssetCopy.Text = AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
-                    labelExplanation.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount: AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount;
+                    labelExplanation.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount;
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
-                    labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelsSelected: AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelSelected, numberofobjectselected);
+                    labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelSelected, numberofobjectselected);
                     buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannels : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
                     panelStorageAccount.Visible = false;
                     groupBoxOptions.Visible = false;
@@ -199,15 +201,15 @@ namespace AMSExplorer
             labelWarningStorage.Text = "";
 
             CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-            CredentialList.MediaServicesAccounts.ForEach(c => listBoxAccounts.Items.Add(c.AccountName));
+            CredentialList.MediaServicesAccounts.ForEach(c => listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName.ToLower().Trim() == _context.Credentials.ClientId.ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => AMSLogin.ReturnAccountName(c).ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
             if (entryWithSameName != null)
             {
                 listBoxAccounts.SelectedIndex = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
             }
         }
-    
+
 
         private void listBoxAcounts_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -215,7 +217,7 @@ namespace AMSExplorer
             {
                 int index = listBoxAccounts.SelectedIndex;
                 SelectedCredentials = CredentialList.MediaServicesAccounts[index];
-               
+
                 labelDescription.Text = SelectedCredentials.Description;
 
                 if (Mode == CopyAssetBoxMode.CopyAsset)
