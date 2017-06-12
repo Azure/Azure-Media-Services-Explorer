@@ -352,10 +352,6 @@ namespace AMSExplorer
 
             trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
             UpdateLabelConcurrentTransfers();
-            _context.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
-            _context.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;
-
-          
 
             ApplySettingsOptions(true);
 
