@@ -240,9 +240,7 @@ namespace AMSExplorer
 
                 foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
                 {
-                    //assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
                     removeItems.Add(assetFiles[row.Index]);
-                    //assetFiles.RemoveAt(row.Index);
                 }
 
                 foreach (BulkAssetFile item in removeItems)
@@ -273,7 +271,6 @@ namespace AMSExplorer
 
                 g = f.AssetGuid;
             }
-
 
 
             // let's check filename duplicates

@@ -14689,7 +14689,6 @@ namespace AMSExplorer
                 storKey = _credentials.DefaultStorageKey;
             }
 
-
             if (!fileencrypted)
             {
                 foreach (var asset in assetFiles)
@@ -14707,23 +14706,33 @@ namespace AMSExplorer
                     }
                 }
             }
-            else
+            else // files encrypted
             {
-                foreach (var asset in im.IngestManifestAssets)
-                {
-                    foreach (var file in asset.IngestManifestFiles)
-                    {
-                        command.AppendLine(
-                            string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
-                            encryptedfilefolder,
-                            im.BlobStorageUriForUpload,
-                            storKey,
-                            im.StorageAccountName,
-                            file.Name
-                            )
-                            );
-                    }
-                }
+                command.AppendLine(
+                         string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""*""",
+                         encryptedfilefolder,
+                         im.BlobStorageUriForUpload,
+                         storKey
+                         )
+                         );
+
+                /*
+             foreach (var asset in im.IngestManifestAssets)
+             {
+                 foreach (var file in asset.IngestManifestFiles)
+                 {
+                     command.AppendLine(
+                         string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
+                         encryptedfilefolder,
+                         im.BlobStorageUriForUpload,
+                         storKey,
+                         file.Name
+                         )
+                         );
+                 }
+                
+            }
+             */
             }
 
             return command.ToString();
