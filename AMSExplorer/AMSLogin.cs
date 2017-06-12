@@ -152,7 +152,7 @@ namespace AMSExplorer
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
                 {
                     CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName));
+                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(c.AccountName ?? "<null>"));
                 }
                 buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             }

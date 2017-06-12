@@ -179,7 +179,6 @@ namespace AMSExplorer
                     splashForm.Close();
                 }
             });
-
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials, true);
 
@@ -347,8 +346,16 @@ namespace AMSExplorer
             }
 
             // let's initialize the trackbar and text for nb of transfers
+            
+            // hard coded - for tests
+            Properties.Settings.Default.ConcurrentTransfers = 1;
+
             trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
             UpdateLabelConcurrentTransfers();
+            _context.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
+            _context.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;
+
+          
 
             ApplySettingsOptions(true);
 
@@ -8161,6 +8168,9 @@ namespace AMSExplorer
             withCustomPlayerToolStripMenuItem.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
+
+            _context.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
+            _context.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;
         }
 
 

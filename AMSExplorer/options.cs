@@ -54,8 +54,8 @@ namespace AMSExplorer
             Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
 
-            Properties.Settings.Default.AssetAnalysisStart = (int) numericUpDownAssetAnalysisStart.Value;
-            Properties.Settings.Default.AssetAnalysisStep = (int) numericUpDownAssetAnalysisStep.Value;
+            Properties.Settings.Default.AssetAnalysisStart = (int)numericUpDownAssetAnalysisStart.Value;
+            Properties.Settings.Default.AssetAnalysisStep = (int)numericUpDownAssetAnalysisStep.Value;
 
             Properties.Settings.Default.CustomPlayerUrl = textBoxCustomPlayer.Text;
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
@@ -73,6 +73,8 @@ namespace AMSExplorer
             Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
             Properties.Settings.Default.VLCPath = textBoxVLCPath.Text;
 
+            Properties.Settings.Default.ParallelTransferThreadCount = (int)numericUpDownParallelTransThreadCount.Value;
+            Properties.Settings.Default.NumberOfConcurrentTransfers = (int)numericUpDownNumbConcurTrans.Value;
 
             Program.SaveAndProtectUserConfig();
         }
@@ -125,6 +127,9 @@ namespace AMSExplorer
             Properties.Settings.Default.DynEncTokenIssuer = "http://testacs";
             Properties.Settings.Default.DynEncTokenAudience = "urn:test";
 
+            numericUpDownParallelTransThreadCount.Value = 10;
+            numericUpDownNumbConcurTrans.Value = 2;
+
             Program.SaveAndProtectUserConfig();
         }
 
@@ -172,6 +177,9 @@ namespace AMSExplorer
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
 
             amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
+
+            numericUpDownParallelTransThreadCount.Value = Properties.Settings.Default.ParallelTransferThreadCount;
+            numericUpDownNumbConcurTrans.Value = Properties.Settings.Default.NumberOfConcurrentTransfers;
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)

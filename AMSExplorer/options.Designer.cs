@@ -90,6 +90,12 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDownNumbConcurTrans = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDownParallelTransThreadCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
@@ -110,6 +116,10 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -544,6 +554,7 @@
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
@@ -602,6 +613,63 @@
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox6);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label18);
+            this.groupBox6.Controls.Add(this.numericUpDownNumbConcurTrans);
+            this.groupBox6.Controls.Add(this.label19);
+            this.groupBox6.Controls.Add(this.numericUpDownParallelTransThreadCount);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // numericUpDownNumbConcurTrans
+            // 
+            resources.ApplyResources(this.numericUpDownNumbConcurTrans, "numericUpDownNumbConcurTrans");
+            this.numericUpDownNumbConcurTrans.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownNumbConcurTrans.Name = "numericUpDownNumbConcurTrans";
+            this.numericUpDownNumbConcurTrans.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            // 
+            // numericUpDownParallelTransThreadCount
+            // 
+            resources.ApplyResources(this.numericUpDownParallelTransThreadCount, "numericUpDownParallelTransThreadCount");
+            this.numericUpDownParallelTransThreadCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownParallelTransThreadCount.Name = "numericUpDownParallelTransThreadCount";
+            this.numericUpDownParallelTransThreadCount.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -638,6 +706,11 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -704,5 +777,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
         private System.Windows.Forms.CheckBox checkBoxUseAdaptiveStreamingFormat;
         private System.Windows.Forms.CheckBox checkBoxHideTaskbarNotifications;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumbConcurTrans;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.NumericUpDown numericUpDownParallelTransThreadCount;
     }
 }
