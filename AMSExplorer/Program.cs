@@ -3761,7 +3761,7 @@ namespace AMSExplorer
 
         public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
-            AccountName = string.IsNullOrEmpty(accountname) ? null: accountname;
+            AccountName = accountname;
             AccountKey = string.IsNullOrEmpty(accountkey) ? null : accountkey; 
             ADTenantDomain = string.IsNullOrEmpty(adtenantdomain) ? null : adtenantdomain; 
             ADRestAPIEndpoint = string.IsNullOrEmpty(adrestapiendpoint) ? null : adrestapiendpoint; 
