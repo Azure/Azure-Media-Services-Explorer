@@ -190,6 +190,9 @@ namespace AMSExplorer
                 }
             }
 
+            myContext.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
+            myContext.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;
+
             return myContext;
         }
 
