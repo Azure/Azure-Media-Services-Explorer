@@ -133,7 +133,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonLogin.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="buttonLogin.Text" xml:space="preserve">
     <value>Connect</value>
@@ -163,7 +163,7 @@
     <value>105, 27</value>
   </data>
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -196,7 +196,7 @@
     <value>255, 349</value>
   </data>
   <data name="listBoxAcounts.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;listBoxAcounts.Name" xml:space="preserve">
     <value>listBoxAcounts</value>
@@ -223,7 +223,7 @@
     <value>142, 27</value>
   </data>
   <data name="buttonSaveToList.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>0</value>
   </data>
   <data name="buttonSaveToList.Text" xml:space="preserve">
     <value>&lt;-- Save to the list</value>
@@ -259,7 +259,7 @@
     <value>87, 27</value>
   </data>
   <data name="buttonDeleteAccountEntry.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>3</value>
   </data>
   <data name="buttonDeleteAccountEntry.Text" xml:space="preserve">
     <value>Delete entry</value>
@@ -286,7 +286,7 @@
     <value>120, 27</value>
   </data>
   <data name="buttonClear.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+    <value>1</value>
   </data>
   <data name="buttonClear.Text" xml:space="preserve">
     <value>Clear fields</value>
@@ -303,7 +303,7 @@
   <data name="&gt;&gt;buttonClear.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="tabControlAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxRestAPIEndpoint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -316,7 +316,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxRestAPIEndpoint.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;textBoxRestAPIEndpoint.Name" xml:space="preserve">
     <value>textBoxRestAPIEndpoint</value>
@@ -325,7 +325,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxRestAPIEndpoint.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxRestAPIEndpoint.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -340,7 +340,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxAADtenant.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;textBoxAADtenant.Name" xml:space="preserve">
     <value>textBoxAADtenant</value>
@@ -349,7 +349,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAADtenant.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxAADtenant.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -364,7 +364,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxAccountName.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="textBoxAccountName.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -376,7 +376,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAccountName.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxAccountName.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -406,7 +406,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelE1.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;labelE1.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -436,7 +436,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelE2.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;labelE2.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -466,7 +466,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -481,7 +481,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxAccountKey.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="textBoxAccountKey.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -493,7 +493,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAccountKey.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxAccountKey.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -511,7 +511,7 @@
     <value>132, 19</value>
   </data>
   <data name="radioButtonAADInteract.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
+    <value>0</value>
   </data>
   <data name="radioButtonAADInteract.Text" xml:space="preserve">
     <value>Azure AD Interactive</value>
@@ -523,7 +523,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonAADInteract.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;radioButtonAADInteract.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -538,7 +538,7 @@
     <value>150, 19</value>
   </data>
   <data name="radioButtonACS.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
+    <value>1</value>
   </data>
   <data name="radioButtonACS.Text" xml:space="preserve">
     <value>ACS token (deprecated)</value>
@@ -550,7 +550,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonACS.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;radioButtonACS.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -565,7 +565,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
     <value>textBoxDescription</value>
@@ -574,7 +574,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -601,7 +601,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -616,7 +616,7 @@
     <value>417, 23</value>
   </data>
   <data name="textBoxBlobKey.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;textBoxBlobKey.Name" xml:space="preserve">
     <value>textBoxBlobKey</value>
@@ -625,7 +625,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxBlobKey.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxBlobKey.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -652,36 +652,36 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageCredentials.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
   </data>
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageCredentials.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageCredentials.Size" type="System.Drawing.Size, System.Drawing">
     <value>459, 320</value>
   </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+  <data name="tabPageCredentials.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="tabPage1.Text" xml:space="preserve">
+  <data name="tabPageCredentials.Text" xml:space="preserve">
     <value>Credentials</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;tabPageCredentials.Name" xml:space="preserve">
+    <value>tabPageCredentials</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageCredentials.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tabPageCredentials.Parent" xml:space="preserve">
+    <value>tabControlAMS</value>
   </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabPageCredentials.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.Name" xml:space="preserve">
@@ -691,7 +691,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -703,7 +703,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -715,7 +715,7 @@
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBoxMappingList.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;comboBoxMappingList.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -727,7 +727,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonAddMapping.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;buttonAddMapping.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -739,7 +739,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAzureEndpoint.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxAzureEndpoint.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -751,7 +751,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -763,7 +763,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxACSBaseAddress.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxACSBaseAddress.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -775,7 +775,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -787,7 +787,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxScope.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxScope.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -799,7 +799,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -811,7 +811,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAPIServer.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxAPIServer.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -823,7 +823,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -835,7 +835,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonOther.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonOther.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -847,7 +847,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonPartner.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonPartner.ZOrder" xml:space="preserve">
     <value>13</value>
@@ -859,60 +859,60 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonProd.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonProd.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageEndpoint.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
   </data>
-  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageEndpoint.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageEndpoint.Size" type="System.Drawing.Size, System.Drawing">
     <value>459, 320</value>
   </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+  <data name="tabPageEndpoint.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="tabPage2.Text" xml:space="preserve">
+  <data name="tabPageEndpoint.Text" xml:space="preserve">
     <value>Endpoint</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="&gt;&gt;tabPageEndpoint.Name" xml:space="preserve">
+    <value>tabPageEndpoint</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageEndpoint.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tabPageEndpoint.Parent" xml:space="preserve">
+    <value>tabControlAMS</value>
   </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabPageEndpoint.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabControl1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="tabControlAMS.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabControlAMS.Location" type="System.Drawing.Point, System.Drawing">
     <value>292, 51</value>
   </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabControlAMS.Size" type="System.Drawing.Size, System.Drawing">
     <value>467, 348</value>
   </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+  <data name="tabControlAMS.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tabControlAMS.Name" xml:space="preserve">
+    <value>tabControlAMS</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabControlAMS.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabControlAMS.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabControlAMS.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="textBoxManagementPortal.Enabled" type="System.Boolean, mscorlib">
@@ -925,7 +925,7 @@
     <value>409, 23</value>
   </data>
   <data name="textBoxManagementPortal.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.Name" xml:space="preserve">
     <value>textBoxManagementPortal</value>
@@ -934,7 +934,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxManagementPortal.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -961,7 +961,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -976,7 +976,7 @@
     <value>175, 23</value>
   </data>
   <data name="comboBoxMappingList.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;comboBoxMappingList.Name" xml:space="preserve">
     <value>comboBoxMappingList</value>
@@ -985,7 +985,7 @@
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBoxMappingList.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;comboBoxMappingList.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -1000,7 +1000,7 @@
     <value>104, 23</value>
   </data>
   <data name="buttonAddMapping.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
+    <value>3</value>
   </data>
   <data name="buttonAddMapping.Text" xml:space="preserve">
     <value>Insert settings</value>
@@ -1012,7 +1012,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonAddMapping.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;buttonAddMapping.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1027,7 +1027,7 @@
     <value>409, 23</value>
   </data>
   <data name="textBoxAzureEndpoint.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;textBoxAzureEndpoint.Name" xml:space="preserve">
     <value>textBoxAzureEndpoint</value>
@@ -1036,7 +1036,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAzureEndpoint.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxAzureEndpoint.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -1063,7 +1063,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -1078,7 +1078,7 @@
     <value>409, 23</value>
   </data>
   <data name="textBoxACSBaseAddress.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;textBoxACSBaseAddress.Name" xml:space="preserve">
     <value>textBoxACSBaseAddress</value>
@@ -1087,7 +1087,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxACSBaseAddress.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxACSBaseAddress.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -1114,7 +1114,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -1129,7 +1129,7 @@
     <value>409, 23</value>
   </data>
   <data name="textBoxScope.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;textBoxScope.Name" xml:space="preserve">
     <value>textBoxScope</value>
@@ -1138,7 +1138,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxScope.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxScope.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -1165,7 +1165,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -1180,7 +1180,7 @@
     <value>409, 23</value>
   </data>
   <data name="textBoxAPIServer.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;textBoxAPIServer.Name" xml:space="preserve">
     <value>textBoxAPIServer</value>
@@ -1189,7 +1189,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAPIServer.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;textBoxAPIServer.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -1216,7 +1216,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -1243,7 +1243,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonOther.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonOther.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -1258,7 +1258,7 @@
     <value>131, 19</value>
   </data>
   <data name="radioButtonPartner.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
+    <value>1</value>
   </data>
   <data name="radioButtonPartner.Text" xml:space="preserve">
     <value>Partner Deployment</value>
@@ -1270,7 +1270,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonPartner.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonPartner.ZOrder" xml:space="preserve">
     <value>13</value>
@@ -1285,7 +1285,7 @@
     <value>141, 19</value>
   </data>
   <data name="radioButtonProd.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+    <value>0</value>
   </data>
   <data name="radioButtonProd.Text" xml:space="preserve">
     <value>Default (Azure Global)</value>
@@ -1297,7 +1297,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonProd.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tabPageEndpoint</value>
   </data>
   <data name="&gt;&gt;radioButtonProd.ZOrder" xml:space="preserve">
     <value>14</value>
@@ -1345,7 +1345,7 @@
     <value>75, 27</value>
   </data>
   <data name="buttonExport.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+    <value>4</value>
   </data>
   <data name="buttonExport.Text" xml:space="preserve">
     <value>Export</value>
@@ -1375,7 +1375,7 @@
     <value>79, 27</value>
   </data>
   <data name="buttonImportAll.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
+    <value>5</value>
   </data>
   <data name="buttonImportAll.Text" xml:space="preserve">
     <value>Import</value>

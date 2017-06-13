@@ -719,11 +719,13 @@ namespace AMSExplorer
             {
                 labelE1.Text = labelEntry1[1];
                 labelE2.Text = labelEntry2[1];
+                if (tabControlAMS.TabPages.Count == 2) tabControlAMS.TabPages.Remove(tabPageEndpoint);
             }
             else
             {
                 labelE1.Text = labelEntry1[0];
                 labelE2.Text = labelEntry2[0];
+                if (tabControlAMS.TabPages.Count == 1) tabControlAMS.TabPages.Add(tabPageEndpoint);
             }
 
             textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADInteract.Checked;

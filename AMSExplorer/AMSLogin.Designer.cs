@@ -36,8 +36,8 @@
             this.buttonSaveToList = new System.Windows.Forms.Button();
             this.buttonDeleteAccountEntry = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControlAMS = new System.Windows.Forms.TabControl();
+            this.tabPageCredentials = new System.Windows.Forms.TabPage();
             this.textBoxRestAPIEndpoint = new System.Windows.Forms.TextBox();
             this.textBoxAADtenant = new System.Windows.Forms.TextBox();
             this.textBoxAccountName = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxBlobKey = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageEndpoint = new System.Windows.Forms.TabPage();
             this.textBoxManagementPortal = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxMappingList = new System.Windows.Forms.ComboBox();
@@ -78,9 +78,9 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabControlAMS.SuspendLayout();
+            this.tabPageCredentials.SuspendLayout();
+            this.tabPageEndpoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -130,32 +130,32 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
-            // tabControl1
+            // tabControlAMS
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
+            resources.ApplyResources(this.tabControlAMS, "tabControlAMS");
+            this.tabControlAMS.Controls.Add(this.tabPageCredentials);
+            this.tabControlAMS.Controls.Add(this.tabPageEndpoint);
+            this.tabControlAMS.Name = "tabControlAMS";
+            this.tabControlAMS.SelectedIndex = 0;
             // 
-            // tabPage1
+            // tabPageCredentials
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage1.Controls.Add(this.textBoxRestAPIEndpoint);
-            this.tabPage1.Controls.Add(this.textBoxAADtenant);
-            this.tabPage1.Controls.Add(this.textBoxAccountName);
-            this.tabPage1.Controls.Add(this.labelE1);
-            this.tabPage1.Controls.Add(this.labelE2);
-            this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.textBoxAccountKey);
-            this.tabPage1.Controls.Add(this.radioButtonAADInteract);
-            this.tabPage1.Controls.Add(this.radioButtonACS);
-            this.tabPage1.Controls.Add(this.textBoxDescription);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.textBoxBlobKey);
-            this.tabPage1.Controls.Add(this.label3);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
+            this.tabPageCredentials.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageCredentials.Controls.Add(this.textBoxRestAPIEndpoint);
+            this.tabPageCredentials.Controls.Add(this.textBoxAADtenant);
+            this.tabPageCredentials.Controls.Add(this.textBoxAccountName);
+            this.tabPageCredentials.Controls.Add(this.labelE1);
+            this.tabPageCredentials.Controls.Add(this.labelE2);
+            this.tabPageCredentials.Controls.Add(this.label11);
+            this.tabPageCredentials.Controls.Add(this.textBoxAccountKey);
+            this.tabPageCredentials.Controls.Add(this.radioButtonAADInteract);
+            this.tabPageCredentials.Controls.Add(this.radioButtonACS);
+            this.tabPageCredentials.Controls.Add(this.textBoxDescription);
+            this.tabPageCredentials.Controls.Add(this.label2);
+            this.tabPageCredentials.Controls.Add(this.textBoxBlobKey);
+            this.tabPageCredentials.Controls.Add(this.label3);
+            resources.ApplyResources(this.tabPageCredentials, "tabPageCredentials");
+            this.tabPageCredentials.Name = "tabPageCredentials";
             // 
             // textBoxRestAPIEndpoint
             // 
@@ -233,26 +233,26 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // tabPage2
+            // tabPageEndpoint
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage2.Controls.Add(this.textBoxManagementPortal);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.comboBoxMappingList);
-            this.tabPage2.Controls.Add(this.buttonAddMapping);
-            this.tabPage2.Controls.Add(this.textBoxAzureEndpoint);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.textBoxACSBaseAddress);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.textBoxScope);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.textBoxAPIServer);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.radioButtonOther);
-            this.tabPage2.Controls.Add(this.radioButtonPartner);
-            this.tabPage2.Controls.Add(this.radioButtonProd);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
+            this.tabPageEndpoint.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageEndpoint.Controls.Add(this.textBoxManagementPortal);
+            this.tabPageEndpoint.Controls.Add(this.label10);
+            this.tabPageEndpoint.Controls.Add(this.comboBoxMappingList);
+            this.tabPageEndpoint.Controls.Add(this.buttonAddMapping);
+            this.tabPageEndpoint.Controls.Add(this.textBoxAzureEndpoint);
+            this.tabPageEndpoint.Controls.Add(this.label9);
+            this.tabPageEndpoint.Controls.Add(this.textBoxACSBaseAddress);
+            this.tabPageEndpoint.Controls.Add(this.label6);
+            this.tabPageEndpoint.Controls.Add(this.textBoxScope);
+            this.tabPageEndpoint.Controls.Add(this.label7);
+            this.tabPageEndpoint.Controls.Add(this.textBoxAPIServer);
+            this.tabPageEndpoint.Controls.Add(this.label8);
+            this.tabPageEndpoint.Controls.Add(this.radioButtonOther);
+            this.tabPageEndpoint.Controls.Add(this.radioButtonPartner);
+            this.tabPageEndpoint.Controls.Add(this.radioButtonProd);
+            resources.ApplyResources(this.tabPageEndpoint, "tabPageEndpoint");
+            this.tabPageEndpoint.Name = "tabPageEndpoint";
             // 
             // textBoxManagementPortal
             // 
@@ -426,7 +426,7 @@
             this.Controls.Add(this.buttonImportAll);
             this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlAMS);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonDeleteAccountEntry);
             this.Controls.Add(this.buttonSaveToList);
@@ -436,11 +436,11 @@
             this.Name = "AMSLogin";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
             this.Shown += new System.EventHandler(this.AMSLogin_Shown);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabControlAMS.ResumeLayout(false);
+            this.tabPageCredentials.ResumeLayout(false);
+            this.tabPageCredentials.PerformLayout();
+            this.tabPageEndpoint.ResumeLayout(false);
+            this.tabPageEndpoint.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -458,9 +458,9 @@
         private System.Windows.Forms.Button buttonSaveToList;
         private System.Windows.Forms.Button buttonDeleteAccountEntry;
         private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tabControlAMS;
+        private System.Windows.Forms.TabPage tabPageCredentials;
+        private System.Windows.Forms.TabPage tabPageEndpoint;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxBlobKey;
