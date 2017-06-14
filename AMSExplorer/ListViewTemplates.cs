@@ -220,7 +220,16 @@ namespace AMSExplorer
         {
             _context = context;
             _selectedworkflow = selectedworkflow;
-            LoadWorkflows();
+
+            try
+            {
+                LoadWorkflows();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error when loading the workflows", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadWorkflows()
@@ -229,15 +238,11 @@ namespace AMSExplorer
             this.Items.Clear();
 
             // Server side request
-            var query = _context.Files.Where(f => (
-                                     /*       f.Name.EndsWith(".xenio") // upercase/lowercase ignored
-                                            || f.Name.EndsWith(".kayak")
-                                            || f.Name.EndsWith(".workflow")
-                                            || f.Name.EndsWith(".blueprint")
-                                            || f.Name.EndsWith(".graph")
-                                            || f.Name.EndsWith(".zenium") */
+         
+            var query = _context.Files.Where(f => (                                        
                                             f.Name.EndsWith(".workflow")
                                             )).ToArray();
+
 
             foreach (IAssetFile file in query)
             {

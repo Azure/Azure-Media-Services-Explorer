@@ -3762,33 +3762,38 @@ namespace AMSExplorer
         public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
             AccountName = accountname;
-            AccountKey = string.IsNullOrEmpty(accountkey) ? null : accountkey; 
-            ADTenantDomain = string.IsNullOrEmpty(adtenantdomain) ? null : adtenantdomain; 
-            ADRestAPIEndpoint = string.IsNullOrEmpty(adrestapiendpoint) ? null : adrestapiendpoint; 
+            AccountKey = accountkey;
+            ADTenantDomain = string.IsNullOrEmpty(adtenantdomain) ? null : adtenantdomain;
+            ADRestAPIEndpoint = string.IsNullOrEmpty(adrestapiendpoint) ? null : adrestapiendpoint;
             DefaultStorageKey = storagekey;
             Description = description;
             UseAADInteract = useaadinterative;
             UsePartnerAPI = usepartnerapi;
             UseOtherAPI = useotherapi;
-            OtherAPIServer = string.IsNullOrEmpty(apiserver) ? null : apiserver; 
-            OtherScope = string.IsNullOrEmpty(scope) ? null : scope; 
-            OtherACSBaseAddress = string.IsNullOrEmpty(acsbaseaddress) ? null : acsbaseaddress; 
-            OtherAzureEndpoint = string.IsNullOrEmpty(azureendpoint) ? null : azureendpoint; 
-            OtherManagementPortal = string.IsNullOrEmpty(managementportal) ? null : managementportal; 
+            OtherAPIServer = string.IsNullOrEmpty(apiserver) ? null : apiserver;
+            OtherScope = string.IsNullOrEmpty(scope) ? null : scope;
+            OtherACSBaseAddress = string.IsNullOrEmpty(acsbaseaddress) ? null : acsbaseaddress;
+            OtherAzureEndpoint = string.IsNullOrEmpty(azureendpoint) ? null : azureendpoint;
+            OtherManagementPortal = string.IsNullOrEmpty(managementportal) ? null : managementportal;
         }
 
         public bool Equals(CredentialsEntry other)
         {
             return
-                this.AccountKey == other.AccountKey
-                && this.AccountName == other.AccountName
-                && this.Description == other.Description
-                && this.OtherACSBaseAddress == other.OtherACSBaseAddress
-                && this.OtherAPIServer == other.OtherAPIServer
-                && this.OtherAzureEndpoint == other.OtherAzureEndpoint
-                && this.OtherManagementPortal == other.OtherManagementPortal
-                && this.OtherScope == other.OtherScope
-                && this.DefaultStorageKey == other.DefaultStorageKey
+                (this.AccountKey ?? "") == (other.AccountKey ?? "")
+                && (this.AccountName ?? "") == (other.AccountName ?? "")
+                && (this.ADRestAPIEndpoint ?? "") == (other.ADRestAPIEndpoint ?? "")
+                && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
+                && this.UseAADInteract  == other.UseAADInteract
+                && this.UseOtherAPI == other.UseOtherAPI
+                && this.UsePartnerAPI == other.UsePartnerAPI
+                && (this.Description ?? "") == (other.Description ?? "")
+                && (this.OtherACSBaseAddress ?? "") == (other.OtherACSBaseAddress ?? "")
+                && (this.OtherAPIServer ?? "") == (other.OtherAPIServer ?? "")
+                && (this.OtherAzureEndpoint ?? "") == (other.OtherAzureEndpoint ?? "")
+                && (this.OtherManagementPortal ?? "") == (other.OtherManagementPortal ?? "")
+                && (this.OtherScope ?? "") == (other.OtherScope ?? "")
+                && (this.DefaultStorageKey ?? "") == (other.DefaultStorageKey ?? "")
                  ;
         }
 

@@ -336,17 +336,21 @@ namespace AMSExplorer
             }
 
             // Context creation
+            this.Cursor = Cursors.WaitCursor;
             context = Program.ConnectAndGetNewContext(LoginCredentials, false);
+
             accName = ReturnAccountName(LoginCredentials);
 
             try
             {
                 var a = context.Assets.FirstOrDefault();
+                this.Cursor = Cursors.Default;
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(Program.GetErrorMessage(ex), "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Cursor = Cursors.Default;
                 return;
             }
 
@@ -610,6 +614,7 @@ namespace AMSExplorer
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
+                    CurrentCredential = null;
                 }
             }
         }
