@@ -150,6 +150,16 @@ namespace AMSExplorer
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
             listViewWorkflows.LoadWorkflows(_context);
+
+            if (listViewWorkflows.ErrorQuery!=null)
+            {
+                MessageBox.Show("Error when querying workflow files in the account.\n" + listViewWorkflows.ErrorQuery, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (listViewWorkflows.PartialQueryLast2Months)
+            {
+                MessageBox.Show("There are too many files in the account. Only the workflow files from the last two months are displayed.", "Too many files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             UpdateJobSummary();
         }
 
