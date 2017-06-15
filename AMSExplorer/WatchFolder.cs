@@ -244,6 +244,14 @@ namespace AMSExplorer
             {
                 listViewWorkflows1.Enabled = true;
                 listViewWorkflows1.LoadWorkflows(_context, _WatchFolderSettings.TypeInputExtraInput == TypeInputExtraInput.SelectedWorkflow ? _WatchFolderSettings.ExtraInputAssets.FirstOrDefault() : null);
+                if (listViewWorkflows1.ErrorQuery != null)
+                {
+                    MessageBox.Show("Error when querying workflow files in the account.\n" + listViewWorkflows1.ErrorQuery, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (listViewWorkflows1.PartialQueryLast2Months)
+                {
+                    MessageBox.Show("There are too many files in the account. Only the workflow files from the last two months are displayed.", "Too many files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {

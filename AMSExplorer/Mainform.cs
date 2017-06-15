@@ -356,7 +356,7 @@ namespace AMSExplorer
             }
 
             // let's initialize the trackbar and text for nb of transfers
-            
+
             // hard coded - for tests
             Properties.Settings.Default.ConcurrentTransfers = 1;
 
@@ -364,7 +364,6 @@ namespace AMSExplorer
             UpdateLabelConcurrentTransfers();
 
             ApplySettingsOptions(true);
-
         }
 
 
@@ -11781,8 +11780,8 @@ namespace AMSExplorer
                 {
                     labelAssetName = string.Format("Locators, dynamic encryption policies and key authorization policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
-                labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
-                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);
+                labelAssetName += Constants.endline + Constants.endline + "Do you want to also DELETE the policies ? Be careful, this can impact other assets if the policies are shared !";
+                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
                 if (myDialogResult != DialogResult.Cancel)
                 {
@@ -11810,6 +11809,7 @@ namespace AMSExplorer
                                 {
                                     AssetToProcess.DeliveryPolicies.Remove(item);
                                 }
+
 
                                 //Removing all authorization policies associated with asset keys
                                 AutPolListIDs = AssetToProcess.ContentKeys.Select(k => k.AuthorizationPolicyId).ToList();
