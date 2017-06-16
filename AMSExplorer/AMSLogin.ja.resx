@@ -238,6 +238,9 @@
   <data name="radioButtonACS.Text" xml:space="preserve">
     <value>ACS トークン (廃止予定)</value>
   </data>
+  <data name="radioButtonACS.Location" type="System.Drawing.Point, System.Drawing">
+    <value>176, 30</value>
+  </data>
   <data name="tabPageEndpoint.Text" xml:space="preserve">
     <value>ACS 設定</value>
   </data>
