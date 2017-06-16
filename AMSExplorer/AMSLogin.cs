@@ -73,7 +73,8 @@ namespace AMSExplorer
                textBoxRestAPIEndpoint.Text,
                textBoxBlobKey.Text,
                textBoxDescription.Text,
-               radioButtonAADInteract.Checked,
+               radioButtonAADAut.Checked && radioButtonAADInteractive.Checked,
+               radioButtonAADAut.Checked && radioButtonAADServicePrincipal.Checked,
                radioButtonPartner.Checked,
                radioButtonOther.Checked,
                textBoxAPIServer.Text,
@@ -202,7 +203,7 @@ namespace AMSExplorer
 
             string accName = "";
 
-            if (!entry.UseAADInteract)
+            if (!entry.UseAADInteract && !entry.UseAADServicePrincipal)
             {
                 return entry.AccountName;
             }
@@ -335,9 +336,25 @@ namespace AMSExplorer
                 }
             }
 
+            string clientid = null;
+            string clientsecret = null;
+            if (LoginCredentials.UseAADServicePrincipal)  // service principal mode
+            {
+                var spcrendentialsform = new AMSLoginServicePrincipal();
+                if (spcrendentialsform.ShowDialog() == DialogResult.OK)
+                {
+                    clientid = spcrendentialsform.ClientId;
+                    clientsecret = spcrendentialsform.ClientSecret;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             // Context creation
             this.Cursor = Cursors.WaitCursor;
-            context = Program.ConnectAndGetNewContext(LoginCredentials, false);
+            context = Program.ConnectAndGetNewContext(LoginCredentials, false,  true, clientid, clientsecret);
 
             accName = ReturnAccountName(LoginCredentials);
 
@@ -384,16 +401,16 @@ namespace AMSExplorer
 
                 var entry = CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex];
 
-                radioButtonAADInteract.Checked = entry.UseAADInteract;
-                radioButtonACS.Checked = !entry.UseAADInteract;
+                radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
+                radioButtonACSAut.Checked = !entry.UseAADInteract && !entry.UseAADServicePrincipal;
                 textBoxAccountName.Text = entry.AccountName;
                 textBoxAccountKey.Text = entry.AccountKey;
                 textBoxAADtenant.Text = entry.ADTenantDomain;
                 textBoxRestAPIEndpoint.Text = entry.ADRestAPIEndpoint;
                 textBoxBlobKey.Text = entry.DefaultStorageKey;
                 textBoxDescription.Text = entry.Description;
-                radioButtonACS.Checked = !entry.UseAADInteract;
-                radioButtonAADInteract.Checked = entry.UseAADInteract;
+                radioButtonACSAut.Checked = !entry.UseAADInteract && !entry.UseAADServicePrincipal; ;
+                radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
                 radioButtonPartner.Checked = entry.UsePartnerAPI;
                 radioButtonOther.Checked = entry.UseOtherAPI;
                 textBoxAPIServer.Text = entry.OtherAPIServer;
@@ -439,7 +456,9 @@ namespace AMSExplorer
             textBoxAzureEndpoint.Text = string.Empty;
 
             radioButtonProd.Checked = true;
-            radioButtonAADInteract.Checked = false;
+            radioButtonAADAut.Checked = true;
+            radioButtonACSAut.Checked = false;
+
             listBoxAcounts.ClearSelected();
         }
 
@@ -558,6 +577,7 @@ namespace AMSExplorer
                                         string.Empty, // client secret not stored in XML
                                         att.Attribute("StorageKey").Value.ToString(),
                                         att.Attribute("Description").Value.ToString(),
+                                        false,
                                         false,
                                         att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
                                         att.Attribute("UseOtherAPI").Value.ToString() == true.ToString() ? true : false,
@@ -720,7 +740,7 @@ namespace AMSExplorer
 
         private void UpdateTexboxUI()
         {
-            if (radioButtonAADInteract.Checked)
+            if (radioButtonAADAut.Checked)
             {
                 labelE1.Text = labelEntry1[1];
                 labelE2.Text = labelEntry2[1];
@@ -733,8 +753,9 @@ namespace AMSExplorer
                 if (tabControlAMS.TabPages.Count == 1) tabControlAMS.TabPages.Add(tabPageEndpoint);
             }
 
-            textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADInteract.Checked;
-            textBoxAccountName.Visible = textBoxAccountKey.Visible = radioButtonACS.Checked;
+            textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADAut.Checked;
+            textBoxAccountName.Visible = textBoxAccountKey.Visible = radioButtonACSAut.Checked;
+            groupBoxAADMode.Visible = radioButtonAADAut.Checked;
         }
 
         private void textBoxAADtenant_Validating(object sender, CancelEventArgs e)

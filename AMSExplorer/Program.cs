@@ -92,22 +92,32 @@ namespace AMSExplorer
             }
         }
 
-        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
+        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true, string clientid = null, string clientsecret = null)
         {
             CloudMediaContext myContext = null;
             if (credentials.UseAADInteract)
             {
 
-/*
-                string requestUrl = string.Format("https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}", credentials.ADTenantDomain, credentials.ADRestAPIEndpoint);
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-                Task.Run(async () => { await client.SendAsync(request); }).Wait();
-*/
+                /*
+                                string requestUrl = string.Format("https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}", credentials.ADTenantDomain, credentials.ADRestAPIEndpoint);
+                                var client = new HttpClient();
+                                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+                                Task.Run(async () => { await client.SendAsync(request); }).Wait();
+                */
                 var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, AzureEnvironments.AzureCloudEnvironment);
                 var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
 
                 myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
+            }
+            else if (credentials.UseAADServicePrincipal)
+            {
+                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain,
+                                            new AzureAdClientSymmetricKey(clientid, clientsecret),
+                                            AzureEnvironments.AzureCloudEnvironment);
+                var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
+
+                myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
+
             }
             else
             {
@@ -3740,6 +3750,7 @@ namespace AMSExplorer
         public string DefaultStorageKey { get; set; }
         public string Description { get; set; }
         public bool UseAADInteract { get; set; }
+        public bool UseAADServicePrincipal { get; set; }
         public bool UsePartnerAPI { get; set; }
         public bool UseOtherAPI { get; set; }
         public string OtherAPIServer { get; set; }
@@ -3764,7 +3775,7 @@ namespace AMSExplorer
         public static readonly string GlobalPortal = "http://portal.azure.com";
 
 
-        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
+        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -3773,6 +3784,7 @@ namespace AMSExplorer
             DefaultStorageKey = storagekey;
             Description = description;
             UseAADInteract = useaadinterative;
+            UseAADServicePrincipal = useaadserviceprincipal;
             UsePartnerAPI = usepartnerapi;
             UseOtherAPI = useotherapi;
             OtherAPIServer = string.IsNullOrEmpty(apiserver) ? null : apiserver;
@@ -3790,6 +3802,7 @@ namespace AMSExplorer
                 && (this.ADRestAPIEndpoint ?? "") == (other.ADRestAPIEndpoint ?? "")
                 && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
                 && this.UseAADInteract == other.UseAADInteract
+                && this.UseAADServicePrincipal == other.UseAADServicePrincipal
                 && this.UseOtherAPI == other.UseOtherAPI
                 && this.UsePartnerAPI == other.UsePartnerAPI
                 && (this.Description ?? "") == (other.Description ?? "")
