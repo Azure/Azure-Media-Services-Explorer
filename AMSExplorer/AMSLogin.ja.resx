@@ -143,7 +143,7 @@
     <value>296, 15</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
-    <value>Media Service アカウント ID (任意 - テレメトリーにて利用)</value>
+    <value>認証モード</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 15</value>
@@ -160,17 +160,8 @@
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 15</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Media Service アカウントキー</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 15</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Media Service アカウント名</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>資格情報</value>
   </data>
   <data name="buttonAddMapping.Text" xml:space="preserve">
     <value>設定の挿入</value>
@@ -192,9 +183,6 @@
   </data>
   <data name="radioButtonProd.Text" xml:space="preserve">
     <value>既定 (Azure Global)</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>エンドポイント</value>
   </data>
   <data name="buttonClear.Text" xml:space="preserve">
     <value>入力のクリア</value>
@@ -237,5 +225,23 @@
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Azure エンドポイント</value>
+  </data>
+  <data name="labelE1.Text" xml:space="preserve">
+    <value>Media Service アカウント名 | Azure AD テナントドメイン名</value>
+  </data>
+  <data name="tabPageCredentials.Text" xml:space="preserve">
+    <value>資格情報</value>
+  </data>
+  <data name="radioButtonAADInteract.Text" xml:space="preserve">
+    <value>Azure AD ユーザー認証</value>
+  </data>
+  <data name="radioButtonACS.Text" xml:space="preserve">
+    <value>ACS トークン (廃止予定)</value>
+  </data>
+  <data name="tabPageEndpoint.Text" xml:space="preserve">
+    <value>ACS 設定</value>
+  </data>
+  <data name="labelE2.Text" xml:space="preserve">
+    <value>Media Service アカウントキー | REST API エンドポイント</value>
   </data>
 </root>
