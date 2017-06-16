@@ -23,24 +23,19 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Globalization;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Web;
-using System.Xml;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Drawing;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml.Linq;
-using System.Runtime.ExceptionServices;
 using System.Collections;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -50,6 +45,8 @@ using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Net.Http;
 
 namespace AMSExplorer
 {
@@ -100,8 +97,16 @@ namespace AMSExplorer
             CloudMediaContext myContext = null;
             if (credentials.UseAADInteract)
             {
+
+/*
+                string requestUrl = string.Format("https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}", credentials.ADTenantDomain, credentials.ADRestAPIEndpoint);
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+                Task.Run(async () => { await client.SendAsync(request); }).Wait();
+*/
                 var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, AzureEnvironments.AzureCloudEnvironment);
                 var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
+
                 myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
             }
             else
@@ -3784,7 +3789,7 @@ namespace AMSExplorer
                 && (this.AccountName ?? "") == (other.AccountName ?? "")
                 && (this.ADRestAPIEndpoint ?? "") == (other.ADRestAPIEndpoint ?? "")
                 && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
-                && this.UseAADInteract  == other.UseAADInteract
+                && this.UseAADInteract == other.UseAADInteract
                 && this.UseOtherAPI == other.UseOtherAPI
                 && this.UsePartnerAPI == other.UsePartnerAPI
                 && (this.Description ?? "") == (other.Description ?? "")

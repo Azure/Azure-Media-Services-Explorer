@@ -144,6 +144,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -872,6 +873,9 @@
     </Content>
     <EmbeddedResource Include="AboutBox.ja.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin.ja-JP.resx">
+      <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
