@@ -40,7 +40,7 @@ namespace AMSExplorer
     public partial class AMSLogin : Form
     {
         ListCredentials CredentialList = new ListCredentials();
-        CredentialsEntry CurrentCredential;
+        //CredentialsEntry CurrentCredential;
 
         // strings for field API
         private const string _Default = "Default";
@@ -118,7 +118,9 @@ namespace AMSExplorer
         private string[] labelEntry1;
         private string[] labelEntry2;
 
-        public CredentialsEntry LoginCredentials
+        public CredentialsEntry LoginCredentials;
+
+        public CredentialsEntry GenerateLoginCredentials
         {
             get
             {
@@ -138,8 +140,8 @@ namespace AMSExplorer
                textBoxACSBaseAddress.Text,
                textBoxAzureEndpoint.Text,
                textBoxManagementPortal.Text,
-               (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName():null,
-               (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings(): null
+               (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName() : null,
+               (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings() : null
                              );
             }
         }
@@ -305,9 +307,8 @@ namespace AMSExplorer
             {
                 return entry.AccountName;
             }
-            else if (entry.ADRestAPIEndpoint != "")
+            else if (!string.IsNullOrEmpty(entry.ADRestAPIEndpoint))
             {
-
                 try
                 {
                     accName = (new Uri(entry.ADRestAPIEndpoint)).Host.Split('.')[0];
@@ -324,6 +325,8 @@ namespace AMSExplorer
 
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
+            LoginCredentials = GenerateLoginCredentials;
+
             // New code for JSON
             if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
             {
@@ -371,6 +374,8 @@ namespace AMSExplorer
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            LoginCredentials = GenerateLoginCredentials;
+
             if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
             {
                 MessageBox.Show("The account name cannot be empty.");
@@ -475,17 +480,19 @@ namespace AMSExplorer
 
         private void listBoxAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LoginCredentials = GenerateLoginCredentials;
+
             buttonDeleteAccountEntry.Enabled = (listBoxAcounts.SelectedIndex > -1); // no selected item, so login button not active
             buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
             if (listBoxAcounts.SelectedIndex > -1) // one selected
             {
-                if (CurrentCredential != null)
+                if (LoginCredentials != null)
                 {
-                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(CurrentCredential).ToLower().Trim()).FirstOrDefault();
+                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(LoginCredentials).ToLower().Trim()).FirstOrDefault();
 
-                    if (entryWithSameName != null && !LoginCredentials.Equals(CurrentCredential))
+                    if (entryWithSameName != null && !LoginCredentials.Equals(entryWithSameName))
                     {
-                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, ReturnAccountName(CurrentCredential)), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, ReturnAccountName(LoginCredentials)), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes) // ok to update the credentials
                         {
                             CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
@@ -498,7 +505,40 @@ namespace AMSExplorer
                 var entry = CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex];
 
                 radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
-                radioButtonACSAut.Checked = !entry.UseAADInteract && !entry.UseAADServicePrincipal;
+                radioButtonAADServicePrincipal.Checked = entry.UseAADServicePrincipal;
+                radioButtonAADInteractive.Checked = !radioButtonAADServicePrincipal.Checked;
+
+                if (entry.ADCustomSettings != null)  // custom settings
+                {
+                    radioButtonAADOther.Checked = true;
+                    comboBoxAADMappingList.SelectedIndex = comboBoxAADMappingList.Items.Count - 1; // last one
+
+                    textBoxAADAMSResource.Text = entry.ADCustomSettings.MediaServicesResource;
+                    textBoxAADClienid.Text = entry.ADCustomSettings.MediaServicesSdkClientId;
+                    textBoxAADRedirect.Text = entry.ADCustomSettings.MediaServicesSdkRedirectUri.ToString();
+                    textBoxAADAzureEndpoint.Text = entry.ADCustomSettings.ActiveDirectoryEndpoint.ToString();
+                    textBoxAADManagementPortal.Text = entry.OtherManagementPortal;
+
+                }
+                else if (entry.ADDeploymentName != null)
+                {
+                    radioButtonAADOther.Checked = true;
+                    int index = 0;
+                    foreach (var it in comboBoxAADMappingList.Items)
+                    {
+                        if (((Item)it).Value == entry.ADDeploymentName)
+                        {
+                            break;
+                        }
+                        index++;
+                    }
+                    comboBoxAADMappingList.SelectedIndex = index;
+                }
+                else
+                {
+                    radioButtonAADProd.Checked = true;
+                }
+
                 textBoxAccountName.Text = entry.AccountName;
                 textBoxAccountKey.Text = entry.AccountKey;
                 textBoxAADtenant.Text = entry.ADTenantDomain;
@@ -526,8 +566,6 @@ namespace AMSExplorer
                 CheckTextBox((object)textBoxAccountKey);
                 CheckTextBox((object)textBoxAADtenant);
                 CheckTextBox((object)textBoxRestAPIEndpoint);
-
-                CurrentCredential = LoginCredentials;
 
                 UpdateTexboxUI();
             }
@@ -730,7 +768,7 @@ namespace AMSExplorer
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
-                    CurrentCredential = null;
+                    LoginCredentials = null;
                 }
             }
         }

@@ -111,13 +111,10 @@ namespace AMSExplorer
             }
             else if (credentials.UseAADServicePrincipal)
             {
-                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain,
-                                            new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret),
-                                            AzureEnvironments.AzureCloudEnvironment);
+                AzureAdClientSymmetricKey clientSymmetricKey = new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret);
+                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, clientSymmetricKey, AzureEnvironments.AzureCloudEnvironment);
                 var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
-
                 myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
-
             }
             else
             {
@@ -148,6 +145,7 @@ namespace AMSExplorer
                     {
                         Uri otherAPIServer = new Uri(credentials.OtherAPIServer);
                         myContext = new CloudMediaContext(otherAPIServer, credentials.AccountName, credentials.AccountKey, credentials.OtherScope, credentials.OtherACSBaseAddress);
+
                     }
                     catch (Exception e)
                     {
@@ -3791,7 +3789,7 @@ namespace AMSExplorer
         public static readonly string GlobalPortal = "http://portal.azure.com";
 
 
-        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool useacspartnerapi, bool useacsotherapi, string acsapiserver, string acsscope, string acsbaseaddress, string acsazureendpoint, string managementportal, string addeploymentname= null, AzureEnvironment adcustomsettings = null, string adspclientid = null, string adspclientsecret = null)
+        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool useacspartnerapi, bool useacsotherapi, string acsapiserver, string acsscope, string acsbaseaddress, string acsazureendpoint, string managementportal, string addeploymentname = null, AzureEnvironment adcustomsettings = null, string adspclientid = null, string adspclientsecret = null)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -3823,6 +3821,8 @@ namespace AMSExplorer
                 && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
                 && this.UseAADInteract == other.UseAADInteract
                 && this.UseAADServicePrincipal == other.UseAADServicePrincipal
+                && (this.ADDeploymentName ?? "") == (other.ADDeploymentName ?? "")
+                && (this.ADCustomSettings) == (other.ADCustomSettings)
                 && this.UseOtherAPI == other.UseOtherAPI
                 && this.UsePartnerAPI == other.UsePartnerAPI
                 && (this.Description ?? "") == (other.Description ?? "")

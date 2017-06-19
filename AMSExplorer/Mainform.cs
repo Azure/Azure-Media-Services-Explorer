@@ -9938,8 +9938,7 @@ namespace AMSExplorer
             // Refresh the context
             _context = Program.ConnectAndGetNewContext(_credentials);
             bool multiselection = streamingendpoints.Count > 1;
-
-
+                        
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
                 MySE = streamingendpoints.FirstOrDefault(),
