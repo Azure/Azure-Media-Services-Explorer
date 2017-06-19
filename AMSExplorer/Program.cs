@@ -92,7 +92,7 @@ namespace AMSExplorer
             }
         }
 
-        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true, string clientid = null, string clientsecret = null)
+        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
         {
             CloudMediaContext myContext = null;
             if (credentials.UseAADInteract)
@@ -112,7 +112,7 @@ namespace AMSExplorer
             else if (credentials.UseAADServicePrincipal)
             {
                 var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain,
-                                            new AzureAdClientSymmetricKey(clientid, clientsecret),
+                                            new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret),
                                             AzureEnvironments.AzureCloudEnvironment);
                 var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
 
@@ -3711,7 +3711,7 @@ namespace AMSExplorer
 
     }
 
-    public class EndPointMapping
+    public class ACSEndPointMapping
     {
         public string Name { get; set; }
         public string APIServer { get; set; }
@@ -3720,6 +3720,15 @@ namespace AMSExplorer
         public string AzureEndpoint { get; set; }
         public string ManagementPortal { get; set; }
     }
+
+
+    public class AADEndPointMapping
+    {
+        public string Name { get; set; }
+
+        public string ManagementPortal { get; set; }
+    }
+
 
     public class ExplorerOpenIDSample
     {
@@ -3747,6 +3756,12 @@ namespace AMSExplorer
         public string AccountKey { get; set; }
         public string ADTenantDomain { get; set; }
         public string ADRestAPIEndpoint { get; set; }
+        public string ADDeploymentName { get; set; }
+        public AzureEnvironment ADCustomSettings { get; set; }
+        [JsonIgnore] // In order to not export the SP credential
+        public string ADSPClientId { get; set; }
+        [JsonIgnore] // In order to not export the SP credential
+        public string ADSPClientSecret { get; set; }
         public string DefaultStorageKey { get; set; }
         public string Description { get; set; }
         public bool UseAADInteract { get; set; }
@@ -3758,6 +3773,7 @@ namespace AMSExplorer
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
         public string OtherManagementPortal { get; set; }
+
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
@@ -3775,7 +3791,7 @@ namespace AMSExplorer
         public static readonly string GlobalPortal = "http://portal.azure.com";
 
 
-        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool usepartnerapi, bool useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
+        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool useacspartnerapi, bool useacsotherapi, string acsapiserver, string acsscope, string acsbaseaddress, string acsazureendpoint, string managementportal, string addeploymentname= null, AzureEnvironment adcustomsettings = null, string adspclientid = null, string adspclientsecret = null)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -3785,13 +3801,17 @@ namespace AMSExplorer
             Description = description;
             UseAADInteract = useaadinterative;
             UseAADServicePrincipal = useaadserviceprincipal;
-            UsePartnerAPI = usepartnerapi;
-            UseOtherAPI = useotherapi;
-            OtherAPIServer = string.IsNullOrEmpty(apiserver) ? null : apiserver;
-            OtherScope = string.IsNullOrEmpty(scope) ? null : scope;
+            UsePartnerAPI = useacspartnerapi;
+            UseOtherAPI = useacsotherapi;
+            OtherAPIServer = string.IsNullOrEmpty(acsapiserver) ? null : acsapiserver;
+            OtherScope = string.IsNullOrEmpty(acsscope) ? null : acsscope;
             OtherACSBaseAddress = string.IsNullOrEmpty(acsbaseaddress) ? null : acsbaseaddress;
-            OtherAzureEndpoint = string.IsNullOrEmpty(azureendpoint) ? null : azureendpoint;
+            OtherAzureEndpoint = string.IsNullOrEmpty(acsazureendpoint) ? null : acsazureendpoint;
             OtherManagementPortal = string.IsNullOrEmpty(managementportal) ? null : managementportal;
+            ADSPClientId = adspclientid;
+            ADSPClientSecret = adspclientsecret;
+            ADDeploymentName = addeploymentname;
+            ADCustomSettings = adcustomsettings;
         }
 
         public bool Equals(CredentialsEntry other)

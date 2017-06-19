@@ -46,14 +46,70 @@ namespace AMSExplorer
         private const string _Default = "Default";
         private const string _Partner = "Partner";
         private const string _Other = "Other";
+        private const string CustomString = "Custom";
+        private bool pageTabAADPresent = true;
+        private bool pageTabACSPresent = true;
 
-        public readonly IList<EndPointMapping> Mappings = new List<EndPointMapping> {
+
+        public readonly IList<ACSEndPointMapping> ACSMappings = new List<ACSEndPointMapping> {
             // Global
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal, APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net",ManagementPortal="https://portal.azure.com"}, 
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal,
+                APIServer = "https://media.windows.net/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net",
+                AzureEndpoint = "windows.net",
+                ManagementPortal ="https://portal.azure.com"
+            }, 
+           
+            
             // China
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn",ManagementPortal="https://portal.azure.cn"}, 
-            // Government
-            new EndPointMapping() {Name=AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net",ManagementPortal="https://portal.azure.us"}
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,
+                APIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn",
+                AzureEndpoint = "chinacloudapi.cn",
+                ManagementPortal ="https://portal.azure.cn"
+            }, 
+           
+            // US Government
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,
+                APIServer = "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net",
+                AzureEndpoint = "usgovcloudapi.net",
+                ManagementPortal ="https://portal.azure.us"
+            }
+        };
+
+
+        public readonly IList<AADEndPointMapping> AADMappings = new List<AADEndPointMapping> {
+        
+            // Global
+            new AADEndPointMapping() {
+                Name = nameof(AzureEnvironments.AzureCloudEnvironment),
+                ManagementPortal ="https://portal.azure.com"
+            }, 
+                       
+            // China
+            new AADEndPointMapping() {
+                Name = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
+                ManagementPortal ="https://portal.azure.cn"
+            }, 
+           
+            // US Government
+            new AADEndPointMapping() {
+                 Name = nameof(AzureEnvironments.AzureUsGovernmentEnvironment),
+                ManagementPortal ="https://portal.azure.us"
+            },
+
+            // Germany
+            new AADEndPointMapping() {
+                 Name = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
+                ManagementPortal ="https://portal.microsoftazure.de"
+            }
         };
 
         public CloudMediaContext context;
@@ -81,7 +137,9 @@ namespace AMSExplorer
                textBoxScope.Text,
                textBoxACSBaseAddress.Text,
                textBoxAzureEndpoint.Text,
-               textBoxManagementPortal.Text
+               textBoxManagementPortal.Text,
+               (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName():null,
+               (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings(): null
                              );
             }
         }
@@ -175,16 +233,56 @@ namespace AMSExplorer
             }
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
-            foreach (var map in Mappings)
+            foreach (var map in ACSMappings)
             {
                 comboBoxMappingList.Items.Add(map.Name);
+
             }
             comboBoxMappingList.SelectedIndex = 0;
+
+
+            //comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvironments.AzureCloudEnvironment)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvironments.AzureChinaCloudEnvironment)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure Germany", nameof(AzureEnvironments.AzureGermanCloudEnvironment)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure US Government", nameof(AzureEnvironments.AzureUsGovernmentEnvironment)));
+            comboBoxAADMappingList.Items.Add(new Item(CustomString, CustomString));
+            comboBoxAADMappingList.SelectedIndex = 0;
 
             // version
             labelVersion.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
 
             UpdateTexboxUI();
+            UpdateAADSettingsTextBoxes();
+
+        }
+
+
+        private string ReturnDeploymentName()
+        {
+            if (radioButtonAADOther.Checked)
+                return ((Item)comboBoxAADMappingList.SelectedItem).Value;
+            else
+                return null;
+        }
+
+
+        private AzureEnvironment ReturnADCustomSettings()
+        {
+            if (ReturnDeploymentName() == CustomString)
+            {
+                AzureEnvironment env = null;
+                try
+                {
+                    env = new AzureEnvironment(new Uri(textBoxAADAzureEndpoint.Text), textBoxAADAMSResource.Text, textBoxAADClienid.Text, new Uri(textBoxAADRedirect.Text));
+                }
+                catch
+                {
+                    return null;
+                }
+                return env;
+            }
+            else
+                return null;
         }
 
         private string ReturnAzureEndpoint(string mystring)
@@ -336,15 +434,13 @@ namespace AMSExplorer
                 }
             }
 
-            string clientid = null;
-            string clientsecret = null;
             if (LoginCredentials.UseAADServicePrincipal)  // service principal mode
             {
                 var spcrendentialsform = new AMSLoginServicePrincipal();
                 if (spcrendentialsform.ShowDialog() == DialogResult.OK)
                 {
-                    clientid = spcrendentialsform.ClientId;
-                    clientsecret = spcrendentialsform.ClientSecret;
+                    LoginCredentials.ADSPClientId = spcrendentialsform.ClientId;
+                    LoginCredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
                 }
                 else
                 {
@@ -354,7 +450,7 @@ namespace AMSExplorer
 
             // Context creation
             this.Cursor = Cursors.WaitCursor;
-            context = Program.ConnectAndGetNewContext(LoginCredentials, false,  true, clientid, clientsecret);
+            context = Program.ConnectAndGetNewContext(LoginCredentials, false, true);
 
             accName = ReturnAccountName(LoginCredentials);
 
@@ -665,7 +761,7 @@ namespace AMSExplorer
 
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
-            EndPointMapping EPM = Mappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
+            ACSEndPointMapping EPM = ACSMappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
 
             textBoxAPIServer.Text = EPM.APIServer;
             textBoxACSBaseAddress.Text = EPM.ACSBaseAddress;
@@ -744,13 +840,31 @@ namespace AMSExplorer
             {
                 labelE1.Text = labelEntry1[1];
                 labelE2.Text = labelEntry2[1];
-                if (tabControlAMS.TabPages.Count == 2) tabControlAMS.TabPages.Remove(tabPageEndpoint);
+                if (!pageTabAADPresent)
+                {
+                    tabControlAMS.TabPages.Add(tabPageAAD);
+                    pageTabAADPresent = true;
+                }
+                if (pageTabACSPresent)
+                {
+                    tabControlAMS.TabPages.Remove(tabPageACS);
+                    pageTabACSPresent = false;
+                }
             }
-            else
+            else // ACS
             {
                 labelE1.Text = labelEntry1[0];
                 labelE2.Text = labelEntry2[0];
-                if (tabControlAMS.TabPages.Count == 1) tabControlAMS.TabPages.Add(tabPageEndpoint);
+                if (pageTabAADPresent)
+                {
+                    tabControlAMS.TabPages.Remove(tabPageAAD);
+                    pageTabAADPresent = false;
+                }
+                if (!pageTabACSPresent)
+                {
+                    tabControlAMS.TabPages.Add(tabPageACS);
+                    pageTabACSPresent = true;
+                }
             }
 
             textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADAut.Checked;
@@ -792,6 +906,79 @@ namespace AMSExplorer
                 {
                     errorProvider1.SetError(tb, String.Empty);
 
+                }
+            }
+        }
+
+
+        private void radioButtonAADOther_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxAADMappingList.Enabled = radioButtonAADOther.Checked;
+            UpdateAADSettingsTextBoxes();
+        }
+
+        private void comboBoxAADMappingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAADSettingsTextBoxes();
+        }
+
+        private void UpdateAADSettingsTextBoxes()
+        {
+            if (radioButtonAADProd.Checked)
+            {
+                textBoxAADAMSResource.Enabled =
+                     textBoxAADClienid.Enabled =
+                     textBoxAADRedirect.Enabled =
+                     textBoxAADAzureEndpoint.Enabled =
+                     textBoxAADManagementPortal.Enabled = false;
+
+                AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault();
+
+                Type myType = typeof(AzureEnvironments);
+                FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
+                var env = (AzureEnvironment)myFields.Where(f => f.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault().GetValue(myType);
+
+                textBoxAADAMSResource.Text = env.MediaServicesResource;
+                textBoxAADClienid.Text = env.MediaServicesSdkClientId;
+                textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();
+                textBoxAADAzureEndpoint.Text = env.ActiveDirectoryEndpoint.ToString();
+                textBoxAADManagementPortal.Text = entrymapping.ManagementPortal;
+            }
+            else
+            {
+                if (((Item)comboBoxAADMappingList.SelectedItem).Value == CustomString)
+                {
+                    textBoxAADAMSResource.Enabled =
+                    textBoxAADClienid.Enabled =
+                    textBoxAADRedirect.Enabled =
+                    textBoxAADAzureEndpoint.Enabled =
+                    textBoxAADManagementPortal.Enabled = true;
+
+                    textBoxAADAMSResource.Text =
+                    textBoxAADClienid.Text =
+                    textBoxAADRedirect.Text =
+                    textBoxAADAzureEndpoint.Text =
+                    textBoxAADManagementPortal.Text = "";
+                }
+                else
+                {
+                    textBoxAADAMSResource.Enabled =
+                    textBoxAADClienid.Enabled =
+                    textBoxAADRedirect.Enabled =
+                    textBoxAADAzureEndpoint.Enabled =
+                    textBoxAADManagementPortal.Enabled = false;
+
+                    AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault();
+
+                    Type myType = typeof(AzureEnvironments);
+                    FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
+                    var env = (AzureEnvironment)myFields.Where(f => f.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault().GetValue(myType);
+
+                    textBoxAADAMSResource.Text = env.MediaServicesResource;
+                    textBoxAADClienid.Text = env.MediaServicesSdkClientId;
+                    textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();
+                    textBoxAADAzureEndpoint.Text = env.ActiveDirectoryEndpoint.ToString();
+                    textBoxAADManagementPortal.Text = entrymapping.ManagementPortal;
                 }
             }
         }

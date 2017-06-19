@@ -54,7 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxBlobKey = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tabPageEndpoint = new System.Windows.Forms.TabPage();
+            this.tabPageACS = new System.Windows.Forms.TabPage();
             this.textBoxManagementPortal = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxMappingList = new System.Windows.Forms.ComboBox();
@@ -70,18 +70,17 @@
             this.radioButtonOther = new System.Windows.Forms.RadioButton();
             this.radioButtonPartner = new System.Windows.Forms.RadioButton();
             this.radioButtonProd = new System.Windows.Forms.RadioButton();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPageAAD = new System.Windows.Forms.TabPage();
+            this.textBoxAADManagementPortal = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
+            this.textBoxAADAzureEndpoint = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxAADRedirect = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxAADClienid = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxAADAMSResource = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.radioButtonAADOther = new System.Windows.Forms.RadioButton();
             this.radioButtonAADProd = new System.Windows.Forms.RadioButton();
@@ -100,8 +99,8 @@
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxAADMode.SuspendLayout();
-            this.tabPageEndpoint.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageACS.SuspendLayout();
+            this.tabPageAAD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -155,8 +154,8 @@
             // 
             resources.ApplyResources(this.tabControlAMS, "tabControlAMS");
             this.tabControlAMS.Controls.Add(this.tabPageCredentials);
-            this.tabControlAMS.Controls.Add(this.tabPageEndpoint);
-            this.tabControlAMS.Controls.Add(this.tabPage1);
+            this.tabControlAMS.Controls.Add(this.tabPageACS);
+            this.tabControlAMS.Controls.Add(this.tabPageAAD);
             this.tabControlAMS.Name = "tabControlAMS";
             this.tabControlAMS.SelectedIndex = 0;
             // 
@@ -281,26 +280,26 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // tabPageEndpoint
+            // tabPageACS
             // 
-            this.tabPageEndpoint.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageEndpoint.Controls.Add(this.textBoxManagementPortal);
-            this.tabPageEndpoint.Controls.Add(this.label10);
-            this.tabPageEndpoint.Controls.Add(this.comboBoxMappingList);
-            this.tabPageEndpoint.Controls.Add(this.buttonAddMapping);
-            this.tabPageEndpoint.Controls.Add(this.textBoxAzureEndpoint);
-            this.tabPageEndpoint.Controls.Add(this.label9);
-            this.tabPageEndpoint.Controls.Add(this.textBoxACSBaseAddress);
-            this.tabPageEndpoint.Controls.Add(this.label6);
-            this.tabPageEndpoint.Controls.Add(this.textBoxScope);
-            this.tabPageEndpoint.Controls.Add(this.label7);
-            this.tabPageEndpoint.Controls.Add(this.textBoxAPIServer);
-            this.tabPageEndpoint.Controls.Add(this.label8);
-            this.tabPageEndpoint.Controls.Add(this.radioButtonOther);
-            this.tabPageEndpoint.Controls.Add(this.radioButtonPartner);
-            this.tabPageEndpoint.Controls.Add(this.radioButtonProd);
-            resources.ApplyResources(this.tabPageEndpoint, "tabPageEndpoint");
-            this.tabPageEndpoint.Name = "tabPageEndpoint";
+            this.tabPageACS.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageACS.Controls.Add(this.textBoxManagementPortal);
+            this.tabPageACS.Controls.Add(this.label10);
+            this.tabPageACS.Controls.Add(this.comboBoxMappingList);
+            this.tabPageACS.Controls.Add(this.buttonAddMapping);
+            this.tabPageACS.Controls.Add(this.textBoxAzureEndpoint);
+            this.tabPageACS.Controls.Add(this.label9);
+            this.tabPageACS.Controls.Add(this.textBoxACSBaseAddress);
+            this.tabPageACS.Controls.Add(this.label6);
+            this.tabPageACS.Controls.Add(this.textBoxScope);
+            this.tabPageACS.Controls.Add(this.label7);
+            this.tabPageACS.Controls.Add(this.textBoxAPIServer);
+            this.tabPageACS.Controls.Add(this.label8);
+            this.tabPageACS.Controls.Add(this.radioButtonOther);
+            this.tabPageACS.Controls.Add(this.radioButtonPartner);
+            this.tabPageACS.Controls.Add(this.radioButtonProd);
+            resources.ApplyResources(this.tabPageACS, "tabPageACS");
+            this.tabPageACS.Name = "tabPageACS";
             // 
             // textBoxManagementPortal
             // 
@@ -397,88 +396,87 @@
             this.radioButtonProd.TabStop = true;
             this.radioButtonProd.UseVisualStyleBackColor = true;
             // 
-            // tabPage1
+            // tabPageAAD
             // 
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.comboBox1);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.label12);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.textBox4);
-            this.tabPage1.Controls.Add(this.label14);
-            this.tabPage1.Controls.Add(this.textBox5);
-            this.tabPage1.Controls.Add(this.label15);
-            this.tabPage1.Controls.Add(this.radioButtonAADOther);
-            this.tabPage1.Controls.Add(this.radioButtonAADProd);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageAAD.Controls.Add(this.textBoxAADManagementPortal);
+            this.tabPageAAD.Controls.Add(this.label4);
+            this.tabPageAAD.Controls.Add(this.comboBoxAADMappingList);
+            this.tabPageAAD.Controls.Add(this.textBoxAADAzureEndpoint);
+            this.tabPageAAD.Controls.Add(this.label12);
+            this.tabPageAAD.Controls.Add(this.textBoxAADRedirect);
+            this.tabPageAAD.Controls.Add(this.label13);
+            this.tabPageAAD.Controls.Add(this.textBoxAADClienid);
+            this.tabPageAAD.Controls.Add(this.label14);
+            this.tabPageAAD.Controls.Add(this.textBoxAADAMSResource);
+            this.tabPageAAD.Controls.Add(this.label15);
+            this.tabPageAAD.Controls.Add(this.radioButtonAADOther);
+            this.tabPageAAD.Controls.Add(this.radioButtonAADProd);
+            resources.ApplyResources(this.tabPageAAD, "tabPageAAD");
+            this.tabPageAAD.Name = "tabPageAAD";
+            this.tabPageAAD.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxAADManagementPortal
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Pink;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            this.textBoxAADManagementPortal.BackColor = System.Drawing.Color.Pink;
+            resources.ApplyResources(this.textBoxAADManagementPortal, "textBoxAADManagementPortal");
+            this.textBoxAADManagementPortal.Name = "textBoxAADManagementPortal";
+            this.textBoxAADManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // comboBox1
+            // comboBoxAADMappingList
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Name = "comboBox1";
+            this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
+            this.comboBoxAADMappingList.FormattingEnabled = true;
+            this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
+            this.comboBoxAADMappingList.SelectedIndexChanged += new System.EventHandler(this.comboBoxAADMappingList_SelectedIndexChanged);
             // 
-            // button1
+            // textBoxAADAzureEndpoint
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.Pink;
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            this.textBoxAADAzureEndpoint.BackColor = System.Drawing.Color.Pink;
+            resources.ApplyResources(this.textBoxAADAzureEndpoint, "textBoxAADAzureEndpoint");
+            this.textBoxAADAzureEndpoint.Name = "textBoxAADAzureEndpoint";
+            this.textBoxAADAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // textBox3
+            // textBoxAADRedirect
             // 
-            this.textBox3.BackColor = System.Drawing.Color.Pink;
-            resources.ApplyResources(this.textBox3, "textBox3");
-            this.textBox3.Name = "textBox3";
+            this.textBoxAADRedirect.BackColor = System.Drawing.Color.Pink;
+            resources.ApplyResources(this.textBoxAADRedirect, "textBoxAADRedirect");
+            this.textBoxAADRedirect.Name = "textBoxAADRedirect";
+            this.textBoxAADRedirect.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label13
             // 
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
             // 
-            // textBox4
+            // textBoxAADClienid
             // 
-            this.textBox4.BackColor = System.Drawing.Color.Pink;
-            resources.ApplyResources(this.textBox4, "textBox4");
-            this.textBox4.Name = "textBox4";
+            this.textBoxAADClienid.BackColor = System.Drawing.Color.Pink;
+            resources.ApplyResources(this.textBoxAADClienid, "textBoxAADClienid");
+            this.textBoxAADClienid.Name = "textBoxAADClienid";
+            this.textBoxAADClienid.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label14
             // 
             resources.ApplyResources(this.label14, "label14");
             this.label14.Name = "label14";
             // 
-            // textBox5
+            // textBoxAADAMSResource
             // 
-            this.textBox5.BackColor = System.Drawing.Color.Pink;
-            resources.ApplyResources(this.textBox5, "textBox5");
-            this.textBox5.Name = "textBox5";
+            this.textBoxAADAMSResource.BackColor = System.Drawing.Color.Pink;
+            resources.ApplyResources(this.textBoxAADAMSResource, "textBoxAADAMSResource");
+            this.textBoxAADAMSResource.Name = "textBoxAADAMSResource";
+            this.textBoxAADAMSResource.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label15
             // 
@@ -490,6 +488,7 @@
             resources.ApplyResources(this.radioButtonAADOther, "radioButtonAADOther");
             this.radioButtonAADOther.Name = "radioButtonAADOther";
             this.radioButtonAADOther.UseVisualStyleBackColor = true;
+            this.radioButtonAADOther.CheckedChanged += new System.EventHandler(this.radioButtonAADOther_CheckedChanged);
             // 
             // radioButtonAADProd
             // 
@@ -593,10 +592,10 @@
             this.groupBox2.PerformLayout();
             this.groupBoxAADMode.ResumeLayout(false);
             this.groupBoxAADMode.PerformLayout();
-            this.tabPageEndpoint.ResumeLayout(false);
-            this.tabPageEndpoint.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageACS.ResumeLayout(false);
+            this.tabPageACS.PerformLayout();
+            this.tabPageAAD.ResumeLayout(false);
+            this.tabPageAAD.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -616,7 +615,7 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.TabControl tabControlAMS;
         private System.Windows.Forms.TabPage tabPageCredentials;
-        private System.Windows.Forms.TabPage tabPageEndpoint;
+        private System.Windows.Forms.TabPage tabPageACS;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxBlobKey;
@@ -655,18 +654,17 @@
         private System.Windows.Forms.RadioButton radioButtonACSAut;
         private System.Windows.Forms.TextBox textBoxRestAPIEndpoint;
         private System.Windows.Forms.TextBox textBoxAADtenant;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabPage tabPageAAD;
+        private System.Windows.Forms.TextBox textBoxAADManagementPortal;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox comboBoxAADMappingList;
+        private System.Windows.Forms.TextBox textBoxAADAzureEndpoint;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxAADRedirect;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxAADClienid;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxAADAMSResource;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.RadioButton radioButtonAADOther;
         private System.Windows.Forms.RadioButton radioButtonAADProd;

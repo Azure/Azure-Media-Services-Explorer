@@ -17997,9 +17997,10 @@ namespace AMSExplorer
                            }
 
                            // refesh context and job
-                           _context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
+                           //_context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
                                                                                      /// NET TO RESTORE CONTEXT
                            IJob JobRefreshed = GetJob(j.Id);
+                           JobRefreshed.Refresh();
                            int index = -1;
 
                            foreach (JobEntry je in _MyObservJob) // let's search for index
