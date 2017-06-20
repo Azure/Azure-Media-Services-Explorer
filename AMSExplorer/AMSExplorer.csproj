@@ -880,9 +880,6 @@
     <EmbeddedResource Include="AboutBox.ja.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.ja-JP.resx">
-      <DependentUpon>AMSLogin.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
