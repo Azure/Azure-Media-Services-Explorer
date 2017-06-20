@@ -3838,20 +3838,85 @@ namespace AMSExplorer
 
         public string GetTableEndPoint(string mediaServicesStorageAccountName)
         {
-            string SampleStorageURLTemplate = UseOtherAPI ?
-            CredentialsEntry.TableStorage + OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
-            CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
+            if (!UseAADInteract && !UseAADServicePrincipal) // ACS Mode
+            {
+                string SampleStorageURLTemplate = UseOtherAPI ?
+                        CredentialsEntry.TableStorage + OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
+                        CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
 
-            return "https://" + mediaServicesStorageAccountName + SampleStorageURLTemplate;
+                return "https://" + mediaServicesStorageAccountName + SampleStorageURLTemplate;
+            }
+            else // AAD Mode
+            {
+                if (ADDeploymentName != null) // one of the default
+                {
+                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                }
+                else if (ADCustomSettings != null)
+                {
+                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                }
+                else // Global
+                {
+                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // "https://accountname.table.core.windows.net"
+
+                }
+            }
         }
 
-        // return the storage suffix for China, or null for Global Azure
+        private string ReturnHostNameTwoSegmentsRight(string myUrl)
+        {
+            var hosts = (new Uri(myUrl)).Host.Split('.');
+            int i = hosts.Count();
+            return hosts[i - 2] + "." + hosts[i - 1];
+        }
+
+        public static AzureEnvironment ReturnADEnvironment(string ADDeploymentName) // Return the AzureEnvonment based on name
+        {
+            Type myType = typeof(AzureEnvironments);
+            FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
+            var found = myFields.Where(f => f.Name == ADDeploymentName).FirstOrDefault();
+            if (found != null)
+            {
+                return (AzureEnvironment)myFields.Where(f => f.Name == ADDeploymentName).FirstOrDefault().GetValue(myType);
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        // return the storage suffix for China, Germany etc, or null for Global Azure
         public string ReturnStorageSuffix()
         {
+            /*
             if (UseOtherAPI)
                 return CoreStorage + OtherAzureEndpoint;
             else
                 return null;
+                */
+
+
+            if (!UseAADInteract && !UseAADServicePrincipal) // ACS Mode
+            {
+                return UseOtherAPI ? CoreStorage + OtherAzureEndpoint : null;
+            }
+            else // AAD Mode
+            {
+                if (ADDeploymentName != null) // one of the default
+                {
+                    return ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                }
+                else if (ADCustomSettings != null)
+                {
+                    return ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                }
+                else // Global
+                {
+                    return null;
+                }
+            }
         }
     }
 

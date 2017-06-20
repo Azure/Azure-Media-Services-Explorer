@@ -457,6 +457,7 @@ namespace AMSExplorer
 
             // Context creation
             this.Cursor = Cursors.WaitCursor;
+
             context = Program.ConnectAndGetNewContext(LoginCredentials, false, true);
 
             accName = ReturnAccountName(LoginCredentials);
@@ -974,10 +975,7 @@ namespace AMSExplorer
 
                 AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault();
 
-                Type myType = typeof(AzureEnvironments);
-                FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
-                var env = (AzureEnvironment)myFields.Where(f => f.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault().GetValue(myType);
-
+                var env = AzureEnvironments.AzureCloudEnvironment;
                 textBoxAADAMSResource.Text = env.MediaServicesResource;
                 textBoxAADClienid.Text = env.MediaServicesSdkClientId;
                 textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();
@@ -1010,10 +1008,7 @@ namespace AMSExplorer
 
                     AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault();
 
-                    Type myType = typeof(AzureEnvironments);
-                    FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
-                    var env = (AzureEnvironment)myFields.Where(f => f.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault().GetValue(myType);
-
+                    var env = CredentialsEntry.ReturnADEnvironment(((Item)comboBoxAADMappingList.SelectedItem).Value);
                     textBoxAADAMSResource.Text = env.MediaServicesResource;
                     textBoxAADClienid.Text = env.MediaServicesSdkClientId;
                     textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();

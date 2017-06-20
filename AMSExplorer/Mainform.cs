@@ -202,7 +202,7 @@ namespace AMSExplorer
 
 
             // Let's check storage credentials
-            if (false && string.IsNullOrEmpty(_credentials.DefaultStorageKey))
+            if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
             {
                 havestoragecredentials = false;
             }
