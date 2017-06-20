@@ -235,6 +235,8 @@ namespace AMSExplorer
             }
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
+            linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
+
             foreach (var map in ACSMappings)
             {
                 comboBoxMappingList.Items.Add(map.Name);
@@ -905,7 +907,7 @@ namespace AMSExplorer
                 }
             }
 
-            textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADAut.Checked;
+            linkLabelAADAut.Visible = textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADAut.Checked;
             textBoxAccountName.Visible = textBoxAccountKey.Visible = radioButtonACSAut.Checked;
             groupBoxAADMode.Visible = radioButtonAADAut.Checked;
         }

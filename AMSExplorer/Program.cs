@@ -1090,6 +1090,7 @@ namespace AMSExplorer
         public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/media-services-widevine-license-template-overview";
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/media-services-portal-create-account";
+        public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/media-services-portal-get-started-with-aad";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";

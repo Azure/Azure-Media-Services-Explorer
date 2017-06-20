@@ -95,6 +95,7 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -162,6 +163,7 @@
             // tabPageCredentials
             // 
             this.tabPageCredentials.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageCredentials.Controls.Add(this.linkLabelAADAut);
             this.tabPageCredentials.Controls.Add(this.groupBox2);
             this.tabPageCredentials.Controls.Add(this.groupBoxAADMode);
             this.tabPageCredentials.Controls.Add(this.textBoxRestAPIEndpoint);
@@ -303,8 +305,8 @@
             // 
             // textBoxManagementPortal
             // 
-            this.textBoxManagementPortal.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxManagementPortal, "textBoxManagementPortal");
+            this.textBoxManagementPortal.BackColor = System.Drawing.Color.Pink;
             this.textBoxManagementPortal.Name = "textBoxManagementPortal";
             this.textBoxManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -329,8 +331,8 @@
             // 
             // textBoxAzureEndpoint
             // 
-            this.textBoxAzureEndpoint.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAzureEndpoint, "textBoxAzureEndpoint");
+            this.textBoxAzureEndpoint.BackColor = System.Drawing.Color.Pink;
             this.textBoxAzureEndpoint.Name = "textBoxAzureEndpoint";
             this.textBoxAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -341,8 +343,8 @@
             // 
             // textBoxACSBaseAddress
             // 
-            this.textBoxACSBaseAddress.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxACSBaseAddress, "textBoxACSBaseAddress");
+            this.textBoxACSBaseAddress.BackColor = System.Drawing.Color.Pink;
             this.textBoxACSBaseAddress.Name = "textBoxACSBaseAddress";
             this.textBoxACSBaseAddress.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -353,8 +355,8 @@
             // 
             // textBoxScope
             // 
-            this.textBoxScope.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxScope, "textBoxScope");
+            this.textBoxScope.BackColor = System.Drawing.Color.Pink;
             this.textBoxScope.Name = "textBoxScope";
             this.textBoxScope.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -365,8 +367,8 @@
             // 
             // textBoxAPIServer
             // 
-            this.textBoxAPIServer.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAPIServer, "textBoxAPIServer");
+            this.textBoxAPIServer.BackColor = System.Drawing.Color.Pink;
             this.textBoxAPIServer.Name = "textBoxAPIServer";
             this.textBoxAPIServer.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -417,8 +419,8 @@
             // 
             // textBoxAADManagementPortal
             // 
-            this.textBoxAADManagementPortal.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAADManagementPortal, "textBoxAADManagementPortal");
+            this.textBoxAADManagementPortal.BackColor = System.Drawing.Color.Pink;
             this.textBoxAADManagementPortal.Name = "textBoxAADManagementPortal";
             this.textBoxAADManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -437,8 +439,8 @@
             // 
             // textBoxAADAzureEndpoint
             // 
-            this.textBoxAADAzureEndpoint.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAADAzureEndpoint, "textBoxAADAzureEndpoint");
+            this.textBoxAADAzureEndpoint.BackColor = System.Drawing.Color.Pink;
             this.textBoxAADAzureEndpoint.Name = "textBoxAADAzureEndpoint";
             this.textBoxAADAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -449,8 +451,8 @@
             // 
             // textBoxAADRedirect
             // 
-            this.textBoxAADRedirect.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAADRedirect, "textBoxAADRedirect");
+            this.textBoxAADRedirect.BackColor = System.Drawing.Color.Pink;
             this.textBoxAADRedirect.Name = "textBoxAADRedirect";
             this.textBoxAADRedirect.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -461,8 +463,8 @@
             // 
             // textBoxAADClienid
             // 
-            this.textBoxAADClienid.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAADClienid, "textBoxAADClienid");
+            this.textBoxAADClienid.BackColor = System.Drawing.Color.Pink;
             this.textBoxAADClienid.Name = "textBoxAADClienid";
             this.textBoxAADClienid.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -473,8 +475,8 @@
             // 
             // textBoxAADAMSResource
             // 
-            this.textBoxAADAMSResource.BackColor = System.Drawing.Color.Pink;
             resources.ApplyResources(this.textBoxAADAMSResource, "textBoxAADAMSResource");
+            this.textBoxAADAMSResource.BackColor = System.Drawing.Color.Pink;
             this.textBoxAADAMSResource.Name = "textBoxAADAMSResource";
             this.textBoxAADAMSResource.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
@@ -561,6 +563,13 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // linkLabelAADAut
+            // 
+            resources.ApplyResources(this.linkLabelAADAut, "linkLabelAADAut");
+            this.linkLabelAADAut.Name = "linkLabelAADAut";
+            this.linkLabelAADAut.TabStop = true;
+            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
             // AMSLogin
             // 
@@ -672,5 +681,6 @@
         private System.Windows.Forms.RadioButton radioButtonAADServicePrincipal;
         private System.Windows.Forms.RadioButton radioButtonAADInteractive;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.LinkLabel linkLabelAADAut;
     }
 }
