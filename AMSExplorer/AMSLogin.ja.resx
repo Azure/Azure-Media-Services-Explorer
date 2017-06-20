@@ -142,20 +142,17 @@
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>296, 15</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>認証モード</value>
-  </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 15</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>アカウントの説明 (任意)</value>
+    <value>アカウントの説明 (任意)          </value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>420, 15</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>既定のストレージアカウントのアクセスキー (任意 - Azure ストレージ操作にて利用)</value>
+    <value>既定のストレージアカウントのアクセスキー (任意 - Azure ストレージ操作にて利用)          </value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 15</value>
@@ -232,19 +229,67 @@
   <data name="tabPageCredentials.Text" xml:space="preserve">
     <value>資格情報</value>
   </data>
-  <data name="radioButtonAADInteract.Text" xml:space="preserve">
-    <value>Azure AD ユーザー認証</value>
-  </data>
-  <data name="radioButtonACS.Text" xml:space="preserve">
-    <value>ACS トークン (廃止予定)</value>
-  </data>
   <data name="radioButtonACS.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 30</value>
   </data>
-  <data name="tabPageEndpoint.Text" xml:space="preserve">
-    <value>ACS 設定</value>
-  </data>
   <data name="labelE2.Text" xml:space="preserve">
     <value>Media Service アカウントキー | REST API エンドポイント</value>
+  </data>
+  <data name="tabPageACS.Text" xml:space="preserve">
+    <value>ACS トークン設定</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>管理ポータル</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Azure エンドポイント</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Media Services アプリケーション リダイレクト URI</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Media Services アプリケーション ID</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Media Services リソース URI</value>
+  </data>
+  <data name="radioButtonAADOther.Text" xml:space="preserve">
+    <value>その他：</value>
+  </data>
+  <data name="radioButtonAADProd.Text" xml:space="preserve">
+    <value>既定 (Azure グローバル)</value>
+  </data>
+  <data name="tabPageAAD.Text" xml:space="preserve">
+    <value>Azure AD 設定</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="radioButtonAADAut.Text" xml:space="preserve">
+    <value>Azure AD 認証</value>
+  </data>
+  <data name="radioButtonAADServicePrincipal.Text" xml:space="preserve">
+    <value>サービス プリンシパル認証</value>
+  </data>
+  <data name="groupBoxAADMode.Text" xml:space="preserve">
+    <value>認証モード</value>
+  </data>
+  <data name="radioButtonACSAut.Text" xml:space="preserve">
+    <value>ACS トークン認証 (廃止予定)</value>
+  </data>
+  <data name="radioButtonAADInteractive.Text" xml:space="preserve">
+    <value>ユーザー認証</value>
+  </data>
+  <data name="textBoxRestAPIEndpoint.ToolTip" xml:space="preserve">
+    <value>例： https://accountname.restv2.location.media.azure.net/api</value>
+  </data>
+  <data name="textBoxAADtenant.ToolTip" xml:space="preserve">
+    <value>例： microsoft.onmicrosoft.com</value>
+  </data>
+  <data name="linkLabelAADAut.Location" type="System.Drawing.Point, System.Drawing">
+    <value>279, 90</value>
+  </data>
+  <data name="linkLabelAADAut.Text" xml:space="preserve">
+    <value>Azure AD 認証に関する情報 </value>
   </data>
 </root>
