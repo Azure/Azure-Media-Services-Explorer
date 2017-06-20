@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMSLoginServicePrincipal));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxClientId = new System.Windows.Forms.TextBox();
             this.textBoxClientSecret = new System.Windows.Forms.TextBox();
             this.labelE1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonImport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +46,6 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // panel1
             // 
@@ -55,6 +54,13 @@
             this.panel1.Controls.Add(this.buttonImport);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Name = "panel1";
+            // 
+            // buttonImport
+            // 
+            resources.ApplyResources(this.buttonImport, "buttonImport");
+            this.buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -66,6 +72,7 @@
             // 
             resources.ApplyResources(this.textBoxClientId, "textBoxClientId");
             this.textBoxClientId.Name = "textBoxClientId";
+            this.textBoxClientId.TextChanged += new System.EventHandler(this.textBoxClientId_TextChanged);
             // 
             // textBoxClientSecret
             // 
@@ -83,13 +90,6 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // buttonImport
-            // 
-            resources.ApplyResources(this.buttonImport, "buttonImport");
-            this.buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonImport.Name = "buttonImport";
-            this.buttonImport.UseVisualStyleBackColor = true;
-            // 
             // AMSLoginServicePrincipal
             // 
             resources.ApplyResources(this, "$this");
@@ -103,7 +103,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Name = "AMSLoginServicePrincipal";
-            this.Load += new System.EventHandler(this.Priority_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
