@@ -1,8 +1,10 @@
-Version 3.49.0.0 (June 5, 2017) brings the following features and improvements :
+Version 4.0.0.0 (June 20, 2017) brings the following features and improvements :
 
-* Support for the Russian language in Indexer v2 preview
-* Provides a way to hide the taskbar notifications 
-* Default to https for Azure Media Player and streaming URLs
-* Force the use of Internet Explorer for previewing a live channel (because Flash or Silverlight is required for smooth streaming)
-* Displays the URL generation option dialog box in all cases
-* Fixes several bugs and crashes
+* Support for Azure Active Directory (AAD) authentication for Media Services
+  *  Two modes are supported: Interactive authentication (recommended), and Service Principal
+  *  Support for Azure Global, Azure in China, Azure in Germany, US Government and custom settings
+  *  See the [blog announcement](https://azure.microsoft.com/en-us/blog/azure%20media%20service%20aad%20auth%20and%20acs%20deprecation) for more information
+* Adds support for British English and Mexican Spanish in Indexer v2 
+* More reliable upload and download. The following settings are exposed: parallel transfer thread count and number of concurrent transfers (in Options). Default is one transfer process in the transfer tab.
+* Media Services SDK updated to 4.0.0.4, with ADAL support. Storage SDK updated to 8.1.4.0.
+* Fixes several bugs
