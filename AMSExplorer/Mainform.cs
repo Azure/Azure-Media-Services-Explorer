@@ -185,7 +185,7 @@ namespace AMSExplorer
                 }
             });
 
-           
+
             // mainform title
             //  toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
 
@@ -3628,7 +3628,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
 
         {
 
@@ -3641,7 +3641,7 @@ namespace AMSExplorer
             }
 
             bool ErrorCopyAsset = false;
-            CloudMediaContext DestinationContext;
+            //CloudMediaContext DestinationContext;
             IAsset TargetAsset;
             CloudStorageAccount DestinationCloudStorageAccount;
             CloudBlobClient DestinationCloudBlobClient;
@@ -3649,6 +3649,7 @@ namespace AMSExplorer
             ILocator DestinationLocator;
             IAssetFile[] ismAssetFile;
 
+            /*
             try
             {
                 DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
@@ -3660,6 +3661,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
+            */
 
             try
             {
@@ -4337,6 +4339,20 @@ namespace AMSExplorer
         private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
+
+            if (DestinationCredentialsEntry.UseAADServicePrincipal)  // service principal mode
+            {
+                var spcrendentialsform = new AMSLoginServicePrincipal();
+                if (spcrendentialsform.ShowDialog() == DialogResult.OK)
+                {
+                    DestinationCredentialsEntry.ADSPClientId = spcrendentialsform.ClientId;
+                    DestinationCredentialsEntry.ADSPClientSecret = spcrendentialsform.ClientSecret;
+                }
+                else
+                {
+                    return;
+                }
+            }
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
             // let's check that target channel exists
@@ -4440,6 +4456,20 @@ namespace AMSExplorer
         private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
         {
             TextBoxLogWriteLine("Starting the channel cloning process...");
+
+            if (DestinationCredentialsEntry.UseAADServicePrincipal)  // service principal mode
+            {
+                var spcrendentialsform = new AMSLoginServicePrincipal();
+                if (spcrendentialsform.ShowDialog() == DialogResult.OK)
+                {
+                    DestinationCredentialsEntry.ADSPClientId = spcrendentialsform.ClientId;
+                    DestinationCredentialsEntry.ADSPClientSecret = spcrendentialsform.ClientSecret;
+                }
+                else
+                {
+                    return;
+                }
+            }
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
             var options = new ChannelCreationOptions()
@@ -9938,7 +9968,7 @@ namespace AMSExplorer
             // Refresh the context
             _context = Program.ConnectAndGetNewContext(_credentials);
             bool multiselection = streamingendpoints.Count > 1;
-                        
+
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
                 MySE = streamingendpoints.FirstOrDefault(),
@@ -10769,7 +10799,7 @@ namespace AMSExplorer
             IContentKey formerkey = null;
             IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = form3_ExistingPolicies.UseExistingAuthorizationPolicy;
             IAssetDeliveryPolicy DelPol = form3_ExistingPolicies.UseExistingDeliveryPolicy;
-            
+
 
             bool ManualForceKeyData = !form2_CENC.ContentKeyRandomGeneration && (form2_CENC.KeyId != null);  // user want to manually enter the cryptography data and key if provided
 
@@ -12971,12 +13001,45 @@ namespace AMSExplorer
                 EnableSingleDestinationAsset = SelectedAssets.Count > 1
             };
 
+
             if (form.ShowDialog() == DialogResult.OK)
             {
+                var newdestinationcredentials = form.DestinationLoginCredentials;
+                if (newdestinationcredentials.UseAADServicePrincipal)
+                {
+                    {
+                        var spcrendentialsform = new AMSLoginServicePrincipal();
+                        if (spcrendentialsform.ShowDialog() == DialogResult.OK)
+                        {
+                            newdestinationcredentials.ADSPClientId = spcrendentialsform.ClientId;
+                            newdestinationcredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+
+
                 bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, form.DestinationLoginCredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
+                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, newdestinationcredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
                 if (!usercanceled)
                 {
+                    CloudMediaContext DestinationContext;
+                    try
+                    {
+                        DestinationContext = Program.ConnectAndGetNewContext(newdestinationcredentials);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error", true);
+                        TextBoxLogWriteLine(ex);
+                        return;
+                    }
+
+
+
                     if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
                     {
                         foreach (IAsset asset in SelectedAssets)
@@ -12984,7 +13047,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, AMSLogin.ReturnAccountName(form.DestinationLoginCredentials)), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset), response.token);
+                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, DestinationContext, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset), response.token);
                         }
                     }
                     else // merge all assets into a single asset
@@ -12998,7 +13061,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", AMSLogin.ReturnAccountName(form.DestinationLoginCredentials)), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, form.DeleteSourceAsset), response.token);
+                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, DestinationContext, form.DeleteSourceAsset), response.token);
                         }
                     }
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
@@ -17997,7 +18060,7 @@ namespace AMSExplorer
 
                            // refesh context and job
                            //_context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
-                                                                                     /// NET TO RESTORE CONTEXT
+                           /// NET TO RESTORE CONTEXT
                            IJob JobRefreshed = GetJob(j.Id);
                            JobRefreshed.Refresh();
                            int index = -1;

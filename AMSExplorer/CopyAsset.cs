@@ -227,6 +227,14 @@ namespace AMSExplorer
                 radioButtonDefaultStorage.Checked = true;
                 listBoxStorage.Items.Clear();
 
+                if (SelectedCredentials.UseAADServicePrincipal) // not supported for now
+                {
+                    labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
+                    ErrorConnectingAMS = true;
+                    return;
+                }
+
+
                 // let's check connection to account
                 try
                 {
@@ -258,6 +266,13 @@ namespace AMSExplorer
 
             if (radioButtonSpecifyStorage.Checked)
             {
+                if (SelectedCredentials.UseAADServicePrincipal) // not supported for now
+                {
+                    labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
+                    ErrorConnectingAMS = true;
+                    return;
+                }
+
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
