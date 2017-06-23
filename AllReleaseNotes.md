@@ -1,4 +1,4 @@
-Version 4.0.0.0 (June 20, 2017) brings the following features and improvements :
+Version 4.0.0.0 (June 22, 2017) brings the following features and improvements :
 
 * Support for Azure Active Directory (AAD) authentication for Media Services
   *  Two modes are supported: Interactive authentication (recommended), and Service Principal
