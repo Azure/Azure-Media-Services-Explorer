@@ -177,4 +177,7 @@
   <data name="label5.Text" xml:space="preserve">
     <value>ビデオデバイス名 :</value>
   </data>
+  <data name="labelcdn.Text" xml:space="preserve">
+    <value>オンプレミスライブエンコーダーを実行してライブストリームをチャンネルに入力します - ffpmeg または VLC のインストールパスはオプションメニューから設定できます</value>
+  </data>
 </root>

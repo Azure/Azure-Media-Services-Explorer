@@ -150,4 +150,7 @@
   <data name="groupBox1.Text" xml:space="preserve">
     <value>ローカル フォルダー</value>
   </data>
+  <data name="checkBoxOpenFileAfterExport.Text" xml:space="preserve">
+    <value>ダウンロードが完了した時、エクスプローラーでフォルダを開く</value>
+  </data>
 </root>

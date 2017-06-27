@@ -117,420 +117,147 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxStartProgramNow.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxStartProgramNow.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxStartProgramNow.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxDynEnc.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxDynEnc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxDynEnc.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label9.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label33.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label33.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label33.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="comboBoxStorage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comboBoxStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="comboBoxStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxAssetName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxAssetName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxAssetName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownArchiveMinutes.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownArchiveMinutes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownArchiveMinutes.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label11.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label11.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label11.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label4.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label4.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label10.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label10.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label10.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownArchiveHours.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownArchiveHours.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownArchiveHours.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPage1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelCloneLocators.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelCloneLocators.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelCloneLocators.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxManifestName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxManifestName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxManifestName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label13.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label13.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label13.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPage3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelURLFileNameWarning.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelURLFileNameWarning.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelURLFileNameWarning.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelManifestFile.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelManifestFile.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelManifestFile.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelLocatorID.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelLocatorID.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelLocatorID.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label12.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label12.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label12.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label8.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label8.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label8.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label7.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label7.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxProgramSourceURL.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxProgramSourceURL.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxProgramSourceURL.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxReplica.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxReplica.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxReplica.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPage2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxAddScaleUnit.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxAddScaleUnit.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxAddScaleUnit.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label5.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label5.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxCreateLocator.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxCreateLocator.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxCreateLocator.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxDescription.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxDescription.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxDescription.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textboxprogramname.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textboxprogramname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textboxprogramname.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>CCreate a new program for channel {0}</value>
-  </data>
-  <data name="buttonOk.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>新しいアセットの名前: </value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>高度なオプション</value>
-  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>プログラムの作成</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxStartProgramNow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 19</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>説明 :</value>
+  <data name="checkBoxStartProgramNow.Text" xml:space="preserve">
+    <value>プログラムをすぐに開始する</value>
+  </data>
+  <data name="checkBoxDynEnc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 19</value>
   </data>
   <data name="checkBoxDynEnc.Text" xml:space="preserve">
     <value>動的暗号化の有効化</value>
   </data>
-  <data name="label33.Text" xml:space="preserve">
-    <value>出力先のストレージ :</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>プログラム名 :</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>レプリカ</value>
-  </data>
-  <data name="labelURLFileNameWarning.Text" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>設定</value>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 15</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>5分 から 25 時間 (最大) まで</value>
   </data>
-  <data name="checkBoxAddScaleUnit.Text" xml:space="preserve">
-    <value>1ストリーミングユニットを追加する</value>
+  <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 15</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>アーカイブ ウィンドウの長さ :</value>
+  <data name="label33.Text" xml:space="preserve">
+    <value>出力先のストレージ :</value>
   </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>時</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>ロケーター ID :</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>マニフェスト名 :</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>マニフェスト ファイル :</value>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 15</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
     <value>分</value>
   </data>
-  <data name="checkBoxStartProgramNow.Text" xml:space="preserve">
-    <value>プログラムをすぐに開始する</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>アーカイブ ウィンドウの長さ :</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>新しいアセットの名前: </value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 15</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>時</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>マニフェスト名 :</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>高度なオプション</value>
+  </data>
+  <data name="labelURLFileNameWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 15</value>
+  </data>
+  <data name="labelURLFileNameWarning.Text" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="labelManifestFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 182</value>
+  </data>
+  <data name="labelManifestFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>345, 15</value>
+  </data>
+  <data name="labelLocatorID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 158</value>
+  </data>
+  <data name="labelLocatorID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>377, 15</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 15</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>マニフェスト ファイル :</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 15</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ロケーター ID :</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>レプリカ</value>
+  </data>
+  <data name="checkBoxAddScaleUnit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 19</value>
+  </data>
+  <data name="checkBoxAddScaleUnit.Text" xml:space="preserve">
+    <value>1ストリーミングユニットを追加する</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ライブプログラムは、プログラムを停止した際に録画しているオンデマンドコンテンツに自動的に変換し、アセットタブからアクセスできます
+公開するすべてのストリーミングURLは、ライブプログラムが終了後も、そのまま利用可能となります</value>
+  </data>
+  <data name="checkBoxCreateLocator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 19</value>
+  </data>
+  <data name="checkBoxCreateLocator.Text" xml:space="preserve">
+    <value>このプログラム(アセット)をすぐに公開する (既定のロケーターの期間: {0} 日)</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>説明 :</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>プログラム名 :</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>チャネル {0} の新しいプログラムの作成</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>プログラムの作成</value>
+  </data>
+  <data name="labelCloneLocators.Text" xml:space="preserve">
+    <value>(自動生成の場合は空欄のまま)</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>レプリカ (複製プログラム) の出力 URL:</value>
+  </data>
+  <data name="checkBoxReplica.Text" xml:space="preserve">
+    <value>このプログラムはもう1つのデータセンターにあるプログラムのレプリカである</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>このオプションは、もう1つのデータセンターにあるライブプログラムを作成し、同じ URL パスで新しいプログラムを生成したい場合に、利用します</value>
   </data>
 </root>

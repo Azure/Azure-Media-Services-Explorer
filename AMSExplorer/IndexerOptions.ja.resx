@@ -187,6 +187,9 @@
     <value>そのほか</value>
   </data>
   <data name="checkBoxAIB.Text" xml:space="preserve">
-    <value>Audio Index Blob (AIB)</value>
+    <value>音声インデックス ブロブ (AIB)</value>
+  </data>
+  <data name="checkBoxForceFullCaptions.Text" xml:space="preserve">
+    <value>フルキャプションを強制</value>
   </data>
 </root>

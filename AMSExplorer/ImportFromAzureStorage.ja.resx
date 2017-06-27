@@ -117,76 +117,116 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value>IImport from Azure Storage</value>
-  </data>
-  <data name="ListViewFilesLastModified.Text" xml:space="preserve">
-    <value>最終更新</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>最終更新</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="ListViewFilesName.Text" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>アクセス キー: </value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>アカウント名: </value>
-  </data>
-  <data name="labelExistingAssetName.Text" xml:space="preserve">
-    <value>アセット名</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Aure ストレージ ソース</value>
+  <data name="buttonUpload.Text" xml:space="preserve">
+    <value>アップロード　</value>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="buttonConnect.Text" xml:space="preserve">
-    <value>接続</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>コンテナー</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Azure Media Services へコピー</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxOneAssetPerFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 19</value>
   </data>
   <data name="checkBoxOneAssetPerFile.Text" xml:space="preserve">
-    <value>ファイルごとに1つのアセットを作成</value>
+    <value>ファイルごとにアセットを作成</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>ファイル</value>
+  <data name="labelSelectedAssetWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 15</value>
   </data>
   <data name="labelSelectedAssetWarning.Text" xml:space="preserve">
     <value>警告</value>
   </data>
-  <data name="buttonUpload.Text" xml:space="preserve">
-    <value>アップロード　</value>
+  <data name="labelExistingAssetName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 15</value>
   </data>
-  <data name="labelDefaultStorage.Text" xml:space="preserve">
-    <value>ストレージ名</value>
+  <data name="labelExistingAssetName.Text" xml:space="preserve">
+    <value>アセット名</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>検索 :</value>
+  <data name="radioButtonSelectedAsset.Text" xml:space="preserve">
+    <value>選択されたアセットへ :</value>
   </data>
-  <data name="ListViewFilesSize.Text" xml:space="preserve">
-    <value>サイズ</value>
-  </data>
-  <data name="radioButtonStorageDefault.Text" xml:space="preserve">
-    <value>既定の Azure Media Services ストレージアカウント</value>
-  </data>
-  <data name="radioButtonOtherStorage.Text" xml:space="preserve">
-    <value>その他の Azure ストレージ</value>
+  <data name="radioButtonNewAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 19</value>
   </data>
   <data name="radioButtonNewAsset.Text" xml:space="preserve">
     <value>新しいアセットとして :</value>
   </data>
-  <data name="radioButtonSelectedAsset.Text" xml:space="preserve">
-    <value>選択されたアセットへ :</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Azure Media Services へコピー</value>
+  </data>
+  <data name="labelDefaultStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>311, 33</value>
+  </data>
+  <data name="labelDefaultStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 15</value>
+  </data>
+  <data name="labelDefaultStorage.Text" xml:space="preserve">
+    <value>ストレージ名</value>
+  </data>
+  <data name="buttonConnect.Text" xml:space="preserve">
+    <value>接続</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>アクセス キー: </value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>アカウント名: </value>
+  </data>
+  <data name="radioButtonOtherStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 19</value>
+  </data>
+  <data name="radioButtonOtherStorage.Text" xml:space="preserve">
+    <value>その他の Azure ストレージ</value>
+  </data>
+  <data name="radioButtonStorageDefault.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 19</value>
+  </data>
+  <data name="radioButtonStorageDefault.Text" xml:space="preserve">
+    <value>既定の Azure Media Services ストレージアカウント</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Aure ストレージ ソース</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>コンテナー</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="ListViewFilesName.Text" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="ListViewFilesLastModified.Text" xml:space="preserve">
+    <value>最終更新</value>
+  </data>
+  <data name="ListViewFilesSize.Text" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>最終更新</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>検索 :</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Azure Storage からインポート</value>
   </data>
 </root>

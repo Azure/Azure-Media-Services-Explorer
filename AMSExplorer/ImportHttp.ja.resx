@@ -294,10 +294,16 @@
     <value>アセットの作成</value>
   </data>
   <data name="labelExamples.Text" xml:space="preserve">
-    <value>例 :
+    <value>例:
 http://login:password@hostname.com/path
 Amazon : http://awskey:awssecretkey@bucket.s3.amazonaws.com/object
 Dropbox : http://dl.dropbox.com/object
 </value>
+  </data>
+  <data name="labelSASListExample.Text" xml:space="preserve">
+    <value>例:
+https://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f6-47e3-a780-c9f27fd7a3b3?sv=2015-12-11&amp;sr=c&amp;si=testpolicy&amp;sig=vgl5aBUUZ4K%2Buv8V5pLfrR8tJIXYbux5ryaznzPc9nM%3D
+
+LIST パーミッション付きの SAS ロケーターを利用 (AMSE v3.44 以降)</value>
   </data>
 </root>

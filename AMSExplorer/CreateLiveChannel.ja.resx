@@ -978,13 +978,13 @@
     <value>削除</value>
   </data>
   <data name="checkBoxHLSFragPerSegDefined.Text" xml:space="preserve">
-    <value>セグメントごとのHLS フラグメント :</value>
+    <value>セグメントごとのHLS フラグメント:</value>
   </data>
   <data name="openFileDialogSlate.Filter" xml:space="preserve">
     <value>JPEGファイル|*.jpg|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>入力プロトコル :</value>
+    <value>入力プロトコル:</value>
   </data>
   <data name="linkLabelMoreInfoPrice.Text" xml:space="preserve">
     <value>詳細情報</value>
@@ -993,7 +993,7 @@
     <value>ライブエンコーディングの詳細情報</value>
   </data>
   <data name="buttonUploadSlate.Text" xml:space="preserve">
-    <value>ファイルをアップロード...</value>
+    <value>アップロード...</value>
   </data>
   <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
     <value>カスタム プリセット "{0}" を使用</value>
@@ -1008,7 +1008,7 @@
     <value>ビデオ プロファイル (読み込み専用) :</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>キーフレームの間隔 :</value>
+    <value>キーフレームの間隔:</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>オーディオ ストリーム インデックス :</value>
@@ -1044,7 +1044,7 @@
     <value>説明 :</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>カスタム プリセットを使用する場合は amslived@microsoft.com まで連絡ください</value>
+    <value>カスタム プリセットを使用する場合は amslived@microsoft.com までご連絡ください</value>
   </data>
   <data name="checkBoxIgnore708.Text" xml:space="preserve">
     <value>CEA-708 クローズド キャプションを無視</value>
@@ -1060,5 +1060,58 @@
   </data>
   <data name="label14.Text" xml:space="preserve">
     <value>名前 または ID で検索 :</value>
+  </data>
+  <data name="linkLabelMoreInfoPrice.Location" type="System.Drawing.Point, System.Drawing">
+    <value>476, 553</value>
+  </data>
+  <data name="linkLabelMoreInfoPrice.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="textBoxCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 50</value>
+  </data>
+  <data name="textBoxCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 23</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>54, 76</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>425, 16</value>
+  </data>
+  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 554</value>
+  </data>
+  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 15</value>
+  </data>
+  <data name="checkBoxRestrictIngestIP.Text" xml:space="preserve">
+    <value>ライブソースの入力元IPアドレスの制限:</value>
+  </data>
+  <data name="checkBoxRestrictPreviewIP.Text" xml:space="preserve">
+    <value>プレビューの閲覧IPアドレスの制限:</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.Text" xml:space="preserve">
+    <value>オンプレミスエンコーダーでのライブストリーミング</value>
+  </data>
+  <data name="labelRTPWarning.Text" xml:space="preserve">
+    <value>RTP プロトコルでの入力は推奨されません
+このプロトコルはあるネットワーク条件下では
+信頼できないプロトコルとなります</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>SCTE-35 は RTP入力ソースの場合のみ利用可能です</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 42</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 32</value>
+  </data>
+  <data name="checkBoxInsertSlateOnAdMarker.Text" xml:space="preserve">
+    <value>広告シグナルにスレートを挿入する</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>イメージの要件 : JPG ファイル, 16:9 アスペクト比, 最大 1920x1080 解像度, 最大 3 MB</value>
   </data>
 </root>

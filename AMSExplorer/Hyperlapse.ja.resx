@@ -128,6 +128,9 @@
   <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>メディア処理実行</value>
+  </data>
   <data name="buttonCancel.Error" xml:space="preserve">
     <value />
   </data>
@@ -136,6 +139,9 @@
   </data>
   <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="panel2.Error" xml:space="preserve">
     <value />
@@ -155,6 +161,13 @@
   <data name="checkBoxStabilize.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxStabilize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 19</value>
+  </data>
+  <data name="checkBoxStabilize.Text" xml:space="preserve">
+    <value>安定化</value>
+  </data>
   <data name="checkBoxLimitNbFrames.Error" xml:space="preserve">
     <value />
   </data>
@@ -163,6 +176,12 @@
   </data>
   <data name="checkBoxLimitNbFrames.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="checkBoxLimitNbFrames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 19</value>
+  </data>
+  <data name="checkBoxLimitNbFrames.Text" xml:space="preserve">
+    <value>処理するフレーム数: </value>
   </data>
   <data name="label9.Error" xml:space="preserve">
     <value />
@@ -173,6 +192,12 @@
   <data name="label9.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 15</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>1 = ビデオ安定化のみ</value>
+  </data>
   <data name="label4.Error" xml:space="preserve">
     <value />
   </data>
@@ -181,6 +206,9 @@
   </data>
   <data name="label4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Hyperlapse は、一人称視点ビデオ、例えば、岩登りや自転車走行などのアクションをヘルメットにつけたカメラで撮影した映像など、を Hyperlapse ビデオ (なめらかな高速再生ビデオ) に変換する</value>
   </data>
   <data name="label6.Error" xml:space="preserve">
     <value />
@@ -191,6 +219,12 @@
   <data name="label6.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>開始時間 :</value>
+  </data>
   <data name="label8.Error" xml:space="preserve">
     <value />
   </data>
@@ -199,6 +233,12 @@
   </data>
   <data name="label8.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>出力の間隔:</value>
   </data>
   <data name="textBoxSourceStartTime.Error" xml:space="preserve">
     <value />
@@ -245,6 +285,12 @@
   <data name="labelSourceFrameRate.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelSourceFrameRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 15</value>
+  </data>
+  <data name="labelSourceFrameRate.Text" xml:space="preserve">
+    <value>ソース フレームレート: </value>
+  </data>
   <data name="label7.Error" xml:space="preserve">
     <value />
   </data>
@@ -253,6 +299,12 @@
   </data>
   <data name="label7.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>間隔: </value>
   </data>
   <data name="panelTimes.Error" xml:space="preserve">
     <value />
@@ -271,6 +323,12 @@
   </data>
   <data name="labelspeed.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelspeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="labelspeed.Text" xml:space="preserve">
+    <value>速度: </value>
   </data>
   <data name="numericUpDownNumFrames.Error" xml:space="preserve">
     <value />
@@ -299,6 +357,15 @@
   <data name="linkLabelHowItWorks.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="linkLabelHowItWorks.Location" type="System.Drawing.Point, System.Drawing">
+    <value>441, 42</value>
+  </data>
+  <data name="linkLabelHowItWorks.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 15</value>
+  </data>
+  <data name="linkLabelHowItWorks.Text" xml:space="preserve">
+    <value>Hyperlapse の動作について</value>
+  </data>
   <data name="label1.Error" xml:space="preserve">
     <value />
   </data>
@@ -307,6 +374,12 @@
   </data>
   <data name="label1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>開始フレーム :</value>
   </data>
   <data name="numericUpDownStartFrame.Error" xml:space="preserve">
     <value />
@@ -326,6 +399,9 @@
   <data name="tabPage1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
   <data name="labelWarningJSON.Error" xml:space="preserve">
     <value />
   </data>
@@ -334,6 +410,9 @@
   </data>
   <data name="labelWarningJSON.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelWarningJSON.Text" xml:space="preserve">
+    <value>JSON シンタックスエラー: {0}</value>
   </data>
   <data name="textBoxConfiguration.Error" xml:space="preserve">
     <value />
@@ -353,6 +432,12 @@
   <data name="label12.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 15</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>JSON or XML (編集可能) :</value>
+  </data>
   <data name="tabPageConfig.Error" xml:space="preserve">
     <value />
   </data>
@@ -361,6 +446,9 @@
   </data>
   <data name="tabPageConfig.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tabPageConfig.Text" xml:space="preserve">
+    <value>生成された JSON 構成</value>
   </data>
   <data name="tabControl1.Error" xml:space="preserve">
     <value />
@@ -380,6 +468,9 @@
   <data name="labelProcessorVersion.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelProcessorVersion.Text" xml:space="preserve">
+    <value>バージョン {0}</value>
+  </data>
   <data name="labelPreview.Error" xml:space="preserve">
     <value />
   </data>
@@ -389,6 +480,12 @@
   <data name="labelPreview.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 20</value>
+  </data>
+  <data name="labelPreview.Text" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
   <data name="buttonJobOptions.Error" xml:space="preserve">
     <value />
   </data>
@@ -397,6 +494,9 @@
   </data>
   <data name="buttonJobOptions.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonJobOptions.Text" xml:space="preserve">
+    <value>ジョブ オプション...</value>
   </data>
   <data name="pictureBox1.Error" xml:space="preserve">
     <value />
@@ -416,6 +516,15 @@
   <data name="moreinfoprofilelink.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 91</value>
+  </data>
+  <data name="moreinfoprofilelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="moreinfoprofilelink.Text" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
   <data name="panel1.Error" xml:space="preserve">
     <value />
   </data>
@@ -433,6 +542,12 @@
   </data>
   <data name="label34.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 25</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Hyperlapse</value>
   </data>
   <data name="textBoxJobName.Error" xml:space="preserve">
     <value />
@@ -452,6 +567,12 @@
   <data name="label5.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ジョブ名 :</value>
+  </data>
   <data name="labelAssetName.Error" xml:space="preserve">
     <value />
   </data>
@@ -460,6 +581,9 @@
   </data>
   <data name="labelAssetName.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>アセット名</value>
   </data>
   <data name="textboxoutputassetname.Error" xml:space="preserve">
     <value />
@@ -482,85 +606,16 @@
   <data name="label3.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>キー</value>
-  </data>
-  <data name="comboBoxFrameRate.Items" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="comboBoxFrameRate.Items1" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="comboBoxFrameRate.Items2" xml:space="preserve">
-    <value>30</value>
-  </data>
-  <data name="comboBoxFrameRate.Items3" xml:space="preserve">
-    <value>50</value>
-  </data>
-  <data name="comboBoxFrameRate.Items4" xml:space="preserve">
-    <value>60</value>
-  </data>
-  <data name="labelAssetName.Text" xml:space="preserve">
-    <value>アセット名</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
-  <data name="tabPageConfig.Text" xml:space="preserve">
-    <value>生成された JSON 構成</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>ジョブ名 :</value>
-  </data>
-  <data name="buttonJobOptions.Text" xml:space="preserve">
-    <value>ジョブ オプション...</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>JSON or XML (編集可能) :</value>
-  </data>
-  <data name="labelWarningJSON.Text" xml:space="preserve">
-    <value>JSON シンタックスエラー: {0}</value>
-  </data>
-  <data name="moreinfoprofilelink.Text" xml:space="preserve">
-    <value>詳細情報</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 15</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>出力先アセット名 :</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>出力先 :</value>
-  </data>
-  <data name="labelPreview.Text" xml:space="preserve">
-    <value>プレビュー</value>
-  </data>
-  <data name="labelProcessorVersion.Text" xml:space="preserve">
-    <value>バージョン {0}</value>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>キー</value>
   </data>
   <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
     <value>値</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>設定</value>
-  </data>
-  <data name="textBoxSourceStartTime.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxOutputDuration.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxSourceDurationTime.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>1 = ビデオ安定化のみ</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>メディア処理実行</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>開始フレーム :</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>開始時間 :</value>
   </data>
 </root>

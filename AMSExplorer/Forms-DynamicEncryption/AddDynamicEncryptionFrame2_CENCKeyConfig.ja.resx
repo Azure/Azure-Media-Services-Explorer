@@ -149,6 +149,12 @@ CENC コンテンツ鍵の構成</value>
   <data name="label.Text" xml:space="preserve">
     <value>サービス独自の設定を措定するか、テスト用設定を使用してください</value>
   </data>
+  <data name="buttonPlayReadyTestSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 43</value>
+  </data>
+  <data name="buttonPlayReadyTestSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 37</value>
+  </data>
   <data name="buttonPlayReadyTestSettings.Text" xml:space="preserve">
     <value>PlayReady テスト用の設定を使用</value>
   </data>

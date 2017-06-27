@@ -128,9 +128,9 @@
     <value>701, 45</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>ウォッチフォルダーを指定する.
-このフォルダーにコピーしたすべてのファイルは Azure Media Services に新しいアセットとしてアップロードされされ、指定した操作が実行される.
-実行中はアプリケーションは実行したままにしておく必要があります.</value>
+    <value>ウォッチフォルダーを指定します
+このフォルダーにコピーしたすべてのファイルは Azure Media Services に新しいアセットとしてアップロードされされ、指定した操作が実行されます
+実行中はアプリケーションは実行したままにしておく必要があります</value>
   </data>
   <data name="radioButtonON.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 19</value>
@@ -150,11 +150,17 @@
   <data name="buttonSelFolder.Text" xml:space="preserve">
     <value>フォルダの選択...</value>
   </data>
+  <data name="checkBoxDeleteFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 24</value>
+  </data>
   <data name="checkBoxDeleteFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 19</value>
   </data>
   <data name="checkBoxDeleteFile.Text" xml:space="preserve">
     <value>アップロード後にファイルを削除する</value>
+  </data>
+  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 24</value>
   </data>
   <data name="checkBoxRunJobTemplate.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 19</value>
@@ -162,8 +168,35 @@
   <data name="checkBoxRunJobTemplate.Text" xml:space="preserve">
     <value>アセットを処理する</value>
   </data>
+  <data name="checkBoxPublishOAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 19</value>
+  </data>
+  <data name="checkBoxPublishOAssets.Text" xml:space="preserve">
+    <value>出力先アセットを公開する - 既定値 ({0} 日) を利用</value>
+  </data>
+  <data name="checkBoxSendEMail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>329, 19</value>
+  </data>
+  <data name="checkBoxSendEMail.Text" xml:space="preserve">
+    <value>完了時またはエラー発生時に右の宛先にメールを送信する: </value>
+  </data>
   <data name="buttonTestEmail.Text" xml:space="preserve">
     <value>テスト実行</value>
+  </data>
+  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 15</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="checkBoAddAssetsToInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 19</value>
+  </data>
+  <data name="checkBoAddAssetsToInput.Text" xml:space="preserve">
+    <value>入力元アセットにアセットを追加</value>
+  </data>
+  <data name="groupBoxProcess.Text" xml:space="preserve">
+    <value>ジョブ テンプレートと入力元アセット</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 20</value>
@@ -171,31 +204,69 @@
   <data name="label13.Text" xml:space="preserve">
     <value>ウォッチフォルダー</value>
   </data>
-  <data name="groupBoxOptions.Text" xml:space="preserve">
-    <value>アップロード オプション</value>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>460, 42</value>
   </data>
-  <data name="buttonSeeRhozetExample.Text" xml:space="preserve">
-    <value>サンプル参照</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>ウォッチフォルダー</value>
-  </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="checkBoxCallAPI.Text" xml:space="preserve">
-    <value>API を呼び出し, URL: </value>
-  </data>
-  <data name="buttonJsonBody.Text" xml:space="preserve">
-    <value>JSON 内容...</value>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 23</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>サンプル参照</value>
   </data>
-  <data name="groupBoxProcess.Text" xml:space="preserve">
-    <value>ジョブ テンプレートと入力元アセット</value>
+  <data name="checkBoxProcessJSONSemaphore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 46</value>
   </data>
-  <data name="checkBoAddAssetsToInput.Text" xml:space="preserve">
-    <value>入力アセットにアセットを追加する</value>
+  <data name="checkBoxProcessJSONSemaphore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 19</value>
+  </data>
+  <data name="checkBoxProcessJSONSemaphore.Text" xml:space="preserve">
+    <value>複数ファイル アセットのアップロードに JSON セマフォ ファイルを処理する</value>
+  </data>
+  <data name="buttonSeeRhozetExample.Location" type="System.Drawing.Point, System.Drawing">
+    <value>460, 65</value>
+  </data>
+  <data name="buttonSeeRhozetExample.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 23</value>
+  </data>
+  <data name="buttonSeeRhozetExample.Text" xml:space="preserve">
+    <value>サンプル参照</value>
+  </data>
+  <data name="checkBoxProcessXMLRohzet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 68</value>
+  </data>
+  <data name="checkBoxProcessXMLRohzet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 19</value>
+  </data>
+  <data name="checkBoxProcessXMLRohzet.Text" xml:space="preserve">
+    <value>複数ファイル アセットのアップロードに XML セマフォ ファイル (Rhozet) を処理する</value>
+  </data>
+  <data name="groupBoxOptions.Text" xml:space="preserve">
+    <value>アップロード オプション</value>
+  </data>
+  <data name="checkBoxCallAPI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 19</value>
+  </data>
+  <data name="checkBoxCallAPI.Text" xml:space="preserve">
+    <value>API を呼び出し (URL): </value>
+  </data>
+  <data name="textBoxAPIUrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>200, 632</value>
+  </data>
+  <data name="textBoxAPIUrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>495, 23</value>
+  </data>
+  <data name="buttonJsonBody.Text" xml:space="preserve">
+    <value>JSON 内容...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ウォッチフォルダー</value>
+  </data>
+  <data name="radioButtonInsertWorkflowAsset.Text" xml:space="preserve">
+    <value>ワークフローアセットを
+最初のアセットとして挿入</value>
+  </data>
+  <data name="radioButtonInsertSelectedAssets.Text" xml:space="preserve">
+    <value>選択したアセットをアップロード
+するアセットに前に挿入</value>
   </data>
 </root>

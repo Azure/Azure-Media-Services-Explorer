@@ -117,9 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="comboBoxSearchAssetOption.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
@@ -131,8 +130,17 @@
   <data name="label10.Text" xml:space="preserve">
     <value>フィルター :</value>
   </data>
-  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxFilterAssetsTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>359, 413</value>
+  </data>
+  <data name="comboBoxFilterAssetsTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 23</value>
+  </data>
+  <data name="comboBoxFilterAssetsTime.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -140,14 +148,23 @@
   <data name="label9.Text" xml:space="preserve">
     <value>状態 :</value>
   </data>
-  <data name="buttonAssetSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxStateAssets.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonAssetSearch.Text" xml:space="preserve">
     <value>適用</value>
   </data>
-  <data name="butPrevPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonAssetSearch.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxAssetSearch.ToolTip" xml:space="preserve">
+    <value>アセット名/アセット ID で検索</value>
+  </data>
+  <data name="butPrevPageAsset.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refreshToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>341, 22</value>
@@ -495,7 +512,7 @@
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemIndexer.Text" xml:space="preserve">
-    <value>Azure Media Indexer...</value>
+    <value>Azure Media Indexer で処理...</value>
   </data>
   <data name="toolStripMenuItem38Indexer2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -508,55 +525,61 @@
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItem38Indexer2.Text" xml:space="preserve">
-    <value>Azure Media Indexer 2...</value>
+    <value>Azure Media Indexer 2 で処理...</value>
   </data>
   <data name="toolStripMenuItemHyperlapse.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemHyperlapse.Text" xml:space="preserve">
-    <value>Hyperlapse...</value>
+    <value>Hyperlapse で処理...</value>
   </data>
   <data name="toolStripMenuItemFaceDetector.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemFaceDetector.Text" xml:space="preserve">
-    <value>Azure Media Face/Emotion Detector</value>
+    <value>Azure Media Face/Emotion Detector で処理...</value>
   </data>
   <data name="toolStripMenuItemRedactor.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemRedactor.Text" xml:space="preserve">
-    <value>Azure Media Redactor...</value>
+    <value>Azure Media Redactor で処理...</value>
   </data>
   <data name="toolStripMenuItemMotionDetector.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemMotionDetector.Text" xml:space="preserve">
-    <value>Azure Media Motion Detector...</value>
+    <value>Azure Media Motion Detector で処理...</value>
   </data>
   <data name="toolStripMenuItemStabilizer.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemStabilizer.Text" xml:space="preserve">
-    <value>Azure Media Stabilizer...</value>
+    <value>Azure Media Stabilizer で処理...</value>
   </data>
   <data name="toolStripMenuItemVideoThumbnails.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="toolStripMenuItemVideoThumbnails.Text" xml:space="preserve">
-    <value>Azure Media Video Thumbnails...</value>
+    <value>Azure Media Video Thumbnails で処理...</value>
   </data>
   <data name="processAssetsWithAzureMediaOCRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="processAssetsWithAzureMediaOCRToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Video OCR...</value>
+    <value>Azure Media Video OCR で処理...</value>
   </data>
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 22</value>
   </data>
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Azure Media Content Moderator...</value>
+    <value>Azure Media Content Moderator で処理...</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 22</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Azure Media Video Annotator で処理...</value>
   </data>
   <data name="mediaIntelligenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>341, 22</value>
@@ -715,40 +738,22 @@
     <value>発行</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
+    <value>333, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Player での再生</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 6</value>
-  </data>
-  <data name="ContextMenuItemPlaybackWithFlashOSMFAzure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
-  </data>
-  <data name="ContextMenuItemPlaybackWithFlashOSMFAzure.Text" xml:space="preserve">
-    <value>Flash OSMF Azure Player での再生</value>
-  </data>
-  <data name="withFlashTokenPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
-  </data>
-  <data name="withFlashTokenPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Flash AES (Token) Player での再生</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Silverlight PlayReady (Token) Player での再生</value>
+    <value>330, 6</value>
   </data>
   <data name="ContextMenuItemPlaybackWithMPEGDASHIFReference.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
+    <value>333, 22</value>
   </data>
   <data name="ContextMenuItemPlaybackWithMPEGDASHIFReference.Text" xml:space="preserve">
     <value>MPEG-DASH IF Reference Player での再生</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 22</value>
+    <value>333, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem1.Text" xml:space="preserve">
     <value>カスタムプレイヤーでの再生</value>
@@ -772,8 +777,11 @@
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>342, 452</value>
   </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="contextMenuStripAssets.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewAssetsV.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 15</value>
@@ -781,11 +789,17 @@
   <data name="label3.Text" xml:space="preserve">
     <value>表示順 :</value>
   </data>
-  <data name="butNextPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="comboBoxOrderAssets.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="butNextPageAsset.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxPageAssets.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>828, 417</value>
@@ -796,8 +810,14 @@
   <data name="label1.Text" xml:space="preserve">
     <value>ページ :</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageAssets.Text" xml:space="preserve">
     <value>アセット</value>
+  </data>
+  <data name="tabPageAssets.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>259, 22</value>
@@ -832,20 +852,47 @@
   <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 114</value>
   </data>
+  <data name="contextMenuStripFilters.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewFilters.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageFilters.Text" xml:space="preserve">
     <value>グローバル フィルター</value>
   </data>
-  <data name="trackBarConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="tabPageFilters.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="labelConcurrentTransfers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="trackBarConcurrentTransfers.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelConcurrentTransfers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 15</value>
   </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelConcurrentTransfers.Text" xml:space="preserve">
+    <value>{0} ファイルが転送中です {1}</value>
+  </data>
+  <data name="labelConcurrentTransfers.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 13</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>エクスプローラーで転送</value>
+  </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 13</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>バルク取り込みコンテナー (外部アップロード)...</value>
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="ContextMenuItemTransferOpenDest.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -881,6 +928,12 @@
   </data>
   <data name="contextMenuStripTransfers.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 92</value>
+  </data>
+  <data name="contextMenuStripTransfers.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewTransfer.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 22</value>
@@ -921,41 +974,155 @@
   <data name="contextMenuStripIngestManifests.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 126</value>
   </data>
+  <data name="contextMenuStripIngestManifests.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewIngestManifestsV.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageTransfers.Text" xml:space="preserve">
     <value>転送</value>
   </data>
-  <data name="trackBarEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="tabPageTransfers.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonUpdateEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="linkLabelMoreInfoMediaUnits.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 15</value>
   </data>
-  <data name="labelnbunits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="linkLabelMoreInfoMediaUnits.Text" xml:space="preserve">
+    <value>ユニットスケールによる処理</value>
   </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="linkLabelMoreInfoMediaUnits.ToolTip" xml:space="preserve">
+    <value>Azure Media Services へのフィードバック</value>
   </data>
-  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="trackBarEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
+    <value>567, 45</value>
   </data>
-  <data name="buttonJobSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="trackBarEncodingRU.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonUpdateEncodingRU.Text" xml:space="preserve">
+    <value>更新</value>
   </data>
-  <data name="butPrevPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonUpdateEncodingRU.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="butNextPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="comboBoxSearchJobOption.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
+    <value>841, 406</value>
   </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelnbunits.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 15</value>
+  </data>
+  <data name="labelnbunits.Text" xml:space="preserve">
+    <value>{0} ユニット {1}</value>
+  </data>
+  <data name="labelnbunits.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>322, 362</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>フィルター :</value>
+  </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 15</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>メディア予約ユニット タイプ :</value>
+  </data>
+  <data name="label22.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>388, 358</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 23</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxEncodingRU.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonJobSearch.Text" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="buttonJobSearch.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxJobSearch.ToolTip" xml:space="preserve">
+    <value>ジョブ名/ジョブ ID で検索</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>483, 362</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>実行状態: </value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>554, 358</value>
+  </data>
+  <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 23</value>
+  </data>
+  <data name="comboBoxStateJobs.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="butPrevPageJob.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="butNextPageJob.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxPageJobs.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>655, 362</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>表示順 :</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>824, 362</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>ページ :</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 23</value>
+  </data>
+  <data name="comboBoxOrderJobs.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refreshToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 22</value>
@@ -1070,6 +1237,18 @@
   <data name="ContextMenuItemJobChangePriority.Text" xml:space="preserve">
     <value>優先度の変更...</value>
   </data>
+  <data name="selectedJobsToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="selectedJobsToolStripMenuItem2.Text" xml:space="preserve">
+    <value>選択したジョブ...</value>
+  </data>
+  <data name="allJobsToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="allJobsToolStripMenuItem3.Text" xml:space="preserve">
+    <value>すべてのジョブ...</value>
+  </data>
   <data name="ContextMenuItemJobCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -1100,8 +1279,14 @@
   <data name="selectedJobsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 22</value>
   </data>
+  <data name="selectedJobsToolStripMenuItem.Text" xml:space="preserve">
+    <value>選択したジョブ...</value>
+  </data>
   <data name="visibleJobsInGridToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 22</value>
+  </data>
+  <data name="visibleJobsInGridToolStripMenuItem1.Text" xml:space="preserve">
+    <value>グリッドに表示されたジョブ...</value>
   </data>
   <data name="allJobsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 22</value>
@@ -1126,8 +1311,17 @@
   <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 258</value>
   </data>
+  <data name="contextMenuStripJobs.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewJobsV.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageJobs.Text" xml:space="preserve">
     <value>ジョブ</value>
+  </data>
+  <data name="tabPageJobs.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="dataGridViewProgramsV.ChannelSourceIDs" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -1316,34 +1510,13 @@
     <value>プログラムのサブクリッピング...</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>Azure Media Player での再生</value>
   </data>
-  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>309, 6</value>
-  </data>
-  <data name="ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Text" xml:space="preserve">
-    <value>Flash OSMF Azure Player での再生</value>
-  </data>
-  <data name="withFlashAESTokenPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 22</value>
-  </data>
-  <data name="withFlashAESTokenPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Flash AES (Token) Player での再生</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 22</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Silverlight PlayReady (Token) Player での再生</value>
-  </data>
   <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>カスタムプレイヤーでの再生</value>
@@ -1367,29 +1540,113 @@
   <data name="contextMenuStripPrograms.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 330</value>
   </data>
-  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="contextMenuStripPrograms.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonChNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="dataGridViewProgramsV.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonChAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelPrograms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
   </data>
-  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelPrograms.Text" xml:space="preserve">
+    <value>プログラム</value>
   </data>
-  <data name="buttonSetFilterProgram.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelPrograms.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonChSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>950, 179</value>
   </data>
-  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 19</value>
   </data>
-  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioButtonChNone.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="radioButtonChNone.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxSearchProgramOption.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>887, 179</value>
+  </data>
+  <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 19</value>
+  </data>
+  <data name="radioButtonChAll.Text" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="radioButtonChAll.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
+    <value>プログラム名/プログラム ID/アセットID で検索</value>
+  </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>745, 181</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 15</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>チャネル: </value>
+  </data>
+  <data name="label14.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonSetFilterProgram.Text" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="buttonSetFilterProgram.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>805, 179</value>
+  </data>
+  <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 19</value>
+  </data>
+  <data name="radioButtonChSelected.Text" xml:space="preserve">
+    <value>選択済み</value>
+  </data>
+  <data name="radioButtonChSelected.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>544, 181</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>状態 :</value>
+  </data>
+  <data name="label16.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxStatusProgram.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>364, 181</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>フィルター :</value>
+  </data>
+  <data name="label15.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxFilterTimeProgram.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelPrograms.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refreshToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
@@ -1551,6 +1808,12 @@
   <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Text" xml:space="preserve">
     <value>プレビュー URL の表示...</value>
   </data>
+  <data name="withAzureMediaPlayerToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 22</value>
+  </data>
+  <data name="withAzureMediaPlayerToolStripMenuItem4.Text" xml:space="preserve">
+    <value>Azure Media Player での再生</value>
+  </data>
   <data name="playbackTheProgramToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -1570,20 +1833,71 @@
   <data name="contextMenuStripChannels.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 330</value>
   </data>
-  <data name="labelChannels.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="contextMenuStripChannels.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonSetFilterChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="dataGridViewChannelsV.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label25.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelChannels.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
   </data>
-  <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelChannels.Text" xml:space="preserve">
+    <value>チャネル</value>
+  </data>
+  <data name="labelChannels.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxSearchChannelOption.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxSearchNameChannel.ToolTip" xml:space="preserve">
+    <value>チャネル名/チャネル ID で検索</value>
+  </data>
+  <data name="buttonSetFilterChannel.Text" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="buttonSetFilterChannel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
+    <value>544, 190</value>
+  </data>
+  <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>状態 :</value>
+  </data>
+  <data name="label25.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxStatusChannel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>364, 190</value>
+  </data>
+  <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>フィルター :</value>
+  </data>
+  <data name="label24.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxFilterTimeChannel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelChannels.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tabPageLive.Text" xml:space="preserve">
     <value>ライブチャネル</value>
+  </data>
+  <data name="tabPageLive.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refreshToolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 22</value>
@@ -1594,8 +1908,17 @@
   <data name="contextMenuStripProcessors.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 26</value>
   </data>
+  <data name="contextMenuStripProcessors.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewProcessors.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageProcessors.Text" xml:space="preserve">
     <value>メディアプロセッサー</value>
+  </data>
+  <data name="tabPageProcessors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refreshToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 22</value>
@@ -1624,6 +1947,12 @@
   </data>
   <data name="loadToolStripMenuItem.Text" xml:space="preserve">
     <value>テレメトリーの読み込み...</value>
+  </data>
+  <data name="optinToStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 22</value>
+  </data>
+  <data name="optinToStandardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Classic から Standard へ移行...</value>
   </data>
   <data name="enableAzureCDNToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 22</value>
@@ -1697,10 +2026,19 @@
     <value>ストリーミングエンドポイントの削除</value>
   </data>
   <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 214</value>
+    <value>334, 236</value>
+  </data>
+  <data name="contextMenuStripStreaminEndpoints.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewStreamingEndpointsV.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tabPageOrigins.Text" xml:space="preserve">
     <value>ストリーミングエンドポイント</value>
+  </data>
+  <data name="tabPageOrigins.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 22</value>
@@ -1723,20 +2061,71 @@
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 70</value>
   </data>
+  <data name="contextMenuStripStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
     <value>ストレージ</value>
   </data>
-  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="tabPageStorage.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>254, 9</value>
   </data>
-  <data name="buttonbuildchart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>終了: </value>
+  </data>
+  <data name="label21.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dateTimePickerEndDate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>開始: </value>
+  </data>
+  <data name="label20.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dateTimePickerStartDate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="chart.Text" xml:space="preserve">
+    <value>ジョブチャート</value>
+  </data>
+  <data name="chart.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonbuildchart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 23</value>
+  </data>
+  <data name="buttonbuildchart.Text" xml:space="preserve">
+    <value>ジョブチャート生成</value>
+  </data>
+  <data name="buttonbuildchart.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tabPageChart.Text" xml:space="preserve">
     <value>チャート</value>
+  </data>
+  <data name="tabPageChart.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControlMain.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="splitContainerMain.Panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 22</value>
@@ -1753,8 +2142,20 @@
   <data name="contextMenuStripLog.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 48</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="contextMenuStripLog.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="richTextBoxLog.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="splitContainerMain.Panel2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="splitContainerMain.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="informationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2066,7 +2467,7 @@
     <value>複製...</value>
   </data>
   <data name="filterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 20</value>
+    <value>121, 20</value>
   </data>
   <data name="filterToolStripMenuItem.Text" xml:space="preserve">
     <value>グローバル フィルター</value>
@@ -2206,7 +2607,7 @@
     <value>286, 22</value>
   </data>
   <data name="indexAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Indexer...</value>
+    <value>Azure Media Indexer で処理...</value>
   </data>
   <data name="toolStripMenuItemIndexv2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2219,55 +2620,61 @@
     <value>286, 22</value>
   </data>
   <data name="toolStripMenuItemIndexv2.Text" xml:space="preserve">
-    <value>Azure Media Indexer 2...</value>
+    <value>Azure Media Indexer 2 で処理...</value>
   </data>
   <data name="processAssetsWithHyperlapseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="processAssetsWithHyperlapseToolStripMenuItem.Text" xml:space="preserve">
-    <value>Hyperlapse...</value>
+    <value>Hyperlapse で処理...</value>
   </data>
   <data name="ProcessFaceDetectortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="ProcessFaceDetectortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Face and Emotion Detector</value>
+    <value>Azure Media Face/Emotion Detector で処理...</value>
   </data>
   <data name="ProcessRedactortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="ProcessRedactortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Redactor</value>
+    <value>Azure Media Redactor で処理...</value>
   </data>
   <data name="ProcessMotionDetectortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="ProcessMotionDetectortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Motion Detector</value>
+    <value>Azure Media Motion Detector で処理...</value>
   </data>
   <data name="ProcessStabilizertoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="ProcessStabilizertoolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Stabilizer</value>
+    <value>Azure Media Stabilizer で処理...</value>
   </data>
   <data name="ProcessVideoThumbnailstoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="ProcessVideoThumbnailstoolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Video Thumbnails</value>
+    <value>Azure Media Video Thumbnails で処理...</value>
   </data>
   <data name="processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Video OCR...</value>
+    <value>Azure Media Video OCR で処理...</value>
   </data>
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
   </data>
   <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Content Moderator...</value>
+    <value>Azure Media Content Moderator で処理...</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>286, 22</value>
+  </data>
+  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Text" xml:space="preserve">
+    <value>Azure Media Video Annotator で処理...</value>
   </data>
   <data name="mediaAnalyticsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>432, 22</value>
@@ -2487,6 +2894,18 @@
   <data name="priorityToolStripMenuItem.Text" xml:space="preserve">
     <value>優先度の変更...</value>
   </data>
+  <data name="selectedJobsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="selectedJobsToolStripMenuItem1.Text" xml:space="preserve">
+    <value>選択したジョブ...</value>
+  </data>
+  <data name="allJobsToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="allJobsToolStripMenuItem2.Text" xml:space="preserve">
+    <value>すべてのジョブ...</value>
+  </data>
   <data name="cancelJobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -2653,40 +3072,22 @@
     <value>アセットフィルターの作成...</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
+    <value>322, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem1.Text" xml:space="preserve">
     <value>Azure Media Player で再生</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>358, 6</value>
-  </data>
-  <data name="withFlashOSMFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
-  </data>
-  <data name="withFlashOSMFToolStripMenuItem.Text" xml:space="preserve">
-    <value>Flash OSMF Azure Player で再生</value>
-  </data>
-  <data name="withFlashAESTokenPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
-  </data>
-  <data name="withFlashAESTokenPlayerToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Flash AES Token Player で再生</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
-  </data>
-  <data name="withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Silverlight PlayReady Token Player で再生</value>
+    <value>319, 6</value>
   </data>
   <data name="withMPEGDASHIFRefPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
+    <value>322, 22</value>
   </data>
   <data name="withMPEGDASHIFRefPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>MPEG-DASH IF Reference Player で再生</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 22</value>
+    <value>322, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>カスタムプレイヤーで再生</value>
@@ -2859,25 +3260,10 @@
     <value>プレビュー URL の表示...</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem3.Text" xml:space="preserve">
     <value>Azure Media Player での再生</value>
-  </data>
-  <data name="toolStripSeparator27.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 6</value>
-  </data>
-  <data name="withFlashOSMFAzurePlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 22</value>
-  </data>
-  <data name="withFlashOSMFAzurePlayerToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Flash OSMF Azure Player での再生</value>
-  </data>
-  <data name="withSilverlightMonitoringPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 22</value>
-  </data>
-  <data name="withSilverlightMonitoringPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Silverlight Monitoring Player での再生</value>
   </data>
   <data name="playbackThePreviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
@@ -3006,6 +3392,12 @@
   <data name="telemetryToolStripMenuItem.Text" xml:space="preserve">
     <value>テレメトリーの読み込み...</value>
   </data>
+  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 22</value>
+  </data>
+  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Classic から Standard へ移行...</value>
+  </data>
   <data name="enableAzureCDNToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 22</value>
   </data>
@@ -3083,6 +3475,36 @@
   <data name="originToolStripMenuItem.Text" xml:space="preserve">
     <value>ストリーミングエンドポイント</value>
   </data>
+  <data name="azureManagementPortalToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="azureManagementPortalToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Azure 管理ポータル</value>
+  </data>
+  <data name="toolStripMenuItem51.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="toolStripMenuItem51.Text" xml:space="preserve">
+    <value>Azure 管理ポータル (クラシック)</value>
+  </data>
+  <data name="attachAnotherStoragheAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
+    <value>ストレージアカウントの追加...</value>
+  </data>
+  <data name="configureTelemetryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="configureTelemetryToolStripMenuItem.Text" xml:space="preserve">
+    <value>テレメトリーの構成...</value>
+  </data>
+  <data name="managementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 20</value>
+  </data>
+  <data name="managementToolStripMenuItem.Text" xml:space="preserve">
+    <value>管理</value>
+  </data>
   <data name="refreshToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -3119,30 +3541,6 @@
   <data name="toolStripMenuItem1.Text" xml:space="preserve">
     <value>オプション</value>
   </data>
-  <data name="azureManagementPortalToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 22</value>
-  </data>
-  <data name="azureManagementPortalToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Azure 管理ポータル</value>
-  </data>
-  <data name="attachAnotherStoragheAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 22</value>
-  </data>
-  <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
-    <value>ストレージアカウントの追加...</value>
-  </data>
-  <data name="configureTelemetryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 22</value>
-  </data>
-  <data name="configureTelemetryToolStripMenuItem.Text" xml:space="preserve">
-    <value>テレメトリーの構成...</value>
-  </data>
-  <data name="managementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 20</value>
-  </data>
-  <data name="managementToolStripMenuItem.Text" xml:space="preserve">
-    <value>管理</value>
-  </data>
   <data name="azureMediaBlogToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -3150,6 +3548,21 @@
         SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <data name="azureMediaBlogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="azureMediaBlogToolStripMenuItem.Text" xml:space="preserve">
+    <value>Azure Media ブログ</value>
+  </data>
+  <data name="azureMediaServicesSamplesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="azureMediaServicesSamplesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Azure Media Services サンプル (Github)</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 6</value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3159,6 +3572,9 @@
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="azureMediaServicesPlayerPageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -3166,6 +3582,12 @@
         SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Text" xml:space="preserve">
+    <value>DASH-IF HTML5 リファレンス プレイヤー</value>
   </data>
   <data name="hTML5VideoElementToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3175,6 +3597,12 @@
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="hTML5VideoElementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="hTML5VideoElementToolStripMenuItem.Text" xml:space="preserve">
+    <value>HTML5 Video 要素</value>
+  </data>
   <data name="iVXHLSPlayerToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -3183,13 +3611,23 @@
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="oSMFToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
-        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
-        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
-</value>
+  <data name="iVXHLSPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="jwPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="tHEOPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="toolStripSeparator29.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 6</value>
+  </data>
+  <data name="hTML5CaptionMakerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 22</value>
+  </data>
+  <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
+    <value>HTML5 キャプションメーカー</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 20</value>
@@ -3290,6 +3728,12 @@
   <data name="toolStripSeparator38.Size" type="System.Drawing.Size, System.Drawing">
     <value>355, 6</value>
   </data>
+  <data name="azureMediaServicesReleaseNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>358, 22</value>
+  </data>
+  <data name="azureMediaServicesReleaseNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Azure Media Services リリースノート</value>
+  </data>
   <data name="azureMediaServicesMSDNToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -3349,6 +3793,9 @@
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>ヘルプ</value>
   </data>
+  <data name="menuStripMain.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="toolStripStatusLabelConnection.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 17</value>
   </data>
@@ -3370,8 +3817,11 @@
   <data name="toolStripStatusLabelEncRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>663, 17</value>
   </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
+    <value>{0} {1} メディア予約ユニット</value>
+  </data>
+  <data name="statusStrip1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>615, 38</value>
@@ -3381,6 +3831,9 @@
   </data>
   <data name="label12.Text" xml:space="preserve">
     <value>(Ctrl/Shift キーで複数のアイテムを選択)</value>
+  </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonRefresh.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3392,20 +3845,20 @@
         8wJr6+PBm8+6ADQSX8LMVdiLwygVgOxnOog/8S224kWwVyiEkF0A1di1vVgejOsAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="buttonRefresh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
     <value>すべて更新</value>
   </data>
-  <data name="linkLabelFeedbackAMS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonRefresh.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="linkLabelFeedbackAMS.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 13</value>
   </data>
   <data name="linkLabelFeedbackAMS.Text" xml:space="preserve">
     <value>Azure Media Services のフィードバック</value>
+  </data>
+  <data name="linkLabelFeedbackAMS.ToolTip" xml:space="preserve">
+    <value>Azure Media Services へのフィードバック</value>
   </data>
   <data name="notifyIcon1.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5707,163 +6160,7 @@
         ////////////8Af///////////////////wf////////////////////f/////////8=
 </value>
   </data>
-  <data name="butPrevPageJob.Text" xml:space="preserve">
-    <value>&lt;</value>
-  </data>
-  <data name="butPrevPageAsset.Text" xml:space="preserve">
-    <value>&lt;</value>
-  </data>
-  <data name="butNextPageAsset.Text" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="butNextPageJob.Text" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="buttonSetFilterChannel.Text" xml:space="preserve">
-    <value>適用</value>
-  </data>
-  <data name="buttonJobSearch.Text" xml:space="preserve">
-    <value>適用</value>
-  </data>
-  <data name="buttonSetFilterProgram.Text" xml:space="preserve">
-    <value>適用</value>
-  </data>
-  <data name="azureMediaServicesPlayerPageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Player</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Azure Media Services Explorer</value>
-  </data>
-  <data name="azureMediaBlogToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media ブログ</value>
-  </data>
-  <data name="azureMediaServicesReleaseNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Services リリースノート</value>
-  </data>
-  <data name="azureMediaServicesSamplesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure Media Services サンプル (Github)</value>
-  </data>
-  <data name="buttonbuildchart.Text" xml:space="preserve">
-    <value>ジョブチャート生成</value>
-  </data>
-  <data name="labelChannels.Text" xml:space="preserve">
-    <value>チャネル</value>
-  </data>
-  <data name="chart.Text" xml:space="preserve">
-    <value>ジョブチャート</value>
-  </data>
-  <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>DASH-IF HTML5 リファレンス プレイヤー</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>フィルター :</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>フィルター :</value>
-  </data>
-  <data name="label24.Text" xml:space="preserve">
-    <value>フィルター :</value>
-  </data>
-  <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
-    <value>HTML5 キャプションメーカー</value>
-  </data>
-  <data name="hTML5VideoElementToolStripMenuItem.Text" xml:space="preserve">
-    <value>HTML5 Video Element</value>
-  </data>
-  <data name="encodingToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>J</value>
-  </data>
-  <data name="jwPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>JW Player</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>ページ :</value>
-  </data>
-  <data name="labelPrograms.Text" xml:space="preserve">
-    <value>プログラム</value>
-  </data>
-  <data name="buttonUpdateEncodingRU.Text" xml:space="preserve">
-    <value>更新</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>エクスプローラーで転送</value>
-  </data>
-  <data name="tHEOPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>THEOplayer</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>状態 :</value>
-  </data>
-  <data name="label25.Text" xml:space="preserve">
-    <value>状態 :</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem.Text" xml:space="preserve">
-    <value>選択したジョブ...</value>
-  </data>
-  <data name="notifyIcon1.Text" xml:space="preserve">
-    <value>{0} - AMS Explorer</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>{0} - Azure Media Services Explorer</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
-    <value>{0} {1} メディア予約ユニット</value>
-  </data>
-  <data name="iVXHLSPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>3iVX HLS Player</value>
-  </data>
-  <data name="labelConcurrentTransfers.Text" xml:space="preserve">
-    <value>{0} ファイルが転送中です {1}</value>
-  </data>
-  <data name="labelnbunits.Text" xml:space="preserve">
-    <value>{0} ユニット {1}</value>
-  </data>
-  <data name="radioButtonChAll.Text" xml:space="preserve">
-    <value>すべて</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>Alt+A</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>バルク取り込みコンテナー (外部アップロード)...</value>
-  </data>
-  <data name="label22.Text" xml:space="preserve">
-    <value>メディア予約ユニット タイプ :</value>
-  </data>
-  <data name="radioButtonChNone.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>表示順 :</value>
-  </data>
-  <data name="linkLabelFeedbackAMS.ToolTip" xml:space="preserve">
-    <value>Azure Media Services へのフィードバック</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem4.Text" xml:space="preserve">
-    <value>Azure Media Player での再生</value>
-  </data>
-  <data name="visibleJobsInGridToolStripMenuItem1.Text" xml:space="preserve">
-    <value>グリッドに表示されたジョブ...</value>
-  </data>
-  <data name="radioButtonChSelected.Text" xml:space="preserve">
-    <value>選択済み</value>
-  </data>
-  <data name="textBoxAssetSearch.ToolTip" xml:space="preserve">
-    <value>アセット名/アセット ID で検索</value>
-  </data>
-  <data name="textBoxSearchNameChannel.ToolTip" xml:space="preserve">
-    <value>チャネル名/チャネル ID で検索</value>
-  </data>
-  <data name="textBoxJobSearch.ToolTip" xml:space="preserve">
-    <value>ジョブ名/ジョブ ID で検索</value>
-  </data>
-  <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
-    <value>プログラム名/プログラム ID/アセットID で検索</value>
-  </data>
-  <data name="optinToStandardStreamingEndpointToolStripMenuItem.Text" xml:space="preserve">
-    <value>Classic から Standard へ移行...</value>
-  </data>
-  <data name="optinToStandardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Classic から Standard へ移行...</value>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

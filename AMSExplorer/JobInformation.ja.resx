@@ -117,11 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value>ジョブ情報</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripMenuItemCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
   </data>
   <data name="toolStripMenuItemCopyClipboard.Text" xml:space="preserve">
     <value>クリップボードへコピー</value>
+  </data>
+  <data name="contextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 26</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>エラー</value>
@@ -129,8 +133,20 @@
   <data name="buttonClose.Text" xml:space="preserve">
     <value>閉じる</value>
   </data>
+  <data name="buttonCopyStats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 389</value>
+  </data>
   <data name="buttonCopyStats.Text" xml:space="preserve">
     <value>表示</value>
+  </data>
+  <data name="buttonCreateMail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 389</value>
+  </data>
+  <data name="buttonCreateMail.Text" xml:space="preserve">
+    <value>新しいメールの作成</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>ジョブレポート: </value>
@@ -144,34 +160,52 @@
   <data name="columnHeader2.Text" xml:space="preserve">
     <value>タイプ</value>
   </data>
-  <data name="labelJobNameTitle.Text" xml:space="preserve">
-    <value>ジョブ: </value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>タスク</value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>アセット</value>
-  </data>
-  <data name="ListViewAssetType.Text" xml:space="preserve">
-    <value>タイプ</value>
-  </data>
-  <data name="ListViewAssetName.Text" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="assetInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>情報の表示</value>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 22</value>
   </data>
   <data name="toolStripMenuItem1.Text" xml:space="preserve">
     <value>情報の表示</value>
   </data>
-  <data name="buttonCreateMail.Text" xml:space="preserve">
-    <value>新しいメールの作成</value>
+  <data name="contextMenuStripOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 26</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 15</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>出力先アセット</value>
   </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 15</value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>入力元アセット</value>
+  </data>
+  <data name="ListViewAssetName.Text" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="ListViewAssetType.Text" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="assetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 22</value>
+  </data>
+  <data name="assetInformationToolStripMenuItem.Text" xml:space="preserve">
+    <value>情報の表示</value>
+  </data>
+  <data name="contextMenuStripInputAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 26</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>アセット</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="labelJobNameTitle.Text" xml:space="preserve">
+    <value>ジョブ: </value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ジョブ情報</value>
   </data>
 </root>

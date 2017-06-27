@@ -144,4 +144,7 @@
   <data name="buttonFormat.Text" xml:space="preserve">
     <value>データをフォーマット</value>
   </data>
+  <data name="labelInfoText.Text" xml:space="preserve">
+    <value>これはテキストです</value>
+  </data>
 </root>
