@@ -200,6 +200,12 @@ PlayReady ライセンス テンプレートの構成 (ポリシーオプショ�
   <data name="labelWarning.Text" xml:space="preserve">
     <value>警告</value>
   </data>
+  <data name="checkBoxImportPolicyFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>296, 116</value>
+  </data>
+  <data name="checkBoxImportPolicyFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 19</value>
+  </data>
   <data name="checkBoxImportPolicyFile.Text" xml:space="preserve">
     <value>PlayReady ポリシーファイルを使用</value>
   </data>

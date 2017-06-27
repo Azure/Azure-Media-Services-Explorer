@@ -183,4 +183,10 @@
   <data name="label13.Text" xml:space="preserve">
     <value>サムネイル生成</value>
   </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>間隔: </value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>開始時刻: </value>
+  </data>
 </root>

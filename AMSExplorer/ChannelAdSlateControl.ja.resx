@@ -188,7 +188,7 @@
     <value>ライブエンコーディングの詳細情報</value>
   </data>
   <data name="buttonUploadSlate.Text" xml:space="preserve">
-    <value>ファイルをアップロード...</value>
+    <value>アップロード...</value>
   </data>
   <data name="buttonUploadSlate.ToolTip" xml:space="preserve">
     <value>新しいスレート画像をアップロード</value>

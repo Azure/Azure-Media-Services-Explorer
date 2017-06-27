@@ -145,9 +145,19 @@
     <value>バージョン {0}</value>
   </data>
   <data name="buttonUpload.Text" xml:space="preserve">
-    <value>新しいワークフローをアップロード</value>
+    <value>ワークフローをアップロード</value>
   </data>
   <data name="label31.Text" xml:space="preserve">
     <value>MMedia Encoder Premium Workflow</value>
+  </data>
+  <data name="labelsummaryjob.Text" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="buttonPremiumXMLData.Text" xml:space="preserve">
+    <value>XML データをワークフローに渡す...</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>1つまたは複数のワークフローを選択してください
+それぞれの選択されたワークフローは、ひとつの並列タスクとしてジョブが生成されます</value>
   </data>
 </root>

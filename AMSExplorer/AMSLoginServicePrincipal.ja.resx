@@ -118,18 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ジョブの優先度を変更</value>
+    <value>Azure AD</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="buttonUpdate.Text" xml:space="preserve">
-    <value>ジョブの優先度を更新</value>
-  </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>ジョブ優先度</value>
+    <value>サービスプリンシパルの資格情報を入力してください</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>(優先度100が最も高い優先度です)</value>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="labelE1.Text" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Client Secret</value>
   </data>
 </root>

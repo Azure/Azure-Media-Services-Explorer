@@ -481,6 +481,12 @@
   <data name="buttonDASH.Text" xml:space="preserve">
     <value>DASH-IF リファレンス プレイヤー</value>
   </data>
+  <data name="buttonDASH.Location" type="System.Drawing.Point, System.Drawing">
+    <value>549, 473</value>
+  </data>
+  <data name="buttonDASH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 27</value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>再生: </value>
   </data>

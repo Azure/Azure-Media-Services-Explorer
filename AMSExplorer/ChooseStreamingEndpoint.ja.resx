@@ -169,7 +169,7 @@
     <value>レガシー Smooth Streaming</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>ストリーミング URL の生成のためのオプション</value>
+    <value>ストリーミング URL の生成</value>
   </data>
   <data name="checkBoxNoAudioOnly.Text" xml:space="preserve">
     <value>No Audio Only モード</value>

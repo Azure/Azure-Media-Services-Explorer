@@ -117,40 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label34.Text" xml:space="preserve">
-    <value>Azure Media エンコーダー</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 15</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Azure Media エンコーダー</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>エンコーディングプロファイルを選択 :</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="buttonJobOptions.Text" xml:space="preserve">
-    <value>ジョブ オプション...</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 15</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>ジョブ名 :</value>
   </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>エンコード開始</value>
-  </data>
-  <data name="moreinfoame.Text" xml:space="preserve">
-    <value>詳細情報</value>
+  <data name="moreinfopresetslink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 15</value>
   </data>
   <data name="moreinfopresetslink.Text" xml:space="preserve">
     <value>プリセットの詳細情報</value>
   </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 15</value>
+  </data>
   <data name="label3.Text" xml:space="preserve">
     <value>出力先アセット名 :</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>エンコード開始</value>
+  </data>
+  <data name="label32.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 15</value>
   </data>
   <data name="label32.Text" xml:space="preserve">
     <value>プロセッサ :</value>
   </data>
+  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 25</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Azure Media エンコーダー</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 15</value>
+  </data>
   <data name="label12.Text" xml:space="preserve">
     <value>(Ctrl/Shift キーで複数のプリセットを選択)</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>エンコーディングプロファイルを選択 :</value>
+  <data name="moreinfoame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>680, 65</value>
+  </data>
+  <data name="moreinfoame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="moreinfoame.Text" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="buttonJobOptions.Text" xml:space="preserve">
+    <value>ジョブ オプション...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Azure Media エンコーダー</value>
   </data>
 </root>

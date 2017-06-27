@@ -128,6 +128,9 @@
   <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>フィルターの作成</value>
+  </data>
   <data name="buttonOk.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -139,6 +142,16 @@
   </data>
   <data name="checkBoxRawMode.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxRawMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>899, 65</value>
+  </data>
+  <data name="checkBoxRawMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 19</value>
+  </data>
+  <data name="checkBoxRawMode.Text" xml:space="preserve">
+    <value>トラック フィルター (高度な設定)</value>
   </data>
   <data name="checkBoxRawMode.ToolTip" xml:space="preserve">
     <value />
@@ -164,6 +177,12 @@
   <data name="labelOffset.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelOffset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 15</value>
+  </data>
+  <data name="labelOffset.Text" xml:space="preserve">
+    <value>アセット オフセット :</value>
+  </data>
   <data name="labelOffset.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -176,6 +195,12 @@
   <data name="textBoxFilterTimeScale.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="textBoxFilterTimeScale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 63</value>
+  </data>
+  <data name="textBoxFilterTimeScale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 23</value>
+  </data>
   <data name="textBoxFilterTimeScale.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -187,6 +212,15 @@
   </data>
   <data name="label2.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 45</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>フィルター タイムスケール :</value>
   </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
@@ -212,6 +246,12 @@
   <data name="labelassetduration.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelassetduration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 15</value>
+  </data>
+  <data name="labelassetduration.Text" xml:space="preserve">
+    <value>アセットの長さ :</value>
+  </data>
   <data name="labelassetduration.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -236,6 +276,12 @@
   <data name="labelassetname.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelassetname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 15</value>
+  </data>
+  <data name="labelassetname.Text" xml:space="preserve">
+    <value>アセット名: </value>
+  </data>
   <data name="labelassetname.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -248,6 +294,9 @@
   <data name="labelFilterTitle.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelFilterTitle.Text" xml:space="preserve">
+    <value>グローバル フィルター</value>
+  </data>
   <data name="labelFilterTitle.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -259,6 +308,12 @@
   </data>
   <data name="moreinfoprofilelink.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="moreinfoprofilelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="moreinfoprofilelink.Text" xml:space="preserve">
+    <value>詳細情報</value>
   </data>
   <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
     <value />
@@ -296,6 +351,12 @@
   <data name="labelDefaultBakckoff.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelDefaultBakckoff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="labelDefaultBakckoff.Text" xml:space="preserve">
+    <value>(既定値: 0)</value>
+  </data>
   <data name="labelDefaultBakckoff.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -307,6 +368,12 @@
   </data>
   <data name="labelDefaultDVR.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelDefaultDVR.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 15</value>
+  </data>
+  <data name="labelDefaultDVR.Text" xml:space="preserve">
+    <value>(既定値: 最大)</value>
   </data>
   <data name="labelDefaultDVR.ToolTip" xml:space="preserve">
     <value />
@@ -320,6 +387,12 @@
   <data name="labelDefaultEnd.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelDefaultEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 15</value>
+  </data>
+  <data name="labelDefaultEnd.Text" xml:space="preserve">
+    <value>(既定値: 最大)</value>
+  </data>
   <data name="labelDefaultEnd.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -331,6 +404,12 @@
   </data>
   <data name="labelStartTimeDefault.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelStartTimeDefault.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="labelStartTimeDefault.Text" xml:space="preserve">
+    <value>(既定値: 0)</value>
   </data>
   <data name="labelStartTimeDefault.ToolTip" xml:space="preserve">
     <value />
@@ -377,6 +456,12 @@
   <data name="label42.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 15</value>
+  </data>
+  <data name="label42.Text" xml:space="preserve">
+    <value>秒</value>
+  </data>
   <data name="label42.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -400,6 +485,12 @@
   </data>
   <data name="checkBoxLiveBackoff.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="checkBoxLiveBackoff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 19</value>
+  </data>
+  <data name="checkBoxLiveBackoff.Text" xml:space="preserve">
+    <value>ライブ バックオフ:</value>
   </data>
   <data name="timeControlDVR.Error" xml:space="preserve">
     <value />
@@ -467,6 +558,9 @@
   <data name="tabPageTR.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="tabPageTR.Text" xml:space="preserve">
+    <value>タイム フィルター</value>
+  </data>
   <data name="tabPageTR.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -478,6 +572,9 @@
   </data>
   <data name="label21.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>空欄の場合は既定値を利用 (min)</value>
   </data>
   <data name="label21.ToolTip" xml:space="preserve">
     <value />
@@ -491,6 +588,9 @@
   <data name="label19.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>空欄の場合は既定値を利用 (max)</value>
+  </data>
   <data name="label19.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -502,6 +602,9 @@
   </data>
   <data name="label18.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>空欄の場合は既定値を利用 (max)</value>
   </data>
   <data name="label18.ToolTip" xml:space="preserve">
     <value />
@@ -515,6 +618,9 @@
   <data name="label17.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>空欄の場合は既定値を利用 (min)</value>
+  </data>
   <data name="label17.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -526,6 +632,9 @@
   </data>
   <data name="label16.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>空欄の場合は既定値を利用 (10000000 ticks/秒)</value>
   </data>
   <data name="label16.ToolTip" xml:space="preserve">
     <value />
@@ -550,6 +659,12 @@
   </data>
   <data name="label9.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>タイムスケール:</value>
   </data>
   <data name="label9.ToolTip" xml:space="preserve">
     <value />
@@ -611,6 +726,12 @@
   <data name="label8.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 15</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>ライブ バックオフ:</value>
+  </data>
   <data name="label8.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -622,6 +743,12 @@
   </data>
   <data name="label7.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 15</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>DVR ウィンドウ:</value>
   </data>
   <data name="label7.ToolTip" xml:space="preserve">
     <value />
@@ -635,6 +762,12 @@
   <data name="label5.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>終了時間 (VOD):</value>
+  </data>
   <data name="label5.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -647,6 +780,12 @@
   <data name="label3.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>開始時間 (Live または VOD):</value>
+  </data>
   <data name="label3.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -658,6 +797,9 @@
   </data>
   <data name="tabPageTRRaw.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tabPageTRRaw.Text" xml:space="preserve">
+    <value>トラック フィルター(高度な設定)</value>
   </data>
   <data name="tabPageTRRaw.ToolTip" xml:space="preserve">
     <value />
@@ -731,6 +873,9 @@
   <data name="label10.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>プロパティ</value>
+  </data>
   <data name="label10.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -742,6 +887,9 @@
   </data>
   <data name="label11.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>説明</value>
   </data>
   <data name="label11.ToolTip" xml:space="preserve">
     <value />
@@ -755,6 +903,9 @@
   <data name="label12.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>制約条件</value>
+  </data>
   <data name="label12.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -767,6 +918,9 @@
   <data name="label14.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>名前</value>
+  </data>
   <data name="label14.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -778,6 +932,9 @@
   </data>
   <data name="label15.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>言語</value>
   </data>
   <data name="label15.ToolTip" xml:space="preserve">
     <value />
@@ -803,6 +960,9 @@
   <data name="label23.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>例</value>
+  </data>
   <data name="label23.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -814,6 +974,9 @@
   </data>
   <data name="label24.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>トラックのタイプ</value>
   </data>
   <data name="label24.ToolTip" xml:space="preserve">
     <value />
@@ -827,6 +990,9 @@
   <data name="label25.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>トラック名 :</value>
+  </data>
   <data name="label25.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -838,6 +1004,9 @@
   </data>
   <data name="label26.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>トラックの言語</value>
   </data>
   <data name="label26.ToolTip" xml:space="preserve">
     <value />
@@ -851,6 +1020,9 @@
   <data name="label27.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>トラックの FourCC の値</value>
+  </data>
   <data name="label27.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -863,6 +1035,9 @@
   <data name="label22.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>トラックのビットレート</value>
+  </data>
   <data name="label22.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -874,6 +1049,9 @@
   </data>
   <data name="label29.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>ビデオ, オーディオ または テキスト</value>
   </data>
   <data name="label29.ToolTip" xml:space="preserve">
     <value />
@@ -899,6 +1077,9 @@
   <data name="label31.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>RFC 5646 で指定されたフォーマット</value>
+  </data>
   <data name="label31.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -910,6 +1091,9 @@
   </data>
   <data name="label32.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>RFC 6381 で指定されたコーデックフォーマットの最初のエレメント</value>
   </data>
   <data name="label32.ToolTip" xml:space="preserve">
     <value />
@@ -923,6 +1107,9 @@
   <data name="label33.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>範囲指定または正確な値の指定</value>
+  </data>
   <data name="label33.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -935,6 +1122,9 @@
   <data name="label34.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
   <data name="label34.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -946,6 +1136,9 @@
   </data>
   <data name="label35.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>トラック名</value>
   </data>
   <data name="label35.ToolTip" xml:space="preserve">
     <value />
@@ -971,6 +1164,9 @@
   <data name="label37.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>mp4a, mp4v, avc1 または ec-3</value>
+  </data>
   <data name="label37.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -982,6 +1178,9 @@
   </data>
   <data name="label38.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>0-1048576 または 1048576</value>
   </data>
   <data name="label38.ToolTip" xml:space="preserve">
     <value />
@@ -995,6 +1194,9 @@
   <data name="label13.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
   <data name="label13.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -1006,6 +1208,9 @@
   </data>
   <data name="label28.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>ビットレート</value>
   </data>
   <data name="label28.ToolTip" xml:space="preserve">
     <value />
@@ -1031,6 +1236,12 @@
   <data name="label6.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 15</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>条件:</value>
+  </data>
   <data name="label6.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -1042,6 +1253,12 @@
   </data>
   <data name="label1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>ルール:</value>
   </data>
   <data name="label1.ToolTip" xml:space="preserve">
     <value />
@@ -1055,6 +1272,9 @@
   <data name="buttonDeleteCondition.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="buttonDeleteCondition.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
   <data name="buttonDeleteCondition.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -1066,6 +1286,9 @@
   </data>
   <data name="buttonDeleteTrack.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonDeleteTrack.Text" xml:space="preserve">
+    <value>削除</value>
   </data>
   <data name="buttonDeleteTrack.ToolTip" xml:space="preserve">
     <value />
@@ -1079,6 +1302,9 @@
   <data name="buttonAddCondition.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="buttonAddCondition.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
   <data name="buttonAddCondition.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -1090,6 +1316,9 @@
   </data>
   <data name="buttonAddTrack.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonAddTrack.Text" xml:space="preserve">
+    <value>追加</value>
   </data>
   <data name="buttonAddTrack.ToolTip" xml:space="preserve">
     <value />
@@ -1127,6 +1356,9 @@
   <data name="buttonInsertSample.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="buttonInsertSample.Text" xml:space="preserve">
+    <value>トラックフィルター サンプルの挿入</value>
+  </data>
   <data name="tabPageTF.Error" xml:space="preserve">
     <value />
   </data>
@@ -1135,6 +1367,9 @@
   </data>
   <data name="tabPageTF.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tabPageTF.Text" xml:space="preserve">
+    <value>トラック フィルター</value>
   </data>
   <data name="tabPageTF.ToolTip" xml:space="preserve">
     <value />
@@ -1147,6 +1382,15 @@
   </data>
   <data name="contextMenuStripInfo.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="contextMenuStripInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 26</value>
   </data>
   <data name="contextMenuStripInfo.ToolTip" xml:space="preserve">
     <value />
@@ -1171,6 +1415,9 @@
   </data>
   <data name="tabPageInformation.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tabPageInformation.Text" xml:space="preserve">
+    <value>フィルター情報</value>
   </data>
   <data name="tabPageInformation.ToolTip" xml:space="preserve">
     <value />
@@ -1208,11 +1455,17 @@
   <data name="label4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>フィルター名 :</value>
+  </data>
   <data name="label4.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>dDynamic Manifest Filter</value>
+    <value>動的マニフェストフィルター</value>
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
     <value />
@@ -1225,6 +1478,9 @@
   </data>
   <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="buttonCancel.ToolTip" xml:space="preserve">
     <value />
@@ -1241,124 +1497,7 @@
   <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>言語</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="labelStartTimeDefault.Text" xml:space="preserve">
-    <value>(既定値: 0)</value>
-  </data>
-  <data name="labelDefaultBakckoff.Text" xml:space="preserve">
-    <value>(既定値: 0)</value>
-  </data>
-  <data name="labelDefaultEnd.Text" xml:space="preserve">
-    <value>(既定値: 最大)</value>
-  </data>
-  <data name="labelDefaultDVR.Text" xml:space="preserve">
-    <value>(既定値: 最大)</value>
-  </data>
-  <data name="buttonAddCondition.Text" xml:space="preserve">
-    <value>追加</value>
-  </data>
-  <data name="buttonAddTrack.Text" xml:space="preserve">
-    <value>追加</value>
-  </data>
-  <data name="labelassetname.Text" xml:space="preserve">
-    <value>アセット名: </value>
-  </data>
-  <data name="label40.Text" xml:space="preserve">
-    <value>bps</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
-    <value>クリップボードへコピー</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>フィルターの作成</value>
-  </data>
-  <data name="buttonDeleteCondition.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="buttonDeleteTrack.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>説明</value>
-  </data>
-  <data name="tabPageInformation.Text" xml:space="preserve">
-    <value>フィルター情報</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>フィルター名 :</value>
-  </data>
-  <data name="label31.Text" xml:space="preserve">
-    <value>RFC 5646 で指定されたフォーマット</value>
-  </data>
-  <data name="label20.Text" xml:space="preserve">
-    <value>FourCC</value>
-  </data>
-  <data name="labelFilterTitle.Text" xml:space="preserve">
-    <value>グローバル フィルター</value>
-  </data>
-  <data name="moreinfoprofilelink.Text" xml:space="preserve">
-    <value>詳細情報</value>
-  </data>
-  <data name="label37.Text" xml:space="preserve">
-    <value>mp4a, mp4v, avc1 or ec-3</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>プロパティ</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>タイプ</value>
-  </data>
-  <data name="label34.Text" xml:space="preserve">
-    <value>ビデオ</value>
-  </data>
-  <data name="label35.Text" xml:space="preserve">
-    <value>トラック名</value>
-  </data>
-  <data name="label38.Text" xml:space="preserve">
-    <value>0-1048576 or 1048576</value>
-  </data>
-  <data name="labelOffset.Text" xml:space="preserve">
-    <value>アセット オフセット :</value>
-  </data>
-  <data name="labelassetduration.Text" xml:space="preserve">
-    <value>アセットの長さ :</value>
-  </data>
-  <data name="label28.Text" xml:space="preserve">
-    <value>ビットレート</value>
-  </data>
-  <data name="label22.Text" xml:space="preserve">
-    <value>トラックのビットレート</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>条件 :</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>制約条件</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>DVR ウィンドウ :</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>終了時間 (VOD) :</value>
-  </data>
-  <data name="label23.Text" xml:space="preserve">
-    <value>例</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>フィルター タイムスケール :</value>
-  </data>
-  <data name="label25.Text" xml:space="preserve">
-    <value>トラック名 :</value>
-  </data>
-  <data name="label42.Text" xml:space="preserve">
-    <value>秒</value>
+  <data name="label39.Text" xml:space="preserve">
+    <value>間隔:</value>
   </data>
 </root>
