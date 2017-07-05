@@ -861,7 +861,10 @@
     <Content Include="PremiumWorkflowSamples\Tutorial\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MESPresetFiles\Adaptive Streaming %28automatic%29.json">
+    <Content Include="MESPresetFiles\Adaptive Streaming.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MESPresetFiles\Content Adaptive Multiple Bitrate MP4.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
