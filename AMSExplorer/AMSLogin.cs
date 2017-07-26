@@ -51,66 +51,7 @@ namespace AMSExplorer
         private bool pageTabACSPresent = true;
 
 
-        public readonly IList<ACSEndPointMapping> ACSMappings = new List<ACSEndPointMapping> {
-            // Global
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal,
-                APIServer = "https://media.windows.net/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net",
-                AzureEndpoint = "windows.net",
-                ManagementPortal ="https://portal.azure.com"
-            }, 
-           
-            
-            // China
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,
-                APIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn",
-                AzureEndpoint = "chinacloudapi.cn",
-                ManagementPortal ="https://portal.azure.cn"
-            }, 
-           
-            // US Government
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,
-                APIServer = "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net",
-                AzureEndpoint = "usgovcloudapi.net",
-                ManagementPortal ="https://portal.azure.us"
-            }
-        };
-
-
-        public readonly IList<AADEndPointMapping> AADMappings = new List<AADEndPointMapping> {
-        
-            // Global
-            new AADEndPointMapping() {
-                Name = nameof(AzureEnvironments.AzureCloudEnvironment),
-                ManagementPortal ="https://portal.azure.com"
-            }, 
-                       
-            // China
-            new AADEndPointMapping() {
-                Name = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
-                ManagementPortal ="https://portal.azure.cn"
-            }, 
-           
-            // US Government
-            new AADEndPointMapping() {
-                 Name = nameof(AzureEnvironments.AzureUsGovernmentEnvironment),
-                ManagementPortal ="https://portal.azure.us"
-            },
-
-            // Germany
-            new AADEndPointMapping() {
-                 Name = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
-                ManagementPortal ="https://portal.microsoftazure.de"
-            }
-        };
+       
 
         public CloudMediaContext context;
         public string accountName;
@@ -124,6 +65,16 @@ namespace AMSExplorer
         {
             get
             {
+                string mgtprtal = "";
+                if (radioButtonAADAut.Checked && ReturnDeploymentName() == CustomString)
+                {
+                    mgtprtal = textBoxAADManagementPortal.Text;
+                }
+                else
+                {
+                    mgtprtal = textBoxManagementPortal.Text;
+                }
+
                 return new CredentialsEntry(
                textBoxAccountName.Text,
                textBoxAccountKey.Text,
@@ -139,7 +90,7 @@ namespace AMSExplorer
                textBoxScope.Text,
                textBoxACSBaseAddress.Text,
                textBoxAzureEndpoint.Text,
-               textBoxManagementPortal.Text,
+               mgtprtal,
                (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName() : null,
                (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings() : null
                              );
@@ -237,7 +188,7 @@ namespace AMSExplorer
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
 
-            foreach (var map in ACSMappings)
+            foreach (var map in CredentialsEntry.ACSMappings)
             {
                 comboBoxMappingList.Items.Add(map.Name);
 
@@ -595,6 +546,7 @@ namespace AMSExplorer
             radioButtonProd.Checked = true;
             radioButtonAADAut.Checked = true;
             radioButtonACSAut.Checked = false;
+            radioButtonAADInteractive.Checked = true;
 
             listBoxAcounts.ClearSelected();
         }
@@ -802,7 +754,7 @@ namespace AMSExplorer
 
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
-            ACSEndPointMapping EPM = ACSMappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
+            ACSEndPointMapping EPM = CredentialsEntry.ACSMappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
 
             textBoxAPIServer.Text = EPM.APIServer;
             textBoxACSBaseAddress.Text = EPM.ACSBaseAddress;
@@ -973,7 +925,7 @@ namespace AMSExplorer
                      textBoxAADAzureEndpoint.Enabled =
                      textBoxAADManagementPortal.Enabled = false;
 
-                AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault();
+                AADEndPointMapping entrymapping = CredentialsEntry.AADMappings.Where(m => m.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault();
 
                 var env = AzureEnvironments.AzureCloudEnvironment;
                 textBoxAADAMSResource.Text = env.MediaServicesResource;
@@ -1006,7 +958,7 @@ namespace AMSExplorer
                     textBoxAADAzureEndpoint.Enabled =
                     textBoxAADManagementPortal.Enabled = false;
 
-                    AADEndPointMapping entrymapping = AADMappings.Where(m => m.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault();
+                    AADEndPointMapping entrymapping = CredentialsEntry.AADMappings.Where(m => m.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault();
 
                     var env = CredentialsEntry.ReturnADEnvironment(((Item)comboBoxAADMappingList.SelectedItem).Value);
                     textBoxAADAMSResource.Text = env.MediaServicesResource;

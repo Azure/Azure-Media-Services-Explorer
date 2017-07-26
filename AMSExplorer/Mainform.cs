@@ -12463,6 +12463,18 @@ namespace AMSExplorer
             {
                 PortalUrl = _credentials.OtherManagementPortal;
             }
+            else if (_credentials.UseAADInteract || _credentials.UseAADServicePrincipal)
+            {
+                if (_credentials.ADCustomSettings != null)
+                {
+                    PortalUrl = _credentials.OtherManagementPortal;
+                }
+                else
+                {
+                    AADEndPointMapping entrymapping = CredentialsEntry.AADMappings.Where(m => m.Name == _credentials.ADDeploymentName).FirstOrDefault();
+                    PortalUrl = entrymapping != null ? entrymapping.ManagementPortal : "";
+                }
+            }
             else
             {
                 PortalUrl = CredentialsEntry.GlobalPortal;
@@ -15871,22 +15883,6 @@ namespace AMSExplorer
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-        }
-
-        private void toolStripMenuItemClassicPortal_Click(object sender, EventArgs e)
-        {
-            string PortalUrl;
-            if (_credentials.UseOtherAPI)
-            {
-                PortalUrl = _credentials.OtherManagementPortal;
-            }
-            else
-            {
-                PortalUrl = CredentialsEntry.GlobalClassicManagementPortal;
-            }
-
-            if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
-
         }
     }
 }

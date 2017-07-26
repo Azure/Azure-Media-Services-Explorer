@@ -95,7 +95,7 @@ namespace AMSExplorer
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
         {
             CloudMediaContext myContext = null;
-            if (credentials.UseAADInteract)
+            if (credentials.UseAADInteract || credentials.UseAADServicePrincipal)
             {
 
                 /*
@@ -104,17 +104,25 @@ namespace AMSExplorer
                                 var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
                                 Task.Run(async () => { await client.SendAsync(request); }).Wait();
                 */
-                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, AzureEnvironments.AzureCloudEnvironment);
-                var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
 
+                var env = credentials.ADCustomSettings == null ?
+                    CredentialsEntry.ReturnADEnvironment(credentials.ADDeploymentName) : credentials.ADCustomSettings;
+
+                AzureAdTokenProvider tokenProvider = null;
+
+                if (credentials.UseAADInteract)
+                {
+                    var tokenCredentials1 = new AzureAdTokenCredentials(credentials.ADTenantDomain, env);
+                    tokenProvider = new AzureAdTokenProvider(tokenCredentials1);
+                }
+                else // service principal
+                {
+                    AzureAdClientSymmetricKey clientSymmetricKey = new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret);
+                    var tokenCredentials2 = new AzureAdTokenCredentials(credentials.ADTenantDomain, clientSymmetricKey, env);
+                    tokenProvider = new AzureAdTokenProvider(tokenCredentials2);
+                }
                 myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
-            }
-            else if (credentials.UseAADServicePrincipal)
-            {
-                AzureAdClientSymmetricKey clientSymmetricKey = new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret);
-                var tokenCredentials = new AzureAdTokenCredentials(credentials.ADTenantDomain, clientSymmetricKey, AzureEnvironments.AzureCloudEnvironment);
-                var tokenProvider = new AzureAdTokenProvider(tokenCredentials);
-                myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
+
             }
             else
             {
@@ -3786,8 +3794,69 @@ namespace AMSExplorer
         public static readonly string TableStorage = ".table.core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
-        public static readonly string GlobalClassicManagementPortal = "http://manage.windowsazure.com";
         public static readonly string GlobalPortal = "http://portal.azure.com";
+
+
+        public static readonly IList<ACSEndPointMapping> ACSMappings = new List<ACSEndPointMapping> {
+            // Global
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal,
+                APIServer = "https://media.windows.net/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net",
+                AzureEndpoint = "windows.net",
+                ManagementPortal ="https://portal.azure.com"
+            }, 
+           
+            
+            // China
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,
+                APIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn",
+                AzureEndpoint = "chinacloudapi.cn",
+                ManagementPortal ="https://portal.azure.cn"
+            }, 
+           
+            // US Government
+            new ACSEndPointMapping() {
+                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,
+                APIServer = "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/",
+                Scope = "urn:WindowsAzureMediaServices",
+                ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net",
+                AzureEndpoint = "usgovcloudapi.net",
+                ManagementPortal ="https://portal.azure.us"
+            }
+        };
+
+
+        public static readonly IList<AADEndPointMapping> AADMappings = new List<AADEndPointMapping> {
+        
+            // Global
+            new AADEndPointMapping() {
+                Name = nameof(AzureEnvironments.AzureCloudEnvironment),
+                ManagementPortal ="https://portal.azure.com"
+            }, 
+                       
+            // China
+            new AADEndPointMapping() {
+                Name = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
+                ManagementPortal ="https://portal.azure.cn"
+            }, 
+           
+            // US Government
+            new AADEndPointMapping() {
+                 Name = nameof(AzureEnvironments.AzureUsGovernmentEnvironment),
+                ManagementPortal ="https://portal.azure.us"
+            },
+
+            // Germany
+            new AADEndPointMapping() {
+                 Name = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
+                ManagementPortal ="https://portal.microsoftazure.de"
+            }
+        };
 
 
         public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool useacspartnerapi, bool useacsotherapi, string acsapiserver, string acsscope, string acsbaseaddress, string acsazureendpoint, string managementportal, string addeploymentname = null, AzureEnvironment adcustomsettings = null, string adspclientid = null, string adspclientsecret = null)
