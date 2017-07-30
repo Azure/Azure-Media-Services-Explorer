@@ -4,6 +4,7 @@ Version 4.0.1.0 (July 28, 2017) brings the following feature and improvement :
   *  This is an automatic preset which muxes the audio stream in each MP4 file 
   *  Designed for Streaming and Progressive Download
   *  This is now the default preset
+  * More info [here](https://docs.microsoft.com/en-us/azure/media-services/media-services-autogen-bitrate-ladder-with-mes)
 * Fixes a bug that was preventing AMSE to connect to other environment than Azure Global
 
 
