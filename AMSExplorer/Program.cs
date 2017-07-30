@@ -3950,9 +3950,9 @@ namespace AMSExplorer
                 return (AzureEnvironment)myFields.Where(f => f.Name == ADDeploymentName).FirstOrDefault().GetValue(myType);
 
             }
-            else
+            else // default
             {
-                return null;
+                return AzureEnvironments.AzureCloudEnvironment;
             }
         }
 
