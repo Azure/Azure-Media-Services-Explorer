@@ -694,7 +694,7 @@ namespace AMSExplorer
         private string checkStringForCSV(string s)
         {
             string c = "\"";
-            if (s != null && s.Contains(","))
+            if (s != null && s.Contains(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator))
             {
                 s = c + s + c;
             }
@@ -704,7 +704,7 @@ namespace AMSExplorer
         private string convertCSVLine(List<string> linec)
         {
             var newlinec = linec.Select(s => checkStringForCSV(s));
-            return string.Join(",", newlinec);
+            return string.Join(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, newlinec);
         }
 
     }
