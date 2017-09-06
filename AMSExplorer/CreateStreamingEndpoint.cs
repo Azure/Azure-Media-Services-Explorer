@@ -105,7 +105,7 @@ namespace AMSExplorer
 
         internal static bool IsSENameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
+            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,22}[a-zA-Z0-9])?$", RegexOptions.Compiled);
             return (reg.IsMatch(name));
         }
 
