@@ -2475,14 +2475,7 @@ namespace AMSExplorer
                 }
             }
         }
-
-        private void assetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
+        
         private void DoCreateLocator(List<IAsset> SelectedAssets)
         {
             string labelAssetName;
@@ -7041,6 +7034,9 @@ namespace AMSExplorer
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
 
+            //TODO: due to heavy problems with asset with fairplay encryption this option is unavaliable now
+            ContextMenuItemAssetDelete.Enabled = false;
+
             if (singleitem && firstAsset != null && firstAsset.AssetFiles.Count() == 1)
             {
                 var assetfile = firstAsset.AssetFiles.FirstOrDefault();
@@ -7075,6 +7071,9 @@ namespace AMSExplorer
             editAlternateIdToolStripMenuItem1.Enabled =
             toAzureStorageToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem.Enabled = singleitem;
+
+            //TODO: due to heavy problems with asset with fairplay encryption this option is unavaliable now
+            this.deleteToolStripMenuItem.Enabled = false;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -15883,7 +15882,7 @@ namespace AMSExplorer
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-        }
+        }        
     }
 }
 
