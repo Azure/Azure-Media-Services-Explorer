@@ -2861,7 +2861,6 @@
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             resources.ApplyResources(this.assetToolStripMenuItem, "assetToolStripMenuItem");
             this.assetToolStripMenuItem.DropDownOpening += new System.EventHandler(this.toolStripMenuAsset_DropDownOpening);
-            this.assetToolStripMenuItem.Click += new System.EventHandler(this.assetToolStripMenuItem_Click);
             // 
             // informationToolStripMenuItem
             // 
