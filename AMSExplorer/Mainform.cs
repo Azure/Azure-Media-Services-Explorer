@@ -2883,23 +2883,17 @@ namespace AMSExplorer
 
             if (SelectedAssets.Count > 0)
             {
-                string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
+
+                if ( form.ShowDialog() ==  DialogResult.OK)
                 {
                     Task.Run(async () =>
                     {
                         bool Error = false;
                         try
                         {
-                            //Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
-                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a,form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             TextBoxLogWriteLine("Deleting asset(s)");
-                            /*
-                           foreach (var asset in SelectedAssets)
-                            {
-                                DynamicEncryption.DeleteAsset(_context, asset);
-                            }
-                            */
                             Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
@@ -11185,7 +11179,7 @@ namespace AMSExplorer
                     try
                     {
                         //formerkey.Delete();
-                        DynamicEncryption.CleanupKey(_context, formerkey);
+                        DynamicEncryption.DeleteKeyAuthorizationPolicyAndFairplayAsk(_context, formerkey);
                         TextBoxLogWriteLine("Key has been deleted.");
                     }
                     catch (Exception e)
@@ -11933,7 +11927,7 @@ namespace AMSExplorer
                                 // deleting authorization policies & options
                                 foreach (var key in CENCAESkeys)
                                 {
-                                    DynamicEncryption.CleanupKey(_context, key);
+                                    DynamicEncryption.DeleteKeyAuthorizationPolicyAndFairplayAsk(_context, key);
                                     AssetToProcess.ContentKeys.Remove(key);
                                     //if (deleteKeys) AssetToProcess.ContentKeys.Remove(key);
                                 }

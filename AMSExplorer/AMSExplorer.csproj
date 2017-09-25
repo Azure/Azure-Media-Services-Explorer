@@ -165,6 +165,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteKeyAndPolicy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteKeyAndPolicy.Designer.cs">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -933,6 +939,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.ja.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteKeyAndPolicy.ja.resx">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteKeyAndPolicy.resx">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
       <DependentUpon>DeleteProgramChannel.cs</DependentUpon>

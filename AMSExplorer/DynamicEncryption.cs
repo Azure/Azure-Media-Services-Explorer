@@ -346,7 +346,7 @@ namespace AMSExplorer
                 MessageBox.Show(
                     AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatContainsBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToUseTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset,
                     AMSExplorer.Properties.Resources.DynamicEncryption_GetCertificateFromFile_CertificateRequired,
-                    MessageBoxButtons.OK, 
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                     );
             }
@@ -781,7 +781,7 @@ namespace AMSExplorer
         }
 
 
-        public static void CleanupKey(CloudMediaContext mediaContext, IContentKey key)
+        public static void DeleteKeyAuthorizationPolicyAndFairplayAsk(CloudMediaContext mediaContext, IContentKey key)
         {
             IContentKeyAuthorizationPolicy policy = null;
 
@@ -825,7 +825,7 @@ namespace AMSExplorer
             }
         }
 
-        public static async Task DeleteAssetAsync(CloudMediaContext mediaContext, IAsset asset)
+        public static async Task DeleteAssetAsync(CloudMediaContext mediaContext, IAsset asset, bool deleteDeliveryPolicy, bool deleteKeys, bool deleteAuthorizationPolicy)
         {
 
             foreach (var locator in asset.Locators.ToArray())
@@ -835,11 +835,17 @@ namespace AMSExplorer
             foreach (var policy in asset.DeliveryPolicies.ToArray())
             {
                 asset.DeliveryPolicies.Remove(policy);
-                await policy.DeleteAsync();
+                if (deleteDeliveryPolicy)
+                {
+                    await policy.DeleteAsync();
+                }
             }
             foreach (var key in asset.ContentKeys.ToArray())
             {
-                CleanupKey(mediaContext, key);
+                if (deleteAuthorizationPolicy)
+                {
+                    DeleteKeyAuthorizationPolicyAndFairplayAsk(mediaContext, key);
+                }
                 try // because we have an error for FairPlay key
                 {
                     asset.ContentKeys.Remove(key);
@@ -849,7 +855,10 @@ namespace AMSExplorer
 
                 }
             }
-            await asset.DeleteAsync();
+            if (deleteKeys)
+            {
+                await asset.DeleteAsync();
+            }
 
             return;
 
@@ -867,7 +876,7 @@ namespace AMSExplorer
             }
             foreach (var key in asset.ContentKeys.ToArray())
             {
-                CleanupKey(mediaContext, key);
+                DeleteKeyAuthorizationPolicyAndFairplayAsk(mediaContext, key);
                 asset.ContentKeys.Remove(key);
             }
             asset.Delete();
