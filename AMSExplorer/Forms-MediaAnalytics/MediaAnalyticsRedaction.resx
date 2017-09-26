@@ -125,6 +125,9 @@
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 359</value>
@@ -148,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="textboxoutputassetname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -172,10 +175,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textboxoutputassetname.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="labelProcessorVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="labelProcessorVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelProcessorVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>245, 59</value>
@@ -202,10 +208,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelProcessorVersion.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>506, 15</value>
@@ -237,6 +246,9 @@
   <data name="labelAssetName.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt, style=Italic</value>
   </data>
+  <data name="labelAssetName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
     <value>277, 111</value>
   </data>
@@ -259,7 +271,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelAssetName.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="textBoxJobName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -283,13 +295,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxJobName.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 304</value>
@@ -313,13 +328,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
+  </data>
+  <data name="buttonOk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>329, 15</value>
@@ -351,6 +369,9 @@
   <data name="labelProcessorName.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 14.25pt, style=Bold</value>
   </data>
+  <data name="labelProcessorName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelProcessorName.Location" type="System.Drawing.Point, System.Drawing">
     <value>131, 14</value>
   </data>
@@ -376,7 +397,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelProcessorName.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -400,13 +421,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="moreinfoprofilelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="moreinfoprofilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="moreinfoprofilelink.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
     <value>526, 83</value>
@@ -430,43 +454,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="labelPreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="labelPreview.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelPreview.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 11.25pt, style=Italic</value>
-  </data>
-  <data name="labelPreview.Location" type="System.Drawing.Point, System.Drawing">
-    <value>568, 39</value>
-  </data>
-  <data name="labelPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 20</value>
-  </data>
-  <data name="labelPreview.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="labelPreview.Text" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="labelPreview.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Name" xml:space="preserve">
-    <value>labelPreview</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>147, 17</value>
@@ -476,6 +464,9 @@
   </data>
   <data name="radioButtonCombined.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonCombined.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonCombined.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 29</value>
@@ -510,6 +501,9 @@
   <data name="radioButtonFirstPass.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="radioButtonFirstPass.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonFirstPass.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 55</value>
   </data>
@@ -543,6 +537,9 @@
   <data name="radioButtonSecondPass.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="radioButtonSecondPass.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonSecondPass.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 80</value>
   </data>
@@ -574,10 +571,10 @@
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 25</value>
+    <value>20, 22</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 109</value>
+    <value>218, 109</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -595,40 +592,10 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <data name="buttonJobOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonJobOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>467, 322</value>
-  </data>
-  <data name="buttonJobOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 27</value>
-  </data>
-  <data name="buttonJobOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="buttonJobOptions.Text" xml:space="preserve">
-    <value>Job options...</value>
-  </data>
-  <data name="&gt;&gt;buttonJobOptions.Name" xml:space="preserve">
-    <value>buttonJobOptions</value>
-  </data>
-  <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonJobOptions.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>Key</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>Value</value>
+  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 13</value>
@@ -656,6 +623,225 @@
   </data>
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="radioButtonBlurBlack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonBlurBlack.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonBlurBlack.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonBlurBlack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 55</value>
+  </data>
+  <data name="radioButtonBlurBlack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 19</value>
+  </data>
+  <data name="radioButtonBlurBlack.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="radioButtonBlurBlack.Text" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBlack.Name" xml:space="preserve">
+    <value>radioButtonBlurBlack</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBlack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBlack.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBlack.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonBlurBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonBlurBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonBlurBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonBlurBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 30</value>
+  </data>
+  <data name="radioButtonBlurBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 19</value>
+  </data>
+  <data name="radioButtonBlurBox.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="radioButtonBlurBox.Text" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBox.Name" xml:space="preserve">
+    <value>radioButtonBlurBox</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBox.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonBlurHigh.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonBlurHigh.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonBlurHigh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonBlurHigh.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 80</value>
+  </data>
+  <data name="radioButtonBlurHigh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 19</value>
+  </data>
+  <data name="radioButtonBlurHigh.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="radioButtonBlurHigh.Text" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurHigh.Name" xml:space="preserve">
+    <value>radioButtonBlurHigh</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurHigh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurHigh.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurHigh.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonBlurMed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonBlurMed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonBlurMed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonBlurMed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 55</value>
+  </data>
+  <data name="radioButtonBlurMed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 19</value>
+  </data>
+  <data name="radioButtonBlurMed.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="radioButtonBlurMed.Text" xml:space="preserve">
+    <value>Med</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurMed.Name" xml:space="preserve">
+    <value>radioButtonBlurMed</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurMed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurMed.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurMed.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonBlurLow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonBlurLow.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonBlurLow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonBlurLow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 30</value>
+  </data>
+  <data name="radioButtonBlurLow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 19</value>
+  </data>
+  <data name="radioButtonBlurLow.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="radioButtonBlurLow.Text" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurLow.Name" xml:space="preserve">
+    <value>radioButtonBlurLow</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurLow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurLow.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBlurLow.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pictureBoxBlurMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxBlurMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>133, 17</value>
+  </data>
+  <data name="pictureBoxBlurMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 86</value>
+  </data>
+  <data name="pictureBoxBlurMode.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pictureBoxBlurMode.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxBlurMode.Name" xml:space="preserve">
+    <value>pictureBoxBlurMode</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxBlurMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxBlurMode.Parent" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxBlurMode.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="groupBoxBlur.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBoxBlur.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 22</value>
+  </data>
+  <data name="groupBoxBlur.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 109</value>
+  </data>
+  <data name="groupBoxBlur.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="groupBoxBlur.Text" xml:space="preserve">
+    <value>Blurring</value>
+  </data>
+  <data name="&gt;&gt;groupBoxBlur.Name" xml:space="preserve">
+    <value>groupBoxBlur</value>
+  </data>
+  <data name="&gt;&gt;groupBoxBlur.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxBlur.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;groupBoxBlur.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -686,6 +872,9 @@
   </data>
   <data name="labelWarningJSON.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="labelWarningJSON.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelWarningJSON.Location" type="System.Drawing.Point, System.Drawing">
     <value>143, 7</value>
@@ -752,6 +941,9 @@
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 10</value>
@@ -849,6 +1041,42 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonJobOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonJobOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonJobOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>467, 322</value>
+  </data>
+  <data name="buttonJobOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 27</value>
+  </data>
+  <data name="buttonJobOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="buttonJobOptions.Text" xml:space="preserve">
+    <value>Job options...</value>
+  </data>
+  <data name="&gt;&gt;buttonJobOptions.Name" xml:space="preserve">
+    <value>buttonJobOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=4.0.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonJobOptions.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -860,6 +1088,9 @@
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

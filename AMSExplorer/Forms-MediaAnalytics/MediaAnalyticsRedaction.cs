@@ -116,26 +116,53 @@ namespace AMSExplorer
             }
         }
 
+        public string RedactionBlurMode()
+        {
+            if (radioButtonBlurHigh.Checked)
+            {
+                return Constants.FaceRedactionBlurHigh;
+            }
+            else if (radioButtonBlurMed.Checked)
+            {
+                return Constants.FaceRedactionBlurMed;
+            }
+            else if (radioButtonBlurLow.Checked)
+            {
+                return Constants.FaceRedactionBlurLow;
+            }
+            else if (radioButtonBlurBox.Checked)
+            {
+                return Constants.FaceRedactionBlurBox;
+            }
+            else // if (radioButtonBlurBlack.Checked)
+            {
+                return Constants.FaceRedactionBlurBlack;
+            }
+        }
+
         private string JsonInternalConfig()
         {
             // Example of config :
-            //  @"{'Version':'1.0', 'Options': {'AggregateEmotionWindowMs':'987','Mode':'AggregateEmotion','AggregateEmotionIntervalMs':'342'}}"
+            //  {'version':'1.0', 'options': {'Mode':'Combined', 'BlurType':'High'}}
 
             dynamic obj = new JObject();
             obj.Version = "1.0";
             obj.Options = new JObject();
             obj.Options.Mode = RedactionMode();
+            if (obj.Options.Mode != Constants.FaceRedactionFirstPass)
+            {
+                obj.Options.BlurType = RedactionBlurMode();
+            }
 
             return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
         }
 
-        public MediaAnalyticsRedaction(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
+        public MediaAnalyticsRedaction(CloudMediaContext context, IMediaProcessor processor, Image processorImage)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _processor = processor;
-            _preview = preview;
             _processorImage = processorImage;
             buttonJobOptions.Initialize(_context);
         }
@@ -149,7 +176,6 @@ namespace AMSExplorer
             moreinfoprofilelink.Visible = true;
 
             labelProcessorName.Text = _processor.Name;
-            labelPreview.Visible = _preview;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processor.Version);
             buttonOk.Image = _processorImage;
             this.Text = _processor.Name;
@@ -163,6 +189,8 @@ namespace AMSExplorer
 
         private void radioButtonDetectionMode_CheckedChanged(object sender, EventArgs e)
         {
+            groupBoxBlur.Enabled = !radioButtonFirstPass.Checked;
+
             /*
             if (radioButtonCombined.Checked)
             {
@@ -226,6 +254,30 @@ namespace AMSExplorer
                 }
             }
             labelWarningJSON.Visible = Error;
+        }
+
+        private void radioButtonBlur_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBlurHigh.Checked)
+            {
+                pictureBoxBlurMode.Image = Bitmaps.redactor_blur_high;
+            }
+            else if (radioButtonBlurMed.Checked)
+            {
+                pictureBoxBlurMode.Image = Bitmaps.redactor_blur_med;
+            }
+            else if (radioButtonBlurLow.Checked)
+            {
+                pictureBoxBlurMode.Image = Bitmaps.redactor_blur_low;
+            }
+            else if (radioButtonBlurBox.Checked)
+            {
+                pictureBoxBlurMode.Image = Bitmaps.redactor_blur_debug;
+            }
+            else // if (radioButtonBlurBlack.Checked)
+            {
+                pictureBoxBlurMode.Image = Bitmaps.redactor_blur_black;
+            }
         }
     }
 }

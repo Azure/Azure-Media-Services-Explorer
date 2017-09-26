@@ -1121,10 +1121,15 @@ namespace AMSExplorer
         public const string FaceRedactionFirstPass = "analyze";
         public const string FaceRedactionSecondPass = "redact";
 
+        public const string FaceRedactionBlurHigh = "High";
+        public const string FaceRedactionBlurMed = "Med";
+        public const string FaceRedactionBlurLow = "Low";
+        public const string FaceRedactionBlurBox = "Box";
+        public const string FaceRedactionBlurBlack = "Black";
+
         public const string ContentModerationBalance = "Balance";
         public const string ContentModerationQuality = "Quality";
         public const string ContentModerationSpeed = "Speed";
-
 
         public const string VideoThumbnailsOutputVideo = "video";
         public const string VideoThumbnailsOutputImage = "image";

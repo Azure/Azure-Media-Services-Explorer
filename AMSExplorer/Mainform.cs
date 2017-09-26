@@ -5182,7 +5182,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
+        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, Image processorImage, string urlMoreInfo, string preset = null)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -5199,7 +5199,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaAnalyticsRedaction(_context, processor, processorImage, preview)
+                var form = new MediaAnalyticsRedaction(_context, processor, processorImage)
                 {
                     MIJobName = string.Format("Redaction ({0} mode) of {1}", Constants.NameconvRedactionMode, Constants.NameconvInputasset),
                     MIOutputAssetName = string.Format("{0} - Redacted ({1} mode)", Constants.NameconvInputasset, Constants.NameconvRedactionMode),

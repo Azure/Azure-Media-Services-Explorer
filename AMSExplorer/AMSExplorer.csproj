@@ -699,6 +699,11 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <None Include="BitmapsPNG\redactor-blur-black.png" />
+    <None Include="BitmapsPNG\redactor-blur-debug.png" />
+    <None Include="BitmapsPNG\redactor-blur-high.png" />
+    <None Include="BitmapsPNG\redactor-blur-low.png" />
+    <None Include="BitmapsPNG\redactor-blur-med.png" />
     <Content Include="Configurations\SampleSemaphore.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

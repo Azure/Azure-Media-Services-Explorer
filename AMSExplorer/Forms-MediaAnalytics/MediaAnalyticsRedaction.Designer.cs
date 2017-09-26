@@ -41,28 +41,36 @@
             this.labelProcessorName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.labelPreview = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.radioButtonCombined = new System.Windows.Forms.RadioButton();
             this.radioButtonFirstPass = new System.Windows.Forms.RadioButton();
             this.radioButtonSecondPass = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBoxBlur = new System.Windows.Forms.GroupBox();
+            this.radioButtonBlurBlack = new System.Windows.Forms.RadioButton();
+            this.radioButtonBlurBox = new System.Windows.Forms.RadioButton();
+            this.radioButtonBlurHigh = new System.Windows.Forms.RadioButton();
+            this.radioButtonBlurMed = new System.Windows.Forms.RadioButton();
+            this.radioButtonBlurLow = new System.Windows.Forms.RadioButton();
+            this.pictureBoxBlurMode = new System.Windows.Forms.PictureBox();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBoxBlur.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlurMode)).BeginInit();
             this.tabPageConfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,12 +141,6 @@
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // labelPreview
-            // 
-            resources.ApplyResources(this.labelPreview, "labelPreview");
-            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.labelPreview.Name = "labelPreview";
-            // 
             // radioButtonCombined
             // 
             resources.ApplyResources(this.radioButtonCombined, "radioButtonCombined");
@@ -174,22 +176,6 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // buttonJobOptions
-            // 
-            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._04_face_detection;
@@ -207,10 +193,67 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBoxBlur);
             this.tabPage1.Controls.Add(this.groupBox1);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxBlur
+            // 
+            this.groupBoxBlur.Controls.Add(this.radioButtonBlurBlack);
+            this.groupBoxBlur.Controls.Add(this.radioButtonBlurBox);
+            this.groupBoxBlur.Controls.Add(this.radioButtonBlurHigh);
+            this.groupBoxBlur.Controls.Add(this.radioButtonBlurMed);
+            this.groupBoxBlur.Controls.Add(this.radioButtonBlurLow);
+            this.groupBoxBlur.Controls.Add(this.pictureBoxBlurMode);
+            resources.ApplyResources(this.groupBoxBlur, "groupBoxBlur");
+            this.groupBoxBlur.Name = "groupBoxBlur";
+            this.groupBoxBlur.TabStop = false;
+            // 
+            // radioButtonBlurBlack
+            // 
+            resources.ApplyResources(this.radioButtonBlurBlack, "radioButtonBlurBlack");
+            this.radioButtonBlurBlack.Name = "radioButtonBlurBlack";
+            this.radioButtonBlurBlack.UseVisualStyleBackColor = true;
+            this.radioButtonBlurBlack.CheckedChanged += new System.EventHandler(this.radioButtonBlur_CheckedChanged);
+            // 
+            // radioButtonBlurBox
+            // 
+            resources.ApplyResources(this.radioButtonBlurBox, "radioButtonBlurBox");
+            this.radioButtonBlurBox.Name = "radioButtonBlurBox";
+            this.radioButtonBlurBox.UseVisualStyleBackColor = true;
+            this.radioButtonBlurBox.CheckedChanged += new System.EventHandler(this.radioButtonBlur_CheckedChanged);
+            // 
+            // radioButtonBlurHigh
+            // 
+            resources.ApplyResources(this.radioButtonBlurHigh, "radioButtonBlurHigh");
+            this.radioButtonBlurHigh.Name = "radioButtonBlurHigh";
+            this.radioButtonBlurHigh.UseVisualStyleBackColor = true;
+            this.radioButtonBlurHigh.CheckedChanged += new System.EventHandler(this.radioButtonBlur_CheckedChanged);
+            // 
+            // radioButtonBlurMed
+            // 
+            resources.ApplyResources(this.radioButtonBlurMed, "radioButtonBlurMed");
+            this.radioButtonBlurMed.Checked = true;
+            this.radioButtonBlurMed.Name = "radioButtonBlurMed";
+            this.radioButtonBlurMed.TabStop = true;
+            this.radioButtonBlurMed.UseVisualStyleBackColor = true;
+            this.radioButtonBlurMed.CheckedChanged += new System.EventHandler(this.radioButtonBlur_CheckedChanged);
+            // 
+            // radioButtonBlurLow
+            // 
+            resources.ApplyResources(this.radioButtonBlurLow, "radioButtonBlurLow");
+            this.radioButtonBlurLow.Name = "radioButtonBlurLow";
+            this.radioButtonBlurLow.UseVisualStyleBackColor = true;
+            this.radioButtonBlurLow.CheckedChanged += new System.EventHandler(this.radioButtonBlur_CheckedChanged);
+            // 
+            // pictureBoxBlurMode
+            // 
+            this.pictureBoxBlurMode.Image = global::AMSExplorer.Bitmaps.redactor_blur_med;
+            resources.ApplyResources(this.pictureBoxBlurMode, "pictureBoxBlurMode");
+            this.pictureBoxBlurMode.Name = "pictureBoxBlurMode";
+            this.pictureBoxBlurMode.TabStop = false;
             // 
             // tabPageConfig
             // 
@@ -245,6 +288,22 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
+            // buttonJobOptions
+            // 
+            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // MediaAnalyticsRedaction
             // 
             this.AcceptButton = this.buttonOk;
@@ -255,7 +314,6 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.panel1);
@@ -275,6 +333,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBoxBlur.ResumeLayout(false);
+            this.groupBoxBlur.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlurMode)).EndInit();
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
             this.ResumeLayout(false);
@@ -298,7 +359,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private ButtonJobOptions buttonJobOptions;
-        public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonCombined;
@@ -312,5 +372,12 @@
         public System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RadioButton radioButtonSecondPass;
+        private System.Windows.Forms.PictureBox pictureBoxBlurMode;
+        private System.Windows.Forms.GroupBox groupBoxBlur;
+        private System.Windows.Forms.RadioButton radioButtonBlurBlack;
+        private System.Windows.Forms.RadioButton radioButtonBlurBox;
+        private System.Windows.Forms.RadioButton radioButtonBlurHigh;
+        private System.Windows.Forms.RadioButton radioButtonBlurMed;
+        private System.Windows.Forms.RadioButton radioButtonBlurLow;
     }
 }
