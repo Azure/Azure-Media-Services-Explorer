@@ -1692,8 +1692,8 @@ namespace AMSExplorer
         public const string Type_Thumbnails = "Thumbnails";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
         public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
-        public const string _hls_v4 = "HLS v4  URL";
-        public const string _hls_v3 = "HLS v3  URL";
+        public const string _hls_v4 = "HLS v4 URL";
+        public const string _hls_v3 = "HLS v3 URL";
         public const string _dash = "MPEG-DASH URL";
         public const string _smooth = "Smooth Streaming URL";
         public const string _smooth_legacy = "Smooth Streaming (legacy) URL";
@@ -1910,16 +1910,22 @@ namespace AMSExplorer
                         UriKind.Absolute));
             }
 
-            if (se != null)
+            string hostname = null;
+            if (customhostname != null)
             {
-                string hostname = customhostname == null ? se.HostName : customhostname;
-                smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
-                {
-                    Host = hostname,
-                    Scheme = https ? "https://" : "http://",
-                    Path = AssetInfo.AddAudioTrackToUrlString(AssetInfo.AddProtocolFormatInUrlString(AssetInfo.AddFilterToUrlString(u.AbsolutePath, filter), outputprotocol), audiotrack)
-                }.Uri);
+                hostname = customhostname;
             }
+            else if (se != null)
+            {
+                hostname = se.HostName;
+            }
+
+            smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
+            {
+                Host = hostname ?? u.Host,
+                Scheme = https ? "https://" : "http://",
+                Path = AssetInfo.AddAudioTrackToUrlString(AssetInfo.AddProtocolFormatInUrlString(AssetInfo.AddFilterToUrlString(u.AbsolutePath, filter), outputprotocol), audiotrack)
+            }.Uri);
 
             return smoothStreamingUri;
         }
@@ -2006,12 +2012,10 @@ namespace AMSExplorer
         }
 
         // return the URL with hostname from streaming endpoint
-        public static Uri RW(Uri url, IStreamingEndpoint se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
+        public static Uri RW(Uri url, IStreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
             if (url != null)
             {
-                string hostname = se.HostName;
-
                 string path = AddFilterToUrlString(url.AbsolutePath, filters);
                 path = AddProtocolFormatInUrlString(path, protocol);
 
@@ -2024,9 +2028,19 @@ namespace AMSExplorer
                     }
                 }
 
+                string hostname = null;
+                if (customHostName != null)
+                {
+                    hostname = customHostName;
+                }
+                else if (se != null)
+                {
+                    hostname = se.HostName;
+                }
+
                 UriBuilder urib = new UriBuilder()
                 {
-                    Host = customHostName == null ? hostname : customHostName,
+                    Host = hostname ?? url.Host,
                     Scheme = https ? "https://" : "http://",
                     Path = path,
                 };
@@ -2913,7 +2927,10 @@ namespace AMSExplorer
                     sb.AppendLine("Locator Path      : " + locator.Path);
                     sb.AppendLine("");
                     sb.AppendLine(_prog_down_http_streaming + " : ");
-                    foreach (IAssetFile IAF in MyAsset.AssetFiles) sb.AppendLine((new Uri(locator.Path + IAF.Name)).AbsoluteUri);
+                    foreach (IAssetFile IAF in MyAsset.AssetFiles)
+                    {
+                        sb.AppendLine((RW(new Uri(locator.Path + IAF.Name), https: true)).AbsoluteUri);
+                    }
                     sb.AppendLine("");
 
                     if (MyAsset.AssetType == AssetType.MediaServicesHLS) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
@@ -2928,13 +2945,13 @@ namespace AMSExplorer
                         // Smooth or multi MP4
                         if (locator.GetSmoothStreamingUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE))
+                            foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._smooth + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
                             }
 
-                            foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE))
+                            foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._smooth_legacy + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
@@ -2943,7 +2960,7 @@ namespace AMSExplorer
 
                         if (locator.GetMpegDashUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE))
+                            foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._dash + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
@@ -2952,12 +2969,12 @@ namespace AMSExplorer
 
                         if (locator.GetHlsUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE))
+                            foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._hls_v4 + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
                             }
-                            foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE))
+                            foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._hls_v3 + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
