@@ -331,7 +331,7 @@ namespace AMSExplorer
 
             if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
             {
-                MessageBox.Show("The account name cannot be empty.");
+                MessageBox.Show(string.Format("The {0} cannot be empty.", labelE1.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 

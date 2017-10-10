@@ -38,6 +38,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.tabControlAMS = new System.Windows.Forms.TabControl();
             this.tabPageCredentials = new System.Windows.Forms.TabPage();
+            this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButtonAADAut = new System.Windows.Forms.RadioButton();
             this.radioButtonACSAut = new System.Windows.Forms.RadioButton();
@@ -95,7 +96,6 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -178,6 +178,13 @@
             this.tabPageCredentials.Controls.Add(this.label3);
             resources.ApplyResources(this.tabPageCredentials, "tabPageCredentials");
             this.tabPageCredentials.Name = "tabPageCredentials";
+            // 
+            // linkLabelAADAut
+            // 
+            resources.ApplyResources(this.linkLabelAADAut, "linkLabelAADAut");
+            this.linkLabelAADAut.Name = "linkLabelAADAut";
+            this.linkLabelAADAut.TabStop = true;
+            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
             // groupBox2
             // 
@@ -563,13 +570,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // linkLabelAADAut
-            // 
-            resources.ApplyResources(this.linkLabelAADAut, "linkLabelAADAut");
-            this.linkLabelAADAut.Name = "linkLabelAADAut";
-            this.linkLabelAADAut.TabStop = true;
-            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
             // AMSLogin
             // 
