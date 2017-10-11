@@ -371,7 +371,26 @@ namespace AMSExplorer
                     // clean rotation
 
 
-                    if (obj.Sources != null)
+
+                    // Cleanr obj.Sources. Only if needed
+                    if (obj.Sources != null
+                        &&
+                        (
+                        (checkBoxUseEDL.CheckState == CheckState.Checked)
+                        ||
+                        (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
+                        ||
+                        (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked)
+                        ||
+                        (_subclipConfig != null)
+                        ||
+                        (checkBoxCropVideo.CheckState == CheckState.Checked)
+                        ||
+                        (comboBoxRotation.SelectedIndex > 0)
+                        ||
+                        (checkBoxDisableAutoDeinterlacing.CheckState == CheckState.Checked)
+                        )
+                       )
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
@@ -388,7 +407,7 @@ namespace AMSExplorer
 
 
                     // Clean Insert silent audio track
-                    if (obj.Codecs != null)
+                    if (checkBoxInsertSilentAudioTrack.CheckState != CheckState.Indeterminate && obj.Codecs != null)
                     {
                         foreach (var codec in obj.Codecs)
                         {
@@ -400,7 +419,7 @@ namespace AMSExplorer
                     }
 
                     // Clean InsertBlackvideo flag
-                    if (obj.Codecs != null)
+                    if (checkBoxInsertBlackVideo.CheckState != CheckState.Indeterminate && obj.Codecs != null)
                     {
                         if (_videostreaminsertedforblackvideo)
                         {
@@ -439,7 +458,7 @@ namespace AMSExplorer
                     }
 
                     // Clean PreserveResolutionAfterRotation
-                    if (obj.Codecs != null)
+                    if (checkBoxPreserveResAfterRotation.CheckState != CheckState.Indeterminate && obj.Codecs != null)
                     {
                         foreach (var codec in obj.Codecs)
                         {
@@ -453,7 +472,7 @@ namespace AMSExplorer
                     }
 
                     // Clean StretchMode
-                    if (obj.Codecs != null)
+                    if (checkBoxDisableAutoStretchMode.CheckState != CheckState.Indeterminate && obj.Codecs != null)
                     {
                         foreach (var codec in obj.Codecs)
                         {
@@ -471,7 +490,9 @@ namespace AMSExplorer
                         var listDelete = new List<dynamic>();
                         foreach (var codec in obj.Codecs)
                         {
-                            if (codec.JpgLayers != null || codec.PngLayers != null || codec.BmpLayers != null)
+                            if ((checkBoxGenThumbnailsJPG.CheckState != CheckState.Indeterminate && codec.JpgLayers != null)
+                                || (checkBoxGenThumbnailsPNG.CheckState != CheckState.Indeterminate && codec.PngLayers != null)
+                                || (checkBoxGenThumbnailsBMP.CheckState != CheckState.Indeterminate && codec.BmpLayers != null))
                             {
                                 listDelete.Add(codec);
                             }
@@ -486,11 +507,13 @@ namespace AMSExplorer
                             if (output.Format != null && output.Format.Type != null && output.Format.Type.Type == JTokenType.String)
                             {
                                 string valuestr = (string)output.Format.Type;
-                                if (valuestr == "MP4Format" && output.Condition != null && output.Condition == "NonInterleaved")
+                                if (valuestr == "MP4Format" && output.Condition != null && checkBoxDoNotInterleave.CheckState != CheckState.Indeterminate && output.Condition == "NonInterleaved")
                                 {
                                     output.Condition.Parent.Remove();
                                 }
-                                if (valuestr == "JpgFormat" || valuestr == "PngFormat" || valuestr == "BmpFormat")
+                                if ((checkBoxGenThumbnailsJPG.CheckState != CheckState.Indeterminate && valuestr == "JpgFormat")
+                                    || (checkBoxGenThumbnailsPNG.CheckState != CheckState.Indeterminate && valuestr == "PngFormat")
+                                    || (checkBoxGenThumbnailsBMP.CheckState != CheckState.Indeterminate && valuestr == "BmpFormat"))
                                 {
                                     listDelete.Add(output);
                                 }
@@ -506,7 +529,7 @@ namespace AMSExplorer
 
 
                     // Trimming
-                    if (checkBoxUseEDL.Checked)  // EDL MODE
+                    if (checkBoxUseEDL.CheckState == CheckState.Checked)  // EDL MODE
                     {
                         if (obj.Sources == null)
                         {
@@ -541,7 +564,7 @@ namespace AMSExplorer
                             }
                         }
                     }
-                    else if (checkBoxSourceTrimmingStart.Checked || checkBoxSourceTrimmingEnd.Checked) // Only start or end or both (no edl)
+                    else if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked || checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) // Only start or end or both (no edl)
                     {
                         if (obj.Sources == null)
                         {
@@ -554,7 +577,7 @@ namespace AMSExplorer
                             time.AssetId = ((Item)comboBoxSourceAsset.SelectedItem).Value;
                         }
 
-                        if (checkBoxSourceTrimmingStart.Checked)
+                        if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
                         {
                             time.StartTime = timeControlStartTime.TimeStampWithOffset;
                             if (checkBoxSourceTrimmingEnd.Checked)
@@ -562,13 +585,13 @@ namespace AMSExplorer
                                 time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset;
                             }
                         }
-                        else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
+                        else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) // only end time specified
                         {
                             time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
                         obj.Sources.Add(time);
                     }
-                    else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
+                    else if ((checkBoxSourceTrimmingStart.CheckState != CheckState.Checked) && (checkBoxSourceTrimmingEnd.CheckState != CheckState.Checked) && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
                     {
                         if (obj.Sources == null)
                         {
@@ -616,7 +639,7 @@ namespace AMSExplorer
 
 
                     // Overlay
-                    if (checkBoxOverlay.Checked)
+                    if (checkBoxOverlay.CheckState == CheckState.Checked)
                     {
                         /*
                         "Sources": [
@@ -787,7 +810,7 @@ namespace AMSExplorer
                     }
 
                     // Video Cropping
-                    if (checkBoxCropVideo.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
+                    if (checkBoxCropVideo.CheckState == CheckState.Checked && buttonRegionEditor.GetSavedPolygonesDecimalMode().Count > 0)
 
                     {
                         /*
@@ -939,7 +962,7 @@ namespace AMSExplorer
 
 
                     // Insert silent audio track
-                    if (checkBoxInsertSilentAudioTrack.Checked)
+                    if (checkBoxInsertSilentAudioTrack.CheckState == CheckState.Checked)
                     {
                         if (obj.Codecs != null)
                         {
@@ -954,7 +977,7 @@ namespace AMSExplorer
                     }
 
                     // Insert PreserveResolutionAfterRotation for video track
-                    if (checkBoxPreserveResAfterRotation.Checked)
+                    if (checkBoxPreserveResAfterRotation.CheckState == CheckState.Checked)
                     {
                         if (obj.Codecs != null)
                         {
@@ -970,7 +993,7 @@ namespace AMSExplorer
 
                     // Insert video at only the lowest bitrate
                     _videostreaminsertedforblackvideo = false;
-                    if (checkBoxInsertVideo.Checked)
+                    if (checkBoxInsertBlackVideo.CheckState == CheckState.Checked)
                     {
                         if (obj.Codecs != null)
                         {
@@ -1015,7 +1038,7 @@ namespace AMSExplorer
                     }
 
                     // Autostrech mode to none ?
-                    if (checkBoxDisableAutoStretchMode.Checked)
+                    if (checkBoxDisableAutoStretchMode.CheckState == CheckState.Checked)
                     {
                         if (obj.Codecs != null)
                         {
@@ -1030,7 +1053,7 @@ namespace AMSExplorer
                     }
 
                     // Insert disable auto deinterlacing
-                    if (checkBoxDisableAutoDeinterlacing.Checked)
+                    if (checkBoxDisableAutoDeinterlacing.CheckState == CheckState.Checked)
                     {
                         if (obj.Sources == null)
                         {
@@ -1076,7 +1099,7 @@ namespace AMSExplorer
                     }
 
                     // non interleave audio and video
-                    if (checkBoxDoNotInterleave.Checked)
+                    if (checkBoxDoNotInterleave.CheckState == CheckState.Checked)
                     {
                         if (obj.Outputs != null)
                         {
@@ -1096,7 +1119,7 @@ namespace AMSExplorer
 
 
                     // Thumbnails settings
-                    if (checkBoxGenThumbnailsJPG.Checked || checkBoxGenThumbnailsPNG.Checked || checkBoxGenThumbnailsBMP.Checked)
+                    if (checkBoxGenThumbnailsJPG.CheckState == CheckState.Checked || checkBoxGenThumbnailsPNG.CheckState == CheckState.Checked || checkBoxGenThumbnailsBMP.CheckState == CheckState.Checked)
                     {
                         if (obj.Codecs == null)
                         {
@@ -1109,19 +1132,19 @@ namespace AMSExplorer
                             obj.Outputs = new JArray() as dynamic;
                         }
 
-                        if (checkBoxGenThumbnailsJPG.Checked)
+                        if (checkBoxGenThumbnailsJPG.CheckState == CheckState.Checked)
                         {
                             AddThumbnailJSON(ref obj, ThumbnailType.Jpg, textBoxThFileNameJPG.Text,
                                             checkBoxBestJPG.Checked ? strBest : textBoxThTimeStartJPG.Text,
                                             textBoxThTimeStepJPG.Text, textBoxThTimeRangeJPG.Text, (int)numericUpDownThWidthJPG.Value, (int)numericUpDownThHeightJPG.Value, checkBoxPresResRotJPG.Checked, radioButtonPixelsJPG.Checked, (int)numericUpDownThQuality.Value);
                         }
-                        if (checkBoxGenThumbnailsPNG.Checked)
+                        if (checkBoxGenThumbnailsPNG.CheckState == CheckState.Checked)
                         {
                             AddThumbnailJSON(ref obj, ThumbnailType.Png, textBoxThFileNamePNG.Text,
                                             checkBoxBestPNG.Checked ? strBest : textBoxThTimeStartPNG.Text,
                                             textBoxThTimeStepPNG.Text, textBoxThTimeRangePNG.Text, (int)numericUpDownThWidthPNG.Value, (int)numericUpDownThHeightPNG.Value, checkBoxPresResRotPNG.Checked, radioButtonPixelsPNG.Checked);
                         }
-                        if (checkBoxGenThumbnailsBMP.Checked)
+                        if (checkBoxGenThumbnailsBMP.CheckState == CheckState.Checked)
                         {
                             AddThumbnailJSON(ref obj, ThumbnailType.Bmp, textBoxThFileNameBMP.Text,
                                             checkBoxBestBMP.Checked ? strBest : textBoxThTimeStartBMP.Text,
@@ -1672,7 +1695,7 @@ namespace AMSExplorer
 
         private void checkBoxInsertVideo_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonOnlyLowestBitrate.Enabled = radioButtonAllBitrates.Enabled = checkBoxInsertVideo.Checked;
+            radioButtonOnlyLowestBitrate.Enabled = radioButtonAllBitrates.Enabled = checkBoxInsertBlackVideo.CheckState == CheckState.Checked;
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
