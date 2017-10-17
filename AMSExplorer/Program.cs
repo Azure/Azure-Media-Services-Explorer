@@ -683,63 +683,6 @@ namespace AMSExplorer
             {
 
             }
-
-            /*
-            try
-            {
-                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
-                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
-
-                if (connStrings != null)
-                {
-                    if (!connStrings.SectionInformation.IsProtected)
-                    {
-                        if (!connStrings.ElementInformation.IsLocked)
-                        {
-                            connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                            connStrings.SectionInformation.ForceSave = true;
-                            config.Save(ConfigurationSaveMode.Full);
-                        }
-                    }
-                }
-            }
-
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Step2 " + e.Message);
-            }
-             * */
-
-
-            // let's decrypt as encryption create issues with some users
-            try
-            {
-                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
-                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
-
-                if (connStrings != null)
-                {
-                    if (connStrings.SectionInformation.IsProtected)
-                    {
-                        if (!connStrings.ElementInformation.IsLocked)
-                        {
-                            connStrings.SectionInformation.UnprotectSection();
-                            connStrings.SectionInformation.ForceSave = true;
-                            config.Save(ConfigurationSaveMode.Full);
-                        }
-                    }
-                }
-            }
-
-
-            catch (Exception e)
-            {
-                MessageBox.Show("Error " + e.Message);
-            }
-
         }
 
 

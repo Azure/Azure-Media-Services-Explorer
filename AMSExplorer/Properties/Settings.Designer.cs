@@ -25,17 +25,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection LoginList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["LoginList"]));
-            }
-            set {
-                this["LoginList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string WAMEPresetXMLFilesCurrentFolder {
             get {
@@ -500,18 +489,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["LoginListJSON"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MigratedLoginListToJSON {
-            get {
-                return ((bool)(this["MigratedLoginListToJSON"]));
-            }
-            set {
-                this["MigratedLoginListToJSON"] = value;
             }
         }
         

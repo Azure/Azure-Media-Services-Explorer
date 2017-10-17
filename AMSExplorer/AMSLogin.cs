@@ -50,9 +50,6 @@ namespace AMSExplorer
         private bool pageTabAADPresent = true;
         private bool pageTabACSPresent = true;
 
-
-       
-
         public CloudMediaContext context;
         public string accountName;
 
@@ -109,81 +106,16 @@ namespace AMSExplorer
             labelEntry1 = labelE1.Text.Split('|');
             labelEntry2 = labelE2.Text.Split('|');
 
-            var CredentialsList = Properties.Settings.Default.LoginList;
-
-            // let's purge the old list now.
-            if (CredentialsList != null && CredentialsList.Count > 0) Properties.Settings.Default.LoginList.Clear();
-
-            // OLD MODE. XML properties for account entries
-            if (!Properties.Settings.Default.MigratedLoginListToJSON && CredentialsList != null && CredentialsList.Count > 0)
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
             {
-                /*
-                try
-                {
-                    if (CredentialsList != null && CredentialsList.Count > 0)
-                    {
-                        for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
-                            listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
-                        buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
-                    }
-                    else
-                    {
-                        // if null or empty, let's create it
-                        CredentialsList = new StringCollection();
-                    }
-                }
-                catch // error, let's purge all
-                {
-                    MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted);
-                    Properties.Settings.Default.LoginList.Clear();
-                    Program.SaveAndProtectUserConfig();
-                    listBoxAcounts.Items.Clear();
-                }
-
-                // Migration to JSON
-
-                for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
-                {
-
-                    CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
-                        CredentialsList[i * CredentialsEntry.StringsCount],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 1],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 2],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 3],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 4] == true.ToString() ? true : false,
-                        CredentialsList[i * CredentialsEntry.StringsCount + 5] == true.ToString() ? true : false,
-                        CredentialsList[i * CredentialsEntry.StringsCount + 6],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 7],
-                        CredentialsList[i * CredentialsEntry.StringsCount + 8],
-                        ReturnAzureEndpoint(CredentialsList[i * CredentialsEntry.StringsCount + 9]),
-                        ReturnManagementPortal(CredentialsList[i * CredentialsEntry.StringsCount + 9])
-                    ));
-                }
-
-                var NewCredentialListJSON = JsonConvert.SerializeObject(CredentialList);
-                Properties.Settings.Default.LoginListJSON = NewCredentialListJSON;
-                Properties.Settings.Default.MigratedLoginListToJSON = true;
-                Program.SaveAndProtectUserConfig();
-    */
-                MessageBox.Show("Please use an older version of AMSE to migrate your data");
-                Environment.Exit(0);
-
+                // JSon deserialize
+                CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
+                // Display accounts in the list
+                CredentialList.MediaServicesAccounts.ForEach(c =>
+                    AddItemToListviewAccounts(c)
+                );
             }
-            else // Standard mode. New installation or migration already done
-            {
-                if (!Properties.Settings.Default.MigratedLoginListToJSON)
-                {
-                    Properties.Settings.Default.MigratedLoginListToJSON = true;
-                    Program.SaveAndProtectUserConfig();
-                }
-
-                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
-                {
-                    CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
-                }
-                buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
-            }
+            buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
@@ -191,12 +123,9 @@ namespace AMSExplorer
             foreach (var map in CredentialsEntry.ACSMappings)
             {
                 comboBoxMappingList.Items.Add(map.Name);
-
             }
             comboBoxMappingList.SelectedIndex = 0;
 
-
-            //comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvironments.AzureCloudEnvironment)));
             comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvironments.AzureChinaCloudEnvironment)));
             comboBoxAADMappingList.Items.Add(new Item("Azure Germany", nameof(AzureEnvironments.AzureGermanCloudEnvironment)));
             comboBoxAADMappingList.Items.Add(new Item("Azure US Government", nameof(AzureEnvironments.AzureUsGovernmentEnvironment)));
@@ -208,9 +137,23 @@ namespace AMSExplorer
 
             UpdateTexboxUI();
             UpdateAADSettingsTextBoxes();
-
         }
 
+        private void AddItemToListviewAccounts(CredentialsEntry c)
+        {
+            var item = listViewAccounts.Items.Add(ReturnAccountName(c));
+            if (!c.UseAADInteract && !c.UseAADServicePrincipal)
+            {
+                listViewAccounts.Items[item.Index].ForeColor = Color.Red;
+                listViewAccounts.Items[item.Index].ToolTipText = "Configured for ACS authentication. Please use Azure Active Directory.";
+            }
+            else
+            {
+                listViewAccounts.Items[item.Index].ForeColor = Color.Black;
+                listViewAccounts.Items[item.Index].ToolTipText = null;
+
+            }
+        }
 
         private string ReturnDeploymentName()
         {
@@ -296,7 +239,9 @@ namespace AMSExplorer
             else
             {
                 CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-                listBoxAcounts.Items.Add(ReturnAccountName(LoginCredentials));
+                //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
+                AddItemToListviewAccounts(LoginCredentials);
+
             }
             Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
             Program.SaveAndProtectUserConfig();
@@ -304,19 +249,19 @@ namespace AMSExplorer
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
         {
-            int index = listBoxAcounts.SelectedIndex;
+            int index = listViewAccounts.SelectedIndices[0];
             if (index > -1)
             {
                 CredentialList.MediaServicesAccounts.RemoveAt(index);
                 Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                 Program.SaveAndProtectUserConfig();
 
-                listBoxAcounts.Items.Clear();
-                CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
+                listViewAccounts.Items.Clear();
+                CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /*listViewAccounts.Items.Add(ReturnAccountName(c))*/);
 
-                if (listBoxAcounts.Items.Count > 0)
+                if (listViewAccounts.Items.Count > 0)
                 {
-                    listBoxAcounts.SelectedIndex = 0;
+                    listViewAccounts.Items[0].Selected = true;
                 }
                 else
                 {
@@ -367,7 +312,8 @@ namespace AMSExplorer
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
 
-                    listBoxAcounts.Items.Add(ReturnAccountName(LoginCredentials));
+                    AddItemToListviewAccounts(LoginCredentials);
+                    //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -432,13 +378,13 @@ namespace AMSExplorer
         }
 
 
-        private void listBoxAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoginCredentials = GenerateLoginCredentials;
 
-            buttonDeleteAccountEntry.Enabled = (listBoxAcounts.SelectedIndex > -1); // no selected item, so login button not active
-            buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
-            if (listBoxAcounts.SelectedIndex > -1) // one selected
+            buttonDeleteAccountEntry.Enabled = (listViewAccounts.SelectedIndices.Count > 0); // no selected item, so login button not active
+            buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
+            if (listViewAccounts.SelectedIndices.Count > 0) // one selected
             {
                 if (LoginCredentials != null)
                 {
@@ -456,7 +402,7 @@ namespace AMSExplorer
                     }
                 }
 
-                var entry = CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex];
+                var entry = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
                 radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
                 radioButtonAADServicePrincipal.Checked = entry.UseAADServicePrincipal;
@@ -548,7 +494,12 @@ namespace AMSExplorer
             radioButtonACSAut.Checked = false;
             radioButtonAADInteractive.Checked = true;
 
-            listBoxAcounts.ClearSelected();
+            int i = 0;
+            foreach (var item in listViewAccounts.Items)
+            {
+                listViewAccounts.Items[i].Selected = false;
+                i++;
+            }
         }
 
         private void radioButtonOther_CheckedChanged(object sender, EventArgs e)
@@ -567,7 +518,7 @@ namespace AMSExplorer
         {
             bool exportAll = true;
 
-            if (CredentialList.MediaServicesAccounts.Count > 1 && listBoxAcounts.SelectedIndex > -1) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
+            if (CredentialList.MediaServicesAccounts.Count > 1 && listViewAccounts.SelectedIndices.Count > 0) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
             {
                 var diag = System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_ExportAllEntries, System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 switch (diag)
@@ -598,7 +549,7 @@ namespace AMSExplorer
                     else
                     {
                         var copyEntry = new ListCredentials();
-                        copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listBoxAcounts.SelectedIndex]);
+                        copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]]);
                         System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, settings));
                     }
                 }
@@ -685,10 +636,10 @@ namespace AMSExplorer
 
                         }
 
-                        listBoxAcounts.Items.Clear();
+                        listViewAccounts.Items.Clear();
                         DoClearFields();
-                        CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
-                        buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
+                        CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /* listViewAccounts.Items.Add(ReturnAccountName(c))*/);
+                        buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                         // let's save the list of credentials in settings
                         Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
@@ -715,10 +666,10 @@ namespace AMSExplorer
                     var ImportedCredentialList = (ListCredentials)JsonConvert.DeserializeObject(json, typeof(ListCredentials));
                     CredentialList.MediaServicesAccounts.AddRange(ImportedCredentialList.MediaServicesAccounts);
 
-                    listBoxAcounts.Items.Clear();
+                    listViewAccounts.Items.Clear();
                     DoClearFields();
-                    CredentialList.MediaServicesAccounts.ForEach(c => listBoxAcounts.Items.Add(ReturnAccountName(c)));
-                    buttonExport.Enabled = (listBoxAcounts.Items.Count > 0);
+                    CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /* listViewAccounts.Items.Add(ReturnAccountName(c))*/);
+                    buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
