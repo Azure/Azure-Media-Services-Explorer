@@ -2885,14 +2885,14 @@ namespace AMSExplorer
             {
                 var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
 
-                if ( form.ShowDialog() ==  DialogResult.OK)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
                     Task.Run(async () =>
                     {
                         bool Error = false;
                         try
                         {
-                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a,form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             TextBoxLogWriteLine("Deleting asset(s)");
                             Task.WaitAll(deleteTasks);
                         }
@@ -4697,13 +4697,13 @@ namespace AMSExplorer
 
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow);
 
-            string taskname = "Premium Workflow Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
+            string taskname = string.Format("{0} - MEPW v{1} - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow);
             this.Cursor = Cursors.WaitCursor;
             EncodingPremium form = new EncodingPremium(_context, processor.Version)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
-                EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded",
+                EncodingJobName = string.Format("{0} - MEPW - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow),
+                EncodingOutputAssetName = string.Format("{0} - MEPW v{1} - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow),
                 EncodingNumberOfInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
 
@@ -4726,12 +4726,12 @@ namespace AMSExplorer
                 // multiple jobs: one job for each input asset
                 foreach (IAsset asset in SelectedAssets)
                 {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, string.Join(" ", form.SelectedPremiumWorkflows.Select(g => g.Name)));
 
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                     foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
                     {
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
 
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
@@ -4742,7 +4742,7 @@ namespace AMSExplorer
                         // Specify the graph asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.Add(graphAsset);
                         task.InputAssets.Add(asset); // we add one asset
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
 
                         task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
                     }
@@ -13865,7 +13865,7 @@ namespace AMSExplorer
                     MultipleInputAssets = true;
             }
 
-            string taskname = string.Format("Media Encoder Standard processing of {0} with {1}", Constants.NameconvInputasset, Constants.NameconvEncodername);
+            string taskname = string.Format("{0} - MES v{1}", Constants.NameconvInputasset, Constants.NameconvProcessorversion);
 
             var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
@@ -13883,7 +13883,6 @@ namespace AMSExplorer
                 label = "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).";
             }
 
-
             EncodingMES form = new EncodingMES(_context,
                 MultipleInputAssets ? SelectedAssets : new List<IAsset>(),
                 processor.Version,
@@ -13892,8 +13891,8 @@ namespace AMSExplorer
                 main: this)
             {
                 EncodingLabel = label,
-                EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
+                EncodingJobName = string.Format("{0} - MES", Constants.NameconvInputasset),
+                EncodingOutputAssetName = string.Format("{0} - MES v{1}", Constants.NameconvInputasset, Constants.NameconvProcessorversion),
                 EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
                 EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
                 SelectedAssets = SelectedAssets
@@ -13909,7 +13908,7 @@ namespace AMSExplorer
                     bool Error = false;
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvProcessorversion, processor.Version);
                     ITask AMEStandardTask = job.Tasks.AddNew(
                         tasknameloc,
                         processor,
@@ -13920,7 +13919,7 @@ namespace AMSExplorer
                     AMEStandardTask.InputAssets.AddRange(form.SelectedAssets);
 
                     // Add an output asset to contain the results of the job.  
-                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
+                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvProcessorversion, processor.Version);
                     AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                     // Submit the job  
@@ -13950,7 +13949,8 @@ namespace AMSExplorer
                         bool Error = false;
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
                         IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
+
                         ITask AMEStandardTask = job.Tasks.AddNew(
                             tasknameloc,
                             processor,
@@ -13961,7 +13961,8 @@ namespace AMSExplorer
                         AMEStandardTask.InputAssets.Add(asset);
 
                         // Add an output asset to contain the results of the job.  
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
+
                         AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
 
                         // Submit the job  

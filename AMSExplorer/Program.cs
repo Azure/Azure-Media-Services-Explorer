@@ -909,6 +909,7 @@ namespace AMSExplorer
         public const string NameconvFormathls = "{Format}";
         public const string NameconvEncodername = "{Encoder}";
         public const string NameconvProcessorname = "{Processor}";
+        public const string NameconvProcessorversion = "{Processor Version}";
         public const string NameconvChannel = "{Channel}";
         public const string NameconvProgram = "{Program}";
         public const string NameconvProtocols = "{Protocols}";
