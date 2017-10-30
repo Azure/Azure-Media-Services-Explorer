@@ -601,7 +601,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, bool widevineAcquisitionURLFinal = false, string fairplayAcquisitionUrl = null, bool fairplayAcquisitionURLFinal = false, string iv_if_externalserver = null, bool UseSKDForAMSLAURL = true)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null, bool widevineAcquisitionURLFinal = false, string fairplayAcquisitionUrl = null, bool fairplayAcquisitionURLFinal = false, string iv_if_externalserver = null, bool UseSKDForAMSLAURL = true, bool FairplayAllowPersistentLicense=false)
         {
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
@@ -695,6 +695,12 @@ namespace AMSExplorer
                     assetDeliveryPolicyConfiguration.Add(fairplayAcquisitionURLFinal ? AssetDeliveryPolicyConfigurationKey.FairPlayLicenseAcquisitionUrl : AssetDeliveryPolicyConfigurationKey.FairPlayBaseLicenseAcquisitionUrl, fairplayAcquisitionUrl);
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.CommonEncryptionIVForCbcs, iv_if_externalserver);
                 }
+
+                // offline mode
+                if (FairplayAllowPersistentLicense)
+                {
+                    assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.AllowPersistentLicense, "true");
+                }
             }
 
 
@@ -710,13 +716,12 @@ namespace AMSExplorer
                 protocol = AssetDeliveryProtocol.HLS;
             }
 
-
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
-                                                                            name,
-                                                                            form1.FairPlayPackaging ? AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs : AssetDeliveryPolicyType.DynamicCommonEncryption,
-                                                                            protocol,
-                                                                            assetDeliveryPolicyConfiguration
-                                                                            );
+                                                                 name,
+                                                                 form1.FairPlayPackaging ? AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs : AssetDeliveryPolicyType.DynamicCommonEncryption,
+                                                                 protocol,
+                                                                 assetDeliveryPolicyConfiguration
+                                                                 );
 
             // Add AssetDelivery Policy to the asset
             asset.DeliveryPolicies.Add(assetDeliveryPolicy);
@@ -724,11 +729,14 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, byte[] iv, PFXCertificate certificate)
+        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, byte[] iv, PFXCertificate certificate, bool EnablePersistent)
         {
             // For testing you can provide all zeroes for ASK bytes together with the cert from Apple FPS SDK. 
             // However, for production you must use a real ASK from Apple bound to a real prod certificate.
             //byte[] askBytes = Guid.NewGuid().ToByteArray();
+
+            string FairPlayConfiguration;
+
 
             var askId = Guid.NewGuid();
             // Key delivery retrieves askKey by askId and uses this key to generate the response.
@@ -756,13 +764,28 @@ namespace AMSExplorer
                 iv = Guid.NewGuid().ToByteArray();
             }
 
-            string FairPlayConfiguration =
-                Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
+
+            if (EnablePersistent)
+            {
+                FairPlayConfiguration = Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
+                   certificate.Certificate,
+                    certificate.Password,
+                    pfxPasswordId,
+                    askId,
+                    iv,
+                    RentalAndLeaseKeyType.PersistentUnlimited,
+                    0x9999);
+            }
+            else
+            {
+                FairPlayConfiguration = Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
                     certificate.Certificate,
                     certificate.Password,
                     pfxPasswordId,
                     askId,
                     iv);
+            }
+
 
             return FairPlayConfiguration;
         }

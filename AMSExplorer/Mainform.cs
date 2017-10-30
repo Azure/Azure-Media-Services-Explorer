@@ -10688,8 +10688,10 @@ namespace AMSExplorer
                                 bool NeedToDisplayFairPlayLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0;
 
                                 List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
+                                List<AddDynamicEncryptionFrame5_FairplayLicense> form5list = new List<AddDynamicEncryptionFrame5_FairplayLicense>();
 
-                                bool usercancelledform4 = false;
+
+                                bool usercancelledform4or5 = false;
 
                                 if (!form1.SelectExistingPolicies) // user did not select an existing authorization policy
                                 {
@@ -10704,17 +10706,30 @@ namespace AMSExplorer
                                             step++;
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
+                                            AddDynamicEncryptionFrame5_FairplayLicense form5_FairPlayLicense = new AddDynamicEncryptionFrame5_FairplayLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
+
+                                            step++;
+
+                                            if (form5_FairPlayLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            {
+                                                form5list.Add(form5_FairPlayLicense);
+                                            }
+                                            else
+                                            {
+                                                usercancelledform4or5 = true;
+                                            }
                                         }
                                         else
                                         {
-                                            usercancelledform4 = true;
+                                            usercancelledform4or5 = true;
                                         }
                                     }
                                 }
 
-                                if (!usercancelledform4)
+                                if (!usercancelledform4or5)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_ExistingPolicies, form3_CENC, form4list, true);
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(SelectedAssets, form1, form2_CENC_Cbcs, form3_ExistingPolicies, form3_CENC, form4list, form5list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -11146,7 +11161,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENCCbcs(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig form2_CENC_cbcs, AddDynamicEncryptionFrame3_ExistingPolicies form3_ExistingPolicies, AddDynamicEncryptionFrame3_CENC_Cbcs_Delivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_FairplayLicense> form5list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             IContentKey formerkey = null;
@@ -11290,12 +11305,16 @@ namespace AMSExplorer
                             currentAssetKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
                             currentAssetKey = currentAssetKey.UpdateAsync().Result;
 
-                            string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form3_CENC.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate);
 
                             foreach (var form4 in form4list)
                             { // for each option
 
                                 IContentKeyAuthorizationPolicyOption policyOption = null;
+
+                                // Fairplay persistent or not
+                                var isPersistent = form5list[form4list.IndexOf(form4)].EnablePersistent;
+                                string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form3_CENC.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate, isPersistent);
+
                                 try
                                 {
                                     string tokentype = form4.GetKeyRestrictionType == ContentKeyRestrictionType.TokenRestricted ? " " + form4.GetDetailedTokenType.ToString() : "";
@@ -11409,7 +11428,8 @@ namespace AMSExplorer
                                     fairplayAcquisitionUrl: form3_CENC.GetNumberOfAuthorizationPolicyOptionsFairPlay > 0 ? null : form3_CENC.FairPlayLAurl,
                                     fairplayAcquisitionURLFinal: form3_CENC.FairPlayFinalLAurl,
                                     iv_if_externalserver: myIV,
-                                    UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD
+                                    UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD,
+                                    FairplayAllowPersistentLicense : isPersistent
                                        );
 
                                 TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
