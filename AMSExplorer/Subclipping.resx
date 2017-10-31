@@ -124,6 +124,9 @@
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="buttonClose.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
     <value>772, 14</value>
@@ -155,6 +158,9 @@
   </data>
   <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
+  </data>
+  <data name="buttonOk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>638, 14</value>
@@ -279,6 +285,9 @@
   <data name="labelassetname.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="labelassetname.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelassetname.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 11</value>
   </data>
@@ -353,6 +362,9 @@
   </data>
   <data name="labelOffset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labelOffset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelOffset.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 166</value>
@@ -429,6 +441,9 @@
   <data name="labelassetduration.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="labelassetduration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelassetduration.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 62</value>
   </data>
@@ -458,6 +473,9 @@
   </data>
   <data name="labelAssetTimescale.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labelAssetTimescale.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelAssetTimescale.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 114</value>
@@ -519,6 +537,9 @@
   <data name="buttonAddEDLEntry.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="buttonAddEDLEntry.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonAddEDLEntry.Location" type="System.Drawing.Point, System.Drawing">
     <value>303, 3</value>
   </data>
@@ -549,6 +570,9 @@
   <data name="buttonShowEDL.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="buttonShowEDL.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonShowEDL.Location" type="System.Drawing.Point, System.Drawing">
     <value>194, 3</value>
   </data>
@@ -565,7 +589,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=4.0.6.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
@@ -581,6 +605,9 @@
   </data>
   <data name="checkBoxUseEDL.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="checkBoxUseEDL.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="checkBoxUseEDL.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 8</value>
@@ -666,6 +693,9 @@
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>392, 357</value>
   </data>
@@ -695,6 +725,9 @@
   </data>
   <data name="labelAccurate.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="labelAccurate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelAccurate.Location" type="System.Drawing.Point, System.Drawing">
     <value>208, 23</value>
@@ -769,7 +802,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=4.0.6.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -799,7 +832,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=4.0.6.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -818,6 +851,9 @@
   </data>
   <data name="checkBoxPreviewStream.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="checkBoxPreviewStream.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="checkBoxPreviewStream.Location" type="System.Drawing.Point, System.Drawing">
     <value>416, 23</value>
@@ -848,6 +884,9 @@
   </data>
   <data name="checkBoxTrimming.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="checkBoxTrimming.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="checkBoxTrimming.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 22</value>
@@ -900,14 +939,50 @@
   <data name="&gt;&gt;groupBoxTrimming.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="radioButtonArchiveLowBitrate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 55</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 19</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.TabIndex" type="System.Int32, mscorlib">
+    <value>138</value>
+  </data>
+  <data name="radioButtonArchiveLowBitrate.Text" xml:space="preserve">
+    <value>Archive Lowest Bitrate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonArchiveLowBitrate.Name" xml:space="preserve">
+    <value>radioButtonArchiveLowBitrate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonArchiveLowBitrate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonArchiveLowBitrate.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonArchiveLowBitrate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 212</value>
+    <value>43, 222</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 15</value>
@@ -928,7 +1003,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="radioButtonAssetFilter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -936,8 +1011,11 @@
   <data name="radioButtonAssetFilter.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="radioButtonAssetFilter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonAssetFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 189</value>
+    <value>21, 204</value>
   </data>
   <data name="radioButtonAssetFilter.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 19</value>
@@ -958,7 +1036,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;radioButtonAssetFilter.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -966,8 +1044,11 @@
   <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 159</value>
+    <value>43, 177</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 15</value>
@@ -988,7 +1069,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -996,8 +1077,11 @@
   <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 106</value>
+    <value>43, 127</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 15</value>
@@ -1018,7 +1102,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1026,8 +1110,11 @@
   <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 53</value>
+    <value>43, 77</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 15</value>
@@ -1048,13 +1135,16 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="radioButtonArchiveTopBitrate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="radioButtonArchiveTopBitrate.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonArchiveTopBitrate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonArchiveTopBitrate.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 30</value>
@@ -1078,7 +1168,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;radioButtonArchiveTopBitrate.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="radioButtonArchiveAllBitrate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1086,8 +1176,11 @@
   <data name="radioButtonArchiveAllBitrate.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="radioButtonArchiveAllBitrate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonArchiveAllBitrate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 83</value>
+    <value>21, 105</value>
   </data>
   <data name="radioButtonArchiveAllBitrate.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 19</value>
@@ -1108,7 +1201,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;radioButtonArchiveAllBitrate.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="radioButtonClipWithReencode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1116,8 +1209,11 @@
   <data name="radioButtonClipWithReencode.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
+  <data name="radioButtonClipWithReencode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonClipWithReencode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 136</value>
+    <value>21, 155</value>
   </data>
   <data name="radioButtonClipWithReencode.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 19</value>
@@ -1138,7 +1234,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;radioButtonClipWithReencode.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
@@ -1194,6 +1290,9 @@
   <data name="&gt;&gt;tabPageTR.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="labelNoJSONBecauseReencoding.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelNoJSONBecauseReencoding.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 46</value>
   </data>
@@ -1223,6 +1322,9 @@
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 16</value>
@@ -1338,6 +1440,9 @@
   <data name="label34.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 14.25pt, style=Bold</value>
   </data>
+  <data name="label34.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
     <value>569, 14</value>
   </data>
@@ -1419,6 +1524,9 @@
   <data name="buttonJobOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="buttonJobOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonJobOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>736, 33</value>
   </data>
@@ -1435,7 +1543,7 @@
     <value>buttonJobOptions</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=3.48.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonJobOptions, AMSExplorer, Version=4.0.6.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonJobOptions.Parent" xml:space="preserve">
     <value>panelJob</value>
@@ -1448,6 +1556,9 @@
   </data>
   <data name="labeloutputasset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labeloutputasset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labeloutputasset.Location" type="System.Drawing.Point, System.Drawing">
     <value>31, 70</value>
@@ -1478,6 +1589,9 @@
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>31, 14</value>
@@ -1527,6 +1641,9 @@
   <data name="moreinfoprofilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="moreinfoprofilelink.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 14</value>
   </data>
@@ -1553,6 +1670,9 @@
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
