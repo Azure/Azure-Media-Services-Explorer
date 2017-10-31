@@ -673,7 +673,8 @@ namespace AMSExplorer
             return dialogResult;
         }
 
-        public static void SaveAndProtectUserConfig()
+
+    public static void SaveAndProtectUserConfig()
         {
             try
             {

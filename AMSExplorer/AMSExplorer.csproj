@@ -171,6 +171,12 @@
     <Compile Include="DeleteKeyAndPolicy.Designer.cs">
       <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayBox.Designer.cs">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame2_CENC_Cbcs_KeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -953,6 +959,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
       <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayBox.resx">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.ja.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
