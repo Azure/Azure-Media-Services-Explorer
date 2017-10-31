@@ -73,7 +73,6 @@ namespace AMSExplorer
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
-        private bool AMIndexerV2Present = true;
         private bool AMVideoOCRPresent = true;
         private bool AMContentModerator = true;
         private bool AMVideoAnnotator = true;
@@ -259,12 +258,6 @@ namespace AMSExplorer
                 AMVideoThumbnailsPresent =
                 ProcessVideoThumbnailstoolStripMenuItem.Visible =
                 toolStripMenuItemVideoThumbnails.Visible = false;
-            }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview) == null)
-            {
-                AMIndexerV2Present =
-                toolStripMenuItemIndexv2.Visible =
-                toolStripMenuItem38Indexer2.Visible = false;
             }
             if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
             {
@@ -5743,7 +5736,16 @@ namespace AMSExplorer
             //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
+
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2);
+            if (processor == null)
+            {
+                processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
+            }
+            if (processor == null)
+            {
+                return;
+            }
 
             var form = new IndexerV2(_context, processor.Version)
             {
@@ -7999,13 +8001,6 @@ namespace AMSExplorer
             {
                 ProcessVideoThumbnailstoolStripMenuItem.Enabled =
                 toolStripMenuItemVideoThumbnails.Enabled = false;
-            }
-
-            // let's disable Indexer v2 if not present
-            if (!AMIndexerV2Present)
-            {
-                toolStripMenuItemIndexv2.Enabled =
-                toolStripMenuItem38Indexer2.Enabled = false;
             }
 
             // let's disable Video OCR if not present

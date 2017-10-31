@@ -892,6 +892,7 @@ namespace AMSExplorer
         public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
         public const string AzureMediaIndexer = "Azure Media Indexer";
         public const string AzureMediaIndexer2Preview = "Azure Media Indexer 2 Preview";
+        public const string AzureMediaIndexer2 = "Azure Speech Analyzer";
         public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
         public const string AzureMediaFaceDetector = "Azure Media Face Detector";
         public const string AzureMediaRedactor = "Azure Media Redactor";
