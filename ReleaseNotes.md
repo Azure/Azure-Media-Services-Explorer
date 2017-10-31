@@ -1,7 +1,8 @@
-Version 4.0.1.0 (July 28, 2017) brings the following feature and improvement :
+Version 4.1.0.0 (October 31, 2017) brings the following features and improvements :
 
-* Supports a new preset for Media Encoder Standard : "Content Adaptive Multiple Bitrate MP4"
-  *  This is an automatic preset which muxes the audio stream in each MP4 file 
-  *  Designed for Streaming and Progressive Download
-  *  This is now the default preset
-* Fixes a bug that was preventing AMSE to connect to other environment than Azure Global
+* Support for lowest bitrate subclipping
+* Update to Redaction media processor (now GA). New blur modes (high, med, low, black, box)
+* Update to Media Encoder Standard UI (some checkboxes have 3 states)
+* Warning for accounts which use ACS authentication
+* Uses the local character separator for CSV export
+* Fixes an issue with the player in subclipping, and another issue with asset report
