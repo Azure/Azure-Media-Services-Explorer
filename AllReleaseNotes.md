@@ -1,4 +1,4 @@
-Version 4.1.0.0 (October 31, 2017) brings the following features and improvements :
+Version 4.1.1.0 (November 2, 2017) brings the following features and improvements :
 
 * Support for lowest bitrate subclipping
 * Update to Redaction media processor (now GA). New blur modes (high, med, low, black, box)
