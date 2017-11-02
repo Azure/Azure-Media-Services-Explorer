@@ -615,7 +615,7 @@ namespace AMSExplorer
                     if (locator.Type == LocatorType.OnDemandOrigin)
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, false, SelectedSEHostName))
+                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName))
                      ));
 
                         int indexn = 1;
