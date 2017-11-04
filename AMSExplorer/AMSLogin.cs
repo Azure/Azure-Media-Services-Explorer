@@ -311,7 +311,7 @@ namespace AMSExplorer
             // OLD ACS Mode - let's warm the user
             if (!LoginCredentials.UseAADServicePrincipal && !LoginCredentials.UseAADInteract)
             {
-                var f = new DisplayBox("Warning", "ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible.", 10);
+                var f = new DisplayBox("Warning", AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_ACSAuthenticationWarning, 10);
                 f.ShowDialog();
             }
 
