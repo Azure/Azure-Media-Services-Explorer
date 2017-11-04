@@ -165,7 +165,18 @@ namespace AMSExplorer.Properties {
                         "emWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the credentials for {0} ?.
+        /// </summary>
+        internal static string AMSLogin_buttonLogin_Click_ACSAuthenticationWarning
+        {
+            get
+            {
+                return ResourceManager.GetString("AMSLogin_buttonLogin_Click_ACSAuthenticationWarning", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Do you want to save the credentials for {0} ?.
         /// </summary>

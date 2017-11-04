@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -793,5 +793,8 @@
   </data>
   <data name="EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset" xml:space="preserve">
     <value>ソースアセットのファイルを選択</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_ACSAuthenticationWarning" xml:space="preserve">
+    <value>Azure Media Services の ACS トークン認証は 2018/06/01 をもってサポートが終了となります。 Azure AD認証へ移行するようお願い致します。</value>
   </data>
 </root>

@@ -1348,4 +1348,7 @@ The first entry '{0}' will be used.</value>
   <data name="AssetInformation_AssetInformation_Load_FormatOption" xml:space="preserve">
     <value>Format Option</value>
   </data>
+  <data name="AMSLogin_buttonLogin_Click_ACSAuthenticationWarning" xml:space="preserve">
+    <value>ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible.</value>
+  </data>
 </root>
