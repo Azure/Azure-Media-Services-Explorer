@@ -63,7 +63,7 @@ namespace AMSExplorer
             get
             {
                 string mgtprtal = "";
-                if (radioButtonAADAut.Checked && ReturnDeploymentName() == CustomString)
+                if (radioButtonAADAut.Checked /*&& ReturnDeploymentName() == CustomString*/)
                 {
                     mgtprtal = textBoxAADManagementPortal.Text;
                 }
