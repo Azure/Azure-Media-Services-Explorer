@@ -8390,7 +8390,6 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[5].Width = 144;
             }
             dataGridViewFilters.Rows.Clear();
-            //List<Filter> filters = _contextdynmanifest.ListGlobalFilters();
 
             foreach (var filter in _context.Filters)
             {
@@ -8427,7 +8426,15 @@ namespace AMSExplorer
                     d = (dvr != null) ? ((TimeSpan)dvr).ToString(@"d\.hh\:mm\:ss") : "max";
                     l = (live != null) ? ((TimeSpan)live).ToString(@"d\.hh\:mm\:ss") : "min";
                 }
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                try
+                {
+                    var nbtracks = filter.Tracks.Count;
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                }
+                catch
+                {
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
+                }
             }
             tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", _context.Filters.Count());
         }
