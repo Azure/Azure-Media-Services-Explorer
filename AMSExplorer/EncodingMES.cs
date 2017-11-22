@@ -371,7 +371,7 @@ namespace AMSExplorer
 
 
 
-                    // Cleanr obj.Sources. Only if needed
+                    // Clean obj.Sources. Only if needed
                     if (obj.Sources != null
                         &&
                         (
@@ -388,8 +388,10 @@ namespace AMSExplorer
                         (comboBoxRotation.SelectedIndex > 0)
                         ||
                         (checkBoxDisableAutoDeinterlacing.CheckState == CheckState.Checked)
+                        ||
+                        (comboBoxSourceAsset.Items.Count > 1)
                         )
-                       )
+                     )
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
@@ -584,13 +586,15 @@ namespace AMSExplorer
                                 time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset;
                             }
                         }
-                        else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) // only end time specified
+                        else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked)
+                        // only end time specified
                         {
                             time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
                         obj.Sources.Add(time);
                     }
-                    else if ((checkBoxSourceTrimmingStart.CheckState != CheckState.Checked) && (checkBoxSourceTrimmingEnd.CheckState != CheckState.Checked) && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
+                    else if ((checkBoxSourceTrimmingStart.CheckState != CheckState.Checked) && (checkBoxSourceTrimmingEnd.CheckState != CheckState.Checked) && comboBoxSourceAsset.Items.Count > 1)
+                    // No time selected but several input assets
                     {
                         if (obj.Sources == null)
                         {
@@ -1655,7 +1659,7 @@ namespace AMSExplorer
             {
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
-                    Start = new TimeSpan(0),
+                    Start = null,
                     AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
                     Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
                 });
