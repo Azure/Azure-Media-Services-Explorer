@@ -15881,6 +15881,42 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
+
+        private void textBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAssetSearch_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxJobSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonJobSearch_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxSearchNameChannel_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonSetFilterChannel_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxSearchNameProgram_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonSetFilterProgram_Click(this, new EventArgs());
+            }
+        }
     }
 }
 
