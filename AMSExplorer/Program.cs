@@ -4254,8 +4254,6 @@ namespace AMSExplorer
         public static readonly string avc1 = "avc1";
         public static readonly string mp4v = "mp4v";
         public static readonly string ec3 = "ec-3";
-        public static readonly string hev1 = "hev1";
-        public static readonly string hvc1 = "hvc1";
     }
 
 

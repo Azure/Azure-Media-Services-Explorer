@@ -338,9 +338,7 @@ namespace AMSExplorer
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
-            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hev1, FilterPropertyFourCCValue.hev1);
-            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hvc1, FilterPropertyFourCCValue.hvc1);
-
+           
             // dataProperty 
             dataProperty = new DataTable();
             dataProperty.Columns.Add(new DataColumn("Property", typeof(string)));
