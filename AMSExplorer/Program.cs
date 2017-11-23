@@ -126,70 +126,10 @@ namespace AMSExplorer
             }
             else
             {
-                if (credentials.UsePartnerAPI)
-                {
-                    // Get the service context for partner context.
-                    try
-                    {
-                        Uri partnerAPIServer = new Uri(CredentialsEntry.PartnerAPIServer);
-                        myContext = new CloudMediaContext(partnerAPIServer, credentials.AccountName, credentials.AccountKey, CredentialsEntry.PartnerScope, CredentialsEntry.PartnerACSBaseAddress);
-                    }
-                    catch (Exception e)
-                    {
-                        if (displayErrorMessageAndQuit)
-                        {
-                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (custom API)." + Constants.endline + "Application will close. " + Constants.endline + e.Message);
-                            Environment.Exit(0);
-                        }
-                        else
-                        {
-                            throw e;
-                        }
-                    }
-                }
-                else if (credentials.UseOtherAPI)
-                {
-                    try
-                    {
-                        Uri otherAPIServer = new Uri(credentials.OtherAPIServer);
-                        myContext = new CloudMediaContext(otherAPIServer, credentials.AccountName, credentials.AccountKey, credentials.OtherScope, credentials.OtherACSBaseAddress);
-
-                    }
-                    catch (Exception e)
-                    {
-                        if (displayErrorMessageAndQuit)
-                        {
-                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services (Partner API)." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                            Environment.Exit(0);
-                        }
-                        else
-                        {
-                            throw e;
-                        }
-                    }
-                }
-                else
-                {
-                    // Get the service context.
-                    try
-                    {
-                        myContext = new CloudMediaContext(credentials.AccountName, credentials.AccountKey);
-                    }
-                    catch (Exception e)
-                    {
-                        if (displayErrorMessageAndQuit)
-                        {
-                            MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                            Environment.Exit(0);
-                        }
-                        else
-                        {
-                            throw e;
-                        }
-                    }
-                }
+                throw new Exception();
             }
 
+            /*
             if (false)//refreshToken)
             {
                 try
@@ -210,6 +150,7 @@ namespace AMSExplorer
                     }
                 }
             }
+            */
 
             myContext.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
             myContext.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;

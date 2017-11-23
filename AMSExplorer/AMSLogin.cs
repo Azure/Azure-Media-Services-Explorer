@@ -908,5 +908,10 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private void radioButtonACSAut_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonLogin.Visible = radioButtonAADAut.Checked;
+        }
     }
 }

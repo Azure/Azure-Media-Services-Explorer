@@ -1359,31 +1359,6 @@ namespace AMSExplorer
         };
     }
 
-    public static class AccessToken
-    {
-        public static string GetAccessToken(CloudMediaContext cloudMediaContext, string host)
-        {
-            using (var client = new WebClient())
-            {
-                client.BaseAddress = host;
-
-                var values
-                    = new NameValueCollection
-                        {
-                            {"grant_type", "client_credentials"},
-                            {"client_id", cloudMediaContext.Credentials.ClientId},
-                            {"client_secret", HttpUtility.HtmlEncode(cloudMediaContext.Credentials.ClientSecret)},
-                            {"scope", HttpUtility.HtmlEncode("urn:WindowsAzureMediaServices")}
-                        };
-
-                using (var stream = new MemoryStream(client.UploadValues("/v2/OAuth2-13", "POST", values)))
-                {
-                    var response = (OAuth2TokenResponse)new DataContractJsonSerializer(typeof(OAuth2TokenResponse)).ReadObject(stream);
-                    return response.AccessToken;
-                }
-            }
-        }
-    }
 
     [DataContract]
     internal class OAuth2TokenResponse
