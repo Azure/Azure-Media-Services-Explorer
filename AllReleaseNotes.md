@@ -1,3 +1,8 @@
+Version 4.1.2.0 (November 23, 2017) brings the following features and improvements :
+
+* Minor improvements and several bug fixes (stitching, bad characters in filter tracks..)
+
+
 Version 4.1.1.0 (November 2, 2017) brings the following features and improvements :
 
 * Support for lowest bitrate subclipping
