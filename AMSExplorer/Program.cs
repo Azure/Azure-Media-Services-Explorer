@@ -417,9 +417,10 @@ namespace AMSExplorer
             var m4aAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
             var mediaAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mp4AssetFiles.Count() != 0 || m4aAssetFiles.Count() != 0)
+            if (mediaAssetFiles.Count() != 0)
             {
                 // Prepare the manifest
+                string mp4fileuniqueaudio = null;
                 XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
 
                 XNamespace ns = "http://www.w3.org/2001/SMIL20/Language";
@@ -429,12 +430,6 @@ namespace AMSExplorer
 
                 var switchxml = body2.Element(ns + "switch");
 
-                // video tracks
-                foreach (var file in mp4AssetFiles)
-                {
-                    switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
-                }
-
                 // audio tracks (m4a)
                 foreach (var file in m4aAssetFiles)
                 {
@@ -443,17 +438,31 @@ namespace AMSExplorer
 
                 if (m4aAssetFiles.Count() == 0)
                 {
-                    // audio track
+                    // audio track(s)
                     var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
-                                                                (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
-                                                                ||
-                                                                (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
-                                                                );
+                                                               (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
+                                                               ||
+                                                               (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
+                                                               );
 
                     var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
 
                     string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
+
+                    if (mp4AudioAssetFilesName.Count() == 1 && mediaAssetFiles.Count() > 1) //looks like there is one audio file and dome other video files
+                    {
+                        mp4fileuniqueaudio = mp4fileaudio;
+                    }
+                }
+
+                // video tracks
+                foreach (var file in mp4AssetFiles)
+                {
+                    if (file.Name != mp4fileuniqueaudio) // we don't put the unique audio file as a video track
+                    {
+                        switchxml.Add(new XElement(ns + "video", new XAttribute("src", file.Name)));
+                    }
                 }
 
                 // manifest filename
@@ -674,7 +683,7 @@ namespace AMSExplorer
         }
 
 
-    public static void SaveAndProtectUserConfig()
+        public static void SaveAndProtectUserConfig()
         {
             try
             {
@@ -4245,6 +4254,8 @@ namespace AMSExplorer
         public static readonly string avc1 = "avc1";
         public static readonly string mp4v = "mp4v";
         public static readonly string ec3 = "ec-3";
+        public static readonly string hev1 = "hev1";
+        public static readonly string hvc1 = "hvc1";
     }
 
 
