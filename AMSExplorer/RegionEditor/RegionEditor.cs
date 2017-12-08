@@ -93,6 +93,7 @@ namespace AMSExplorer
             {
                 pictureIndex++;
                 SetCurrentPicture(listPictures[pictureIndex]);
+                UpdateLabelIndex();
             }
         }
 
@@ -102,6 +103,7 @@ namespace AMSExplorer
             {
                 pictureIndex--;
                 SetCurrentPicture(listPictures[pictureIndex]);
+                UpdateLabelIndex();
             }
         }
 

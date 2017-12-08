@@ -638,7 +638,7 @@ namespace AMSExplorer
             if (MyChannel.State == ChannelState.Running && MyChannel.Preview != null && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
             {
                 string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: MyMainForm);
-                webBrowserPreview.Url = new Uri(myurl);
+                webBrowserPreview.Url = new Uri(myurl.Replace("https://", "http://"));
             }
         }
 
