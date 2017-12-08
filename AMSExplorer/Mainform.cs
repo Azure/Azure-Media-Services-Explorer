@@ -11240,6 +11240,8 @@ namespace AMSExplorer
 
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
+                bool fairplayPersistent = false;
+
                 if (AssetToProcess != null)
                 {
                     IContentKey currentAssetKey = null;
@@ -11315,7 +11317,14 @@ namespace AMSExplorer
 
                                 // Fairplay persistent or not
                                 var isPersistent = form5list[form4list.IndexOf(form4)].EnablePersistent;
-                                string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form3_CENC.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate, isPersistent);
+                                if (isPersistent)
+                                {
+                                    fairplayPersistent = true;
+                                }
+                                var rentalDuration = form5list[form4list.IndexOf(form4)].RentalDuration;
+
+
+                                string FairPlayLicenseDeliveryConfig = DynamicEncryption.ConfigureFairPlayPolicyOptions(_context, form3_CENC.FairPlayASK, form3_CENC.FairPlayIV, form3_CENC.FairPlayCertificate, isPersistent, rentalDuration);
 
                                 try
                                 {
@@ -11431,7 +11440,7 @@ namespace AMSExplorer
                                     fairplayAcquisitionURLFinal: form3_CENC.FairPlayFinalLAurl,
                                     iv_if_externalserver: myIV,
                                     UseSKDForAMSLAURL: form3_CENC.AMSLAURLSchemeSKD,
-                                    FairplayAllowPersistentLicense : isPersistent
+                                    FairplayAllowPersistentLicense: fairplayPersistent
                                        );
 
                                 TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);

@@ -147,33 +147,6 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxEnableUnlimitedPersistent.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxEnableUnlimitedPersistent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 104</value>
-  </data>
-  <data name="checkBoxEnableUnlimitedPersistent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 19</value>
-  </data>
-  <data name="checkBoxEnableUnlimitedPersistent.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="checkBoxEnableUnlimitedPersistent.Text" xml:space="preserve">
-    <value>Enable unlimited persistent</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableUnlimitedPersistent.Name" xml:space="preserve">
-    <value>checkBoxEnableUnlimitedPersistent</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableUnlimitedPersistent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableUnlimitedPersistent.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableUnlimitedPersistent.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -226,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -257,13 +230,181 @@ Specify the Fairplay license for option #{1}</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <metadata name="openFileDialogPreset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <data name="openFileDialogPreset.Filter" xml:space="preserve">
     <value>XML files|*.xml|All files|*.*</value>
+  </data>
+  <data name="radioButtonNonPersistent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonNonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonNonPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 118</value>
+  </data>
+  <data name="radioButtonNonPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 19</value>
+  </data>
+  <data name="radioButtonNonPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="radioButtonNonPersistent.Text" xml:space="preserve">
+    <value>Non persistent licenses</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.Name" xml:space="preserve">
+    <value>radioButtonNonPersistent</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonPersistent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 143</value>
+  </data>
+  <data name="radioButtonPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 19</value>
+  </data>
+  <data name="radioButtonPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="radioButtonPersistent.Text" xml:space="preserve">
+    <value>Persistent licenses</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Name" xml:space="preserve">
+    <value>radioButtonPersistent</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownRentalHours.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownRentalHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 26</value>
+  </data>
+  <data name="numericUpDownRentalHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="numericUpDownRentalHours.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Name" xml:space="preserve">
+    <value>numericUpDownRentalHours</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 8</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBoxLimited.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxLimited.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxLimited.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 26</value>
+  </data>
+  <data name="checkBoxLimited.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 19</value>
+  </data>
+  <data name="checkBoxLimited.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="checkBoxLimited.Text" xml:space="preserve">
+    <value>Limited to :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLimited.Name" xml:space="preserve">
+    <value>checkBoxLimited</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLimited.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLimited.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLimited.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panelPersistent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 168</value>
+  </data>
+  <data name="panelPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 59</value>
+  </data>
+  <data name="panelPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.Name" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

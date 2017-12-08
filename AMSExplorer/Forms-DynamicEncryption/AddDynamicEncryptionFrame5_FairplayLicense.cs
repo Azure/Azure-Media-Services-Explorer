@@ -42,7 +42,22 @@ namespace AMSExplorer
         {
             get
             {
-                return checkBoxEnableUnlimitedPersistent.Checked;
+                return radioButtonPersistent.Checked;
+            }
+        }
+
+        public uint RentalDuration
+        {
+            get
+            {
+               if (checkBoxLimited.Checked)
+                {
+                    return (uint) numericUpDownRentalHours.Value;
+                }
+               else
+                {
+                    return 0x9999;
+                }
             }
         }
 
@@ -71,6 +86,16 @@ namespace AMSExplorer
 
         private void checkBoxSecLevel_CheckedChanged(object sender, EventArgs e)
         {
+        }
+
+        private void radioButtonPersistent_CheckedChanged(object sender, EventArgs e)
+        {
+            panelPersistent.Enabled = radioButtonPersistent.Checked;
+        }
+
+        private void checkBoxLimited_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownRentalHours.Enabled = checkBoxLimited.Checked;
         }
     }
 }

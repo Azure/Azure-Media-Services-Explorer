@@ -729,7 +729,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, byte[] iv, PFXCertificate certificate, bool EnablePersistent)
+        static public string ConfigureFairPlayPolicyOptions(CloudMediaContext _context, byte[] askBytes, byte[] iv, PFXCertificate certificate, bool EnablePersistent, uint rentalDuration)
         {
             // For testing you can provide all zeroes for ASK bytes together with the cert from Apple FPS SDK. 
             // However, for production you must use a real ASK from Apple bound to a real prod certificate.
@@ -774,7 +774,7 @@ namespace AMSExplorer
                     askId,
                     iv,
                     RentalAndLeaseKeyType.PersistentUnlimited,
-                    0x9999);
+                    rentalDuration);
             }
             else
             {
