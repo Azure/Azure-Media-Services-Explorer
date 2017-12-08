@@ -73,7 +73,6 @@ namespace AMSExplorer
         private bool AMMotionDetectorPresent = true;
         private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
-        private bool AMIndexerV2Present = true;
         private bool AMVideoOCRPresent = true;
         private bool AMContentModerator = true;
         private bool AMVideoAnnotator = true;
@@ -259,12 +258,6 @@ namespace AMSExplorer
                 AMVideoThumbnailsPresent =
                 ProcessVideoThumbnailstoolStripMenuItem.Visible =
                 toolStripMenuItemVideoThumbnails.Visible = false;
-            }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview) == null)
-            {
-                AMIndexerV2Present =
-                toolStripMenuItemIndexv2.Visible =
-                toolStripMenuItem38Indexer2.Visible = false;
             }
             if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
             {
@@ -5743,7 +5736,16 @@ namespace AMSExplorer
             //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
+
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2);
+            if (processor == null)
+            {
+                processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
+            }
+            if (processor == null)
+            {
+                return;
+            }
 
             var form = new IndexerV2(_context, processor.Version)
             {
@@ -8001,13 +8003,6 @@ namespace AMSExplorer
                 toolStripMenuItemVideoThumbnails.Enabled = false;
             }
 
-            // let's disable Indexer v2 if not present
-            if (!AMIndexerV2Present)
-            {
-                toolStripMenuItemIndexv2.Enabled =
-                toolStripMenuItem38Indexer2.Enabled = false;
-            }
-
             // let's disable Video OCR if not present
             if (!AMVideoOCRPresent)
             {
@@ -8395,7 +8390,6 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[5].Width = 144;
             }
             dataGridViewFilters.Rows.Clear();
-            //List<Filter> filters = _contextdynmanifest.ListGlobalFilters();
 
             foreach (var filter in _context.Filters)
             {
@@ -8432,7 +8426,15 @@ namespace AMSExplorer
                     d = (dvr != null) ? ((TimeSpan)dvr).ToString(@"d\.hh\:mm\:ss") : "max";
                     l = (live != null) ? ((TimeSpan)live).ToString(@"d\.hh\:mm\:ss") : "min";
                 }
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                try
+                {
+                    var nbtracks = filter.Tracks.Count;
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                }
+                catch
+                {
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
+                }
             }
             tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", _context.Filters.Count());
         }
@@ -15898,6 +15900,42 @@ namespace AMSExplorer
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void textBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAssetSearch_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxJobSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonJobSearch_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxSearchNameChannel_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonSetFilterChannel_Click(this, new EventArgs());
+            }
+        }
+
+        private void textBoxSearchNameProgram_KeyDown(object sender, KeyEventArgs e)
+        {
+            // user pressed enter. let's apply the filter
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonSetFilterProgram_Click(this, new EventArgs());
+            }
         }
     }
 }

@@ -117,160 +117,149 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label34.Text" xml:space="preserve">
-    <value>Azure Media エンコーダー</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Azure Media エンコーダー - 高度なモード</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
-  <data name="comboBoxVOverlayMode.Items1" xml:space="preserve">
-    <value>カスタム</value>
-  </data>
-  <data name="comboBoxAOverlayMode.Items1" xml:space="preserve">
-    <value>カスタム</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>H</value>
-  </data>
-  <data name="label26.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label28.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label25.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label29.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label24.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label23.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label27.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="label30.Text" xml:space="preserve">
-    <value>hh:mm:ss:fff</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>入力元アセット</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>ジョブ名 :</value>
-  </data>
-  <data name="buttonJobOptions.Text" xml:space="preserve">
-    <value>ジョブ オプション...</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>エンコード開始</value>
-  </data>
-  <data name="moreinfoame.Text" xml:space="preserve">
-    <value>高度なエンコードの詳細情報</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 15</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>出力先アセット名 :</value>
   </data>
-  <data name="saveFileDialogPreset.Filter" xml:space="preserve">
-    <value>プリセット ファイル|*.xml|すべてのファイル|*.*</value>
-  </data>
-  <data name="openFileDialogPreset.Filter" xml:space="preserve">
-    <value>プリセット ファイル|*.xml|すべてのファイル|*.*</value>
-  </data>
-  <data name="label32.Text" xml:space="preserve">
-    <value>プロセッサ :</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Y</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>XML (編集可能) :</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>X</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>W</value>
-  </data>
-  <data name="buttonSaveXML.Text" xml:space="preserve">
-    <value>編集した XML を保存...</value>
-  </data>
-  <data name="textBoxNamingConvention.Text" xml:space="preserve">
-    <value>{Original File Name}_{Video Codec}{Video Bitrate}{Audio Codec}{Language}{Channel Count}{Audio Bitrate}.{Default Extension}</value>
-  </data>
-  <data name="textBoxAOverlayGap.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxAOverlayFadeIn.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxVOverlayFadeIn.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxVOverlayFadeOut.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxAOverlayFadeOut.Text" xml:space="preserve">
-    <value>00:00:02</value>
-  </data>
-  <data name="textBoxAOverlayStart.Text" xml:space="preserve">
-    <value>00:00:05</value>
-  </data>
-  <data name="textBoxVOverlayStartTime.Text" xml:space="preserve">
-    <value>00:00:05</value>
-  </data>
-  <data name="textBoxVOverlayEndTime.Text" xml:space="preserve">
-    <value>00:00:10.2120000</value>
-  </data>
-  <data name="textBoxAOverlayEnd.Text" xml:space="preserve">
-    <value>00:00:10.2120000</value>
-  </data>
-  <data name="checkBoxAddThumbnails.Text" xml:space="preserve">
-    <value>同じジョブにサムネイル生成タスクを追加します</value>
-  </data>
-  <data name="tabPage4.Text" xml:space="preserve">
-    <value>オーディオ オーバーレイの設定</value>
-  </data>
-  <data name="checkBoxNamingConvention.Text" xml:space="preserve">
-    <value>カスタム出力ファイル名 :</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>エンコーダーの構成</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>終了時間</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>終了時間</value>
-  </data>
-  <data name="label20.Text" xml:space="preserve">
-    <value>ギャップ</value>
-  </data>
-  <data name="label19.Text" xml:space="preserve">
-    <value>ゲイン レベル</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="buttonLoadXML.Text" xml:space="preserve">
     <value>プリセット XML ファイルを読み込み...</value>
   </data>
-  <data name="label21.Text" xml:space="preserve">
-    <value>モード</value>
+  <data name="buttonSaveXML.Text" xml:space="preserve">
+    <value>編集した XML を保存...</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>入力元アセット</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 15</value>
   </data>
   <data name="label22.Text" xml:space="preserve">
     <value>モード</value>
   </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>その他の設定</value>
+  <data name="comboBoxVOverlayMode.Items1" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>開始時間</value>
   </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 15</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>モード</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 15</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>ギャップ</value>
+  </data>
+  <data name="comboBoxAOverlayMode.Items1" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
   <data name="label16.Text" xml:space="preserve">
     <value>開始時間</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 15</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>ゲイン レベル</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>オーディオ オーバーレイの設定</value>
+  </data>
+  <data name="checkBoxAddThumbnails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>259, 19</value>
+  </data>
+  <data name="checkBoxAddThumbnails.Text" xml:space="preserve">
+    <value>同じジョブにサムネイル生成タスクを追加します</value>
+  </data>
+  <data name="checkBoxNamingConvention.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 19</value>
+  </data>
+  <data name="checkBoxNamingConvention.Text" xml:space="preserve">
+    <value>カスタム出力ファイル名 :</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>その他の設定</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>XML (編集可能) :</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>エンコーダーの構成</value>
+  </data>
+  <data name="openFileDialogPreset.Filter" xml:space="preserve">
+    <value>プリセット ファイル|*.xml|すべてのファイル|*.*</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>ジョブ名 :</value>
+  </data>
+  <data name="label32.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 15</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>プロセッサ :</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>エンコード開始</value>
+  </data>
+  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 25</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Azure Media エンコーダー</value>
+  </data>
+  <data name="moreinfoame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>598, 49</value>
+  </data>
+  <data name="moreinfoame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 15</value>
+  </data>
+  <data name="moreinfoame.Text" xml:space="preserve">
+    <value>高度なエンコードの詳細情報</value>
+  </data>
+  <data name="saveFileDialogPreset.Filter" xml:space="preserve">
+    <value>プリセット ファイル|*.xml|すべてのファイル|*.*</value>
+  </data>
+  <data name="buttonJobOptions.Text" xml:space="preserve">
+    <value>ジョブ オプション...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Azure Media エンコーダー - 高度なモード</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>ビデオオーバーレイ設定</value>
   </data>
 </root>

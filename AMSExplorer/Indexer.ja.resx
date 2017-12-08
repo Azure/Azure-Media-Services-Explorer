@@ -117,11 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>出力先アセット名 :</value>
+  </data>
   <data name="label3.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textboxoutputassetname.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="buttonCancel.ToolTip" xml:space="preserve">
     <value />
@@ -129,20 +139,41 @@
   <data name="textBoxDescription.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>アセットの説明</value>
+  </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxTitle.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>アセット名</value>
+  </data>
   <data name="labelAssetName.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>アセット タイトル</value>
   </data>
   <data name="label1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxJobName.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ジョブ名 :</value>
   </data>
   <data name="label5.ToolTip" xml:space="preserve">
     <value />
@@ -153,6 +184,9 @@
   <data name="groupBox1.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>インデックス作成</value>
+  </data>
   <data name="buttonOk.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -162,53 +196,14 @@
   <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label6.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonGenOptions.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonJobOptions.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelProcessorVersion.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxCopyToInput.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Mmedia Indexing</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>キー</value>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>言語: </value>
   </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>インデックス作成</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>アセット タイトル</value>
-  </data>
-  <data name="labelAssetName.Text" xml:space="preserve">
-    <value>アセット名</value>
-  </data>
-  <data name="label34.Text" xml:space="preserve">
-    <value>Azure Media Indexer</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBoxLanguage.Items" xml:space="preserve">
     <value>英語</value>
@@ -216,28 +211,64 @@
   <data name="buttonGenOptions.Text" xml:space="preserve">
     <value>作成オプション...</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>ジョブ名 :</value>
+  <data name="buttonGenOptions.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonJobOptions.Text" xml:space="preserve">
     <value>ジョブ オプション...</value>
   </data>
+  <data name="buttonJobOptions.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>567, 54</value>
+  </data>
+  <data name="moreinfoprofilelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
   <data name="moreinfoprofilelink.Text" xml:space="preserve">
     <value>詳細情報</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>出力先アセット名 :</value>
+  <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="labelProcessorVersion.Text" xml:space="preserve">
     <value>バージョン {0}</value>
   </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>値</value>
+  <data name="labelProcessorVersion.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxCopyToInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 19</value>
   </data>
   <data name="checkBoxCopyToInput.Text" xml:space="preserve">
     <value>入力元アセットにサブタイトル ファイルをコピー</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>アセットの説明</value>
+  <data name="checkBoxCopyToInput.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Azure Media Indexer</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>メタデータ (オプション)</value>
+  </data>
+  <data name="comboBoxLanguage.Items1" xml:space="preserve">
+    <value>スペイン語</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>このメタデータの利用は認識精度を向上するために推奨されます - Indexer は関連するドキュメントをウェブから検索するためのシードとしてメタデータを使い、これらのドキュメントを使って、語彙や言語モデルを拡張します</value>
   </data>
 </root>

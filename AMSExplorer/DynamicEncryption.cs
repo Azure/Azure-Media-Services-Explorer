@@ -882,30 +882,12 @@ namespace AMSExplorer
             {
                 await asset.DeleteAsync();
             }
+            await asset.DeleteAsync();
 
             return;
-
-        }
-        public static void DeleteAsset(CloudMediaContext mediaContext, IAsset asset)
-        {
-            foreach (var locator in asset.Locators.ToArray())
-            {
-                locator.Delete();
-            }
-            foreach (var policy in asset.DeliveryPolicies.ToArray())
-            {
-                asset.DeliveryPolicies.Remove(policy);
-                policy.Delete();
-            }
-            foreach (var key in asset.ContentKeys.ToArray())
-            {
-                DeleteKeyAuthorizationPolicyAndFairplayAsk(mediaContext, key);
-                asset.ContentKeys.Remove(key);
-            }
-            asset.Delete();
         }
 
-
+ 
         public static void DeleteKey(CloudMediaContext mediaContext, IContentKey key)
         {
             IContentKeyAuthorizationPolicy policy = null;

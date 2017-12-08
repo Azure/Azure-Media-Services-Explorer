@@ -229,29 +229,28 @@ namespace AMSExplorer
                     if (_subclipConfig.InOutForReencode[0].Start != null)
                     {
                         timeControlStartTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].Start);
-                        checkBoxSourceTrimmingStart.Checked = true;
+                        checkBoxSourceTrimmingStart.CheckState = CheckState.Checked;
                     }
                     else
                     {
-                        checkBoxSourceTrimmingStart.Checked = false;
-
+                        checkBoxSourceTrimmingStart.CheckState = CheckState.Indeterminate;
                     }
 
                     if (_subclipConfig.InOutForReencode[0].End != null)
                     {
                         timeControlEndTime.SetTimeStamp((TimeSpan)_subclipConfig.InOutForReencode[0].End);
-                        checkBoxSourceTrimmingEnd.Checked = true;
+                        checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
                     }
                     else
                     {
-                        checkBoxSourceTrimmingEnd.Checked = false;
+                        checkBoxSourceTrimmingEnd.CheckState = CheckState.Indeterminate;
 
                     }
                     timeControlStartTime.TimeScale = timeControlEndTime.TimeScale = TimeSpan.TicksPerSecond;
                 }
                 else if (_subclipConfig.InOutForReencode.Count > 1)// let's use EDL
                 {
-                    checkBoxUseEDL.Checked = true;
+                    checkBoxUseEDL.CheckState = CheckState.Checked;
                     buttonShowEDL.SetEDLEntries(_subclipConfig.InOutForReencode);
                 }
 
@@ -372,7 +371,7 @@ namespace AMSExplorer
 
 
 
-                    // Cleanr obj.Sources. Only if needed
+                    // Clean obj.Sources. Only if needed
                     if (obj.Sources != null
                         &&
                         (
@@ -389,8 +388,10 @@ namespace AMSExplorer
                         (comboBoxRotation.SelectedIndex > 0)
                         ||
                         (checkBoxDisableAutoDeinterlacing.CheckState == CheckState.Checked)
+                        ||
+                        (comboBoxSourceAsset.Items.Count > 1)
                         )
-                       )
+                     )
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var source in obj.Sources)
@@ -580,18 +581,20 @@ namespace AMSExplorer
                         if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
                         {
                             time.StartTime = timeControlStartTime.TimeStampWithOffset;
-                            if (checkBoxSourceTrimmingEnd.Checked)
+                            if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked)
                             {
                                 time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset;
                             }
                         }
-                        else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) // only end time specified
+                        else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked)
+                        // only end time specified
                         {
                             time.Duration = timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan();
                         }
                         obj.Sources.Add(time);
                     }
-                    else if ((checkBoxSourceTrimmingStart.CheckState != CheckState.Checked) && (checkBoxSourceTrimmingEnd.CheckState != CheckState.Checked) && comboBoxSourceAsset.Items.Count > 1) // No time selected but several input assets
+                    else if ((checkBoxSourceTrimmingStart.CheckState != CheckState.Checked) && (checkBoxSourceTrimmingEnd.CheckState != CheckState.Checked) && comboBoxSourceAsset.Items.Count > 1)
+                    // No time selected but several input assets
                     {
                         if (obj.Sources == null)
                         {
@@ -697,7 +700,7 @@ namespace AMSExplorer
                         dynamic Position = new JObject();
                         Position.X = (int)numericUpDownVOverlayRectX.Value;
                         Position.Y = (int)numericUpDownVOverlayRectY.Value;
-                        if (checkBoxOverlayResize.Checked)
+                        if (checkBoxOverlayResize.CheckState == CheckState.Checked)
                         {
                             Position.Width = (int)numericUpDownVOverlayRectW.Value;
                             Position.Height = (int)numericUpDownVOverlayRectH.Value;
@@ -720,7 +723,7 @@ namespace AMSExplorer
 
                         OverlayParamImage.IsOverlay = true;
 
-                        if (checkBoxOverlayLoop.Checked) // loop checked
+                        if (checkBoxOverlayLoop.CheckState == CheckState.Checked) // loop checked
                         {
                             OverlayParamImage.OverlayLoopCount = (int)numericUpDownOverlayLoop.Value;
                         }
@@ -742,14 +745,14 @@ namespace AMSExplorer
 
                         VideoOverlay.Source = textBoxOverlayFileName.Text;
 
-                        if (checkBoxOverlayDuration.Checked) // duration specified
+                        if (checkBoxOverlayDuration.CheckState == CheckState.Checked) // duration specified
                         {
                             dynamic Clip = new JObject();
                             VideoOverlay.Clip = Clip;
                             Clip.Duration = textBoxOverlayDuration.Text;
                         }
 
-                        if (checkBoxOverlayFade.Checked) // fade in and out
+                        if (checkBoxOverlayFade.CheckState == CheckState.Checked) // fade in and out
                         {
                             dynamic FadeInDuration = new JObject();
                             VideoOverlay.FadeInDuration = FadeInDuration;
@@ -1443,9 +1446,9 @@ namespace AMSExplorer
         }
         private void UpdateDurationText()
         {
-            if (checkBoxSourceTrimmingStart.Checked)
+            if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
             {
-                if (checkBoxSourceTrimmingEnd.Checked)
+                if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked)
                 {
                     textBoxSourceDurationTime.Text = (timeControlEndTime.TimeStampWithOffset - timeControlStartTime.TimeStampWithOffset).ToString();
                 }
@@ -1454,7 +1457,7 @@ namespace AMSExplorer
                     textBoxSourceDurationTime.Text = string.Empty;
                 }
             }
-            else if (checkBoxSourceTrimmingEnd.Checked) // only end time specified
+            else if (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) // only end time specified
             {
                 textBoxSourceDurationTime.Text = (timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan()).ToString();
             }
@@ -1463,8 +1466,8 @@ namespace AMSExplorer
 
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlStartTime.Enabled = checkBoxSourceTrimmingStart.Checked;
-            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
+            timeControlStartTime.Enabled = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked);
+            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1475,7 +1478,7 @@ namespace AMSExplorer
 
         private void checkBoxGenThumbnails_CheckedChanged(object sender, EventArgs e)
         {
-            panelThumbnailsJPG.Enabled = checkBoxGenThumbnailsJPG.Checked;
+            panelThumbnailsJPG.Enabled = (checkBoxGenThumbnailsJPG.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1486,13 +1489,13 @@ namespace AMSExplorer
 
         private void checkBoxGenThumbnailsPNG_CheckedChanged(object sender, EventArgs e)
         {
-            panelThumbnailsPNG.Enabled = checkBoxGenThumbnailsPNG.Checked;
+            panelThumbnailsPNG.Enabled = (checkBoxGenThumbnailsPNG.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
         private void checkBoxGenThumbnailsBMP_CheckedChanged(object sender, EventArgs e)
         {
-            panelThumbnailsBMP.Enabled = checkBoxGenThumbnailsBMP.Checked;
+            panelThumbnailsBMP.Enabled = (checkBoxGenThumbnailsBMP.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1610,21 +1613,21 @@ namespace AMSExplorer
 
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = checkBoxSourceTrimmingEnd.Checked;
-            buttonAddEDLEntry.Enabled = /* checkBoxSourceTrimmingStart.Checked && checkBoxSourceTrimmingEnd.Checked && */ checkBoxUseEDL.Checked;
+            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked);
+            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
         private void checkBoxOverlay_CheckedChanged(object sender, EventArgs e)
         {
-            panelOverlay.Enabled = checkBoxOverlay.Checked;
+            panelOverlay.Enabled = (checkBoxOverlay.CheckState == CheckState.Checked);
             CheckOverlayFile();
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
         private void CheckOverlayFile()
         {
-            if (string.IsNullOrWhiteSpace(textBoxOverlayFileName.Text) && checkBoxOverlay.Checked)
+            if (string.IsNullOrWhiteSpace(textBoxOverlayFileName.Text) && (checkBoxOverlay.CheckState == CheckState.Checked))
             {
                 errorProvider1.SetError(textBoxOverlayFileName, AMSExplorer.Properties.Resources.EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset);
             }
@@ -1637,27 +1640,26 @@ namespace AMSExplorer
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
 
-            if (checkBoxSourceTrimmingEnd.Checked && !checkBoxSourceTrimmingStart.Checked)
+            if ((checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (checkBoxSourceTrimmingStart.Checked)
+            else if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
             {
 
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
                     Start = timeControlStartTime.TimeStampWithoutOffset,
-                    End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
                     AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
                     Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
                 });
             }
-            else if (!checkBoxSourceTrimmingStart.Checked && !checkBoxSourceTrimmingEnd.Checked)
+            else if (!(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked))
             {
                 buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
                 {
-                    Start = new TimeSpan(0),
-                    //End = checkBoxSourceTrimmingEnd.Checked ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    Start = null,
                     AssetID = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
                     Offset = _subclipConfig != null ? _subclipConfig.OffsetForReencode : (TimeSpan?)null
                 });
@@ -1667,7 +1669,7 @@ namespace AMSExplorer
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
         {
-            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
+            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 
@@ -1679,7 +1681,7 @@ namespace AMSExplorer
 
         private void checkBoxCropVideo_CheckedChanged(object sender, EventArgs e)
         {
-            buttonRegionEditor.Enabled = checkBoxCropVideo.Checked;
+            buttonRegionEditor.Enabled = (checkBoxCropVideo.CheckState == CheckState.Checked);
         }
 
         private void buttonShowEDL_Click(object sender, EventArgs e)
@@ -1695,7 +1697,7 @@ namespace AMSExplorer
 
         private void checkBoxInsertVideo_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonOnlyLowestBitrate.Enabled = radioButtonAllBitrates.Enabled = checkBoxInsertBlackVideo.CheckState == CheckState.Checked;
+            radioButtonOnlyLowestBitrate.Enabled = radioButtonAllBitrates.Enabled = (checkBoxInsertBlackVideo.CheckState == CheckState.Checked);
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }

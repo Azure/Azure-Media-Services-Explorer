@@ -197,7 +197,7 @@ namespace AMSExplorer
 
     public class ExplorerEDLEntryInOut
     {
-        public TimeSpan Start { get; set; }
+        public TimeSpan? Start { get; set; }
         public TimeSpan? End { get; set; }
 
         public TimeSpan? Offset { get; set; }

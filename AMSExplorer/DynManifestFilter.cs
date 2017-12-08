@@ -329,7 +329,6 @@ namespace AMSExplorer
             dataPropertyType.Rows.Add(FilterTrackType.Video.ToString(), FilterTrackType.Video.ToString());
             dataPropertyType.Rows.Add(FilterTrackType.Text.ToString(), FilterTrackType.Text.ToString());
 
-
             // FilterPropertyFourCCValue
             dataPropertyFourCC = new DataTable();
             dataPropertyFourCC.Columns.Add(new DataColumn("Value", typeof(string)));
@@ -339,7 +338,7 @@ namespace AMSExplorer
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
-
+           
             // dataProperty 
             dataProperty = new DataTable();
             dataProperty.Columns.Add(new DataColumn("Property", typeof(string)));

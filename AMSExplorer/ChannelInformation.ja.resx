@@ -452,6 +452,12 @@
   <data name="textBoxCustomPreset.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="textBoxCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 56</value>
+  </data>
+  <data name="textBoxCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 23</value>
+  </data>
   <data name="radioButtonDefaultPreset.Error" xml:space="preserve">
     <value />
   </data>
@@ -824,11 +830,23 @@
   <data name="label6.Text" xml:space="preserve">
     <value>カスタム プリセットを使用する場合は amslived@microsoft.com まで連絡ください</value>
   </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 82</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>430, 16</value>
+  </data>
   <data name="label18.Text" xml:space="preserve">
     <value>既定のオーディオ ストリーム</value>
   </data>
   <data name="labelChannelStoppedOrStartedSettings.Text" xml:space="preserve">
     <value>設定を更新する場合は、チャネルは停止状態か実行状態である必要があります</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 18</value>
+  </data>
+  <data name="labelChannelStoppedOrStartedSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>416, 19</value>
   </data>
   <data name="labelIndexesChannelMustBeStopped.Text" xml:space="preserve">
     <value>エンコーディング設定を変更する場合は、チャネルは停止状態である必要があります</value>

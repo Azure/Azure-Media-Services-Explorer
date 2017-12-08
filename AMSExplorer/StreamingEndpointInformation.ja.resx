@@ -117,85 +117,705 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonClose.Error" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonClose.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="buttonClose.Text" xml:space="preserve">
     <value>閉じる</value>
+  </data>
+  <data name="buttonClose.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panel2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonUpdateClose.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonUpdateClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonUpdateClose.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="buttonUpdateClose.Text" xml:space="preserve">
     <value>設定を更新して閉じる</value>
   </data>
+  <data name="buttonUpdateClose.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelSEName.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelSEName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelSEName.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="labelSEName.Text" xml:space="preserve">
     <value>ストリーミングエンドポイント : {0}</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>ストリーミングエンドポイント情報</value>
+  <data name="labelSEName.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonAddHostName.Text" xml:space="preserve">
-    <value>追加</value>
+  <data name="tabPageInfo.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonAddAkamai.Text" xml:space="preserve">
-    <value>追加</value>
+  <data name="tabPageInfo.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="buttonAddIP.Text" xml:space="preserve">
-    <value>追加</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>クリップボードへコピー</value>
-  </data>
-  <data name="buttonDelHostName.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="buttonDelIP.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="buttonDelAkamai.Text" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="labeldesc.Text" xml:space="preserve">
-    <value>説明 :</value>
+  <data name="tabPageInfo.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="tabPageInfo.Text" xml:space="preserve">
     <value>情報</value>
   </data>
-  <data name="tabPagePolicies.Text" xml:space="preserve">
-    <value>ポリシー</value>
+  <data name="tabPageInfo.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>ストリーミング ユニット :</value>
+  <data name="moreinfoSE.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="tabPageSettings.Text" xml:space="preserve">
-    <value>設定</value>
+  <data name="moreinfoSE.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="numericUpDownRU.ToolTip" xml:space="preserve">
-    <value>1 ユニット = 200 Mbps</value>
+  <data name="moreinfoSE.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="moreinfoSE.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
   </data>
   <data name="moreinfoSE.Text" xml:space="preserve">
     <value>詳細情報</value>
   </data>
-  <data name="buttonAddExampleClientPolicy.Text" xml:space="preserve">
-    <value>サンプル例を追加する</value>
+  <data name="moreinfoSE.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonAddExampleCrossDomainPolicy.Text" xml:space="preserve">
-    <value>サンプル例を追加する</value>
+  <data name="labelInfoMigration.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
-    <value>すべての IP アドレスを許可</value>
+  <data name="labelInfoMigration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelInfoMigration.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelInfoMigration.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 19</value>
+  </data>
+  <data name="labelInfoMigration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 46</value>
+  </data>
+  <data name="labelInfoMigration.Text" xml:space="preserve">
+    <value>スタンダードを有効にするには、ストリーミングエンドポイントを停止し、クラシックへ切り替えた後に移行します</value>
+  </data>
+  <data name="labelInfoMigration.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonPremium.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonPremium.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonPremium.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonPremium.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 19</value>
+  </data>
+  <data name="radioButtonPremium.Text" xml:space="preserve">
+    <value>プレミアム - ストリーミングユニット数: </value>
+  </data>
+  <data name="radioButtonStandard.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonStandard.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonStandard.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonStandard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 19</value>
+  </data>
+  <data name="radioButtonStandard.Text" xml:space="preserve">
+    <value>スタンダード</value>
+  </data>
+  <data name="radioButtonClassic.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonClassic.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonClassic.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonClassic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 19</value>
   </data>
   <data name="radioButtonClassic.Text" xml:space="preserve">
     <value>クラシック</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>カスタムホスト名 :</value>
+  <data name="radioButtonClassic.ToolTip" xml:space="preserve">
+    <value>動的パッケージと動的暗号化が無効です</value>
   </data>
-  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
-    <value>Microsoft Silverlight クライアント向けの Client Access Policy を定義する</value>
+  <data name="numericUpDownRU.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownRU.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownRU.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownRU.Location" type="System.Drawing.Point, System.Drawing">
+    <value>232, 75</value>
+  </data>
+  <data name="numericUpDownRU.ToolTip" xml:space="preserve">
+    <value>1 ユニット = 200 Mbps</value>
+  </data>
+  <data name="groupBoxTypeScale.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBoxTypeScale.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="groupBoxTypeScale.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxTypeScale.Text" xml:space="preserve">
+    <value>エンドポイントの種類とスケール設定</value>
+  </data>
+  <data name="groupBoxTypeScale.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelcdn.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelcdn.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelcdn.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelcdn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 74</value>
+  </data>
+  <data name="labelcdn.Text" xml:space="preserve">
+    <value>Azure CDN が有効になっています
+
+このため、接続許可 IP アドレス, Akamai Signature Header および カスタムホスト名は無効となります</value>
+  </data>
+  <data name="labelcdn.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewAkamai.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewAkamai.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddAkamai.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddAkamai.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddAkamai.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="buttonAddAkamai.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelAkamai.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelAkamai.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelAkamai.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDelAkamai.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAkamai.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxAkamai.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxAkamai.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 19</value>
   </data>
   <data name="checkBoxAkamai.Text" xml:space="preserve">
     <value>Akamai Signature Header 認証を定義する</value>
   </data>
-  <data name="checkBoxcrossdomain.Text" xml:space="preserve">
-    <value>Adobe Flash クライアント向けの Client Domain Access Policy を定義する</value>
+  <data name="checkBoxAkamai.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelAkamai.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelAkamai.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelAkamai.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAllowAllStreamingIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAllowAllStreamingIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 170</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 27</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
+    <value>すべての IP アドレスから接続許可</value>
+  </data>
+  <data name="buttonAllowAllStreamingIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddIP.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="buttonAddIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelIP.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDelIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxStreamingIPlistSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 19</value>
   </data>
   <data name="checkBoxStreamingIPlistSet.Text" xml:space="preserve">
     <value>ストリーミングのアクセス許可 IP Address の設定 :</value>
+  </data>
+  <data name="checkBoxStreamingIPlistSet.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelStreamingAllowedIP.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelStreamingAllowedIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelStreamingAllowedIP.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelStreamingAllowedIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewCustomHostname.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataGridViewCustomHostname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="dataGridViewCustomHostname.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddHostName.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddHostName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddHostName.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddHostName.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="buttonAddHostName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelHostName.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonDelHostName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonDelHostName.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonDelHostName.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="buttonDelHostName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="hostnamelink.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="hostnamelink.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="hostnamelink.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="hostnamelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 15</value>
+  </data>
+  <data name="hostnamelink.Text" xml:space="preserve">
+    <value>カスタムホスト名の検証方法</value>
+  </data>
+  <data name="hostnamelink.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label3.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>カスタムホスト名 :</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelCustomHostnames.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelCustomHostnames.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelCustomHostnames.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelCustomHostnames.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labeldesc.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labeldesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labeldesc.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labeldesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="labeldesc.Text" xml:space="preserve">
+    <value>説明 :</value>
+  </data>
+  <data name="labeldesc.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textboxorigindesc.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textboxorigindesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textboxorigindesc.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textboxorigindesc.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxMaxCacheAge.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxMaxCacheAge.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxMaxCacheAge.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxMaxCacheAge.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblMaxCacheAge.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblMaxCacheAge.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="lblMaxCacheAge.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblMaxCacheAge.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 15</value>
+  </data>
+  <data name="lblMaxCacheAge.Text" xml:space="preserve">
+    <value>最大キャッシュ期間: </value>
+  </data>
+  <data name="lblMaxCacheAge.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageSettings.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageSettings.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="tabPageSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.Text" xml:space="preserve">
+    <value>サンプル例を追加する</value>
+  </data>
+  <data name="buttonAddExampleCrossDomainPolicy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddExampleClientPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddExampleClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonAddExampleClientPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonAddExampleClientPolicy.Text" xml:space="preserve">
+    <value>サンプル例を追加する</value>
+  </data>
+  <data name="buttonAddExampleClientPolicy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxcrossdomain.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxcrossdomain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxcrossdomain.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxcrossdomain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 19</value>
+  </data>
+  <data name="checkBoxcrossdomain.Text" xml:space="preserve">
+    <value>Adobe Flash クライアント向けの Client Domain Access Policy を定義する</value>
+  </data>
+  <data name="checkBoxcrossdomain.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxCrossDomPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxCrossDomPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxCrossDomPolicy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxclientpolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxclientpolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxclientpolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxclientpolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 19</value>
+  </data>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>Microsoft Silverlight クライアント向けの Client Access Policy を定義する</value>
+  </data>
+  <data name="checkBoxclientpolicy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxClientPolicy.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxClientPolicy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPagePolicies.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPagePolicies.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPagePolicies.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>ポリシー</value>
+  </data>
+  <data name="tabPagePolicies.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabControl1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ストリーミングエンドポイント情報</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="contextMenuStripOI.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="contextMenuStripOI.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="contextMenuStripOI.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="contextMenuStripOI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 26</value>
+  </data>
+  <data name="contextMenuStripOI.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DGOrigin.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DGOrigin.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="DGOrigin.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="DGOrigin.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

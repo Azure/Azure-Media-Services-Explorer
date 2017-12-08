@@ -63,7 +63,7 @@ namespace AMSExplorer
             get
             {
                 string mgtprtal = "";
-                if (radioButtonAADAut.Checked && ReturnDeploymentName() == CustomString)
+                if (radioButtonAADAut.Checked /*&& ReturnDeploymentName() == CustomString*/)
                 {
                     mgtprtal = textBoxAADManagementPortal.Text;
                 }
@@ -145,7 +145,7 @@ namespace AMSExplorer
             if (!c.UseAADInteract && !c.UseAADServicePrincipal)
             {
                 listViewAccounts.Items[item.Index].ForeColor = Color.Red;
-                listViewAccounts.Items[item.Index].ToolTipText = "Configured for ACS authentication. Please use Azure Active Directory.";
+                listViewAccounts.Items[item.Index].ToolTipText = "Configured for deprecated ACS authentication. Please use Azure Active Directory.";
             }
             else
             {
@@ -280,25 +280,6 @@ namespace AMSExplorer
                 return;
             }
 
-            /*
-            CredentialsEntry myCredentials = new CredentialsEntry(
-                textBoxAccountName.Text,
-                textBoxAccountKey.Text,
-                textBoxADTenantDomain.Text,
-               textBoxADRestAPIEndpoint.Text,
-               textBoxBlobKey.Text,
-               textBoxDescription.Text,
-               radioButtonAADInteract.Checked,
-               radioButtonPartner.Checked,
-               radioButtonOther.Checked,
-               textBoxAPIServer.Text,
-               textBoxScope.Text,
-               textBoxACSBaseAddress.Text,
-               textBoxAzureEndpoint.Text,
-               textBoxManagementPortal.Text
-                );
-                */
-
             var accName = ReturnAccountName(LoginCredentials);
 
             var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == accName.ToLower().Trim()).FirstOrDefault();
@@ -350,6 +331,13 @@ namespace AMSExplorer
                 {
                     return;
                 }
+            }
+
+            // OLD ACS Mode - let's warm the user
+            if (!LoginCredentials.UseAADServicePrincipal && !LoginCredentials.UseAADInteract)
+            {
+                var f = new DisplayBox("Warning", "ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible.", 10);
+                f.ShowDialog();
             }
 
             // Context creation
@@ -919,6 +907,11 @@ namespace AMSExplorer
                     textBoxAADManagementPortal.Text = entrymapping.ManagementPortal;
                 }
             }
+        }
+
+        private void radioButtonACSAut_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonLogin.Visible = radioButtonAADAut.Checked;
         }
     }
 }

@@ -134,13 +134,13 @@
     <value>152, 19</value>
   </data>
   <data name="radioButtonEndUnlimited.Text" xml:space="preserve">
-    <value>100 年間の間、公開する</value>
+    <value>100 年間 公開する</value>
   </data>
   <data name="radioButtonEndYear.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 19</value>
   </data>
   <data name="radioButtonEndYear.Text" xml:space="preserve">
-    <value>1 年間の間、公開する</value>
+    <value>1 年間 公開する</value>
   </data>
   <data name="radioButtonEndCustom.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 19</value>

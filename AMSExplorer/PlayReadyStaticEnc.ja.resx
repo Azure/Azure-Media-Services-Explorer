@@ -154,7 +154,7 @@
     <value>プロセッサ名</value>
   </data>
   <data name="buttonPlayReadyTestSettings.Text" xml:space="preserve">
-    <value>PlayReady テスト用の設定を使用</value>
+    <value>PlayReady テスト用設定を使用</value>
   </data>
   <data name="checkBoxuseSencBox.Text" xml:space="preserve">
     <value>useSencBox</value>

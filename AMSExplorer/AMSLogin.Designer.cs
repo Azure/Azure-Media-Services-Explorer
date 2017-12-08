@@ -200,6 +200,7 @@
             resources.ApplyResources(this.radioButtonACSAut, "radioButtonACSAut");
             this.radioButtonACSAut.Name = "radioButtonACSAut";
             this.radioButtonACSAut.UseVisualStyleBackColor = true;
+            this.radioButtonACSAut.CheckedChanged += new System.EventHandler(this.radioButtonACSAut_CheckedChanged);
             // 
             // groupBoxAADMode
             // 

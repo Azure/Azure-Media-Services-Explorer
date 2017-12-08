@@ -674,6 +674,7 @@
             resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
             this.textBoxAssetSearch.Name = "textBoxAssetSearch";
             this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
+            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
             // 
             // butPrevPageAsset
             // 
@@ -1720,6 +1721,7 @@
             resources.ApplyResources(this.textBoxJobSearch, "textBoxJobSearch");
             this.textBoxJobSearch.Name = "textBoxJobSearch";
             this.toolTip1.SetToolTip(this.textBoxJobSearch, resources.GetString("textBoxJobSearch.ToolTip"));
+            this.textBoxJobSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxJobSearch_KeyDown);
             // 
             // label6
             // 
@@ -2229,6 +2231,7 @@
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
             this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, resources.GetString("textBoxSearchNameProgram.ToolTip"));
             this.textBoxSearchNameProgram.TextChanged += new System.EventHandler(this.textBoxSearchNameProgram_TextChanged);
+            this.textBoxSearchNameProgram.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameProgram_KeyDown);
             // 
             // label14
             // 
@@ -2495,6 +2498,7 @@
             resources.ApplyResources(this.textBoxSearchNameChannel, "textBoxSearchNameChannel");
             this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
             this.toolTip1.SetToolTip(this.textBoxSearchNameChannel, resources.GetString("textBoxSearchNameChannel.ToolTip"));
+            this.textBoxSearchNameChannel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameChannel_KeyDown);
             // 
             // buttonSetFilterChannel
             // 

@@ -426,7 +426,15 @@ namespace AMSExplorer
                     d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
                     l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
                 }
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
+                try
+                {
+                    var nbtrack = filter.Tracks.Count;
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
+                }
+                catch
+                {
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, "Error", s, e, d, l);
+                }
 
                 // droplist
                 comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_AssetFilter + filter.Name, filter.Name));
@@ -615,7 +623,7 @@ namespace AMSExplorer
                     if (locator.Type == LocatorType.OnDemandOrigin)
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, false, SelectedSEHostName))
+                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName))
                      ));
 
                         int indexn = 1;

@@ -124,7 +124,7 @@
     <value>キャンセル</value>
   </data>
   <data name="buttonUpload.Text" xml:space="preserve">
-    <value>アセットへファイルをアップロード</value>
+    <value>ファイルをアップロード</value>
   </data>
   <data name="buttonSelect.Text" xml:space="preserve">
     <value>選択</value>
@@ -134,5 +134,8 @@
   </data>
   <data name="labelStorageAccount.Text" xml:space="preserve">
     <value>ソースアセットのファイルを選択</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>オーバーレイ画像の選択</value>
   </data>
 </root>

@@ -50,17 +50,15 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.panelAssetInfo = new System.Windows.Forms.Panel();
+            this.labelDiscountinuity = new System.Windows.Forms.Label();
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
             this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
             this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
             this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -78,10 +76,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.panelJob = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label34 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelDiscountinuity = new System.Windows.Forms.Label();
+            this.radioButtonArchiveLowBitrate = new System.Windows.Forms.RadioButton();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -225,6 +226,12 @@
             resources.ApplyResources(this.panelAssetInfo, "panelAssetInfo");
             this.panelAssetInfo.Name = "panelAssetInfo";
             // 
+            // labelDiscountinuity
+            // 
+            resources.ApplyResources(this.labelDiscountinuity, "labelDiscountinuity");
+            this.labelDiscountinuity.ForeColor = System.Drawing.Color.Red;
+            this.labelDiscountinuity.Name = "labelDiscountinuity";
+            // 
             // groupBoxTrimming
             // 
             resources.ApplyResources(this.groupBoxTrimming, "groupBoxTrimming");
@@ -254,13 +261,6 @@
             this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
             this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
             this.buttonAddEDLEntry.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // buttonShowEDL
-            // 
-            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseEDL
             // 
@@ -292,36 +292,6 @@
             this.webBrowserPreview.Name = "webBrowserPreview";
             this.webBrowserPreview.ScriptErrorsSuppressed = true;
             // 
-            // timeControlStart
-            // 
-            resources.ApplyResources(this.timeControlStart, "timeControlStart");
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Label1 = "";
-            this.timeControlStart.Label2 = "Start time :";
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.TimeScale = null;
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlEnd
-            // 
-            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Label1 = "";
-            this.timeControlEnd.Label2 = "End time :";
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.TimeScale = null;
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
             // checkBoxPreviewStream
             // 
             resources.ApplyResources(this.checkBoxPreviewStream, "checkBoxPreviewStream");
@@ -340,6 +310,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radioButtonArchiveLowBitrate);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.radioButtonAssetFilter);
             this.groupBox2.Controls.Add(this.label12);
@@ -388,7 +359,6 @@
             resources.ApplyResources(this.radioButtonArchiveTopBitrate, "radioButtonArchiveTopBitrate");
             this.radioButtonArchiveTopBitrate.Checked = true;
             this.radioButtonArchiveTopBitrate.Name = "radioButtonArchiveTopBitrate";
-            this.radioButtonArchiveTopBitrate.TabStop = true;
             this.radioButtonArchiveTopBitrate.UseVisualStyleBackColor = true;
             this.radioButtonArchiveTopBitrate.CheckedChanged += new System.EventHandler(this.radioButtonClipWithReencode_CheckedChanged);
             // 
@@ -444,12 +414,6 @@
             this.panelJob.Controls.Add(this.label5);
             this.panelJob.Name = "panelJob";
             // 
-            // buttonJobOptions
-            // 
-            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // label34
             // 
             resources.ApplyResources(this.label34, "label34");
@@ -462,11 +426,55 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // labelDiscountinuity
+            // radioButtonArchiveLowBitrate
             // 
-            resources.ApplyResources(this.labelDiscountinuity, "labelDiscountinuity");
-            this.labelDiscountinuity.ForeColor = System.Drawing.Color.Red;
-            this.labelDiscountinuity.Name = "labelDiscountinuity";
+            resources.ApplyResources(this.radioButtonArchiveLowBitrate, "radioButtonArchiveLowBitrate");
+            this.radioButtonArchiveLowBitrate.Name = "radioButtonArchiveLowBitrate";
+            this.radioButtonArchiveLowBitrate.UseVisualStyleBackColor = true;
+            this.radioButtonArchiveLowBitrate.CheckedChanged += new System.EventHandler(this.radioButtonClipWithReencode_CheckedChanged);
+            // 
+            // buttonShowEDL
+            // 
+            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            // 
+            // timeControlStart
+            // 
+            resources.ApplyResources(this.timeControlStart, "timeControlStart");
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.Label1 = "";
+            this.timeControlStart.Label2 = "Start time :";
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStart.TimeScale = null;
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
+            // timeControlEnd
+            // 
+            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.Label1 = "";
+            this.timeControlEnd.Label2 = "End time :";
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEnd.TimeScale = null;
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
+            // buttonJobOptions
+            // 
+            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // Subclipping
             // 
@@ -560,5 +568,6 @@
         private System.Windows.Forms.Panel panelEDL;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelDiscountinuity;
+        private System.Windows.Forms.RadioButton radioButtonArchiveLowBitrate;
     }
 }
