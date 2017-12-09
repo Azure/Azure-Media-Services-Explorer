@@ -42,6 +42,7 @@ namespace AMSExplorer
         bool ErrorConnectingAMS = false;
         bool ErrorConnectingStorage = false;
         private string _accountname;
+        private List<CredentialsEntry> _listMediaAccounts;
 
         public CredentialsEntry DestinationLoginCredentials
         {
@@ -201,12 +202,13 @@ namespace AMSExplorer
             labelWarningStorage.Text = "";
 
             CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-            CredentialList.MediaServicesAccounts.ForEach(c => listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
+            _listMediaAccounts = CredentialList.MediaServicesAccounts.Where(c => c.UseAADInteract || c.UseAADServicePrincipal).ToList();
+            _listMediaAccounts.ForEach(c =>  listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => AMSLogin.ReturnAccountName(c).ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = _listMediaAccounts.Where(c => AMSLogin.ReturnAccountName(c).ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
             if (entryWithSameName != null)
             {
-                listBoxAccounts.SelectedIndex = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
+                listBoxAccounts.SelectedIndex = _listMediaAccounts.IndexOf(entryWithSameName);
             }
         }
 
@@ -216,7 +218,7 @@ namespace AMSExplorer
             if (listBoxAccounts.SelectedIndex > -1) // one selected
             {
                 int index = listBoxAccounts.SelectedIndex;
-                SelectedCredentials = CredentialList.MediaServicesAccounts[index];
+                SelectedCredentials = _listMediaAccounts[index];
 
                 labelDescription.Text = SelectedCredentials.Description;
 
