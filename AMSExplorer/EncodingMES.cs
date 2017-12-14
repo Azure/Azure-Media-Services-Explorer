@@ -370,7 +370,6 @@ namespace AMSExplorer
                     // clean rotation
 
 
-
                     // Clean obj.Sources. Only if needed
                     if (obj.Sources != null
                         &&
@@ -443,7 +442,6 @@ namespace AMSExplorer
                         }
                         else
                         {
-
                             foreach (var codec in obj.Codecs)
                             {
                                 if (codec.Type != null &&
@@ -500,7 +498,7 @@ namespace AMSExplorer
                         }
                         listDelete.ForEach(c => c.Remove());
                     }
-                    if (obj.Outputs != null) // clean noninterleave and thumbnail entry in Outputs
+                    if (obj.Outputs != null) // clean noninterleave, enhanced server manifest and thumbnail entry in Outputs
                     {
                         var listDelete = new List<dynamic>();
                         foreach (var output in obj.Outputs)
@@ -511,6 +509,10 @@ namespace AMSExplorer
                                 if (valuestr == "MP4Format" && output.Condition != null && checkBoxDoNotInterleave.CheckState != CheckState.Indeterminate && output.Condition == "NonInterleaved")
                                 {
                                     output.Condition.Parent.Remove();
+                                }
+                                if (valuestr == "MP4Format" && output.Condition != null && checkBoxEnhancedServerManifest.CheckState != CheckState.Indeterminate && output.EnhancedServerManifest == true)
+                                {
+                                    output.EnhancedServerManifest.Parent.Remove();
                                 }
                                 if ((checkBoxGenThumbnailsJPG.CheckState != CheckState.Indeterminate && valuestr == "JpgFormat")
                                     || (checkBoxGenThumbnailsPNG.CheckState != CheckState.Indeterminate && valuestr == "PngFormat")
@@ -1119,8 +1121,7 @@ namespace AMSExplorer
                             }
                         }
                     }
-
-
+                    
                     // Thumbnails settings
                     if (checkBoxGenThumbnailsJPG.CheckState == CheckState.Checked || checkBoxGenThumbnailsPNG.CheckState == CheckState.Checked || checkBoxGenThumbnailsBMP.CheckState == CheckState.Checked)
                     {
@@ -1154,6 +1155,26 @@ namespace AMSExplorer
                                             textBoxThTimeStepBMP.Text, textBoxThTimeRangeBMP.Text, (int)numericUpDownThWidthBMP.Value, (int)numericUpDownThHeightBMP.Value, checkBoxPresResRotBMP.Checked, radioButtonPixelsBMP.Checked);
                         }
                     }
+
+                    // enhanced server manifest
+                    if (checkBoxEnhancedServerManifest.CheckState == CheckState.Checked)
+                    {
+                        if (obj.Outputs != null)
+                        {
+                            foreach (var output in obj.Outputs)
+                            {
+                                if (output.Format != null && output.Format.Type != null && output.Format.Type.Type == JTokenType.String)
+                                {
+                                    string valuestr = (string)output.Format.Type;
+                                    if (valuestr == "MP4Format")
+                                    {
+                                        output.EnhancedServerManifest = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     textBoxConfiguration.Text = obj.ToString();
                 }
             }
