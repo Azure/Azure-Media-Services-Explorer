@@ -3653,6 +3653,9 @@ namespace AMSExplorer
             try
             {
                 TargetAsset = DestinationContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
+
+                TargetAsset.AlternateId = SourceAssets.FirstOrDefault().AlternateId;
+                TargetAsset.Update();
             }
             catch (Exception ex)
             {
