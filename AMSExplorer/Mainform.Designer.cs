@@ -533,6 +533,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.buttonRefreshTab = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -4335,11 +4336,19 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
+            // buttonRefreshTab
+            // 
+            resources.ApplyResources(this.buttonRefreshTab, "buttonRefreshTab");
+            this.buttonRefreshTab.Name = "buttonRefreshTab";
+            this.buttonRefreshTab.UseVisualStyleBackColor = true;
+            this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.buttonRefreshTab);
             this.Controls.Add(this.linkLabelFeedbackAMS);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.label12);
@@ -4906,6 +4915,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem3;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoMediaUnits;
+        private System.Windows.Forms.Button buttonRefreshTab;
     }
 }
 

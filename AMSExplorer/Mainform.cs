@@ -1139,6 +1139,38 @@ namespace AMSExplorer
             DoRefresh();
         }
 
+        private void buttonRefreshTab_Click(object sender, EventArgs e)
+        {
+            switch (tabControlMain.SelectedTab.Name)
+            {
+                case "tabPageAssets":
+                    DoRefreshGridAssetV(false);
+                    break;
+                case "tabPageFilters":
+                    DoRefreshGridFiltersV(false);
+                    break;
+                case "tabPageTransfers":
+                    DoRefreshGridIngestManifestV(false);
+                    break;
+                case "tabPageJobs":
+                    DoRefreshGridJobV(false);
+                    break;
+                case "tabPageLive":
+                    DoRefreshGridChannelV(false);
+                    DoRefreshGridProgramV(false);
+                    break;
+                case "tabPageProcessors":
+                    DoRefreshGridProcessorV(false);
+                    break;
+                case "tabPageOrigins":
+                    DoRefreshGridStreamingEndpointV(false);
+                    break;
+                case "tabPageStorage":
+                    DoRefreshGridStorageV(false);
+                    break;
+            }
+        }
+
         private void DoRefresh()
         {
             _context = Program.ConnectAndGetNewContext(_credentials);
@@ -8022,6 +8054,16 @@ namespace AMSExplorer
             {
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Enabled =
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Enabled = false;
+            }
+
+            switch (tabControlMain.SelectedTab.Name)
+            {
+                case "tabPageChart":
+                    buttonRefreshTab.Enabled = false;
+                    break;
+                default:
+                    buttonRefreshTab.Enabled = true;
+                    break;
             }
         }
 

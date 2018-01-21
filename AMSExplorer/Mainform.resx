@@ -1140,7 +1140,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1697,7 +1697,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2583,7 +2583,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2899,7 +2899,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3546,7 +3546,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4068,7 +4068,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.1.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4503,7 +4503,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4536,7 +4536,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -6454,7 +6454,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>533, 17</value>
@@ -6511,7 +6511,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6547,7 +6547,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -6593,7 +6593,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="linkLabelFeedbackAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6629,7 +6629,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabelFeedbackAMS.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>822, 17</value>
@@ -8945,6 +8945,52 @@
   </data>
   <data name="notifyIcon1.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="buttonRefreshTab.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonRefreshTab.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAD5SURBVDhPpZMxbsJAEEWdioYycAVazkFK6CPRcwki
+        0UHBCXIboAESGo6RhBRJCpb/1ow1thZsKV960s7sny/v2s5CCFmNXkU7X5YVZxsEYDiKfqycbgU8ipl4
+        Fz8CA7CeiAcRlQoYig9hQynGIqoawPBZmHEtFq4+iWdRyAd0xCc9wRM8CRO9nejFyskHTKmvDGg4LUUr
+        X5blA/bUYkPRVD7AbntOUSM8eH//G3DyAXaEFUWN8OB98wH3LtGLPfPNfEBX+NeYCqFnHxnerg9AqQ+J
+        8wJr6+PBm8+6ADQSX8LMVdiLwygVgOxnOog/8S224kWwVyiEkF0A1di1vVgejOsAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="buttonRefreshTab.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="buttonRefreshTab.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonRefreshTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 30</value>
+  </data>
+  <data name="buttonRefreshTab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 28</value>
+  </data>
+  <data name="buttonRefreshTab.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="buttonRefreshTab.Text" xml:space="preserve">
+    <value>Refresh tab</value>
+  </data>
+  <data name="buttonRefreshTab.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshTab.Name" xml:space="preserve">
+    <value>buttonRefreshTab</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshTab.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshTab.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
