@@ -6569,7 +6569,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 30</value>
+    <value>443, 30</value>
   </data>
   <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 28</value>
@@ -8966,7 +8966,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRefreshTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>443, 30</value>
+    <value>337, 30</value>
   </data>
   <data name="buttonRefreshTab.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 28</value>
