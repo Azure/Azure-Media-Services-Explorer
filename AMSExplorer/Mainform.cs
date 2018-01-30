@@ -3647,7 +3647,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false, bool CopyAltId=false)
 
         {
 
@@ -3685,6 +3685,11 @@ namespace AMSExplorer
             try
             {
                 TargetAsset = DestinationContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
+                if (CopyAltId)
+                {
+                    TargetAsset.AlternateId = SourceAssets.FirstOrDefault().AlternateId;
+                    TargetAsset.Update();
+                }
             }
             catch (Exception ex)
             {
@@ -4355,7 +4360,7 @@ namespace AMSExplorer
 
 
 
-        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters)
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
 
@@ -4392,6 +4397,12 @@ namespace AMSExplorer
             // Cloned asset creation
             IAsset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
             TextBoxLogWriteLine(string.Format("Cloned asset {0} created.", sourceProgram.Asset.Name));
+
+            if (copyAltId)
+            {
+                clonedAsset.AlternateId = sourceProgram.Asset.AlternateId;
+                clonedAsset.Update();
+            }
 
             if (CopyDynEnc)
             {
@@ -13126,7 +13137,7 @@ namespace AMSExplorer
                             var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, AMSLogin.ReturnAccountName(form.DestinationLoginCredentials)), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, DestinationContext, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset), response.token);
+                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, DestinationContext, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset, form.CopyAlternateId), response.token);
                         }
                     }
                     else // merge all assets into a single asset
@@ -14246,7 +14257,7 @@ namespace AMSExplorer
                     foreach (IProgram program in SelectedPrograms)
                     {
                         // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators, form.CloneAssetFilters));
+                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators, form.CloneAssetFilters, form.CopyAlternateId));
                     }
                 }
             }

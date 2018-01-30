@@ -142,6 +142,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool CopyAlternateId
+        {
+            get
+            {
+                return checkBoxCopyAltId.Checked;
+            }
+        }
+
 
         public CopyAsset(CloudMediaContext context, int numberofobjectselected, CopyAssetBoxMode mode, string accountname)
         {
@@ -161,7 +169,6 @@ namespace AMSExplorer
                     checkBoxCopyDynEnc.Checked = false;
                     checkBoxCloneLocators.Checked = false;
                     checkBoxCloneAssetFilters.Checked = false;
-                    labelCloneFilters.Visible = false; // option to clone filter is displayed but we don't want to display that start and end times are removed. This is not the case for asset copy.
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
@@ -173,6 +180,7 @@ namespace AMSExplorer
                     buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannels : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
                     panelStorageAccount.Visible = false;
                     groupBoxOptions.Visible = false;
+                    checkBoxCopyAltId.Visible = false;
                     break;
 
                 case CopyAssetBoxMode.CloneProgram:
@@ -203,7 +211,7 @@ namespace AMSExplorer
 
             CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
             _listMediaAccounts = CredentialList.MediaServicesAccounts.Where(c => c.UseAADInteract || c.UseAADServicePrincipal).ToList();
-            _listMediaAccounts.ForEach(c =>  listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
+            _listMediaAccounts.ForEach(c => listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
 
             var entryWithSameName = _listMediaAccounts.Where(c => AMSLogin.ReturnAccountName(c).ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
             if (entryWithSameName != null)
@@ -219,8 +227,6 @@ namespace AMSExplorer
             {
                 int index = listBoxAccounts.SelectedIndex;
                 SelectedCredentials = _listMediaAccounts[index];
-
-                labelDescription.Text = SelectedCredentials.Description;
 
                 if (Mode == CopyAssetBoxMode.CopyAsset)
                 {
@@ -279,6 +285,7 @@ namespace AMSExplorer
                 {
                     this.Cursor = Cursors.WaitCursor;
                     CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials, true, false);
+                    listBoxStorage.Items.Clear();
                     foreach (var storage in newcontext.StorageAccounts)
                     {
                         listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storage.Name));
@@ -321,7 +328,7 @@ namespace AMSExplorer
 
         private void checkBoxTargetSingleAsset_CheckedChanged(object sender, EventArgs e)
         {
-            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = checkBoxCloneAssetFilters.Enabled = checkBoxCloneLocators.Enabled = checkBoxUnPublishSourceAsset.Enabled = !checkBoxTargetSingleAsset.Checked;
+            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = checkBoxCloneAssetFilters.Enabled = checkBoxCloneLocators.Enabled = checkBoxUnPublishSourceAsset.Enabled = checkBoxCopyAltId.Enabled = !checkBoxTargetSingleAsset.Checked;
         }
 
         private void checkBoxCloneLocators_CheckedChanged(object sender, EventArgs e)
