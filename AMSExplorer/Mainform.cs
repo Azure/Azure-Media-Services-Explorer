@@ -3732,8 +3732,8 @@ namespace AMSExplorer
                         // let's get cloudblobcontainer for source
                         SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
                         SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
-                        readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                        SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+                        //readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
+                        //SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
 
                         // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
                         SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(SourceAsset.Uri.Segments[1]);
@@ -3753,7 +3753,8 @@ namespace AMSExplorer
                     var signature = SourceCloudBlobContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy
                     {
                         Permissions = SharedAccessBlobPermissions.Read,
-                        SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24)
+                        SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24),
+                        SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-5)
                     });
 
 
@@ -3976,8 +3977,8 @@ namespace AMSExplorer
                         }
                     }
 
-                    SourceLocator.Delete();
-                    readpolicy.Delete();
+                    //SourceLocator.Delete();
+                    //readpolicy.Delete();
                 }
                 else
                 {
