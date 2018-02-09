@@ -3647,10 +3647,8 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false, bool CopyAltId=false)
-
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false, bool CopyAltId = false)
         {
-
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
             if (response.token.IsCancellationRequested)
@@ -3667,20 +3665,6 @@ namespace AMSExplorer
             IAccessPolicy writePolicy;
             ILocator DestinationLocator;
             IAssetFile[] ismAssetFile;
-
-            /*
-            try
-            {
-                DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Error", true);
-                TextBoxLogWriteLine(ex);
-                DoGridTransferDeclareError(response.Id, ex);
-                return;
-            }
-            */
 
             try
             {
@@ -3741,7 +3725,6 @@ namespace AMSExplorer
                     CloudBlobClient SourceCloudBlobClient;
                     IAccessPolicy readpolicy;
                     ILocator SourceLocator;
-                    Uri sourceUri;
                     CloudBlobContainer SourceCloudBlobContainer;
 
                     try
@@ -3750,11 +3733,10 @@ namespace AMSExplorer
                         SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
                         SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
                         readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                        SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+                        //SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
 
                         // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                        sourceUri = new Uri(SourceLocator.Path);
-                        SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+                        SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(SourceAsset.Uri.Segments[1]);
 
                     }
                     catch (Exception ex)
@@ -3767,6 +3749,12 @@ namespace AMSExplorer
                         TargetAsset.Delete();
                         return;
                     }
+
+                    var signature = SourceCloudBlobContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy
+                    {
+                        Permissions = SharedAccessBlobPermissions.Read,
+                        SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24)
+                    });
 
 
                     ErrorCopyAsset = false;
@@ -3793,8 +3781,6 @@ namespace AMSExplorer
                         && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISM")).Count() == 1
                         ) // only 2 files with extensions, and these files are ISMC and ISM
                     {
-                        // assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_") && !af.Name.StartsWith("scte35_"));
-                        //  var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_") || af.Name.StartsWith("scte35_"));
 
                         // let read the storage to make sure it's not a directory
                         var mediablobsFolders = SourceCloudBlobContainer.ListBlobs().ToList().Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(a => (a as CloudBlobDirectory).Prefix);
@@ -3826,6 +3812,7 @@ namespace AMSExplorer
 
                             try
                             {
+
                                 sourceCloudBlockBlob = SourceCloudBlobContainer.GetBlockBlobReference(file.Name);
                                 // TO DO: chek if this is a folder or a file
                                 sourceCloudBlockBlob.FetchAttributes();
@@ -3845,7 +3832,9 @@ namespace AMSExplorer
                                         {
                                             // exception if Blob does not exist, which is fine
                                         }
-                                        string stringOperation = await destinationCloudBlockBlob.StartCopyAsync(file.GetSasUri(), response.token);
+
+                                        string stringOperation = await destinationCloudBlockBlob.StartCopyAsync(new Uri(sourceCloudBlockBlob.Uri.AbsoluteUri + signature));
+
                                         bool Cancelled = false;
 
                                         CloudBlockBlob blob;
@@ -3880,7 +3869,6 @@ namespace AMSExplorer
                                             ErrorCopyAsset = true;
                                             break;
                                         }
-
 
                                         destinationCloudBlockBlob.FetchAttributes();
                                         destinationAssetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
@@ -3946,7 +3934,13 @@ namespace AMSExplorer
                                         {
                                             CloudBlockBlob targetBlob = DestinationCloudBlobContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
-                                            mylistresults.Add(targetBlob.StartCopyAsync(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent), response.token));
+                                            //mylistresults.Add(targetBlob.StartCopyAsync(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent), response.token));
+                                            mylistresults.Add(targetBlob.StartCopyAsync(new Uri(blockblob.Uri.AbsoluteUri + signature), response.token));
+
+                                            //string stringOperation = await destinationCloudBlockBlob.StartCopyAsync(new Uri(sourceCloudBlockBlob.Uri.AbsoluteUri + signature));
+
+
+
                                         }
                                     }
                                 }
@@ -3956,7 +3950,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent, response.token));
+                                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, DestinationCloudBlobContainer, signature /*SourceLocator.ContentAccessComponent*/, response.token));
 
                                     if (mylistresults.Count > 0)
                                     {
@@ -3982,7 +3976,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    SourceLocator.Delete();
+                    //SourceLocator.Delete();
                     readpolicy.Delete();
                 }
                 else
@@ -13111,7 +13105,6 @@ namespace AMSExplorer
                     }
                 }
 
-
                 bool usercanceled = false;
                 var storagekeys = BuildStorageKeyDictionary(SelectedAssets, newdestinationcredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
                 if (!usercanceled)
@@ -13127,8 +13120,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                         return;
                     }
-
-
 
                     if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
                     {
