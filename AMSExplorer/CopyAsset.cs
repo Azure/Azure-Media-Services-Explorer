@@ -236,12 +236,24 @@ namespace AMSExplorer
                 listBoxStorage.Items.Clear();
 
                 if (SelectedCredentials.UseAADServicePrincipal) // not supported for now
-                {
+                {/*
                     labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
                     ErrorConnectingAMS = true;
                     return;
+                    */
+                    var spcrendentialsform = new AMSLoginServicePrincipal();
+                    if (spcrendentialsform.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedCredentials.ADSPClientId = spcrendentialsform.ClientId;
+                        SelectedCredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
+                    }
+                    else
+                    {
+                        labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
+                        ErrorConnectingAMS = true;
+                        return;
+                    }
                 }
-
 
                 // let's check connection to account
                 try
@@ -274,12 +286,14 @@ namespace AMSExplorer
 
             if (radioButtonSpecifyStorage.Checked)
             {
+                /*
                 if (SelectedCredentials.UseAADServicePrincipal) // not supported for now
                 {
                     labelWarningStorage.Text = AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount;
                     ErrorConnectingAMS = true;
                     return;
                 }
+                */
 
                 try
                 {
@@ -288,7 +302,8 @@ namespace AMSExplorer
                     listBoxStorage.Items.Clear();
                     foreach (var storage in newcontext.StorageAccounts)
                     {
-                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storage.Name));
+                        bool defaultstor = (storage.Name == newcontext.DefaultStorageAccount.Name);
+                        listBoxStorage.Items.Add(new Item(storage.Name + (defaultstor ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), defaultstor ? null: storage.Name));
                     }
                     ErrorConnectingAMS = false;
                 }

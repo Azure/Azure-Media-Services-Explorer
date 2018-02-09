@@ -13090,21 +13090,25 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 var newdestinationcredentials = form.DestinationLoginCredentials;
+
+                // for service principal, the SP crednetials are asked in the previous form
+                /*
+                
                 if (newdestinationcredentials.UseAADServicePrincipal)
                 {
+                    var spcrendentialsform = new AMSLoginServicePrincipal();
+                    if (spcrendentialsform.ShowDialog() == DialogResult.OK)
                     {
-                        var spcrendentialsform = new AMSLoginServicePrincipal();
-                        if (spcrendentialsform.ShowDialog() == DialogResult.OK)
-                        {
-                            newdestinationcredentials.ADSPClientId = spcrendentialsform.ClientId;
-                            newdestinationcredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        newdestinationcredentials.ADSPClientId = spcrendentialsform.ClientId;
+                        newdestinationcredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
                     }
+                    else
+                    {
+                        return;
+                    }
+                   
                 }
+                */
 
                 bool usercanceled = false;
                 var storagekeys = BuildStorageKeyDictionary(SelectedAssets, newdestinationcredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
