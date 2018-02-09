@@ -3858,6 +3858,7 @@ namespace AMSExplorer
             return hosts[i - 2] + "." + hosts[i - 1];
         }
 
+
         public static AzureEnvironment ReturnADEnvironment(string ADDeploymentName) // Return the AzureEnvonment based on name
         {
             Type myType = typeof(AzureEnvironments);
@@ -3893,11 +3894,11 @@ namespace AMSExplorer
             {
                 if (ADDeploymentName != null) // one of the default
                 {
-                    return ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                    return "core." + ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
                 }
                 else if (ADCustomSettings != null)
                 {
-                    return ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
+                    return "core." + ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
                 }
                 else // Global
                 {
