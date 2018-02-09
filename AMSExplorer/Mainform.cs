@@ -3733,7 +3733,7 @@ namespace AMSExplorer
                         SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
                         SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
                         readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                        //SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+                        SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
 
                         // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
                         SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(SourceAsset.Uri.Segments[1]);
@@ -3976,7 +3976,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    //SourceLocator.Delete();
+                    SourceLocator.Delete();
                     readpolicy.Delete();
                 }
                 else
