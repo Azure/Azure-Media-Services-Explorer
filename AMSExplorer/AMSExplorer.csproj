@@ -588,7 +588,6 @@
     <Compile Include="ProcessFromJobTemplate.Designer.cs">
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManagementREST.cs" />
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -874,24 +873,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HelpFiles\MediaServices.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_ClientSDK.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_ClientSDK_Ext_API.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_Operations_RESTAPI.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\MediaServices_RESTAPI.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\SampleWatchFolderJSONCall.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="HelpFiles\0917d328eed74498bf9ed9dea98ef737.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="IconsPNG\filter.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />

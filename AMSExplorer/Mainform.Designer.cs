@@ -512,10 +512,6 @@
             this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem31 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
             this.azureMediaServicesReleaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -4185,10 +4181,6 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureMediaHelpFileToolStripMenuItem,
-            this.toolStripMenuItem31,
-            this.toolStripMenuItem35,
-            this.toolStripMenuItem32,
-            this.toolStripMenuItem34,
             this.toolStripSeparator38,
             this.azureMediaServicesReleaseNotesToolStripMenuItem,
             this.azureMediaServicesMSDNToolStripMenuItem,
@@ -4205,30 +4197,6 @@
             resources.ApplyResources(this.azureMediaHelpFileToolStripMenuItem, "azureMediaHelpFileToolStripMenuItem");
             this.azureMediaHelpFileToolStripMenuItem.Name = "azureMediaHelpFileToolStripMenuItem";
             this.azureMediaHelpFileToolStripMenuItem.Click += new System.EventHandler(this.azureMediaHelpFileToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem31
-            // 
-            resources.ApplyResources(this.toolStripMenuItem31, "toolStripMenuItem31");
-            this.toolStripMenuItem31.Name = "toolStripMenuItem31";
-            this.toolStripMenuItem31.Click += new System.EventHandler(this.toolStripMenuItem31_Click);
-            // 
-            // toolStripMenuItem35
-            // 
-            resources.ApplyResources(this.toolStripMenuItem35, "toolStripMenuItem35");
-            this.toolStripMenuItem35.Name = "toolStripMenuItem35";
-            this.toolStripMenuItem35.Click += new System.EventHandler(this.toolStripMenuItem35_Click);
-            // 
-            // toolStripMenuItem32
-            // 
-            resources.ApplyResources(this.toolStripMenuItem32, "toolStripMenuItem32");
-            this.toolStripMenuItem32.Name = "toolStripMenuItem32";
-            this.toolStripMenuItem32.Click += new System.EventHandler(this.toolStripMenuItem32_Click);
-            // 
-            // toolStripMenuItem34
-            // 
-            resources.ApplyResources(this.toolStripMenuItem34, "toolStripMenuItem34");
-            this.toolStripMenuItem34.Name = "toolStripMenuItem34";
-            this.toolStripMenuItem34.Click += new System.EventHandler(this.toolStripMenuItem34_Click);
             // 
             // toolStripSeparator38
             // 
@@ -4794,10 +4762,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visibleJobsInGridToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem35;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
         private System.Windows.Forms.ToolStripMenuItem withAnExternalAsperaSignantAzCopyToolStripMenuItem;

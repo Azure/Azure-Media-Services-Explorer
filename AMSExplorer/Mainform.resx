@@ -1140,7 +1140,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1697,7 +1697,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2583,7 +2583,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2899,7 +2899,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3546,7 +3546,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4068,7 +4068,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -6269,100 +6269,16 @@
     <value>F1</value>
   </data>
   <data name="azureMediaHelpFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="azureMediaHelpFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Media Services References help file</value>
-  </data>
-  <data name="toolStripMenuItem31.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAE3SURBVDhPhZOxaoRAEIZNbWEdUtge3EtY6lOIL5GE
-        QB7BZ0gnaG0XAqkEC4tr5MIVCVoJIkgipJHJ/MsqbnblBj5YZ/5/cIZdyxC3zD3zynxIcH5gUNuNGwbG
-        b4Z2QA0aaJVA4oUxmUxAqzRB11XgOA7leU7DMNA4jlQUBR2Px20DgJFEYK4fZi1C3LYtxXFMaZrSPM90
-        Op22ZgCP2MmzTKzYti1Yvquqor7vFY0EXut9k9A4HA40TRNlWWaqw2t9bRIKrutS13VU17XYi0Hzyew3
-        KMuSmqZRxvmHaLA7AuZOksRYk4gRtCUuBEFAnucZaxKxxDvmVyYUfN8XmGoMPPCKeGQ00fl8psvlouUl
-        T8waxqschiFFUaTkJNpVRiCBP7n2mKDRzNvA9cQ9f2OW54yz4Tlb1h8VDP6hKE+f/wAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <data name="toolStripMenuItem31.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="toolStripMenuItem31.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
-  </data>
-  <data name="toolStripMenuItem31.Text" xml:space="preserve">
-    <value>Media Services .NET Client SDK help file</value>
-  </data>
-  <data name="toolStripMenuItem35.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAE3SURBVDhPhZOxaoRAEIZNbWEdUtge3EtY6lOIL5GE
-        QB7BZ0gnaG0XAqkEC4tr5MIVCVoJIkgipJHJ/MsqbnblBj5YZ/5/cIZdyxC3zD3zynxIcH5gUNuNGwbG
-        b4Z2QA0aaJVA4oUxmUxAqzRB11XgOA7leU7DMNA4jlQUBR2Px20DgJFEYK4fZi1C3LYtxXFMaZrSPM90
-        Op22ZgCP2MmzTKzYti1Yvquqor7vFY0EXut9k9A4HA40TRNlWWaqw2t9bRIKrutS13VU17XYi0Hzyew3
-        KMuSmqZRxvmHaLA7AuZOksRYk4gRtCUuBEFAnucZaxKxxDvmVyYUfN8XmGoMPPCKeGQ00fl8psvlouUl
-        T8waxqschiFFUaTkJNpVRiCBP7n2mKDRzNvA9cQ9f2OW54yz4Tlb1h8VDP6hKE+f/wAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <data name="toolStripMenuItem35.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="toolStripMenuItem35.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
-  </data>
-  <data name="toolStripMenuItem35.Text" xml:space="preserve">
-    <value>Media Services .NET Client Extensions SDK help file</value>
-  </data>
-  <data name="toolStripMenuItem32.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAE3SURBVDhPhZOxaoRAEIZNbWEdUtge3EtY6lOIL5GE
-        QB7BZ0gnaG0XAqkEC4tr5MIVCVoJIkgipJHJ/MsqbnblBj5YZ/5/cIZdyxC3zD3zynxIcH5gUNuNGwbG
-        b4Z2QA0aaJVA4oUxmUxAqzRB11XgOA7leU7DMNA4jlQUBR2Px20DgJFEYK4fZi1C3LYtxXFMaZrSPM90
-        Op22ZgCP2MmzTKzYti1Yvquqor7vFY0EXut9k9A4HA40TRNlWWaqw2t9bRIKrutS13VU17XYi0Hzyew3
-        KMuSmqZRxvmHaLA7AuZOksRYk4gRtCUuBEFAnucZaxKxxDvmVyYUfN8XmGoMPPCKeGQ00fl8psvlouUl
-        T8waxqschiFFUaTkJNpVRiCBP7n2mKDRzNvA9cQ9f2OW54yz4Tlb1h8VDP6hKE+f/wAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <data name="toolStripMenuItem32.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
-  </data>
-  <data name="toolStripMenuItem32.Text" xml:space="preserve">
-    <value>Operations on Media Services help file</value>
-  </data>
-  <data name="toolStripMenuItem34.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAE3SURBVDhPhZOxaoRAEIZNbWEdUtge3EtY6lOIL5GE
-        QB7BZ0gnaG0XAqkEC4tr5MIVCVoJIkgipJHJ/MsqbnblBj5YZ/5/cIZdyxC3zD3zynxIcH5gUNuNGwbG
-        b4Z2QA0aaJVA4oUxmUxAqzRB11XgOA7leU7DMNA4jlQUBR2Px20DgJFEYK4fZi1C3LYtxXFMaZrSPM90
-        Op22ZgCP2MmzTKzYti1Yvquqor7vFY0EXut9k9A4HA40TRNlWWaqw2t9bRIKrutS13VU17XYi0Hzyew3
-        KMuSmqZRxvmHaLA7AuZOksRYk4gRtCUuBEFAnucZaxKxxDvmVyYUfN8XmGoMPPCKeGQ00fl8psvlouUl
-        T8waxqschiFFUaTkJNpVRiCBP7n2mKDRzNvA9cQ9f2OW54yz4Tlb1h8VDP6hKE+f/wAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <data name="toolStripMenuItem34.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="toolStripMenuItem34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
-  </data>
-  <data name="toolStripMenuItem34.Text" xml:space="preserve">
-    <value>Media Services REST API References help file</value>
+    <value>Azure Media Services Documentation (offline)</value>
   </data>
   <data name="toolStripSeparator38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 6</value>
+    <value>332, 6</value>
   </data>
   <data name="azureMediaServicesReleaseNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="azureMediaServicesReleaseNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Services Release Notes</value>
@@ -6379,7 +6295,7 @@
     <value>Alt+F1</value>
   </data>
   <data name="azureMediaServicesMSDNToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="azureMediaServicesMSDNToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Services Documentation</value>
@@ -6396,16 +6312,16 @@
     <value>Alt+Shift+F1</value>
   </data>
   <data name="azureMediaServicesForumToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="azureMediaServicesForumToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Services Forum</value>
   </data>
   <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 6</value>
+    <value>332, 6</value>
   </data>
   <data name="explorerReleaseNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="explorerReleaseNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Explorer Release Notes</value>
@@ -6421,7 +6337,7 @@
 </value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 22</value>
+    <value>335, 22</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About...</value>
@@ -11273,30 +11189,6 @@
     <value>azureMediaHelpFileToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;azureMediaHelpFileToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem31.Name" xml:space="preserve">
-    <value>toolStripMenuItem31</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem31.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem35.Name" xml:space="preserve">
-    <value>toolStripMenuItem35</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem35.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem32.Name" xml:space="preserve">
-    <value>toolStripMenuItem32</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem32.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem34.Name" xml:space="preserve">
-    <value>toolStripMenuItem34</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem34.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator38.Name" xml:space="preserve">
