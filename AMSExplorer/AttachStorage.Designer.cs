@@ -39,7 +39,6 @@
             this.listViewStorage = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.openFileDialogLoadSubFile = new System.Windows.Forms.OpenFileDialog();
             this.groupBoxAMSAcct = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxAMSResourceGroup = new System.Windows.Forms.TextBox();
@@ -112,14 +111,9 @@
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // openFileDialogLoadSubFile
-            // 
-            this.openFileDialogLoadSubFile.DefaultExt = "publishsettings";
-            resources.ApplyResources(this.openFileDialogLoadSubFile, "openFileDialogLoadSubFile");
             // 
             // groupBoxAMSAcct
             // 
@@ -186,7 +180,6 @@
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBoxStorage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.OpenFileDialog openFileDialogLoadSubFile;
         private System.Windows.Forms.GroupBox groupBoxAMSAcct;
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxAMSResourceGroup;

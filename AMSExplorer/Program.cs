@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2018 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -903,8 +903,8 @@ namespace AMSExplorer
         public const string AMPAesToken = "&aestoken={0}";
         public const string AMPSubtitles = "&subtitles={0}";
 
-        public const string PlayerDASHIFList = @"http://dashif.org/reference/players/javascript/";
-        public const string PlayerDASHIFToLaunch = @"http://dashif.org/reference/players/javascript/v2.2.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
+        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v2.6.6/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
@@ -944,7 +944,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/media-services-release-notes";
         public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
-        public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services-2/";
+        public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
         public const string LinkMoreInfoAME = "https://docs.microsoft.com/en-us/azure/media-services/media-services-media-encoder-standard-formats";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";

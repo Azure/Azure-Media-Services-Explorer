@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2016 Microsoft Corporation
+//    Copyright 2018 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -93,9 +93,6 @@ namespace AMSExplorer
             textBoxTXT_Validation(sender, e);
         }
 
-
-
-
         private void textBoxTXT_Validation(object sender, EventArgs e)
         {
             TextBox mytextbox = (TextBox)sender;
@@ -109,7 +106,6 @@ namespace AMSExplorer
                 resourceGroup,
                 storageName
                 );
-
         }
 
         private async Task<MediaServicesManagementClient> GetMediaClient()
@@ -158,45 +154,7 @@ namespace AMSExplorer
 
             string accn = _credentials.ReturnAccountName();
             mediaClient.MediaService.Update(AMSResourceGroup, _credentials.ReturnAccountName(), mediaServiceNew);
-
-
-            /* 
-             
-            mediaService2.ApiEndpoints = mediaService.ApiEndpoints;
-
-            mediaService2.StorageAccounts = new List<StorageAccount>();
-
-            // Remove first secondary storage account we get
-            // Please note primary can never be deleted and/or updated as secondary storage
-            StorageAccount storageAccount = new StorageAccount();
-            storageAccount.Id = PrimaryStorageAccountResourceId;
-            storageAccount.IsPrimary = true;
-            mediaService2.StorageAccounts.Add(storageAccount);
-
-            mediaClient.MediaService.Update(resourceGroupName, mediaAccountName, mediaService2);
-
-            MediaService mediaService3 = new MediaService();
-            mediaService3.ApiEndpoints = mediaService.ApiEndpoints;
-
-            mediaService3.StorageAccounts = new List<StorageAccount>();
-
-            // Onboard new storage account
-            StorageAccount storageAccount2 = new StorageAccount();
-            storageAccount2.Id = SecondaryStorageAccountResourceId;
-            storageAccount2.IsPrimary = false;
-
-            StorageAccount storageAccount3 = new StorageAccount();
-            storageAccount3.Id = PrimaryStorageAccountResourceId;
-            storageAccount3.IsPrimary = true;
-
-            mediaService3.StorageAccounts.Add(storageAccount2);
-            mediaService3.StorageAccounts.Add(storageAccount3);
-
-            mediaClient.MediaService.Update(resourceGroupName, mediaAccountName, mediaService3);
-            */
         }
-
-
 
         private async void buttonConnect_Click(object sender, EventArgs e)
         {
@@ -211,7 +169,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error when connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                groupBoxStorage.Enabled = false;
+                buttonAttach.Enabled = groupBoxStorage.Enabled = false;
                 return;
             }
 
@@ -220,18 +178,15 @@ namespace AMSExplorer
 
             storages.ForEach(s =>
             {
-                var lvitem = new ListViewItem(new string[] { s.Id, s.Id });
-                /*
-                if (_filter != null && f.Name == _filter)
+                if (!(bool)s.IsPrimary)
                 {
-                    lvitem.Checked = true;
+                    var lvitem = new ListViewItem(new string[] { s.Id, s.Id });
+                    listViewStorage.Items.Add(lvitem);
                 }
-                */
-                listViewStorage.Items.Add(lvitem);
             }
             );
 
-            groupBoxStorage.Enabled = true;
+            buttonAttach.Enabled = groupBoxStorage.Enabled = true;
         }
     }
 }
