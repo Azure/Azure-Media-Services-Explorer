@@ -44,6 +44,12 @@ using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+// Azure Management dependencies
+using Microsoft.Rest.Azure.Authentication;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest;
+
 namespace AMSExplorer
 {
     public partial class Mainform : Form
@@ -3911,7 +3917,7 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, AMSLogin.ReturnAccountName(DestinationCredentialsEntry)), 0, response.Id);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.ReturnAccountName()), 0, response.Id);
                         try
                         {
                             var mediablobs = SourceCloudBlobContainer.ListBlobs();
@@ -4004,7 +4010,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Dynamic encryption settings copy...");
                 try
                 {
-                    await DynamicEncryption.CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL, _accountname, AMSLogin.ReturnAccountName(DestinationCredentialsEntry));
+                    await DynamicEncryption.CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL, _accountname, DestinationCredentialsEntry.ReturnAccountName());
                     TextBoxLogWriteLine("Dynamic encryption settings copied.");
 
                 }
@@ -4074,7 +4080,7 @@ namespace AMSExplorer
             if (!ErrorCopyAsset && !response.token.IsCancellationRequested)
             {
                 if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
-                TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", AMSLogin.ReturnAccountName(DestinationCredentialsEntry));
+                TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", DestinationCredentialsEntry.ReturnAccountName());
                 TextBoxLogWriteLine(TargetAsset.Id);
                 DoGridTransferDeclareCompleted(response.Id, DestinationCloudBlobContainer.Uri.AbsoluteUri);
             }
@@ -4404,7 +4410,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Dynamic encryption settings copy...");
                 try
                 {
-                    await DynamicEncryption.CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL, _accountname, AMSLogin.ReturnAccountName(DestinationCredentialsEntry));
+                    await DynamicEncryption.CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL, _accountname, DestinationCredentialsEntry.ReturnAccountName());
                     TextBoxLogWriteLine("Dynamic encryption settings copied.");
                 }
                 catch (Exception ex)
@@ -12443,12 +12449,16 @@ namespace AMSExplorer
             DoAttachAnotherStorageAccount();
         }
 
-        private void DoAttachAnotherStorageAccount()
+        private async void DoAttachAnotherStorageAccount()
         {
             AttachStorage form = new AttachStorage(_credentials);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+
+                /*
+                // OLD CODE
+
                 ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertBody, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
@@ -12478,6 +12488,20 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
                     TextBoxLogWriteLine(ex);
                     TextBoxLogWriteLine(helper.stringBuilderLog.ToString());
+                }
+                */
+
+                // Update storage accounts
+                try
+                {
+                    TextBoxLogWriteLine("Processing Detach/Attach Storage account(s)...");
+                    form.UpdateStorageAccounts();
+                    TextBoxLogWriteLine("Storage account detached/attached.");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when processing storage account detach/attach.", true);
+                    TextBoxLogWriteLine(ex);
                 }
             }
         }
@@ -13130,7 +13154,7 @@ namespace AMSExplorer
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, AMSLogin.ReturnAccountName(form.DestinationLoginCredentials)), TransferType.ExportToOtherAMSAccount, false);
+                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.ReturnAccountName()), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
                             ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, DestinationContext, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset, form.CopyAlternateId), response.token);
@@ -13144,7 +13168,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", AMSLogin.ReturnAccountName(form.DestinationLoginCredentials)), TransferType.ExportToOtherAMSAccount, false);
+                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.ReturnAccountName()), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() =>
                             ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, DestinationContext, form.DeleteSourceAsset), response.token);

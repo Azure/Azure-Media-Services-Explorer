@@ -47,6 +47,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Net.Http;
+using Microsoft.Rest.Azure.Authentication;
 
 namespace AMSExplorer
 {
@@ -3654,6 +3655,12 @@ namespace AMSExplorer
         public string ManagementPortal { get; set; }
     }
 
+    public class ActiveDirectoryServiceSettingsEntry
+    {
+        public string CloudEnvName { get; set; }  // Cloud environnement name, for example "AzureChinaCloudEnvironment"  (AzureEnvironments.AzureChinaCloudEnvironment)
+        public ActiveDirectoryServiceSettings Settings { get; set; }
+    }
+
 
     public class ExplorerOpenIDSample
     {
@@ -3713,6 +3720,27 @@ namespace AMSExplorer
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalPortal = "http://portal.azure.com";
+
+        public string ReturnAccountName()
+        {
+            string accName = "";
+
+            if (!this.UseAADInteract && !this.UseAADServicePrincipal)
+            {
+                return this.AccountName;
+            }
+            else if (!string.IsNullOrEmpty(this.ADRestAPIEndpoint))
+            {
+                try
+                {
+                    accName = (new Uri(this.ADRestAPIEndpoint)).Host.Split('.')[0];
+                }
+                catch
+                {
+                }
+            }
+            return accName;
+        }
 
 
         public static readonly IList<ACSEndPointMapping> ACSMappings = new List<ACSEndPointMapping> {
@@ -3774,6 +3802,50 @@ namespace AMSExplorer
                  Name = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
                 ManagementPortal ="https://portal.microsoftazure.de"
             }
+        };
+
+
+        public static readonly List<ActiveDirectoryServiceSettingsEntry> adSettings = new List<ActiveDirectoryServiceSettingsEntry> {
+            // Global
+            new ActiveDirectoryServiceSettingsEntry() {
+               CloudEnvName = nameof(AzureEnvironments.AzureCloudEnvironment),
+               Settings = new ActiveDirectoryServiceSettings {
+                AuthenticationEndpoint = ActiveDirectoryServiceSettings.Azure.AuthenticationEndpoint,
+               TokenAudience = new Uri("https://management.azure.com", UriKind.Absolute),
+               ValidateAuthority = ActiveDirectoryServiceSettings.Azure.ValidateAuthority
+                   }
+            }, 
+           
+            
+            // China
+           new ActiveDirectoryServiceSettingsEntry() {
+               CloudEnvName = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
+               Settings = new ActiveDirectoryServiceSettings {
+                AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureChina.AuthenticationEndpoint,
+                   TokenAudience = new Uri("https://management.chinacloudapi.cn", UriKind.Absolute),
+             ValidateAuthority = ActiveDirectoryServiceSettings.AzureChina.ValidateAuthority,
+               }
+           }, 
+           
+            // US Government
+               new ActiveDirectoryServiceSettingsEntry() {
+               CloudEnvName = nameof(AzureEnvironments.AzureCloudEnvironment),
+               Settings = new ActiveDirectoryServiceSettings {
+                  AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureUSGovernment.AuthenticationEndpoint,
+                 TokenAudience = new Uri("https://management.usgovcloudapi.net", UriKind.Absolute),
+                  ValidateAuthority = ActiveDirectoryServiceSettings.AzureUSGovernment.ValidateAuthority,
+               }
+               },
+
+               // Germany
+                  new ActiveDirectoryServiceSettingsEntry() {
+               CloudEnvName = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
+               Settings = new ActiveDirectoryServiceSettings {
+                  AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureGermany.AuthenticationEndpoint,
+                 TokenAudience = new Uri("https://management.microsoftazure.de", UriKind.Absolute),
+                 ValidateAuthority = ActiveDirectoryServiceSettings.AzureGermany.ValidateAuthority,
+               }
+                  }
         };
 
 
@@ -3872,6 +3944,19 @@ namespace AMSExplorer
             else // default
             {
                 return AzureEnvironments.AzureCloudEnvironment;
+            }
+        }
+
+        public ActiveDirectoryServiceSettings ReturnADSettings() // Return the ActiveDirectoryServiceSettings 
+        {
+            var entry = adSettings.Where(a => a.CloudEnvName == this.ADDeploymentName).FirstOrDefault();
+            if (entry != null)
+            {
+                return entry.Settings;
+            }
+            else
+            {
+                return adSettings[0].Settings;
             }
         }
 

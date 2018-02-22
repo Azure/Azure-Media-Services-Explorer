@@ -211,9 +211,9 @@ namespace AMSExplorer
 
             CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
             _listMediaAccounts = CredentialList.MediaServicesAccounts.Where(c => c.UseAADInteract || c.UseAADServicePrincipal).ToList();
-            _listMediaAccounts.ForEach(c => listBoxAccounts.Items.Add(AMSLogin.ReturnAccountName(c)));
+            _listMediaAccounts.ForEach(c => listBoxAccounts.Items.Add(c.ReturnAccountName()));
 
-            var entryWithSameName = _listMediaAccounts.Where(c => AMSLogin.ReturnAccountName(c).ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = _listMediaAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == _accountname.ToLower().Trim()).FirstOrDefault();
             if (entryWithSameName != null)
             {
                 listBoxAccounts.SelectedIndex = _listMediaAccounts.IndexOf(entryWithSameName);

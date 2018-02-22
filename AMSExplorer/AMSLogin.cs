@@ -34,7 +34,6 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
 
-
 namespace AMSExplorer
 {
     public partial class AMSLogin : Form
@@ -141,7 +140,7 @@ namespace AMSExplorer
 
         private void AddItemToListviewAccounts(CredentialsEntry c)
         {
-            var item = listViewAccounts.Items.Add(ReturnAccountName(c));
+            var item = listViewAccounts.Items.Add(c.ReturnAccountName());
             if (!c.UseAADInteract && !c.UseAADServicePrincipal)
             {
                 listViewAccounts.Items[item.Index].ForeColor = Color.Red;
@@ -194,43 +193,19 @@ namespace AMSExplorer
             return temp.Count() > 1 ? temp[1] : string.Empty;
         }
 
-        public static string ReturnAccountName(CredentialsEntry entry)
-        {
-
-            string accName = "";
-
-            if (!entry.UseAADInteract && !entry.UseAADServicePrincipal)
-            {
-                return entry.AccountName;
-            }
-            else if (!string.IsNullOrEmpty(entry.ADRestAPIEndpoint))
-            {
-                try
-                {
-                    accName = (new Uri(entry.ADRestAPIEndpoint)).Host.Split('.')[0];
-                }
-
-                catch
-                {
-
-                }
-            }
-
-            return accName;
-        }
 
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
             LoginCredentials = GenerateLoginCredentials;
 
             // New code for JSON
-            if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
+            if (string.IsNullOrEmpty(LoginCredentials.ReturnAccountName()))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
                 return;
             }
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(LoginCredentials).ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == LoginCredentials.ReturnAccountName().ToLower().Trim()).FirstOrDefault();
             // if found the same name
             if (entryWithSameName != null)
             {
@@ -274,15 +249,15 @@ namespace AMSExplorer
         {
             LoginCredentials = GenerateLoginCredentials;
 
-            if (string.IsNullOrEmpty(ReturnAccountName(LoginCredentials)))
+            if (string.IsNullOrEmpty(LoginCredentials.ReturnAccountName()))
             {
                 MessageBox.Show(string.Format("The {0} cannot be empty.", labelE1.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            var accName = ReturnAccountName(LoginCredentials);
+            var accName = LoginCredentials.ReturnAccountName();
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == accName.ToLower().Trim()).FirstOrDefault();
+            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == accName.ToLower().Trim()).FirstOrDefault();
             // if found the same name
             if (entryWithSameName == null)  // not found
             {
@@ -345,7 +320,7 @@ namespace AMSExplorer
 
             context = Program.ConnectAndGetNewContext(LoginCredentials, false, true);
 
-            accName = ReturnAccountName(LoginCredentials);
+            accName = LoginCredentials.ReturnAccountName();
 
             try
             {
@@ -376,11 +351,11 @@ namespace AMSExplorer
             {
                 if (LoginCredentials != null)
                 {
-                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => ReturnAccountName(c).ToLower().Trim() == ReturnAccountName(LoginCredentials).ToLower().Trim()).FirstOrDefault();
+                    var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == LoginCredentials.ReturnAccountName().ToLower().Trim()).FirstOrDefault();
 
                     if (entryWithSameName != null && !LoginCredentials.Equals(entryWithSameName))
                     {
-                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, ReturnAccountName(LoginCredentials)), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, LoginCredentials.ReturnAccountName()), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes) // ok to update the credentials
                         {
                             CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;

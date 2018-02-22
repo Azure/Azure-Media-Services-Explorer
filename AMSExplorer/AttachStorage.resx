@@ -123,17 +123,17 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonAttach.Location" type="System.Drawing.Point, System.Drawing">
-    <value>537, 15</value>
+    <value>490, 16</value>
   </data>
   <data name="buttonAttach.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 27</value>
+    <value>177, 27</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonAttach.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="buttonAttach.Text" xml:space="preserve">
-    <value>Attach storage</value>
+    <value>Process attach/detach</value>
   </data>
   <data name="&gt;&gt;buttonAttach.Name" xml:space="preserve">
     <value>buttonAttach</value>
@@ -146,33 +146,6 @@
   </data>
   <data name="&gt;&gt;buttonAttach.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>664, 15</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 27</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -196,11 +169,14 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>groupBoxAMSAcct</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>216, 17</value>
+  </metadata>
   <data name="textBoxSubId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -216,6 +192,9 @@
   <data name="textBoxSubId.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="textBoxSubId.ToolTip" xml:space="preserve">
+    <value>Example : </value>
+  </data>
   <data name="&gt;&gt;textBoxSubId.Name" xml:space="preserve">
     <value>textBoxSubId</value>
   </data>
@@ -223,49 +202,25 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxSubId.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>groupBoxAMSAcct</value>
   </data>
   <data name="&gt;&gt;textBoxSubId.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBoxStorageName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxStorageName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 47</value>
-  </data>
-  <data name="textBoxStorageName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 23</value>
-  </data>
-  <data name="textBoxStorageName.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageName.Name" xml:space="preserve">
-    <value>textBoxStorageName</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageName.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageName.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 29</value>
+    <value>15, 151</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 15</value>
+    <value>359, 15</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Name :</value>
+    <value>Attach storage account(s). Provide the Resource Id (one Id per line)</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -274,187 +229,70 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>groupBoxStorage</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxStorageKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxStorageKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 92</value>
-  </data>
-  <data name="textBoxStorageKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 23</value>
-  </data>
-  <data name="textBoxStorageKey.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;textBoxStorageKey.Name" xml:space="preserve">
-    <value>textBoxStorageKey</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageKey.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageKey.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 74</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Key :</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="groupBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="textBoxStorageEndPoint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxAttachStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="textBoxStorageEndPoint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 138</value>
+  <data name="textBoxAttachStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 169</value>
   </data>
-  <data name="textBoxStorageEndPoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 23</value>
+  <data name="textBoxAttachStorage.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="textBoxStorageEndPoint.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="textBoxAttachStorage.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
   </data>
-  <data name="textBoxStorageEndPoint.Text" xml:space="preserve">
-    <value>to be inserted at runtime</value>
+  <data name="textBoxAttachStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 106</value>
   </data>
-  <data name="&gt;&gt;textBoxStorageEndPoint.Name" xml:space="preserve">
-    <value>textBoxStorageEndPoint</value>
+  <data name="textBoxAttachStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
   </data>
-  <data name="&gt;&gt;textBoxStorageEndPoint.Type" xml:space="preserve">
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>216, 17</value>
+  </metadata>
+  <data name="textBoxAttachStorage.ToolTip" xml:space="preserve">
+    <value>Example : /subscriptions/28a75405-95db-4d15-9a7f-ab84003a63aa/resourceGroups/Default-Web-WestEurope/providers/Microsoft.Storage/storageAccounts/xpouyatdemoattach3</value>
+  </data>
+  <data name="textBoxAttachStorage.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;textBoxAttachStorage.Name" xml:space="preserve">
+    <value>textBoxAttachStorage</value>
+  </data>
+  <data name="&gt;&gt;textBoxAttachStorage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxStorageEndPoint.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="&gt;&gt;textBoxAttachStorage.Parent" xml:space="preserve">
+    <value>groupBoxStorage</value>
   </data>
-  <data name="&gt;&gt;textBoxStorageEndPoint.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;textBoxAttachStorage.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 120</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Endpoint URL :</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 385</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>727, 183</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Storage account to attach</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="textBoxCertBody.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxCertBody.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 111</value>
-  </data>
-  <data name="textBoxCertBody.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxCertBody.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="textBoxCertBody.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 59</value>
-  </data>
-  <data name="textBoxCertBody.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxCertBody.Name" xml:space="preserve">
-    <value>textBoxCertBody</value>
-  </data>
-  <data name="&gt;&gt;textBoxCertBody.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCertBody.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;textBoxCertBody.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 92</value>
+    <value>19, 27</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 15</value>
+    <value>189, 15</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
+    <value>73</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Management Certificate Body :</value>
+    <value>Detach selected storage accounts :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -463,64 +301,79 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>groupBoxStorage</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
-  <data name="linkLabelAttach.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="listViewStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="linkLabelAttach.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 58</value>
+  <data name="listViewStorage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="linkLabelAttach.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 15</value>
+  <data name="listViewStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 45</value>
   </data>
-  <data name="linkLabelAttach.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
+  <data name="listViewStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 100</value>
   </data>
-  <data name="linkLabelAttach.Text" xml:space="preserve">
-    <value>Get your subscription file, save it locally and import it</value>
+  <data name="listViewStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
   </data>
-  <data name="&gt;&gt;linkLabelAttach.Name" xml:space="preserve">
-    <value>linkLabelAttach</value>
+  <data name="&gt;&gt;listViewStorage.Name" xml:space="preserve">
+    <value>listViewStorage</value>
   </data>
-  <data name="&gt;&gt;linkLabelAttach.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;listViewStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;linkLabelAttach.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listViewStorage.Parent" xml:space="preserve">
+    <value>groupBoxStorage</value>
+  </data>
+  <data name="&gt;&gt;listViewStorage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBoxStorage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="groupBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 279</value>
+  </data>
+  <data name="groupBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>727, 297</value>
+  </data>
+  <data name="groupBoxStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="groupBoxStorage.Text" xml:space="preserve">
+    <value>Detach/Attach Storage accounts</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStorage.Name" xml:space="preserve">
+    <value>groupBoxStorage</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStorage.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;linkLabelAttach.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 16</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>509, 16</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>This operation cannot be reverted !</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxStorage.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 600</value>
@@ -543,62 +396,35 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxServiceManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="textBoxServiceManagement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 203</value>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="textBoxServiceManagement.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>673, 16</value>
   </data>
-  <data name="textBoxServiceManagement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 23</value>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 27</value>
   </data>
-  <data name="textBoxServiceManagement.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;textBoxServiceManagement.Name" xml:space="preserve">
-    <value>textBoxServiceManagement</value>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;textBoxServiceManagement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
   </data>
-  <data name="&gt;&gt;textBoxServiceManagement.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxServiceManagement.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="label7.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 185</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 15</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Azure Service Management URL :</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="openFileDialogLoadSubFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -606,55 +432,133 @@
   <data name="openFileDialogLoadSubFile.Filter" xml:space="preserve">
     <value>Subscription file|*.publishsettings|All files|*.*</value>
   </data>
-  <data name="buttonImportSubscriptionFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>332, 52</value>
-  </data>
-  <data name="buttonImportSubscriptionFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 27</value>
-  </data>
-  <data name="buttonImportSubscriptionFile.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="buttonImportSubscriptionFile.Text" xml:space="preserve">
-    <value>Import subscription file...</value>
-  </data>
-  <data name="&gt;&gt;buttonImportSubscriptionFile.Name" xml:space="preserve">
-    <value>buttonImportSubscriptionFile</value>
-  </data>
-  <data name="&gt;&gt;buttonImportSubscriptionFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonImportSubscriptionFile.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonImportSubscriptionFile.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="groupBoxAMSAcct.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 108</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>727, 252</value>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBoxAMSAcct</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Name" xml:space="preserve">
+    <value>textBoxAMSResourceGroup</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Parent" xml:space="preserve">
+    <value>groupBoxAMSAcct</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxAMSAcct.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 28</value>
+  </data>
+  <data name="groupBoxAMSAcct.Size" type="System.Drawing.Size, System.Drawing">
+    <value>727, 169</value>
+  </data>
+  <data name="groupBoxAMSAcct.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Azure subscription</value>
+  <data name="groupBoxAMSAcct.Text" xml:space="preserve">
+    <value>Media Service Account {0}</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
+  <data name="&gt;&gt;groupBoxAMSAcct.Name" xml:space="preserve">
+    <value>groupBoxAMSAcct</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxAMSAcct.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxAMSAcct.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxAMSAcct.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 94</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Resource Group :</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBoxAMSAcct</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxAMSResourceGroup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxAMSResourceGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 112</value>
+  </data>
+  <data name="textBoxAMSResourceGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>709, 23</value>
+  </data>
+  <data name="textBoxAMSResourceGroup.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Name" xml:space="preserve">
+    <value>textBoxAMSResourceGroup</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.Parent" xml:space="preserve">
+    <value>groupBoxAMSAcct</value>
+  </data>
+  <data name="&gt;&gt;textBoxAMSResourceGroup.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonConnect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 215</value>
+  </data>
+  <data name="buttonConnect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 28</value>
+  </data>
+  <data name="buttonConnect.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="buttonConnect.Text" xml:space="preserve">
+    <value>Connect to management API</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Name" xml:space="preserve">
+    <value>buttonConnect</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -673,13 +577,19 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Attach another storage account</value>
+    <value>Manage storage accounts</value>
   </data>
   <data name="&gt;&gt;openFileDialogLoadSubFile.Name" xml:space="preserve">
     <value>openFileDialogLoadSubFile</value>
   </data>
   <data name="&gt;&gt;openFileDialogLoadSubFile.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>AttachStorage</value>
