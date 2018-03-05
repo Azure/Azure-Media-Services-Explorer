@@ -180,7 +180,9 @@ namespace AMSExplorer
             {
                 if (!(bool)s.IsPrimary)
                 {
-                    var lvitem = new ListViewItem(new string[] { s.Id, s.Id });
+                    var names = s.Id.Split('/');
+                    var lvitem = new ListViewItem(new string[] { names.Last(), s.Id });
+                    lvitem.ToolTipText = s.Id;
                     listViewStorage.Items.Add(lvitem);
                 }
             }

@@ -35,6 +35,7 @@
             this.textBoxSubId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBoxStorage = new System.Windows.Forms.GroupBox();
+            this.textBoxAttachStorage = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listViewStorage = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,7 +44,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxAMSResourceGroup = new System.Windows.Forms.TextBox();
             this.buttonConnect = new System.Windows.Forms.Button();
-            this.textBoxAttachStorage = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxStorage.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -84,6 +84,13 @@
             this.groupBoxStorage.Controls.Add(this.label3);
             this.groupBoxStorage.Name = "groupBoxStorage";
             this.groupBoxStorage.TabStop = false;
+            // 
+            // textBoxAttachStorage
+            // 
+            this.textBoxAttachStorage.AcceptsReturn = true;
+            resources.ApplyResources(this.textBoxAttachStorage, "textBoxAttachStorage");
+            this.textBoxAttachStorage.Name = "textBoxAttachStorage";
+            this.toolTip1.SetToolTip(this.textBoxAttachStorage, resources.GetString("textBoxAttachStorage.ToolTip"));
             // 
             // label2
             // 
@@ -143,13 +150,6 @@
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
-            // 
-            // textBoxAttachStorage
-            // 
-            this.textBoxAttachStorage.AcceptsReturn = true;
-            resources.ApplyResources(this.textBoxAttachStorage, "textBoxAttachStorage");
-            this.textBoxAttachStorage.Name = "textBoxAttachStorage";
-            this.toolTip1.SetToolTip(this.textBoxAttachStorage, resources.GetString("textBoxAttachStorage.ToolTip"));
             // 
             // AttachStorage
             // 
