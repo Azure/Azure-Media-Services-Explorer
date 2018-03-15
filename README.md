@@ -7,7 +7,7 @@ See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-me
 
 **The latest binary for Windows (with a EXE installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
-There are some nice [Azure Media Services Step-by-Step tutorials](https://docs.com/shigeyf/1220/azure-media-services-step-by-step-tutorial-series) using Azure Media Services Explorer.
+There are some nice [Azure Media Services Step-by-Step tutorials](https://www.slideshare.net/shigeyf/azure-media-services-stepbystep-tutorial-docs-series-agenda) using Azure Media Services Explorer.
 
 This solution has been developped with Visual Studio 2015. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
 
