@@ -5381,7 +5381,8 @@ namespace AMSExplorer
                 var form = new MediaAnalyticsContentModeration(_context, processor, processorImage, preview)
                 {
                     MIJobName = string.Format("Moderation ({0} mode) of {1}", Constants.NameconvModerationMode, Constants.NameconvInputasset),
-                    MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation ({1} mode)", Constants.NameconvInputasset, Constants.NameconvModerationMode),
+                    //MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation ({1} mode)", Constants.NameconvInputasset, Constants.NameconvModerationMode),
+                    MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation", Constants.NameconvInputasset),
                     MIInputAssetName = (SelectedAssets.Count > 1) ?
                     string.Format("{0} assets have been selected for moderation.", SelectedAssets.Count)
                     : string.Format("Asset '{0}' will be analyzed.", SelectedAssets.FirstOrDefault().Name)

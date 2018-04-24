@@ -121,16 +121,15 @@ namespace AMSExplorer
             /*Example of config :
            
               {
-'version':'1.0', 
-'Options': { 'Mode':'Quality' }
+'version':'2.0', 
 } 
 
              */
 
             dynamic obj = new JObject();
-            obj.Version = "1.0";
-            obj.Options = new JObject();
-            obj.Options.Mode = ModerationMode();
+            obj.Version = "2.0";
+            // obj.Options = new JObject();
+            // obj.Options.Mode = ModerationMode();
 
             return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
         }
