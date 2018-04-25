@@ -388,6 +388,8 @@ namespace AMSExplorer
                         ||
                         (checkBoxDisableAutoDeinterlacing.CheckState == CheckState.Checked)
                         ||
+                        (checkBoxOverlay.CheckState == CheckState.Checked)
+                        ||
                         (comboBoxSourceAsset.Items.Count > 1)
                         )
                      )
