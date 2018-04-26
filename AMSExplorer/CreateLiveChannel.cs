@@ -337,7 +337,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    FillComboProtocols(true);
+                    FillComboProtocols(false);
                     SetLabelDefaultEncLabel();
                     UpdateProfileGrids();
                     if (!EncodingTabDisplayed)
