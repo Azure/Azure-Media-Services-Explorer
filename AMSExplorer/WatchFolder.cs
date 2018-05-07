@@ -294,7 +294,7 @@ namespace AMSExplorer
                     {
                         bool relative = bool.Parse(a.Element("IsRelativeURI").Value);
                         string filename = relative ? Path.Combine(Path.GetDirectoryName(filenameWithPath), a.Element("URI").Value) : a.Element("URI").Value;
-                        list.Add(new assetfileinJson() { /* Type = a.Element("Type").Value, */ fileName = filename });
+                        list.Add(new assetfileinJson() { fileName = filename });
                     }
                 }
             }
