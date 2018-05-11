@@ -2923,8 +2923,8 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
+                            TextBoxLogWriteLine("Deleting asset(s)...");
                             Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            TextBoxLogWriteLine("Deleting asset(s)");
                             Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
