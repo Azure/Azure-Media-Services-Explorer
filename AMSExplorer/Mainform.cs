@@ -12457,51 +12457,17 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
 
-                /*
-                // OLD CODE
-
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertBody, form.GetAzureSubscriptionID);
-
-                // Initialize the AccountInfo class.
-                MediaServicesAccount accountInfo = new MediaServicesAccount()
-                {
-                    AccountName = _accountname,
-                    StorageAccountName = _context.DefaultStorageAccount.Name
-                };
-
-                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest()
-                {
-                    StorageAccountName = form.GetStorageName,
-                    StorageAccountKey = form.GetStorageKey,
-                    BlobStorageEndpointUri = form.GetStorageEndpointURL
-                };
-
-                // Call AttachStorageAccountToMediaServiceAccount to 
-                // attach an existing storage account to the Media Services account.
-                try
-                {
-                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo, storageAccountToAttach);
-                    TextBoxLogWriteLine("Storage account '{0}' attached to '{1}' account.", form.GetStorageName, _accountname);
-                }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
-                    TextBoxLogWriteLine(ex);
-                    TextBoxLogWriteLine(helper.stringBuilderLog.ToString());
-                }
-                */
-
                 // Update storage accounts
                 try
                 {
-                    TextBoxLogWriteLine("Processing Detach/Attach Storage account(s)...");
+                    TextBoxLogWriteLine("Processing Attach/Detach Storage account(s)...");
                     form.UpdateStorageAccounts();
-                    TextBoxLogWriteLine("Storage account detached/attached.");
+                    TextBoxLogWriteLine("Storage account attached/detached.");
+                    DoRefreshGridStorageV(false);
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when processing storage account detach/attach.", true);
+                    TextBoxLogWriteLine("Error when processing storage account attach/detach.", true);
                     TextBoxLogWriteLine(ex);
                 }
             }
