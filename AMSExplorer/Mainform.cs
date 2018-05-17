@@ -1578,12 +1578,12 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
 
                     IJob myjob = GetJob(job.Id);
-                    while (myjob.State == JobState.Processing || myjob.State == JobState.Queued || myjob.State == JobState.Scheduled)
+                    while (myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled)
                     {
                         System.Threading.Thread.Sleep(1000);
                         myjob = GetJob(job.Id);
                     }
-                    if (myjob.State == JobState.Finished)
+                    if (myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
                     {
                         // job template does not rename the output assets. As a fix, we do this:
                         int taskind = 1;
@@ -4658,7 +4658,7 @@ namespace AMSExplorer
                         // Enumerate through all jobs (1000 at a time)
                         var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
-                        cancelTasks.AddRange(listjobs.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
+                        cancelTasks.AddRange(listjobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
 
                         if (currentSkipSize == batchSize)
                         {
@@ -5173,7 +5173,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalytics(string processorStr, Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
+        private void DoMenuVideoAnalytics(string processorStr, System.Drawing.Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -5219,7 +5219,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, Image processorImage, string urlMoreInfo, string preset = null)
+        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, System.Drawing.Image processorImage, string urlMoreInfo, string preset = null)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -5269,7 +5269,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsFaceDetection(string processorStr, Image processorImage)
+        private void DoMenuVideoAnalyticsFaceDetection(string processorStr, System.Drawing.Image processorImage)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -5315,7 +5315,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsVideoThumbnails(string processorStr, Image processorImage)
+        private void DoMenuVideoAnalyticsVideoThumbnails(string processorStr, System.Drawing.Image processorImage)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -5361,7 +5361,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsContentModeration(string processorStr, Image processorImage, bool preview = true)
+        private void DoMenuVideoAnalyticsContentModeration(string processorStr, System.Drawing.Image processorImage, bool preview = true)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -6300,7 +6300,7 @@ namespace AMSExplorer
             comboBoxOrderJobs.SelectedIndex = 0;
 
             comboBoxStateJobs.Items.AddRange(
-            typeof(JobState)
+            typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState)
             .GetFields()
             .Select(i => i.Name as string)
             .ToArray()
@@ -6494,7 +6494,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    c = _context.Jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), filter)).Count();
+                    c = _context.Jobs.Where(j => j.State == (Microsoft.WindowsAzure.MediaServices.Client.JobState)Enum.Parse(typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState), filter)).Count();
                 }
                 if (c > 0) comboBoxStateJobs.Items[i] = string.Format("{0}  ({1})", filter, c);
                 else comboBoxStateJobs.Items[i] = filter;
@@ -6923,24 +6923,24 @@ namespace AMSExplorer
 
                 if (celljobstatevalue != null)
                 {
-                    JobState JS = (JobState)celljobstatevalue;
+                    Microsoft.WindowsAzure.MediaServices.Client.JobState JS = (Microsoft.WindowsAzure.MediaServices.Client.JobState)celljobstatevalue;
                     Color mycolor;
 
                     switch (JS)
                     {
-                        case JobState.Error:
+                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Error:
                             mycolor = Color.Red;
                             break;
-                        case JobState.Canceled:
+                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceled:
                             mycolor = Color.Blue;
                             break;
-                        case JobState.Canceling:
+                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceling:
                             mycolor = Color.Blue;
                             break;
-                        case JobState.Processing:
+                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing:
                             mycolor = Color.DarkGreen;
                             break;
-                        case JobState.Queued:
+                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued:
                             mycolor = Color.Green;
                             break;
                         default:
@@ -8173,9 +8173,9 @@ namespace AMSExplorer
             IEnumerable<IJob> jobs = _context.Jobs.Where(j => j.LastModified >= dateTimePickerStartDate.Value && j.LastModified <= dateTimePickerEndDate.Value);
 
             var querytotal = jobs.GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var queryerror = jobs.Where(j => j.State == JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var querycancel = jobs.Where(j => j.State == JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var querysuccess = jobs.Where(j => j.State == JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var queryerror = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var querycancel = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var querysuccess = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
 
             DateTime day = dateTimePickerStartDate.Value.Date;
 
@@ -9466,7 +9466,7 @@ namespace AMSExplorer
                             {
                                 if (channel.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    channel.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
                                 }
                                 channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
 
@@ -9487,7 +9487,7 @@ namespace AMSExplorer
                             {
                                 if (channel.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    channel.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
                                 }
                                 channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomainPolicy;
 
@@ -10058,7 +10058,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.AccessControl == null)
                             {
-                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                                streamingendpoint.AccessControl = new Microsoft.WindowsAzure.MediaServices.Client.StreamingEndpointAccessControl();
                             }
                             streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
                         }
@@ -10078,7 +10078,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.AccessControl == null)
                             {
-                                streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
+                                streamingendpoint.AccessControl = new Microsoft.WindowsAzure.MediaServices.Client.StreamingEndpointAccessControl();
                             }
                             streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
 
@@ -10120,7 +10120,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.CrossSiteAccessPolicies == null)
                             {
-                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
                             }
                             streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
@@ -10141,7 +10141,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.CrossSiteAccessPolicies == null)
                             {
-                                streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
                             }
                             streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
@@ -12492,8 +12492,8 @@ namespace AMSExplorer
 
                 if (JobToDisplayP2 != null)
                 {
-                    var jobqueue = _context.Jobs.Where(j => j.State == JobState.Processing).Count();
-                    if (JobToDisplayP2.State == JobState.Error)
+                    var jobqueue = _context.Jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing).Count();
+                    if (JobToDisplayP2.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error)
                     {
                         StringBuilder sb = new StringBuilder();
                         foreach (var task in JobToDisplayP2.Tasks)
@@ -17753,7 +17753,7 @@ namespace AMSExplorer
                            StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
                            EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                            Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                           Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
+                           Progress = (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) ? j.GetOverallProgress() : 101d
                        };
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -17838,10 +17838,10 @@ namespace AMSExplorer
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
-            JobState jobstate = JobState.Finished;
+            Microsoft.WindowsAzure.MediaServices.Client.JobState jobstate = Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished;
             if (filterstate)
             {
-                jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
+                jobstate = (Microsoft.WindowsAzure.MediaServices.Client.JobState)Enum.Parse(typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState), _filterjobsstate);
             }
 
             // search
@@ -18050,7 +18050,7 @@ namespace AMSExplorer
                                StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
+                               Progress = (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
                 _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             }
@@ -18078,7 +18078,7 @@ namespace AMSExplorer
         {
             Task.Run(() =>
            {
-               IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
+               IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing));
 
                // let's cancel monitor task of non visible jobs
                List<string> listToCancel = new List<string>();
@@ -18156,7 +18156,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if (JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued || JobRefreshed.State == JobState.Canceling) // in progress
+                               if (JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceling) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -18231,7 +18231,7 @@ namespace AMSExplorer
                                        Mainform myform = (Mainform)this.FindForm();
 
                                        // For indexer, there is an option to copy subtitles files to input asset
-                                       if (CopySubtitlesToSourceAsset && JobRefreshed.State == JobState.Finished && JobRefreshed.Tasks.Count == 1)
+                                       if (CopySubtitlesToSourceAsset && JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished && JobRefreshed.Tasks.Count == 1)
                                        {
                                            var subtitlesFiles = JobRefreshed.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.Name.EndsWith(".vtt", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ttml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".smi", StringComparison.OrdinalIgnoreCase));
                                            var inputAsset = JobRefreshed.Tasks.FirstOrDefault().InputAssets.FirstOrDefault();
@@ -18265,14 +18265,14 @@ namespace AMSExplorer
                                            }));
                                        }
 
-                                       string status = Enum.GetName(typeof(JobState), JobRefreshed.State).ToLower();
+                                       string status = Enum.GetName(typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState), JobRefreshed.State).ToLower();
 
                                        myform.BeginInvoke(new Action(() =>
                                        {
 
-                                           myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
-                                           myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
-                                           if (JobRefreshed.State == JobState.Error)
+                                           myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error);
+                                           myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error);
+                                           if (JobRefreshed.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error)
                                            {
                                                foreach (var task in JobRefreshed.Tasks)
                                                {

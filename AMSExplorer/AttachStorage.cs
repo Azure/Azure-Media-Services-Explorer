@@ -33,7 +33,7 @@ namespace AMSExplorer
     public partial class AttachStorage : Form
     {
         private CredentialsEntry _credentials;
-        private MediaServicesManagementClient mediaClient;
+        private IAzureMediaServicesClient mediaClient;
         private MediaService mediaService;
 
         public string AzureSubscriptionID
@@ -108,7 +108,8 @@ namespace AMSExplorer
                 );
         }
 
-        private async Task<MediaServicesManagementClient> GetMediaClient()
+        /*
+        private async Task<IAzureMediaServicesClient> GetMediaClient()
         {
             ServiceClientCredentials serviceCreds;
             if (_credentials.UseAADServicePrincipal)
@@ -128,11 +129,39 @@ namespace AMSExplorer
                 }
             }
 
-            return new MediaServicesManagementClient(serviceCreds);
+            return new IAzureMediaServicesClient(serviceCreds);
         }
+        */
+
+        private void AskServicePrincipalCredentialsIfNeeded()
+        {
+            if (!_credentials.UseAADServicePrincipal)
+            {
+                var formSP = new AMSLoginServicePrincipal();
+                if (formSP.ShowDialog() == DialogResult.OK)
+                {
+                    _credentials.ADSPClientId = formSP.ClientId;
+                    _credentials.ADSPClientSecret = formSP.ClientSecret;
+                }
+            }
+        }
+
+
+        private static IAzureMediaServicesClient CreateMediaServicesClient(ConfigWrapper config)
+        {
+            ArmClientCredentials credentials = new ArmClientCredentials(config);
+
+            return new AzureMediaServicesClient(config.ArmEndpoint, credentials)
+            {
+                SubscriptionId = config.SubscriptionId,
+            };
+        }
+
 
         public void UpdateStorageAccounts()
         {
+            /*
+
             MediaService mediaServiceNew = new MediaService();
             mediaServiceNew.ApiEndpoints = mediaService.ApiEndpoints;
             mediaServiceNew.StorageAccounts = new List<StorageAccount>();
@@ -154,17 +183,46 @@ namespace AMSExplorer
 
             string accn = _credentials.ReturnAccountName();
             mediaClient.MediaService.Update(AMSResourceGroup, _credentials.ReturnAccountName(), mediaServiceNew);
+
+            */
+
+
+           
+
+           
+            // storage to detach
+            foreach (var stor in mediaService.StorageAccounts.ToList())
+            {
+                if (StorageResourceIdToDetach.Contains(stor.Id))
+                {
+                    mediaService.StorageAccounts.Remove(stor);
+                }
+            }
+           
+
+            // storage to attach
+            foreach (var storId in StorageResourceIdToAttach)
+            {
+                mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
+            }
+
+            mediaClient.Mediaservices.Update(AMSResourceGroup, _credentials.ReturnAccountName(), mediaService);
+
+
         }
 
         private async void buttonConnect_Click(object sender, EventArgs e)
         {
             try
             {
-                mediaClient = await GetMediaClient();
-                mediaClient.SubscriptionId = AzureSubscriptionID;
+                AskServicePrincipalCredentialsIfNeeded();
+                ConfigWrapper config = new ConfigWrapper(_credentials, AzureSubscriptionID, AMSResourceGroup, "72f988bf-86f1-41af-91ab-2d7cd011db47", new Uri("https://management.core.windows.net/"), "West Europe", new Uri("https://login.microsoftonline.com"), new Uri("https://management.azure.com/"));
+                mediaClient = CreateMediaServicesClient(config);
+                // Set the polling interval for long running operations to 2 seconds.
+                // The default value is 30 seconds for the .NET client SDK
+                mediaClient.LongRunningOperationRetryTimeout = 2;
 
-                // get Media service information
-                mediaService = mediaClient.MediaService.Get(AMSResourceGroup, _credentials.ReturnAccountName());
+                mediaService = await mediaClient.Mediaservices.GetAsync(AMSResourceGroup, _credentials.ReturnAccountName());
             }
             catch (Exception ex)
             {
@@ -178,7 +236,8 @@ namespace AMSExplorer
 
             storages.ForEach(s =>
             {
-                if (!(bool)s.IsPrimary)
+                // if (!(bool)s.IsPrimary)
+                if (s.Type == StorageAccountType.Secondary)
                 {
                     var names = s.Id.Split('/');
                     var lvitem = new ListViewItem(new string[] { names.Last(), s.Id });
