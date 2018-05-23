@@ -1461,7 +1461,7 @@ namespace AMSExplorer
                     {
                         string DPid = DP.Id;
                         string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, DP.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval, MessageBoxButtons.YesNoCancel);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
@@ -1904,7 +1904,7 @@ namespace AMSExplorer
                     {
                         string AuthPolId = AuthPol.Id;
                         string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval, MessageBoxButtons.YesNoCancel);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {

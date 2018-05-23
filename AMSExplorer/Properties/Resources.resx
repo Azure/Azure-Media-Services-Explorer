@@ -474,7 +474,8 @@ Overwite the file ?</value>
   </data>
   <data name="AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
     <value>This will remove the policy '{0}' from the asset.
-Do you want to also DELETE the policy from the Azure Media Services account ?</value>
+Do you want to also DELETE the policy from the Azure Media Services account ?
+Caution: Deleting the policy can impact other assets if the delivery policy is shared with other assets.</value>
   </data>
   <data name="AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval" xml:space="preserve">
     <value>Delivery Policy removal</value>
@@ -580,7 +581,7 @@ Do you want to also DELETE the key from the Azure Media Services account ?</valu
   </data>
   <data name="AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
     <value>This will remove the authorization policy '{0}' from the key.
-Do you want to also DELETE the policy from the Azure Media Services account ?</value>
+Do you want to also DELETE the policy from the Azure Media Services account ? Caution: Deleting the policy can impact other assets if the authorization policy is shared with other keys.</value>
   </data>
   <data name="AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval" xml:space="preserve">
     <value>Authorization policy removal</value>
