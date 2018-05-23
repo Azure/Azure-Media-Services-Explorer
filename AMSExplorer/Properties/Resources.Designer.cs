@@ -1415,7 +1415,9 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the authorization policy &apos;{0}&apos; from the key.
-        ///Do you want to also DELETE the policy from the Azure Media Services account ? Caution: Deleting the policy can impact other assets if the authorization policy is shared with other keys..
+        ///
+        ///Do you want to also DELETE the policy from the Azure Media Services account ?
+        ///Caution: Deleting the policy can impact other assets if the authorization policy is shared with other keys..
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount {
             get {
@@ -1444,7 +1446,9 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the option &apos;{0}&apos; from the authorization policy.
-        ///Do you want to also DELETE the option from the Azure Media Services account ?.
+        ///
+        ///Do you want to also DELETE the option from the Azure Media Services account ?
+        ///Caution: Deleting the option can impact other assets if the authorization policy is shared with other keys..
         /// </summary>
         internal static string AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount {
             get {
@@ -1491,6 +1495,7 @@ namespace AMSExplorer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will remove the policy &apos;{0}&apos; from the asset.
+        ///
         ///Do you want to also DELETE the policy from the Azure Media Services account ?
         ///Caution: Deleting the policy can impact other assets if the delivery policy is shared with other assets..
         /// </summary>

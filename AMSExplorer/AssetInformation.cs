@@ -1952,7 +1952,7 @@ namespace AMSExplorer
                     {
                         string AuthPolId = AuthPol.Id;
                         string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount, AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_OptionRemoval, MessageBoxButtons.YesNoCancel);
+                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_OptionRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                         if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
