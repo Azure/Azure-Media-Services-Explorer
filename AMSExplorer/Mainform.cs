@@ -190,21 +190,14 @@ namespace AMSExplorer
                 }
             });
 
-
             // mainform title
-            //  toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
-
-            toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + form.accountName;
+            toolStripStatusLabelConnection.Text = String.Format("Version {0} for Media Services v2", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + form.accountName;
 
             // notification title
-            //notifyIcon1.Text = string.Format(notifyIcon1.Text, _context.Credentials.ClientId);
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
 
-
             // name of the ams acount in the title of the form - useful when several instances to navigate with icons
-            // this.Text = string.Format(this.Text, _context.Credentials.ClientId);
             this.Text = string.Format(this.Text, form.accountName);
-
 
             // Let's check storage credentials
             if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
@@ -13201,7 +13194,7 @@ namespace AMSExplorer
                 }
                 if (!ErrorConnect)
                 {
-                    if (string.IsNullOrEmpty(DestinationCredentials.DefaultStorageKey)) // but key is not provided
+                    if (string.IsNullOrEmpty(DestinationCredentials.DefaultStorageKey) && !storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name)) // but key is not provided
                     {
 
                         string valuekey = "";
