@@ -13201,7 +13201,7 @@ namespace AMSExplorer
                 }
                 if (!ErrorConnect)
                 {
-                    if (string.IsNullOrEmpty(DestinationCredentials.DefaultStorageKey)) // but key is not provided
+                    if (string.IsNullOrEmpty(DestinationCredentials.DefaultStorageKey) && !storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name)) // but key is not provided
                     {
 
                         string valuekey = "";
