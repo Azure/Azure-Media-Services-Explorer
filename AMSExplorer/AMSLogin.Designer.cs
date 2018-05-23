@@ -96,6 +96,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
+            this.buttonConnectFullyInteractive = new System.Windows.Forms.Button();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -548,6 +549,7 @@
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonConnectFullyInteractive);
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
@@ -575,6 +577,13 @@
             this.listViewAccounts.View = System.Windows.Forms.View.List;
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
+            // 
+            // buttonConnectFullyInteractive
+            // 
+            resources.ApplyResources(this.buttonConnectFullyInteractive, "buttonConnectFullyInteractive");
+            this.buttonConnectFullyInteractive.Name = "buttonConnectFullyInteractive";
+            this.buttonConnectFullyInteractive.UseVisualStyleBackColor = true;
+            this.buttonConnectFullyInteractive.Click += new System.EventHandler(this.buttonConnectFullyInteractive_Click);
             // 
             // AMSLogin
             // 
@@ -687,5 +696,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
+        private System.Windows.Forms.Button buttonConnectFullyInteractive;
     }
 }

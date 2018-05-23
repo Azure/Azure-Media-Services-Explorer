@@ -33,6 +33,10 @@ using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.ResourceManager;
 
 namespace AMSExplorer
 {
@@ -887,6 +891,55 @@ namespace AMSExplorer
         private void radioButtonACSAut_CheckedChanged(object sender, EventArgs e)
         {
             buttonLogin.Visible = radioButtonAADAut.Checked;
+        }
+
+        private async void buttonConnectFullyInteractive_Click(object sender, EventArgs e)
+        {
+            /*
+            var environments = new IAzureEnvironment[]
+       {
+                new ProductionEnvironment(),
+                new TestEnvironment()
+       };
+       */
+
+            var environment = new ProductionEnvironment();
+
+            var authContext = new AuthenticationContext(
+                authority: environment.Authority,
+                validateAuthority: true);
+
+            var accessToken = await authContext.AcquireTokenAsync(
+                resource: environment.ArmResource,
+                clientId: environment.ClientApplicationId,
+                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                parameters: new PlatformParameters(PromptBehavior.SelectAccount,null)
+                //promptBehavior: PromptBehavior.Auto
+                );
+
+            var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+            Console.WriteLine("Getting subscriptions...");
+            var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+            var subscriptions = subscriptionClient.Subscriptions.List();
+            //var selectedSubscription = PickOne(subscriptions.ToList(), s => s.DisplayName, "Which subscription would you like to use?");
+            var selectedSubscription = subscriptions.FirstOrDefault();
+
+            Console.WriteLine("Getting Media Services accounts...");
+            var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+            mediaServicesClient.SubscriptionId = selectedSubscription.SubscriptionId;
+            var mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
+            //var mediaServicesAccount = PickOne(mediaServicesAccounts.ToList(), s => s.Name, "Which Media Services account would you like to use?");
+            var mediaServicesAccount = mediaServicesAccounts.FirstOrDefault();
+            var idParts = mediaServicesAccount.Id.Split('/');
+            var resourceGroup = idParts[4];
+            var accountName = mediaServicesAccount.Name;
+
+            Console.WriteLine("Listing Assets...");
+            foreach (var asset in mediaServicesClient.Assets.List(resourceGroup, accountName))
+            {
+                Console.WriteLine(asset.Name);
+            }
         }
     }
 }

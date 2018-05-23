@@ -3991,6 +3991,41 @@ namespace AMSExplorer
         }
     }
 
+    internal interface IAzureEnvironment
+    {
+        string DisplayName { get; }
+        string Authority { get; }
+        string ArmResource { get; }
+        Uri ArmEndpoint { get; }
+        string ClientApplicationId { get; }
+    }
+
+    internal class TestEnvironment : IAzureEnvironment
+    {
+        public string DisplayName => "Test";
+
+        public string Authority => "https://login.windows-ppe.net/common/oauth2/authorize";
+
+        public string ArmResource => "https://management.core.windows.net/";
+
+        public Uri ArmEndpoint => new Uri("https://api-dogfood.resources.windows-int.net/");
+
+        public string ClientApplicationId => "24f03a2b-432b-41f7-bc67-941b965f82ed";
+    }
+
+    internal class ProductionEnvironment : IAzureEnvironment
+    {
+        public string DisplayName => "Production";
+
+        public string Authority => "https://login.windows.net/common/oauth2/authorize";
+
+        public string ArmResource => "https://management.core.windows.net/";
+
+        public Uri ArmEndpoint => new Uri("https://management.azure.com/");
+
+        public string ClientApplicationId => "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
+    }
+
     public enum PlayerType
     {
         AzureMediaPlayer = 0,
