@@ -132,7 +132,7 @@ namespace AMSExplorer
             comboBoxAADMappingList.SelectedIndex = 0;
 
             // version
-            labelVersion.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
+            labelVersion.Text = String.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
 
             UpdateTexboxUI();
             UpdateAADSettingsTextBoxes();
