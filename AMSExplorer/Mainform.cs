@@ -13713,11 +13713,6 @@ namespace AMSExplorer
             DoCopyOutputURLAssetOrProgramToClipboard();
         }
 
-        private void azureMediaServicesSamplesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.AMSSamples);
-        }
-
         private void buttonSetFilterChannel_Click(object sender, EventArgs e)
         {
             DoChannelSearch();
@@ -15958,6 +15953,11 @@ namespace AMSExplorer
             {
                 buttonSetFilterProgram_Click(this, new EventArgs());
             }
+        }
+
+        private void toolStripMenuItem31_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.LinkReportBugAMSE);
         }
     }
 }

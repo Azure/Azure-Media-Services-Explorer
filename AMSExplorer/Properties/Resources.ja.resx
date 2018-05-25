@@ -794,4 +794,19 @@
   <data name="EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset" xml:space="preserve">
     <value>ソースアセットのファイルを選択</value>
   </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>承認ポリシーから承認ポリシーオプション {0} を削除します。
+本当にこのポリシーオプションをAzure Media Servicesアカウントから削除してもよいですか？
+警告： 承認ポリシーオプションをが他のコンテンツ鍵と共有して利用されている場合、削除することで他のアセットに影響を与えます。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>コンテンツ鍵から承認ポリシー {0} を削除します。
+本当にこのポリシーをAzure Media Servicesアカウントから削除してもよいですか？
+警告： 承認ポリシーをが他のコンテンツ鍵と共有して利用されている場合、削除することで他のアセットに影響を与えます。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>アセットから承認ポリシー {0} を削除します。
+本当にこのポリシーをAzure Media Servicesアカウントから削除してもよいですか？
+警告： 承認ポリシーをが他のアセットと共有して利用されている場合、削除することで他のアセットに影響を与えます。</value>
+  </data>
 </root>
