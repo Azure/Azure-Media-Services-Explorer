@@ -222,6 +222,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AMSLogin\AddAMSAccount2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AMSLogin\AddAMSAccount2.Designer.cs">
+      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AMSLogin\AddAMSAccount1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </Compile>
     <Compile Include="rpv3\ArmClientCredentials.cs" />
     <Compile Include="rpv3\ConfigWrapper.cs" />
     <Compile Include="DeleteKeyAndPolicy.cs">
@@ -954,6 +966,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2.ja.resx">
+      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2.resx">
+      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount1.ja.resx">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount1.resx">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.ja.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>

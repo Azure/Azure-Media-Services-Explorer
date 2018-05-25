@@ -109,6 +109,8 @@ namespace AMSExplorer
             labelEntry1 = labelE1.Text.Split('|');
             labelEntry2 = labelE2.Text.Split('|');
 
+            /* V2 API CODE
+ 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
             {
                 // JSon deserialize
@@ -118,6 +120,7 @@ namespace AMSExplorer
                     AddItemToListviewAccounts(c)
                 );
             }
+            */
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
@@ -142,20 +145,11 @@ namespace AMSExplorer
             UpdateAADSettingsTextBoxes();
         }
 
-        private void AddItemToListviewAccounts(CredentialsEntry c)
+        private void AddItemToListviewAccounts(CredentialsEntryv3 c)
         {
-            var item = listViewAccounts.Items.Add(c.ReturnAccountName());
-            if (!c.UseAADInteract && !c.UseAADServicePrincipal)
-            {
-                listViewAccounts.Items[item.Index].ForeColor = Color.Red;
-                listViewAccounts.Items[item.Index].ToolTipText = "Configured for deprecated ACS authentication. Please use Azure Active Directory.";
-            }
-            else
-            {
-                listViewAccounts.Items[item.Index].ForeColor = Color.Black;
-                listViewAccounts.Items[item.Index].ToolTipText = null;
-
-            }
+            var item = listViewAccounts.Items.Add(c.MediaService.Name);
+            listViewAccounts.Items[item.Index].ForeColor = Color.Black;
+            listViewAccounts.Items[item.Index].ToolTipText = null;
         }
 
         private string ReturnDeploymentName()
@@ -202,28 +196,32 @@ namespace AMSExplorer
         {
             LoginCredentials = GenerateLoginCredentials;
 
-            // New code for JSON
-            if (string.IsNullOrEmpty(LoginCredentials.ReturnAccountName()))
-            {
-                MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
-                return;
-            }
+            /* V2 API CODE
 
-            var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == LoginCredentials.ReturnAccountName().ToLower().Trim()).FirstOrDefault();
-            // if found the same name
-            if (entryWithSameName != null)
-            {
-                CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
-            }
-            else
-            {
-                CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-                //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
-                AddItemToListviewAccounts(LoginCredentials);
+          // New code for JSON
+          if (string.IsNullOrEmpty(LoginCredentials.ReturnAccountName()))
+          {
+              MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
+              return;
+          }
 
-            }
-            Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-            Program.SaveAndProtectUserConfig();
+          var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == LoginCredentials.ReturnAccountName().ToLower().Trim()).FirstOrDefault();
+          // if found the same name
+          if (entryWithSameName != null)
+          {
+              CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
+          }
+          else
+          {
+              CredentialList.MediaServicesAccounts.Add(LoginCredentials);
+              //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
+              AddItemToListviewAccounts(LoginCredentials);
+
+          }
+          Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+          Program.SaveAndProtectUserConfig();
+
+          */
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -231,12 +229,16 @@ namespace AMSExplorer
             int index = listViewAccounts.SelectedIndices[0];
             if (index > -1)
             {
-                CredentialList.MediaServicesAccounts.RemoveAt(index);
-                Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                Program.SaveAndProtectUserConfig();
 
-                listViewAccounts.Items.Clear();
-                CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /*listViewAccounts.Items.Add(ReturnAccountName(c))*/);
+                /* V2 API CODE
+              CredentialList.MediaServicesAccounts.RemoveAt(index);
+              Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+              Program.SaveAndProtectUserConfig();
+
+              listViewAccounts.Items.Clear();
+              CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
+              */
+
 
                 if (listViewAccounts.Items.Count > 0)
                 {
@@ -268,12 +270,14 @@ namespace AMSExplorer
                 var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_SaveCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) // ok to save
                 {
-                    CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-                    Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                    Program.SaveAndProtectUserConfig();
+                    /* V2 API CODE
+                  CredentialList.MediaServicesAccounts.Add(LoginCredentials);
+                  Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+                  Program.SaveAndProtectUserConfig();
 
-                    AddItemToListviewAccounts(LoginCredentials);
-                    //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
+                  AddItemToListviewAccounts(LoginCredentials);
+
+                  */
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -287,9 +291,11 @@ namespace AMSExplorer
                     var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes) // ok to update the credentials
                     {
-                        CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
-                        Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                        Program.SaveAndProtectUserConfig();
+                        /* V2 API CODE
+                      CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
+                      Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+                      Program.SaveAndProtectUserConfig();
+                      */
                     }
                     else if (result == DialogResult.Cancel)
                     {
@@ -362,9 +368,11 @@ namespace AMSExplorer
                         var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, LoginCredentials.ReturnAccountName()), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes) // ok to update the credentials
                         {
+                            /* V2 API CODE
                             CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
                             Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                             Program.SaveAndProtectUserConfig();
+                            */
                         }
                     }
                 }
@@ -543,86 +551,89 @@ namespace AMSExplorer
             DialogResult diares = openFileDialog1.ShowDialog();
             if (diares == DialogResult.OK)
             {
+                /*
+                 if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".xml")  // XML file
+                 {
+                     XDocument xmlimport = new XDocument();
 
-                if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".xml")  // XML file
-                {
-                    XDocument xmlimport = new XDocument();
+                     System.IO.Stream myStream = openFileDialog1.OpenFile();
+                     xmlimport = XDocument.Load(myStream);
 
-                    System.IO.Stream myStream = openFileDialog1.OpenFile();
-                    xmlimport = XDocument.Load(myStream);
+                     var test = xmlimport.Descendants("Credentials").FirstOrDefault();
+                     Version version = new Version(xmlimport.Descendants("Credentials").Attributes("Version").FirstOrDefault().Value.ToString());
 
-                    var test = xmlimport.Descendants("Credentials").FirstOrDefault();
-                    Version version = new Version(xmlimport.Descendants("Credentials").Attributes("Version").FirstOrDefault().Value.ToString());
+                     if ((test != null) && (version >= new Version("1.0")))
+                     {
+                         if (!mergesentries)
+                         {
+                             CredentialList.MediaServicesAccounts.Clear();
+                             // let's purge entries if user does not want to keep them
+                         }
+                         try
+                         {
+                             foreach (var att in xmlimport.Descendants("Credentials").Elements("Entry"))
+                             {
+                                 string OtherManagementPortal = "";
+                                 if ((version >= new Version("1.1")) && (att.Attribute("OtherManagementPortal")) != null)
+                                 {
+                                     OtherManagementPortal = att.Attribute("OtherManagementPortal").Value.ToString();
+                                 }
 
-                    if ((test != null) && (version >= new Version("1.0")))
-                    {
-                        if (!mergesentries)
-                        {
-                            CredentialList.MediaServicesAccounts.Clear();
-                            // let's purge entries if user does not want to keep them
-                        }
-                        try
-                        {
-                            foreach (var att in xmlimport.Descendants("Credentials").Elements("Entry"))
-                            {
-                                string OtherManagementPortal = "";
-                                if ((version >= new Version("1.1")) && (att.Attribute("OtherManagementPortal")) != null)
-                                {
-                                    OtherManagementPortal = att.Attribute("OtherManagementPortal").Value.ToString();
-                                }
+                                 string OtherAzureEndpoint = "";
+                                 if (att.Attribute("OtherAzureEndpoint") != null)
+                                 {
+                                     OtherAzureEndpoint = att.Attribute("OtherAzureEndpoint").Value.ToString();
+                                 }
 
-                                string OtherAzureEndpoint = "";
-                                if (att.Attribute("OtherAzureEndpoint") != null)
-                                {
-                                    OtherAzureEndpoint = att.Attribute("OtherAzureEndpoint").Value.ToString();
-                                }
+                                 CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
+                                         att.Attribute("AccountName").Value.ToString(),
+                                         att.Attribute("AccountKey").Value.ToString(),
+                                         string.Empty, // client id not stored in XML
+                                         string.Empty, // client secret not stored in XML
+                                         att.Attribute("StorageKey").Value.ToString(),
+                                         att.Attribute("Description").Value.ToString(),
+                                         false,
+                                         false,
+                                         att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
+                                         att.Attribute("UseOtherAPI").Value.ToString() == true.ToString() ? true : false,
+                                         att.Attribute("OtherAPIServer").Value.ToString(),
+                                         att.Attribute("OtherScope").Value.ToString(),
+                                         att.Attribute("OtherACSBaseAddress").Value.ToString(),
+                                         OtherAzureEndpoint,
+                                         OtherManagementPortal
+                                     ));
+                             }
+                         }
+                         catch
+                         {
+                             MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect);
+                             return;
 
-                                CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
-                                        att.Attribute("AccountName").Value.ToString(),
-                                        att.Attribute("AccountKey").Value.ToString(),
-                                        string.Empty, // client id not stored in XML
-                                        string.Empty, // client secret not stored in XML
-                                        att.Attribute("StorageKey").Value.ToString(),
-                                        att.Attribute("Description").Value.ToString(),
-                                        false,
-                                        false,
-                                        att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
-                                        att.Attribute("UseOtherAPI").Value.ToString() == true.ToString() ? true : false,
-                                        att.Attribute("OtherAPIServer").Value.ToString(),
-                                        att.Attribute("OtherScope").Value.ToString(),
-                                        att.Attribute("OtherACSBaseAddress").Value.ToString(),
-                                        OtherAzureEndpoint,
-                                        OtherManagementPortal
-                                    ));
-                            }
-                        }
-                        catch
-                        {
-                            MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect);
-                            return;
+                         }
 
-                        }
+                         listViewAccounts.Items.Clear();
+                         DoClearFields();
+                         CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) );
+                         buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
-                        listViewAccounts.Items.Clear();
-                        DoClearFields();
-                        CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /* listViewAccounts.Items.Add(ReturnAccountName(c))*/);
-                        buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
+                         // let's save the list of credentials in settings
+                         Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+                         Program.SaveAndProtectUserConfig();
+                     }
+                     else
+                     {
+                         MessageBox.Show("Wrong XML file.");
+                         return;
+                     }
+                 }
 
-                        // let's save the list of credentials in settings
-                        Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                        Program.SaveAndProtectUserConfig();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wrong XML file.");
-                        return;
-                    }
-                }
-
-                else if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".json")
+                 else */
+                if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".json")
                 {
 
                     string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
+
+                    /* V2 API CODE
 
                     if (!mergesentries)
                     {
@@ -635,13 +646,14 @@ namespace AMSExplorer
 
                     listViewAccounts.Items.Clear();
                     DoClearFields();
-                    CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) /* listViewAccounts.Items.Add(ReturnAccountName(c))*/);
+                    CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) );
                     buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
                     LoginCredentials = null;
+                    */
                 }
             }
         }
@@ -902,34 +914,63 @@ namespace AMSExplorer
                 new TestEnvironment()
        };
        */
+            //var environment = new ProductionEnvironment();
 
-            var environment = new ProductionEnvironment();
 
-            var authContext = new AuthenticationContext(
+
+            var addaccount1 = new AddAMSAccount1();
+            if (addaccount1.ShowDialog() == DialogResult.OK)
+            {
+                var environment = addaccount1.GetEnvironment();
+
+                var authContext = new AuthenticationContext(
                 authority: environment.Authority,
                 validateAuthority: true);
 
-            var accessToken = await authContext.AcquireTokenAsync(
-                resource: environment.ArmResource,
-                clientId: environment.ClientApplicationId,
-                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                parameters: new PlatformParameters(PromptBehavior.SelectAccount,null)
-                //promptBehavior: PromptBehavior.Auto
-                );
+                var accessToken = await authContext.AcquireTokenAsync(
+                                                                     resource: environment.ArmResource,
+                                                                     clientId: environment.ClientApplicationId,
+                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                     parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                     //promptBehavior: PromptBehavior.Auto
+                                                                     );
 
-            var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+                var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+                var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                var subscriptions = subscriptionClient.Subscriptions.List();
+
+                var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);
+                if (addaccount2.ShowDialog() == DialogResult.OK)
+                {
+
+                    // Getting Media Services accounts...
+                    var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+
+                    AddItemToListviewAccounts(new CredentialsEntryv3(addaccount2.selectedAccount, environment));
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
+
+
+            /*
+         
 
             Console.WriteLine("Getting subscriptions...");
-            var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-            var subscriptions = subscriptionClient.Subscriptions.List();
-            //var selectedSubscription = PickOne(subscriptions.ToList(), s => s.DisplayName, "Which subscription would you like to use?");
+           
             var selectedSubscription = subscriptions.FirstOrDefault();
 
             Console.WriteLine("Getting Media Services accounts...");
             var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
             mediaServicesClient.SubscriptionId = selectedSubscription.SubscriptionId;
             var mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
-            //var mediaServicesAccount = PickOne(mediaServicesAccounts.ToList(), s => s.Name, "Which Media Services account would you like to use?");
             var mediaServicesAccount = mediaServicesAccounts.FirstOrDefault();
             var idParts = mediaServicesAccount.Id.Split('/');
             var resourceGroup = idParts[4];
@@ -940,6 +981,7 @@ namespace AMSExplorer
             {
                 Console.WriteLine(asset.Name);
             }
+            */
         }
     }
 }

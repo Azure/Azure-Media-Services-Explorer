@@ -48,6 +48,7 @@ using Newtonsoft.Json;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Net.Http;
 using Microsoft.Rest.Azure.Authentication;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -1069,13 +1070,13 @@ namespace AMSExplorer
                 Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
                 if (SelectedJobs.Count == 1)
                 {
-                    string title = (SelectedJobs.FirstOrDefault().State == JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
+                    string title = (SelectedJobs.FirstOrDefault().State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
 
                     mailItem.Subject = string.Format(title, SelectedJobs.FirstOrDefault().Name);
                 }
                 else
                 {
-                    mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == JobState.Error).Count());
+                    mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error).Count());
                 }
 
                 mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
@@ -1118,7 +1119,7 @@ namespace AMSExplorer
             // Task.State only has the Conpleted State and based on that it is not possible to know whether the task had an error or did it finish successfully
             long lSize = 0;
             bool sizecanbecalculated = false;
-            if (task.State == JobState.Finished)
+            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
             {
                 lSize = 0;
                 sizecanbecalculated = true;
@@ -1163,7 +1164,7 @@ namespace AMSExplorer
             // Task.State only has the Conpleted State and based on that it is not possible to know whether the task had an error or did it finish successfully
             long lSize = 0;
             bool sizecanbecalculated = false;
-            if (task.State == JobState.Finished)
+            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
             {
                 lSize = 0;
                 sizecanbecalculated = true;
@@ -1252,7 +1253,7 @@ namespace AMSExplorer
             long lSizeoutput = -1;
             double pricetask = -1;
 
-            if (task.State == JobState.Finished)
+            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
             {
                 lSizeinput = JobInfo.GetInputFilesSize(task);
                 lSizeoutput = JobInfo.GetOutputFilesSize(task);
@@ -1513,7 +1514,7 @@ namespace AMSExplorer
 
                         sb.AppendLine("");
 
-                        if (task.State == JobState.Error)
+                        if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error)
                         {
                             foreach (var errordetail in task.ErrorDetails)
                             {
@@ -1522,7 +1523,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        if (task.State == JobState.Finished)
+                        if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
                         {
                             TaskSizeAndPrice MyTaskSizePrice = CalculateTaskSizeAndPrice(task, (CloudMediaContext)theJob.GetMediaContext());
 
@@ -3365,7 +3366,7 @@ namespace AMSExplorer
         public string Id { get; set; }
         public int Tasks { get; set; }
         public int Priority { get; set; }
-        public JobState State { get; set; }
+        public Microsoft.WindowsAzure.MediaServices.Client.JobState State { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Duration { get; set; }
@@ -3869,6 +3870,8 @@ namespace AMSExplorer
             ADDeploymentName = addeploymentname;
             ADCustomSettings = adcustomsettings;
         }
+            
+
 
         public bool Equals(CredentialsEntry other)
         {
@@ -3991,7 +3994,62 @@ namespace AMSExplorer
         }
     }
 
-    internal interface IAzureEnvironment
+    public class CredentialsEntryv3 : IEquatable<CredentialsEntryv3>
+    {
+        public SubscriptionMediaService MediaService;
+        private string _Adspclientid;
+        private string _Adspclientsecret;
+        public IAzureEnvironment Environment;
+
+        public CredentialsEntryv3(SubscriptionMediaService mediaService, IAzureEnvironment environment, string adspclientid = null, string adspclientsecret = null)
+        {
+            MediaService = mediaService;
+            Environment = environment;
+            _Adspclientid = adspclientid;
+            _Adspclientsecret = adspclientsecret;
+        }
+
+        
+        public string ResourceGroup()
+        {
+           var idParts = MediaService.Id.Split('/');
+           return idParts[4];
+        }
+
+        public string AzureSubscription()
+        {
+            var idParts = MediaService.Id.Split('/');
+            return idParts[2];
+        }
+        
+
+        public bool Equals(CredentialsEntryv3 other)
+        {
+            return false;
+            /* To implement
+                (this.AccountKey ?? "") == (other.AccountKey ?? "")
+                && (this.AccountName ?? "") == (other.AccountName ?? "")
+                && (this.ADRestAPIEndpoint ?? "") == (other.ADRestAPIEndpoint ?? "")
+                && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
+                && this.UseAADInteract == other.UseAADInteract
+                && this.UseAADServicePrincipal == other.UseAADServicePrincipal
+                && (this.ADDeploymentName ?? "") == (other.ADDeploymentName ?? "")
+                && (this.ADCustomSettings) == (other.ADCustomSettings)
+                && this.UseOtherAPI == other.UseOtherAPI
+                && this.UsePartnerAPI == other.UsePartnerAPI
+                && (this.Description ?? "") == (other.Description ?? "")
+                && (this.OtherACSBaseAddress ?? "") == (other.OtherACSBaseAddress ?? "")
+                && (this.OtherAPIServer ?? "") == (other.OtherAPIServer ?? "")
+                && (this.OtherAzureEndpoint ?? "") == (other.OtherAzureEndpoint ?? "")
+                && (this.OtherManagementPortal ?? "") == (other.OtherManagementPortal ?? "")
+                && (this.OtherScope ?? "") == (other.OtherScope ?? "")
+                && (this.DefaultStorageKey ?? "") == (other.DefaultStorageKey ?? "")
+                 ;
+                 */
+        }
+    }
+
+    public interface IAzureEnvironment
     {
         string DisplayName { get; }
         string Authority { get; }

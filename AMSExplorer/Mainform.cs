@@ -191,7 +191,7 @@ namespace AMSExplorer
             });
 
             // mainform title
-            toolStripStatusLabelConnection.Text = String.Format("Version {0} for Media Services v2", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + form.accountName;
+            toolStripStatusLabelConnection.Text = String.Format("Version {0} for Media Services v3", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + form.accountName;
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
