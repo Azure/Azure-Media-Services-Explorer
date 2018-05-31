@@ -571,42 +571,6 @@ License delivery</value>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelPreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="labelPreview.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelPreview.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Italic</value>
-  </data>
-  <data name="labelPreview.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 36</value>
-  </data>
-  <data name="labelPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 15</value>
-  </data>
-  <data name="labelPreview.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="labelPreview.Text" xml:space="preserve">
-    <value>Public preview</value>
-  </data>
-  <data name="labelPreview.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Name" xml:space="preserve">
-    <value>labelPreview</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.Parent" xml:space="preserve">
-    <value>groupBoxWidevine</value>
-  </data>
-  <data name="&gt;&gt;labelPreview.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="numericUpDownNbOptionsWidevine.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -629,7 +593,7 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;numericUpDownNbOptionsWidevine.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="panelExternalWidevine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -776,7 +740,7 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;panelExternalWidevine.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -806,7 +770,7 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="radioButtonExternalWVServer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -836,7 +800,7 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;radioButtonExternalWVServer.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="radioButtonDeliverWVFromAMS.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -866,7 +830,7 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;radioButtonDeliverWVFromAMS.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="groupBoxWidevine.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
