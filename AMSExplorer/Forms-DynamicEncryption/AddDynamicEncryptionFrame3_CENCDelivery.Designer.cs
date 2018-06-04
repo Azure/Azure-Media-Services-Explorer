@@ -46,7 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBoxWidevine = new System.Windows.Forms.GroupBox();
-            this.labelPreview = new System.Windows.Forms.Label();
             this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.panelExternalWidevine = new System.Windows.Forms.Panel();
             this.checkBoxWidevineFinalExtURL = new System.Windows.Forms.CheckBox();
@@ -192,7 +191,6 @@
             // 
             // groupBoxWidevine
             // 
-            this.groupBoxWidevine.Controls.Add(this.labelPreview);
             this.groupBoxWidevine.Controls.Add(this.numericUpDownNbOptionsWidevine);
             this.groupBoxWidevine.Controls.Add(this.panelExternalWidevine);
             this.groupBoxWidevine.Controls.Add(this.label6);
@@ -201,12 +199,6 @@
             resources.ApplyResources(this.groupBoxWidevine, "groupBoxWidevine");
             this.groupBoxWidevine.Name = "groupBoxWidevine";
             this.groupBoxWidevine.TabStop = false;
-            // 
-            // labelPreview
-            // 
-            resources.ApplyResources(this.labelPreview, "labelPreview");
-            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelPreview.Name = "labelPreview";
             // 
             // numericUpDownNbOptionsWidevine
             // 
@@ -336,7 +328,6 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsWidevine;
         private System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Label labelPreview;
         private System.Windows.Forms.CheckBox checkBoxWidevineFinalExtURL;
     }
 }
