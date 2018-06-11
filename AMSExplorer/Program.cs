@@ -1620,6 +1620,16 @@ namespace AMSExplorer
             SelectedAssets.Add(asset);
         }
 
+        public AssetInfo(List<Asset> mySelectedAssets)
+        {
+            //SelectedAssets = mySelectedAssets;
+        }
+        public AssetInfo(Asset asset)
+        {
+            //SelectedAssets = new List<Asset>();
+            //SelectedAssets.Add(asset);
+        }
+
 
         public IEnumerable<Uri> GetValidURIs()
         {
@@ -3637,6 +3647,287 @@ namespace AMSExplorer
 
     }
 
+    public class AssetEntryV3 : INotifyPropertyChanged
+    {
+        public string _Name;
+        public string Name
+        {
+            get
+            { return _Name; }
+            set
+            {
+                if (value != _Name)
+                {
+                    _Name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string _Description;
+        public string Description
+        {
+            get
+            { return _Description; }
+            set
+            {
+                if (value != _Description)
+                {
+                    _Description = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string Id { get; set; }
+
+        public string AssetId { get; set; }
+
+        public string _AlternateId;
+        public string AlternateId
+        {
+            get
+            { return _AlternateId; }
+            set
+            {
+                if (value != _AlternateId)
+                {
+                    _AlternateId = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string _Type;
+        public string Type
+        {
+            get
+            { return _Type; }
+            set
+            {
+                if (value != _Type)
+                {
+                    _Type = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _LastModified;
+        public string LastModified
+        {
+            get
+            { return _LastModified; }
+            set
+            {
+                if (value != _LastModified)
+                {
+                    _LastModified = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _Size;
+        public string Size
+        {
+            get
+            { return _Size; }
+            set
+            {
+                if (value != _Size)
+                {
+                    _Size = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private long _SizeLong;
+        public long SizeLong
+        {
+            get
+            { return _SizeLong; }
+            set
+            {
+                if (value != _SizeLong)
+                {
+                    _SizeLong = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public string Storage { get; set; }
+
+        public Bitmap _StaticEncryption = null;
+        public Bitmap StaticEncryption
+        {
+            get
+            { return _StaticEncryption; }
+            set
+            {
+                if (value != _StaticEncryption)
+                {
+                    _StaticEncryption = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _StaticEncryptionMouseOver;
+        public string StaticEncryptionMouseOver
+        {
+            get
+            { return _StaticEncryptionMouseOver; }
+            set
+            {
+                if (value != _StaticEncryptionMouseOver)
+                {
+                    _StaticEncryptionMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Bitmap _DynamicEncryption;
+        public Bitmap DynamicEncryption
+        {
+            get
+            { return _DynamicEncryption; }
+            set
+            {
+                if (value != _DynamicEncryption)
+                {
+                    _DynamicEncryption = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _DynamicEncryptionMouseOver;
+        public string DynamicEncryptionMouseOver
+        {
+            get
+            { return _DynamicEncryptionMouseOver; }
+            set
+            {
+                if (value != _DynamicEncryptionMouseOver)
+                {
+                    _DynamicEncryptionMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Bitmap _Publication = null;
+
+        public Bitmap Publication
+        {
+            get
+            { return _Publication; }
+            set
+            {
+                if (value != _Publication)
+                {
+                    _Publication = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private Bitmap _Filters = null;
+        public Bitmap Filters
+        {
+            get
+            { return _Filters; }
+            set
+            {
+                if (value != _Filters)
+                {
+                    _Filters = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _FiltersMouseOver;
+        public string FiltersMouseOver
+        {
+            get
+            { return _FiltersMouseOver; }
+            set
+            {
+                if (value != _FiltersMouseOver)
+                {
+                    _FiltersMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _PublicationMouseOver;
+        public string PublicationMouseOver
+        {
+            get
+            { return _PublicationMouseOver; }
+            set
+            {
+                if (value != _PublicationMouseOver)
+                {
+                    _PublicationMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _LocatorExpirationDate;
+        public string LocatorExpirationDate
+        {
+            get
+            { return _LocatorExpirationDate; }
+            set
+            {
+                if (value != _LocatorExpirationDate)
+                {
+                    _LocatorExpirationDate = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private bool _LocatorExpirationDateWarning;
+        public bool LocatorExpirationDateWarning
+        {
+            get
+            { return _LocatorExpirationDateWarning; }
+            set
+            {
+                if (value != _LocatorExpirationDateWarning)
+                {
+                    _LocatorExpirationDateWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private bool _AssetWarning;
+        public bool AssetWarning
+        {
+            get
+            { return _AssetWarning; }
+            set
+            {
+                if (value != _AssetWarning)
+                {
+                    _AssetWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+
+    }
+
+
     public class ACSEndPointMapping
     {
         public string Name { get; set; }
@@ -3681,6 +3972,11 @@ namespace AMSExplorer
         public List<CredentialsEntry> MediaServicesAccounts = new List<CredentialsEntry>();
     }
 
+    public class ListCredentialsRPv3
+    {
+        public decimal Version = 3;
+        public List<CredentialsEntryV3> MediaServicesAccounts = new List<CredentialsEntryV3>();
+    }
 
     public class CredentialsEntry : IEquatable<CredentialsEntry>
     {
@@ -3871,7 +4167,7 @@ namespace AMSExplorer
             ADDeploymentName = addeploymentname;
             ADCustomSettings = adcustomsettings;
         }
-            
+
 
 
         public bool Equals(CredentialsEntry other)
@@ -3995,36 +4291,51 @@ namespace AMSExplorer
         }
     }
 
-    public class CredentialsEntryv3 : IEquatable<CredentialsEntryv3>
+    public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
     {
         public SubscriptionMediaService MediaService;
-        private string _Adspclientid;
-        private string _Adspclientsecret;
+        public string ADSPClientId;
+        private string ADSPClientSecret;
         public IAzureEnvironment Environment;
+        public PromptBehavior PromptUser;
 
-        public CredentialsEntryv3(SubscriptionMediaService mediaService, IAzureEnvironment environment, string adspclientid = null, string adspclientsecret = null)
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, IAzureEnvironment environment, PromptBehavior promptUser, string adspclientid = null, string adspclientsecret = null)
         {
             MediaService = mediaService;
             Environment = environment;
-            _Adspclientid = adspclientid;
-            _Adspclientsecret = adspclientsecret;
+            ADSPClientId = adspclientid;
+            ADSPClientSecret = adspclientsecret;
+            PromptUser = promptUser;
         }
 
-        
-        public string ResourceGroup()
+        public string AccountName
         {
-           var idParts = MediaService.Id.Split('/');
-           return idParts[4];
+            get
+            {
+                return MediaService.Name;
+            }
         }
 
-        public string AzureSubscription()
+        public string ResourceGroup
         {
-            var idParts = MediaService.Id.Split('/');
-            return idParts[2];
+            get
+            {
+                var idParts = MediaService.Id.Split('/');
+                return idParts[4];
+            }
         }
-        
 
-        public bool Equals(CredentialsEntryv3 other)
+        public string AzureSubscriptionId
+        {
+            get
+            {
+                var idParts = MediaService.Id.Split('/');
+                return idParts[2];
+            }
+        }
+
+
+        public bool Equals(CredentialsEntryV3 other)
         {
             return false;
             /* To implement

@@ -587,5 +587,17 @@ namespace AMSExplorer.Properties {
                 this["NumberOfConcurrentTransfers"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginListRPv3JSON {
+            get {
+                return ((string)(this["LoginListRPv3JSON"]));
+            }
+            set {
+                this["LoginListRPv3JSON"] = value;
+            }
+        }
     }
 }

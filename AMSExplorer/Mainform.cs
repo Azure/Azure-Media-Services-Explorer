@@ -49,6 +49,7 @@ using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest;
+using Microsoft.Rest.Azure.OData;
 
 namespace AMSExplorer
 {
@@ -58,6 +59,7 @@ namespace AMSExplorer
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
+        public static CredentialsEntryV3 _credentialsV3;
         public static bool havestoragecredentials = true;
 
         // Field for service context.
@@ -103,6 +105,7 @@ namespace AMSExplorer
         private static readonly int S2AssetSizeLimit = 640; // GBytes
         private static readonly int S3AssetSizeLimit = 240; // GBytes
         public string _accountname;
+        private AzureMediaServicesClient _mediaServicesClient;
 
         public Mainform()
         {
@@ -172,11 +175,15 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            _credentials = form.LoginCredentials;
+            //_credentials = form.LoginCredentials;
 
             // Get the service context.
             _context = form.context;// Program.ConnectAndGetNewContext(_credentials, true);
-            _accountname = form.accountName;
+
+            _mediaServicesClient = form.mediaServicesClient;
+            _credentialsV3 = form.LoginInfo;
+
+            _accountname = _credentialsV3.AccountName;
 
             DisplaySplashDuringLoading = true;
             ThreadPool.QueueUserWorkItem((x) =>
@@ -191,171 +198,189 @@ namespace AMSExplorer
             });
 
             // mainform title
-            toolStripStatusLabelConnection.Text = String.Format("Version {0} for Media Services v3", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + form.accountName;
+            toolStripStatusLabelConnection.Text = String.Format("Version {0} for Media Services v3", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _accountname;
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
 
             // name of the ams acount in the title of the form - useful when several instances to navigate with icons
-            this.Text = string.Format(this.Text, form.accountName);
+            this.Text = string.Format(this.Text, _accountname);
 
-            // Let's check storage credentials
-            if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
-            {
-                havestoragecredentials = false;
-            }
-            else
-            {
-                bool ret = Program.ConnectToStorage(_context, _credentials);
-            }
 
-            try // as this is the first call to MPs
-            {
-                if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null)
-                {
-                    AMEPremiumWorkflowPresent = false;
-                    encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                    ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error message :\n" + ex.Message + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
+            /* V2 API CODE
+                        // Let's check storage credentials
+                    if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
+                    {
+                        havestoragecredentials = false;
+                    }
+                    else
+                    {
+                        bool ret = Program.ConnectToStorage(_context, _credentials);
+                    }
+                    
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
-            {
-                AMFaceDetectorPresent =
-                ProcessFaceDetectortoolStripMenuItem.Visible =
-                toolStripMenuItemFaceDetector.Visible = false;
-            }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
-            {
-                AMMotionDetectorPresent =
-                ProcessMotionDetectortoolStripMenuItem.Visible =
-                toolStripMenuItemMotionDetector.Visible = false;
-            }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaRedactor) == null)
-            {
-                AMRedactorPresent =
-                ProcessRedactortoolStripMenuItem.Visible =
-                toolStripMenuItemRedactor.Visible = false;
-            }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
+        try // as this is the first call to MPs
+        {
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null)
             {
-                AMStabilizerPresent =
-                ProcessStabilizertoolStripMenuItem.Visible =
-                toolStripMenuItemStabilizer.Visible = false;
+                AMEPremiumWorkflowPresent = false;
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Error message :\n" + ex.Message + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Environment.Exit(0);
+        }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
-            {
-                AMVideoThumbnailsPresent =
-                ProcessVideoThumbnailstoolStripMenuItem.Visible =
-                toolStripMenuItemVideoThumbnails.Visible = false;
-            }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
-            {
-                AMVideoOCRPresent = false;
-                processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
-                processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
-            }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
-            {
-                AMContentModerator =
-                processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible =
-                processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
-            }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoAnnotator) == null)
-            {
-                AMVideoAnnotator =
-                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Visible =
-                processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
-            }
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
+        {
+            AMFaceDetectorPresent =
+            ProcessFaceDetectortoolStripMenuItem.Visible =
+            toolStripMenuItemFaceDetector.Visible = false;
+        }
+
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
+        {
+            AMMotionDetectorPresent =
+            ProcessMotionDetectortoolStripMenuItem.Visible =
+            toolStripMenuItemMotionDetector.Visible = false;
+        }
+
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaRedactor) == null)
+        {
+            AMRedactorPresent =
+            ProcessRedactortoolStripMenuItem.Visible =
+            toolStripMenuItemRedactor.Visible = false;
+        }
+
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
+        {
+            AMStabilizerPresent =
+            ProcessStabilizertoolStripMenuItem.Visible =
+            toolStripMenuItemStabilizer.Visible = false;
+        }
+
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
+        {
+            AMVideoThumbnailsPresent =
+            ProcessVideoThumbnailstoolStripMenuItem.Visible =
+            toolStripMenuItemVideoThumbnails.Visible = false;
+        }
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
+        {
+            AMVideoOCRPresent = false;
+            processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
+            processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
+        }
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
+        {
+            AMContentModerator =
+            processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible =
+            processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
+        }
+        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoAnnotator) == null)
+        {
+            AMVideoAnnotator =
+            processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Visible =
+            processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
+        }
+
+            */
+
 
             // Timer Auto Refresh
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
-            TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+        TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
-            // Let's check if there is one streaming unit running
-            try
-            {
-                if (_context.StreamingEndpoints.AsEnumerable().Where(o => o.State == StreamingEndpointState.Running).ToList().Count == 0)
-                    TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
+        // Let's check if there is one streaming unit running
+        try
+        {
+                var se = _mediaServicesClient.StreamingEndpoints.List(_credentialsV3.ResourceGroup,_credentialsV3.AccountName);
 
-                // Let's check if there is classic streaming endpoints
-                if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
-                    TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
+            if ( se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
+                TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
-                // Let's check if there is an old CDN config
-                if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
-                    TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
+            // Let's check if there is classic streaming endpoints
+          //  if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
+           //     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
 
-                // Let's check if there is dynamic packaging for the channels
-                double nbchannels = (double)_context.Channels.Count();
-                double nbse = (double)_context.StreamingEndpoints.AsEnumerable().Where(o => StreamingEndpointInformation.CanDoDynPackaging(o)).ToList().Count;
-                if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                    TextBoxLogWriteLine("There are {0} channels and {1} Standard/Premium streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+            // Let's check if there is an old CDN config
+         //   if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
+          //      TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
+            // Let's check if there is dynamic packaging for the channels
+            double nbchannels = (double)_mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+            double nbse = (double)se.Count();
+            if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
+                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
-            // let's check the encoding reserved unit and type
-            try
-            {
-                if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
-            }
-            catch // can occur on test account
-            {
-                MediaRUFeatureOn = false;
-                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the jobs tab.", true); // Warning
-            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Environment.Exit(0);
+        }
 
-            // let's check telemetry
-            enableTelemetry = _context.MonitoringConfigurations.FirstOrDefault() != null;
+            /*
+        // let's check the encoding reserved unit and type
+        try
+        {
+            if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
+                TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
+        }
+        catch // can occur on test account
+        {
+            MediaRUFeatureOn = false;
+            TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the jobs tab.", true); // Warning
+        }
+       
+
+        // let's check telemetry
+        enableTelemetry = _context.MonitoringConfigurations.FirstOrDefault() != null;
+         */
 
             // nb assets limits
-            int nbassets = _context.Assets.Count();
-            largeAccount = nbassets > triggerForLargeAccountNbAssets;
-            if (largeAccount)
-            {
-                TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
-            }
-            if (nbassets > (0.75 * maxNbAssets))
-            {
-                TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
-            }
+            int nbassets = _mediaServicesClient.Assets.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+        largeAccount = nbassets > triggerForLargeAccountNbAssets;
+        if (largeAccount)
+        {
+            TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
+        }
+        if (nbassets > (0.75 * maxNbAssets))
+        {
+            TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
+        }
+
+            /*
             // nb jobs limits
-            int nbjobs = _context.Jobs.Count();
+                var transforms = _mediaServicesClient.Transforms.List(_credentialsV3.ResourceGroup(), _credentialsV3.AccountName());
+            int nbjobs = _mediaServicesClient.Jobs.List(_credentialsV3.ResourceGroup(), _credentialsV3.AccountName(),"").Count();
             /*
             if (nbjobs > triggerForLargeAccountNbJobs)
             {
                 TextBoxLogWriteLine("This account contains a lot of jobs. Sorting is disabled."); // Warning
             }
-            */
-            if (nbjobs > (0.75 * maxNbJobs))
-            {
-                TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
-            }
 
-            // let's initialize the trackbar and text for nb of transfers
+                if (nbjobs > (0.75 * maxNbJobs))
+                {
+                    TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
+                }
 
-            // hard coded - for tests
-            Properties.Settings.Default.ConcurrentTransfers = 1;
+                // let's initialize the trackbar and text for nb of transfers
 
-            trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
-            UpdateLabelConcurrentTransfers();
+                // hard coded - for tests
+                Properties.Settings.Default.ConcurrentTransfers = 1;
 
-            ApplySettingsOptions(true);
+                trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
+                UpdateLabelConcurrentTransfers();
+
+                ApplySettingsOptions(true);
+                */
         }
 
 
@@ -1172,6 +1197,7 @@ namespace AMSExplorer
 
         private void DoRefresh()
         {
+            return; // migration to V3 API
             _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
@@ -1187,7 +1213,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewAssetsV.Init(_context);
+                dataGridViewAssetsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
@@ -1199,7 +1225,7 @@ namespace AMSExplorer
 
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
             comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(_context, ComboBackupindex + 1)));
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(0 /* ComboBackupindex + 1 */)));
             dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
 
             if (comboBoxPageAssets.Items.Count < DGpagecount) // more assets, let's add pages
@@ -1222,7 +1248,12 @@ namespace AMSExplorer
                 comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
             }
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
+            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
+        }
+
+        public void DoPurgeAssetInfoFromCache(Asset asset)
+        {
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
         }
 
         public void DoPurgeAssetInfoFromCache(IAsset asset)
@@ -1232,6 +1263,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridJobV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 dataGridViewJobsV.Init(_credentials, _context);
@@ -1273,6 +1305,7 @@ namespace AMSExplorer
 
         public void DoRefreshGridIngestManifestV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 dataGridViewIngestManifestsV.Init(_credentials, _context);
@@ -1713,7 +1746,7 @@ namespace AMSExplorer
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, assets);
+                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames,new List<IAsset>() /* assets*/);
             }
         }
 
@@ -2132,7 +2165,7 @@ namespace AMSExplorer
                     }
                     finally
                     {
-                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets.ToList());
+                        //dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets.ToList());
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
@@ -2177,15 +2210,18 @@ namespace AMSExplorer
             }
         }
 
-
         public DialogResult? DisplayInfo(IAsset asset)
+        {
+            return null;
+        }
+        public DialogResult? DisplayInfo(Asset asset)
         {
             DialogResult? dialogResult = null;
             if (asset != null)
             {
                 // Refresh the asset.
                 _context = Program.ConnectAndGetNewContext(_credentials);
-                asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+                asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, asset.Name);
                 if (asset != null)
                 {
                     try
@@ -2193,7 +2229,7 @@ namespace AMSExplorer
                         this.Cursor = Cursors.WaitCursor;
                         AssetInformation form = new AssetInformation(this, _context)
                         {
-                            myAsset = asset,
+                            myAsset =null,// asset,
                             myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
@@ -2292,11 +2328,11 @@ namespace AMSExplorer
 
         private void DoMenuRenameAsset()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
 
             if (SelectedAssets.Count > 0)
             {
-                IAsset AssetTORename = SelectedAssets.FirstOrDefault();
+                Asset AssetTORename = SelectedAssets.FirstOrDefault();
 
                 if (AssetTORename != null)
                 {
@@ -2306,12 +2342,11 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            AssetTORename.Name = value;
-                            AssetTORename.Update();
+                            AssetTORename.Description = value;
+                           _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup,_credentialsV3.AccountName,  AssetTORename.Name, AssetTORename);
                         }
                         catch
                         {
-
                             TextBoxLogWriteLine("There is a problem when renaming the asset.", true);
                             return;
                         }
@@ -2325,11 +2360,11 @@ namespace AMSExplorer
 
         private void DoMenuEditAssetAltId()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
 
             if (SelectedAssets.Count > 0)
             {
-                IAsset AssetToEditAltId = SelectedAssets.FirstOrDefault();
+                Asset AssetToEditAltId = SelectedAssets.FirstOrDefault();
 
                 if (AssetToEditAltId != null)
                 {
@@ -2340,7 +2375,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                            AssetToEditAltId.Update();
+                         _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
                         }
                         catch
                         {
@@ -2358,7 +2393,7 @@ namespace AMSExplorer
 
         private void DoMenuDownloadToLocal()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
             if (SelectedAssets.Count == 0) return;
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
@@ -2797,15 +2832,15 @@ namespace AMSExplorer
             }
         }
 
-        private List<IAsset> ReturnSelectedAssetsFromProgramsOrAssets()
+        private List<Asset> ReturnSelectedAssetsFromProgramsOrAssetsV3()
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
-                return ReturnSelectedAssets();
+                return ReturnSelectedAssetsV3();
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
-                return ReturnSelectedPrograms().Select(p => p.Asset).ToList();
+                return new List<Asset>();// ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             }
             else
             {
@@ -2813,15 +2848,24 @@ namespace AMSExplorer
             }
         }
 
+        private List<IAsset> ReturnSelectedAssetsFromProgramsOrAssets()
+        {
+            return new List<IAsset>();
+        }
 
         private List<IAsset> ReturnSelectedAssets()
         {
-            List<IAsset> SelectedAssets = new List<IAsset>();
+            return new List<IAsset>();
+        }
+
+        private List<Asset> ReturnSelectedAssetsV3()
+        {
+            List<Asset> SelectedAssets = new List<Asset>();
             try
             {
                 foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
                 {
-                    var asset = _context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                    var asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                     if (asset != null)
                     {
                         SelectedAssets.Add(asset);
@@ -2898,8 +2942,44 @@ namespace AMSExplorer
 
         private void DoMenuDeleteSelectedAssets()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
             DoDeleteAssets(SelectedAssets);
+        }
+
+        private void DoDeleteAssets(List<Asset> SelectedAssets)
+        {
+
+            if (SelectedAssets.Count > 0)
+            {
+                var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Task.Run(async () =>
+                    {
+                        bool Error = false;
+                        try
+                        {
+                            TextBoxLogWriteLine("Deleting asset(s)...");
+                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, a.Name )).ToArray();
+
+                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                        DoRefreshGridAssetV(false);
+                    }
+          );
+
+                }
+            }
         }
 
         private void DoDeleteAssets(List<IAsset> SelectedAssets)
@@ -2917,7 +2997,9 @@ namespace AMSExplorer
                         try
                         {
                             TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
+
+                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
@@ -3037,7 +3119,7 @@ namespace AMSExplorer
             string valuekey = "";
             string targetAssetID = "";
 
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
             if (SelectedAssets.Count > 0) targetAssetID = SelectedAssets.FirstOrDefault().Id;
 
             if (!havestoragecredentials)
@@ -4706,7 +4788,7 @@ namespace AMSExplorer
 
         private void DoMenuEncodeWithPremiumWorkflow()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -5036,7 +5118,7 @@ namespace AMSExplorer
 
         private void DoMenuPackageSmoothToHLSStatic()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -5106,7 +5188,7 @@ namespace AMSExplorer
 
         private void DoMenuMP4ToSmoothStatic()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
             {
@@ -6496,13 +6578,13 @@ namespace AMSExplorer
 
         private void createALocatorForTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
             DoCreateLocator(SelectedAssets);
         }
 
         private void deleteAllLocatorsOfTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
@@ -7391,7 +7473,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
-                            IAsset asset = AssetInfo.GetAsset(location, _context);
+                            Asset asset = null;// AssetInfo.GetAsset(location, _context);
                             if (asset != null) DisplayInfo(asset);
                             break;
 
@@ -7704,7 +7786,7 @@ namespace AMSExplorer
             List<IAssetFile> SelectedFiles = new List<IAssetFile>();
             bool CreateNewContainer = false;
 
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
             if (SelectedAssets.Count == 1)
             {
                 if (!havestoragecredentials)
@@ -7763,7 +7845,7 @@ namespace AMSExplorer
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings);
+            WatchFolder form = new WatchFolder(_context, new List<IAsset>() /* ReturnSelectedAssets() */, MyWatchFolderSettings);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -8248,6 +8330,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridChannelV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 dataGridViewChannelsV.Init(_credentials, _context);
@@ -8261,7 +8344,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridProgramV(bool firstime)
         {
-
+            return; // migration to V3 API
             if (firstime)
             {
                 Debug.WriteLine("DoRefreshGridProgramVforsttime");
@@ -8280,6 +8363,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 dataGridViewStreamingEndpointsV.Init(_credentials, _context);
@@ -8293,6 +8377,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridProcessorV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 // Processors tab
@@ -8360,6 +8445,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridStorageV(bool firstime)
         {
+            return; // migration to V3 API
             const long OneTBInByte = 1099511627776;
             const long TotalStorageInBytes = OneTBInByte * 500;
 
@@ -8413,6 +8499,7 @@ namespace AMSExplorer
 
         public void DoRefreshGridFiltersV(bool firstime)
         {
+            return; // migration to V3 API
             if (firstime)
             {
                 // Storage tab
@@ -8678,6 +8765,7 @@ namespace AMSExplorer
         // used to monitor program and channels in starting or stopping mode with AMS Explorer is launched
         private async void RestoreChannelsAndProgramsStatusMonitoring()
         {
+            return; // migration to V3 API
             var ProgramsToMonitor = _context.Programs.ToList().Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).ToList();
             foreach (var c in ProgramsToMonitor)
                 Task.Run(() => MonitorProgram(c));
@@ -9885,7 +9973,7 @@ namespace AMSExplorer
 
         private void DoGenerateThumbnails()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -10582,7 +10670,7 @@ namespace AMSExplorer
 
         private void DoSetupDynEnc()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
             SetupDynamicEncryption(SelectedAssets, false);
         }
 
@@ -11975,7 +12063,7 @@ namespace AMSExplorer
         {
             string labelAssetName;
 
-            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
 
             if (SelectedAssets.Count > 0)
             {
@@ -12079,13 +12167,13 @@ namespace AMSExplorer
 
         private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
             DoCreateLocator(SelectedAssets);
         }
 
         private void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
@@ -12688,7 +12776,7 @@ namespace AMSExplorer
 
         private void DoSubmitFromTemplate()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>();// ReturnSelectedAssets();
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
@@ -12941,7 +13029,7 @@ namespace AMSExplorer
 
         private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssets());
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, new List<IAsset>());// ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -13890,7 +13978,7 @@ namespace AMSExplorer
             bool bLiveArchiveAsset = false;
             bool bFragmented = false;
 
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -14295,7 +14383,7 @@ namespace AMSExplorer
                 }
 
 
-                Subclipping form = new Subclipping(_context, selectedAssets, this)
+                Subclipping form = new Subclipping(_context, new List<IAsset>() /* selectedAssets*/, this)
                 {
                     EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
@@ -16328,6 +16416,7 @@ namespace AMSExplorer
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
         static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
+        static Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
 
         static private int _assetsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
@@ -16341,7 +16430,7 @@ namespace AMSExplorer
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static string _orderassets = OrderAssets.LastModifiedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
-        static CloudMediaContext _context;
+        static AzureMediaServicesClient _client;
         static Bitmap cancelimage = Bitmaps.cancel;
         static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
         static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
@@ -16357,6 +16446,9 @@ namespace AMSExplorer
         static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
         static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
+        private string _resourceName;
+        private string _accountName;
+        static BindingList<AssetEntryV3> _MyObservAssetV3;
 
         public int AssetsPerPage
         {
@@ -16451,19 +16543,32 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservAsset.Count();
+                return _MyObservAssetV3.Count();
             }
         }
 
 
-        public void Init(CloudMediaContext context)
+        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
         {
             Debug.WriteLine("AssetsInit");
 
-            IEnumerable<AssetEntry> assetquery;
-            _context = context;
+            //IEnumerable<AssetEntry> assetquery;
+            _client = client;
+            _resourceName = resourceName;
+            _accountName = accountName;
 
-            assetquery = from a in context.Assets.Take(0)
+            var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
+            {
+                Name = a.Name,
+                Id = a.Id,
+                AlternateId = a.AlternateId,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Storage = a.StorageAccountName
+            }
+            );
+
+            /*
+            assetquery = from a in client.Assets.Take(0)
                          orderby a.LastModified descending
                          select new AssetEntry
                          {
@@ -16473,6 +16578,7 @@ namespace AMSExplorer
                              LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
                              Storage = a.StorageAccountName
                          };
+                         */
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -16512,8 +16618,11 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol4);
 
-            BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
-            this.DataSource = MyObservAssethisPage;
+            //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
+            BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
+
+
+            this.DataSource = MyObservAssethisPageV3;
 
             int lastColumn_sIndex = this.Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
             this.Columns[_statEncMouseOver].Visible = false;
@@ -16569,36 +16678,57 @@ namespace AMSExplorer
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IAsset asset = null;
+            Asset asset = null;
 
             PublishStatus SASLoc;
             PublishStatus OrigLoc;
 
-            var listae = _MyObservAsset.OrderBy(a => cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
+            var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
 
-            foreach (AssetEntry AE in listae)
+            foreach (AssetEntryV3 AE in listae)
             {
                 try
                 {
-                    asset = _context.Assets.Where(a => a.Id == AE.Id).FirstOrDefault();
+                    //asset = _client.Assets.List(_resourceName,_accountName).Where(a => a.Id == AE.Id).FirstOrDefault();
+
+                    //var odataQuery = new ODataQuery<Asset>("properties/Id eq "+AE.Id);
+                    asset = _client.Assets.Get(_resourceName, _accountName, AE.Name);
+
+                    /*
+                    var firstPage = await MediaServicesArmClient.Assets.ListAsync(TestSettings.CustomerResourceGroup, TestSettings.CustomerAccountName);
+
+                    var currentPage = firstPage;
+                    while (currentPage.NextPageLink != null)
+                    {
+                        currentPage = await MediaServicesArmClient.Assets.ListNextAsync(currentPage.NextPageLink);
+                    }
+                    */
+
                     if (asset != null)
                     {
-                        AssetInfo myAssetInfo = new AssetInfo(asset);
+                        //AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.Name = asset.Name;
                         AE.AlternateId = asset.AlternateId;
+                        AE.Id = asset.Id;
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
-                        SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
-                        OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
+                        AE.Description = asset.Description;
+                        //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
+                        //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
 
+                        /*
                         AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = assetBitmapAndText.bitmap;
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+                        */
 
+                        /*
                         assetBitmapAndText = BuildBitmapPublication(asset);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
+                        */
 
-                        var assetfiles = asset.AssetFiles.ToList();
+                        /*
+                        var assetfiles =  asset.AssetFiles.ToList();
                         AE.Type = AssetInfo.GetAssetType(asset);
                         AE.SizeLong = assetfiles.Sum(f => f.ContentFileSize);
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
@@ -16615,8 +16745,9 @@ namespace AMSExplorer
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
+                        */
 
-                        cacheAssetentries[asset.Id] = AE; // let's put it in cache (or update the cache)
+                        cacheAssetentriesV3[asset.Id] = AE; // let's put it in cache (or update the cache)
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -16658,12 +16789,27 @@ namespace AMSExplorer
             assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
         }
 
-        public void PurgeCacheAsset(IAsset asset)
+        public void PurgeCacheAssetsV3(List<Asset> assets)
         {
-            cacheAssetentries.Remove(asset.Id);
+            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
         }
 
-        public void RefreshAssets(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+        public void PurgeCacheAsset(IAsset asset)
+        {
+            cacheAssetentriesV3.Remove(asset.Id);
+        }
+
+        public void PurgeCacheAsset(Asset asset)
+        {
+            cacheAssetentriesV3.Remove(asset.Id);
+        }
+
+        public void PurgeCacheAssetV3(Asset asset)
+        {
+            cacheAssetentriesV3.Remove(asset.Id);
+        }
+
+        public void RefreshAssets(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
             Debug.WriteLine("RefreshAssets Start");
@@ -16675,656 +16821,661 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-
-            // DAYS
-            bool filterStartDate = false;
-            bool filterEndDate = false;
-
-            DateTime dateTimeStart = DateTime.UtcNow;
-            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
-
-            int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            if (days > 0)
+            var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
             {
-                filterStartDate = true;
-                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+                Name = a.Name,
+                Id = a.Id,
+                AlternateId = a.AlternateId,
+                Type = null,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Storage = a.StorageAccountName
             }
-            else if (days == -1) // TimeRange
-            {
-                filterStartDate = true;
-                filterEndDate = true;
-                dateTimeStart = _timefilterTimeRange.StartDate;
-                if (_timefilterTimeRange.EndDate != null) // there is an end time
-                {
-                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
-                }
-            }
+           );
 
-            IQueryable<IAsset> assetsServerQuery = null;// = context.Assets.AsQueryable(); ;
-            bool SwitchedToLocalQuery = false;
+            _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-            ///////////////////////
-            // SEARCH
-            ///////////////////////
-            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
-            {
-                bool Error = false;
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-                string strsearch = _searchinname.Text.ToLower();
 
-                switch (_searchinname.SearchType)
-                {
-                    // Search on Asset name
-                    case SearchIn.AssetName:
-
-                        assetsServerQuery = context.Assets.Where(a =>
-                                (a.Name.Contains(_searchinname.Text))
-                                &&
-                                (!filterStartDate || a.LastModified > dateTimeStart)
-                                &&
-                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                );
-                        /*
-                        if (assetsServerQuery.Count() > 1000) // we need to paginate
-                        {
-
-                        IList<IAsset> newAssetList = new List<IAsset>();
-
-                        while (true)
-                        {
-                            // Enumerate through all assets (1000 at a time)
-                                var assetsq = assetsServerQuery
-                                .Skip(skipSize).Take(batchSize).ToList();
-
-                            currentSkipSize += assetsq.Count;
-
-                            foreach (var a in assetsq)
-                            {
-                                newAssetList.Add(a);
-                            }
-
-                            if (currentSkipSize == batchSize)
-                            {
-                                skipSize += batchSize;
-                                currentSkipSize = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        SwitchedToLocalQuery = true;
-                        assets = newAssetList;
-                        }
-                        */
-                        break;
-
-                    // Search on Asset aternate id
-                    case SearchIn.AssetAltId:
-                        assetsServerQuery = context.Assets.Where(a =>
-                                  (a.AlternateId.Contains(_searchinname.Text))
-                                  &&
-                                  (!filterStartDate || a.LastModified > dateTimeStart)
-                                  &&
-                                  (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                  );
-                        break;
-
-                    // Search on Asset ID
-                    case SearchIn.AssetId:
-                        string assetguid = _searchinname.Text;
-                        if (assetguid.StartsWith(Constants.AssetIdPrefix))
-                        {
-                            assetguid = assetguid.Substring(Constants.AssetIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(assetguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            assetsServerQuery = context.Assets.Where(a =>
-                                                             (a.Id == Constants.AssetIdPrefix + assetguid)
-                                                             &&
-                                                             (!filterStartDate || a.LastModified > dateTimeStart)
-                                                             &&
-                                                             (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                                             );
-                        }
-                        break;
-
-
-                    // Search on Asset file name
-                    case SearchIn.AssetFileName:
-                        IList<string> assetFileListID = new List<string>();
-
-                        while (true)
-                        {
-                            // Enumerate through all asset files (1000 at a time)
-                            var filesq = context.Files
-                                .Skip(skipSize).Take(batchSize).ToList();
-
-                            currentSkipSize += filesq.Count;
-                            var filesq2 = filesq.Where(f => f.Name.ToLower().Contains(strsearch)).Select(f => f.ParentAssetId);
-
-                            foreach (var a in filesq2)
-                            {
-                                assetFileListID.Add(a);
-                            }
-
-                            if (currentSkipSize == batchSize)
-                            {
-                                skipSize += batchSize;
-                                currentSkipSize = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        var assetlist = new List<IAsset>();
-                        foreach (var a in assetFileListID.Distinct())
-                        {
-                            assetlist.Add(AssetInfo.GetAsset(a, context));
-                        }
-
-                        SwitchedToLocalQuery = true;
-                        assets = assetlist.Where(a =>
-                                (!filterStartDate || a.LastModified > dateTimeStart)
-                                &&
-                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                );
-
-
-                        break;
-
-                    // Search on Asset file ID
-                    case SearchIn.AssetFileId:
-                        string fileguid = _searchinname.Text;
-                        if (fileguid.StartsWith(Constants.AssetFileIdPrefix))
-                        {
-                            fileguid = fileguid.Substring(Constants.AssetFileIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(fileguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with file asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
-                            if (myfile != null)
-                            {
-                                assetsServerQuery = context.Assets.Where(a =>
-                                                                   (!filterStartDate || a.LastModified > dateTimeStart)
-                                                                   &&
-                                                                   (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                                                   &&
-                                                                   myfile.Asset.Id == a.Id
-                                                                   );
-                            }
-                            else
-                            {
-                                MessageBox.Show("No file was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        break;
-
-                    // Search on Locator id / guid
-                    case SearchIn.LocatorId:
-                        string locatorguid = _searchinname.Text;
-                        if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
-                        {
-                            locatorguid = locatorguid.Substring(Constants.LocatorIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(locatorguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
-                            if (myloc != null)
-                            {
-                                assetsServerQuery = context.Assets.Where(a =>
-                                                                    (!filterStartDate || a.LastModified > dateTimeStart)
-                                                                    &&
-                                                                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                                                    &&
-                                                                    a.Id == myloc.AssetId
-                                                                    );
-                            }
-                            else
-                            {
-                                MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        break;
-
-                    // Search on Program id / guid
-                    case SearchIn.ProgramId:
-                        string programguid = _searchinname.Text;
-                        if (programguid.StartsWith(Constants.ProgramIdPrefix))
-                        {
-                            programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(programguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
-                            if (queryprog != null)
-                            {
-                                assetsServerQuery = context.Assets.Where(a =>
-                                                                   (!filterStartDate || a.LastModified > dateTimeStart)
-                                                                   &&
-                                                                   (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                                                   &&
-                                                                   queryprog.AssetId == a.Id
-                                                                   );
-                            }
-                            else
-                            {
-                                MessageBox.Show("No program was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        break;
-
-                    // Search on Program name
-                    case SearchIn.ProgramName:
-
-                        IList<string> assetFileListIDP = new List<string>();
-
-                        while (true)
-                        {
-                            // Enumerate through all programs (1000 at a time)
-                            var programsq = context.Programs
-                                .Skip(skipSize).Take(batchSize).ToList();
-
-                            currentSkipSize += programsq.Count;
-                            var programsq2 = programsq.Where(p => p.Name.ToLower().Contains(strsearch)).Select(p => p.AssetId);
-
-                            foreach (var a in programsq2)
-                            {
-                                assetFileListIDP.Add(a);
-                            }
-
-                            if (currentSkipSize == batchSize)
-                            {
-                                skipSize += batchSize;
-                                currentSkipSize = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        var assetlist2 = new List<IAsset>();
-                        foreach (var a in assetFileListIDP)
-                        {
-                            assetlist2.Add(AssetInfo.GetAsset(a, context));
-                        }
-
-                        SwitchedToLocalQuery = true;
-                        assets = assetlist2.Where(a =>
-                                (!filterStartDate || a.LastModified > dateTimeStart)
-                                &&
-                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                );
-
-                        break;
-
-
-                    default:
-                        break;
-                }
-            }
-            else // NO SEARCH
-            {
-                assetsServerQuery = context.Assets.Where(a =>
-                                (!filterStartDate || a.LastModified > dateTimeStart)
-                                &&
-                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                );
-            }
-
-            if (!SwitchedToLocalQuery && assetsServerQuery == null) // teh current query did not find asset (locator id search for example)
-            {
-                assets = _context.Assets.AsEnumerable().Take(0);
-                SwitchedToLocalQuery = true;
-            }
-
-
-            // SHORTCUT (needed for account with large number fo assets)
-            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
-            {
-                if (_timefilter == FilterTime.First50Items)
-                {
-                    assets = assetsServerQuery.Take(50);
-                }
-                else if (_timefilter == FilterTime.First1000Items)
-                {
-                    assets = assetsServerQuery.Take(1000);
-                }
-                else
-                {
-                    assets = assetsServerQuery;
-                }
-            }
-            else // general case
-
-            {
-
-                ///////////////////////
-                // STATE FILTER
-                ///////////////////////
-                // we need to do paging
-                // not excuted for large account as state filter control is disabled
-
-                IList<IAsset> aggregateListAssets = new List<IAsset>();
-                int skipSize2 = 0;
-                int batchSize2 = 1000;
-                int currentSkipSize2 = 0;
-
-                while (true)
-                {
-                    // Enumerate through all assets (1000 at a time)
-                    IEnumerable<IAsset> listPagedAssets;
-                    IList<IAsset> fassets = new List<IAsset>();
-
-                    if (SwitchedToLocalQuery)
-                    {
-                        listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
-                    }
-                    else
-                    {
-                        listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
-                    }
-                    currentSkipSize2 += listPagedAssets.Count();
-
-                    switch (_statefilter)
-                    {
-                        case StatusAssets.Published:
-                        case StatusAssets.PublishedExpired:
-
-                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
-                            IList<IAsset> newListAssets1 = new List<IAsset>();
-
-                            int skipSizeLoc = 0;
-                            int batchSizeLoc = 1000;
-                            int currentSkipSizeLoc = 0;
-
-                            while (true)
-                            {
-                                // Enumerate through all locators (1000 at a time)
-                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
-                                currentSkipSizeLoc += listlocators.Count;
-
-                                var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
-
-                                foreach (var a in assetexpired)
-                                {
-                                    newListAssets1.Add(a);
-                                }
-
-                                if (currentSkipSizeLoc == batchSizeLoc)
-                                {
-                                    skipSizeLoc += batchSizeLoc;
-                                    currentSkipSizeLoc = 0;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            foreach (var a in newListAssets1)
-                            {
-                                fassets.Add(a);
-                            }
-                            break;
-
-
-                        case StatusAssets.DynEnc:
-                            var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
-                            foreach (var a in assetwithDelPol)
-                            {
-                                fassets.Add(a);
-                            }
-                            break;
-
-                        case StatusAssets.Empty:
-
-                            IList<IAsset> newListAssets2 = listPagedAssets.ToList();
-
-                            int skipSizeEmpty = 0;
-                            int batchSizeEmpty = 1000;
-                            int currentSkipSizeEmpty = 0;
-
-                            while (true)
-                            {
-                                // Enumerate through all files (1000 at a time)
-                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
-                                currentSkipSizeEmpty += listfiles.Count;
-
-                                var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
-
-                                foreach (var a in assetsnotempty)
-                                {
-                                    newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
-                                }
-
-                                if (currentSkipSizeEmpty == batchSizeEmpty)
-                                {
-                                    skipSizeEmpty += batchSizeEmpty;
-                                    currentSkipSizeEmpty = 0;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            foreach (var a in newListAssets2)
-                            {
-                                fassets.Add(a);
-                            }
-                            break;
-
-
-                        case StatusAssets.All: // we need this to parse all assets
-                        default:
-                            foreach (var a in listPagedAssets)
-                            {
-                                fassets.Add(a);
-                            }
-                            break;
-                            /*
-
-                            // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
-                            // executed locally and would be slow. Could be reintroduce if customer demand.
-
-                        case StatusAssets.NotPublished:
-                            fassets = listassets.Where(a => a.Locators.Count == 0);
-                            break;
-                        case StatusAssets.Storage:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                            break;
-                        case StatusAssets.CENC:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                            break;
-                        case StatusAssets.Envelope:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                            break;
-                        case StatusAssets.NotEncrypted:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
-                            break;
-                        case StatusAssets.DynEnc:
-                            fassets = listassets.Where(a => a.DeliveryPolicies.Any());
-                            break;
-                        case StatusAssets.Streamable:
-                            fassets = listassets.Where(a => a.IsStreamable);
-                            break;
-                        case StatusAssets.SupportDynEnc:
-                            fassets = listassets.Where(a => a.SupportsDynamicEncryption);
-                            break;
-                        case StatusAssets.Empty:
-                            fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
-                            break;
-                        case StatusAssets.DefaultStorage:
-                            fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                            break;
-                        case StatusAssets.NotDefaultStorage:
-                            fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                            break;
-                            */
-                    }
-
-                    foreach (var a in fassets)
-                    {
-                        aggregateListAssets.Add(a);
-                    }
-
-                    if (currentSkipSize2 == batchSize2)
-                    {
-                        skipSize2 += batchSize2;
-                        currentSkipSize2 = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                SwitchedToLocalQuery = true;
-                assets = aggregateListAssets;
-
-                ///////////////////////
-                // SORTING
-                ///////////////////////
-                // let's sort the aggregate results
-                var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-                // client side only ! (a take is done otherwise)
-
-                switch (_orderassets)
-                {
-                    case OrderAssets.LastModifiedDescending:
-                        assets = from a in assets orderby a.LastModified descending select a;
-                        break;
-
-                    case OrderAssets.LastModifiedAscending:
-                        assets = from a in assets orderby a.LastModified ascending select a;
-                        break;
-
-                    case OrderAssets.NameAscending:
-                        assets = from a in assets orderby a.Name ascending select a;
-                        break;
-
-                    case OrderAssets.NameDescending:
-                        assets = from a in assets orderby a.Name descending select a;
-                        break;
-
-                    case OrderAssets.SizeDescending:
-                        assets = from a in assets orderby size(a) descending select a;
-                        break;
-
-                    case OrderAssets.SizeAscending:
-                        assets = from a in assets orderby size(a) ascending select a;
-                        break;
-
-                    case OrderAssets.LocatorExpirationAscending:
-                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
-                        break;
-
-                    case OrderAssets.LocatorExpirationDescending:
-                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
-                        break;
-
-                    default:
-                        assets = from a in assets orderby a.LastModified descending select a;
-                        break;
-                }
-
-                if (_timefilter == FilterTime.First50Items)
-                {
-                    assets = assets.Take(50);
-                }
-                else // if (_timefilter == FilterTime.First1000Items)
-                {
-                    assets = assets.Take(1000);
-                }
-
-            }// end of general case
-
-            _context = context;
-            _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
-            if (_pagecount == 0) _pagecount = 1; // no asset but one page
-
-            if (pagetodisplay < 1) pagetodisplay = 1;
-            if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            _currentpage = pagetodisplay;
-
-            try
-            {
-                IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
-               // let's return the data cached in memory of it exists and last modified time is the same
-               (cacheAssetentries.ContainsKey(a.Id)
-               && cacheAssetentries[a.Id].LastModified != null
-               && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
-               cacheAssetentries[a.Id] :
-                             new AssetEntry
-                             {
-                                 Name = a.Name,
-                                 Id = a.Id,
-                                 AlternateId = a.AlternateId,
-                                 Type = null,
-                                 LastModified = a.LastModified.ToLocalTime().ToString("G"),
-                                 Storage = a.StorageAccountName
-                             }
-                              ));
-
-                _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
-                Environment.Exit(0);
-            }
-
-            BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
+           this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));
             _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
             this.FindForm().Cursor = Cursors.Default;
+
+            return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //// DAYS
+            //bool filterStartDate = false;
+            //bool filterEndDate = false;
+
+            //DateTime dateTimeStart = DateTime.UtcNow;
+            //DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
+            //int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            //if (days > 0)
+            //{
+            //    filterStartDate = true;
+            //    dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            //}
+            //else if (days == -1) // TimeRange
+            //{
+            //    filterStartDate = true;
+            //    filterEndDate = true;
+            //    dateTimeStart = _timefilterTimeRange.StartDate;
+            //    if (_timefilterTimeRange.EndDate != null) // there is an end time
+            //    {
+            //        dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+            //    }
+            //}
+
+            //IQueryable<IAsset> assetsServerQuery = null;// = context.Assets.AsQueryable(); ;
+            //bool SwitchedToLocalQuery = false;
+
+            /////////////////////////
+            //// SEARCH
+            /////////////////////////
+            //if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
+            //{
+            //    bool Error = false;
+            //    int skipSize = 0;
+            //    int batchSize = 1000;
+            //    int currentSkipSize = 0;
+            //    string strsearch = _searchinname.Text.ToLower();
+
+            //    switch (_searchinname.SearchType)
+            //    {
+            //        // Search on Asset name
+            //        case SearchIn.AssetName:
+
+            //            assetsServerQuery = context.Assets.Where(a =>
+            //                    (a.Name.Contains(_searchinname.Text))
+            //                    &&
+            //                    (!filterStartDate || a.LastModified > dateTimeStart)
+            //                    &&
+            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                    );
+                      
+            //        break;
+
+            //        // Search on Asset aternate id
+            //        case SearchIn.AssetAltId:
+            //            assetsServerQuery = context.Assets.Where(a =>
+            //                      (a.AlternateId.Contains(_searchinname.Text))
+            //                      &&
+            //                      (!filterStartDate || a.LastModified > dateTimeStart)
+            //                      &&
+            //                      (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                      );
+            //            break;
+
+            //        // Search on Asset ID
+            //        case SearchIn.AssetId:
+            //            string assetguid = _searchinname.Text;
+            //            if (assetguid.StartsWith(Constants.AssetIdPrefix))
+            //            {
+            //                assetguid = assetguid.Substring(Constants.AssetIdPrefix.Length);
+            //            }
+            //            try
+            //            {
+            //                var g = new Guid(assetguid);
+            //            }
+            //            catch
+            //            {
+            //                Error = true;
+            //                MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            if (!Error)
+            //            {
+            //                assetsServerQuery = context.Assets.Where(a =>
+            //                                                 (a.Id == Constants.AssetIdPrefix + assetguid)
+            //                                                 &&
+            //                                                 (!filterStartDate || a.LastModified > dateTimeStart)
+            //                                                 &&
+            //                                                 (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                                                 );
+            //            }
+            //            break;
+
+
+            //        // Search on Asset file name
+            //        case SearchIn.AssetFileName:
+            //            IList<string> assetFileListID = new List<string>();
+
+            //            while (true)
+            //            {
+            //                // Enumerate through all asset files (1000 at a time)
+            //                var filesq = context.Files
+            //                    .Skip(skipSize).Take(batchSize).ToList();
+
+            //                currentSkipSize += filesq.Count;
+            //                var filesq2 = filesq.Where(f => f.Name.ToLower().Contains(strsearch)).Select(f => f.ParentAssetId);
+
+            //                foreach (var a in filesq2)
+            //                {
+            //                    assetFileListID.Add(a);
+            //                }
+
+            //                if (currentSkipSize == batchSize)
+            //                {
+            //                    skipSize += batchSize;
+            //                    currentSkipSize = 0;
+            //                }
+            //                else
+            //                {
+            //                    break;
+            //                }
+            //            }
+
+            //            var assetlist = new List<IAsset>();
+            //            foreach (var a in assetFileListID.Distinct())
+            //            {
+            //                assetlist.Add(AssetInfo.GetAsset(a, context));
+            //            }
+
+            //            SwitchedToLocalQuery = true;
+            //            assets = assetlist.Where(a =>
+            //                    (!filterStartDate || a.LastModified > dateTimeStart)
+            //                    &&
+            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                    );
+
+
+            //            break;
+
+            //        // Search on Asset file ID
+            //        case SearchIn.AssetFileId:
+            //            string fileguid = _searchinname.Text;
+            //            if (fileguid.StartsWith(Constants.AssetFileIdPrefix))
+            //            {
+            //                fileguid = fileguid.Substring(Constants.AssetFileIdPrefix.Length);
+            //            }
+            //            try
+            //            {
+            //                var g = new Guid(fileguid);
+            //            }
+            //            catch
+            //            {
+            //                Error = true;
+            //                MessageBox.Show("Error with file asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            if (!Error)
+            //            {
+            //                var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
+            //                if (myfile != null)
+            //                {
+            //                    assetsServerQuery = context.Assets.Where(a =>
+            //                                                       (!filterStartDate || a.LastModified > dateTimeStart)
+            //                                                       &&
+            //                                                       (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                                                       &&
+            //                                                       myfile.Asset.Id == a.Id
+            //                                                       );
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No file was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                }
+            //            }
+            //            break;
+
+            //        // Search on Locator id / guid
+            //        case SearchIn.LocatorId:
+            //            string locatorguid = _searchinname.Text;
+            //            if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
+            //            {
+            //                locatorguid = locatorguid.Substring(Constants.LocatorIdPrefix.Length);
+            //            }
+            //            try
+            //            {
+            //                var g = new Guid(locatorguid);
+            //            }
+            //            catch
+            //            {
+            //                Error = true;
+            //                MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            if (!Error)
+            //            {
+            //                var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
+            //                if (myloc != null)
+            //                {
+            //                    assetsServerQuery = context.Assets.Where(a =>
+            //                                                        (!filterStartDate || a.LastModified > dateTimeStart)
+            //                                                        &&
+            //                                                        (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                                                        &&
+            //                                                        a.Id == myloc.AssetId
+            //                                                        );
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                }
+            //            }
+            //            break;
+
+            //        // Search on Program id / guid
+            //        case SearchIn.ProgramId:
+            //            string programguid = _searchinname.Text;
+            //            if (programguid.StartsWith(Constants.ProgramIdPrefix))
+            //            {
+            //                programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
+            //            }
+            //            try
+            //            {
+            //                var g = new Guid(programguid);
+            //            }
+            //            catch
+            //            {
+            //                Error = true;
+            //                MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            if (!Error)
+            //            {
+            //                var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
+            //                if (queryprog != null)
+            //                {
+            //                    assetsServerQuery = context.Assets.Where(a =>
+            //                                                       (!filterStartDate || a.LastModified > dateTimeStart)
+            //                                                       &&
+            //                                                       (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                                                       &&
+            //                                                       queryprog.AssetId == a.Id
+            //                                                       );
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No program was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                }
+            //            }
+            //            break;
+
+            //        // Search on Program name
+            //        case SearchIn.ProgramName:
+
+            //            IList<string> assetFileListIDP = new List<string>();
+
+            //            while (true)
+            //            {
+            //                // Enumerate through all programs (1000 at a time)
+            //                var programsq = context.Programs
+            //                    .Skip(skipSize).Take(batchSize).ToList();
+
+            //                currentSkipSize += programsq.Count;
+            //                var programsq2 = programsq.Where(p => p.Name.ToLower().Contains(strsearch)).Select(p => p.AssetId);
+
+            //                foreach (var a in programsq2)
+            //                {
+            //                    assetFileListIDP.Add(a);
+            //                }
+
+            //                if (currentSkipSize == batchSize)
+            //                {
+            //                    skipSize += batchSize;
+            //                    currentSkipSize = 0;
+            //                }
+            //                else
+            //                {
+            //                    break;
+            //                }
+            //            }
+
+            //            var assetlist2 = new List<IAsset>();
+            //            foreach (var a in assetFileListIDP)
+            //            {
+            //                assetlist2.Add(AssetInfo.GetAsset(a, context));
+            //            }
+
+            //            SwitchedToLocalQuery = true;
+            //            assets = assetlist2.Where(a =>
+            //                    (!filterStartDate || a.LastModified > dateTimeStart)
+            //                    &&
+            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                    );
+
+            //            break;
+
+
+            //        default:
+            //            break;
+            //    }
+            //}
+            //else // NO SEARCH
+            //{
+            //    assetsServerQuery = context.Assets.Where(a =>
+            //                    (!filterStartDate || a.LastModified > dateTimeStart)
+            //                    &&
+            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
+            //                    );
+            //}
+
+            //if (!SwitchedToLocalQuery && assetsServerQuery == null) // teh current query did not find asset (locator id search for example)
+            //{
+            //    assets = _client.Assets.AsEnumerable().Take(0);
+            //    SwitchedToLocalQuery = true;
+            //}
+
+
+            //// SHORTCUT (needed for account with large number fo assets)
+            //if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
+            //{
+            //    if (_timefilter == FilterTime.First50Items)
+            //    {
+            //        assets = assetsServerQuery.Take(50);
+            //    }
+            //    else if (_timefilter == FilterTime.First1000Items)
+            //    {
+            //        assets = assetsServerQuery.Take(1000);
+            //    }
+            //    else
+            //    {
+            //        assets = assetsServerQuery;
+            //    }
+            //}
+            //else // general case
+
+            //{
+
+            //    ///////////////////////
+            //    // STATE FILTER
+            //    ///////////////////////
+            //    // we need to do paging
+            //    // not excuted for large account as state filter control is disabled
+
+            //    IList<IAsset> aggregateListAssets = new List<IAsset>();
+            //    int skipSize2 = 0;
+            //    int batchSize2 = 1000;
+            //    int currentSkipSize2 = 0;
+
+            //    while (true)
+            //    {
+            //        // Enumerate through all assets (1000 at a time)
+            //        IEnumerable<IAsset> listPagedAssets;
+            //        IList<IAsset> fassets = new List<IAsset>();
+
+            //        if (SwitchedToLocalQuery)
+            //        {
+            //            listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+            //        }
+            //        else
+            //        {
+            //            listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+            //        }
+            //        currentSkipSize2 += listPagedAssets.Count();
+
+            //        switch (_statefilter)
+            //        {
+            //            case StatusAssets.Published:
+            //            case StatusAssets.PublishedExpired:
+
+            //                bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+            //                IList<IAsset> newListAssets1 = new List<IAsset>();
+
+            //                int skipSizeLoc = 0;
+            //                int batchSizeLoc = 1000;
+            //                int currentSkipSizeLoc = 0;
+
+            //                while (true)
+            //                {
+            //                    // Enumerate through all locators (1000 at a time)
+            //                    var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
+            //                    currentSkipSizeLoc += listlocators.Count;
+
+            //                    var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
+
+            //                    foreach (var a in assetexpired)
+            //                    {
+            //                        newListAssets1.Add(a);
+            //                    }
+
+            //                    if (currentSkipSizeLoc == batchSizeLoc)
+            //                    {
+            //                        skipSizeLoc += batchSizeLoc;
+            //                        currentSkipSizeLoc = 0;
+            //                    }
+            //                    else
+            //                    {
+            //                        break;
+            //                    }
+            //                }
+
+            //                foreach (var a in newListAssets1)
+            //                {
+            //                    fassets.Add(a);
+            //                }
+            //                break;
+
+
+            //            case StatusAssets.DynEnc:
+            //                var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
+            //                foreach (var a in assetwithDelPol)
+            //                {
+            //                    fassets.Add(a);
+            //                }
+            //                break;
+
+            //            case StatusAssets.Empty:
+
+            //                IList<IAsset> newListAssets2 = listPagedAssets.ToList();
+
+            //                int skipSizeEmpty = 0;
+            //                int batchSizeEmpty = 1000;
+            //                int currentSkipSizeEmpty = 0;
+
+            //                while (true)
+            //                {
+            //                    // Enumerate through all files (1000 at a time)
+            //                    var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+            //                    currentSkipSizeEmpty += listfiles.Count;
+
+            //                    var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+            //                    foreach (var a in assetsnotempty)
+            //                    {
+            //                        newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
+            //                    }
+
+            //                    if (currentSkipSizeEmpty == batchSizeEmpty)
+            //                    {
+            //                        skipSizeEmpty += batchSizeEmpty;
+            //                        currentSkipSizeEmpty = 0;
+            //                    }
+            //                    else
+            //                    {
+            //                        break;
+            //                    }
+            //                }
+
+            //                foreach (var a in newListAssets2)
+            //                {
+            //                    fassets.Add(a);
+            //                }
+            //                break;
+
+
+            //            case StatusAssets.All: // we need this to parse all assets
+            //            default:
+            //                foreach (var a in listPagedAssets)
+            //                {
+            //                    fassets.Add(a);
+            //                }
+            //                break;
+            //                /*
+
+            //                // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
+            //                // executed locally and would be slow. Could be reintroduce if customer demand.
+
+            //            case StatusAssets.NotPublished:
+            //                fassets = listassets.Where(a => a.Locators.Count == 0);
+            //                break;
+            //            case StatusAssets.Storage:
+            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+            //                break;
+            //            case StatusAssets.CENC:
+            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+            //                break;
+            //            case StatusAssets.Envelope:
+            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+            //                break;
+            //            case StatusAssets.NotEncrypted:
+            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
+            //                break;
+            //            case StatusAssets.DynEnc:
+            //                fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+            //                break;
+            //            case StatusAssets.Streamable:
+            //                fassets = listassets.Where(a => a.IsStreamable);
+            //                break;
+            //            case StatusAssets.SupportDynEnc:
+            //                fassets = listassets.Where(a => a.SupportsDynamicEncryption);
+            //                break;
+            //            case StatusAssets.Empty:
+            //                fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
+            //                break;
+            //            case StatusAssets.DefaultStorage:
+            //                fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+            //                break;
+            //            case StatusAssets.NotDefaultStorage:
+            //                fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+            //                break;
+            //                */
+            //        }
+
+            //        foreach (var a in fassets)
+            //        {
+            //            aggregateListAssets.Add(a);
+            //        }
+
+            //        if (currentSkipSize2 == batchSize2)
+            //        {
+            //            skipSize2 += batchSize2;
+            //            currentSkipSize2 = 0;
+            //        }
+            //        else
+            //        {
+            //            break;
+            //        }
+            //    }
+            //    SwitchedToLocalQuery = true;
+            //    assets = aggregateListAssets;
+
+            //    ///////////////////////
+            //    // SORTING
+            //    ///////////////////////
+            //    // let's sort the aggregate results
+            //    var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+            //    // client side only ! (a take is done otherwise)
+
+            //    switch (_orderassets)
+            //    {
+            //        case OrderAssets.LastModifiedDescending:
+            //            assets = from a in assets orderby a.LastModified descending select a;
+            //            break;
+
+            //        case OrderAssets.LastModifiedAscending:
+            //            assets = from a in assets orderby a.LastModified ascending select a;
+            //            break;
+
+            //        case OrderAssets.NameAscending:
+            //            assets = from a in assets orderby a.Name ascending select a;
+            //            break;
+
+            //        case OrderAssets.NameDescending:
+            //            assets = from a in assets orderby a.Name descending select a;
+            //            break;
+
+            //        case OrderAssets.SizeDescending:
+            //            assets = from a in assets orderby size(a) descending select a;
+            //            break;
+
+            //        case OrderAssets.SizeAscending:
+            //            assets = from a in assets orderby size(a) ascending select a;
+            //            break;
+
+            //        case OrderAssets.LocatorExpirationAscending:
+            //            assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
+            //            break;
+
+            //        case OrderAssets.LocatorExpirationDescending:
+            //            assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
+            //            break;
+
+            //        default:
+            //            assets = from a in assets orderby a.LastModified descending select a;
+            //            break;
+            //    }
+
+            //    if (_timefilter == FilterTime.First50Items)
+            //    {
+            //        assets = assets.Take(50);
+            //    }
+            //    else // if (_timefilter == FilterTime.First1000Items)
+            //    {
+            //        assets = assets.Take(1000);
+            //    }
+
+            //}// end of general case
+
+            //_client = context;
+            //_pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
+            //if (_pagecount == 0) _pagecount = 1; // no asset but one page
+
+            //if (pagetodisplay < 1) pagetodisplay = 1;
+            //if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
+            //_currentpage = pagetodisplay;
+
+            //try
+            //{
+            //    IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
+            //   // let's return the data cached in memory of it exists and last modified time is the same
+            //   (cacheAssetentries.ContainsKey(a.Id)
+            //   && cacheAssetentries[a.Id].LastModified != null
+            //   && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
+            //   cacheAssetentries[a.Id] :
+            //                 new AssetEntry
+            //                 {
+            //                     Name = a.Name,
+            //                     Id = a.Id,
+            //                     AlternateId = a.AlternateId,
+            //                     Type = null,
+            //                     LastModified = a.LastModified.ToLocalTime().ToString("G"),
+            //                     Storage = a.StorageAccountName
+            //                 }
+            //                  ));
+
+            //    _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
+            //}
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
+            //    Environment.Exit(0);
+            //}
+
+            //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
+            //this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
+            //_refreshedatleastonetime = true;
+
+            //Debug.WriteLine("RefreshAssets End");
+            //AnalyzeItemsInBackground();
+
+            //this.FindForm().Cursor = Cursors.Default;
         }
 
 
