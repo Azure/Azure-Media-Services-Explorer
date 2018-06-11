@@ -37,14 +37,20 @@ using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+
 
 namespace AMSExplorer
 {
     public partial class AssetInformation : Form
     {
         public IAsset myAsset;
+        public Asset myAssetV3;
         private string myAssetType;
         private CloudMediaContext myContext;
+        private string _resource;
+        private string _acountname;
         public IEnumerable<IStreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
@@ -59,6 +65,15 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
             myContext = context;
+        }
+
+        public AssetInformation(Mainform mainform, AzureMediaServicesClient client, string resource, string accountname)
+        {
+            InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
+            myMainForm = mainform;
+            _resource = resource;
+            _acountname = accountname;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -277,10 +292,10 @@ namespace AMSExplorer
 
         private void AssetInformation_Load(object sender, EventArgs e)
         {
-            labelAssetNameTitle.Text += myAsset.Name;
+            labelAssetNameTitle.Text += myAssetV3.Name;
             buttonSetPrimary.ForeColor = Color.Blue;
 
-            myAssetType = AssetInfo.GetAssetType(myAsset);
+            //myAssetType = AssetInfo.GetAssetType(myAsset);
 
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
@@ -294,26 +309,34 @@ namespace AMSExplorer
 
             // Files in asset: headers
             long size = -1;
+            /*
             if (myAsset.State != AssetState.Deleted)
             {
                 size = ListAssetFiles();
                 ListAssetDeliveryPolicies();
                 ListAssetKeys();
             }
+            */
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAsset.Name);
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, myAssetType);
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_AssetType, myAsset.AssetType);
-            DGAsset.Rows.Add("Id", myAsset.Id);
-            DGAsset.Rows.Add("AlternateId", myAsset.AlternateId);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAssetV3.Name);
+            DGAsset.Rows.Add("Description", myAssetV3.Description);
+            //DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, myAssetType);
+            //DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_AssetType, myAssetV3.Type);
+            DGAsset.Rows.Add("Id", myAssetV3.Id);
+            DGAsset.Rows.Add("AlternateId", myAssetV3.AlternateId);
+            DGAsset.Rows.Add("AssetId", myAssetV3.AssetId);
+            DGAsset.Rows.Add("Container", myAssetV3.Container);
+            DGAsset.Rows.Add("StorageAccountName", myAssetV3.StorageAccountName);
+            DGAsset.Rows.Add("StorageEncryptionFormat", myAssetV3.StorageEncryptionFormat);
+            DGAsset.Rows.Add("Type", myAssetV3.Type);
+
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (AssetState)myAsset.State);
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_CreationOptions, (AssetCreationOptions)myAsset.Options);
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_FormatOption, (AssetFormatOption)myAsset.FormatOption);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAssetV3.Created).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAssetV3.LastModified).ToLocalTime().ToString("G"));
+
+            return;
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
             if (program != null) // Asset is linked to a Program

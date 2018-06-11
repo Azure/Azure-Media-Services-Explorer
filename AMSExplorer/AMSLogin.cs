@@ -124,11 +124,23 @@ namespace AMSExplorer
             }
             */
 
+            // To clear list
+            //Properties.Settings.Default.LoginListRPv3JSON = "";
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
             {
+                string s = Properties.Settings.Default.LoginListRPv3JSON;
                 // JSon deserialize
                 CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
+
+                /*
+                CredentialList = (ListCredentialsRPv3)Newtonsoft.Json.JsonConvert.DeserializeObject<ListCredentialsRPv3>(Properties.Settings.Default.LoginListRPv3JSON, new Newtonsoft.Json.JsonSerializerSettings
+                {
+                    TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                });
+                */
+
                 // Display accounts in the list
                 CredentialList.MediaServicesAccounts.ForEach(c =>
                     AddItemToListviewAccounts(c)
@@ -238,6 +250,11 @@ namespace AMSExplorer
           Program.SaveAndProtectUserConfig();
 
           */
+            LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+
+
+            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+            Program.SaveAndProtectUserConfig();
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -245,16 +262,12 @@ namespace AMSExplorer
             int index = listViewAccounts.SelectedIndices[0];
             if (index > -1)
             {
+                CredentialList.MediaServicesAccounts.RemoveAt(index);
+                Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+                Program.SaveAndProtectUserConfig();
 
-                /* V2 API CODE
-              CredentialList.MediaServicesAccounts.RemoveAt(index);
-              Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-              Program.SaveAndProtectUserConfig();
-
-              listViewAccounts.Items.Clear();
-              CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
-              */
-
+                listViewAccounts.Items.Clear();
+                CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
 
                 if (listViewAccounts.Items.Count > 0)
                 {
@@ -1006,6 +1019,12 @@ namespace AMSExplorer
                     var entry = new CredentialsEntryV3(addaccount2.selectedAccount, environment, addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto);
                     CredentialList.MediaServicesAccounts.Add(entry);
                     AddItemToListviewAccounts(entry);
+
+                    // LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+
+
+                    Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+                    Program.SaveAndProtectUserConfig();
                 }
                 else
                 {

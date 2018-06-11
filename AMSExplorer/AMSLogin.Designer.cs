@@ -549,7 +549,6 @@
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonConnectFullyInteractive);
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
@@ -592,6 +591,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.buttonConnectFullyInteractive);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxJob);

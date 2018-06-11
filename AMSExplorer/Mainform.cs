@@ -295,36 +295,36 @@ namespace AMSExplorer
 
             // Timer Auto Refresh
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
-        TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
-        // Let's check if there is one streaming unit running
-        try
-        {
-                var se = _mediaServicesClient.StreamingEndpoints.List(_credentialsV3.ResourceGroup,_credentialsV3.AccountName);
+            // Let's check if there is one streaming unit running
+            try
+            {
+                var se = _mediaServicesClient.StreamingEndpoints.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
 
-            if ( se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
-                TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
+                if (se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
+                    TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
-            // Let's check if there is classic streaming endpoints
-          //  if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
-           //     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
+                // Let's check if there is classic streaming endpoints
+                //  if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
+                //     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
 
-            // Let's check if there is an old CDN config
-         //   if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
-          //      TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
+                // Let's check if there is an old CDN config
+                //   if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
+                //      TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
 
-            // Let's check if there is dynamic packaging for the channels
-            double nbchannels = (double)_mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
-            double nbse = (double)se.Count();
-            if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+                // Let's check if there is dynamic packaging for the channels
+                double nbchannels = (double)_mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+                double nbse = (double)se.Count();
+                if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
+                    TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Environment.Exit(0);
-        }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
 
             /*
         // let's check the encoding reserved unit and type
@@ -346,15 +346,15 @@ namespace AMSExplorer
 
             // nb assets limits
             int nbassets = _mediaServicesClient.Assets.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
-        largeAccount = nbassets > triggerForLargeAccountNbAssets;
-        if (largeAccount)
-        {
-            TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
-        }
-        if (nbassets > (0.75 * maxNbAssets))
-        {
-            TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
-        }
+            largeAccount = nbassets > triggerForLargeAccountNbAssets;
+            if (largeAccount)
+            {
+                TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
+            }
+            if (nbassets > (0.75 * maxNbAssets))
+            {
+                TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
+            }
 
             /*
             // nb jobs limits
@@ -1746,7 +1746,7 @@ namespace AMSExplorer
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames,new List<IAsset>() /* assets*/);
+                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, new List<IAsset>() /* assets*/);
             }
         }
 
@@ -2220,17 +2220,17 @@ namespace AMSExplorer
             if (asset != null)
             {
                 // Refresh the asset.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, asset.Name);
+                //_context = Program.ConnectAndGetNewContext(_credentials);
+                asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, asset.Name);
                 if (asset != null)
                 {
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        AssetInformation form = new AssetInformation(this, _context)
+                        AssetInformation form = new AssetInformation(this, _mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName)
                         {
-                            myAsset =null,// asset,
-                            myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                            myAssetV3 = asset//,
+                            //myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
                         dialogResult = form.ShowDialog(this);
@@ -2343,7 +2343,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetTORename.Description = value;
-                           _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup,_credentialsV3.AccountName,  AssetTORename.Name, AssetTORename);
+                            _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, AssetTORename.Name, AssetTORename);
                         }
                         catch
                         {
@@ -2375,7 +2375,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                         _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
+                            _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
                         }
                         catch
                         {
@@ -2393,7 +2393,7 @@ namespace AMSExplorer
 
         private void DoMenuDownloadToLocal()
         {
-            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
             if (SelectedAssets.Count == 0) return;
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
@@ -2961,7 +2961,7 @@ namespace AMSExplorer
                         try
                         {
                             TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup,_credentialsV3.AccountName, a.Name )).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
 
                             //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             Task.WaitAll(deleteTasks);
@@ -3104,7 +3104,7 @@ namespace AMSExplorer
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
+            DisplayInfo(ReturnSelectedAssetsV3().FirstOrDefault());
         }
 
 
@@ -3119,7 +3119,7 @@ namespace AMSExplorer
             string valuekey = "";
             string targetAssetID = "";
 
-            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
             if (SelectedAssets.Count > 0) targetAssetID = SelectedAssets.FirstOrDefault().Id;
 
             if (!havestoragecredentials)
@@ -4788,7 +4788,7 @@ namespace AMSExplorer
 
         private void DoMenuEncodeWithPremiumWorkflow()
         {
-            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -5118,7 +5118,7 @@ namespace AMSExplorer
 
         private void DoMenuPackageSmoothToHLSStatic()
         {
-            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0)
             {
@@ -5188,7 +5188,7 @@ namespace AMSExplorer
 
         private void DoMenuMP4ToSmoothStatic()
         {
-            List<IAsset> SelectedAssets =  ReturnSelectedAssets();
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
             {
@@ -6967,7 +6967,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IAsset asset = AssetInfo.GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString(), _context);
+                Asset asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName,dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 DisplayInfo(asset);
             }
         }
@@ -7141,12 +7141,12 @@ namespace AMSExplorer
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
+            DisplayInfo(ReturnSelectedAssetsV3().FirstOrDefault());
         }
 
         private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
         {
-            var assets = ReturnSelectedAssets();
+            var assets = ReturnSelectedAssetsV3();
             bool singleitem = (assets.Count == 1);
             var firstAsset = assets.FirstOrDefault();
 
@@ -7157,6 +7157,7 @@ namespace AMSExplorer
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
 
+            /*
             if (singleitem && firstAsset != null && firstAsset.AssetFiles.Count() == 1)
             {
                 var assetfile = firstAsset.AssetFiles.FirstOrDefault();
@@ -7167,6 +7168,7 @@ namespace AMSExplorer
                     toolStripMenuItemDownloadToLocal.Enabled = false;
                 }
             }
+            */
         }
 
 
@@ -7184,7 +7186,7 @@ namespace AMSExplorer
 
         private void toolStripMenuAsset_DropDownOpening(object sender, EventArgs e)
         {
-            var assets = ReturnSelectedAssets();
+            var assets = ReturnSelectedAssetsV3();
             bool singleitem = (assets.Count == 1);
             informationToolStripMenuItem.Enabled =
             renameToolStripMenuItem.Enabled =
@@ -7192,6 +7194,7 @@ namespace AMSExplorer
             toAzureStorageToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem.Enabled = singleitem;
 
+            /*
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
                 var assetfile = assets.FirstOrDefault().AssetFiles.FirstOrDefault();
@@ -7202,6 +7205,7 @@ namespace AMSExplorer
                     toolStripMenuItemDownloadToLocal.Enabled = false;
                 }
             }
+            */
         }
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
@@ -16561,9 +16565,12 @@ namespace AMSExplorer
             {
                 Name = a.Name,
                 Id = a.Id,
+                AssetId = a.AssetId,
+                Type = a.Type,
                 AlternateId = a.AlternateId,
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                Storage = a.StorageAccountName
+                StorageAccountName = a.StorageAccountName,
+                Container=a.Container
             }
             );
 
@@ -16632,12 +16639,11 @@ namespace AMSExplorer
 
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
             this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
-
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
-            this.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
+            this.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
             this.Columns[_filter].DisplayIndex = lastColumn_sIndex;
             this.Columns[_filter].DefaultCellStyle.NullValue = null;
@@ -16663,7 +16669,7 @@ namespace AMSExplorer
             this.Columns["LastModified"].Width = 140;
             this.Columns["Id"].Width = 300;
             this.Columns["AlternateId"].Width = 300;
-            this.Columns["Storage"].Width = 140;
+            this.Columns["StorageAccountName"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -16683,7 +16689,7 @@ namespace AMSExplorer
             PublishStatus SASLoc;
             PublishStatus OrigLoc;
 
-            var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
+            var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
             foreach (AssetEntryV3 AE in listae)
             {
@@ -16707,11 +16713,18 @@ namespace AMSExplorer
                     if (asset != null)
                     {
                         //AssetInfo myAssetInfo = new AssetInfo(asset);
-                        AE.Name = asset.Name;
                         AE.AlternateId = asset.AlternateId;
+                        //AE.AssetId = asset.AssetId;
+                        AE.Container = asset.Container;
+                        //AE.Created = asset.Created;
+                        AE.Description = asset.Description;
                         AE.Id = asset.Id;
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
-                        AE.Description = asset.Description;
+                        AE.Name = asset.Name;
+                       // AE.StorageAccountName = asset.StorageAccountName;
+                       // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
+                       
+
                         //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
 
@@ -16747,7 +16760,7 @@ namespace AMSExplorer
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
 
-                        cacheAssetentriesV3[asset.Id] = AE; // let's put it in cache (or update the cache)
+                        cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -16791,23 +16804,20 @@ namespace AMSExplorer
 
         public void PurgeCacheAssetsV3(List<Asset> assets)
         {
-            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
+            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Name));
         }
 
         public void PurgeCacheAsset(IAsset asset)
         {
-            cacheAssetentriesV3.Remove(asset.Id);
+            cacheAssetentriesV3.Remove(asset.Name);
         }
 
         public void PurgeCacheAsset(Asset asset)
         {
-            cacheAssetentriesV3.Remove(asset.Id);
+            cacheAssetentriesV3.Remove(asset.Name);
         }
 
-        public void PurgeCacheAssetV3(Asset asset)
-        {
-            cacheAssetentriesV3.Remove(asset.Id);
-        }
+      
 
         public void RefreshAssets(int pagetodisplay) // all assets are refreshed
         {
@@ -16824,18 +16834,20 @@ namespace AMSExplorer
             var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
             {
                 Name = a.Name,
+                Description = a.Description,
                 Id = a.Id,
+                AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
-                Type = null,
+                Type = a.Type,
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                Storage = a.StorageAccountName
+                StorageAccountName = a.StorageAccountName
             }
            );
 
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
 
-           this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));
             _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshAssets End");
@@ -16910,7 +16922,7 @@ namespace AMSExplorer
             //                    &&
             //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
             //                    );
-                      
+
             //        break;
 
             //        // Search on Asset aternate id

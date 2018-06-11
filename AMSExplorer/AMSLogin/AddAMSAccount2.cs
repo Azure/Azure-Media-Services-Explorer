@@ -34,12 +34,12 @@ namespace AMSExplorer
     public partial class AddAMSAccount2 : Form
     {
         private TokenCredentials credentials;
-        private IAzureEnvironment environment;
+        private AzureEnvironmentV3 environment;
         private IPage<Subscription> subscriptions;
         private Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
 
-        public AddAMSAccount2(TokenCredentials credentials, IPage<Subscription> subscriptions, IAzureEnvironment environment)
+        public AddAMSAccount2(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

@@ -49,6 +49,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Net.Http;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {
@@ -2358,6 +2359,8 @@ namespace AMSExplorer
             return asset;
         }
 
+      
+
         public static string GetAssetType(IAsset asset)
         {
             string type = asset.AssetType.ToString();
@@ -3664,6 +3667,36 @@ namespace AMSExplorer
             }
         }
 
+        public string _Container;
+        public string Container
+        {
+            get
+            { return _Container; }
+            set
+            {
+                if (value != _Container)
+                {
+                    _Container = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string _StorageAccountName;
+        public string StorageAccountName
+        {
+            get
+            { return _StorageAccountName; }
+            set
+            {
+                if (value != _StorageAccountName)
+                {
+                    _StorageAccountName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public string _Description;
         public string Description
         {
@@ -3681,7 +3714,7 @@ namespace AMSExplorer
 
         public string Id { get; set; }
 
-        public string AssetId { get; set; }
+        public Guid AssetId { get; set; }
 
         public string _AlternateId;
         public string AlternateId
@@ -3712,6 +3745,8 @@ namespace AMSExplorer
                 }
             }
         }
+
+
         private string _LastModified;
         public string LastModified
         {
@@ -3726,6 +3761,22 @@ namespace AMSExplorer
                 }
             }
         }
+        /*
+        private AssetStorageEncryptionFormat _StorageEncryptionFormat;
+        public AssetStorageEncryptionFormat StorageEncryptionFormat
+        {
+            get
+            { return _StorageEncryptionFormat; }
+            set
+            {
+                if (value != _StorageEncryptionFormat)
+                {
+                    _StorageEncryptionFormat = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        */
         private string _Size;
         public string Size
         {
@@ -3754,7 +3805,6 @@ namespace AMSExplorer
                 }
             }
         }
-        public string Storage { get; set; }
 
         public Bitmap _StaticEncryption = null;
         public Bitmap StaticEncryption
@@ -4296,10 +4346,15 @@ namespace AMSExplorer
         public SubscriptionMediaService MediaService;
         public string ADSPClientId;
         private string ADSPClientSecret;
-        public IAzureEnvironment Environment;
+        public AzureEnvironmentV3 Environment;
         public PromptBehavior PromptUser;
 
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, IAzureEnvironment environment, PromptBehavior promptUser, string adspclientid = null, string adspclientsecret = null)
+        public CredentialsEntryV3()
+        {
+            
+        }
+
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, string adspclientid = null, string adspclientsecret = null)
         {
             MediaService = mediaService;
             Environment = environment;
@@ -4361,16 +4416,46 @@ namespace AMSExplorer
         }
     }
 
-    public interface IAzureEnvironment
+    public enum AzureEnvType
     {
-        string DisplayName { get; }
-        string Authority { get; }
-        string ArmResource { get; }
-        Uri ArmEndpoint { get; }
-        string ClientApplicationId { get; }
+        Test = 0,
+        Production
     }
 
-    internal class TestEnvironment : IAzureEnvironment
+    public class AzureEnvironmentV3
+    {
+        public string DisplayName { get; set; }
+        public string Authority { get; set; }
+        public string ArmResource { get; set; }
+        public Uri ArmEndpoint { get; set; }
+        public string ClientApplicationId { get; set; }
+
+        public AzureEnvironmentV3(AzureEnvType type)
+        {
+            switch (type)
+            {
+                case AzureEnvType.Test:
+
+                    DisplayName = "Test";
+                    Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
+                    ArmResource = "https://management.core.windows.net/";
+                    ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
+                    ClientApplicationId = "24f03a2b-432b-41f7-bc67-941b965f82ed";
+                    break;
+
+                case AzureEnvType.Production:
+                    DisplayName = "Production";
+                    Authority = "https://login.windows.net/common/oauth2/authorize";
+                    ArmResource = "https://management.core.windows.net/";
+                    ArmEndpoint = new Uri("https://management.azure.com/");
+                    ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
+                    break;
+            }
+        }
+    }
+
+    /*
+    internal class TestEnvironment : AzureEnvironmentV3
     {
         public string DisplayName => "Test";
 
@@ -4383,7 +4468,8 @@ namespace AMSExplorer
         public string ClientApplicationId => "24f03a2b-432b-41f7-bc67-941b965f82ed";
     }
 
-    internal class ProductionEnvironment : IAzureEnvironment
+    
+    internal class ProductionEnvironment : AzureEnvironmentV3
     {
         public string DisplayName => "Production";
 
@@ -4395,7 +4481,7 @@ namespace AMSExplorer
 
         public string ClientApplicationId => "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
     }
-
+    */
     public enum PlayerType
     {
         AzureMediaPlayer = 0,

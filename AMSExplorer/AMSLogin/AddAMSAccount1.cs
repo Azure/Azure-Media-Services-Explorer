@@ -53,9 +53,9 @@ namespace AMSExplorer
 
         }
 
-        internal IAzureEnvironment GetEnvironment()
+        internal AzureEnvironmentV3 GetEnvironment()
         {
-            return new ProductionEnvironment();
+            return new AzureEnvironmentV3(AzureEnvType.Production);
         }
     }
 }
