@@ -2050,7 +2050,7 @@
     <value>219, 22</value>
   </data>
   <data name="attachAnotherStorageAccountToolStripMenuItem.Text" xml:space="preserve">
-    <value>ストレージアカウントの追加...</value>
+    <value>ストレージ アカウントのアタッチ/デタッチ...</value>
   </data>
   <data name="storageVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 22</value>
