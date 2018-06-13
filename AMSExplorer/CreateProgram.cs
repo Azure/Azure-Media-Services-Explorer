@@ -173,6 +173,9 @@ namespace AMSExplorer
 //                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Id, storage. storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
   //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+
+           
+
             checkProgramName();
         }
 

@@ -48,7 +48,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
-            this.labelRTPWarning = new System.Windows.Forms.Label();
             this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
@@ -66,9 +65,6 @@
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
-            this.panelRTP = new System.Windows.Forms.Panel();
-            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
             this.panelAudioControl = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
@@ -111,8 +107,6 @@
             this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
-            this.panelRTP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
             this.tabPageAudioOptions.SuspendLayout();
             this.panelAudioControl.SuspendLayout();
             this.panelMultiAudio.SuspendLayout();
@@ -237,7 +231,6 @@
             // 
             // TabSettings
             // 
-            this.TabSettings.Controls.Add(this.labelRTPWarning);
             this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
@@ -255,12 +248,6 @@
             resources.ApplyResources(this.TabSettings, "TabSettings");
             this.TabSettings.Name = "TabSettings";
             this.TabSettings.UseVisualStyleBackColor = true;
-            // 
-            // labelRTPWarning
-            // 
-            resources.ApplyResources(this.labelRTPWarning, "labelRTPWarning");
-            this.labelRTPWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelRTPWarning.Name = "labelRTPWarning";
             // 
             // moreinfoLiveStreamingProfilelink
             // 
@@ -310,7 +297,6 @@
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonDefaultPreset);
-            this.tabPageLiveEncoding.Controls.Add(this.panelRTP);
             resources.ApplyResources(this.tabPageLiveEncoding, "tabPageLiveEncoding");
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
@@ -389,25 +375,6 @@
             this.radioButtonDefaultPreset.TabStop = true;
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
             this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
-            // 
-            // panelRTP
-            // 
-            resources.ApplyResources(this.panelRTP, "panelRTP");
-            this.panelRTP.Controls.Add(this.numericUpDownVideoStreamIndex);
-            this.panelRTP.Controls.Add(this.label7);
-            this.panelRTP.Name = "panelRTP";
-            // 
-            // numericUpDownVideoStreamIndex
-            // 
-            resources.ApplyResources(this.numericUpDownVideoStreamIndex, "numericUpDownVideoStreamIndex");
-            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
-            this.numericUpDownVideoStreamIndex.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.numericUpDownVideoStreamIndex, resources.GetString("numericUpDownVideoStreamIndex.ToolTip"));
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
             // 
             // tabPageAudioOptions
             // 
@@ -674,9 +641,6 @@
             this.panelDisplayEncProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
-            this.panelRTP.ResumeLayout(false);
-            this.panelRTP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
             this.tabPageAudioOptions.ResumeLayout(false);
             this.panelAudioControl.ResumeLayout(false);
             this.panelAudioControl.PerformLayout();
@@ -721,9 +685,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxAdMarkerSource;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Panel panelRTP;
-        private System.Windows.Forms.NumericUpDown numericUpDownVideoStreamIndex;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabPageAudioOptions;
         private System.Windows.Forms.TabPage tabPageAdConfig;
         private System.Windows.Forms.Panel panelInsertSlate;
@@ -768,7 +729,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
-        private System.Windows.Forms.Label labelRTPWarning;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
     }
 }

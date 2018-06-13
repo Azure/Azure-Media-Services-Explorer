@@ -31,12 +31,12 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Azure.Management.Media.Models;
+using System.Xml;
 
 namespace AMSExplorer
 {
     public partial class CreateLiveChannel : Form
     {
-        CloudMediaContext MyContext;
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
@@ -74,24 +74,6 @@ namespace AMSExplorer
                     AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
                     IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
                 };
-                if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
-                { // RTP
-                    List<VideoStream> videostreams = new List<VideoStream>();
-                    videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
-                    encodingoption.VideoStreams = new ReadOnlyCollection<VideoStream>(videostreams);
-
-                    List<AudioStream> audiostreamsl = new List<AudioStream>();
-                    audiostreamsl.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageMain.SelectedItem).Value, Index = (int)numericUpDownAudioIndexMain.Value });
-                    foreach (var s in audiostreams)
-                    {
-                        audiostreamsl.Add(new AudioStream()
-                        {
-                            Index = s.Index,
-                            Language = s.Code// CultureInfo.GetCultures(CultureTypes.NeutralCultures).Where(c => c.DisplayName == s.Language).FirstOrDefault().ThreeLetterISOLanguageName
-                        });
-                    }
-                    encodingoption.AudioStreams = new ReadOnlyCollection<AudioStream>(audiostreamsl);
-                }
 
                 return encodingoption;
             }
@@ -114,11 +96,11 @@ namespace AMSExplorer
             }
         }
 
-        public StreamingProtocol Protocol
+        public LiveEventInputProtocol Protocol
         {
             get
             {
-                return (StreamingProtocol)(Enum.Parse(typeof(StreamingProtocol), (comboBoxProtocolInput.SelectedItem as Item).Value));
+                return (LiveEventInputProtocol)(Enum.Parse(typeof(LiveEventInputProtocol), (comboBoxProtocolInput.SelectedItem as Item).Value));
             }
         }
 
@@ -135,26 +117,32 @@ namespace AMSExplorer
             }
         }
 
-        public TimeSpan? KeyframeInterval
+        public string KeyframeInterval
         {
             get
             {
-                TimeSpan? ts = null;
+                TimeSpan ts;
                 if (checkBoxKeyFrameIntDefined.Checked)
                 {
                     try
                     {
-                        ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxKeyFrame.Text));
+                        ts = TimeSpan.Parse(textBoxKeyFrame.Text);
+                        return XmlConvert.ToString(ts);
                     }
                     catch
                     {
+                        return null;
                     }
+                    
                 }
-                return ts;
+                else
+                {
+                    return null;
+                }
             }
             set
             {
-                textBoxKeyFrame.Text = value.Value.TotalSeconds.ToString();
+                textBoxKeyFrame.Text =  TimeSpan.Parse(value).ToString();
             }
         }
 
@@ -220,18 +208,17 @@ namespace AMSExplorer
             set { checkBoxStartChannel.Checked = value; }
         }
 
-        public CreateLiveChannel(CloudMediaContext context)
+        public CreateLiveChannel()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            MyContext = context;
         }
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
             _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
 
-            FillComboProtocols(false);
+            FillComboProtocols();
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
             comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_None, Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
@@ -304,18 +291,6 @@ namespace AMSExplorer
         {
             comboBoxAdMarkerSource.Items.Clear();
             comboBoxAdMarkerSource.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault, Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
-            // SCTE-35 only available or RTP input
-            if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
-            { // RTP
-                comboBoxAdMarkerSource.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages, Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
-                panelRTP.Enabled = panelAudioControl.Enabled = true;
-                labelRTPWarning.Visible = true;
-            }
-            else
-            {
-                panelRTP.Enabled = panelAudioControl.Enabled = false;
-                labelRTPWarning.Visible = false;
-            }
             comboBoxAdMarkerSource.SelectedIndex = 0;
         }
 
@@ -336,11 +311,11 @@ namespace AMSExplorer
                         tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
                         EncodingTabDisplayed = false;
                     }
-                    FillComboProtocols(false);
+                    FillComboProtocols();
                 }
                 else
                 {
-                    FillComboProtocols(false);
+                    FillComboProtocols();
                     SetLabelDefaultEncLabel();
                     UpdateProfileGrids();
                     if (!EncodingTabDisplayed)
@@ -354,15 +329,11 @@ namespace AMSExplorer
             }
         }
 
-        private void FillComboProtocols(bool displayrtp)
+        private void FillComboProtocols()
         {
             comboBoxProtocolInput.Items.Clear();
-            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.FragmentedMP4), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4)));
-            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTMP), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP)));
-            if (displayrtp)
-            {
-                comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTPMPEG2TS), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS)));
-            }
+            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.FragmentedMP4), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.FragmentedMP4)));
+            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.RTMP), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.RTMP)));
             comboBoxProtocolInput.SelectedIndex = 0;
         }
 
@@ -460,9 +431,11 @@ namespace AMSExplorer
 
         private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
         {
+            IAsset asset = null;
+            /*
             if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
-            IAsset asset = null;
+           
             IAccessPolicy policy = null;
             ILocator locator = null;
 
@@ -489,6 +462,7 @@ namespace AMSExplorer
                 if (locator != null) locator.Delete();
                 if (policy != null) policy.Delete();
             }
+            */
             return asset;
         }
 
@@ -499,12 +473,14 @@ namespace AMSExplorer
 
         private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             panelInsertSlate.Enabled = checkBoxInsertSlateOnAdMarker.Checked;
 
             if (checkBoxInsertSlateOnAdMarker.Checked)
             {
                 listViewJPG1.LoadJPGs(MyContext);
             }
+            */
 
         }
 

@@ -727,21 +727,17 @@ namespace AMSExplorer
 
         }
 
-        public static string ReturnNameForProtocol(StreamingProtocol protocol)
+        public static string ReturnNameForProtocol(LiveEventInputProtocol protocol)
         {
             string name = "";
             switch (protocol)
             {
-                case StreamingProtocol.FragmentedMP4:
+                case LiveEventInputProtocol.FragmentedMP4:
                     name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_FragmentedMP4Smooth;
                     break;
 
-                case StreamingProtocol.RTMP:
+                case LiveEventInputProtocol.RTMP:
                     name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_RTMP;
-                    break;
-
-                case StreamingProtocol.RTPMPEG2TS:
-                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_RTPMPEG2TransportStream;
                     break;
             }
             return name;
@@ -871,8 +867,8 @@ namespace AMSExplorer
         public const string NameconvEncodername = "{Encoder}";
         public const string NameconvProcessorname = "{Processor}";
         public const string NameconvProcessorversion = "{Processor Version}";
-        public const string NameconvChannel = "{Channel}";
-        public const string NameconvProgram = "{Program}";
+        public const string NameconvChannel = "{LiveEvent}";
+        public const string NameconvProgram = "{LiveOutput}";
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
@@ -4344,6 +4340,16 @@ namespace AMSExplorer
                     return null;
                 }
             }
+        }
+    }
+
+    public class LiveOutputUtil
+    {
+       public static string ReturnLiveEventFromOutput (LiveOutput liveoutput)
+
+        {
+            var idParts = liveoutput.Id.Split('/');
+            return idParts[10];
         }
     }
 

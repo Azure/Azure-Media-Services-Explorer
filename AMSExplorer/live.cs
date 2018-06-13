@@ -201,8 +201,8 @@ namespace AMSExplorer
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                                Encoding = ReturnChannelBitmap(c),
                                EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
-                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                               PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                               InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
+                               PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
                                State = c.ResourceState,
                                LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
                            };
@@ -492,8 +492,8 @@ namespace AMSExplorer
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
                            EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
-                           InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                           PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                           InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
+                           PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
                            State = c.ResourceState,
                            LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
                        });
@@ -1010,20 +1010,20 @@ namespace AMSExplorer
             }
 
             var programquery = from c in (LOList)
-                               //orderby c.LastModified descending
-                           select new LiveOutputEntry
-                           {
-                               Name = c.LiveOutputItem.Name,
-                               Id = c.LiveOutputItem.Id,
-                               State = c.LiveOutputItem.ResourceState,
-                               Description = c.LiveOutputItem.Description,
-                               ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
-                               LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                               Published = null,
-                               LiveEventName = c.LiveEventName
-                           };
+                                   //orderby c.LastModified descending
+                               select new LiveOutputEntry
+                               {
+                                   Name = c.LiveOutputItem.Name,
+                                   Id = c.LiveOutputItem.Id,
+                                   State = c.LiveOutputItem.ResourceState,
+                                   Description = c.LiveOutputItem.Description,
+                                   ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
+                                   LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
+                                   Published = null,
+                                   LiveEventName = c.LiveEventName
+                               };
 
-           
+
 
             _MyObservLiveOutputs = new SortableBindingList<LiveOutputEntry>(programquery.ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveOutputs));
