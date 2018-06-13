@@ -25,13 +25,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Text.RegularExpressions;
+using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {
     public partial class CreateProgram : Form
     {
         public string ChannelName;
-        private CloudMediaContext _context;
+        private AzureMediaServicesClient _client;
+        private CredentialsEntryV3 _credentials;
 
         public string ProgramName
         {
@@ -148,11 +150,12 @@ namespace AMSExplorer
             get { return ((Item)comboBoxStorage.SelectedItem).Value; }
         }
 
-        public CreateProgram(CloudMediaContext context)
+        public CreateProgram(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _client = client;
+            _credentials = credentials;
         }
 
         private void CreateLocator_Load(object sender, EventArgs e)
@@ -163,10 +166,12 @@ namespace AMSExplorer
             labelLocatorID.Text = string.Empty;
             labelURLFileNameWarning.Text = string.Empty;
 
-            foreach (var storage in _context.StorageAccounts)
+            foreach (var storage in _credentials.MediaService.StorageAccounts.ToList())
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                comboBoxStorage.Items.Add(new Item(storage.Id, storage.Id));
+
+//                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Id, storage. storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
+  //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
             checkProgramName();
         }

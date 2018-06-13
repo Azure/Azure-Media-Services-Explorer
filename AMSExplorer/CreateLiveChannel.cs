@@ -30,6 +30,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -55,11 +56,11 @@ namespace AMSExplorer
             set { textBoxDescription.Text = value; }
         }
 
-        public ChannelEncodingType EncodingType
+        public LiveEventEncodingType EncodingType
         {
             get
             {
-                return (ChannelEncodingType)(Enum.Parse(typeof(ChannelEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value));
+                return (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value));
             }
         }
 
@@ -158,22 +159,22 @@ namespace AMSExplorer
         }
 
 
-        public List<IPRange> inputIPAllow
+        public List<Microsoft.Azure.Management.Media.Models.IPRange> inputIPAllow
         {
             get
             {
-                List<IPRange> ips = new List<IPRange>();
-                IPRange ip;
+                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new List<Microsoft.Azure.Management.Media.Models.IPRange>();
+                Microsoft.Azure.Management.Media.Models.IPRange ip;
 
                 try
                 {
                     if (checkBoxRestrictIngestIP.Checked)
                     {
-                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                        ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictIngestIP.Text).ToString() };
                     }
                     else
                     {
-                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                        ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0").ToString(), SubnetPrefixLength = 0 };
                     }
                     ips.Add(ip);
                     return ips;
@@ -186,17 +187,17 @@ namespace AMSExplorer
             }
         }
 
-        public List<IPRange> previewIPAllow
+        public List<Microsoft.Azure.Management.Media.Models.IPRange> previewIPAllow
         {
             get
             {
-                List<IPRange> ips = new List<IPRange>();
+                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new List<Microsoft.Azure.Management.Media.Models.IPRange>();
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
                     try
                     {
-                        IPRange ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                        Microsoft.Azure.Management.Media.Models.IPRange ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text).ToString() };
                         ips.Add(ip);
                     }
                     catch
@@ -233,12 +234,14 @@ namespace AMSExplorer
             FillComboProtocols(false);
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
-            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_None, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Standard, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
+            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_None, Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
+            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Standard, Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Basic)));
+            /*
             if (Properties.Settings.Default.ShowLivePremiumChannel)
             {
                 comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
             }
+            */
             comboBoxEncodingType.SelectedIndex = 0;
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -320,11 +323,11 @@ namespace AMSExplorer
         {
             if (!InitPhase)
             {
-                moreinfoLiveEncodingProfilelink.Visible = !(EncodingType == ChannelEncodingType.None);
+                moreinfoLiveEncodingProfilelink.Visible = !(EncodingType == LiveEventEncodingType.None);
                 moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
 
                 // let's display the encoding tab if encoding has been choosen
-                if (EncodingType == ChannelEncodingType.None) 
+                if (EncodingType == LiveEventEncodingType.None) 
                 {
                     if (EncodingTabDisplayed)
                     {
@@ -366,7 +369,7 @@ namespace AMSExplorer
         private void SetLabelDefaultEncLabel()
         {
             // default encoding profile name
-            var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == EncodingType).FirstOrDefault();
+            var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == LiveEventEncodingType.Basic).FirstOrDefault();
             if (profileliveselected != null)
             {
                 defaultEncodingPreset = profileliveselected.Name;
@@ -532,7 +535,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                IPRange ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text) };
+                Microsoft.Azure.Management.Media.Models.IPRange ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text).ToString() };
             }
             catch
             {
@@ -554,7 +557,7 @@ namespace AMSExplorer
 
         private string ReturnLiveEncodingProfile()
         {
-            if (EncodingType != ChannelEncodingType.None)
+            if (EncodingType != LiveEventEncodingType.None)
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }

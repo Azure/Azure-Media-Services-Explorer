@@ -4235,7 +4235,7 @@
             this.dataGridViewProgramsV.AllowUserToDeleteRows = false;
             this.dataGridViewProgramsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewProgramsV, "dataGridViewProgramsV");
-            this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
+            this.dataGridViewProgramsV.LiveEventSourceNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
             this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
             this.dataGridViewProgramsV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;

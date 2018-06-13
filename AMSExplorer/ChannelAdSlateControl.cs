@@ -235,7 +235,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
+                        //await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
                     }
                     catch (Exception e)
                     {
@@ -273,7 +273,7 @@ namespace AMSExplorer
                 try
                 {
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_SlateShown, MyContext, MyMainForm));
+                    //await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_SlateShown, MyContext, MyMainForm));
                 }
                 catch (Exception e)
                 {
@@ -291,7 +291,7 @@ namespace AMSExplorer
 
             try
             {
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_SlateHidden, MyContext, MyMainForm));
+                //await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_SlateHidden, MyContext, MyMainForm));
             }
             catch (Exception e)
             {

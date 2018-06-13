@@ -46,6 +46,8 @@ using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
 using System.Linq.Expressions;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -136,12 +138,12 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservChannels.Count();
+                return _MyObservLiveEvent.Count();
             }
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
-        static SortableBindingList<ChannelEntry> _MyObservChannels;
+        static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
 
         static private int _channelsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
@@ -149,8 +151,10 @@ namespace AMSExplorer
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
+        private CredentialsEntryV3 _credentialsV3;
+        private AzureMediaServicesClient _client;
         static CloudMediaContext _context;
-        static private CredentialsEntry _credentials;
+        static private CredentialsEntry _credentialsV2;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -160,30 +164,49 @@ namespace AMSExplorer
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
 
-        private Bitmap ReturnChannelBitmap(IChannel channel)
+        private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
-            switch (channel.EncodingType)
+            switch (channel.Encoding.EncodingType)
             {
-                case ChannelEncodingType.None:
+                case LiveEventEncodingType.None:
                     return null;
 
-                case ChannelEncodingType.Standard:
+                case LiveEventEncodingType.Basic:
                     return EncodingImage;
 
-                case ChannelEncodingType.Premium:
-                    return PremiumEncodingImage;
+                //case ChannelEncodingType.Premium:
+                //    return PremiumEncodingImage;
 
                 default:
                     return null;
             }
         }
 
-        public void Init(CredentialsEntry credentials, CloudMediaContext context)
+        public void Init(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
         {
-            IEnumerable<ChannelEntry> channelquery;
-            _credentials = credentials;
+            IEnumerable<LiveEventEntry> channelquery;
+            _credentialsV3 = credentials;
 
-            _context = context;
+            _client = client;
+
+            var liveevents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+
+            channelquery = from c in liveevents.Take(0)
+                           orderby c.LastModified descending
+                           select new LiveEventEntry
+                           {
+                               Name = c.Name,
+                               Id = c.Id,
+                               Description = c.Description,
+                               InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
+                               Encoding = ReturnChannelBitmap(c),
+                               EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
+                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                               PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                               State = c.ResourceState,
+                               LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
+                           };
+            /*
             channelquery = from c in _context.Channels.Take(0)
                            orderby c.LastModified descending
                            select new ChannelEntry
@@ -199,7 +222,7 @@ namespace AMSExplorer
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
                            };
-
+*/
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -214,7 +237,7 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol);
 
-            SortableBindingList<ChannelEntry> MyObservChannelsInPage = new SortableBindingList<ChannelEntry>(channelquery.Take(0).ToList());
+            SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new SortableBindingList<LiveEventEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservChannelsInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
@@ -257,30 +280,30 @@ namespace AMSExplorer
             if ((page <= _pagecount) && (page > 0))
             {
                 _currentpage = page;
-                this.DataSource = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (page - 1)).Take(_channelsperpage).ToList());
+                this.DataSource = new BindingList<LiveEventEntry>(_MyObservLiveEvent.Skip(_channelsperpage * (page - 1)).Take(_channelsperpage).ToList());
             }
         }
 
-        public void RefreshChannel(IChannel channel)
+        public void RefreshChannel(LiveEvent liveEventItem)
         {
             int index = -1;
-            foreach (ChannelEntry CE in _MyObservChannels) // let's search for index
+            foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index
             {
-                if (CE.Id == channel.Id)
+                if (CE.Id == liveEventItem.Id)
                 {
-                    index = _MyObservChannels.IndexOf(CE);
+                    index = _MyObservLiveEvent.IndexOf(CE);
                     break;
                 }
             }
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                channel = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault(); //refresh
-                if (channel != null)
+                liveEventItem = _client.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveEventItem.Name); //refresh
+                if (liveEventItem != null)
                 {
-                    _MyObservChannels[index].State = channel.State;
-                    _MyObservChannels[index].Description = channel.Description;
-                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime();
+                    _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
+                    _MyObservLiveEvent[index].Description = liveEventItem.Description;
+                    _MyObservLiveEvent[index].LastModified = liveEventItem.LastModified != null ? (DateTime?)((DateTime)liveEventItem.LastModified).ToLocalTime() : null;
                     this.Refresh();
                 }
             }
@@ -290,18 +313,18 @@ namespace AMSExplorer
         {
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IChannel channel;
+            LiveEvent liveEventInputItem;
 
-            foreach (ChannelEntry CE in _MyObservChannels)
+            foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
-                channel = null;
+                liveEventInputItem = null;
                 try
                 {
-                    channel = _context.Channels.Where(a => a.Id == CE.Id).FirstOrDefault();
-                    if (channel != null)
+                    liveEventInputItem = _client.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, CE.Name);
+                    if (liveEventInputItem != null)
                     {
-                        CE.State = channel.State;
+                        CE.State = liveEventInputItem.ResourceState;
                         this.BeginInvoke(new Action(() => this.Refresh()), null);
                     }
                 }
@@ -320,17 +343,18 @@ namespace AMSExplorer
 
         private void RefreshChannels() // all assets are refreshed
         {
-            RefreshChannels(_context, _currentpage);
+            RefreshChannels(_currentpage);
         }
 
-        public void RefreshChannels(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+        public void RefreshChannels(int pagetodisplay) // all assets are refreshed
         {
+
             if (!_initialized) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
-            _context = context;
 
-            IEnumerable<ChannelEntry> channelquery;
+            /*
+            IEnumerable<LiveEventEntry> channelquery;
 
             // DAYS
             bool filterStartDate = false;
@@ -365,7 +389,7 @@ namespace AMSExplorer
                 channelstate = (ChannelState)Enum.Parse(typeof(ChannelState), FilterState);
             }
 
-            IQueryable<IChannel> channelssrv = context.Channels;
+          //  IQueryable<LiveEvent> channelssrv =  _client.LiveEvents;
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
@@ -445,6 +469,7 @@ namespace AMSExplorer
             }
             */
 
+            /*
             IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
 
             if (filterstate)
@@ -456,24 +481,25 @@ namespace AMSExplorer
             {
                 channels = channels.Take(50);
             }
+            */
 
-            channelquery = channels.Select(c =>
-                       new ChannelEntry
+            var channelquery = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Select(c =>
+                       new LiveEventEntry
                        {
                            Name = c.Name,
                            Id = c.Id,
                            Description = c.Description,
-                           InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                           InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
-                           EncodingPreset = (c.EncodingType != ChannelEncodingType.None && c.Encoding != null) ? c.Encoding.SystemPreset : string.Empty,
-                           InputUrl = c.Input.Endpoints.First().Url,
-                           PreviewUrl = c.Preview != null ? c.Preview.Endpoints.First().Url : null,
-                           State = c.State,
-                           LastModified = c.LastModified.ToLocalTime()
+                           EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
+                           InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                           PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                           State = c.ResourceState,
+                           LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
                        });
 
-            _MyObservChannels = new SortableBindingList<ChannelEntry>(channelquery.ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannels));
+            _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery.ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveEvent));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
@@ -483,7 +509,7 @@ namespace AMSExplorer
     {
         private List<string> idsList = new List<string>();
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
-        static SortableBindingList<ProgramEntry> _MyObservPrograms;
+        static SortableBindingList<LiveOutputEntry> _MyObservLiveOutputs;
 
         static private int _itemssperpage = 50; //nb of items per page
         static private int _pagecount = 1;
@@ -492,7 +518,8 @@ namespace AMSExplorer
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
         static CloudMediaContext _context;
-        static private CredentialsEntry _credentials;
+        static private CredentialsEntryV3 _credentialsV3;
+        private AzureMediaServicesClient _client;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ProgramName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -501,7 +528,7 @@ namespace AMSExplorer
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         static private enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
 
-        public List<string> ChannelSourceIDs
+        public List<string> LiveEventSourceNames
         {
             get
             {
@@ -611,31 +638,39 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservPrograms != null ? _MyObservPrograms.Count() : 0;
+                return _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count() : 0;
             }
         }
 
 
 
-        public void Init(CredentialsEntry credentials, CloudMediaContext context)
+        public void Init(CredentialsEntryV3 credentials, AzureMediaServicesClient client)
         {
-            IEnumerable<ProgramEntry> programquery;
-            _credentials = credentials;
+            IEnumerable<LiveOutputEntry> programquery;
+            _credentialsV3 = credentials;
+            _client = client;
 
-            _context = context;
-            programquery = from c in _context.Programs.Take(0)
+            var ListEvents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).ToList();
+            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+
+            foreach (var le in ListEvents)
+            {
+                var plist = _client.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+            }
+
+            programquery = from c in (LOList.Take(0))
                                //orderby c.LastModified descending
-                           select new ProgramEntry
+                           select new LiveOutputEntry
                            {
-                               Name = c.Name,
-                               Id = c.Id,
-                               State = c.State,
-                               Description = c.Description,
-                               ArchiveWindowLength = c.ArchiveWindowLength,
-                               LastModified = c.LastModified.ToLocalTime(),
+                               Name = c.LiveOutputItem.Name,
+                               Id = c.LiveOutputItem.Id,
+                               State = c.LiveOutputItem.ResourceState,
+                               Description = c.LiveOutputItem.Description,
+                               ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
+                               LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
                                Published = null,
-                               ChannelName = c.Channel.Name,
-                               ChannelId = c.Channel.Id
+                               LiveEventName = c.LiveEventName
                            };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
@@ -652,10 +687,10 @@ namespace AMSExplorer
             this.Columns.Add(imageCol);
 
 
-            SortableBindingList<ProgramEntry> MyObservProgramInPage = new SortableBindingList<ProgramEntry>(programquery.Take(0).ToList());
+            SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new SortableBindingList<LiveOutputEntry>(programquery.Take(0).ToList());
             this.DataSource = MyObservProgramInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-            this.Columns["ChannelId"].Visible = false;
+            //this.Columns["LiveEventName"].Visible = false;
             this.Columns[_published].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_published].DefaultCellStyle.NullValue = null;
             this.Columns[_published].HeaderText = _published;
@@ -664,7 +699,7 @@ namespace AMSExplorer
             this.Columns["Description"].Width = 150;
             this.Columns["ArchiveWindowLength"].Width = 130;
             this.Columns["ArchiveWindowLength"].HeaderText = "Archive window";
-            this.Columns["ChannelName"].HeaderText = "Channel name";
+            this.Columns["LiveEventName"].HeaderText = "Live event name";
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -682,21 +717,21 @@ namespace AMSExplorer
             if ((page <= _pagecount) && (page > 0))
             {
                 _currentpage = page;
-                this.DataSource = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (page - 1)).Take(_itemssperpage).ToList());
+                this.DataSource = new BindingList<LiveOutputEntry>(_MyObservLiveOutputs.Skip(_itemssperpage * (page - 1)).Take(_itemssperpage).ToList());
             }
         }
 
-        public void RefreshProgram(IProgram program)
+        public void RefreshProgram(string liveeventName, LiveOutput program)
         {
             int index = -1;
 
-            if (_MyObservPrograms!=null)
+            if (_MyObservLiveOutputs != null)
             {
-                foreach (ProgramEntry CE in _MyObservPrograms) // let's search for index
+                foreach (LiveOutputEntry CE in _MyObservLiveOutputs) // let's search for index
                 {
-                    if (CE.Id == program.Id)
+                    if (CE.Name == program.Name)
                     {
-                        index = _MyObservPrograms.IndexOf(CE);
+                        index = _MyObservLiveOutputs.IndexOf(CE);
                         break;
                     }
                 }
@@ -704,15 +739,15 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                program = _context.Programs.Where(c => c.Id == program.Id).FirstOrDefault(); //refresh
+                program = _client.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveeventName, program.Name); //refresh
                 if (program != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
                     {
-                        _MyObservPrograms[index].State = program.State;
-                        _MyObservPrograms[index].Description = program.Description;
-                        _MyObservPrograms[index].ArchiveWindowLength = program.ArchiveWindowLength;
-                        _MyObservPrograms[index].LastModified = program.LastModified.ToLocalTime();
+                        _MyObservLiveOutputs[index].State = program.ResourceState;
+                        _MyObservLiveOutputs[index].Description = program.Description;
+                        _MyObservLiveOutputs[index].ArchiveWindowLength = program.ArchiveWindowLength;
+                        _MyObservLiveOutputs[index].LastModified = program.LastModified != null ? (DateTime?)((DateTime)program.LastModified).ToLocalTime() : null;
                         this.Refresh();
                     }
                     catch
@@ -726,18 +761,18 @@ namespace AMSExplorer
         {
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IProgram program;
+            LiveOutput liveOutputItem;
 
-            foreach (ProgramEntry CE in _MyObservPrograms)
+            foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
             {
 
-                program = null;
+                liveOutputItem = null;
                 try
                 {
-                    program = _context.Programs.Where(a => a.Id == CE.Id).FirstOrDefault();
-                    if (program != null)
+                    liveOutputItem = _client.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, CE.LiveEventName, CE.Name);
+                    if (liveOutputItem != null)
                     {
-                        CE.State = program.State;
+                        CE.State = liveOutputItem.ResourceState;
                         this.BeginInvoke(new Action(() => this.Refresh()), null);
                     }
                 }
@@ -756,10 +791,10 @@ namespace AMSExplorer
 
         private void RefreshPrograms() // all assets are refreshed
         {
-            RefreshPrograms(_context, _currentpage);
+            RefreshPrograms(_currentpage);
         }
 
-        public void RefreshPrograms(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+        public void RefreshPrograms(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
             if (idsList.Count == 0) return;
@@ -767,9 +802,11 @@ namespace AMSExplorer
             Debug.WriteLine("RefreshPrograms : start");
 
             this.FindForm().Cursor = Cursors.WaitCursor;
+
+            /*
             _context = context;
 
-            IEnumerable<ProgramEntry> programquery;
+            IEnumerable<LiveOutputEntry> programquery;
             IQueryable<IProgram> programssrv = context.Programs;
             IEnumerable<IProgram> programs;
 
@@ -961,23 +998,35 @@ namespace AMSExplorer
                     }
                 }
             }
+            */
 
-            programquery = programs.Select(p =>
-                         new ProgramEntry
-                         {
-                             Name = p.Name,
-                             Id = p.Id,
-                             Description = p.Description,
-                             ArchiveWindowLength = p.ArchiveWindowLength,
-                             State = p.State,
-                             LastModified = p.LastModified.ToLocalTime(),
-                             ChannelName = p.Channel.Name,
-                             ChannelId = p.Channel.Id,
-                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-                         });
+            var ListEvents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).ToList();
+            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
-            _MyObservPrograms = new SortableBindingList<ProgramEntry>(programquery.ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservPrograms));
+            foreach (var le in ListEvents)
+            {
+                var plist = _client.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+            }
+
+            var programquery = from c in (LOList)
+                               //orderby c.LastModified descending
+                           select new LiveOutputEntry
+                           {
+                               Name = c.LiveOutputItem.Name,
+                               Id = c.LiveOutputItem.Id,
+                               State = c.LiveOutputItem.ResourceState,
+                               Description = c.LiveOutputItem.Description,
+                               ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
+                               LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
+                               Published = null,
+                               LiveEventName = c.LiveEventName
+                           };
+
+           
+
+            _MyObservLiveOutputs = new SortableBindingList<LiveOutputEntry>(programquery.ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveOutputs));
             _refreshedatleastonetime = true;
             this.FindForm().Cursor = Cursors.Default;
 
@@ -986,176 +1035,32 @@ namespace AMSExplorer
     }
 
 
-    public class ChannelInfo
-    {
-        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
-        {
-            IOperation operation = null;
-            if (channel != null)
-            {
-                try
-                {
-                    var state = channel.State;
-                    var STask = fCall();
-                    operation = await STask;
-
-                    while (operation.State == OperationState.InProgress)
-                    {
-                        //refresh the operation
-                        operation = _context.Operations.GetOperation(operation.Id);
-                        // refresh the channel
-                        IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
-                        if (channelR != null && state != channelR.State)
-                        {
-                            state = channelR.State;
-                            if (dataGridViewChannelsV != null)
-                                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
-                        }
-                        System.Threading.Thread.Sleep(1000);
-                    }
-                    if (operation.State == OperationState.Succeeded)
-                    {
-                        mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
-                        IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
-                        // we display a notification is taskbar for channel started or reset
-                        if (channelR != null && (strStatusSuccess == "started" || strStatusSuccess == "reset"))
-                        {
-                            mainform.BeginInvoke(new Action(() =>
-                            {
-                                mainform.Notify("Channel " + strStatusSuccess, string.Format("{0}", channelR.Name), false);
-                            }));
-                        }
-                    }
-                    else
-                    {
-                        mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
-                        mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                    }
-                    if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-                }
-                catch (Exception ex)
-                {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
-                }
-            }
-            return operation;
-        }
-
-        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<TimeSpan, int, bool, Task<IOperation>> fCall, TimeSpan ts, int i, bool b, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
-        {
-            IOperation operation = null;
-
-            try
-            {
-                var state = channel.State;
-                var STask = fCall(ts, i, b);
-                operation = await STask;
-
-                while (operation.State == OperationState.InProgress)
-                {
-                    //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
-                    // refresh the channel
-                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
-                    if (channelR != null && state != channelR.State)
-                    {
-                        state = channelR.State;
-                        if (dataGridViewChannelsV != null)
-                            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-                if (operation.State == OperationState.Succeeded)
-                {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
-                }
-                else
-                {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
-                    mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                }
-                if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-            }
-            catch (Exception ex)
-            {
-                mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
-            }
-            return operation;
-        }
-
-
-
-
-        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<TimeSpan, string, Task<IOperation>> fCall, TimeSpan ts, string s, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
-        {
-            IOperation operation = null;
-
-            try
-            {
-                var state = channel.State;
-                var STask = fCall(ts, s);
-                operation = await STask;
-
-                while (operation.State == OperationState.InProgress)
-                {
-                    //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
-                    // refresh the channel
-                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
-                    if (channelR != null && state != channelR.State)
-                    {
-                        state = channelR.State;
-                        if (dataGridViewChannelsV != null)
-                            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-                if (operation.State == OperationState.Succeeded)
-                {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
-                }
-                else
-                {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
-                    mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                }
-                if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-            }
-            catch (Exception ex)
-            {
-                mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
-            }
-            return operation;
-        }
-    }
-
-
-    public class ChannelEntry
+    public class LiveEventEntry
     {
         //   select new { j.Name, j.Id, j.State, j.StartTime, j.EndTime, j.Tasks[0].PerfMessage, Progress=j.GetOverallProgress() };
         public string Name { get; set; }
         public string Id { get; set; }
-        public ChannelState State { get; set; }
-        public DateTime LastModified { get; set; }
+        public LiveEventResourceState? State { get; set; }
+        public DateTime? LastModified { get; set; }
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
         public string EncodingPreset { get; set; }
-        public Uri InputUrl { get; set; }
-        public Uri PreviewUrl { get; set; }
+        public string InputUrl { get; set; }
+        public string PreviewUrl { get; set; }
     }
 
-    public class ProgramEntry
+    public class LiveOutputEntry
     {
         public string Name { get; set; }
         public string Id { get; set; }
-        public ProgramState State { get; set; }
-        public DateTime LastModified { get; set; }
+        public LiveOutputResourceState? State { get; set; }
+        public DateTime? LastModified { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
         public Bitmap Published { get; set; }
-        public string ChannelName { get; set; }
-        public string ChannelId { get; set; }
+        public string LiveEventName { get; set; } // Name of live event where the output is attached
+
     }
 
 
@@ -1310,7 +1215,7 @@ namespace AMSExplorer
         public class LiveProfile
         {
             public string Name { get; set; }
-            public ChannelEncodingType Type { get; set; }
+            public LiveEventEncodingType Type { get; set; }
             public List<LiveVideoProfile> Video { get; set; }
             public LiveAudioProfile Audio { get; set; }
         }
@@ -1319,7 +1224,7 @@ namespace AMSExplorer
         {
             new LiveProfile()
             {
-                Type = ChannelEncodingType.Standard,
+                Type = LiveEventEncodingType.Basic,
                 Name ="Default720p",
                 Video = new List<LiveVideoProfile>()
                 {
@@ -1335,10 +1240,11 @@ namespace AMSExplorer
                     {
                     Codec= "AAC-LC", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
                     }
-            },
+            }
+            /*,
              new LiveProfile()
             {
-                Type = ChannelEncodingType.Premium,
+                Type = LiveEventEncodingType.Premium,
                 Name ="Default1080p",
                 Video = new List<LiveVideoProfile>()
                 {
@@ -1356,6 +1262,7 @@ namespace AMSExplorer
                     Codec= "AAC-LC", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
                     }
             }
+            */
         };
     }
 

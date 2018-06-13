@@ -4436,8 +4436,10 @@ namespace AMSExplorer
 
 
 
-        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, LiveOutput sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
         {
+            return;
+            /*
             TextBoxLogWriteLine("Starting the program cloning process.");
 
             if (DestinationCredentialsEntry.UseAADServicePrincipal)  // service principal mode
@@ -4456,7 +4458,7 @@ namespace AMSExplorer
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
             // let's check that target channel exists
-            IChannel clonedchannel = DestinationContext.Channels.Where(c => c.Name == sourceProgram.Channel.Name).FirstOrDefault();
+            LiveEvent clonedchannel = DestinationContext.Channels.Where(c => c.Name == sourceProgram.Channel.Name).FirstOrDefault();
             if (clonedchannel == null)
             {
                 TextBoxLogWriteLine(string.Format("Cloned channel '{0}' not found in destination account!", sourceProgram.Channel.Name), true);
@@ -4471,12 +4473,12 @@ namespace AMSExplorer
             }
 
             // Cloned asset creation
-            IAsset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
+            Asset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
             TextBoxLogWriteLine(string.Format("Cloned asset {0} created.", sourceProgram.Asset.Name));
 
             if (copyAltId)
             {
-                clonedAsset.AlternateId = sourceProgram.Asset.AlternateId;
+                clonedAsset.AlternateId = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, sourceProgram.AssetName).AlternateId;
                 clonedAsset.Update();
             }
 
@@ -4547,7 +4549,7 @@ namespace AMSExplorer
                 ManifestName = sourceProgram.ManifestName
             };
 
-            var STask = ProgramExecuteAsync(
+            var STask = LiveEventCreateAsync(_mediaServicesClient, _credentialsV3,  eOutputs.CreateAsync Create CreateLiveOutput LiveOutputCreate ProgramExecuteAsync(
               () =>
                   clonedchannel.Programs.CreateAsync(options),
                  sourceProgram.Name,
@@ -4555,7 +4557,7 @@ namespace AMSExplorer
             await STask;
 
             TextBoxLogWriteLine(string.Format("Cloned program {0} created.", sourceProgram.Name));
-
+            */
         }
 
 
@@ -6967,7 +6969,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                Asset asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName,dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                Asset asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 DisplayInfo(asset);
             }
         }
@@ -8334,25 +8336,24 @@ namespace AMSExplorer
 
         private void DoRefreshGridChannelV(bool firstime)
         {
-            return; // migration to V3 API
             if (firstime)
             {
-                dataGridViewChannelsV.Init(_credentials, _context);
+                dataGridViewChannelsV.Init(_mediaServicesClient, _credentialsV3);
             }
-            dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
+            dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(1)));
 
-            var count = _context.Channels.Count();
+            var count = _mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
             tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
             labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
         {
-            return; // migration to V3 API
+
             if (firstime)
             {
                 Debug.WriteLine("DoRefreshGridProgramVforsttime");
-                dataGridViewProgramsV.Init(_credentials, _context);
+                dataGridViewProgramsV.Init(_credentialsV3, _mediaServicesClient);
             }
             else
             {
@@ -8360,8 +8361,8 @@ namespace AMSExplorer
             }
 
             int backupindex = 0;
-            dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
-            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
+            dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(backupindex + 1)));
+            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, 0/*_context.Programs.Count()*/)));
 
         }
 
@@ -8594,6 +8595,23 @@ namespace AMSExplorer
             SelectedChannels.Reverse();
             return SelectedChannels;
         }
+
+        private List<LiveEvent> ReturnSelectedLiveEvents()
+        {
+            List<LiveEvent> SelectedChannels = new List<LiveEvent>();
+            foreach (DataGridViewRow Row in dataGridViewChannelsV.SelectedRows)
+            {
+                // sometimes, the channel can be null (if just deleted)
+                var channel = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewChannelsV.Columns["Name"].Index].Value.ToString());
+                if (channel != null)
+                {
+                    SelectedChannels.Add(channel);
+                }
+            }
+            SelectedChannels.Reverse();
+            return SelectedChannels;
+        }
+
         private List<IStreamingEndpoint> ReturnSelectedStreamingEndpoints()
         {
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
@@ -8624,63 +8642,29 @@ namespace AMSExplorer
             return SelectedPrograms;
         }
 
-        private async void DoStopChannels()
+        private List<LiveOutput> ReturnSelectedLiveOutputs()
         {
-            List<IChannel> channels = ReturnSelectedChannels();
-            List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
-            var programquery = _context.Programs.AsEnumerable().Where(p => ListChannelIDs.Contains(p.ChannelId) && p.State != ProgramState.Stopped);
-            var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
-
-            if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+            List<LiveOutput> SelectedPrograms = new List<LiveOutput>();
+            foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be stopped now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                TextBoxLogWriteLine("Some programs are starting or stopping. Channel(s) cannot be stopped now.", true);
-            }
-            else
-            {
-                if (programqueryrunning.Count() > 0) // some programs are running
+                var program = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewProgramsV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewProgramsV.Columns["Name"].Index].Value.ToString());
+                if (program != null)
                 {
-                    if (MessageBox.Show("One or several programs are running. Do you want to stop the program(s) and then the channel(s) ?", "Channel stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        Task.Run(async () =>
-                         {
-                             // let's stop the running programs
-                             var tasks = programqueryrunning.Select(p => StopProgramASync(p)).ToArray();
-                             await Task.WhenAll(tasks);
-
-                             // let's stop the channels now that running programs are stopped
-                             var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
-                             await Task.WhenAll(tasksstop);
-                         }
-                         );
-                    }
-                }
-                else
-                {
-                    string question = (channels.Count == 1) ? string.Format("Stop channel '{0}' ?", channels[0].Name) : string.Format("Stop these {0} channels ?", channels.Count);
-
-                    if (System.Windows.Forms.MessageBox.Show(question, "Channel stop", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        // let's stop the channels now that running programs are stopped
-                        Task.Run(async () =>
-                         {
-                             // let's stop the channels now
-                             var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
-                             await Task.WhenAll(tasksstop);
-                         }
-                    );
-                    }
+                    SelectedPrograms.Add(program);
                 }
             }
+            SelectedPrograms.Reverse();
+            return SelectedPrograms;
         }
 
-        private void DoStartChannels()
+
+        private void DoStartLiveEvents()
         {
             // let's stop the channels now that running programs are stopped
             Task.Run(async () =>
             {
                 // let's stop the channels now
-                var tasksstop = ReturnSelectedChannels().Select(c => StartChannelAsync(c)).ToArray();
+                var tasksstop = ReturnSelectedLiveEvents().Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
                 await Task.WhenAll(tasksstop);
             }
             );
@@ -8690,59 +8674,40 @@ namespace AMSExplorer
 
         // CHANNEL ASYNC OPERATIONS
 
-        private async Task<IOperation> StartChannelAsync(IChannel myC)
+        private async Task StartLiveEvent(LiveEvent myC)
         {
-            TextBoxLogWriteLine("Channel '{0}' : starting...", myC.Name);
-            return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started", _context, this, dataGridViewChannelsV);
+            TextBoxLogWriteLine("Live event '{0}' : starting...", myC.Name);
+            await _mediaServicesClient.LiveEvents.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
+            TextBoxLogWriteLine("Live event '{0}' : started.", myC.Name);
+            //ChannelInfo.ChannelExecuteOperationAsync(ILiveEventsOperations  _mediaServicesClient.LiveEvents.BeginStartAsync, myC, "started", _context, this, dataGridViewChannelsV);
         }
 
-        private async Task<IOperation> StopChannelAsync(IChannel myC)
+        private async Task StopLiveEvent(LiveEvent myC)
         {
             TextBoxLogWriteLine("Channel '{0}' : stopping...", myC.Name);
-            return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped", _context, this, dataGridViewChannelsV);
+            await _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : stopped.", myC.Name);
+            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped", _context, this, dataGridViewChannelsV);
         }
 
-        private async Task<IOperation> ResetChannelAsync(IChannel myC)
+        private async Task ResetLiveEvent(LiveEvent myC)
         {
             TextBoxLogWriteLine("Channel '{0}' : reseting...", myC.Name);
-            return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV);
+            await _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : reset.", myC.Name);
+            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV);
         }
 
-        private async Task<IOperation> DeleteChannelAsync(IChannel myC)
+        private async Task DeleteLiveEvent(LiveEvent myC)
         {
             TextBoxLogWriteLine("Channel '{0}' : deleting...", myC.Name);
-            return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted", _context, this, dataGridViewChannelsV);
+            await _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : deleted.", myC.Name);
+            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted", _context, this, dataGridViewChannelsV);
         }
 
 
-        // PROGRAM ASYNC OPERATIONS
 
-        private async Task<IOperation> StopProgramASync(IProgram myP)
-        {
-            TextBoxLogWriteLine("Program '{0}' : stopping...", myP.Name);
-            return await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped"));
-        }
-
-        private async Task<IOperation> StartProgramASync(IProgram myP)
-        {
-            TextBoxLogWriteLine("Program '{0}' : starting...", myP.Name);
-            return await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStartOperationAsync, myP, "started"));
-        }
-
-
-        internal async Task ProgramExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
-        // for program update and deletion
-        {
-            try
-            {
-                await fCall();
-                TextBoxLogWriteLine("Program '{0}' : {1}.", strObjectName, strStatusSuccess);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Program '{0}' : Error! {1}", strObjectName, Program.GetErrorMessage(ex), true);
-            }
-        }
 
 
 
@@ -8771,39 +8736,39 @@ namespace AMSExplorer
         {
             return; // migration to V3 API
             var ProgramsToMonitor = _context.Programs.ToList().Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).ToList();
-            foreach (var c in ProgramsToMonitor)
-                Task.Run(() => MonitorProgram(c));
+            //   foreach (var c in ProgramsToMonitor)
+            //       Task.Run(() => MonitorProgram(c));
 
 
             var ChannelsToMonitor = _context.Channels.ToList().Where(c => c.State == ChannelState.Starting).ToList();
-            foreach (var c in ChannelsToMonitor)
-                Task.Run(() => MonitorChannel(c));
+            //  foreach (var c in ChannelsToMonitor)
+            //     Task.Run(() => MonitorChannel(c));
         }
 
-        private void MonitorProgram(IProgram program)
+        private void MonitorProgram(LiveEvent channel, LiveOutput program)
         {
-            if (program.State == ProgramState.Starting || program.State == ProgramState.Stopping)
+            if (program.ResourceState == LiveOutputResourceState.Creating || program.ResourceState == LiveOutputResourceState.Deleting)
             {
-                ProgramState state = program.State;
-                while (program.State == state)
+                var state = program.ResourceState;
+                while (program.ResourceState == state)
                 {
                     System.Threading.Thread.Sleep(1000);
-                    program = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
+                    program = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, program.Name);
                 }
                 if (program != null)
-                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(channel.Name, program)), null);
             }
         }
 
-        private void MonitorChannel(IChannel channel)
+        private void MonitorChannel(LiveEvent channel)
         {
-            if (channel.State == ChannelState.Deleting || channel.State == ChannelState.Starting || channel.State == ChannelState.Stopping)
+            if (channel.ResourceState == LiveEventResourceState.Deleting || channel.ResourceState == LiveEventResourceState.Starting || channel.ResourceState == LiveEventResourceState.Stopping)
             {
-                ChannelState state = channel.State;
-                while (channel.State == state)
+                var state = channel.ResourceState;
+                while (channel.ResourceState == state)
                 {
                     System.Threading.Thread.Sleep(1000);
-                    channel = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                    channel = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name);
                 }
                 dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
             }
@@ -8863,26 +8828,59 @@ namespace AMSExplorer
 
 
         //used for program update and delete as there is not operation mode for these actions
-        internal async Task ProgramExecuteAsync(Func<Task> fCall, IProgram program, string strStatusSuccess) //used for all except creation 
+        /*
+        internal async Task ProgramExecuteAsync(Func<string,string,string,string, Task> fCall, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program, string strStatusSuccess) //used for all except creation 
         {
             try
             {
-                var STask = fCall();
-                var state = program.State;
+                var STask = fCall(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name);
+                var state = program.ResourceState;
                 while (!STask.IsCompleted)
                 {
                     // refresh the program
-                    IProgram programR = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
-                    if (programR != null && state != programR.State)
+                    var programR = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveeventName, program.Name);
+                    if (programR != null && state != programR.ResourceState)
                     {
-                        state = programR.State;
-                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
+                        state = programR.ResourceState;
+                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, programR)), null);
                     }
                     System.Threading.Thread.Sleep(1000);
                 }
                 await STask;
                 TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
+            }
+        }
+        */
+
+
+        internal async Task LiveOutputDeleteAsync(AzureMediaServicesClient client, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program)
+        {
+            try
+            {
+                TextBoxLogWriteLine("Live Output '{0}' : deleting...", program.Name);
+                await client.LiveOutputs.DeleteAsync(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name);
+                TextBoxLogWriteLine("Live Output '{0}' : deleted.", program.Name);
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
+            }
+        }
+
+        internal async Task LiveOutputCreateAsync(AzureMediaServicesClient client, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program, string strStatusSuccess)
+        {
+            try
+            {
+                TextBoxLogWriteLine("Program '{0}' : creating...", program.Name);
+                await client.LiveOutputs.CreateAsync(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name, program);
+                TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
             }
             catch (Exception ex)
             {
@@ -8891,13 +8889,13 @@ namespace AMSExplorer
         }
 
 
-        internal async Task<IOperation> ProgramExecuteOperationAsync(Func<Task<IOperation>> fCall, IProgram program, string strStatusSuccess) //used for all except creation 
+        internal async Task<IOperation> ProgramExecuteOperationAsync(Func<Task<IOperation>> fCall, LiveEvent channel, LiveOutput program, string strStatusSuccess) //used for all except creation 
         {
             IOperation operation = null;
 
             try
             {
-                var state = program.State;
+                var state = program.ResourceState;
                 var STask = fCall();
                 operation = await STask;
 
@@ -8906,11 +8904,11 @@ namespace AMSExplorer
                     //refresh the operation
                     operation = _context.Operations.GetOperation(operation.Id);
                     // refresh the program
-                    IProgram programR = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
-                    if (programR != null && state != programR.State)
+                    LiveOutput programR = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, program.Name);
+                    if (programR != null && state != programR.ResourceState)
                     {
-                        state = programR.State;
-                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
+                        state = programR.ResourceState;
+                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(channel.Name, programR)), null);
                     }
                     System.Threading.Thread.Sleep(1000);
                 }
@@ -8925,7 +8923,7 @@ namespace AMSExplorer
                 }
                 if (program != null)
                 {
-                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(channel.Name, program)), null);
                 }
             }
             catch (Exception ex)
@@ -9021,30 +9019,46 @@ namespace AMSExplorer
 
 
 
-        private async void DoDeleteChannels()
+        private async void DoStopOrDeleteLiveEvents(bool delete)
         {
-            List<IChannel> SelectedChannels = ReturnSelectedChannels();
-            string hannelstr = SelectedChannels.Count > 1 ? "hannels" : "hannel";
-            if (SelectedChannels.Count > 0)
+            // delete also if delete = true
+            var ListEvents = ReturnSelectedLiveEvents();
+            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+
+            foreach (var le in ListEvents)
             {
-                List<string> ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
-                List<IProgram> Programs = _context.Programs.AsEnumerable().Where(p => ChannelSourceIDs.Contains(p.ChannelId)).ToList();
+                var plist = _mediaServicesClient.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+            }
 
-                if (Programs.Count == 0) // No program associated to the channel(s) to be deleted
+            string channelstr = ListEvents.Count > 1 ? "live events" : "live event";
+            if (ListEvents.Count > 0)
+            {
+
+
+                if (LOList.Count == 0) // No program associated to the channel(s) to be deleted
                 {
-                    string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
+                    string question;
+                    if (delete)
+                    {
+                         question = (ListEvents.Count == 1) ? "Delete live event " + ListEvents[0].Name + " ?" : "Delete these " + ListEvents.Count + " live events ?";
+                    }
+                    else
+                    {
+                         question = (ListEvents.Count == 1) ? "Stop live event " + ListEvents[0].Name + " ?" : "Stop these " + ListEvents.Count + " live events ?";
+                    }
 
-                    if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show(question, "C" + channelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         Task.Run(async () =>
                             {
                                 // Stop the channels which run
-                                var channelsrunning = SelectedChannels.Where(p => p.State == ChannelState.Running);
+                                var channelsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running);
                                 if (channelsrunning.Count() > 0)
                                 {
                                     try
                                     {
-                                        var taskcstop = channelsrunning.Select(c => StopChannelAsync(c)).ToArray();
+                                        var taskcstop = channelsrunning.Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
                                         await Task.WhenAll(taskcstop);
                                     }
                                     catch (Exception ex)
@@ -9055,19 +9069,23 @@ namespace AMSExplorer
                                     }
                                 }
 
-                                // delete the channels
-                                var taskcdel = SelectedChannels.Select(c => DeleteChannelAsync(c)).ToArray();
-                                try
+                                if (delete)
                                 {
-                                    await Task.WhenAll(taskcdel);
-                                }
+                                    // delete the channels
+                                    var taskcdel = ListEvents.Select(c => _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                                    try
+                                    {
+                                        await Task.WhenAll(taskcdel);
+                                    }
 
-                                catch (Exception ex)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting a channel", true);
-                                    TextBoxLogWriteLine(ex);
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting a channel", true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
                                 }
+                                
                                 DoRefreshGridChannelV(false);
                             }
                            );
@@ -9075,38 +9093,32 @@ namespace AMSExplorer
                 }
                 else // There are programs associated to the channel(s) to be deleted. We need to delete the programs
                 {
-                    string question = (Programs.Count == 1) ? string.Format("There is one program associated to the c{0}.\nDelete the c{0} and program '{1}' ?", hannelstr, Programs[0].Name)
-                                                            : string.Format("There are {0} programs associated to the c{1}.\nDelete the c{1} and these programs ?", Programs.Count, hannelstr);
+                    string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the c{0}.\nDelete the {0} and live output '{1}' ?", channelstr, LOList[0].LiveOutputItem.Name)
+                                                            : string.Format("There are {0} live outputs associated to the c{1}.\nDelete the c{1} and these live output ?", LOList.Count, channelstr);
 
-                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete C" + hannelstr);
+                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete " + channelstr);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
 
 
                         Task.Run(async () =>
                         {
-                            var assets = Programs.Select(p => p.Asset).ToArray();
+                            var assets = LOList.Select(p => p.LiveOutputItem.AssetName).ToArray();
 
-                            // Stop the programs which run
-                            var programsrunning = Programs.Where(p => p.State == ProgramState.Running);
-                            if (programsrunning.Count() > 0)
-                            {
-                                var taskpstop = programsrunning.Select(p => StopProgramASync(p)).ToArray();
-                                await Task.WhenAll(taskpstop);
-                            }
 
                             // delete programs
-                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Program '{0}' : deleting...", p.Name));
-                            var tasks = Programs.Select(p => ProgramExecuteAsync(p.DeleteAsync, p, "deleted")).ToArray();
+                            LOList.ToList().ForEach(p => TextBoxLogWriteLine("Live output '{0}' : deleting...", p.LiveOutputItem.Name));
+                            var tasks = LOList.Select(p => _mediaServicesClient.LiveOutputs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
                             bool Error = false;
                             try
                             {
                                 await Task.WhenAll(tasks);
+                                TextBoxLogWriteLine("Live output(s) deleted.");
                             }
                             catch (Exception ex)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting a progam", true);
+                                TextBoxLogWriteLine("There is a problem when deleting a live output", true);
                                 TextBoxLogWriteLine(ex);
                                 Error = true;
                             }
@@ -9115,8 +9127,8 @@ namespace AMSExplorer
 
                             if (form.DeleteAsset && Error == false)
                             {
-                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a.Name));
-                                var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
+                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a));
+                                var tasksassets = assets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a)).ToArray();
                                 try
                                 {
                                     await Task.WhenAll(tasksassets);
@@ -9133,37 +9145,43 @@ namespace AMSExplorer
                             }
 
                             // Stop the channels which run
-                            var channelsrunning = SelectedChannels.Where(p => p.State == ChannelState.Running);
+                            var channelsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running);
                             if (channelsrunning.Count() > 0)
                             {
                                 try
                                 {
-                                    channelsrunning.ToList().ForEach(c => TextBoxLogWriteLine("Stopping channel '{0}'...", c.Name));
-                                    var taskcstop = channelsrunning.Select(c => c.StopAsync()).ToArray();
+                                    channelsrunning.ToList().ForEach(c => TextBoxLogWriteLine("Stopping live event '{0}'...", c.Name));
+                                    var taskcstop = channelsrunning.Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
                                     await Task.WhenAll(taskcstop);
+                                    TextBoxLogWriteLine("Live event(s) stopped.");
                                 }
                                 catch (Exception ex)
                                 {
                                     // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when stopping a channel", true);
+                                    TextBoxLogWriteLine("There is a problem when stopping a live event", true);
                                     TextBoxLogWriteLine(ex);
                                 }
                             }
 
-                            // delete the channels
-                            var taskcdel = SelectedChannels.Select(c => DeleteChannelAsync(c)).ToArray();
-                            try
+                            if (delete)
                             {
+                                // delete the channels
+                                var taskcdel = ListEvents.Select(c => _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                                try
+                                {
 
-                                await Task.WhenAll(taskcdel);
-                            }
+                                    await Task.WhenAll(taskcdel);
+                                    TextBoxLogWriteLine("Live event(s) deleted.");
+                                }
 
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting a channel", true);
-                                TextBoxLogWriteLine(ex);
+                                catch (Exception ex)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting a channel", true);
+                                    TextBoxLogWriteLine(ex);
+                                }
                             }
+                           
                             DoRefreshGridChannelV(false);
 
                         }
@@ -9213,12 +9231,12 @@ namespace AMSExplorer
 
         private void startChannelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStartChannels();
+            DoStartLiveEvents();
         }
 
         private void stopChannelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStopChannels();
+            DoStopOrDeleteLiveEvents(false);
         }
 
         private void resetChannelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9228,12 +9246,18 @@ namespace AMSExplorer
 
         private async void DoResetChannels()
         {
-            List<IChannel> channels = ReturnSelectedChannels();
-            List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
-            var programquery = _context.Programs.AsEnumerable().Where(p => ListChannelIDs.Contains(p.ChannelId) && p.State != ProgramState.Stopped);
-            var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
+            var ListEvents = ReturnSelectedLiveEvents();
+            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
-            if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+            foreach (var le in ListEvents)
+            {
+                var plist = _mediaServicesClient.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+            }
+
+            var programqueryrunning = LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Running);
+
+            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Count() > 0) // programs are starting or stopping
                 MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be reset now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
             {
@@ -9244,12 +9268,12 @@ namespace AMSExplorer
 
                         Task.Run(async () =>
                         {
-                            programqueryrunning.ToList().ForEach(p => TextBoxLogWriteLine("Stopping program '{0}'...", p.Name));
-                            var tasks = programqueryrunning.Select(p => ProgramExecuteOperationAsync(p.SendStopOperationAsync, p, "stopped")).ToArray();
+                            programqueryrunning.ToList().ForEach(p => TextBoxLogWriteLine("Stopping program '{0}'...", p.LiveOutputItem.Name));
+                            var tasks = programqueryrunning.Select(p => _mediaServicesClient.LiveOutputs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
                             await Task.WhenAll(tasks);
 
                             // let's reset the channels now that running programs are stopped
-                            var tasksreset = channels.Select(c => ResetChannelAsync(c)).ToArray();
+                            var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
                             await Task.WhenAll(tasksreset);
                         }
                         );
@@ -9257,7 +9281,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    string question = (channels.Count == 1) ? string.Format("Reset channel '{0}' ?", channels[0].Name) : string.Format("Reset these {0} channels ?", channels.Count);
+                    string question = (ListEvents.Count == 1) ? string.Format("Reset channel '{0}' ?", ListEvents[0].Name) : string.Format("Reset these {0} channels ?", ListEvents.Count);
 
                     if (System.Windows.Forms.MessageBox.Show(question, "Channel reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
@@ -9265,7 +9289,7 @@ namespace AMSExplorer
                         Task.Run(async () =>
                        {
                            // let's reset the channels now that running programs are stopped
-                           var tasksreset = channels.Select(c => ResetChannelAsync(c)).ToArray();
+                           var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
                            await Task.WhenAll(tasksreset);
                        });
                     }
@@ -9275,7 +9299,7 @@ namespace AMSExplorer
 
         private void deleteChannelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteChannels();
+            DoStopOrDeleteLiveEvents(true);
         }
 
         private void createChannelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9297,8 +9321,10 @@ namespace AMSExplorer
 
                 bool Error = false;
                 ChannelCreationOptions options = new ChannelCreationOptions();
+                LiveEvent liveEvent = new LiveEvent();
                 try
                 {
+                    /*
                     options = new ChannelCreationOptions()
                     {
                         Name = form.ChannelName,
@@ -9322,12 +9348,59 @@ namespace AMSExplorer
                             },
                         }
                     };
+                    */
 
-                    if (form.EncodingType != ChannelEncodingType.None)
+                    LiveEventPreview liveEventPreview = new LiveEventPreview
                     {
-                        options.Encoding = form.EncodingOptions;
-                        options.Slate = form.Slate;
-                    }
+                        AccessControl = new LiveEventPreviewAccessControl(
+                      ip: new IPAccessControl(
+                          allow: form.inputIPAllow
+                      )
+                  )
+                    };
+
+                    liveEvent = new LiveEvent(
+
+                      location: _credentialsV3.MediaService.Location,
+
+                      description: form.ChannelDescription,
+
+                      vanityUrl: false,
+
+                      encoding: new LiveEventEncoding(
+
+                                  // Set this to Basic to enable a transcoding LiveEvent, and None to enable a pass-through LiveEvent
+
+                                  encodingType: form.EncodingType,
+
+                                  presetName: form.EncodingOptions.SystemPreset
+
+                              ),
+
+                      input: new LiveEventInput(LiveEventInputProtocol.RTMP),
+
+                      preview: liveEventPreview,
+
+                      streamOptions: new List<StreamOptionsFlag?>()
+
+                      {
+
+                        // Set this to Default or Low Latency
+
+                        StreamOptionsFlag.Default
+
+                      }
+
+                  );
+
+
+                    /*
+                                        if (form.EncodingType != ChannelEncodingType.None)
+                                        {
+                                            options.Encoding = form.EncodingOptions;
+                                            options.Slate = form.Slate;
+                                        }
+                                        */
                 }
 
                 catch (Exception ex)
@@ -9339,29 +9412,16 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-                    await Task.Run(() => IObjectExecuteOperationAsync(
-                     () =>
-                         _context.Channels.SendCreateOperationAsync(
-                         options),
-                         form.ChannelName,
-                         "Channel",
-                         "created",
-                         _context));
+
+
+
+                    await Task.Run(() =>
+                     _mediaServicesClient.LiveEvents.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.ChannelName, liveEvent, autoStart: form.StartChannelNow ? true : false)
+
+                   );
 
                     DoRefreshGridChannelV(false);
-                    IChannel channel = GetChannelFromName(form.ChannelName);
-                    if (channel != null)
-                    {
-                        if (form.StartChannelNow)
-                        {
-                            Task.Run(async () =>
-                            {
-                                // let's start the channel now
-                                await StartChannelAsync(GetChannelFromName(form.ChannelName));
-                            }
-                );
-                        }
-                    }
+
                 }
             }
         }
@@ -9586,7 +9646,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
+                 //       await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                     }
                 }
             }
@@ -9597,11 +9657,11 @@ namespace AMSExplorer
             if (radioButtonChSelected.Checked) // only in select mode
             {
                 Debug.WriteLine("channel selection changed : begin");
-                List<IChannel> SelectedChannels = ReturnSelectedChannels();
+                List<LiveEvent> SelectedChannels = ReturnSelectedLiveEvents();
                 if (SelectedChannels.Count > 0)
                 {
 
-                    dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+                    dataGridViewProgramsV.LiveEventSourceNames = SelectedChannels.Select(c => c.Name).ToList();
 
                     Task.Run(() =>
                     {
@@ -9613,8 +9673,70 @@ namespace AMSExplorer
         }
 
 
-        private async void DoDeletePrograms()
+        private async void DoDeleteLiveOutputs()
         {
+            /*
+
+            var ListEvents = ReturnSelectedLiveOutputs();
+            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+
+            foreach (var le in ListEvents)
+            {
+                var plist = _mediaServicesClient.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+            }
+
+            var programqueryrunning = LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Running);
+
+            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Count() > 0) // programs are starting or stopping
+                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be reset now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                if (programqueryrunning.Count() > 0) // some programs are running
+                {
+                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) and then reset the channel(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+
+                        Task.Run(async () =>
+                        {
+                            programqueryrunning.ToList().ForEach(p => TextBoxLogWriteLine("Stopping program '{0}'...", p.LiveOutputItem.Name));
+                            var tasks = programqueryrunning.Select(p => _mediaServicesClient.LiveOutputs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
+                            await Task.WhenAll(tasks);
+
+                            // let's reset the channels now that running programs are stopped
+                            var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                            await Task.WhenAll(tasksreset);
+                        }
+                        );
+                    }
+                }
+                else
+                {
+                    string question = (ListEvents.Count == 1) ? string.Format("Reset channel '{0}' ?", ListEvents[0].Name) : string.Format("Reset these {0} channels ?", ListEvents.Count);
+
+                    if (System.Windows.Forms.MessageBox.Show(question, "Channel reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        // let's reset the channels
+                        Task.Run(async () =>
+                        {
+                            // let's reset the channels now that running programs are stopped
+                            var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                            await Task.WhenAll(tasksreset);
+                        });
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
             if (SelectedPrograms.FirstOrDefault() != null)
@@ -9676,11 +9798,13 @@ namespace AMSExplorer
                     }
                 }
             }
+            */
         }
 
 
         private void DoStartPrograms()
         {
+            /*
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
 
             if (SelectedPrograms.Count > 0)
@@ -9693,12 +9817,13 @@ namespace AMSExplorer
                 }
                         );
             }
-
+            */
         }
 
 
         private void DoStopPrograms()
         {
+            /*
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
             if (SelectedPrograms.Count > 0)
             {
@@ -9715,6 +9840,7 @@ namespace AMSExplorer
         );
                 }
             }
+            */
         }
 
 
@@ -9773,11 +9899,60 @@ namespace AMSExplorer
 
 
 
-        private async void DoCreateProgram()
+        private async void DoCreateLiveOutput()
         {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
             if (channel != null)
             {
+                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+
+                CreateProgram form = new CreateProgram(_mediaServicesClient, _credentialsV3)
+                {
+                    ChannelName = channel.Name,
+                    archiveWindowLength = new TimeSpan(4, 0, 0),
+                    CreateLocator = true,
+                    EnableDynEnc = false,
+                    StartProgram = false,
+                    ProposeStartProgram = (channel.ResourceState == LiveEventResourceState.Running),
+                    AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
+                    ProposeScaleUnit = false
+                };
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+
+                    // Create an Asset for the LiveOutput to use
+
+                    string assetName = "archiveAsset" + uniqueness;
+
+
+                    Asset asset = _mediaServicesClient.Assets.CreateOrUpdate(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, assetName, new Asset());
+
+
+
+                    // Create the LiveOutput
+
+                    string manifestName = "output";
+
+                    string liveOutputName = "liveOutput" + uniqueness;
+
+
+
+                    LiveOutput liveOutput = new LiveOutput(assetName: asset.Name, manifestName: manifestName, archiveWindowLength: TimeSpan.FromMinutes(10));
+
+                    liveOutput = _mediaServicesClient.LiveOutputs.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, liveOutputName, liveOutput);
+
+                }
+
+
+            }
+
+
+            /*
+
+
+
+
+
                 CreateProgram form = new CreateProgram(_context)
                 {
                     ChannelName = channel.Name,
@@ -9785,7 +9960,7 @@ namespace AMSExplorer
                     CreateLocator = true,
                     EnableDynEnc = false,
                     StartProgram = false,
-                    ProposeStartProgram = (channel.State == ChannelState.Running),
+                    ProposeStartProgram = (channel.ResourceState == LiveEventResourceState.Running),
                     AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
                     ProposeScaleUnit = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic)
                 };
@@ -9849,12 +10024,13 @@ namespace AMSExplorer
             {
                 MessageBox.Show("No channel has been selected.");
             }
+            */
         }
 
 
         private void createProgramToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCreateProgram();
+            DoCreateLiveOutput();
         }
 
         private void startProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9869,7 +10045,7 @@ namespace AMSExplorer
 
         private void deleteProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeletePrograms();
+            DoDeleteLiveOutputs();
         }
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -9959,7 +10135,7 @@ namespace AMSExplorer
                                 program.Description = form.ProgramDescription;
                             }
 
-                            await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                           // await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
                         }
                     }
                 }
@@ -10432,12 +10608,12 @@ namespace AMSExplorer
 
         private void startChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStartChannels();
+            DoStartLiveEvents();
         }
 
         private void stopChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopChannels();
+            DoStopOrDeleteLiveEvents(false);
         }
 
         private void resetChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10447,7 +10623,7 @@ namespace AMSExplorer
 
         private void deleteChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteChannels();
+            DoStopOrDeleteLiveEvents(true);
         }
 
         private void startProgramsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10462,7 +10638,7 @@ namespace AMSExplorer
 
         private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeletePrograms();
+            DoDeleteLiveOutputs();
         }
 
         private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10601,7 +10777,7 @@ namespace AMSExplorer
 
         private void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoCreateProgram();
+            DoCreateLiveOutput();
         }
 
         private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12315,37 +12491,31 @@ namespace AMSExplorer
 
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridAssetV(false);
         }
 
         private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridJobV(false);
         }
 
         private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridChannelV(false);
         }
 
         private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProgramV(false);
         }
 
         private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStreamingEndpointV(false);
         }
 
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProcessorV(false);
         }
 
@@ -12514,7 +12684,7 @@ namespace AMSExplorer
                                         ArchiveWindowLength = programArchiveWindowLength,
                                         ManifestName = ismName,
                                     };
-                                    await Task.Run(() => ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created"));
+                                  //  await Task.Run(() => ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created"));
                                 }
                             }
                         }
@@ -13665,7 +13835,7 @@ namespace AMSExplorer
 
         private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
         {
-            var channels = ReturnSelectedChannels();
+            var channels = ReturnSelectedLiveEvents();
             bool single = channels.Count == 1;
             bool oneOrMore = channels.Count > 0;
 
@@ -13762,7 +13932,7 @@ namespace AMSExplorer
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
-            var programs = ReturnSelectedPrograms();
+            var programs = ReturnSelectedLiveOutputs();
             bool single = programs.Count == 1;
             bool oneOrMore = programs.Count > 0;
 
@@ -14313,7 +14483,7 @@ namespace AMSExplorer
 
         private void DoClonePrograms()
         {
-            var SelectedPrograms = ReturnSelectedPrograms();
+            var SelectedPrograms = ReturnSelectedLiveOutputs();
 
             CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneProgram, _accountname);
 
@@ -14321,7 +14491,7 @@ namespace AMSExplorer
             {
                 if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
                 {
-                    foreach (IProgram program in SelectedPrograms)
+                    foreach (var program in SelectedPrograms)
                     {
                         // Start a worker thread that does asset copy.
                         Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators, form.CloneAssetFilters, form.CopyAlternateId));
@@ -16570,7 +16740,7 @@ namespace AMSExplorer
                 AlternateId = a.AlternateId,
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName,
-                Container=a.Container
+                Container = a.Container
             }
             );
 
@@ -16721,9 +16891,9 @@ namespace AMSExplorer
                         AE.Id = asset.Id;
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
-                       // AE.StorageAccountName = asset.StorageAccountName;
-                       // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
-                       
+                        // AE.StorageAccountName = asset.StorageAccountName;
+                        // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
+
 
                         //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
@@ -16817,7 +16987,7 @@ namespace AMSExplorer
             cacheAssetentriesV3.Remove(asset.Name);
         }
 
-      
+
 
         public void RefreshAssets(int pagetodisplay) // all assets are refreshed
         {

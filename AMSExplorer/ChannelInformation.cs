@@ -314,7 +314,7 @@ namespace AMSExplorer
             if (MyChannel.EncodingType != ChannelEncodingType.None)
             {
                 // default encoding profile name
-                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles[0];// AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
                 if (profileliveselected != null)
                 {
                     defaultEncodingPreset = profileliveselected.Name;

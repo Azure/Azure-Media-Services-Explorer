@@ -747,6 +747,12 @@ namespace AMSExplorer
             return name;
         }
 
+        public class LiveOutputExt
+        {
+            public LiveOutput LiveOutputItem { get; set; }
+            public string LiveEventName { get; set; }
+    }
+
 
         // set WebBrowser features, more info: http://stackoverflow.com/a/18333982/1768303
         public static void SetWebBrowserFeatures()
@@ -2359,7 +2365,7 @@ namespace AMSExplorer
             return asset;
         }
 
-      
+
 
         public static string GetAssetType(IAsset asset)
         {
@@ -4351,7 +4357,7 @@ namespace AMSExplorer
 
         public CredentialsEntryV3()
         {
-            
+
         }
 
         public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, string adspclientid = null, string adspclientsecret = null)
