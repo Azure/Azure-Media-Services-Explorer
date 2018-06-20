@@ -1036,6 +1036,9 @@
     <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
       <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DisplayBox.ja.resx">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DisplayBox.resx">
       <DependentUpon>DisplayBox.cs</DependentUpon>
     </EmbeddedResource>
