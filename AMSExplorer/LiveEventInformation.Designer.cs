@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class ChannelInformation
+    partial class LiveEventInformation
     {
         /// <summary>
         /// Required designer variable.
@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChannelInformation));
-            this.DGChannel = new System.Windows.Forms.DataGridView();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveEventInformation));
+            this.DGLiveEvent = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageChannelInfo = new System.Windows.Forms.TabPage();
+            this.tabPageLiveEventInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
-            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.checkBoxInputSet = new System.Windows.Forms.CheckBox();
@@ -54,10 +52,7 @@
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
             this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
-            this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
-            this.labelChannelMustBeStopped = new System.Windows.Forms.Label();
+            this.labelLiveEventMustBeStopped = new System.Windows.Forms.Label();
             this.groupBoxEncoding = new System.Windows.Forms.GroupBox();
             this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
             this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
@@ -68,22 +63,6 @@
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
-            this.tabPageIndexes = new System.Windows.Forms.TabPage();
-            this.panelStreamIndexes = new System.Windows.Forms.Panel();
-            this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
-            this.buttonAddAudioStream = new System.Windows.Forms.Button();
-            this.buttonDelAddOption = new System.Windows.Forms.Button();
-            this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.labelIndexesChannelMustBeStopped = new System.Windows.Forms.Label();
             this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.checkBoxcrossdomains = new System.Windows.Forms.CheckBox();
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
@@ -91,34 +70,26 @@
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
-            this.labelChannelName = new System.Windows.Forms.Label();
+            this.labelLEName = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelChannelStoppedOrStartedSettings = new System.Windows.Forms.Label();
+            this.labelLiveEventStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPageChannelInfo.SuspendLayout();
+            this.tabPageLiveEventInfo.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPageEncoding.SuspendLayout();
-            this.groupBoxVideoStream.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
             this.groupBoxEncoding.SuspendLayout();
             this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
-            this.tabPageIndexes.SuspendLayout();
-            this.panelStreamIndexes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
             this.tabPagePolicies.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -127,18 +98,18 @@
             // 
             // DGChannel
             // 
-            this.DGChannel.AllowUserToAddRows = false;
-            this.DGChannel.AllowUserToDeleteRows = false;
-            this.DGChannel.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGChannel, "DGChannel");
-            this.DGChannel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGChannel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGChannel.ColumnHeadersVisible = false;
-            this.DGChannel.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGChannel.MultiSelect = false;
-            this.DGChannel.Name = "DGChannel";
-            this.DGChannel.ReadOnly = true;
-            this.DGChannel.RowHeadersVisible = false;
+            this.DGLiveEvent.AllowUserToAddRows = false;
+            this.DGLiveEvent.AllowUserToDeleteRows = false;
+            this.DGLiveEvent.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGLiveEvent, "DGChannel");
+            this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGLiveEvent.ColumnHeadersVisible = false;
+            this.DGLiveEvent.ContextMenuStrip = this.contextMenuStripDG;
+            this.DGLiveEvent.MultiSelect = false;
+            this.DGLiveEvent.Name = "DGChannel";
+            this.DGLiveEvent.ReadOnly = true;
+            this.DGLiveEvent.RowHeadersVisible = false;
             // 
             // contextMenuStripDG
             // 
@@ -158,10 +129,9 @@
             // tabControl1
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
-            this.tabControl1.Controls.Add(this.tabPageChannelInfo);
+            this.tabControl1.Controls.Add(this.tabPageLiveEventInfo);
             this.tabControl1.Controls.Add(this.tabPageSettings);
             this.tabControl1.Controls.Add(this.tabPageEncoding);
-            this.tabControl1.Controls.Add(this.tabPageIndexes);
             this.tabControl1.Controls.Add(this.tabPagePolicies);
             this.tabControl1.Controls.Add(this.tabPagePreview);
             this.tabControl1.Name = "tabControl1";
@@ -169,17 +139,15 @@
             // 
             // tabPageChannelInfo
             // 
-            this.tabPageChannelInfo.Controls.Add(this.DGChannel);
-            resources.ApplyResources(this.tabPageChannelInfo, "tabPageChannelInfo");
-            this.tabPageChannelInfo.Name = "tabPageChannelInfo";
-            this.tabPageChannelInfo.UseVisualStyleBackColor = true;
+            this.tabPageLiveEventInfo.Controls.Add(this.DGLiveEvent);
+            resources.ApplyResources(this.tabPageLiveEventInfo, "tabPageChannelInfo");
+            this.tabPageLiveEventInfo.Name = "tabPageChannelInfo";
+            this.tabPageLiveEventInfo.UseVisualStyleBackColor = true;
             // 
             // tabPageSettings
             // 
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
-            this.tabPageSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
-            this.tabPageSettings.Controls.Add(this.checkBoxHLSFragPerSeg);
             this.tabPageSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
             this.tabPageSettings.Controls.Add(this.textBoxKeyFrame);
             this.tabPageSettings.Controls.Add(this.checkBoxInputSet);
@@ -209,25 +177,6 @@
             this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
             this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
             this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
-            // 
-            // numericUpDownHLSFragPerSeg
-            // 
-            resources.ApplyResources(this.numericUpDownHLSFragPerSeg, "numericUpDownHLSFragPerSeg");
-            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
-            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
-            this.numericUpDownHLSFragPerSeg.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numericUpDownHLSFragPerSeg.ValueChanged += new System.EventHandler(this.numericUpDownHLSFragPerSeg_ValueChanged);
-            // 
-            // checkBoxHLSFragPerSeg
-            // 
-            resources.ApplyResources(this.checkBoxHLSFragPerSeg, "checkBoxHLSFragPerSeg");
-            this.checkBoxHLSFragPerSeg.Name = "checkBoxHLSFragPerSeg";
-            this.checkBoxHLSFragPerSeg.UseVisualStyleBackColor = true;
-            this.checkBoxHLSFragPerSeg.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSeg_CheckedChanged);
             // 
             // checkBoxKeyFrameIntDefined
             // 
@@ -319,8 +268,7 @@
             // tabPageEncoding
             // 
             this.tabPageEncoding.Controls.Add(this.checkBoxIgnore708);
-            this.tabPageEncoding.Controls.Add(this.groupBoxVideoStream);
-            this.tabPageEncoding.Controls.Add(this.labelChannelMustBeStopped);
+            this.tabPageEncoding.Controls.Add(this.labelLiveEventMustBeStopped);
             this.tabPageEncoding.Controls.Add(this.groupBoxEncoding);
             resources.ApplyResources(this.tabPageEncoding, "tabPageEncoding");
             this.tabPageEncoding.Name = "tabPageEncoding";
@@ -333,30 +281,10 @@
             this.checkBoxIgnore708.UseVisualStyleBackColor = true;
             this.checkBoxIgnore708.CheckedChanged += new System.EventHandler(this.checkBoxIgnore708_CheckedChanged);
             // 
-            // groupBoxVideoStream
-            // 
-            resources.ApplyResources(this.groupBoxVideoStream, "groupBoxVideoStream");
-            this.groupBoxVideoStream.Controls.Add(this.label7);
-            this.groupBoxVideoStream.Controls.Add(this.numericUpDownVideoStreamIndex);
-            this.groupBoxVideoStream.Name = "groupBoxVideoStream";
-            this.groupBoxVideoStream.TabStop = false;
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // numericUpDownVideoStreamIndex
-            // 
-            resources.ApplyResources(this.numericUpDownVideoStreamIndex, "numericUpDownVideoStreamIndex");
-            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
-            this.numericUpDownVideoStreamIndex.ReadOnly = true;
-            this.numericUpDownVideoStreamIndex.ValueChanged += new System.EventHandler(this.numericUpDownVideoStreamIndex_ValueChanged);
-            // 
             // labelChannelMustBeStopped
             // 
-            resources.ApplyResources(this.labelChannelMustBeStopped, "labelChannelMustBeStopped");
-            this.labelChannelMustBeStopped.Name = "labelChannelMustBeStopped";
+            resources.ApplyResources(this.labelLiveEventMustBeStopped, "labelChannelMustBeStopped");
+            this.labelLiveEventMustBeStopped.Name = "labelChannelMustBeStopped";
             // 
             // groupBoxEncoding
             // 
@@ -438,128 +366,6 @@
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
             this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
             // 
-            // tabPageIndexes
-            // 
-            this.tabPageIndexes.Controls.Add(this.panelStreamIndexes);
-            this.tabPageIndexes.Controls.Add(this.labelIndexesChannelMustBeStopped);
-            resources.ApplyResources(this.tabPageIndexes, "tabPageIndexes");
-            this.tabPageIndexes.Name = "tabPageIndexes";
-            this.tabPageIndexes.UseVisualStyleBackColor = true;
-            // 
-            // panelStreamIndexes
-            // 
-            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexMain);
-            this.panelStreamIndexes.Controls.Add(this.label11);
-            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageMain);
-            this.panelStreamIndexes.Controls.Add(this.label9);
-            this.panelStreamIndexes.Controls.Add(this.label19);
-            this.panelStreamIndexes.Controls.Add(this.label18);
-            this.panelStreamIndexes.Controls.Add(this.comboBoxAudioLanguageAddition);
-            this.panelStreamIndexes.Controls.Add(this.buttonAddAudioStream);
-            this.panelStreamIndexes.Controls.Add(this.buttonDelAddOption);
-            this.panelStreamIndexes.Controls.Add(this.dataGridViewAudioStreams);
-            this.panelStreamIndexes.Controls.Add(this.label13);
-            this.panelStreamIndexes.Controls.Add(this.numericUpDownAudioIndexAddition);
-            this.panelStreamIndexes.Controls.Add(this.label12);
-            resources.ApplyResources(this.panelStreamIndexes, "panelStreamIndexes");
-            this.panelStreamIndexes.Name = "panelStreamIndexes";
-            // 
-            // numericUpDownAudioIndexMain
-            // 
-            resources.ApplyResources(this.numericUpDownAudioIndexMain, "numericUpDownAudioIndexMain");
-            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
-            this.numericUpDownAudioIndexMain.ReadOnly = true;
-            this.numericUpDownAudioIndexMain.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexMain_ValueChanged);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // comboBoxAudioLanguageMain
-            // 
-            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAudioLanguageMain, "comboBoxAudioLanguageMain");
-            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
-            this.comboBoxAudioLanguageMain.SelectedIndexChanged += new System.EventHandler(this.comboBoxAudioLanguageMain_SelectedIndexChanged);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label19
-            // 
-            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // comboBoxAudioLanguageAddition
-            // 
-            this.comboBoxAudioLanguageAddition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageAddition.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAudioLanguageAddition, "comboBoxAudioLanguageAddition");
-            this.comboBoxAudioLanguageAddition.Name = "comboBoxAudioLanguageAddition";
-            // 
-            // buttonAddAudioStream
-            // 
-            resources.ApplyResources(this.buttonAddAudioStream, "buttonAddAudioStream");
-            this.buttonAddAudioStream.Name = "buttonAddAudioStream";
-            this.buttonAddAudioStream.UseVisualStyleBackColor = true;
-            this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
-            // 
-            // buttonDelAddOption
-            // 
-            resources.ApplyResources(this.buttonDelAddOption, "buttonDelAddOption");
-            this.buttonDelAddOption.Name = "buttonDelAddOption";
-            this.buttonDelAddOption.UseVisualStyleBackColor = true;
-            this.buttonDelAddOption.Click += new System.EventHandler(this.buttonDelAddOption_Click);
-            // 
-            // dataGridViewAudioStreams
-            // 
-            this.dataGridViewAudioStreams.AllowUserToAddRows = false;
-            this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
-            this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dataGridViewAudioStreams, "dataGridViewAudioStreams");
-            this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
-            this.dataGridViewAudioStreams.ReadOnly = true;
-            this.dataGridViewAudioStreams.RowHeadersVisible = false;
-            this.dataGridViewAudioStreams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // numericUpDownAudioIndexAddition
-            // 
-            resources.ApplyResources(this.numericUpDownAudioIndexAddition, "numericUpDownAudioIndexAddition");
-            this.numericUpDownAudioIndexAddition.Name = "numericUpDownAudioIndexAddition";
-            this.numericUpDownAudioIndexAddition.ReadOnly = true;
-            this.numericUpDownAudioIndexAddition.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownAudioIndexAddition.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexAddition_ValueChanged);
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // labelIndexesChannelMustBeStopped
-            // 
-            resources.ApplyResources(this.labelIndexesChannelMustBeStopped, "labelIndexesChannelMustBeStopped");
-            this.labelIndexesChannelMustBeStopped.Name = "labelIndexesChannelMustBeStopped";
-            // 
             // tabPagePolicies
             // 
             this.tabPagePolicies.Controls.Add(this.checkBoxcrossdomains);
@@ -613,8 +419,8 @@
             // 
             // labelChannelName
             // 
-            resources.ApplyResources(this.labelChannelName, "labelChannelName");
-            this.labelChannelName.Name = "labelChannelName";
+            resources.ApplyResources(this.labelLEName, "labelChannelName");
+            this.labelLEName.Name = "labelChannelName";
             // 
             // buttonClose
             // 
@@ -634,15 +440,15 @@
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.labelChannelStoppedOrStartedSettings);
+            this.panel1.Controls.Add(this.labelLiveEventStoppedOrStartedSettings);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Name = "panel1";
             // 
             // labelChannelStoppedOrStartedSettings
             // 
-            resources.ApplyResources(this.labelChannelStoppedOrStartedSettings, "labelChannelStoppedOrStartedSettings");
-            this.labelChannelStoppedOrStartedSettings.Name = "labelChannelStoppedOrStartedSettings";
+            resources.ApplyResources(this.labelLiveEventStoppedOrStartedSettings, "labelChannelStoppedOrStartedSettings");
+            this.labelLiveEventStoppedOrStartedSettings.Name = "labelChannelStoppedOrStartedSettings";
             // 
             // openFileDialogSlate
             // 
@@ -667,39 +473,29 @@
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelChannelName);
+            this.Controls.Add(this.labelLEName);
             this.Controls.Add(this.tabControl1);
             this.Name = "ChannelInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
-            this.Load += new System.EventHandler(this.ChannelInformation_Load);
-            this.Shown += new System.EventHandler(this.ChannelInformation_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LiveEventInformation_FormClosed);
+            this.Load += new System.EventHandler(this.LiveEventInformation_Load);
+            this.Shown += new System.EventHandler(this.LiveEventInformation_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPageChannelInfo.ResumeLayout(false);
+            this.tabPageLiveEventInfo.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPageEncoding.ResumeLayout(false);
             this.tabPageEncoding.PerformLayout();
-            this.groupBoxVideoStream.ResumeLayout(false);
-            this.groupBoxVideoStream.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
             this.groupBoxEncoding.ResumeLayout(false);
             this.groupBoxEncoding.PerformLayout();
             this.panelDisplayEncProfile.ResumeLayout(false);
             this.panelDisplayEncProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
-            this.tabPageIndexes.ResumeLayout(false);
-            this.panelStreamIndexes.ResumeLayout(false);
-            this.panelStreamIndexes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
             this.tabPagePolicies.ResumeLayout(false);
             this.tabPagePolicies.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
@@ -711,12 +507,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView DGChannel;
+        private System.Windows.Forms.DataGridView DGLiveEvent;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageChannelInfo;
-        private System.Windows.Forms.Label labelChannelName;
+        private System.Windows.Forms.TabPage tabPageLiveEventInfo;
+        private System.Windows.Forms.Label labelLEName;
         private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.DataGridView dataGridViewPreviewIP;
         private System.Windows.Forms.Button buttonDelPreviewIP;
@@ -738,8 +534,6 @@
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox checkBoxHLSFragPerSeg;
-        private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Button buttonAllowAllInputIP;
         private System.Windows.Forms.Button buttonAllowAllPreviewIP;
         private System.Windows.Forms.TabPage tabPagePreview;
@@ -750,29 +544,10 @@
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
-        private System.Windows.Forms.Label labelChannelMustBeStopped;
-        private System.Windows.Forms.Label labelChannelStoppedOrStartedSettings;
+        private System.Windows.Forms.Label labelLiveEventMustBeStopped;
+        private System.Windows.Forms.Label labelLiveEventStoppedOrStartedSettings;
         private System.Windows.Forms.TabPage tabPageEncoding;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TabPage tabPageIndexes;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBoxAudioLanguageMain;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexMain;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.ComboBox comboBoxAudioLanguageAddition;
-        private System.Windows.Forms.Button buttonDelAddOption;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexAddition;
-        private System.Windows.Forms.DataGridView dataGridViewAudioStreams;
-        private System.Windows.Forms.Button buttonAddAudioStream;
-        private System.Windows.Forms.NumericUpDown numericUpDownVideoStreamIndex;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label labelIndexesChannelMustBeStopped;
-        private System.Windows.Forms.Panel panelStreamIndexes;
-        private System.Windows.Forms.GroupBox groupBoxVideoStream;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.DataGridView dataGridViewVideoProf;
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;

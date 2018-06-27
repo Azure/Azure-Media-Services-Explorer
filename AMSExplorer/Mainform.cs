@@ -101,7 +101,7 @@ namespace AMSExplorer
         private static readonly int S2AssetSizeLimit = 640; // GBytes
         private static readonly int S3AssetSizeLimit = 240; // GBytes
         public string _accountname;
-        private AzureMediaServicesClient _mediaServicesClient;
+        private static AzureMediaServicesClient _mediaServicesClient;
 
         public Mainform()
         {
@@ -916,26 +916,9 @@ namespace AMSExplorer
         }
 
 
-        static IChannel GetChannel(string channelId)
+        static LiveEvent GetChannel(string channelName)
         {
-            IChannel channel;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var channelInstance =
-                    from a in _context.Channels
-                    where a.Id == channelId
-                    select a;
-                // Reference the asset as an IAsset.
-                channel = channelInstance.FirstOrDefault();
-            }
-            catch
-            {
-
-                channel = null;
-            }
-            return channel;
+            return _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channelName);
         }
 
         static IChannel GetChannelFromName(string name)
@@ -1176,7 +1159,7 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
                     break;
                 case "tabPageLive":
-                    DoRefreshGridChannelV(false);
+                    DoRefreshGridLiveEventV(false);
                     DoRefreshGridProgramV(false);
                     break;
                 case "tabPageProcessors":
@@ -1197,7 +1180,7 @@ namespace AMSExplorer
             _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
-            DoRefreshGridChannelV(false);
+            DoRefreshGridLiveEventV(false);
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
             DoRefreshGridStorageV(false);
@@ -6449,7 +6432,7 @@ namespace AMSExplorer
             DoGridTransferInit();
             DoRefreshGridIngestManifestV(true);
             DoRefreshGridAssetV(true);
-            DoRefreshGridChannelV(true);
+            DoRefreshGridLiveEventV(true);
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
@@ -8311,7 +8294,7 @@ namespace AMSExplorer
                 dataGridViewAssetsV.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
                 dataGridViewAssetsV.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
                 dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
-                dataGridViewChannelsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
+                dataGridViewLiveEventsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewProgramsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
                 dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             }
@@ -8330,17 +8313,17 @@ namespace AMSExplorer
         }
 
 
-        private void DoRefreshGridChannelV(bool firstime)
+        private void DoRefreshGridLiveEventV(bool firstime)
         {
             if (firstime)
             {
-                dataGridViewChannelsV.Init(_mediaServicesClient, _credentialsV3);
+                dataGridViewLiveEventsV.Init(_mediaServicesClient, _credentialsV3);
             }
-            dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(1)));
+            dataGridViewLiveEventsV.Invoke(new Action(() => dataGridViewLiveEventsV.RefreshChannels(1)));
 
             var count = _mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
-            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
+            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
@@ -8579,10 +8562,10 @@ namespace AMSExplorer
         private List<IChannel> ReturnSelectedChannels()
         {
             List<IChannel> SelectedChannels = new List<IChannel>();
-            foreach (DataGridViewRow Row in dataGridViewChannelsV.SelectedRows)
+            foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the channel can be null (if just deleted)
-                var channel = _context.Channels.Where(j => j.Id == Row.Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                var channel = _context.Channels.Where(j => j.Id == Row.Cells[dataGridViewLiveEventsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
                 if (channel != null)
                 {
                     SelectedChannels.Add(channel);
@@ -8594,18 +8577,18 @@ namespace AMSExplorer
 
         private List<LiveEvent> ReturnSelectedLiveEvents()
         {
-            List<LiveEvent> SelectedChannels = new List<LiveEvent>();
-            foreach (DataGridViewRow Row in dataGridViewChannelsV.SelectedRows)
+            List<LiveEvent> SelectedLiveEvents = new List<LiveEvent>();
+            foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the channel can be null (if just deleted)
-                var channel = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewChannelsV.Columns["Name"].Index].Value.ToString());
-                if (channel != null)
+                var liveEvent = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                if (liveEvent != null)
                 {
-                    SelectedChannels.Add(channel);
+                    SelectedLiveEvents.Add(liveEvent);
                 }
             }
-            SelectedChannels.Reverse();
-            return SelectedChannels;
+            SelectedLiveEvents.Reverse();
+            return SelectedLiveEvents;
         }
 
         private List<IStreamingEndpoint> ReturnSelectedStreamingEndpoints()
@@ -8640,17 +8623,17 @@ namespace AMSExplorer
 
         private List<LiveOutput> ReturnSelectedLiveOutputs()
         {
-            List<LiveOutput> SelectedPrograms = new List<LiveOutput>();
+            List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
             foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                var program = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewProgramsV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewProgramsV.Columns["Name"].Index].Value.ToString());
-                if (program != null)
+                var liveOutput = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewProgramsV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewProgramsV.Columns["Name"].Index].Value.ToString());
+                if (liveOutput != null)
                 {
-                    SelectedPrograms.Add(program);
+                    SelectedLiveOutputs.Add(liveOutput);
                 }
             }
-            SelectedPrograms.Reverse();
-            return SelectedPrograms;
+            SelectedLiveOutputs.Reverse();
+            return SelectedLiveOutputs;
         }
 
 
@@ -8665,46 +8648,6 @@ namespace AMSExplorer
             }
             );
         }
-
-
-
-        // CHANNEL ASYNC OPERATIONS
-
-        private async Task StartLiveEvent(LiveEvent myC)
-        {
-            TextBoxLogWriteLine("Live event '{0}' : starting...", myC.Name);
-            await _mediaServicesClient.LiveEvents.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
-            TextBoxLogWriteLine("Live event '{0}' : started.", myC.Name);
-            //ChannelInfo.ChannelExecuteOperationAsync(ILiveEventsOperations  _mediaServicesClient.LiveEvents.BeginStartAsync, myC, "started", _context, this, dataGridViewChannelsV);
-        }
-
-        private async Task StopLiveEvent(LiveEvent myC)
-        {
-            TextBoxLogWriteLine("Channel '{0}' : stopping...", myC.Name);
-            await _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
-            TextBoxLogWriteLine("Channel '{0}' : stopped.", myC.Name);
-            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped", _context, this, dataGridViewChannelsV);
-        }
-
-        private async Task ResetLiveEvent(LiveEvent myC)
-        {
-            TextBoxLogWriteLine("Channel '{0}' : reseting...", myC.Name);
-            await _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
-            TextBoxLogWriteLine("Channel '{0}' : reset.", myC.Name);
-            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV);
-        }
-
-        private async Task DeleteLiveEvent(LiveEvent myC)
-        {
-            TextBoxLogWriteLine("Channel '{0}' : deleting...", myC.Name);
-            await _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, myC.Name);
-            TextBoxLogWriteLine("Channel '{0}' : deleted.", myC.Name);
-            //return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted", _context, this, dataGridViewChannelsV);
-        }
-
-
-
-
 
 
         // STREAMING ENDPOINT ASYNC OPERATIONS
@@ -8766,7 +8709,7 @@ namespace AMSExplorer
                     System.Threading.Thread.Sleep(1000);
                     channel = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name);
                 }
-                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
+                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
             }
         }
 
@@ -9085,7 +9028,7 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var cellchannelstatevalue = dataGridViewChannelsV.Rows[e.RowIndex].Cells[dataGridViewChannelsV.Columns["State"].Index].Value;
+            var cellchannelstatevalue = dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["State"].Index].Value;
 
             if (cellchannelstatevalue != null)
             {
@@ -9197,15 +9140,14 @@ namespace AMSExplorer
 
         private async void DoCreateChannel()
         {
-            CreateLiveChannel form = new CreateLiveChannel()
+            CreateLiveEvent form = new CreateLiveEvent()
             {
                 KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval.ToString(),
-                HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
                 StartChannelNow = true
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                TextBoxLogWriteLine("Channel '{0}' : creating...", form.ChannelName);
+                TextBoxLogWriteLine("Channel '{0}' : creating...", form.LiveEventName);
 
                 bool Error = false;
                 ChannelCreationOptions options = new ChannelCreationOptions();
@@ -9249,13 +9191,9 @@ namespace AMSExplorer
 
                     liveEvent = new LiveEvent(
                       location: _credentialsV3.MediaService.Location,
-                      description: form.ChannelDescription,
+                      description: form.LiveEventDescription,
                       vanityUrl: false,
-                      encoding: new LiveEventEncoding(
-                                  // Set this to Basic to enable a transcoding LiveEvent, and None to enable a pass-through LiveEvent
-                                  encodingType: form.EncodingType,
-                                  presetName: form.EncodingOptions.SystemPreset
-                              ),
+                      encoding: form.Encoding,
                       input: new LiveEventInput(form.Protocol, form.KeyframeInterval),
                       preview: liveEventPreview,
                       streamOptions: new List<StreamOptionsFlag?>()
@@ -9289,11 +9227,11 @@ namespace AMSExplorer
 
 
                     await Task.Run(() =>
-                     _mediaServicesClient.LiveEvents.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.ChannelName, liveEvent, autoStart: form.StartChannelNow ? true : false)
+                     _mediaServicesClient.LiveEvents.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.LiveEventName, liveEvent, autoStart: form.StartChannelNow ? true : false)
 
                    );
 
-                    DoRefreshGridChannelV(false);
+                    DoRefreshGridLiveEventV(false);
 
                 }
             }
@@ -9307,7 +9245,7 @@ namespace AMSExplorer
 
         private void DoDisplayChannelInfo()
         {
-            DoDisplayChannelInfo(ReturnSelectedChannels());
+            DoDisplayLiveEventInfo(ReturnSelectedLiveEvents());
         }
 
         private void DoDisplayChannelAdSlateControl()
@@ -9331,17 +9269,16 @@ namespace AMSExplorer
             }
         }
 
-        private async void DoDisplayChannelInfo(List<IChannel> channels)
+        private async void DoDisplayLiveEventInfo(List<LiveEvent> channels)
         {
             var firstchannel = channels.FirstOrDefault();
             bool multiselection = channels.Count > 1;
 
             if (firstchannel != null)
             {
-                ChannelInformation form = new ChannelInformation(this)
+                LiveEventInformation form = new LiveEventInformation(this, _mediaServicesClient, _credentialsV3)
                 {
-                    MyChannel = firstchannel,
-                    MyContext = _context,
+                    MyLiveEvent = firstchannel,
                     MultipleSelection = multiselection
                 };
 
@@ -9357,104 +9294,65 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            modifications = (ExplorerChannelModifications)formSettings.SettingsObject;
+                            modifications = (ExplorerLiveEventModifications)formSettings.SettingsObject;
                         }
                     }
 
                     foreach (var channel in channels)
                     {
-                        TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
+                        TextBoxLogWriteLine("Live event '{0}' : updating...", channel.Name);
 
                         if (modifications.Description) // let' update description if needed
                         {
-                            channel.Description = form.GetChannelDescription;
+                            channel.Description = form.GetLiveEventDescription;
                         }
                         if (modifications.KeyFrameInterval)
                         {
-                            channel.Input.KeyFrameInterval = form.KeyframeInterval;
+                            channel.Input.KeyFrameIntervalDuration = form.KeyframeInterval;
                         }
 
-                        if (channel.EncodingType == firstchannel.EncodingType)
+                        if (channel.Encoding.EncodingType == firstchannel.Encoding.EncodingType)
                         {
-                            if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding != null && channel.State == ChannelState.Stopped)
+                            if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.Encoding != null && channel.ResourceState == LiveEventResourceState.Stopped)
                             {
                                 if (modifications.SystemPreset)
                                 {
-                                    channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
+                                    channel.Encoding.PresetName = form.PresetName; // we update the system preset
                                 }
 
-
-                                if (modifications.AudioStreams) // user modified it
-                                {
-                                    channel.Encoding.AudioStreams = form.AudioStreamList;
-                                }
-
-                                if (modifications.VideoStreams) // user modified it
-                                {
-                                    channel.Encoding.VideoStreams = form.VideoStreamList;
-                                }
-
-                                if (modifications.Ignore708Captions) // user modified it
-                                {
-                                    channel.Encoding.IgnoreCea708ClosedCaptions = form.Ignore708Captions;
-                                }
                             }
-                            else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)
+                            else if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.ResourceState != LiveEventResourceState.Stopped)
                             {
-                                TextBoxLogWriteLine("Channel '{0}' : must be stoped to update the encoding settings", channel.Name);
+                                TextBoxLogWriteLine("Live event '{0}' : must be stoped to update the encoding settings", channel.Name);
                             }
-                            else if (channel.EncodingType != ChannelEncodingType.None && channel.Encoding == null)
+                            else if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.Encoding == null)
                             {
-                                TextBoxLogWriteLine("Channel '{0}' : configured as encoding channel but settings are null", channel.Name, true);
+                                TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", channel.Name, true);
                             }
                         }
 
-                        if (modifications.HLSFragPerSegment)
-                        {
-                            // HLS Fragment per segment
-                            if (form.HLSFragPerSegment != null)
-                            {
-                                if (channel.Output == null)
-                                {
-                                    channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
-                                }
-                                else if (channel.Output.Hls == null)
-                                {
-                                    channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
-                                }
-                                else
-                                {
-                                    channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
-                                }
-                            }
-                            else // form.HLSFragPerSegment is null
-                            {
-                                if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
-                                {
-                                    channel.Output.Hls.FragmentsPerSegment = null;
-                                }
-                            }
-                        }
+                        /*
 
-                        if (modifications.InputIPAllowList)
-                        {
-                            // Input allow list
-                            if (form.GetInputIPAllowList != null)
-                            {
-                                if (channel.Input.AccessControl == null)
-                                {
-                                    channel.Input.AccessControl = new ChannelAccessControl();
-                                }
-                                channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
-                            }
-                            else
-                            {
-                                if (channel.Input.AccessControl != null)
-                                {
-                                    channel.Input.AccessControl.IPAllowList = null;
-                                }
-                            }
-                        }
+                         if (modifications.InputIPAllowList)
+                         {
+                             // Input allow list
+                             if (form.GetInputIPAllowList != null)
+                             {
+                                 if (channel.Input.AccessControl == null)
+                                 {
+                                     channel.Input.AccessControl = new ChannelAccessControl();
+                                 }
+                                 channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
+                             }
+                             else
+                             {
+                                 if (channel.Input.AccessControl != null)
+                                 {
+                                     channel.Input.AccessControl.IPAllowList = null;
+                                 }
+                             }
+                         }
+                         */
 
                         if (modifications.PreviewIPAllowList)
                         {
@@ -9463,15 +9361,15 @@ namespace AMSExplorer
                             {
                                 if (channel.Preview.AccessControl == null)
                                 {
-                                    channel.Preview.AccessControl = new ChannelAccessControl();
+                                    channel.Preview.AccessControl = new LiveEventPreviewAccessControl();
                                 }
-                                channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
+                                channel.Preview.AccessControl.Ip = form.GetPreviewAllowList;
                             }
                             else
                             {
                                 if (channel.Preview.AccessControl != null)
                                 {
-                                    channel.Preview.AccessControl.IPAllowList = null;
+                                    channel.Preview.AccessControl.Ip = null;
                                 }
                             }
                         }
@@ -9480,13 +9378,13 @@ namespace AMSExplorer
                         if (modifications.ClientAccessPolicy)
                         {
                             // Client Access Policy
-                            if (form.GetChannelClientPolicy != null)
+                            if (form.GetLiveEventClientPolicy != null)
                             {
                                 if (channel.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
+                                    channel.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
-                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
+                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
 
                             }
                             else
@@ -9501,13 +9399,13 @@ namespace AMSExplorer
                         if (modifications.CrossDomainPolicy)
                         {
                             // Cross domain  Policy
-                            if (form.GetChannelCrossdomainPolicy != null)
+                            if (form.GetLiveEventCrossdomainPolicy != null)
                             {
                                 if (channel.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
+                                    channel.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
-                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomainPolicy;
+                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
 
                             }
                             else
@@ -9519,9 +9417,16 @@ namespace AMSExplorer
                             }
                         }
 
-                        //       await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
+                        Task.Run(async () =>
+                        {
+                            await _mediaServicesClient.LiveEvents.UpdateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, channel);
+                            dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
+                            TextBoxLogWriteLine("Live event '{0}' : updated.", channel.Name);
+                        }
+             );
                     }
                 }
+
             }
         }
 
@@ -9568,7 +9473,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[channelsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[channelsrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
                             }
 
                         }
@@ -9603,11 +9508,11 @@ namespace AMSExplorer
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
                             }
                             else if (loitemR != null)
                             {
-                                DoRefreshGridChannelV(false);
+                                DoRefreshGridLiveEventV(false);
                             }
                         }
                         System.Threading.Thread.Sleep(2000);
@@ -9623,7 +9528,7 @@ namespace AMSExplorer
                 }
             }
 
-            DoRefreshGridChannelV(false);
+            DoRefreshGridLiveEventV(false);
 
 
         }
@@ -9713,28 +9618,6 @@ namespace AMSExplorer
         }
 
 
-        private void DoStartPrograms()
-        {
-            /*
-            List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-
-            if (SelectedPrograms.Count > 0)
-            {
-                Task.Run(async () =>
-                {
-                    // let's start the programs now
-                    var tasks = SelectedPrograms.Select(p => StartProgramASync(p)).ToArray();
-                    await Task.WhenAll(tasks);
-                }
-                        );
-            }
-            */
-        }
-
-
-
-
-
         private IAsset CreateLiveAssetWithOptionalpecifiedLocatorID(string assetName, string storageaccount, bool createlocator, bool setupdynamicencryption, string LocatorID = null)
         {
             bool oktocontinue = true;
@@ -9803,11 +9686,9 @@ namespace AMSExplorer
                     archiveWindowLength = new TimeSpan(4, 0, 0),
                     CreateLocator = true,
                     EnableDynEnc = false,
-                    StartProgram = false,
-                    ProposeStartProgram = (channel.ResourceState == LiveEventResourceState.Running),
                     AssetName = "LiveArchive-" + Constants.NameconvChannel + "-" + Constants.NameconvProgram + "-" + uniqueness,
-                    ProposeScaleUnit = false,
-                    ProgramName = "liveOutput" + uniqueness
+                    ProgramName = "liveOutput" + uniqueness,
+                    HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -9823,7 +9704,14 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Asset created.");
 
                             TextBoxLogWriteLine("Live output creation...");
-                            LiveOutput liveOutput = new LiveOutput(assetName: asset.Name, manifestName: form.ForceManifestName ?? "output", archiveWindowLength: form.archiveWindowLength);
+
+                            Hls hlsParam = null;
+                            if (form.HLSFragmentPerSegment != null)
+                            {
+                                hlsParam = new Hls(fragmentsPerTsSegment: form.HLSFragmentPerSegment);
+                            }
+
+                            LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ForceManifestName ?? "output", hlsParam);
                             var liveOutput2 = await _mediaServicesClient.LiveOutputs.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, form.ProgramName, liveOutput);
                             TextBoxLogWriteLine("Live output created.");
                         }
@@ -9937,15 +9825,6 @@ namespace AMSExplorer
             DoCreateLiveOutput();
         }
 
-        private void startProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoStartPrograms();
-        }
-
-        private void stopProgramsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //DoStopPrograms();
-        }
 
         private void deleteProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -9958,21 +9837,18 @@ namespace AMSExplorer
 
             if (cellprogramstatevalue != null)
             {
-                ProgramState PS = (ProgramState)cellprogramstatevalue;
+                LiveOutputResourceState PS = (LiveOutputResourceState)cellprogramstatevalue;
                 Color mycolor;
 
                 switch (PS)
                 {
-                    case ProgramState.Stopping:
+                    case LiveOutputResourceState.Deleting:
                         mycolor = Color.OrangeRed;
                         break;
-                    case ProgramState.Starting:
+                    case LiveOutputResourceState.Creating:
                         mycolor = Color.DarkCyan;
                         break;
-                    case ProgramState.Stopped:
-                        mycolor = Color.Blue;
-                        break;
-                    case ProgramState.Running:
+                    case LiveOutputResourceState.Running:
                         mycolor = Color.Green;
                         break;
 
@@ -10490,10 +10366,10 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IChannel channel = GetChannel(dataGridViewChannelsV.Rows[e.RowIndex].Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString());
+                var channel = GetChannel(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
                 if (channel != null)
                 {
-                    DoDisplayChannelInfo((new List<IChannel>() { channel }));
+                    DoDisplayLiveEventInfo((new List<LiveEvent>() { channel }));
                 }
             }
         }
@@ -10530,15 +10406,6 @@ namespace AMSExplorer
             DoStopOrDeleteLiveEvents(true);
         }
 
-        private void startProgramsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStartPrograms();
-        }
-
-        private void stopProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            //DoStopPrograms();
-        }
 
         private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -12405,7 +12272,7 @@ namespace AMSExplorer
 
         private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoRefreshGridChannelV(false);
+            DoRefreshGridLiveEventV(false);
         }
 
         private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
@@ -13821,9 +13688,7 @@ namespace AMSExplorer
             // reset program
             recreateProgramsToolStripMenuItem.Enabled = oneOrMore;
 
-            // start, stop, delete program
-            startProgramsToolStripMenuItem1.Enabled = oneOrMore;
-            stopProgramsToolStripMenuItem.Enabled = oneOrMore;
+            // delete program
             deleteProgramsToolStripMenuItem1.Enabled = oneOrMore;
 
             // clone program
@@ -13852,9 +13717,7 @@ namespace AMSExplorer
             // reset program
             recreateProgramToolStripMenuItem.Enabled = oneOrMore;
 
-            // start, stop, delete program
-            ContextMenuItemProgramStart.Enabled = oneOrMore;
-            ContextMenuItemProgramStop.Enabled = oneOrMore;
+            // delete program
             ContextMenuItemProgramDelete.Enabled = oneOrMore;
 
             // clone program
@@ -13886,29 +13749,29 @@ namespace AMSExplorer
 
         private void DoChannelSearch()
         {
-            if (dataGridViewChannelsV.Initialized)
+            if (dataGridViewLiveEventsV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchChannelOption.SelectedItem as Item).Value);
-                dataGridViewChannelsV.SearchInName = new SearchObject { Text = textBoxSearchNameChannel.Text, SearchType = stype };
-                DoRefreshGridChannelV(false);
+                dataGridViewLiveEventsV.SearchInName = new SearchObject { Text = textBoxSearchNameChannel.Text, SearchType = stype };
+                DoRefreshGridLiveEventV(false);
             }
         }
 
         private void comboBoxFilterTimeChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewChannelsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewLiveEventsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
 
-            if (dataGridViewChannelsV.TimeFilter == FilterTime.TimeRange)
+            if (dataGridViewLiveEventsV.TimeFilter == FilterTime.TimeRange)
             {
                 var form = new TimeRangeSelection()
                 {
-                    TimeRange = dataGridViewChannelsV.TimeFilterTimeRange,
+                    TimeRange = dataGridViewLiveEventsV.TimeFilterTimeRange,
                     LabelMain = "Last Modified Time Range of Channels"
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    dataGridViewChannelsV.TimeFilterTimeRange = form.TimeRange;
+                    dataGridViewLiveEventsV.TimeFilterTimeRange = form.TimeRange;
                 }
                 else
                 {
@@ -13916,18 +13779,18 @@ namespace AMSExplorer
                 }
             }
 
-            if (dataGridViewChannelsV.Initialized)
+            if (dataGridViewLiveEventsV.Initialized)
             {
-                DoRefreshGridChannelV(false);
+                DoRefreshGridLiveEventV(false);
             }
         }
 
         private void comboBoxStatusChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dataGridViewChannelsV.Initialized)
+            if (dataGridViewLiveEventsV.Initialized)
             {
-                dataGridViewChannelsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridChannelV(false);
+                dataGridViewLiveEventsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
+                DoRefreshGridLiveEventV(false);
             }
         }
 

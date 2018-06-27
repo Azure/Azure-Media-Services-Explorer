@@ -35,7 +35,7 @@ using System.Xml;
 
 namespace AMSExplorer
 {
-    public partial class CreateLiveChannel : Form
+    public partial class CreateLiveEvent : Form
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
@@ -44,35 +44,27 @@ namespace AMSExplorer
         private string defaultLanguageString = "und";
         private string _radioButtonDefaultPreset;
 
-        public string ChannelName
+        public string LiveEventName
         {
             get { return textboxchannelname.Text; }
             set { textboxchannelname.Text = value; }
         }
 
-        public string ChannelDescription
+        public string LiveEventDescription
         {
             get { return textBoxDescription.Text; }
             set { textBoxDescription.Text = value; }
         }
-
-        public LiveEventEncodingType EncodingType
+        public LiveEventEncoding Encoding
         {
             get
             {
-                return (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value));
-            }
-        }
-
-        public ChannelEncoding EncodingOptions
-        {
-            get
-            {
-                ChannelEncoding encodingoption = new ChannelEncoding()
+                LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
-                    SystemPreset = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
-                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
-                    IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
+                    PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
+                                                                                                                     // AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                                                                                                                     //  IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
+                    EncodingType = (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value))
                 };
 
                 return encodingoption;
@@ -104,19 +96,6 @@ namespace AMSExplorer
             }
         }
 
-        public short? HLSFragmentPerSegment
-        {
-            get
-            {
-                return checkBoxHLSFragPerSegDefined.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
-            }
-            set
-            {
-                if (value != null)
-                    numericUpDownHLSFragPerSeg.Value = (short)value;
-            }
-        }
-
         public string KeyframeInterval
         {
             get
@@ -133,7 +112,7 @@ namespace AMSExplorer
                     {
                         return null;
                     }
-                    
+
                 }
                 else
                 {
@@ -142,7 +121,7 @@ namespace AMSExplorer
             }
             set
             {
-                textBoxKeyFrame.Text =  TimeSpan.Parse(value).ToString();
+                textBoxKeyFrame.Text = TimeSpan.Parse(value).ToString();
             }
         }
 
@@ -208,7 +187,7 @@ namespace AMSExplorer
             set { checkBoxStartChannel.Checked = value; }
         }
 
-        public CreateLiveChannel()
+        public CreateLiveEvent()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -298,11 +277,11 @@ namespace AMSExplorer
         {
             if (!InitPhase)
             {
-                moreinfoLiveEncodingProfilelink.Visible = !(EncodingType == LiveEventEncodingType.None);
+                moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
                 moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
 
                 // let's display the encoding tab if encoding has been choosen
-                if (EncodingType == LiveEventEncodingType.None) 
+                if (Encoding.EncodingType == LiveEventEncodingType.None)
                 {
                     if (EncodingTabDisplayed)
                     {
@@ -380,7 +359,7 @@ namespace AMSExplorer
             }
         }
 
-        internal static bool IsChannelNameValid(string name)
+        internal static bool IsLiveEventNameValid(string name)
         {
             Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
             return (reg.IsMatch(name));
@@ -533,7 +512,7 @@ namespace AMSExplorer
 
         private string ReturnLiveEncodingProfile()
         {
-            if (EncodingType != LiveEventEncodingType.None)
+            if (Encoding.EncodingType != LiveEventEncodingType.None)
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }
@@ -554,18 +533,7 @@ namespace AMSExplorer
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
                     List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
 
-                    var option = this.EncodingOptions;
-                    if (option != null && option.AudioStreams != null)
-                    {
-                        foreach (var audiostream in this.EncodingOptions.AudioStreams)
-                        {
-                            profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                        }
-                    }
-                    else // no specific audio language specified
-                    {
-                        profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                    }
+                    profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
                     panelDisplayEncProfile.Visible = true;
@@ -574,7 +542,7 @@ namespace AMSExplorer
                 {
                     dataGridViewVideoProf.DataSource = null;
                     dataGridViewAudioProf.DataSource = null;
-                    panelDisplayEncProfile.Visible = false; 
+                    panelDisplayEncProfile.Visible = false;
                 }
             }
         }
@@ -612,7 +580,7 @@ namespace AMSExplorer
         {
             TextBox tb = textboxchannelname;
 
-            if (!IsChannelNameValid(tb.Text))
+            if (!IsLiveEventNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateLiveChannel_checkChannelName_ChannelNameIsNotValid);
             }

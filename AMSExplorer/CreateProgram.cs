@@ -60,23 +60,7 @@ namespace AMSExplorer
                 numericUpDownArchiveMinutes.Value = value.Minutes;
             }
         }
-
-        public bool ProposeScaleUnit
-        {
-            set
-            {
-                checkBoxAddScaleUnit.Checked = value;
-                checkBoxAddScaleUnit.Visible = value;
-            }
-        }
-
-        public bool ScaleUnit
-        {
-            get
-            {
-                return checkBoxAddScaleUnit.Visible ? checkBoxAddScaleUnit.Checked : false;
-            }
-        }
+      
 
         public bool IsReplica
         {
@@ -115,6 +99,19 @@ namespace AMSExplorer
             }
         }
 
+        public short? HLSFragmentPerSegment
+        {
+            get
+            {
+                return checkBoxHLSFragPerSegDefined.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
+            }
+            set
+            {
+                if (value != null)
+                    numericUpDownHLSFragPerSeg.Value = (short)value;
+            }
+        }
+
         public string AssetName
         {
             get { return textBoxAssetName.Text; }
@@ -125,18 +122,6 @@ namespace AMSExplorer
         {
             get { return checkBoxCreateLocator.Checked; }
             set { checkBoxCreateLocator.Checked = value; }
-        }
-        public bool ProposeStartProgram
-        {
-            set
-            {
-                checkBoxStartProgramNow.Enabled = value;
-            }
-        }
-        public bool StartProgram
-        {
-            get { return checkBoxStartProgramNow.Checked; }
-            set { checkBoxStartProgramNow.Checked = value; }
         }
 
         public bool EnableDynEnc
@@ -173,8 +158,6 @@ namespace AMSExplorer
 //                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Id, storage. storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
   //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-
-           
 
             checkProgramName();
         }

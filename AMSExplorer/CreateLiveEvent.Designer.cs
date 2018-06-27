@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class CreateLiveChannel
+    partial class CreateLiveEvent
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveChannel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveEvent));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxRestrictIngestIP = new System.Windows.Forms.TextBox();
@@ -612,7 +612,7 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // CreateLiveChannel
+            // CreateLiveEvent
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -628,7 +628,7 @@
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxchannelname);
-            this.Name = "CreateLiveChannel";
+            this.Name = "CreateLiveEvent";
             this.Load += new System.EventHandler(this.CreateLiveChannel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.panel1.ResumeLayout(false);

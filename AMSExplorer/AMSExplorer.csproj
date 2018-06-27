@@ -662,11 +662,11 @@
     <Compile Include="ProgramInformation.Designer.cs">
       <DependentUpon>ProgramInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelInformation.cs">
+    <Compile Include="LiveEventInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChannelInformation.Designer.cs">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    <Compile Include="LiveEventInformation.Designer.cs">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateProgram.cs">
       <SubType>Form</SubType>
@@ -680,11 +680,11 @@
     <Compile Include="AssetInformation.Designer.cs">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateLiveChannel.cs">
+    <Compile Include="CreateLiveEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateLiveChannel.Designer.cs">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <Compile Include="CreateLiveEvent.Designer.cs">
+      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="live.cs">
       <SubType>Component</SubType>
@@ -1000,8 +1000,8 @@
     <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelInformation.ja.resx">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventInformation.ja.resx">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelRunOnPremisesEncoder.ja.resx">
       <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
@@ -1012,8 +1012,8 @@
     <EmbeddedResource Include="CopyAsset.ja.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveChannel.ja.resx">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <EmbeddedResource Include="CreateLiveEvent.ja.resx">
+      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
@@ -1447,8 +1447,8 @@
     <EmbeddedResource Include="ProgramInformation.resx">
       <DependentUpon>ProgramInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelInformation.resx">
-      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventInformation.resx">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateProgram.resx">
       <DependentUpon>CreateProgram.cs</DependentUpon>
@@ -1457,8 +1457,8 @@
       <DependentUpon>AssetInformation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveChannel.resx">
-      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    <EmbeddedResource Include="CreateLiveEvent.resx">
+      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="options.resx">
       <DependentUpon>options.cs</DependentUpon>
