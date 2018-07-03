@@ -1162,9 +1162,6 @@ namespace AMSExplorer
                     DoRefreshGridLiveEventV(false);
                     DoRefreshGridProgramV(false);
                     break;
-                case "tabPageProcessors":
-                    DoRefreshGridProcessorV(false);
-                    break;
                 case "tabPageOrigins":
                     DoRefreshGridStreamingEndpointV(false);
                     break;
@@ -1182,7 +1179,6 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
             DoRefreshGridLiveEventV(false);
             DoRefreshGridStreamingEndpointV(false);
-            DoRefreshGridProcessorV(false);
             DoRefreshGridStorageV(false);
             DoRefreshGridFiltersV(false);
             DoRefreshGridIngestManifestV(false);
@@ -6435,7 +6431,6 @@ namespace AMSExplorer
             DoRefreshGridLiveEventV(true);
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
-            DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
@@ -8290,13 +8285,13 @@ namespace AMSExplorer
         {
             if (!init)
             {
-                dataGridViewAssetsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+                dataGridViewAssetsV.Columns["AssetId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
                 dataGridViewAssetsV.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
-                dataGridViewAssetsV.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
-                dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
+                dataGridViewAssetsV.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
+                // dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewLiveEventsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewProgramsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-                dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
+                // dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             }
 
             dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid;
@@ -8307,9 +8302,6 @@ namespace AMSExplorer
             withCustomPlayerToolStripMenuItem.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
-
-            _context.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
-            _context.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;
         }
 
 
@@ -8359,73 +8351,6 @@ namespace AMSExplorer
             tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
         }
 
-        private void DoRefreshGridProcessorV(bool firstime)
-        {
-            return; // migration to V3 API
-            if (firstime)
-            {
-                // Processors tab
-                dataGridViewProcessors.ColumnCount = 5;
-                dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
-                dataGridViewProcessors.Columns[0].Width = 82;
-                dataGridViewProcessors.Columns[1].HeaderText = "Name";
-                dataGridViewProcessors.Columns[1].Width = 222;
-                dataGridViewProcessors.Columns[2].HeaderText = "Version";
-                dataGridViewProcessors.Columns[2].Width = 65;
-                dataGridViewProcessors.Columns[3].HeaderText = "Id";
-                dataGridViewProcessors.Columns[3].Width = 230;
-                dataGridViewProcessors.Columns[4].HeaderText = "Description";
-                dataGridViewProcessors.Columns[4].Width = 390;
-            }
-            dataGridViewProcessors.Rows.Clear();
-            List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
-            foreach (IMediaProcessor proc in Procs)
-            {
-                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
-            }
-            tabPageProcessors.Text = string.Format(AMSExplorer.Properties.Resources.TabProcessors + " ({0})", Procs.Count());
-
-            // Media Reserved Unit(s)
-            if (MediaRUFeatureOn)
-            {
-                comboBoxEncodingRU.Items.Clear();
-
-                foreach (var unit in Enum.GetValues(typeof(ReservedUnitType)))
-                {
-                    comboBoxEncodingRU.Items.Add(new Item(Program.ReturnMediaReservedUnitName((ReservedUnitType)unit), unit.ToString()));
-                }
-
-                // let's set the selected item
-                string currentype = _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType.ToString();
-                foreach (var it in comboBoxEncodingRU.Items)
-                {
-                    if (((Item)it).Value == currentype)
-                    {
-                        comboBoxEncodingRU.SelectedItem = it;
-                    }
-                }
-
-                trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
-                trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-                UpdateLabelProcessorUnits();
-
-                if (_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0)
-                {
-                    toolStripStatusLabelEncRU.Text = string.Format("No Media Reserved Unit");
-                }
-                else
-                {
-                    string s = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits > 1 ? "s" : "";
-                    toolStripStatusLabelEncRU.Text = string.Format("{0} {1} Media Reserved Unit{2}", _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits, Program.ReturnMediaReservedUnitName(_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType), s);
-                }
-            }
-
-            else
-            {
-                comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
-                toolStripStatusLabelEncRU.Text = string.Format("No encoding on this account");
-            }
-        }
 
         private void DoRefreshGridStorageV(bool firstime)
         {
@@ -8639,14 +8564,15 @@ namespace AMSExplorer
 
         private void DoStartLiveEvents()
         {
-            // let's stop the channels now that running programs are stopped
+            // let's start the channels
+
             Task.Run(async () =>
             {
-                // let's stop the channels now
-                var tasksstop = ReturnSelectedLiveEvents().Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
-                await Task.WhenAll(tasksstop);
+                DoStartLiveEventsEngine(ReturnSelectedLiveEvents());
             }
-            );
+                    );
+
+
         }
 
 
@@ -9140,7 +9066,7 @@ namespace AMSExplorer
 
         private async void DoCreateChannel()
         {
-            CreateLiveEvent form = new CreateLiveEvent()
+            LiveEventCreation form = new LiveEventCreation()
             {
                 KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval.ToString(),
                 StartChannelNow = true
@@ -9192,7 +9118,7 @@ namespace AMSExplorer
                     liveEvent = new LiveEvent(
                       location: _credentialsV3.MediaService.Location,
                       description: form.LiveEventDescription,
-                      vanityUrl: false,
+                      vanityUrl: form.VanityUrl,
                       encoding: form.Encoding,
                       input: new LiveEventInput(form.Protocol, form.KeyframeInterval),
                       preview: liveEventPreview,
@@ -9454,37 +9380,45 @@ namespace AMSExplorer
         {
 
             // Stop the channels which run
-            var channelsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running).ToList();
-            if (channelsrunning.Count() > 0)
+            var liveeventsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running).ToList();
+            var names = String.Join(", ", liveeventsrunning.Select(le => le.Name).ToArray());
+
+            if (liveeventsrunning.Count() > 0)
             {
                 try
                 {
-                    TextBoxLogWriteLine("Stopping live event(s)...");
-                    var states = channelsrunning.Select(p => p.ResourceState).ToList();
-                    var taskcstop = channelsrunning.Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    TextBoxLogWriteLine(string.Format("Stopping live event(s) : {0}...", names));
+                    var states = liveeventsrunning.Select(p => p.ResourceState).ToList();
+                    var taskcstop = liveeventsrunning.Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
 
-                    while (!taskcstop.All(t => t.IsCompleted))
+                    int complete = 0;
+                    while (!taskcstop.All(t => t.IsCompleted) && complete != liveeventsrunning.Count)
                     {
                         // refresh the channels
 
-                        foreach (var loitem in channelsrunning)
+                        foreach (var loitem in liveeventsrunning)
                         {
                             var loitemR = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
-                            if (loitemR != null && states[channelsrunning.IndexOf(loitem)] != loitemR.ResourceState)
+                            if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
-                                states[channelsrunning.IndexOf(loitem)] = loitemR.ResourceState;
+                                states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
                                 dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
+                                if (loitemR.ResourceState == LiveEventResourceState.Stopped)
+                                {
+                                    TextBoxLogWriteLine(string.Format("Live event stopped : {0}.", loitemR.Name));
+                                    complete++;
+                                }
                             }
 
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
-                    TextBoxLogWriteLine("Live event(s) stopped.");
+                    //TextBoxLogWriteLine(string.Format("Live event(s) stopped : {0}.", names));
                 }
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when stopping a channel", true);
+                    TextBoxLogWriteLine("There is a problem when stopping a live event.", true);
                     TextBoxLogWriteLine(ex);
                 }
             }
@@ -9494,7 +9428,9 @@ namespace AMSExplorer
                 // delete the channels
                 try
                 {
-                    TextBoxLogWriteLine("Deleting live event(s)...");
+                    var names2 = String.Join(", ", ListEvents.Select(le => le.Name).ToArray());
+
+                    TextBoxLogWriteLine(string.Format("Deleting live event(s) : {0}...", names2));
                     var states = ListEvents.Select(p => p.ResourceState).ToList();
                     var taskcdel = ListEvents.Select(c => _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
 
@@ -9517,7 +9453,7 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
-                    TextBoxLogWriteLine("Live event(s) deleted.");
+                    TextBoxLogWriteLine(string.Format("Live event(s) deleted : {0}.", names2));
                 }
 
                 catch (Exception ex)
@@ -9531,6 +9467,53 @@ namespace AMSExplorer
             DoRefreshGridLiveEventV(false);
 
 
+        }
+
+
+        private async void DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
+        {
+            // Start the channels which are stopped
+            var liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
+            var names = String.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
+            if (liveevntsstopped.Count() > 0)
+            {
+                try
+                {
+                    TextBoxLogWriteLine(string.Format("Starting live event(s) : {0}...", names));
+                    var states = liveevntsstopped.Select(p => p.ResourceState).ToList();
+                    var taskcstop = liveevntsstopped.Select(c => _mediaServicesClient.LiveEvents.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    int complete = 0;
+
+                    while (!taskcstop.All(t => t.IsCompleted) && complete != liveevntsstopped.Count)
+                    {
+                        // refresh the channels
+
+                        foreach (var loitem in liveevntsstopped)
+                        {
+                            var loitemR = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
+                            {
+                                states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
+                                if (loitemR.ResourceState == LiveEventResourceState.Running)
+                                {
+                                    TextBoxLogWriteLine(string.Format("Live event started : {0}.", loitemR.Name));
+                                    complete++;
+                                }
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when starting a live event.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            DoRefreshGridLiveEventV(false);
         }
 
 
@@ -12285,11 +12268,6 @@ namespace AMSExplorer
             DoRefreshGridStreamingEndpointV(false);
         }
 
-        private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-            DoRefreshGridProcessorV(false);
-        }
-
         private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayTransferError();
@@ -12850,7 +12828,6 @@ namespace AMSExplorer
                 }
 
                     );
-                DoRefreshGridProcessorV(false);
                 trackBarEncodingRU.Enabled = true;
                 comboBoxEncodingRU.Enabled = true;
                 buttonUpdateEncodingRU.Enabled = true;
@@ -16501,13 +16478,11 @@ namespace AMSExplorer
             var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
             {
                 Name = a.Name,
-                Id = a.Id,
                 AssetId = a.AssetId,
                 Type = a.Type,
                 AlternateId = a.AlternateId,
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName,
-                Container = a.Container
+                StorageAccountName = a.StorageAccountName
             }
             );
 
@@ -16578,7 +16553,6 @@ namespace AMSExplorer
             this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
-            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
@@ -16604,7 +16578,6 @@ namespace AMSExplorer
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
             this.Columns[_locatorexpirationdate].Width = 130;
             this.Columns["LastModified"].Width = 140;
-            this.Columns["Id"].Width = 300;
             this.Columns["AlternateId"].Width = 300;
             this.Columns["StorageAccountName"].Width = 140;
 
@@ -16652,10 +16625,8 @@ namespace AMSExplorer
                         //AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.AlternateId = asset.AlternateId;
                         //AE.AssetId = asset.AssetId;
-                        AE.Container = asset.Container;
                         //AE.Created = asset.Created;
                         AE.Description = asset.Description;
-                        AE.Id = asset.Id;
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
@@ -16772,7 +16743,6 @@ namespace AMSExplorer
             {
                 Name = a.Name,
                 Description = a.Description,
-                Id = a.Id,
                 AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
                 Type = a.Type,

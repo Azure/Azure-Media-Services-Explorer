@@ -35,7 +35,7 @@ using System.Xml;
 
 namespace AMSExplorer
 {
-    public partial class CreateLiveEvent : Form
+    public partial class LiveEventCreation : Form
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
@@ -55,6 +55,13 @@ namespace AMSExplorer
             get { return textBoxDescription.Text; }
             set { textBoxDescription.Text = value; }
         }
+
+        public bool VanityUrl
+        {
+            get { return checkBoxVanityUrl.Checked; }
+            set { checkBoxVanityUrl.Checked = value; }
+        }
+
         public LiveEventEncoding Encoding
         {
             get
@@ -187,7 +194,7 @@ namespace AMSExplorer
             set { checkBoxStartChannel.Checked = value; }
         }
 
-        public CreateLiveEvent()
+        public LiveEventCreation()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -255,10 +262,6 @@ namespace AMSExplorer
             }
         }
 
-        private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSegDefined.Checked;
-        }
 
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {

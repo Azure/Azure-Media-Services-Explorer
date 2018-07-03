@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class CreateLiveEvent
+    partial class LiveEventCreation
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveEvent));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveEventCreation));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxRestrictIngestIP = new System.Windows.Forms.TextBox();
@@ -39,8 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxProtocolInput = new System.Windows.Forms.ComboBox();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
-            this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
-            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
@@ -99,7 +97,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
+            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -176,19 +174,6 @@
             this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
             this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
             // 
-            // checkBoxHLSFragPerSegDefined
-            // 
-            resources.ApplyResources(this.checkBoxHLSFragPerSegDefined, "checkBoxHLSFragPerSegDefined");
-            this.checkBoxHLSFragPerSegDefined.Name = "checkBoxHLSFragPerSegDefined";
-            this.checkBoxHLSFragPerSegDefined.UseVisualStyleBackColor = true;
-            this.checkBoxHLSFragPerSegDefined.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSegDefined_CheckedChanged);
-            // 
-            // numericUpDownHLSFragPerSeg
-            // 
-            resources.ApplyResources(this.numericUpDownHLSFragPerSeg, "numericUpDownHLSFragPerSeg");
-            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
-            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
-            // 
             // textBoxKeyFrame
             // 
             resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
@@ -231,15 +216,14 @@
             // 
             // TabSettings
             // 
+            this.TabSettings.Controls.Add(this.checkBoxVanityUrl);
             this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.TabSettings.Controls.Add(this.checkBoxHLSFragPerSegDefined);
             this.TabSettings.Controls.Add(this.label2);
             this.TabSettings.Controls.Add(this.label4);
-            this.TabSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
             this.TabSettings.Controls.Add(this.comboBoxEncodingType);
             this.TabSettings.Controls.Add(this.comboBoxProtocolInput);
             this.TabSettings.Controls.Add(this.textBoxKeyFrame);
@@ -612,6 +596,14 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // checkBoxVanityUrl
+            // 
+            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
+            this.checkBoxVanityUrl.Checked = true;
+            this.checkBoxVanityUrl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
+            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
+            // 
             // CreateLiveEvent
             // 
             this.AcceptButton = this.buttonOk;
@@ -630,7 +622,6 @@
             this.Controls.Add(this.textboxchannelname);
             this.Name = "CreateLiveEvent";
             this.Load += new System.EventHandler(this.CreateLiveChannel_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tabControlLiveChannel.ResumeLayout(false);
             this.TabSettings.ResumeLayout(false);
@@ -670,11 +661,9 @@
         private System.Windows.Forms.ComboBox comboBoxProtocolInput;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
-        private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxStartChannel;
-        private System.Windows.Forms.CheckBox checkBoxHLSFragPerSegDefined;
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControlLiveChannel;
@@ -730,5 +719,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
+        private System.Windows.Forms.CheckBox checkBoxVanityUrl;
     }
 }

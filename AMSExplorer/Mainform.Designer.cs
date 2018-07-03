@@ -283,10 +283,6 @@
             this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
-            this.tabPageProcessors = new System.Windows.Forms.TabPage();
-            this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -554,9 +550,6 @@
             this.panelChannels.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveEventsV)).BeginInit();
             this.contextMenuStripChannels.SuspendLayout();
-            this.tabPageProcessors.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
-            this.contextMenuStripProcessors.SuspendLayout();
             this.tabPageOrigins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
             this.contextMenuStripStreaminEndpoints.SuspendLayout();
@@ -594,7 +587,6 @@
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
             this.tabControlMain.Controls.Add(this.tabPageLive);
-            this.tabControlMain.Controls.Add(this.tabPageProcessors);
             this.tabControlMain.Controls.Add(this.tabPageOrigins);
             this.tabControlMain.Controls.Add(this.tabPageStorage);
             this.tabControlMain.Controls.Add(this.tabPageChart);
@@ -2273,17 +2265,17 @@
             resources.ApplyResources(this.panelChannels, "panelChannels");
             this.panelChannels.Name = "panelChannels";
             // 
-            // dataGridViewChannelsV
+            // dataGridViewLiveEventsV
             // 
             this.dataGridViewLiveEventsV.AllowUserToAddRows = false;
             this.dataGridViewLiveEventsV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveEventsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewLiveEventsV, "dataGridViewChannelsV");
+            resources.ApplyResources(this.dataGridViewLiveEventsV, "dataGridViewLiveEventsV");
             this.dataGridViewLiveEventsV.ChannelsPerPage = 50;
             this.dataGridViewLiveEventsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripChannels;
             this.dataGridViewLiveEventsV.FilterState = "All";
-            this.dataGridViewLiveEventsV.Name = "dataGridViewChannelsV";
+            this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
             searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
@@ -2511,43 +2503,6 @@
             this.comboBoxFilterTimeChannel.FormattingEnabled = true;
             this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
             this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
-            // 
-            // tabPageProcessors
-            // 
-            this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
-            resources.ApplyResources(this.tabPageProcessors, "tabPageProcessors");
-            this.tabPageProcessors.Name = "tabPageProcessors";
-            // 
-            // dataGridViewProcessors
-            // 
-            this.dataGridViewProcessors.AllowUserToAddRows = false;
-            this.dataGridViewProcessors.AllowUserToDeleteRows = false;
-            this.dataGridViewProcessors.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewProcessors, "dataGridViewProcessors");
-            this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
-            this.dataGridViewProcessors.Name = "dataGridViewProcessors";
-            this.dataGridViewProcessors.ReadOnly = true;
-            this.dataGridViewProcessors.RowHeadersVisible = false;
-            this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewProcessors.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewProcessors.Resize += new System.EventHandler(this.dataGridViewV_Resize);
-            // 
-            // contextMenuStripProcessors
-            // 
-            this.contextMenuStripProcessors.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem6});
-            this.contextMenuStripProcessors.Name = "contextMenuStripStreamingEndpoints";
-            resources.ApplyResources(this.contextMenuStripProcessors, "contextMenuStripProcessors");
-            // 
-            // refreshToolStripMenuItem6
-            // 
-            this.refreshToolStripMenuItem6.Image = global::AMSExplorer.Bitmaps.refresh;
-            this.refreshToolStripMenuItem6.Name = "refreshToolStripMenuItem6";
-            resources.ApplyResources(this.refreshToolStripMenuItem6, "refreshToolStripMenuItem6");
-            this.refreshToolStripMenuItem6.Click += new System.EventHandler(this.refreshToolStripMenuItem6_Click);
             // 
             // tabPageOrigins
             // 
@@ -4330,9 +4285,6 @@
             this.panelChannels.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveEventsV)).EndInit();
             this.contextMenuStripChannels.ResumeLayout(false);
-            this.tabPageProcessors.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
-            this.contextMenuStripProcessors.ResumeLayout(false);
             this.tabPageOrigins.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
             this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
@@ -4426,8 +4378,6 @@
         private System.Windows.Forms.TextBox textBoxJobSearch;
         private System.Windows.Forms.Button buttonAssetSearch;
         private System.Windows.Forms.TextBox textBoxAssetSearch;
-        private System.Windows.Forms.TabPage tabPageProcessors;
-        private System.Windows.Forms.DataGridView dataGridViewProcessors;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBoxStateAssets;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransfers;
@@ -4554,8 +4504,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripProcessors;
-        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem extendExistingLocatorsToolStripMenuItem;

@@ -165,8 +165,6 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyLiveEvent.LastModified).ToLocalTime().ToString("G"));
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyLiveEvent.Description);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyLiveEvent.Input.StreamingProtocol);
-                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.VanityUrl);
-
 
                 if (MyLiveEvent.Encoding != null)
                 {
@@ -174,7 +172,6 @@ namespace AMSExplorer
                     DGLiveEvent.Rows.Add("Preset Name", MyLiveEvent.Encoding.PresetName);
 
                     //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
-
                 }
 
 
@@ -187,6 +184,8 @@ namespace AMSExplorer
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
 
+                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.VanityUrl);
+
                 int i = 0;
                 foreach (var endpoint in MyLiveEvent.Input.Endpoints)
                 {
@@ -196,6 +195,10 @@ namespace AMSExplorer
                         DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                     }
                     i++;
+                }
+                if (i==0)
+                {
+                    DGLiveEvent.Rows.Add("Input url(s)", "(None. Start the live event to get them ?)");
                 }
 
                 if (MyLiveEvent.Preview != null)

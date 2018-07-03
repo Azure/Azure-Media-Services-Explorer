@@ -3669,21 +3669,6 @@ namespace AMSExplorer
             }
         }
 
-        public string _Container;
-        public string Container
-        {
-            get
-            { return _Container; }
-            set
-            {
-                if (value != _Container)
-                {
-                    _Container = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         public string _StorageAccountName;
         public string StorageAccountName
         {
@@ -3713,8 +3698,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-        public string Id { get; set; }
 
         public Guid AssetId { get; set; }
 

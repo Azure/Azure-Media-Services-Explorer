@@ -3280,7 +3280,7 @@
   <data name="&gt;&gt;panelPrograms.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="dataGridViewChannelsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="dataGridViewLiveEventsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <metadata name="contextMenuStripChannels.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -3498,25 +3498,25 @@
   <data name="&gt;&gt;contextMenuStripChannels.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="dataGridViewChannelsV.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 17</value>
   </data>
-  <data name="dataGridViewChannelsV.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dataGridViewLiveEventsV.Size" type="System.Drawing.Size, System.Drawing">
     <value>992, 163</value>
   </data>
-  <data name="dataGridViewChannelsV.TabIndex" type="System.Int32, mscorlib">
+  <data name="dataGridViewLiveEventsV.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
-  <data name="&gt;&gt;dataGridViewChannelsV.Name" xml:space="preserve">
-    <value>dataGridViewChannelsV</value>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Name" xml:space="preserve">
+    <value>dataGridViewLiveEventsV</value>
   </data>
-  <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
     <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
   </data>
-  <data name="&gt;&gt;dataGridViewChannelsV.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="labelChannels.AutoSize" type="System.Boolean, mscorlib">
@@ -3819,75 +3819,6 @@
   <data name="&gt;&gt;tabPageLive.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="dataGridViewProcessors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripProcessors.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>837, 56</value>
-  </metadata>
-  <data name="refreshToolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="refreshToolStripMenuItem6.Text" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="contextMenuStripProcessors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 26</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripProcessors.Name" xml:space="preserve">
-    <value>contextMenuStripProcessors</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripProcessors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewProcessors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 6</value>
-  </data>
-  <data name="dataGridViewProcessors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 429</value>
-  </data>
-  <data name="dataGridViewProcessors.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewProcessors.Name" xml:space="preserve">
-    <value>dataGridViewProcessors</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewProcessors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewProcessors.Parent" xml:space="preserve">
-    <value>tabPageProcessors</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewProcessors.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPageProcessors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPageProcessors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageProcessors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
-  </data>
-  <data name="tabPageProcessors.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="tabPageProcessors.Text" xml:space="preserve">
-    <value>Processors</value>
-  </data>
-  <data name="&gt;&gt;tabPageProcessors.Name" xml:space="preserve">
-    <value>tabPageProcessors</value>
-  </data>
-  <data name="&gt;&gt;tabPageProcessors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageProcessors.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageProcessors.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="dataGridViewStreamingEndpointsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -4066,7 +3997,7 @@
     <value>tabControlMain</value>
   </data>
   <data name="&gt;&gt;tabPageOrigins.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="dataGridViewStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -4147,7 +4078,7 @@
     <value>tabControlMain</value>
   </data>
   <data name="&gt;&gt;tabPageStorage.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4345,7 +4276,7 @@
     <value>tabControlMain</value>
   </data>
   <data name="&gt;&gt;tabPageChart.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="tabControlMain.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -4468,7 +4399,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4501,7 +4432,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -6052,7 +5983,7 @@
     <value>F5</value>
   </data>
   <data name="refreshToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="refreshToolStripMenuItem.Text" xml:space="preserve">
     <value>Refresh all</value>
@@ -6066,7 +5997,7 @@
 </value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Options...</value>
@@ -6300,7 +6231,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>17</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>533, 17</value>
@@ -6357,7 +6288,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6393,7 +6324,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -6439,7 +6370,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="linkLabelFeedbackAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6475,7 +6406,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabelFeedbackAMS.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>822, 17</value>
@@ -8836,7 +8767,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefreshTab.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -9865,12 +9796,6 @@
     <value>withAzureMediaPlayerToolStripMenuItem4</value>
   </data>
   <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;refreshToolStripMenuItem6.Name" xml:space="preserve">
-    <value>refreshToolStripMenuItem6</value>
-  </data>
-  <data name="&gt;&gt;refreshToolStripMenuItem6.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;refreshToolStripMenuItem5.Name" xml:space="preserve">

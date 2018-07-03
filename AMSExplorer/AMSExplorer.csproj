@@ -680,11 +680,11 @@
     <Compile Include="AssetInformation.Designer.cs">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateLiveEvent.cs">
+    <Compile Include="LiveEventCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateLiveEvent.Designer.cs">
-      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
+    <Compile Include="LiveEventCreation.Designer.cs">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="live.cs">
       <SubType>Component</SubType>
@@ -1012,8 +1012,8 @@
     <EmbeddedResource Include="CopyAsset.ja.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveEvent.ja.resx">
-      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventCreation.ja.resx">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
@@ -1457,8 +1457,8 @@
       <DependentUpon>AssetInformation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveEvent.resx">
-      <DependentUpon>CreateLiveEvent.cs</DependentUpon>
+    <EmbeddedResource Include="LiveEventCreation.resx">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="options.resx">
       <DependentUpon>options.cs</DependentUpon>

@@ -196,7 +196,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxRestrictIngestIP.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="checkBoxRestrictIngestIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -223,7 +223,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxRestrictIngestIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -322,7 +322,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;comboBoxProtocolInput.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -349,58 +349,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 317</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 19</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.Text" xml:space="preserve">
-    <value>HLS fragments per segment :</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSegDefined.Name" xml:space="preserve">
-    <value>checkBoxHLSFragPerSegDefined</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSegDefined.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSegDefined.Parent" xml:space="preserve">
-    <value>TabSettings</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHLSFragPerSegDefined.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 344</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Name" xml:space="preserve">
-    <value>numericUpDownHLSFragPerSeg</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.Parent" xml:space="preserve">
-    <value>TabSettings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownHLSFragPerSeg.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -424,7 +373,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -534,6 +483,36 @@
   <data name="tabControlLiveChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxVanityUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxVanityUrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 337</value>
+  </data>
+  <data name="checkBoxVanityUrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 19</value>
+  </data>
+  <data name="checkBoxVanityUrl.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="checkBoxVanityUrl.Text" xml:space="preserve">
+    <value>Vanity Url</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Name" xml:space="preserve">
+    <value>checkBoxVanityUrl</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Parent" xml:space="preserve">
+    <value>TabSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="moreinfoLiveStreamingProfilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -559,7 +538,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="moreinfoLiveEncodingProfilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -589,7 +568,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="checkBoxRestrictPreviewIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -616,7 +595,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxRestrictPreviewIP.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="textBoxRestrictPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -640,7 +619,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxRestrictPreviewIP.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -688,7 +667,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;comboBoxEncodingType.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="TabSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
