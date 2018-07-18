@@ -38,12 +38,12 @@
             this.DGJob = new System.Windows.Forms.DataGridView();
             this.buttonCopyStats = new System.Windows.Forms.Button();
             this.buttonCreateMail = new System.Windows.Forms.Button();
-            this.listBoxTasks = new System.Windows.Forms.ListBox();
+            this.listBoxOutputs = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.listViewOutputAssets = new System.Windows.Forms.ListView();
+            this.listViewOutputs = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -56,7 +56,7 @@
             this.contextMenuStripInputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.DGTasks = new System.Windows.Forms.DataGridView();
+            this.DGOutputs = new System.Windows.Forms.DataGridView();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).BeginInit();
@@ -68,7 +68,7 @@
             this.contextMenuStripOutputAsset.SuspendLayout();
             this.contextMenuStripInputAsset.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGTasks)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,12 +139,12 @@
             this.buttonCreateMail.UseVisualStyleBackColor = true;
             this.buttonCreateMail.Click += new System.EventHandler(this.buttonCreateMail_Click);
             // 
-            // listBoxTasks
+            // listBoxOutputs
             // 
-            resources.ApplyResources(this.listBoxTasks, "listBoxTasks");
-            this.listBoxTasks.FormattingEnabled = true;
-            this.listBoxTasks.Name = "listBoxTasks";
-            this.listBoxTasks.SelectedIndexChanged += new System.EventHandler(this.listBoxTasks_SelectedIndexChanged);
+            resources.ApplyResources(this.listBoxOutputs, "listBoxOutputs");
+            this.listBoxOutputs.FormattingEnabled = true;
+            this.listBoxOutputs.Name = "listBoxOutputs";
+            this.listBoxOutputs.SelectedIndexChanged += new System.EventHandler(this.listBoxOutputs_SelectedIndexChanged);
             // 
             // tabControl1
             // 
@@ -174,7 +174,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.listViewOutputAssets);
+            this.tabPage3.Controls.Add(this.listViewOutputs);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.listViewInputAssets);
@@ -182,18 +182,18 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // listViewOutputAssets
+            // listViewOutputs
             // 
-            resources.ApplyResources(this.listViewOutputAssets, "listViewOutputAssets");
-            this.listViewOutputAssets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            resources.ApplyResources(this.listViewOutputs, "listViewOutputs");
+            this.listViewOutputs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listViewOutputAssets.ContextMenuStrip = this.contextMenuStripOutputAsset;
-            this.listViewOutputAssets.FullRowSelect = true;
-            this.listViewOutputAssets.HideSelection = false;
-            this.listViewOutputAssets.Name = "listViewOutputAssets";
-            this.listViewOutputAssets.UseCompatibleStateImageBehavior = false;
-            this.listViewOutputAssets.View = System.Windows.Forms.View.Details;
+            this.listViewOutputs.ContextMenuStrip = this.contextMenuStripOutputAsset;
+            this.listViewOutputs.FullRowSelect = true;
+            this.listViewOutputs.HideSelection = false;
+            this.listViewOutputs.Name = "listViewOutputs";
+            this.listViewOutputs.UseCompatibleStateImageBehavior = false;
+            this.listViewOutputs.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -264,27 +264,27 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.DGTasks);
-            this.tabPage2.Controls.Add(this.listBoxTasks);
+            this.tabPage2.Controls.Add(this.DGOutputs);
+            this.tabPage2.Controls.Add(this.listBoxOutputs);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // DGTasks
+            // DGOutputs
             // 
-            this.DGTasks.AllowUserToAddRows = false;
-            this.DGTasks.AllowUserToDeleteRows = false;
-            this.DGTasks.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGTasks, "DGTasks");
-            this.DGTasks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGTasks.ColumnHeadersVisible = false;
-            this.DGTasks.ContextMenuStrip = this.contextMenuStrip;
-            this.DGTasks.MultiSelect = false;
-            this.DGTasks.Name = "DGTasks";
-            this.DGTasks.ReadOnly = true;
-            this.DGTasks.RowHeadersVisible = false;
-            this.DGTasks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGTasks_CellContentClick);
+            this.DGOutputs.AllowUserToAddRows = false;
+            this.DGOutputs.AllowUserToDeleteRows = false;
+            this.DGOutputs.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGOutputs, "DGOutputs");
+            this.DGOutputs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGOutputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGOutputs.ColumnHeadersVisible = false;
+            this.DGOutputs.ContextMenuStrip = this.contextMenuStrip;
+            this.DGOutputs.MultiSelect = false;
+            this.DGOutputs.Name = "DGOutputs";
+            this.DGOutputs.ReadOnly = true;
+            this.DGOutputs.RowHeadersVisible = false;
+            this.DGOutputs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGTasks_CellContentClick);
             // 
             // labelJobNameTitle
             // 
@@ -321,7 +321,7 @@
             this.contextMenuStripOutputAsset.ResumeLayout(false);
             this.contextMenuStripInputAsset.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGTasks)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -337,16 +337,16 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyClipboard;
         private System.Windows.Forms.Button buttonCopyStats;
         private System.Windows.Forms.Button buttonCreateMail;
-        private System.Windows.Forms.ListBox listBoxTasks;
+        private System.Windows.Forms.ListBox listBoxOutputs;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label labelJobNameTitle;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView DGTasks;
+        private System.Windows.Forms.DataGridView DGOutputs;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.ListView listViewOutputAssets;
+        private System.Windows.Forms.ListView listViewOutputs;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Label label2;

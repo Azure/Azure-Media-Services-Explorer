@@ -1732,6 +1732,39 @@
   <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="dataGridViewTransformsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="dataGridViewTransformsV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 7</value>
+  </data>
+  <data name="dataGridViewTransformsV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 345</value>
+  </data>
+  <data name="dataGridViewTransformsV.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="dataGridViewTransformsV.TransformSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Name" xml:space="preserve">
+    <value>dataGridViewTransformsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=4.3.2.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="linkLabelMoreInfoMediaUnits.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1766,7 +1799,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="trackBarEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -1793,7 +1826,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;trackBarEncodingRU.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="buttonUpdateEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1826,7 +1859,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;buttonUpdateEncodingRU.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="comboBoxSearchJobOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1853,7 +1886,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxSearchJobOption.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="labelnbunits.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1892,7 +1925,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;labelnbunits.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1928,7 +1961,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label22.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1964,7 +1997,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="comboBoxFilterJobsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1991,7 +2024,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxFilterJobsTime.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="comboBoxEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2018,7 +2051,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxEncodingRU.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="buttonJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2051,7 +2084,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;buttonJobSearch.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="textBoxJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -2081,7 +2114,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;textBoxJobSearch.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2117,7 +2150,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="comboBoxStateJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2144,7 +2177,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxStateJobs.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="butPrevPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2180,7 +2213,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;butPrevPageJob.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="butNextPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2216,7 +2249,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;butNextPageJob.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="comboBoxPageJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2243,7 +2276,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxPageJobs.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2279,7 +2312,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2315,7 +2348,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="comboBoxOrderJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2342,7 +2375,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;comboBoxOrderJobs.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="dataGridViewJobsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -2571,10 +2604,10 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewJobsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>386, 6</value>
   </data>
   <data name="dataGridViewJobsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 346</value>
+    <value>614, 346</value>
   </data>
   <data name="dataGridViewJobsV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -2589,7 +2622,7 @@
     <value>tabPageJobs</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="tabPageJobs.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -5983,7 +6016,7 @@
     <value>F5</value>
   </data>
   <data name="refreshToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="refreshToolStripMenuItem.Text" xml:space="preserve">
     <value>Refresh all</value>
@@ -5997,7 +6030,7 @@
 </value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Options...</value>

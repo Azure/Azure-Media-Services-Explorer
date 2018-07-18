@@ -915,6 +915,10 @@ namespace AMSExplorer
             return job;
         }
 
+        static Job GetJob(string transformName, string jobName)
+        {
+            return _mediaServicesClient.Jobs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, transformName, jobName);
+        }
 
         static LiveEvent GetChannel(string channelName)
         {
@@ -1173,11 +1177,11 @@ namespace AMSExplorer
 
         private void DoRefresh()
         {
-            return; // migration to V3 API
-            _context = Program.ConnectAndGetNewContext(_credentials);
+
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
             DoRefreshGridLiveEventV(false);
+            return;
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridStorageV(false);
             DoRefreshGridFiltersV(false);
@@ -1236,25 +1240,47 @@ namespace AMSExplorer
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
         }
 
-        private void DoRefreshGridJobV(bool firstime)
+        private void DoRefreshGridTransformV(bool firstime)
         {
-            return; // migration to V3 API
+
             if (firstime)
             {
-                dataGridViewJobsV.Init(_credentials, _context);
-                for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
-                comboBoxPageJobs.SelectedIndex = 0;
+                dataGridViewTransformsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+
+            }
+
+            Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
+
+            dataGridViewTransformsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(0)));
+
+
+
+
+            //uodate tab nimber of jobs
+            //    tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
+        }
+
+
+        private void DoRefreshGridJobV(bool firstime)
+        {
+            if (!dataGridViewJobsV._initialized)
+            //  if (firstime)
+            {
+                dataGridViewJobsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+                //      for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
+                //       comboBoxPageJobs.SelectedIndex = 0;
             }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
             int backupindex = 0;
             int pagecount = 0;
 
-            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
-            comboBoxPageJobs.Invoke(new Action(() => backupindex = comboBoxPageJobs.SelectedIndex));
-            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(_context, backupindex + 1)));
-            dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
+            //    dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
+            //   comboBoxPageJobs.Invoke(new Action(() => backupindex = comboBoxPageJobs.SelectedIndex));
+            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(0)));
+            //  dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
 
+            /*
             if (comboBoxPageJobs.Items.Count < pagecount) // more assets, let's add pages
             {
                 for (int i = comboBoxPageJobs.Items.Count; i < pagecount; i++)
@@ -1275,7 +1301,8 @@ namespace AMSExplorer
                 comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             }
             //uodate tab nimber of jobs
-            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
+          //  tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
+          */
         }
 
         public void DoRefreshGridIngestManifestV(bool firstime)
@@ -2224,22 +2251,28 @@ namespace AMSExplorer
 
         public DialogResult? DisplayJobSource(IAsset asset)
         {
+            throw new NotImplementedException();
+
+
             DialogResult? dialogResult = null;
-            if (asset != null)
-            {
-                var job = _context.Jobs.AsEnumerable().Where(j => j.OutputMediaAssets.Select(o => o.Id).ToList().Contains(asset.Id)).FirstOrDefault();
+            /*
+           if (asset != null)
+           {
+               var job = _context.Jobs.AsEnumerable().Where(j => j.OutputMediaAssets.Select(o => o.Id).ToList().Contains(asset.Id)).FirstOrDefault();
 
-                if (job != null)
-                {
-                    DisplayInfo(job);
-                }
+               if (job != null)
+               {
+                   DisplayInfo(job);
+               }
 
-                else
-                {
-                    MessageBox.Show("Source job was not found.");
-                }
-            }
+               else
+               {
+                   MessageBox.Show("Source job was not found.");
+               }
+           }
+            */
             return dialogResult;
+
         }
 
 
@@ -2266,31 +2299,28 @@ namespace AMSExplorer
         }
 
 
-        public DialogResult? DisplayInfo(IJob job)
+        public DialogResult? DisplayInfo(Job job)
         {
             DialogResult? dialogResult = null;
             if (job != null)
             {
-                // Refresh the context and job.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                job = _context.Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
-                if (job != null)
+
+
+                try
                 {
-                    try
+                    this.Cursor = Cursors.WaitCursor;
+                    JobInformation form = new JobInformation(this, _mediaServicesClient)
                     {
-                        this.Cursor = Cursors.WaitCursor;
-                        JobInformation form = new JobInformation(this, _context)
-                        {
-                            MyJob = job,
-                            MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
-                        };
-                        dialogResult = form.ShowDialog(this);
-                    }
-                    finally
-                    {
-                        this.Cursor = Cursors.Arrow;
-                    }
+                        MyJob = job
+                        //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
+                    };
+                    dialogResult = form.ShowDialog(this);
                 }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
+                }
+
             }
             return dialogResult;
         }
@@ -2866,6 +2896,15 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
+        private List<Job> ReturnSelectedJobsV3()
+        {
+            List<Job> SelectedJobs = new List<Job>();
+            foreach (DataGridViewRow Row in dataGridViewJobsV.SelectedRows)
+                SelectedJobs.Add(GetJob(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString()));
+            SelectedJobs.Reverse();
+            return SelectedJobs;
+        }
+
         private List<IIngestManifest> ReturnSelectedIngestManifests()
         {
             List<IIngestManifest> SelectedIngestManifests = new List<IIngestManifest>();
@@ -2938,13 +2977,13 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting asset(s)...");
                             Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
 
-                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            Task.WaitAll(deleteTasks);
+                                //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                                Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
                         {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -2974,13 +3013,13 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting asset(s)...");
                             Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
 
-                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            Task.WaitAll(deleteTasks);
+                                //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                                Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
                         {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -3018,16 +3057,16 @@ namespace AMSExplorer
                     int nbassetFailedDeleted = 0;
                     bool lastround = false;
 
-                    // let's build the list of tasks
-                    TextBoxLogWriteLine("Deleting all the assets...");
+                        // let's build the list of tasks
+                        TextBoxLogWriteLine("Deleting all the assets...");
                     List<IAsset> deleteTasks = new List<IAsset>();
 
                     try
                     {
                         while (!lastround && nbAssetInAccount != _context.Assets.Count())
                         {
-                            // Enumerate through all assets (1000 at a time)
-                            var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                                // Enumerate through all assets (1000 at a time)
+                                var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
                             lastround = (listassets.Count < batchSize); // last round if less than batchSize
                             nbAssetInAccount = _context.Assets.Count();
 
@@ -3050,8 +3089,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -3085,7 +3124,7 @@ namespace AMSExplorer
 
         private void displayJobInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
+            DisplayInfo(ReturnSelectedJobsV3().FirstOrDefault());
         }
 
 
@@ -4594,20 +4633,20 @@ namespace AMSExplorer
 
         private void DoDeleteSelectedJobs()
         {
-            DoDeleteJobs(ReturnSelectedJobs());
+            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
-        private void DoDeleteJobs(List<IJob> SelectedJobs)
+        private void DoDeleteJobs(List<JobExtension> SelectedJobs)
         {
             if (SelectedJobs.Count > 0)
             {
-                string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
+                string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Task.Run(async () =>
                     {
                         bool Error = false;
-                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
+                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => _mediaServicesClient.Jobs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, j.TransformName, j.Job.Name)).ToArray();
                         TextBoxLogWriteLine("Deleting job(s)");
                         try
                         {
@@ -4615,8 +4654,8 @@ namespace AMSExplorer
                         }
                         catch (Exception ex)
                         {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -4641,14 +4680,14 @@ namespace AMSExplorer
                     int currentSkipSize = 0;
 
 
-                    // let's build the tasks list
-                    TextBoxLogWriteLine("Listing the jobs...");
+                        // let's build the tasks list
+                        TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> deleteTasks = new List<Task>();
 
                     while (true)
                     {
-                        // Enumerate through all jobs (1000 at a time)
-                        var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                            // Enumerate through all jobs (1000 at a time)
+                            var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
                         deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
 
@@ -4670,8 +4709,8 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -4699,16 +4738,16 @@ namespace AMSExplorer
                     int currentSkipSize = 0;
 
 
-                    // let's build the tasks list
-                    TextBoxLogWriteLine("Listing the jobs...");
+                        // let's build the tasks list
+                        TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> cancelTasks = new List<Task>();
 
                     var ongoingJobs = _context.Jobs;//.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
 
                     while (true)
                     {
-                        // Enumerate through all jobs (1000 at a time)
-                        var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
+                            // Enumerate through all jobs (1000 at a time)
+                            var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
                         cancelTasks.AddRange(listjobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
 
@@ -4730,8 +4769,8 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -5560,8 +5599,8 @@ namespace AMSExplorer
 
                         myTask.InputAssets.Add(asset);
 
-                        // Add an output asset to contain the results of the task
-                        string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                            // Add an output asset to contain the results of the task
+                            string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                         if (storageaccountname == "")
                         {
                             myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
@@ -5572,8 +5611,8 @@ namespace AMSExplorer
                         }
                     }
 
-                    // Submit the job and wait until it is completed. 
-                    bool Error = false;
+                        // Submit the job and wait until it is completed. 
+                        bool Error = false;
                     try
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
@@ -5582,8 +5621,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -5628,8 +5667,8 @@ namespace AMSExplorer
 
                     myTask.InputAssets.Add(asset);
 
-                    // Add an output asset to contain the results of the task
-                    string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                        // Add an output asset to contain the results of the task
+                        string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                     if (storageaccountname == "")
                     {
                         myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
@@ -5639,8 +5678,8 @@ namespace AMSExplorer
                         myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions, myAssetFormatOption);
                     }
 
-                    // Submit the job and wait until it is completed. 
-                    bool Error = false;
+                        // Submit the job and wait until it is completed. 
+                        bool Error = false;
                     try
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
@@ -5649,8 +5688,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -6424,6 +6463,7 @@ namespace AMSExplorer
 
             // List of state and numbers of jobs per state
 
+            DoRefreshGridTransformV(true);
             DoRefreshGridJobV(true);
             DoGridTransferInit();
             DoRefreshGridIngestManifestV(true);
@@ -7007,7 +7047,8 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IJob job = GetJob(dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["Id"].Index].Value.ToString());
+                var row = dataGridViewJobsV.Rows[e.RowIndex];
+                Job job = GetJob(row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString(), row.Cells[dataGridViewJobsV.Columns["Name"].Index].Value.ToString());
                 if (job != null)
                 {
                     try
@@ -7186,7 +7227,7 @@ namespace AMSExplorer
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
+            DisplayInfo(ReturnSelectedJobsV3().FirstOrDefault());
         }
 
         private void toolStripMenuJobsCancel_Click(object sender, EventArgs e)
@@ -7285,52 +7326,9 @@ namespace AMSExplorer
             }
         }
 
-        private void displayInformationForAKnownJobIdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayJobInfoFromKnownID();
-        }
 
-        private void DoMenuDisplayJobInfoFromKnownID()
-        {
-            string JobId = "";
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
 
-            if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
-            {
-                IJob KnownJob = GetJob(JobId);
-                if (KnownJob == null)
-                {
-                    MessageBox.Show("This job has not been found.");
-                }
-                else if (DisplayInfo(KnownJob) == DialogResult.OK)
-                {
-                }
-            }
-        }
 
-        private void DoMenuDisplayAssetInfoFromKnownID()
-        {
-            string AssetId = string.Empty;
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null && clipbs.StartsWith(Constants.AssetIdPrefix))
-            {
-                AssetId = clipbs;
-            }
-
-            if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
-            {
-                IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
-                if (KnownAsset == null)
-                {
-                    MessageBox.Show("This asset has not been found.");
-                }
-                else
-                {
-                    DisplayInfo(KnownAsset);
-                }
-            }
-        }
 
 
 
@@ -8515,6 +8513,8 @@ namespace AMSExplorer
             SelectedLiveEvents.Reverse();
             return SelectedLiveEvents;
         }
+
+
 
         private List<IStreamingEndpoint> ReturnSelectedStreamingEndpoints()
         {
@@ -14508,12 +14508,12 @@ namespace AMSExplorer
 
         private void visibleJobsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -14523,7 +14523,7 @@ namespace AMSExplorer
 
         private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(ReturnSelectedJobs());
+            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -15965,6 +15965,25 @@ namespace AMSExplorer
         {
             Process.Start(Constants.LinkReportBugAMSE);
         }
+
+        private void dataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
+        {
+
+            Debug.WriteLine("transform selection changed : begin");
+            var SelectedTransforms = dataGridViewTransformsV.ReturnSelectedTransforms();
+            if (SelectedTransforms.Count > 0)
+            {
+
+                dataGridViewJobsV.TransformSourceNames = SelectedTransforms.Select(c => c.Name).ToList();
+
+                Task.Run(() =>
+                {
+                    Debug.WriteLine("transform selection changed : before refresh");
+                    DoRefreshGridJobV(false);
+                });
+            }
+
+        }
     }
 }
 
@@ -16348,7 +16367,7 @@ namespace AMSExplorer
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static string _orderassets = OrderAssets.LastModifiedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
-        static AzureMediaServicesClient _client;
+
         static Bitmap cancelimage = Bitmaps.cancel;
         static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
         static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
@@ -16364,6 +16383,8 @@ namespace AMSExplorer
         static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
         static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
+
+        static AzureMediaServicesClient _client;
         private string _resourceName;
         private string _accountName;
         static BindingList<AssetEntryV3> _MyObservAssetV3;
@@ -17771,39 +17792,59 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservJob.Count();
+                return _MyObservJobV3.Count();
             }
 
         }
 
-        static BindingList<JobEntry> _MyObservJob;
-        static BindingList<JobEntry> _MyObservAssethisPage;
-        public IEnumerable<IJob> jobs;
-        //static IEnumerable<IJob> jobs;
-        // static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        static BindingList<JobEntryV3> _MyObservJobV3;
         static Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
 
         static private int _jobsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
-        static private bool _initialized = false;
+        public bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _orderjobs = OrderJobs.LastModifiedDescending;
         static string _filterjobsstate = "All";
-        static CloudMediaContext _context;
-        static private CredentialsEntry _credentials;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
         static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
 
-        public void Init(CredentialsEntry credentials, CloudMediaContext context)
-        {
-            IEnumerable<JobEntry> jobquery;
-            _credentials = credentials;
+        static AzureMediaServicesClient _client;
+        private string _resourceName;
+        private string _accountName;
+        private List<string> _transformName = new List<string>();
+        private List<JobEntry> _MyObservJob;
+        private List<JobEntry> _MyObservAssethisPage;
+        private IEnumerable<IJob> jobs;
 
-            _context = context;// Program.ConnectAndGetNewContext(_credentials);
+        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
+        {
+            if (_transformName.Count == 0) return;  // no transform name set
+
+            _client = client;
+            _resourceName = resourceName;
+            _accountName = accountName;
+
+            List<JobEntryV3> jobs = new List<JobEntryV3>();
+
+            foreach (var t in _transformName)
+            {
+                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t).Select(a => new JobEntryV3
+                {
+                    Name = a.Name,
+                    Description = a.Description,
+                    LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                    TransformName = t
+                }
+         ));
+            }
+
+
+            /*
             jobquery = from j in _context.Jobs.Take(0)
                        orderby j.LastModified descending
                        select new JobEntry
@@ -17818,6 +17859,9 @@ namespace AMSExplorer
                            Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                            Progress = (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) ? j.GetOverallProgress() : 101d
                        };
+                       */
+
+            /*
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
             {
@@ -17842,11 +17886,31 @@ namespace AMSExplorer
             this.Columns["EndTime"].Width = 150;
             this.Columns["EndTime"].HeaderText = "End time";
             this.Columns["Duration"].Width = 90;
+            */
+
+            BindingList<JobEntryV3> MyObservJobthisPageV3 = new BindingList<JobEntryV3>(jobs);
+            //    this.DataSource = MyObservJobthisPageV3;
+            this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
 
             _initialized = true;
         }
 
-
+        public List<JobExtension> ReturnSelectedJobs()
+        {
+            var SelectedJobs = new List<JobExtension>();
+            foreach (DataGridViewRow Row in this.SelectedRows)
+            {
+                string tName = Row.Cells[this.Columns["TransformName"].Index].Value.ToString();
+                // sometimes, the transform can be null (if just deleted)
+                var job = _client.Jobs.Get(_resourceName, _accountName, tName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                if (job != null)
+                {
+                    SelectedJobs.Add(new JobExtension() { Job = job, TransformName = tName });
+                }
+            }
+            SelectedJobs.Reverse();
+            return SelectedJobs;
+        }
 
         public void DisplayPage(int page)
         {
@@ -17860,276 +17924,50 @@ namespace AMSExplorer
             }
         }
 
-
-        public void Refreshjobs(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+        public List<string> TransformSourceNames
         {
-            if (!_initialized || context == null) return;
+            get
+            {
+                return _transformName;
+            }
+            set
+            {
+                _transformName = value;
+            }
+        }
+
+
+
+
+        public void Refreshjobs(int pagetodisplay) // all assets are refreshed
+        {
+            if (!_initialized) return;
 
             Debug.WriteLine("Refresh Jobs Start");
 
             this.FindForm().Cursor = Cursors.WaitCursor;
-            _context = context;
 
-            IEnumerable<JobEntry> jobquery;
+            List<JobEntryV3> jobs = new List<JobEntryV3>();
 
-            // DAYS
-            bool filterStartDate = false;
-            bool filterEndDate = false;
-
-            DateTime dateTimeStart = DateTime.UtcNow;
-            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
-
-            int days = FilterTime.ReturnNumberOfDays(_timefilter);
-
-            if (days > 0)
+            foreach (var t in _transformName)
             {
-                filterStartDate = true;
-                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
-            }
-            else if (days == -1) // TimeRange
-            {
-                filterStartDate = true;
-                filterEndDate = true;
-                dateTimeStart = _timefilterTimeRange.StartDate;
-                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t).Select(a => new JobEntryV3
                 {
-                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                    Name = a.Name,
+                    Description = a.Description,
+                    LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                    TransformName = t
                 }
-            }
-
-            IQueryable<IJob> jobsServerQuery = null;// = context.Jobs.AsQueryable();
-
-            // STATE
-            bool filterstate = _filterjobsstate != "All";
-            Microsoft.WindowsAzure.MediaServices.Client.JobState jobstate = Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished;
-            if (filterstate)
-            {
-                jobstate = (Microsoft.WindowsAzure.MediaServices.Client.JobState)Enum.Parse(typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState), _filterjobsstate);
-            }
-
-            // search
-            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
-            {
-                bool Error = false;
-
-                switch (_searchinname.SearchType)
-                {
-                    case SearchIn.JobName:
-                        jobsServerQuery = context.Jobs.Where(j =>
-                                             (j.Name.Contains(_searchinname.Text))
-                                             &&
-                                             (!filterStartDate || j.LastModified > dateTimeStart)
-                                              &&
-                                             (!filterEndDate || j.LastModified < dateTimeRangeEnd)
-                                             &&
-                                             (!filterstate || j.State == jobstate)
-                                             );
-
-                        break;
-
-                    case SearchIn.JobId:
-                        string jobguid = _searchinname.Text;
-                        if (jobguid.StartsWith(Constants.JobIdPrefix))
-                        {
-                            jobguid = jobguid.Substring(Constants.JobIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(jobguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with job Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            jobsServerQuery = context.Jobs.Where(j =>
-                                                    (j.Id == Constants.JobIdPrefix + jobguid)
-                                                    &&
-                                                    (!filterStartDate || j.LastModified > dateTimeStart)
-                                                     &&
-                                                    (!filterEndDate || j.LastModified < dateTimeRangeEnd)
-                                                    &&
-                                                    (!filterstate || j.State == jobstate)
-                                                    );
-                        }
-                        break;
-
-
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                jobsServerQuery = context.Jobs.Where(j =>
-                                 (!filterStartDate || j.LastModified > dateTimeStart)
-                                 &&
-                                 (!filterEndDate || j.LastModified < dateTimeRangeEnd)
-                                 &&
-                                 (!filterstate || j.State == jobstate)
-                                );
+         ));
             }
 
 
-            // SHORTCUT (needed for account with large number of jobs)
-            if (_orderjobs == OrderJobs.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items))
-            {
-                if (_timefilter == FilterTime.First50Items)
-                {
-                    jobs = jobsServerQuery.Take(50);
-                }
-                else if (_timefilter == FilterTime.First1000Items)
-                {
-                    jobs = jobsServerQuery.Take(1000);
-                }
-            }
-            else // general case
+            _MyObservJobV3 = new BindingList<JobEntryV3>(jobs);
 
-            {
-                // let's get all the results locally
-
-                IList<IJob> aggregateListJobs = new List<IJob>();
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-                while (true)
-                {
-                    // Enumerate through all jobs (1000 at a time)
-                    var jobsq = jobsServerQuery
-                        .Skip(skipSize).Take(batchSize).ToList();
-
-                    currentSkipSize += jobsq.Count;
-
-                    foreach (var j in jobsq)
-                    {
-                        aggregateListJobs.Add(j);
-                    }
-
-                    if (currentSkipSize == batchSize)
-                    {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                jobs = aggregateListJobs;
-
-
-
-                switch (_orderjobs)
-                {
-                    case OrderJobs.LastModifiedDescending:
-                        jobs = from j in jobs orderby j.LastModified descending select j;
-                        break;
-
-                    case OrderJobs.LastModifiedAscending:
-                        jobs = from j in jobs orderby j.LastModified ascending select j;
-                        break;
-
-                    case OrderJobs.NameDescending:
-                        jobs = from j in jobs orderby j.Name descending select j;
-                        break;
-
-                    case OrderJobs.NameAscending:
-                        jobs = from j in jobs orderby j.Name ascending select j;
-                        break;
-
-                    case OrderJobs.EndTimeDescending:
-                        jobs = from j in jobs orderby j.EndTime descending select j;
-                        break;
-
-                    case OrderJobs.EndTimeAscending:
-                        jobs = from j in jobs orderby j.EndTime ascending select j;
-                        break;
-
-                    case OrderJobs.ProcessTimeDescending:
-                        jobs = from j in jobs orderby j.RunningDuration descending select j;
-                        break;
-
-                    case OrderJobs.ProcessTimeAscending:
-                        jobs = from j in jobs orderby j.RunningDuration ascending select j;
-                        break;
-
-                    case OrderJobs.StartTimeDescending:
-                        jobs = from j in jobs orderby j.StartTime descending select j;
-                        break;
-
-                    case OrderJobs.StartTimeAscending:
-                        jobs = from j in jobs orderby j.StartTime ascending select j;
-                        break;
-
-                    case OrderJobs.StateDescending:
-                        jobs = from j in jobs orderby j.State descending select j;
-                        break;
-
-                    case OrderJobs.StateAscending:
-                        jobs = from j in jobs orderby j.State ascending select j;
-                        break;
-
-                    default:
-                        jobs = from j in jobs orderby j.LastModified descending select j;
-                        break;
-                }
-
-
-
-
-
-                if (_timefilter == FilterTime.First50Items)
-                {
-                    jobs = jobs.Take(50);
-                }
-                else if (_timefilter == FilterTime.First1000Items)
-                {
-                    jobs = jobs.Take(1000);
-                }
-
-
-            } // end of general case
-
-            _context = context;
-            _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
-            if (_pagecount == 0) _pagecount = 1; // no asset but one page
-
-            if (pagetodisplay < 1) pagetodisplay = 1;
-            if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            _currentpage = pagetodisplay;
-
-            try
-            {
-                jobquery = from j in jobs
-                           select new JobEntry
-                           {
-                               Name = j.Name,
-                               Id = j.Id,
-                               Tasks = j.Tasks.Count,
-                               Priority = j.Priority,
-                               State = j.State,
-                               StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
-                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
-                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) ? j.GetOverallProgress() : 101d
-                           };
-                _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
-                Environment.Exit(0);
-            }
-
-            _MyObservAssethisPage = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (_currentpage - 1)).Take(_jobsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservJobV3));
             _refreshedatleastonetime = true;
 
-            RestoreJobProgress(); // display job progress of new visible jobs
-
-            Debug.WriteLine("Refresh Jobs End");
+            Debug.WriteLine("RefreshJobs End");
 
             this.FindForm().Cursor = Cursors.Default;
         }
@@ -18368,18 +18206,97 @@ namespace AMSExplorer
 
         }
 
-        static IJob GetJob(string jobId)
+        private IJob GetJob(string id)
         {
-            // Use a Linq select query to get an updated 
-            // reference by Id. 
-            var jobInstance =
-                from j in _context.Jobs
-                where j.Id == jobId
-                select j;
-            // Return the job reference as an Ijob. 
-            IJob job = jobInstance.FirstOrDefault();
-
-            return job;
+            throw new NotImplementedException();
         }
     }
+
+    public class DataGridViewTransforms : DataGridView
+    {
+
+        private bool _initialized = false;
+        static private bool _refreshedatleastonetime = false;
+
+        private List<string> idsList = new List<string>();
+        static AzureMediaServicesClient _client;
+        private string _resourceName;
+        private string _accountName;
+
+        static BindingList<TransformEntryV3> _MyObservTransformsV3;
+
+        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
+        {
+            _client = client;
+            _resourceName = resourceName;
+            _accountName = accountName;
+
+
+
+            var transforms = _client.Transforms.List(_resourceName, _accountName).Select(a => new TransformEntryV3
+            {
+                Name = a.Name,
+                Description = a.Description,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G")
+            }
+            );
+
+            BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(transforms.ToList());
+            this.DataSource = MyObservTransformthisPageV3;
+
+            _initialized = true;
+        }
+
+
+
+
+        public void RefreshTransforms() // all transforms are refreshed
+        {
+            if (!_initialized) return;
+
+            Debug.WriteLine("Refresh Transforms Start");
+
+            this.FindForm().Cursor = Cursors.WaitCursor;
+
+            var transforms = _client.Transforms.List(_resourceName, _accountName).Select(a => new TransformEntryV3
+            {
+                Name = a.Name,
+                Description = a.Description,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G")
+            }
+          );
+
+
+            _MyObservTransformsV3 = new BindingList<TransformEntryV3>(transforms.ToList());
+
+
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservTransformsV3));
+            _refreshedatleastonetime = true;
+
+            Debug.WriteLine("RefreshTransforms End");
+
+
+            this.FindForm().Cursor = Cursors.Default;
+
+
+        }
+
+        public List<Transform> ReturnSelectedTransforms()
+        {
+            List<Transform> SelectedTransforms = new List<Transform>();
+            foreach (DataGridViewRow Row in this.SelectedRows)
+            {
+                // sometimes, the transform can be null (if just deleted)
+                var transform = _client.Transforms.Get(_resourceName, _accountName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                if (transform != null)
+                {
+                    SelectedTransforms.Add(transform);
+                }
+            }
+            SelectedTransforms.Reverse();
+            return SelectedTransforms;
+        }
+
+    }
+
 }

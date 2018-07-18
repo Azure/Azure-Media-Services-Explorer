@@ -297,34 +297,34 @@
   <data name="&gt;&gt;buttonCreateMail.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="listBoxTasks.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="listBoxOutputs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="listBoxTasks.HorizontalScrollbar" type="System.Boolean, mscorlib">
+  <data name="listBoxOutputs.HorizontalScrollbar" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="listBoxTasks.ItemHeight" type="System.Int32, mscorlib">
+  <data name="listBoxOutputs.ItemHeight" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="listBoxTasks.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="listBoxOutputs.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 7</value>
   </data>
-  <data name="listBoxTasks.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="listBoxOutputs.Size" type="System.Drawing.Size, System.Drawing">
     <value>733, 94</value>
   </data>
-  <data name="listBoxTasks.TabIndex" type="System.Int32, mscorlib">
+  <data name="listBoxOutputs.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
-  <data name="&gt;&gt;listBoxTasks.Name" xml:space="preserve">
-    <value>listBoxTasks</value>
+  <data name="&gt;&gt;listBoxOutputs.Name" xml:space="preserve">
+    <value>listBoxOutputs</value>
   </data>
-  <data name="&gt;&gt;listBoxTasks.Type" xml:space="preserve">
+  <data name="&gt;&gt;listBoxOutputs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listBoxTasks.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listBoxOutputs.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;listBoxTasks.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listBoxOutputs.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -387,7 +387,7 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="listViewOutputAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="listViewOutputs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
@@ -417,28 +417,28 @@
   <data name="&gt;&gt;contextMenuStripOutputAsset.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="listViewOutputAssets.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="listViewOutputs.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="listViewOutputAssets.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="listViewOutputs.Location" type="System.Drawing.Point, System.Drawing">
     <value>397, 37</value>
   </data>
-  <data name="listViewOutputAssets.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="listViewOutputs.Size" type="System.Drawing.Size, System.Drawing">
     <value>341, 374</value>
   </data>
-  <data name="listViewOutputAssets.TabIndex" type="System.Int32, mscorlib">
+  <data name="listViewOutputs.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
   </data>
-  <data name="&gt;&gt;listViewOutputAssets.Name" xml:space="preserve">
-    <value>listViewOutputAssets</value>
+  <data name="&gt;&gt;listViewOutputs.Name" xml:space="preserve">
+    <value>listViewOutputs</value>
   </data>
-  <data name="&gt;&gt;listViewOutputAssets.Type" xml:space="preserve">
+  <data name="&gt;&gt;listViewOutputs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listViewOutputAssets.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listViewOutputs.Parent" xml:space="preserve">
     <value>tabPage3</value>
   </data>
-  <data name="&gt;&gt;listViewOutputAssets.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listViewOutputs.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
@@ -582,28 +582,28 @@
   <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="DGTasks.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DGOutputs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="DGTasks.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DGOutputs.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 130</value>
   </data>
-  <data name="DGTasks.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DGOutputs.Size" type="System.Drawing.Size, System.Drawing">
     <value>733, 291</value>
   </data>
-  <data name="DGTasks.TabIndex" type="System.Int32, mscorlib">
+  <data name="DGOutputs.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="&gt;&gt;DGTasks.Name" xml:space="preserve">
-    <value>DGTasks</value>
+  <data name="&gt;&gt;DGOutputs.Name" xml:space="preserve">
+    <value>DGOutputs</value>
   </data>
-  <data name="&gt;&gt;DGTasks.Type" xml:space="preserve">
+  <data name="&gt;&gt;DGOutputs.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DGTasks.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DGOutputs.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;DGTasks.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DGOutputs.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
@@ -619,7 +619,7 @@
     <value>1</value>
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
-    <value>Tasks</value>
+    <value>Outputs</value>
   </data>
   <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
     <value>tabPage2</value>

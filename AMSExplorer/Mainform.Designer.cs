@@ -169,6 +169,7 @@
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
             this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
+            this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
@@ -540,6 +541,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).BeginInit();
             this.contextMenuStripIngestManifests.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1609,6 +1611,7 @@
             // tabPageJobs
             // 
             this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageJobs.Controls.Add(this.dataGridViewTransformsV);
             this.tabPageJobs.Controls.Add(this.linkLabelMoreInfoMediaUnits);
             this.tabPageJobs.Controls.Add(this.trackBarEncodingRU);
             this.tabPageJobs.Controls.Add(this.buttonUpdateEncodingRU);
@@ -1631,6 +1634,19 @@
             this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
             resources.ApplyResources(this.tabPageJobs, "tabPageJobs");
             this.tabPageJobs.Name = "tabPageJobs";
+            // 
+            // dataGridViewTransformsV
+            // 
+            this.dataGridViewTransformsV.AllowUserToAddRows = false;
+            this.dataGridViewTransformsV.AllowUserToDeleteRows = false;
+            this.dataGridViewTransformsV.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewTransformsV, "dataGridViewTransformsV");
+            this.dataGridViewTransformsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTransformsV.Name = "dataGridViewTransformsV";
+            this.dataGridViewTransformsV.ReadOnly = true;
+            this.dataGridViewTransformsV.RowHeadersVisible = false;
+            this.dataGridViewTransformsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.dataGridViewTransformsV_SelectionChanged);
             // 
             // linkLabelMoreInfoMediaUnits
             // 
@@ -4273,6 +4289,7 @@
             this.contextMenuStripIngestManifests.ResumeLayout(false);
             this.tabPageJobs.ResumeLayout(false);
             this.tabPageJobs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.contextMenuStripJobs.ResumeLayout(false);
@@ -4792,6 +4809,7 @@
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoMediaUnits;
         private System.Windows.Forms.Button buttonRefreshTab;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
+        private DataGridViewTransforms dataGridViewTransformsV;
     }
 }
 

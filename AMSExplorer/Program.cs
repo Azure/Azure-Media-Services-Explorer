@@ -747,7 +747,7 @@ namespace AMSExplorer
         {
             public LiveOutput LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
-    }
+        }
 
 
         // set WebBrowser features, more info: http://stackoverflow.com/a/18333982/1768303
@@ -3390,6 +3390,30 @@ namespace AMSExplorer
     }
 
 
+    public class JobEntryV3
+    {
+        public string Name { get; set; }
+
+        public string TransformName { get; set; }
+        public string Id { get; set; }
+
+        public string Description { get; set; }
+        public int Tasks { get; set; }
+        public int Priority { get; set; }
+        public Microsoft.WindowsAzure.MediaServices.Client.JobState State { get; set; }
+        public string StartTime { get; set; }
+        public string LastModified { get; set; }
+        public string EndTime { get; set; }
+        public string Duration { get; set; }
+        public Double Progress { get; set; }
+    }
+
+    public class JobExtension
+    {
+        public Job Job { get; set; }
+        public string TransformName { get; set; }
+    }
+
     public class AssetEntry : INotifyPropertyChanged
     {
         public string _Name;
@@ -3963,6 +3987,67 @@ namespace AMSExplorer
     }
 
 
+    public class TransformEntryV3 : INotifyPropertyChanged
+    {
+        public string _Name;
+        public string Name
+        {
+            get
+            { return _Name; }
+            set
+            {
+                if (value != _Name)
+                {
+                    _Name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string _Description;
+        public string Description
+        {
+            get
+            { return _Description; }
+            set
+            {
+                if (value != _Description)
+                {
+                    _Description = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
+        private string _LastModified;
+        public string LastModified
+        {
+            get
+            { return _LastModified; }
+            set
+            {
+                if (value != _LastModified)
+                {
+                    _LastModified = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+
+    }
+
+
     public class ACSEndPointMapping
     {
         public string Name { get; set; }
@@ -4328,7 +4413,7 @@ namespace AMSExplorer
 
     public class LiveOutputUtil
     {
-       public static string ReturnLiveEventFromOutput (LiveOutput liveoutput)
+        public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
 
         {
             var idParts = liveoutput.Id.Split('/');

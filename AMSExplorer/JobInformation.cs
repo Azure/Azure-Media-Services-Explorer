@@ -23,25 +23,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 
 namespace AMSExplorer
 {
     public partial class JobInformation : Form
     {
-        public IJob MyJob;
-        private CloudMediaContext _context;
+        public Job MyJob;
+        private AzureMediaServicesClient _client;
         private Mainform _mainform;
-        public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
+        public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public JobInformation(Mainform mainform, CloudMediaContext context)
+        public JobInformation(Mainform mainform, AzureMediaServicesClient client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _client = client;
             _mainform = mainform;
-            
+
         }
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -69,10 +70,14 @@ namespace AMSExplorer
 
         public void DoJobStats()
         {
+            throw new NotImplementedException();
+
+            /*
             JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
             StringBuilder SB = JR.GetStats();
             var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.JobInformation_DoJobStats_JobReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
+            */
         }
 
         private void JobInformation_Load(object sender, EventArgs e)
@@ -80,8 +85,8 @@ namespace AMSExplorer
             labelJobNameTitle.Text += MyJob.Name;
 
             DGJob.ColumnCount = 2;
-            DGTasks.ColumnCount = 2;
-            DGTasks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            DGOutputs.ColumnCount = 2;
+            DGOutputs.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
             DGErrors.ColumnCount = 3;
             DGErrors.Columns[0].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Task;
@@ -90,23 +95,28 @@ namespace AMSExplorer
 
             DGJob.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyJob.Name);
+            DGJob.Rows.Add("Description", MyJob.Description);
             DGJob.Rows.Add("Id", MyJob.Id);
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, MyJob.State);
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, MyJob.Priority);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
+            //DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
 
-            if (MyJob.StartTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
-            if (MyJob.EndTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
+            // if (MyJob.StartTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
+            // if (MyJob.EndTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
 
+            /*
             if ((MyJob.StartTime != null) && (MyJob.EndTime != null))
             {
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_JobDuration, ((DateTime)MyJob.EndTime).Subtract((DateTime)MyJob.StartTime));
             }
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
+            */
+
+            // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyJob.Created).ToLocalTime().ToString("G"));
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
+            // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
+            /*
 
             TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
@@ -120,22 +130,29 @@ namespace AMSExplorer
             {
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_InputOutputSize, AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted);
             }
+            */
 
-            bool btaskinjob = (MyJob.Tasks.Count() > 0);
+            bool boutoutsinjobs = (MyJob.Outputs.Count() > 0);
 
-            if (btaskinjob)
+            int index = 1;
+            if (boutoutsinjobs)
             {
-                foreach (ITask task in MyJob.Tasks)
+                foreach (var output in MyJob.Outputs)
                 {
-                    listBoxTasks.Items.Add(task.Name ?? Constants.stringNull);
-
-                    for (int i = 0; i < task.ErrorDetails.Count(); i++)
+                    // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
+                    var outputLabel = "output #" + index;
+                    listBoxOutputs.Items.Add(outputLabel);
+                    if (output.Error != null && output.Error.Details != null)
                     {
-                        DGErrors.Rows.Add(task.Name, task.ErrorDetails[i].Message, task.ErrorDetails[i].Code);
+                        for (int i = 0; i < output.Error.Details.Count(); i++)
+                        {
+                            DGErrors.Rows.Add(outputLabel, output.Error.Details[i].Message, output.Error.Details[i].Code);
+                        }
                     }
 
+
                 }
-                listBoxTasks.SelectedIndex = 0;
+                listBoxOutputs.SelectedIndex = 0;
             }
 
             ListJobAssets();
@@ -146,38 +163,38 @@ namespace AMSExplorer
             listViewInputAssets.BeginUpdate();
             try
             {
-                foreach (IAsset asset in MyJob.InputMediaAssets)
-                {
-                    ListViewItem item = new ListViewItem(asset.Name, 0);
-                    item.SubItems.Add(AssetInfo.GetAssetType(asset));
-                    listViewInputAssets.Items.Add(item);
-                }
+
+                ListViewItem item = new ListViewItem(MyJob.Input.Label, 0);
+                //item.SubItems.Add(AssetInfo.GetAssetType(asset));
+                listViewInputAssets.Items.Add(item);
+
             }
             catch
             {
-                ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
-                listViewInputAssets.Items.Add(item);
+                //   ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
+                // listViewInputAssets.Items.Add(item);
             }
             listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewInputAssets.EndUpdate();
 
-            listViewOutputAssets.BeginUpdate();
+            listViewOutputs.BeginUpdate();
             try
             {
-                foreach (IAsset asset in MyJob.OutputMediaAssets)
+                int index = 1;
+                foreach (var output in MyJob.Outputs)
                 {
-                    ListViewItem item = new ListViewItem(asset.Name, 0);
-                    item.SubItems.Add(AssetInfo.GetAssetType(asset));
-                    listViewOutputAssets.Items.Add(item);
+                    ListViewItem item = new ListViewItem("output #" + index, 0);
+                    //item.SubItems.Add(output.Progress);
+                    listViewOutputs.Items.Add(item);
                 }
             }
             catch
             {
-                ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
-                listViewOutputAssets.Items.Add(item);
+                //ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
+                //listViewOutputs.Items.Add(item);
             }
-            listViewOutputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewOutputAssets.EndUpdate();
+            listViewOutputs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewOutputs.EndUpdate();
         }
 
 
@@ -189,98 +206,46 @@ namespace AMSExplorer
 
         private void DoJobCreateMail()
         {
+            throw new NotImplementedException();
+            /*
             JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
             JR.CreateOutlookMail();
+            */
         }
 
-        private void listBoxTasks_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ITask task = MyJob.Tasks.Skip(listBoxTasks.SelectedIndex).Take(1).FirstOrDefault();
+            var output = MyJob.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
-            DGTasks.Rows.Clear();
+            DGOutputs.Rows.Clear();
 
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, task.Name);
+            //  DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, task.Name);
 
-            int i = DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Configuration, "");
+            /*
+            int i = DGOutputs.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Configuration, "");
             DataGridViewButtonCell btn = new DataGridViewButtonCell();
-            DGTasks.Rows[i].Cells[1] = btn;
-            DGTasks.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue;
-            DGTasks.Rows[i].Cells[1].Tag = task.GetClearConfiguration();
+            DGOutputs.Rows[i].Cells[1] = btn;
+            DGOutputs.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue;
+            DGOutputs.Rows[i].Cells[1].Tag =  task.GetClearConfiguration();
+            */
 
-            i = DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Body, "");
+            /*
+            i = DGOutputs.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Body, "");
             btn = new DataGridViewButtonCell();
-            DGTasks.Rows[i].Cells[1] = btn;
-            DGTasks.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
-            DGTasks.Rows[i].Cells[1].Tag = task.TaskBody;
+            DGOutputs.Rows[i].Cells[1] = btn;
+            DGOutputs.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
+            DGOutputs.Rows[i].Cells[1].Tag = task.TaskBody;
+            */
 
-            DGTasks.Rows.Add("Id", task.Id);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, task.State);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, task.Priority);
-            if (task.StartTime != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)task.StartTime).ToLocalTime().ToString("G"));
-            if (task.EndTime != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)task.EndTime).ToLocalTime().ToString("G"));
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.DataGridViewIngestManifest_Init_Progress, task.Progress);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Duration, task.RunningDuration);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage, task.PerfMessage);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId, task.EncryptionKeyId);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme, task.EncryptionScheme);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion, task.EncryptionVersion);
+            DGOutputs.Rows.Add("Progress", output.Progress);
+            DGOutputs.Rows.Add("State", output.State);
 
-            // let's get the name of the processor
-            IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, _context);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId, task.MediaProcessorId);
-            if (processor != null) DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName, processor.Name);
-
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_Options, task.Options);
-            DGTasks.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector, task.InitializationVector);
-
-            string sid = "";
-            try
+            if (output.Error != null && output.Error.Details != null)
             {
-                if (task.InputAssets.Count() > 1) sid = " #{0}"; else sid = "";
-                for (int j = 0; j < task.InputAssets.Count(); j++)
+                for (int j = 0; j < output.Error.Details.Count(); j++)
                 {
-                    var s = string.Format(sid, j + 1);
-                    DGTasks.Rows.Add(string.Format("Input asset{0} Name", s), task.InputAssets[j].Name);
-                    DGTasks.Rows.Add(string.Format("Input asset{0} Id", s), task.InputAssets[j].Id);
+                    DGOutputs.Rows.Add("Error", output.Error.Details[j].Code + ": " + output.Error.Details[j].Message);
                 }
-            }
-            catch
-            {
-                DGTasks.Rows.Add("Input asset(s)", "<error, deleted?>");
-            }
-
-            try
-            {
-                if (task.OutputAssets.Count() > 1) sid = " #{0}"; else sid = "";
-                for (int j = 0; j < task.OutputAssets.Count(); j++)
-                {
-                    var s = string.Format(sid, j + 1);
-                    DGTasks.Rows.Add(string.Format("Output asset{0} Name", s), task.OutputAssets[j].Name);
-                    DGTasks.Rows.Add(string.Format("Output asset{0} Id", s), task.OutputAssets[j].Id);
-                    DGTasks.Rows.Add(string.Format("Output asset{0} Format Option", s), task.OutputAssets[j].FormatOption);
-                }
-            }
-            catch
-            {
-                DGTasks.Rows.Add("Output asset(s)", "<error, deleted?>");
-            }
-
-            TaskSizeAndPrice taskSizePrice = JobInfo.CalculateTaskSizeAndPrice(task, _context);
-            if ((taskSizePrice.InputSize != -1) && (taskSizePrice.OutputSize != -1))
-            {
-                DGTasks.Rows.Add("Input size", AssetInfo.FormatByteSize(taskSizePrice.InputSize));
-                DGTasks.Rows.Add("Output size", AssetInfo.FormatByteSize(taskSizePrice.OutputSize));
-                //DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(taskSizePrice.InputSize + taskSizePrice.OutputSize));
-                if (taskSizePrice.Price != -1) DGTasks.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, taskSizePrice.Price));
-            }
-            else
-            {
-                DGTasks.Rows.Add("Input/output size", "undefined, task did not finish or one of the assets has been deleted");
-            }
-
-            for (int j = 0; j < task.ErrorDetails.Count(); j++)
-            {
-                DGTasks.Rows.Add("Error", task.ErrorDetails[j].Code + ": " + task.ErrorDetails[j].Message);
             }
         }
 
@@ -306,16 +271,19 @@ namespace AMSExplorer
 
         private void DisplayAssetInfo(bool input)
         {
+            throw new NotImplementedException();
+
+            /*
             IAsset asset;
 
             if (input)
             {
                 var index = listViewInputAssets.SelectedIndices[0];
-                asset = MyJob.InputMediaAssets[index];
+                asset = MyJob.Input..InputMediaAssets[index];
             }
             else
             {
-                var index = listViewOutputAssets.SelectedIndices[0];
+                var index = listViewOutputs.SelectedIndices[0];
                 asset = MyJob.OutputMediaAssets[index];
             }
 
@@ -325,7 +293,7 @@ namespace AMSExplorer
                 myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
             };
             DialogResult dialogResult = form.ShowDialog(this);
-
+            */
 
         }
 
