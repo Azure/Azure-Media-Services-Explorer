@@ -920,6 +920,11 @@ namespace AMSExplorer
             return _mediaServicesClient.Jobs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, transformName, jobName);
         }
 
+        static Transform GetTransform(string transformName)
+        {
+            return _mediaServicesClient.Transforms.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, transformName);
+        }
+
         static LiveEvent GetChannel(string channelName)
         {
             return _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channelName);
@@ -2312,6 +2317,32 @@ namespace AMSExplorer
                     JobInformation form = new JobInformation(this, _mediaServicesClient)
                     {
                         MyJob = job
+                        //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
+                    };
+                    dialogResult = form.ShowDialog(this);
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
+                }
+
+            }
+            return dialogResult;
+        }
+
+        public DialogResult? DisplayInfo(Transform t)
+        {
+            DialogResult? dialogResult = null;
+            if (t != null)
+            {
+
+
+                try
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    TransformInformation form = new TransformInformation(this, _mediaServicesClient)
+                    {
+                        MyTransform = t
                         //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
                     };
                     dialogResult = form.ShowDialog(this);
@@ -15984,6 +16015,29 @@ namespace AMSExplorer
             }
 
         }
+
+        private void dataGridViewTransformsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                var row = dataGridViewTransformsV.Rows[e.RowIndex];
+                var transform = GetTransform(row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString());
+                if (transform != null)
+                {
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        if (DisplayInfo(transform) == DialogResult.OK)
+                        {
+                        }
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -17970,6 +18024,7 @@ namespace AMSExplorer
             Debug.WriteLine("RefreshJobs End");
 
             this.FindForm().Cursor = Cursors.Default;
+
         }
 
 

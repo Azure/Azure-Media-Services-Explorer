@@ -234,6 +234,12 @@
     <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransformInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformInformation.Designer.cs">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="rpv3\ArmClientCredentials.cs" />
     <Compile Include="rpv3\ConfigWrapper.cs" />
     <Compile Include="DeleteKeyAndPolicy.cs">
@@ -999,6 +1005,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.ja.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LiveEventInformation.ja.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
