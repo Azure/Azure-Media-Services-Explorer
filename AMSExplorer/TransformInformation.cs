@@ -187,7 +187,31 @@ namespace AMSExplorer
             DGOutputs.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
             DGOutputs.Rows[i].Cells[1].Tag = task.TaskBody;
             */
-            DGOutputs.Rows.Add("Preset", output.Preset);
+            DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
+            
+          
+            if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
+            {
+                var pmes = (BuiltInStandardEncoderPreset) output.Preset;
+                DGOutputs.Rows.Add("Preset name", pmes.PresetName);
+            }
+            else if (output.Preset.GetType() == typeof(AudioAnalyzerPreset))
+            {
+                var pmes = (AudioAnalyzerPreset)output.Preset;
+                DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
+            }
+            else if (output.Preset.GetType() == typeof(StandardEncoderPreset))
+            {
+                var pmes = (StandardEncoderPreset)output.Preset;
+               // DGOutputs.Rows.Add("Audio language", pmes.);
+            }
+            else if (output.Preset.GetType() == typeof(VideoAnalyzerPreset))
+            {
+                var pmes = (VideoAnalyzerPreset)output.Preset;
+                 DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
+                DGOutputs.Rows.Add("Audio Insights Only", pmes.AudioInsightsOnly);
+            }
+
 
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
 

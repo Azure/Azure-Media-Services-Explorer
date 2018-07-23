@@ -2993,7 +2993,6 @@ namespace AMSExplorer
 
         private void DoDeleteAssets(List<Asset> SelectedAssets)
         {
-
             if (SelectedAssets.Count > 0)
             {
                 var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
