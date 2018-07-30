@@ -1,3 +1,8 @@
+Version 4.3.2.1 (July 30, 2018) brings the following features and improvements :
+
+* Fixes an issue with multiple transfers
+
+
 Version 4.3.2.0 (June 14, 2018) brings the following features and improvements :
 
 * Updated Japanese translation
