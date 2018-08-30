@@ -1212,7 +1212,7 @@ namespace AMSExplorer
                                 {
                                     value = 2;
                                 }
-                                else if (res <= 4096 * 2304)
+                                else if (res <= 4096 * 2160)
                                 {
                                     value = 4;
                                 }
