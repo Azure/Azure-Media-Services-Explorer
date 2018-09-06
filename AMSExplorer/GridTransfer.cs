@@ -18,39 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using System.Configuration;
-using System.IO;
 using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Web;
-using System.Xml;
-using System.Xml.Linq;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Collections.ObjectModel;
-using System.Drawing.Drawing2D;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using System.Collections.Specialized;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Reflection;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using System.Timers;
-using System.Text.RegularExpressions;
-using System.IdentityModel.Tokens;
 using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
@@ -151,6 +122,7 @@ namespace AMSExplorer
                 }
             }
         }
+
         private Nullable<DateTime> _StartTime;
         public Nullable<DateTime> StartTime
         {
@@ -165,6 +137,7 @@ namespace AMSExplorer
                 }
             }
         }
+
         private string _EndTime;
         public string EndTime
         {
@@ -196,7 +169,6 @@ namespace AMSExplorer
         }
 
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-
         public CancellationTokenSource tokenSource { get; set; }
         public Guid Id { get; set; }
 
@@ -214,6 +186,7 @@ namespace AMSExplorer
                 }
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String p = "")
         {
@@ -270,6 +243,7 @@ namespace AMSExplorer
 
             tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", 0)));
         }
+
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
             TransferEntry myTE = new TransferEntry()
@@ -285,7 +259,7 @@ namespace AMSExplorer
 
             }
                 ));
-            myTE.Id = Guid.NewGuid();             // _MyListTransfer.IndexOf(myTE);
+            myTE.Id = Guid.NewGuid();
 
             if (CanBePutInTheQueue)
             {
@@ -326,6 +300,7 @@ namespace AMSExplorer
             transfer.ProgressText = progresstext;
             DoGridTransferUpdateProgress(progress, guid);
         }
+
         private void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
@@ -341,8 +316,9 @@ namespace AMSExplorer
 
         private TransferEntry ReturnTransfer(Guid guid)
         {
-            return _MyListTransfer.Where(t => t.Id == guid).FirstOrDefault();
+            return _MyListTransfer.ToList().Where(t => t.Id == guid).FirstOrDefault();
         }
+
         private void DoGridTransferDeclareCompleted(Guid guid, string DestLocation)  // Process is completed
         {
             TransferEntry transfer = ReturnTransfer(guid);
@@ -358,7 +334,6 @@ namespace AMSExplorer
                 this.Notify(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_TransferCompleted, string.Format("{0}", transfer.Name));
                 this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCompleted_Transfer0Completed, transfer.Name));
             }));
-
         }
 
         private void DoGridTransferDeclareCancelled(Guid guid)  // Process is completed
@@ -375,7 +350,6 @@ namespace AMSExplorer
                 this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser, transfer.Name), true);
             }));
         }
-
 
         private void DoGridTransferDeclareError(Guid guid, Exception e)  // Process is completed
         {
@@ -402,7 +376,6 @@ namespace AMSExplorer
                 this.Notify("Transfer Error", string.Format("{0}", transfer.Name), true);
                 this.TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareError_Transfer0Error, transfer.Name), true);
                 this.TextBoxLogWriteLine(ErrorDesc, true);
-
             }));
         }
 
@@ -428,7 +401,7 @@ namespace AMSExplorer
 
         private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
-            var runningTransfers = _MyListTransfer.Where(t => t.processedinqueue && t.State == TransferState.Processing);
+            var runningTransfers = _MyListTransfer.ToList().Where(t => t.processedinqueue && t.State == TransferState.Processing);
 
             if (runningTransfers.Count() < Properties.Settings.Default.ConcurrentTransfers && _MyListTransferQueue[0] == guid)
             {
@@ -438,8 +411,6 @@ namespace AMSExplorer
             {
                 return false;
             }
-
-           // return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == guid) : true;
         }
 
         private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true trasfer is managed in the queue
