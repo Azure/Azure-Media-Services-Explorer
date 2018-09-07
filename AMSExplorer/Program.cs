@@ -1649,7 +1649,7 @@ namespace AMSExplorer
                     _context
                         .StreamingEndpoints
                         .AsEnumerable()
-                          .Where(o => (o.State == StreamingEndpointState.Running) && (StreamingEndpointInformation.CanDoDynPackaging(o)))
+                          .Where(o => (o.State == StreamingEndpointState.Running))
                           .OrderByDescending(o => o.CdnEnabled)
                         .Select(
                             o =>
@@ -1737,9 +1737,19 @@ namespace AMSExplorer
         }
 
 
+        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.NotSpecified, audiotrack);
+        }
+
         public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.NotSpecified, audiotrack);
+        }
+
+        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.SmoothLegacy, audiotrack);
         }
 
         public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
@@ -1752,6 +1762,11 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv4, audiotrack);
+        }
+
         public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv4, audiotrack);
@@ -1762,6 +1777,11 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv3, audiotrack);
+        }
+
         public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv3, audiotrack);
@@ -1772,6 +1792,11 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.Dash, audiotrack);
+        }
+
         public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.Dash, audiotrack);
@@ -1792,6 +1817,56 @@ namespace AMSExplorer
                 .Where(af => af.Name.EndsWith(ILocatorExtensions.ManifestFileExtension, StringComparison.OrdinalIgnoreCase))
                   .ToList();
         }
+
+        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols outputprotocol = AMSOutputProtocols.NotSpecified, string audiotrack = null)
+        {
+            const string BaseStreamingUrlTemplate = "{0}/{1}/manifest";
+
+            if (originLocator == null)
+            {
+                throw new ArgumentNullException("locator", "The locator cannot be null.");
+            }
+
+            if (originLocator.Type != LocatorType.OnDemandOrigin)
+            {
+                throw new ArgumentException("The locator type must be on-demand origin.", "originLocator");
+            }
+
+            IEnumerable<Uri> smoothStreamingUri = null;
+            IAsset asset = originLocator.Asset;
+            IEnumerable<IAssetFile> manifestAssetFiles = GetManifestAssetFiles(asset);
+            if (manifestAssetFiles != null)
+            {
+                smoothStreamingUri = manifestAssetFiles.Select(f => new Uri(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            BaseStreamingUrlTemplate,
+                            originLocator.Path.TrimEnd('/'),
+                            f.Name
+                            ),
+                        UriKind.Absolute));
+            }
+
+            string hostname = null;
+            if (customhostname != null)
+            {
+                hostname = customhostname;
+            }
+            else if (se != null)
+            {
+                hostname = se.HostName;
+            }
+
+            smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
+            {
+                Host = hostname ?? u.Host,
+                Scheme = https ? "https://" : "http://",
+                Path = AssetInfo.AddAudioTrackToUrlString(AssetInfo.AddProtocolFormatInUrlString(AssetInfo.AddFilterToUrlString(u.AbsolutePath, filter), outputprotocol), audiotrack)
+            }.Uri);
+
+            return smoothStreamingUri;
+        }
+
 
         private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols outputprotocol = AMSOutputProtocols.NotSpecified, string audiotrack = null)
         {
@@ -1842,8 +1917,6 @@ namespace AMSExplorer
             return smoothStreamingUri;
         }
 
-
-
         public static string GetSmoothLegacy(string smooth_uri)
         {
             return string.Format("{0}(format={1})", smooth_uri, format_smooth_legacy);
@@ -1886,9 +1959,6 @@ namespace AMSExplorer
                 case AMSOutputProtocols.Dash:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
 
-                case AMSOutputProtocols.HDS:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hds));
-
                 case AMSOutputProtocols.HLSv3:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v3));
 
@@ -1924,6 +1994,43 @@ namespace AMSExplorer
         }
 
         // return the URL with hostname from streaming endpoint
+        public static Uri RW(Uri url, StreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
+        {
+            if (url != null)
+            {
+                string path = AddFilterToUrlString(url.AbsolutePath, filters);
+                path = AddProtocolFormatInUrlString(path, protocol);
+
+                if (protocol == AMSOutputProtocols.HLSv3)
+                {
+                    path = AddAudioTrackToUrlString(path, audiotrackname);
+                    if (HLSNoAudioOnly)
+                    {
+                        path = AddHLSNoAudioOnlyModeToUrlString(path);
+                    }
+                }
+
+                string hostname = null;
+                if (customHostName != null)
+                {
+                    hostname = customHostName;
+                }
+                else if (se != null)
+                {
+                    hostname = se.HostName;
+                }
+
+                UriBuilder urib = new UriBuilder()
+                {
+                    Host = hostname ?? url.Host,
+                    Scheme = https ? "https://" : "http://",
+                    Path = path,
+                };
+                return urib.Uri;
+            }
+            else return null;
+        }
+
         public static Uri RW(Uri url, IStreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
             if (url != null)
@@ -1962,11 +2069,16 @@ namespace AMSExplorer
         }
 
 
+        public static string RW(string path, StreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
+        {
+            return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
+        }
 
         public static string RW(string path, IStreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
         {
             return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
         }
+
 
         public static long GetSize(IAsset asset)
         {
@@ -2732,7 +2844,7 @@ namespace AMSExplorer
             return sb;
         }
 
-        public static StringBuilder GetStat(IAsset MyAsset, IStreamingEndpoint SelectedSE = null)
+        public static StringBuilder GetStat(IAsset MyAsset, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
             string MyAssetType = AssetInfo.GetAssetType(MyAsset);
@@ -2824,7 +2936,7 @@ namespace AMSExplorer
             return sb;
         }
 
-        public static StringBuilder GetDescriptionLocators(IAsset MyAsset, IStreamingEndpoint SelectedSE = null)
+        public static StringBuilder GetDescriptionLocators(IAsset MyAsset, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -2843,7 +2955,7 @@ namespace AMSExplorer
                     sb.AppendLine(_prog_down_http_streaming + " : ");
                     foreach (IAssetFile IAF in MyAsset.AssetFiles)
                     {
-                        sb.AppendLine((RW(new Uri(locator.Path + IAF.Name), https: true)).AbsoluteUri);
+                        // sb.AppendLine(RW(new Uri(locator.Path + IAF.Name), https: true).AbsoluteUri); V3 migration
                     }
                     sb.AppendLine("");
 
@@ -2919,8 +3031,8 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, Mainform mainForm,
-            IAsset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
+        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, AzureMediaServicesClient client, CredentialsEntryV3 cred, Mainform mainForm,
+            Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "")
         {
@@ -2928,7 +3040,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(Urlstr))
             {
-                IStreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(context);
+                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(client,cred);
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
@@ -2939,7 +3051,7 @@ namespace AMSExplorer
                         //(context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
                     {
-                        var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer, true);
+                        var form = new ChooseStreamingEndpoint(client, cred, myasset, Urlstr, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -2968,9 +3080,9 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = AssetInfo.GetAssetProtection(myasset, context); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine
+                    keytype = AssetInfo.GetAssetProtection(/*myasset*/ null, context); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
 
-                    if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context)) // dynamic encryption with token
+                    if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(/*myasset*/ null, context)) // dynamic encryption with token  V3 migration
                     {
                         // user wants perhaps to play an asset with a token, so let's try to generate it
                         switch (typeplayer)
@@ -2987,7 +3099,7 @@ namespace AMSExplorer
                                     case AssetProtectionType.PlayReady:
                                     case AssetProtectionType.Widevine:
                                     case AssetProtectionType.PlayReadyAndWidevine:
-                                        tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
+                                        tokenresult = DynamicEncryption.GetTestToken(/*myasset*/ null, context, displayUI: true); // v3 migration
                                         if (!string.IsNullOrEmpty(tokenresult.TokenString))
                                         {
                                             tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
@@ -3097,12 +3209,6 @@ namespace AMSExplorer
                                 playerurl += string.Format(Constants.AMPtokensyntax, tokenresult);
                             }
                         }
-                        else // format auto. If classic se, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
-                        {
-                            if (!StreamingEndpointInformation.CanDoDynPackaging(choosenSE) && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
-                                playerurl += string.Format(Constants.AMPformatsyntax, "smooth");
-                        }
-
 
                         if (technology != AzureMediaPlayerTechnologies.Auto)
                         {
@@ -3129,6 +3235,7 @@ namespace AMSExplorer
                             }
                         }
 
+                        /* V3 migration
                         if (myasset != null) // wtt subtitles files
                         {
                             var subtitles = myasset.AssetFiles.ToList().Where(f => f.Name.ToLower().EndsWith(".vtt")).ToList();
@@ -3144,6 +3251,7 @@ namespace AMSExplorer
                                 playerurl += string.Format(Constants.AMPSubtitles, string.Join(";", listsub));
                             }
                         }
+                        */
 
                         string playerurlbase = "";
                         if (typeplayer == PlayerType.AzureMediaPlayer)
@@ -3212,10 +3320,10 @@ namespace AMSExplorer
 
 
 
-        internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
+        internal static StreamingEndpoint GetBestStreamingEndpoint(AzureMediaServicesClient client, CredentialsEntryV3 cred)
         {
-            IStreamingEndpoint SESelected = _context.StreamingEndpoints.AsEnumerable().Where(se => se.State == StreamingEndpointState.Running && StreamingEndpointInformation.CanDoDynPackaging(se)).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
-            if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
+            StreamingEndpoint SESelected = client.StreamingEndpoints.List(cred.ResourceGroup, cred.AccountName).AsEnumerable().Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            if (SESelected == null) SESelected = client.StreamingEndpoints.Get(cred.ResourceGroup, cred.AccountName, "default");
 
             return SESelected;
         }
@@ -4603,8 +4711,7 @@ namespace AMSExplorer
         SmoothLegacy,
         Dash,
         HLSv3,
-        HLSv4,
-        HDS
+        HLSv4
     }
 
     public enum AzureMediaPlayerTechnologies

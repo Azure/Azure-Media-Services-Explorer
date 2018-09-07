@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class ProgramInformation
+    partial class LiveOutputInformation
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramInformation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveOutputInformation));
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
@@ -233,7 +233,7 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // ProgramInformation
+            // LiveOutputInformation
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
@@ -245,9 +245,9 @@
             this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
-            this.Name = "ProgramInformation";
+            this.Name = "LiveOutputInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Load += new System.EventHandler(this.ProgramInformation_Load);
+            this.Load += new System.EventHandler(this.LiveOutputInformation_Load);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);

@@ -252,33 +252,6 @@
   <data name="&gt;&gt;moreinfoSE.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelInfoMigration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelInfoMigration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 19</value>
-  </data>
-  <data name="labelInfoMigration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 46</value>
-  </data>
-  <data name="labelInfoMigration.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="labelInfoMigration.Text" xml:space="preserve">
-    <value>To enable Standard, switch to classic, stop and migrate the streaming endpoint</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Name" xml:space="preserve">
-    <value>labelInfoMigration</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.Parent" xml:space="preserve">
-    <value>groupBoxTypeScale</value>
-  </data>
-  <data name="&gt;&gt;labelInfoMigration.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="radioButtonPremium.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -314,7 +287,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;radioButtonPremium.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="radioButtonStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -347,37 +320,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;radioButtonStandard.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonClassic.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonClassic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 23</value>
-  </data>
-  <data name="radioButtonClassic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="radioButtonClassic.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonClassic.Text" xml:space="preserve">
-    <value>Classic</value>
-  </data>
-  <data name="radioButtonClassic.ToolTip" xml:space="preserve">
-    <value>No dynamic packaging and encryption.</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Name" xml:space="preserve">
-    <value>radioButtonClassic</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.Parent" xml:space="preserve">
-    <value>groupBoxTypeScale</value>
-  </data>
-  <data name="&gt;&gt;radioButtonClassic.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="numericUpDownRU.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -404,7 +347,7 @@
     <value>groupBoxTypeScale</value>
   </data>
   <data name="&gt;&gt;numericUpDownRU.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="groupBoxTypeScale.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 21</value>

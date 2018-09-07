@@ -25,26 +25,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.IO;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Media;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
-    public partial class ProgramInformation : Form
+    public partial class LiveOutputInformation : Form
     {
-        public IProgram MyProgram;
-        private CloudMediaContext MyContext;
         private IEnumerable<Uri> ValidURIs;
         private IEnumerable<Uri> NotValidURIs;
-        public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
+        public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
         private Mainform MyMainForm;
+        private AzureMediaServicesClient _client;
         public bool MultipleSelection = false;
         public ExplorerProgramModifications Modifications = new ExplorerProgramModifications();
+        private CredentialsEntryV3 _cred;
+        public LiveOutput MyLiveOutput;
 
         public string ProgramDescription
         {
@@ -61,12 +64,14 @@ namespace AMSExplorer
         }
 
 
-        public ProgramInformation(Mainform mainform, CloudMediaContext context)
+
+        public LiveOutputInformation(Mainform mainform, AzureMediaServicesClient client, CredentialsEntryV3 cred)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
-            MyContext = context;
+            _client = client;
+            _cred = cred;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -98,12 +103,12 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            IAsset AssetToDisplayP = MyProgram.Asset;
+            var AssetToDisplayP = _client.Assets.Get(_cred.ResourceGroup, _cred.AccountName, MyLiveOutput.AssetName);
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm, MyContext)
+                AssetInformation form = new AssetInformation(MyMainForm, _client, _cred)
                 {
-                    myAsset = AssetToDisplayP,
+                    myAssetV3 = AssetToDisplayP,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
                 };
                 DialogResult dialogResult = form.ShowDialog(this);
@@ -113,29 +118,28 @@ namespace AMSExplorer
 
 
 
-        private void ProgramInformation_Load(object sender, EventArgs e)
+        private void LiveOutputInformation_Load(object sender, EventArgs e)
         {
             if (!MultipleSelection)
             {
-                labelProgramName.Text += MyProgram.Name;
+                labelProgramName.Text += MyLiveOutput.Name;
                 DGChannel.ColumnCount = 2;
 
                 // Program info
                 DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGChannel.Rows.Add("Name", MyProgram.Name);
-                DGChannel.Rows.Add("Id", MyProgram.Id);
-                DGChannel.Rows.Add("State", (ChannelState)MyProgram.State);
-                DGChannel.Rows.Add("Created", ((DateTime)MyProgram.Created).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Last Modified", ((DateTime)MyProgram.LastModified).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Description", MyProgram.Description);
-                DGChannel.Rows.Add("Archive Window Length", MyProgram.ArchiveWindowLength);
-                DGChannel.Rows.Add("Manifest Name", MyProgram.ManifestName);
-                DGChannel.Rows.Add("Channel Name", MyProgram.Channel.Name);
-                DGChannel.Rows.Add("Channel Id", MyProgram.ChannelId);
-                DGChannel.Rows.Add("Asset Name", MyProgram.Asset.Name);
-                DGChannel.Rows.Add("Asset Id", MyProgram.AssetId);
+                DGChannel.Rows.Add("Name", MyLiveOutput.Name);
+                DGChannel.Rows.Add("Id", MyLiveOutput.Id);
+                DGChannel.Rows.Add("State", MyLiveOutput.ResourceState);
+                DGChannel.Rows.Add("Created", ((DateTime)MyLiveOutput.Created).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Last Modified", ((DateTime)MyLiveOutput.LastModified).ToLocalTime().ToString("G"));
+                DGChannel.Rows.Add("Description", MyLiveOutput.Description);
+                DGChannel.Rows.Add("Archive Window Length", MyLiveOutput.ArchiveWindowLength);
+                DGChannel.Rows.Add("Manifest Name", MyLiveOutput.ManifestName);
+                DGChannel.Rows.Add("Asset Name", MyLiveOutput.AssetName);
+                DGChannel.Rows.Add("Output snapshot time", MyLiveOutput.OutputSnapTime);
 
-                ProgramInfo PI = new ProgramInfo(MyProgram, MyContext);
+                /*
+                ProgramInfo PI = new ProgramInfo(MyLiveOutput, MyContext);
                 ValidURIs = PI.GetValidURIs();
                 NotValidURIs = PI.GetNotValidURIs();
 
@@ -148,6 +152,7 @@ namespace AMSExplorer
                     int i = DGChannel.Rows.Add("Url", t.AbsoluteUri);
                     DGChannel.Rows[i].Cells[1].Style.ForeColor = Color.Red;
                 }
+                */
             }
             else
             {
@@ -156,10 +161,10 @@ namespace AMSExplorer
                 buttonDisplayRelatedAsset.Visible = false;
             }
 
-            textBoxDescription.Text = MyProgram.Description;
+            textBoxDescription.Text = MyLiveOutput.Description;
 
-            numericUpDownArchiveHours.Value = Convert.ToInt16(MyProgram.ArchiveWindowLength.TotalHours);
-            numericUpDownArchiveMinutes.Value = MyProgram.ArchiveWindowLength.Minutes;
+            numericUpDownArchiveHours.Value = Convert.ToInt16(MyLiveOutput.ArchiveWindowLength.TotalHours);
+            numericUpDownArchiveMinutes.Value = MyLiveOutput.ArchiveWindowLength.Minutes;
 
             // let's track when user edit a setting
             Modifications = new ExplorerProgramModifications

@@ -1132,7 +1132,7 @@ namespace AMSExplorer
                     _context
                         .StreamingEndpoints
                         .AsEnumerable()
-                          .Where(o => (o.State == StreamingEndpointState.Running) && (StreamingEndpointInformation.CanDoDynPackaging(o)))
+                          .Where(o => (o.State == StreamingEndpointState.Running))
                           .OrderByDescending(o => o.CdnEnabled)
                         .Select(
                             o =>
@@ -1164,7 +1164,7 @@ namespace AMSExplorer
                    _context
                        .StreamingEndpoints
                        .AsEnumerable()
-                         .Where(o => (o.State != StreamingEndpointState.Running) || (!StreamingEndpointInformation.CanDoDynPackaging(o)))
+                         .Where(o => (o.State != StreamingEndpointState.Running))
                        .Select(
                            o =>
                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,

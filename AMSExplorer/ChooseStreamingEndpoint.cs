@@ -23,27 +23,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.Win32;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {
     public partial class ChooseStreamingEndpoint : Form
     {
-        CloudMediaContext _context;
-        IAsset _asset;
+        Asset _asset;
         string _filter;
         PlayerType _playertype;
         private string _url;
         private bool _displayBrowserSelection;
+        private AzureMediaServicesClient _client;
+        private CredentialsEntryV3 _cred;
+        private string _resourceName;
+        private string _accountName;
 
-        public IStreamingEndpoint SelectStreamingEndpoint
+        public StreamingEndpoint SelectStreamingEndpoint
         {
             get
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
-                string seid = val.Split("|".ToCharArray())[0];
-                return _context.StreamingEndpoints.Where(se => se.Id == seid).FirstOrDefault();
+                string seName = val.Split("|".ToCharArray())[0];
+                return _client.StreamingEndpoints.Get(_resourceName, _accountName, seName);
             }
         }
 
@@ -126,8 +130,6 @@ namespace AMSExplorer
                 { return AMSOutputProtocols.Dash; }
                 else if (radioButtonSmoothLegacy.Checked)
                 { return AMSOutputProtocols.SmoothLegacy; }
-                else if (radioButtonHDS.Checked)
-                { return AMSOutputProtocols.HDS; }
                 else if (radioButtonHLSv3.Checked)
                 { return AMSOutputProtocols.HLSv3; }
                 else if (radioButtonHLSv4.Checked)
@@ -138,11 +140,12 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
+        public ChooseStreamingEndpoint(AzureMediaServicesClient client, CredentialsEntryV3 cred, Asset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _client = client;
+            _cred = cred;
             _asset = asset;
             _filter = filter;
             _playertype = playertype;
@@ -156,16 +159,18 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
-            foreach (var se in _context.StreamingEndpoints)
+            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client, _cred);
+            foreach (var se in _client.StreamingEndpoints.List(_resourceName, _accountName))
             {
-                listBoxSE.Items.Add(new Item(string.Format( AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.Id + "|" + se.HostName));
+                listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
                 foreach (var custom in se.CustomHostNames)
                 {
-                    listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se), custom), se.Id + "|" + custom));
+                    listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), se.Name + "|" + custom));
                 }
             }
+
+            /*
 
             // Filters
 
@@ -198,7 +203,7 @@ namespace AMSExplorer
                listViewFilters.Items.Add(lvitem);
            }
            );
-
+           */
 
             if (_playertype == PlayerType.DASHIFRefPlayer)
             {

@@ -51,11 +51,13 @@ namespace AMSExplorer
         private CloudMediaContext myContext;
         private string _resource;
         private string _acountname;
-        public IEnumerable<IStreamingEndpoint> myStreamingEndpoints;
+        private AzureMediaServicesClient _client;
+        public IEnumerable<StreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
         private IContentKeyAuthorizationPolicy myAuthPolicy = null;
         private Mainform myMainForm;
+        private CredentialsEntryV3 _cred;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
 
@@ -67,13 +69,13 @@ namespace AMSExplorer
             myContext = context;
         }
 
-        public AssetInformation(Mainform mainform, AzureMediaServicesClient client, string resource, string accountname)
+        public AssetInformation(Mainform mainform, AzureMediaServicesClient client, CredentialsEntryV3 cred)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
-            _resource = resource;
-            _acountname = accountname;
+            _cred = cred;
+            _client = client;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -110,7 +112,7 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,context:myContext, client: _client, cred: _cred, mainForm: myMainForm);
                             break;
 
                         default:
@@ -183,7 +185,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
+                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, mainForm: myMainForm);
                 }
             }
         }
@@ -367,16 +369,16 @@ namespace AMSExplorer
                 }
 
 
-                IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(myContext);
+                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_client, _cred);
 
                 foreach (var se in myStreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
 
                     foreach (var custom in se.CustomHostNames)
                     {
-                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
+                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
                     }
                 }
                 buttonUpload.Enabled = true;
@@ -512,7 +514,7 @@ namespace AMSExplorer
             }
         }
 
-        private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
+        private StreamingEndpoint ReturnSelectedStreamingEndpoint()
         {
             if (comboBoxStreamingEndpoint.SelectedItem != null)
             {
@@ -540,7 +542,7 @@ namespace AMSExplorer
 
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
-            IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
+            StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
             string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
 
 
@@ -580,8 +582,7 @@ namespace AMSExplorer
 
             if (SelectedSE != null)
             {
-                bool CurrentStreamingEndpointCanDoDynPackaging = StreamingEndpointInformation.CanDoDynPackaging(SelectedSE);
-                Color colornodeRU = CurrentStreamingEndpointCanDoDynPackaging ? Color.Black : Color.Gray;
+                Color colornodeRU = Color.Black;
                 string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();
@@ -612,9 +613,9 @@ namespace AMSExplorer
                             colornode = Color.Black;
                             break;
                     }
-                    if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
+                    if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;
 
-                    TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
+                    TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
                     myLocNode.ForeColor = colornode;
 
                     TreeViewLocators.Nodes.Add(myLocNode);
@@ -1185,24 +1186,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -2198,7 +2199,7 @@ namespace AMSExplorer
 
         private void DoPlayWithFilter()
         {
-            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<IAsset>() { myAsset }, ReturnSelectedFilters().FirstOrDefault().Name);
+            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, ReturnSelectedFilters().FirstOrDefault().Name);
         }
 
         private void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)

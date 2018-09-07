@@ -20,27 +20,17 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.IO;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Web;
-using System.Xml;
-using System.Xml.Linq;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
     public partial class StreamingEndpointInformation : Form
     {
-        public IStreamingEndpoint MySE;
+        public StreamingEndpoint MySE;
         public bool MultipleSelection = false;
-        public CloudMediaContext MyContext;
         public ExplorerSEModifications Modifications = new ExplorerSEModifications();
 
         private string MaxCacheAgeInitial;
@@ -66,20 +56,19 @@ namespace AMSExplorer
             }
         }
 
-
-        public IList<IPRange> GetStreamingAllowList
+        public IPAccessControl GetStreamingAllowList
         {
             get
             {
-                return (checkBoxStreamingIPlistSet.Checked) ? endpointSettingList : null;
+                return (checkBoxStreamingIPlistSet.Checked) ? new IPAccessControl(endpointSettingList) : null;
             }
         }
 
-        public IList<AkamaiSignatureHeaderAuthenticationKey> GetStreamingAkamaiList
+        public AkamaiAccessControl GetStreamingAkamaiList
         {
             get
             {
-                return (checkBoxAkamai.Checked) ? AkamaiSettingList : null;
+                return (checkBoxAkamai.Checked) ? new AkamaiAccessControl(AkamaiSettingList) : null;
             }
         }
 
@@ -104,20 +93,20 @@ namespace AMSExplorer
         }
 
 
-        public TimeSpan? MaxCacheAge
+        public long? MaxCacheAge
         {
             get
             {
-                TimeSpan? ts;
+                long? val;
                 try
                 {
-                    ts = new TimeSpan(0, 0, Convert.ToInt32(textBoxMaxCacheAge.Text));
+                    val = Convert.ToInt64(textBoxMaxCacheAge.Text);
                 }
                 catch
                 {
-                    ts = null;
+                    val = null;
                 }
-                return ts;
+                return val;
             }
 
         }
@@ -159,19 +148,21 @@ namespace AMSExplorer
                 hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
                 DGOrigin.ColumnCount = 2;
 
-                // asset info
+                // se info
                 DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
                 DGOrigin.Rows.Add("Name", MySE.Name);
-                DGOrigin.Rows.Add("State", (StreamingEndpointState)MySE.State);
+                DGOrigin.Rows.Add("ResourceState", (StreamingEndpointResourceState)MySE.ResourceState);
                 DGOrigin.Rows.Add("Description", MySE.Description);
-                DGOrigin.Rows.Add("Host name", MySE.HostName);
-                DGOrigin.Rows.Add("CDN Enabled", MySE.CdnEnabled);
-                DGOrigin.Rows.Add("CDN Profile", MySE.CdnProfile ?? Constants.stringNull);
-                DGOrigin.Rows.Add("CDN Provider", MySE.CdnProvider ?? Constants.stringNull);
-                DGOrigin.Rows.Add("Free Trial Endtime", MySE.FreeTrialEndTime.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("HostName", MySE.HostName);
+                DGOrigin.Rows.Add("CDNEnabled", MySE.CdnEnabled);
+                DGOrigin.Rows.Add("CDNProfile", MySE.CdnProfile ?? Constants.stringNull);
+                DGOrigin.Rows.Add("CDNProvider", MySE.CdnProvider ?? Constants.stringNull);
+                DGOrigin.Rows.Add("FreeTrialEndtime", ((DateTime)MySE.FreeTrialEndTime).ToLocalTime().ToString("G"));
                 DGOrigin.Rows.Add("Created", ((DateTime)MySE.Created).ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("Last Modified", ((DateTime)MySE.LastModified).ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("LastModified", ((DateTime)MySE.LastModified).ToLocalTime().ToString("G"));
                 DGOrigin.Rows.Add("Id", MySE.Id);
+                DGOrigin.Rows.Add("Location", MySE.Location);
+                DGOrigin.Rows.Add("ProvisioningState", MySE.ProvisioningState);
             }
             else
             {
@@ -191,66 +182,39 @@ namespace AMSExplorer
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
             // AZURE CDN
-            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MySE.CdnEnabled;
-            labelcdn.Visible = MySE.CdnEnabled;
-            numericUpDownRU.Minimum = MySE.CdnEnabled ? 1 : 0;
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !(bool)MySE.CdnEnabled;
+            labelcdn.Visible = (bool)MySE.CdnEnabled;
+            // numericUpDownRU.Minimum = (bool)MySE.CdnEnabled ? 1 : 0;
 
             // Streaming units
-            if (MySE.ScaleUnits != null)
+
+            if (!MultipleSelection)
             {
-                var units = (int)MySE.ScaleUnits;
-                if (!MultipleSelection)
+                var type = ReturnTypeSE(MySE);
+                DGOrigin.Rows.Add("Type", type);
+                DGOrigin.Rows.Add("ScaleUnits", MySE.ScaleUnits);
+
+
+                if (type == StreamEndpointType.Standard)
                 {
-                    var type = ReturnTypeSE(MySE);
-                    DGOrigin.Rows.Add("Version", MySE.StreamingEndpointVersion);
-                    DGOrigin.Rows.Add("Type", type);
-                    DGOrigin.Rows.Add("Streaming Units", MySE.ScaleUnits);
-
-                    numericUpDownRU.Value = units > 0 ? units : 1;
-
-                    if (new Version(MySE.StreamingEndpointVersion) == new Version("1.0"))
-                    {
-                        radioButtonStandard.Enabled = false;
-                    }
-                    else // 2.0
-                    {
-                        radioButtonClassic.Enabled = false;
-                        labelInfoMigration.Visible = false; // no need
-                    }
-
-                    if (type == StreamEndpointType.Classic)
-                    {
-                        radioButtonClassic.Checked = true;
-                        radioButtonStandard.Enabled = false;
-                    }
-                    else if (type == StreamEndpointType.Standard)
-                    {
-                        radioButtonClassic.Enabled = false;
-                        radioButtonStandard.Checked = true;
-                    }
-                    else // Premium
-                    {
-                        radioButtonPremium.Checked = true;
-
-                    }
+                    radioButtonStandard.Checked = true;
                 }
-                else
+                else // Premium
                 {
-                    groupBoxTypeScale.Enabled = false;
+                    radioButtonPremium.Checked = true;
+                    numericUpDownRU.Value = MySE.ScaleUnits;
                 }
-                // if (numericUpDownRU.Maximum < MySE.ScaleUnits) numericUpDownRU.Maximum = (int)MySE.ScaleUnits * 2;
             }
-
-            if (MySE.CacheControl != null)
+            else
             {
-                if (MySE.CacheControl.MaxAge != null)
-                {
-                    textBoxMaxCacheAge.Text = ((TimeSpan)MySE.CacheControl.MaxAge).TotalSeconds.ToString();
-                }
-                else
-                {
-                    textBoxMaxCacheAge.Text = string.Empty;
-                }
+                groupBoxTypeScale.Enabled = false;
+            }
+            // if (numericUpDownRU.Maximum < MySE.ScaleUnits) numericUpDownRU.Maximum = (int)MySE.ScaleUnits * 2;
+
+
+            if (MySE.MaxCacheAge != null)
+            {
+                textBoxMaxCacheAge.Text = ((long)MySE.MaxCacheAge).ToString();
             }
             else
             {
@@ -261,18 +225,18 @@ namespace AMSExplorer
 
             if (MySE.AccessControl != null)
             {
-                if (MySE.AccessControl.IPAllowList != null)
+                if (MySE.AccessControl.Ip != null)
                 {
                     checkBoxStreamingIPlistSet.Checked = true;
-                    foreach (var endpoint in MySE.AccessControl.IPAllowList)
+                    foreach (var endpoint in MySE.AccessControl.Ip.Allow)
                     {
                         endpointSettingList.Add(endpoint);
                     }
                 }
-                if (MySE.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList != null)
+                if (MySE.AccessControl.Akamai != null)
                 {
                     checkBoxAkamai.Checked = true;
-                    foreach (var setting in MySE.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList)
+                    foreach (var setting in MySE.AccessControl.Akamai.AkamaiSignatureHeaderAuthenticationKeyList)
                     {
                         AkamaiSettingList.Add(setting);
                     }
@@ -314,31 +278,18 @@ namespace AMSExplorer
             };
         }
 
-        static public StreamEndpointType ReturnTypeSE(IStreamingEndpoint mySE)
+        static public StreamEndpointType ReturnTypeSE(StreamingEndpoint mySE)
         {
-            if (mySE.ScaleUnits != null && mySE.ScaleUnits > 0)
+            if (mySE.ScaleUnits > 0)
             {
                 return StreamEndpointType.Premium;
             }
             else
             {
-                if (new Version(mySE.StreamingEndpointVersion) == new Version("1.0"))
-                {
-                    return StreamEndpointType.Classic;
-                }
-                else
-                {
-                    return StreamEndpointType.Standard;
-                }
+                return StreamEndpointType.Standard;
             }
         }
 
-        static public bool CanDoDynPackaging(IStreamingEndpoint mySE)
-        {
-            return ReturnTypeSE(mySE) != StreamEndpointType.Classic;
-        }
-
-        // StreamingEndpointCDNEnable
 
         static public string ReturnDisplayedProvider(string cdnprovider)
         {
@@ -357,8 +308,7 @@ namespace AMSExplorer
 
         public enum StreamEndpointType
         {
-            Classic = 0,
-            Standard,
+            Standard=0,
             Premium
         }
 

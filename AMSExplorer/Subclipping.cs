@@ -617,8 +617,9 @@ namespace AMSExplorer
                 }
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: AssetInfo.RW(myuri, https:true).ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
-                    webBrowserPreview.Url = new Uri(myurl);
+                    // v3 migration
+                    //string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: AssetInfo.RW(myuri, https:true).ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
+                    //webBrowserPreview.Url = new Uri(myurl);
                 }
             }
             else

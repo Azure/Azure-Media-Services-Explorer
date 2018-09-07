@@ -972,25 +972,9 @@ namespace AMSExplorer
             return program;
         }
 
-        static IStreamingEndpoint GetStreamingEndpoint(string originId)
+        static StreamingEndpoint GetStreamingEndpoint(string seName)
         {
-            IStreamingEndpoint origin;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var originInstance =
-                    from a in _context.StreamingEndpoints
-                    where a.Id == originId
-                    select a;
-                // Reference the asset as an IAsset.
-                origin = originInstance.FirstOrDefault();
-            }
-            catch
-            {
-                origin = null;
-            }
-            return origin;
+            return _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, seName);
         }
 
 
@@ -1659,13 +1643,13 @@ namespace AMSExplorer
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
 
-                                IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
+                                StreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_mediaServicesClient, _credentialsV3);
                                 StringBuilder sb = new StringBuilder();
                                 Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                 string playbackurl = null;
                                 if (SmoothUri != null)
                                 {
-                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri,_context, _mediaServicesClient, _credentialsV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
                                     sb.AppendLine("Link to playback the asset:");
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
@@ -2153,7 +2137,7 @@ namespace AMSExplorer
                     LocatorEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
                     LocatorHasStartDate = false,
-                    LocWarning = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic) ? "Dynamic packaging will not work as there are only classic streaming endpoints in this account." : string.Empty
+                    LocWarning = string.Empty
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -2234,7 +2218,7 @@ namespace AMSExplorer
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        AssetInformation form = new AssetInformation(this, _mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName)
+                        AssetInformation form = new AssetInformation(this, _mediaServicesClient, _credentialsV3)
                         {
                             myAssetV3 = asset//,
                             //myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
@@ -2596,7 +2580,7 @@ namespace AMSExplorer
                     LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
                     LocatorHasStartDate = false,
-                    LocWarning = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic) ? "Dynamic packaging will not work as there are only classic streaming endpoints in this account." : string.Empty
+                    LocWarning = string.Empty
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -2668,13 +2652,9 @@ namespace AMSExplorer
                 if (locator == null) return;
 
                 // let's choose a SE that running and with higher number of RU
-                IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
-                bool SESelectedSupportsDynPackaging = StreamingEndpointInformation.CanDoDynPackaging(SESelected);
+                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_mediaServicesClient, _credentialsV3);
 
-                if (!SESelectedSupportsDynPackaging && AssetToP.AssetType != AssetType.SmoothStreaming)
-                {
-                    TextBoxLogWriteLine("There is no running Standard or Premium streaming endpoint", true);
-                }
+
 
                 StringBuilder sbuilderThisAsset = new StringBuilder();
                 sbuilderThisAsset.AppendLine("Asset:");
@@ -2746,44 +2726,31 @@ namespace AMSExplorer
                     }
 
 
-                    if (AssetToP.AssetType == AssetType.MediaServicesHLS)
-                    // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+
+                    if ((AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
+                    // Smooth or multi MP4, SE RU so dynamic packaging is possible
                     {
-                        sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                        sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.AbsoluteUri));
-                    }
-                    else // It's not Static HLS
-                    {
-                        if (!SESelectedSupportsDynPackaging && AssetToP.AssetType == AssetType.SmoothStreaming)
-                        // it's smooth streaming with no dynamic packaging
+                        if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
+                            sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
                         }
-                        else if (SESelectedSupportsDynPackaging && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
-                        // Smooth or multi MP4, SE RU so dynamic packaging is possible
+                        if (protocolDASH && locator.GetMpegDashUri() != null)
                         {
-                            if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
-                            {
-                                sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
-                                sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
-                            }
-                            if (protocolDASH && locator.GetMpegDashUri() != null)
-                            {
-                                sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
-                            }
-                            if (protocolHLS && locator.GetHlsUri() != null)
-                            {
-                                sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
-                                sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true).AbsoluteUri));
-                            }
+                            sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
+                        }
+                        if (protocolHLS && locator.GetHlsUri() != null)
+                        {
+                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
+                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true).AbsoluteUri));
                         }
                     }
+
                 }
                 else //SAS
                 {
@@ -3007,13 +2974,13 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting asset(s)...");
                             Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
 
-                                //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                                Task.WaitAll(deleteTasks);
+                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                            Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
                         {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -3043,13 +3010,13 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting asset(s)...");
                             Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
 
-                                //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                                Task.WaitAll(deleteTasks);
+                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                            Task.WaitAll(deleteTasks);
                         }
                         catch (Exception ex)
                         {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -3087,16 +3054,16 @@ namespace AMSExplorer
                     int nbassetFailedDeleted = 0;
                     bool lastround = false;
 
-                        // let's build the list of tasks
-                        TextBoxLogWriteLine("Deleting all the assets...");
+                    // let's build the list of tasks
+                    TextBoxLogWriteLine("Deleting all the assets...");
                     List<IAsset> deleteTasks = new List<IAsset>();
 
                     try
                     {
                         while (!lastround && nbAssetInAccount != _context.Assets.Count())
                         {
-                                // Enumerate through all assets (1000 at a time)
-                                var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                            // Enumerate through all assets (1000 at a time)
+                            var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
                             lastround = (listassets.Count < batchSize); // last round if less than batchSize
                             nbAssetInAccount = _context.Assets.Count();
 
@@ -3119,8 +3086,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -4684,8 +4651,8 @@ namespace AMSExplorer
                         }
                         catch (Exception ex)
                         {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -4710,14 +4677,14 @@ namespace AMSExplorer
                     int currentSkipSize = 0;
 
 
-                        // let's build the tasks list
-                        TextBoxLogWriteLine("Listing the jobs...");
+                    // let's build the tasks list
+                    TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> deleteTasks = new List<Task>();
 
                     while (true)
                     {
-                            // Enumerate through all jobs (1000 at a time)
-                            var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                        // Enumerate through all jobs (1000 at a time)
+                        var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
                         deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
 
@@ -4739,8 +4706,8 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -4768,16 +4735,16 @@ namespace AMSExplorer
                     int currentSkipSize = 0;
 
 
-                        // let's build the tasks list
-                        TextBoxLogWriteLine("Listing the jobs...");
+                    // let's build the tasks list
+                    TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> cancelTasks = new List<Task>();
 
                     var ongoingJobs = _context.Jobs;//.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
 
                     while (true)
                     {
-                            // Enumerate through all jobs (1000 at a time)
-                            var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
+                        // Enumerate through all jobs (1000 at a time)
+                        var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
                         currentSkipSize += listjobs.Count;
                         cancelTasks.AddRange(listjobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
 
@@ -4799,8 +4766,8 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -5629,8 +5596,8 @@ namespace AMSExplorer
 
                         myTask.InputAssets.Add(asset);
 
-                            // Add an output asset to contain the results of the task
-                            string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                        // Add an output asset to contain the results of the task
+                        string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                         if (storageaccountname == "")
                         {
                             myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
@@ -5641,8 +5608,8 @@ namespace AMSExplorer
                         }
                     }
 
-                        // Submit the job and wait until it is completed. 
-                        bool Error = false;
+                    // Submit the job and wait until it is completed. 
+                    bool Error = false;
                     try
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
@@ -5651,8 +5618,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -5697,8 +5664,8 @@ namespace AMSExplorer
 
                     myTask.InputAssets.Add(asset);
 
-                        // Add an output asset to contain the results of the task
-                        string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                    // Add an output asset to contain the results of the task
+                    string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                     if (storageaccountname == "")
                     {
                         myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions, myAssetFormatOption); // let's use the same storage account than the input asset
@@ -5708,8 +5675,8 @@ namespace AMSExplorer
                         myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions, myAssetFormatOption);
                     }
 
-                        // Submit the job and wait until it is completed. 
-                        bool Error = false;
+                    // Submit the job and wait until it is completed. 
+                    bool Error = false;
                     try
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
@@ -5718,8 +5685,8 @@ namespace AMSExplorer
 
                     catch (Exception ex)
                     {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -7668,6 +7635,28 @@ namespace AMSExplorer
             return valid;
         }
 
+
+        private bool IsThereALocatorValid(Asset asset, ref ILocator locator, LocatorType mylocatortype = LocatorType.OnDemandOrigin)
+        {
+            return true;  // v3 migration
+
+            /*
+            bool valid = false;
+            if (asset != null && asset.Locators.Count > 0)
+            {
+                ILocator LocatorQuery = asset.Locators.Where(l => (l.Type == mylocatortype) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
+                if (LocatorQuery != null)
+                {
+                    //OK we can play the content
+                    locator = LocatorQuery;
+                    valid = true;
+                }
+
+            }
+            return valid;
+            */
+        }
+
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
@@ -8367,14 +8356,14 @@ namespace AMSExplorer
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
         {
-            return; // migration to V3 API
+
             if (firstime)
             {
-                dataGridViewStreamingEndpointsV.Init(_credentials, _context);
+                dataGridViewStreamingEndpointsV.Init(_mediaServicesClient, _credentialsV3);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
-            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context)));
+            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints()));
 
             tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
         }
@@ -8546,12 +8535,12 @@ namespace AMSExplorer
 
 
 
-        private List<IStreamingEndpoint> ReturnSelectedStreamingEndpoints()
+        private List<StreamingEndpoint> ReturnSelectedStreamingEndpoints()
         {
-            List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
+            List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                var se = _context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                var se = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
                 if (se != null)
                 {
                     SelectedOrigins.Add(se);
@@ -8594,36 +8583,16 @@ namespace AMSExplorer
 
         private void DoStartLiveEvents()
         {
-            // let's start the channels
+            // let's start the live events
 
             Task.Run(async () =>
             {
                 DoStartLiveEventsEngine(ReturnSelectedLiveEvents());
             }
                     );
-
-
         }
 
 
-        // STREAMING ENDPOINT ASYNC OPERATIONS
-
-        private async Task<IOperation> StartStreamingEndpoint(IStreamingEndpoint myO)
-        {
-            TextBoxLogWriteLine("Streaming endpoint '{0}' : starting...", myO.Name);
-            return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
-        }
-        private async Task<IOperation> StopStreamingEndpointAsync(IStreamingEndpoint mySE)
-        {
-            TextBoxLogWriteLine("Streaming endpoint '{0}' : stopping...", mySE.Name);
-            return await Task.Run(() => StreamingEndpointExecuteOperationAsync(mySE.SendStopOperationAsync, mySE, "stopped"));
-        }
-
-        private async Task<IOperation> DeleteStreamingEndpointAsync(IStreamingEndpoint myO)
-        {
-            TextBoxLogWriteLine("Streaming endpoint '{0}' : deleting...", myO.Name);
-            return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
-        }
 
 
         // used to monitor program and channels in starting or stopping mode with AMS Explorer is launched
@@ -8670,215 +8639,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task<IOperation> ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit, string newmode = null)
-        {
-            IOperation operation = null;
-            if (myO != null)
-            {
-                try
-                {
-                    if (newmode != null)
-                    {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' : switching to {1} type...", myO.Name, newmode);
-                    }
-                    else
-                    {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' : scaling to {1} unit(s)...", myO.Name, unit.ToString());
-                    }
-                    operation = await myO.SendScaleOperationAsync(unit);
-                    while (operation.State == OperationState.InProgress)
-                    {
-                        //refresh the operation
-                        operation = _context.Operations.GetOperation(operation.Id);
-                        System.Threading.Thread.Sleep(1000);
-                    }
-                    if (operation.State == OperationState.Succeeded)
-                    {
-                        if (newmode != null)
-                        {
-                            TextBoxLogWriteLine("Streaming endpoint '{0}' : type changed to {1}.", myO.Name, newmode);
-                        }
-                        else
-                        {
-                            TextBoxLogWriteLine("Streaming endpoint '{0}' : scaled.", myO.Name);
-                        }
-                    }
-                    else
-                    {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' : did NOT scale. (Error {1})", myO.Name, operation.ErrorCode, true);
-                        TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                    }
-                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
-                }
 
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' : Error when scaling. {1}", myO.Name, Program.GetErrorMessage(ex), true);
-                }
-            }
-            return operation;
-        }
-
-
-
-
-        //used for program update and delete as there is not operation mode for these actions
-        /*
-        internal async Task ProgramExecuteAsync(Func<string,string,string,string, Task> fCall, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program, string strStatusSuccess) //used for all except creation 
-        {
-            try
-            {
-                var STask = fCall(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name);
-                var state = program.ResourceState;
-                while (!STask.IsCompleted)
-                {
-                    // refresh the program
-                    var programR = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveeventName, program.Name);
-                    if (programR != null && state != programR.ResourceState)
-                    {
-                        state = programR.ResourceState;
-                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, programR)), null);
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-                await STask;
-                TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
-            }
-        }
-        */
-
-
-        internal async Task LiveOutputDeleteAsync(AzureMediaServicesClient client, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program)
-        {
-            try
-            {
-                TextBoxLogWriteLine("Live Output '{0}' : deleting...", program.Name);
-                await client.LiveOutputs.DeleteAsync(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name);
-                TextBoxLogWriteLine("Live Output '{0}' : deleted.", program.Name);
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
-            }
-        }
-
-        internal async Task LiveOutputCreateAsync(AzureMediaServicesClient client, CredentialsEntryV3 credentials, string liveeventName, LiveOutput program, string strStatusSuccess)
-        {
-            try
-            {
-                TextBoxLogWriteLine("Program '{0}' : creating...", program.Name);
-                await client.LiveOutputs.CreateAsync(credentials.ResourceGroup, credentials.AccountName, liveeventName, program.Name, program);
-                TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(liveeventName, program)), null);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
-            }
-        }
-
-
-        internal async Task<IOperation> ProgramExecuteOperationAsync(Func<Task<IOperation>> fCall, LiveEvent channel, LiveOutput program, string strStatusSuccess) //used for all except creation 
-        {
-            IOperation operation = null;
-
-            try
-            {
-                var state = program.ResourceState;
-                var STask = fCall();
-                operation = await STask;
-
-                while (operation.State == OperationState.InProgress)
-                {
-                    //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
-                    // refresh the program
-                    LiveOutput programR = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, program.Name);
-                    if (programR != null && state != programR.ResourceState)
-                    {
-                        state = programR.ResourceState;
-                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(channel.Name, programR)), null);
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-                if (operation.State == OperationState.Succeeded)
-                {
-                    TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
-                }
-                else
-                {
-                    TextBoxLogWriteLine("Program '{0}' : NOT {1}. (Error {2})", program.Name, strStatusSuccess, operation.ErrorCode, true);
-                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                }
-                if (program != null)
-                {
-                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(channel.Name, program)), null);
-                }
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Program '{0}' : Error {1}", program != null ? program.Name : "<unknown>", Program.GetErrorMessage(ex), true);
-            }
-            return operation;
-        }
-
-
-        internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess)
-        //used for all except creation 
-        {
-            IOperation operation = null;
-
-            try
-            {
-                var state = myO.State;
-                var STask = fCall();
-                operation = await STask;
-
-                while (operation.State == OperationState.InProgress)
-                {
-                    //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
-                    // refresh the streaming endpoint
-                    IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
-                    if (myOR != null && state != myOR.State)
-                    {
-                        state = myOR.State;
-                        dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myOR)), null);
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-                if (operation.State == OperationState.Succeeded)
-                {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' : {1}.", myO.Name, strStatusSuccess);
-                    IStreamingEndpoint myse = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
-                    // we display a notification is taskbar for channel started or reset
-                    if (myse != null && strStatusSuccess == "started")
-                    {
-                        this.BeginInvoke(new Action(() =>
-                        {
-                            this.Notify("Streaming endpoint " + strStatusSuccess, string.Format("{0}", myse.Name), false);
-                        }));
-                    }
-                }
-                else
-                {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' : NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
-                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
-                }
-                dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Streaming endpoint '{0}' : Error {1}", myO.Name, Program.GetErrorMessage(ex), true);
-            }
-            return operation;
-        }
 
 
         internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
@@ -9493,10 +9254,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
-
             DoRefreshGridLiveEventV(false);
-
-
         }
 
 
@@ -9630,6 +9388,171 @@ namespace AMSExplorer
             }
         }
 
+        private async void DoStartStreamingEndpointEngine(List<StreamingEndpoint> ListStreamingEndpoints)
+        {
+            // Start the streaming endpoint which are stopped
+            var streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
+            var names = String.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
+            if (streamingendpointsstopped.Count() > 0)
+            {
+                try
+                {
+                    TextBoxLogWriteLine(string.Format("Starting streaming endpoint(s) : {0}...", names));
+                    var states = streamingendpointsstopped.Select(p => p.ResourceState).ToList();
+                    var taskcstop = streamingendpointsstopped.Select(c => _mediaServicesClient.StreamingEndpoints.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    int complete = 0;
+
+                    while (!taskcstop.All(t => t.IsCompleted) && complete != streamingendpointsstopped.Count)
+                    {
+                        // refresh the channels
+
+                        foreach (var loitem in streamingendpointsstopped)
+                        {
+                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
+                            {
+                                states[streamingendpointsstopped.IndexOf(loitem)] = loitemR.ResourceState;
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                                if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
+                                {
+                                    TextBoxLogWriteLine(string.Format("Streaming endpoint started : {0}.", loitemR.Name));
+                                    complete++;
+                                }
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when starting a streaming endpoint.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            DoRefreshGridStreamingEndpointV(false);
+        }
+
+
+
+
+        private async void DoUpdateAndScaleStreamingEndpointEngine(StreamingEndpoint se, int? units = null)
+        {
+            try
+            {
+                TextBoxLogWriteLine(string.Format("updating streaming endpoint : {0}...", se.Name));
+                await _mediaServicesClient.StreamingEndpoints.UpdateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, se.Name, se);
+                TextBoxLogWriteLine(string.Format("Streaming endpoint updated : {0}.", se.Name));
+
+                if (units != null)
+                {
+                    TextBoxLogWriteLine(string.Format("scaling streaming endpoint : {0}...", se.Name));
+                    await _mediaServicesClient.StreamingEndpoints.ScaleAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, se.Name, units);
+                    TextBoxLogWriteLine(string.Format("Streaming endpoint scaled : {0}.", se.Name));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Add useful information to the exception
+                TextBoxLogWriteLine("There is a problem when updating/scaling a streaming endpoint.", true);
+                TextBoxLogWriteLine(ex);
+            }
+            DoRefreshGridStreamingEndpointV(false);
+        }
+
+
+        private async void DoStopOrDeleteStreamingEndpointsEngine(List<StreamingEndpoint> ListStreamingEndpoints, bool deleteStreamingEndpoints)
+        {
+
+            // Stop the streaming endpoints which run
+            var sesrunning = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Running).ToList();
+            var names = String.Join(", ", sesrunning.Select(le => le.Name).ToArray());
+
+            if (sesrunning.Count() > 0)
+            {
+                try
+                {
+                    TextBoxLogWriteLine(string.Format("Stopping streaming endpoints(s) : {0}...", names));
+                    var states = sesrunning.Select(p => p.ResourceState).ToList();
+                    var taskcstop = sesrunning.Select(c => _mediaServicesClient.StreamingEndpoints.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+
+                    int complete = 0;
+                    while (!taskcstop.All(t => t.IsCompleted) && complete != sesrunning.Count)
+                    {
+                        // refresh the streaming endpoints
+
+                        foreach (var loitem in sesrunning)
+                        {
+                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            if (loitemR != null && states[sesrunning.IndexOf(loitem)] != loitemR.ResourceState)
+                            {
+                                states[sesrunning.IndexOf(loitem)] = loitemR.ResourceState;
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                                if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
+                                {
+                                    TextBoxLogWriteLine(string.Format("Streaming endpoint stopped : {0}.", loitemR.Name));
+                                    complete++;
+                                }
+                            }
+
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when stopping a streaming endpoint.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            if (deleteStreamingEndpoints)
+            {
+                // delete the ses
+                try
+                {
+                    var names2 = String.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
+
+                    TextBoxLogWriteLine(string.Format("Deleting streaming endpoints(s) : {0}...", names2));
+                    var states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
+                    var taskcdel = ListStreamingEndpoints.Select(c => _mediaServicesClient.StreamingEndpoints.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+
+                    while (!taskcdel.All(t => t.IsCompleted))
+                    {
+                        // refresh the channels
+
+                        foreach (var loitem in ListStreamingEndpoints)
+                        {
+                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
+                            {
+                                states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                            }
+                            else if (loitemR != null)
+                            {
+                                DoRefreshGridStreamingEndpointV(false);
+                            }
+                        }
+                        System.Threading.Thread.Sleep(2000);
+                    }
+                    TextBoxLogWriteLine(string.Format("Streaming endpoint(s) deleted : {0}.", names2));
+                }
+
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when deleting a streaming endpoint", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+            DoRefreshGridStreamingEndpointV(false);
+        }
+
+
 
         private IAsset CreateLiveAssetWithOptionalpecifiedLocatorID(string assetName, string storageaccount, bool createlocator, bool setupdynamicencryption, string LocatorID = null)
         {
@@ -9660,10 +9583,7 @@ namespace AMSExplorer
                         {
                             _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, newAsset, policy, null);
                         }
-                        if (StreamingEndpointInformation.ReturnTypeSE(AssetInfo.GetBestStreamingEndpoint(_context)) == StreamingEndpointInformation.StreamEndpointType.Classic)
-                        {
-                            TextBoxLogWriteLine("There is no running Standard or Premium streaming endpoint. The locator on the program will not work.", true);
-                        }
+                       
                     }
                 }
                 catch (Exception ex)
@@ -9739,16 +9659,7 @@ namespace AMSExplorer
 
                     }
                     );
-
-
-
-
-
-
-
                 }
-
-
             }
 
 
@@ -9875,26 +9786,26 @@ namespace AMSExplorer
 
         private void displayProgramInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayProgramInfo();
+            DoDisplayLiveOutputInfo();
 
         }
 
-        private void DoDisplayProgramInfo()
+        private void DoDisplayLiveOutputInfo()
         {
-            DoDisplayProgramInfo(ReturnSelectedPrograms());
+            DoDisplayLiveOutputInfo(ReturnSelectedLiveOutputs());
         }
 
-        private async void DoDisplayProgramInfo(List<IProgram> programs)
+        private async void DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
         {
-            bool multiselection = programs.Count > 1;
-            if (programs.FirstOrDefault() != null)
+            bool multiselection = liveoutputs.Count > 1;
+            if (liveoutputs.FirstOrDefault() != null)
             {
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    ProgramInformation form = new ProgramInformation(this, _context)
+                    LiveOutputInformation form = new LiveOutputInformation(this, _mediaServicesClient, _credentialsV3)
                     {
-                        MyProgram = programs.FirstOrDefault(),
+                        MyLiveOutput = liveoutputs.FirstOrDefault(),
                         MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
                         MultipleSelection = multiselection
                     };
@@ -9917,7 +9828,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        foreach (var program in programs)
+                        foreach (var program in liveoutputs)
                         {
                             if (modifications.ArchiveWindow)
                             {
@@ -10068,16 +9979,13 @@ namespace AMSExplorer
         {
             DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints());
         }
-        private async void DoDisplayStreamingEndpointInfo(List<IStreamingEndpoint> streamingendpoints)
+        private async void DoDisplayStreamingEndpointInfo(List<StreamingEndpoint> streamingendpoints)
         {
-            // Refresh the context
-            _context = Program.ConnectAndGetNewContext(_credentials);
             bool multiselection = streamingendpoints.Count > 1;
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
                 MySE = streamingendpoints.FirstOrDefault(),
-                MyContext = _context,
                 MultipleSelection = multiselection
             };
 
@@ -10112,15 +10020,15 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.AccessControl == null)
                             {
-                                streamingendpoint.AccessControl = new Microsoft.WindowsAzure.MediaServices.Client.StreamingEndpointAccessControl();
+                                streamingendpoint.AccessControl = new Microsoft.Azure.Management.Media.Models.StreamingEndpointAccessControl();
                             }
-                            streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
+                            streamingendpoint.AccessControl.Ip = form.GetStreamingAllowList;
                         }
                         else
                         {
                             if (streamingendpoint.AccessControl != null)
                             {
-                                streamingendpoint.AccessControl.IPAllowList = null;
+                                streamingendpoint.AccessControl.Ip = null;
                             }
                         }
                     }
@@ -10132,16 +10040,16 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.AccessControl == null)
                             {
-                                streamingendpoint.AccessControl = new Microsoft.WindowsAzure.MediaServices.Client.StreamingEndpointAccessControl();
+                                streamingendpoint.AccessControl = new Microsoft.Azure.Management.Media.Models.StreamingEndpointAccessControl();
                             }
-                            streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
+                            streamingendpoint.AccessControl.Akamai = form.GetStreamingAkamaiList;
 
                         }
                         else
                         {
                             if (streamingendpoint.AccessControl != null)
                             {
-                                streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                                streamingendpoint.AccessControl.Akamai = null;
                             }
 
                         }
@@ -10149,22 +10057,8 @@ namespace AMSExplorer
 
                     if (modifications.MaxCacheAge)
                     {
+                        streamingendpoint.MaxCacheAge = form.MaxCacheAge;
 
-                        if (form.MaxCacheAge != null)
-                        {
-                            if (streamingendpoint.CacheControl == null)
-                            {
-                                streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
-                            }
-                            streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
-                        }
-                        else
-                        {
-                            if (streamingendpoint.CacheControl != null)
-                            {
-                                streamingendpoint.CacheControl.MaxAge = null;
-                            }
-                        }
                     }
 
                     // Client Access Policy
@@ -10174,7 +10068,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.CrossSiteAccessPolicies == null)
                             {
-                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
+                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                             }
                             streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
@@ -10195,7 +10089,7 @@ namespace AMSExplorer
                         {
                             if (streamingendpoint.CrossSiteAccessPolicies == null)
                             {
-                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.WindowsAzure.MediaServices.Client.CrossSiteAccessPolicies();
+                                streamingendpoint.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                             }
                             streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
@@ -10220,12 +10114,7 @@ namespace AMSExplorer
                     {
                         string newmode = null;
 
-                        if (new Version(streamingendpoint.StreamingEndpointVersion) == new Version("1.0") && form.GetScaleUnits == 0)
-                        { // special case. Going to classic mode. CDN should be disabled.
-                            streamingendpoint.CdnEnabled = false;
-                            newmode = "Classic";
-                        }
-                        else if (new Version(streamingendpoint.StreamingEndpointVersion) == new Version("2.0") && form.GetScaleUnits == 0)
+                        if (form.GetScaleUnits == 0)
                         {
                             newmode = "Standard";
                         }
@@ -10236,8 +10125,7 @@ namespace AMSExplorer
 
                         Task.Run(async () =>
                         {
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits, newmode);
+                            DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint, form.GetScaleUnits);
                         });
 
 
@@ -10246,7 +10134,7 @@ namespace AMSExplorer
                     {
                         Task.Run(async () =>
                         {
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
                         });
                     }
                 }
@@ -10260,10 +10148,12 @@ namespace AMSExplorer
 
         private void DoStartStreamingEndpoints()
         {
-            foreach (IStreamingEndpoint myO in ReturnSelectedStreamingEndpoints())
+
+            Task.Run(async () =>
             {
-                StartStreamingEndpoint(myO);
+                DoStartStreamingEndpointEngine(ReturnSelectedStreamingEndpoints());
             }
+                   );
         }
 
         private void stopOriginsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10273,10 +10163,11 @@ namespace AMSExplorer
 
         private void DoStopStreamingEndpoints()
         {
-            foreach (IStreamingEndpoint myO in ReturnSelectedStreamingEndpoints())
+            Task.Run(async () =>
             {
-                StopStreamingEndpointAsync(myO);
+                DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), false);
             }
+                   );
         }
 
         private void deleteOriginsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10286,7 +10177,7 @@ namespace AMSExplorer
 
         private void DoDeleteStreamingEndpoints()
         {
-            List<IStreamingEndpoint> SelectedOrigins = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> SelectedOrigins = ReturnSelectedStreamingEndpoints();
             if (SelectedOrigins.Count > 0)
             {
                 string question = (SelectedOrigins.Count == 1) ? "Delete streaming endpoint " + SelectedOrigins[0].Name + " ?" : "Delete these " + SelectedOrigins.Count + " streaming endpoints ?";
@@ -10294,12 +10185,9 @@ namespace AMSExplorer
                 {
                     Task.Run(async () =>
                     {
-                        // let's stop the channels now
-                        var tasks = ReturnSelectedStreamingEndpoints().Select(se => DeleteStreamingEndpointAsync(se)).ToArray();
-                        await Task.WhenAll(tasks);
-                        DoRefreshGridStreamingEndpointV(false);
+                        DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), true);
                     }
-           );
+                  );
                 }
             }
         }
@@ -10314,7 +10202,6 @@ namespace AMSExplorer
             var form = new CreateStreamingEndpoint();
             var cdnform = new StreamingEndpointCDNEnable();
 
-
             if (form.ShowDialog() == DialogResult.OK)
             {
 
@@ -10327,6 +10214,19 @@ namespace AMSExplorer
                 }
                 TextBoxLogWriteLine("Creating streaming endpoint {0}...", form.StreamingEndpointName);
 
+
+                var newStreamingEndpoint = new StreamingEndpoint(name: form.StreamingEndpointName,
+                                                                 scaleUnits: form.scaleUnits,
+                                                                 description: form.StreamingEndpointDescription,
+                                                                 cdnEnabled: form.EnableAzureCDN,
+                                                                 cdnProvider: (form.EnableAzureCDN ? cdnform.ProviderSelected.ToString():null),
+                                                                 cdnProfile : (form.EnableAzureCDN ? cdnform.Profile : null),
+                                                                 location : _credentialsV3.MediaService.Location
+
+                                                                 );
+
+
+                /*
                 var options = new StreamingEndpointCreationOptions()
                 {
                     Name = form.StreamingEndpointName,
@@ -10348,8 +10248,31 @@ namespace AMSExplorer
                           "created",
                           _context));
 
+                */
 
-                DoRefreshGridStreamingEndpointV(false);
+                Task.Run(async () =>
+                {
+
+                    try
+                    {
+                        TextBoxLogWriteLine("Streaming endpoint creation...");
+                       var secreated = _mediaServicesClient.StreamingEndpoints.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.StreamingEndpointName, newStreamingEndpoint);
+                        TextBoxLogWriteLine("Streaming endpoint created.");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating a streaming endpoint", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                    DoRefreshGridStreamingEndpointV(false);
+
+
+                }
+              );
+
+
             }
         }
 
@@ -10372,7 +10295,7 @@ namespace AMSExplorer
 
         private void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDisplayProgramInfo();
+            DoDisplayLiveOutputInfo();
         }
 
         private void dataGridViewLiveV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -10391,10 +10314,11 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
-                if (program != null)
+                //  IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
+                var liveoutput = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Name"].Index].Value.ToString());
+                if (liveoutput != null)
                 {
-                    DoDisplayProgramInfo(new List<IProgram>() { program });
+                    DoDisplayLiveOutputInfo(new List<LiveOutput>() { liveoutput });
                 }
             }
         }
@@ -10449,10 +10373,10 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IStreamingEndpoint se = GetStreamingEndpoint(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
+                StreamingEndpoint se = GetStreamingEndpoint(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
                 if (se != null)
                 {
-                    DoDisplayStreamingEndpointInfo(new List<IStreamingEndpoint>() { se });
+                    DoDisplayStreamingEndpointInfo(new List<StreamingEndpoint>() { se });
                 }
             }
         }
@@ -10468,12 +10392,13 @@ namespace AMSExplorer
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: ptype,
                             Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri,
-                            DoNotRewriteURL: true, context: _context,
+                            DoNotRewriteURL: true, client: _mediaServicesClient, cred: _credentialsV3,
                             formatamp: AzureMediaPlayerFormats.Smooth,
                             UISelectSEFiltersAndProtocols: false,
                             mainForm: this,
                             selectedBrowser: Constants.BrowserIE[1],
-                            launchbrowser: true
+                            launchbrowser: true,
+                            context: _context
                             );
                     }
                 }
@@ -12163,7 +12088,7 @@ namespace AMSExplorer
 
         private void DoCopyOutputURLAssetOrProgramToClipboard()
         {
-            IAsset asset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            Asset asset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
@@ -12174,7 +12099,7 @@ namespace AMSExplorer
 
                     if (true)//_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
-                        var form = new ChooseStreamingEndpoint(_context, asset, url);
+                        var form = new ChooseStreamingEndpoint(_mediaServicesClient, _credentialsV3, asset, url);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -12926,7 +12851,7 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<IAsset> listassets, string filter = null)
+        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<Asset> listassets, string filter = null)
         {
             foreach (var myAsset in listassets)
             {
@@ -12939,8 +12864,22 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         try
                         {
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                            ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                            //IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
+                            //ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                            var policy = new StreamingPolicy(Guid.NewGuid().ToString(), "strpol" + uniqueness, null, DateTime.Now, null, null, null, null, null);
+                            var policy2 = _mediaServicesClient.StreamingPolicies.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, policy.Name, policy);
+
+
+                            StreamingLocator locator = new StreamingLocator(
+                                                                            assetName: myAsset.Name,
+                                                                            streamingPolicyName: policy.Name,
+                                                                            defaultContentKeyPolicyName: null,
+                                                                            streamingLocatorId: null
+                                                                            );
+
+                            _mediaServicesClient.StreamingLocators.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, "loc" + uniqueness, locator);
+
                             dataGridViewAssetsV.PurgeCacheAsset(myAsset);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
@@ -12959,10 +12898,12 @@ namespace AMSExplorer
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, this, myAsset, false, filter);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri,_context, _mediaServicesClient, _credentialsV3, this, myAsset, false, filter);
                     }
                     else
                     {
+                        /* v3 migration
+
                         // there is a streaming locator but the asset cannot be played back with adaptive streaming. It could be a single file in the asset.
                         // if this is a single MP4 file, we can play it with the streaming locator but as progressive download
                         if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
@@ -12974,6 +12915,7 @@ namespace AMSExplorer
                         {
                             MessageBox.Show(string.Format("The asset '{0}' does not seem to be playable with adaptive streaming.", myAsset.Name), "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
+                        */
                     }
                 }
             }
@@ -12981,7 +12923,7 @@ namespace AMSExplorer
 
         private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, new List<IAsset>());// ReturnSelectedAssetsFromProgramsOrAssets());
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, new List<Asset>());// ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -13268,15 +13210,9 @@ namespace AMSExplorer
 
         private void ChangeAzureCDN(bool enable)
         {
-            IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            StreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-            if (StreamingEndpointInformation.ReturnTypeSE(streamingendpoint) == StreamingEndpointInformation.StreamEndpointType.Classic)
-            {
-                MessageBox.Show(string.Format("Streaming endpoint must be Standard or Premium in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (streamingendpoint.State != StreamingEndpointState.Stopped)
+            if (streamingendpoint.ResourceState != StreamingEndpointResourceState.Stopped)
             {
                 MessageBox.Show(string.Format("Streaming endpoint must be stopped in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -13289,8 +13225,7 @@ namespace AMSExplorer
                     Task.Run(async () =>
                     {
                         streamingendpoint.CdnEnabled = false;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                        DoRefreshGridStreamingEndpointV(false);
+                        DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
                     });
                 }
             }
@@ -13304,8 +13239,7 @@ namespace AMSExplorer
                         streamingendpoint.CdnEnabled = true;
                         streamingendpoint.CdnProvider = form.ProviderSelectedString;
                         streamingendpoint.CdnProfile = form.Profile;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                        DoRefreshGridStreamingEndpointV(false);
+                        DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
                     });
 
                 }
@@ -13317,39 +13251,7 @@ namespace AMSExplorer
             ChangeAzureCDN(false);
         }
 
-        private void OptinToStandardSE()
-        {
-            IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-
-            if (streamingendpoint.State != StreamingEndpointState.Stopped)
-            {
-                MessageBox.Show("Streaming endpoint must be stopped in order to migrate it to Standard.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (new Version(streamingendpoint.StreamingEndpointVersion) > new Version("1.0"))
-            {
-                MessageBox.Show("Only Classic Streaming Endpoint can be migrated to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (streamingendpoint.ScaleUnits > 0)
-            {
-                MessageBox.Show("Streaming endpoint must be classic (0 unit) to migrate it to Standard", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (MessageBox.Show(string.Format("Do you confirm the migration from Classic to Standard of the Streaming Endpoint '{0}' ?\n\nMigrating from classic to standard endpoint cannot be rolled back and has a pricing impact. Please check Azure Media Services pricing page. After migration, it can take up to 30 minutes for full propagation and dynamic packaging and streaming requests might fail during this period.", streamingendpoint.Name), "Migrating from classic to standard", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                Task.Run(async () =>
-                {
-                    streamingendpoint.StreamingEndpointVersion = "2.0";
-                    await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "migrated");
-                    DoRefreshGridStreamingEndpointV(false);
-                });
-            }
-        }
 
 
         private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
@@ -13360,8 +13262,6 @@ namespace AMSExplorer
             // telemetry
             loadToolStripMenuItem.Enabled = enableTelemetry;
 
-            // optinstandard
-            ManageMenuOptionsOptinStandard(optinToStandardToolStripMenuItem);
 
         }
 
@@ -13383,25 +13283,21 @@ namespace AMSExplorer
             // telemetry
             telemetryToolStripMenuItem.Enabled = enableTelemetry;
 
-            // optinstandard
-            ManageMenuOptionsOptinStandard(optinToStandardToolStripMenuItem);
-
         }
 
         private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
         {
             // enable Azure CDN operation if one se selected and in stopped state
-            List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
 
             if (streamingendpoints.Count == 1)
             {
                 var se = streamingendpoints.FirstOrDefault();
-                bool sestopped = (se.State == StreamingEndpointState.Stopped);
-                bool cdnenabled = se.CdnEnabled;
-                bool secompatible = StreamingEndpointInformation.CanDoDynPackaging(se);
+                bool sestopped = (se.ResourceState == StreamingEndpointResourceState.Stopped);
+                bool cdnenabled = (bool)se.CdnEnabled;
 
-                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled && secompatible;
-                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled && secompatible;
+                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
+                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
                 enableAzureCDNToolStripMenuItem1.Visible = !cdnenabled;
                 disableAzureCDNToolStripMenuItem1.Visible = cdnenabled;
             }
@@ -13414,31 +13310,7 @@ namespace AMSExplorer
             }
         }
 
-        private void ManageMenuOptionsOptinStandard(ToolStripMenuItem menu)
-        {
-            // enable Optin Standard if one se selected and type is classic
-            List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
-
-            if (streamingendpoints.Count == 1)
-            {
-                bool classic = StreamingEndpointInformation.ReturnTypeSE(streamingendpoints.FirstOrDefault()) == StreamingEndpointInformation.StreamEndpointType.Classic;
-                menu.Enabled = classic;
-                menu.Visible = classic;
-
-            }
-            else if (streamingendpoints.Any(se => StreamingEndpointInformation.ReturnTypeSE(se) == StreamingEndpointInformation.StreamEndpointType.Classic))
-            // so the user can see the feature
-            {
-                menu.Visible = true;
-                menu.Enabled = false;
-            }
-            else
-            {
-                menu.Visible = false;
-                menu.Enabled = false;
-            }
-        }
-
+     
 
 
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -15918,15 +15790,6 @@ namespace AMSExplorer
             Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
 
-        private void optinToStandardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OptinToStandardSE();
-        }
-
-        private void optinToStandardStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OptinToStandardSE();
-        }
 
         private void selectedJobsToolStripMenuItem1_Click(object sender, EventArgs e)
         {

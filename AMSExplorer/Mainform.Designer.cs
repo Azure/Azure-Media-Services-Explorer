@@ -291,7 +291,6 @@
             this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemOriginDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optinToStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator33 = new System.Windows.Forms.ToolStripSeparator();
@@ -476,7 +475,6 @@
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.telemetryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optinToStandardStreamingEndpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator34 = new System.Windows.Forms.ToolStripSeparator();
@@ -2558,7 +2556,6 @@
             this.toolStripSeparator25,
             this.ContextMenuItemOriginDisplayInformation,
             this.loadToolStripMenuItem,
-            this.optinToStandardToolStripMenuItem,
             this.enableAzureCDNToolStripMenuItem,
             this.disableAzureCDNToolStripMenuItem,
             this.toolStripSeparator33,
@@ -2593,12 +2590,6 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             resources.ApplyResources(this.loadToolStripMenuItem, "loadToolStripMenuItem");
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // optinToStandardToolStripMenuItem
-            // 
-            this.optinToStandardToolStripMenuItem.Name = "optinToStandardToolStripMenuItem";
-            resources.ApplyResources(this.optinToStandardToolStripMenuItem, "optinToStandardToolStripMenuItem");
-            this.optinToStandardToolStripMenuItem.Click += new System.EventHandler(this.optinToStandardToolStripMenuItem_Click);
             // 
             // enableAzureCDNToolStripMenuItem
             // 
@@ -3913,7 +3904,6 @@
             this.originToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.displayOriginInformationToolStripMenuItem,
             this.telemetryToolStripMenuItem,
-            this.optinToStandardStreamingEndpointToolStripMenuItem,
             this.enableAzureCDNToolStripMenuItem1,
             this.disableAzureCDNToolStripMenuItem1,
             this.toolStripSeparator34,
@@ -3936,12 +3926,6 @@
             this.telemetryToolStripMenuItem.Name = "telemetryToolStripMenuItem";
             resources.ApplyResources(this.telemetryToolStripMenuItem, "telemetryToolStripMenuItem");
             this.telemetryToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // optinToStandardStreamingEndpointToolStripMenuItem
-            // 
-            this.optinToStandardStreamingEndpointToolStripMenuItem.Name = "optinToStandardStreamingEndpointToolStripMenuItem";
-            resources.ApplyResources(this.optinToStandardStreamingEndpointToolStripMenuItem, "optinToStandardStreamingEndpointToolStripMenuItem");
-            this.optinToStandardStreamingEndpointToolStripMenuItem.Click += new System.EventHandler(this.optinToStandardStreamingEndpointToolStripMenuItem_Click);
             // 
             // enableAzureCDNToolStripMenuItem1
             // 
@@ -4802,8 +4786,6 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optinToStandardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optinToStandardStreamingEndpointToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem2;

@@ -175,7 +175,7 @@
     <value>0</value>
   </data>
   <data name="tabPageInfo.Text" xml:space="preserve">
-    <value>Program information</value>
+    <value>Live Output information</value>
   </data>
   <data name="&gt;&gt;tabPageInfo.Name" xml:space="preserve">
     <value>tabPageInfo</value>
@@ -529,7 +529,7 @@
     <value>38</value>
   </data>
   <data name="labelProgramName.Text" xml:space="preserve">
-    <value>Program : </value>
+    <value>Live Output : </value>
   </data>
   <data name="&gt;&gt;labelProgramName.Name" xml:space="preserve">
     <value>labelProgramName</value>
@@ -661,7 +661,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Program Information</value>
+    <value>Live Output Information</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemFilesCopyClipboard.Name" xml:space="preserve">
     <value>toolStripMenuItemFilesCopyClipboard</value>
@@ -670,7 +670,7 @@
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ProgramInformation</value>
+    <value>LiveOutputInformation</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

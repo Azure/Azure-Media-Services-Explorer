@@ -661,11 +661,11 @@
     <Compile Include="Thumbnails.Designer.cs">
       <DependentUpon>Thumbnails.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgramInformation.cs">
+    <Compile Include="LiveOutputInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgramInformation.Designer.cs">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    <Compile Include="LiveOutputInformation.Designer.cs">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="LiveEventInformation.cs">
       <SubType>Form</SubType>
@@ -1301,8 +1301,8 @@
     <EmbeddedResource Include="ProcessFromJobTemplate.ja.resx">
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgramInformation.ja.resx">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputInformation.ja.resx">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegionEditor\RegionEditor.ja.resx">
       <DependentUpon>RegionEditor.cs</DependentUpon>
@@ -1455,8 +1455,8 @@
     <EmbeddedResource Include="Thumbnails.resx">
       <DependentUpon>Thumbnails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgramInformation.resx">
-      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputInformation.resx">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LiveEventInformation.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>

@@ -44,6 +44,8 @@ using System.Collections.ObjectModel;
 using System.Drawing.Drawing2D;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -51,7 +53,7 @@ namespace AMSExplorer
     {
         public string Name { get; set; }
         public string Id { get; set; }
-        public StreamingEndpointState State { get; set; }
+        public StreamingEndpointResourceState State { get; set; }
         public StreamingEndpointInformation.StreamEndpointType Type { get; set; }
         public string CDN { get; set; }
         public string Description { get; set; }
@@ -114,15 +116,15 @@ namespace AMSExplorer
             }
 
         }
-        public List<IStreamingEndpoint> DisplayedStreamingEndpoints
+        public List<StreamingEndpoint> DisplayedStreamingEndpoints
         {
             // we want to keep the sorting in display
             get
             {
-                var list = new List<IStreamingEndpoint>();
+                var list = new List<StreamingEndpoint>();
                 foreach (var se in _MyObservStreamingEndpoints)
                 {
-                    list.Add(_context.StreamingEndpoints.Where(s => s.Id == se.Id).FirstOrDefault());
+                    list.Add(_client.StreamingEndpoints.Get(_resourceName, _accountName, se.Name));
                 }
                 return list;
             }
@@ -130,35 +132,35 @@ namespace AMSExplorer
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
         static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        static IEnumerable<IStreamingEndpoint> streamingendpoints;
+        static IEnumerable<StreamingEndpoint> streamingendpoints;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _filterstreamingendpointsstate = "All";
-        static CloudMediaContext _context;
-        static private CredentialsEntry _credentials;
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshStreamingEndpoints;
+        private AzureMediaServicesClient _client;
+        private string _resourceName;
+        private string _accountName;
 
-        public void Init(CredentialsEntry credentials, CloudMediaContext context)
+        public void Init(AzureMediaServicesClient client, CredentialsEntryV3 cred)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
-            _credentials = credentials;
-
-            _context = context;
-            originquery = from o in _context.StreamingEndpoints
-                          orderby o.LastModified descending
-                          select new StreamingEndpointEntry
-                          {
-                              Name = o.Name,
-                              Id = o.Id,
-                              Description = o.Description,
-                              CDN = o.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
-                              ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)o.ScaleUnits).ToString(),
-                              Type = StreamingEndpointInformation.ReturnTypeSE(o),
-                              State = o.State,
-                              LastModified = o.LastModified.ToLocalTime()
-                          };
+            _client = client;
+            _resourceName = cred.ResourceGroup;
+            _accountName = cred.AccountName;
+            originquery = _client.StreamingEndpoints.List(_resourceName, _accountName).Select(o => new
+                          StreamingEndpointEntry
+            {
+                Name = o.Name,
+                Id = o.Id,
+                Description = o.Description,
+                CDN = ((bool)o.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
+                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)o.ScaleUnits).ToString(),
+                Type = StreamingEndpointInformation.ReturnTypeSE(o),
+                State = (StreamingEndpointResourceState)o.ResourceState,
+                LastModified = ((DateTime)o.LastModified).ToLocalTime()
+            });
 
 
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
@@ -181,7 +183,7 @@ namespace AMSExplorer
         }
 
 
-        public void RefreshStreamingEndpoint(IStreamingEndpoint origin)
+        public void RefreshStreamingEndpoint(StreamingEndpoint origin)
         {
             int index = -1;
             foreach (StreamingEndpointEntry CE in _MyObservStreamingEndpoints) // let's search for index
@@ -195,14 +197,14 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                origin = _context.StreamingEndpoints.Where(o => o.Id == origin.Id).FirstOrDefault(); //refresh
+                origin = _client.StreamingEndpoints.Get(_resourceName, _accountName, origin.Name); //refresh
                 if (origin != null)
                 {
-                    _MyObservStreamingEndpoints[index].State = origin.State;
+                    _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)origin.ResourceState;
                     _MyObservStreamingEndpoints[index].Description = origin.Description;
-                    _MyObservStreamingEndpoints[index].LastModified = origin.LastModified.ToLocalTime();
+                    _MyObservStreamingEndpoints[index].LastModified = ((DateTime)origin.LastModified).ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(origin);
-                    _MyObservStreamingEndpoints[index].CDN = origin.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(origin.CdnProvider) ?? "CDN" : string.Empty;
+                    _MyObservStreamingEndpoints[index].CDN = ((bool)origin.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(origin.CdnProvider) ?? "CDN" : string.Empty;
                     _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(origin) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)origin.ScaleUnits).ToString();
                     this.Refresh();
 
@@ -215,7 +217,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IStreamingEndpoint origin;
+            StreamingEndpoint origin;
 
             foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
             {
@@ -223,11 +225,11 @@ namespace AMSExplorer
                 origin = null;
                 try
                 {
-                    origin = _context.StreamingEndpoints.Where(a => a.Id == OE.Id).FirstOrDefault();
+                    origin = _client.StreamingEndpoints.Get(_resourceName, _accountName, origin.Name); //refresh
                     if (origin != null)
                     {
 
-                        OE.State = origin.State;
+                        OE.State = (StreamingEndpointResourceState)origin.ResourceState;
 
                         //if ((i % 5) == 0) this.BeginInvoke(new Action(() => this.Refresh()), null);
                         this.BeginInvoke(new Action(() => this.Refresh()), null);
@@ -249,19 +251,16 @@ namespace AMSExplorer
         }
 
 
-        public void RefreshStreamingEndpoints(CloudMediaContext context)
+        public void RefreshStreamingEndpoints()
         {
             if (!_initialized) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
-
-            _context = context;
-
+       
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            streamingendpoints = context.StreamingEndpoints;
+            streamingendpoints = _client.StreamingEndpoints.List(_resourceName, _accountName);
 
-            _context = context;
 
             try
             {
@@ -279,10 +278,10 @@ namespace AMSExplorer
                                 Name = c.Name,
                                 Id = c.Id,
                                 Description = c.Description,
-                                CDN = c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
+                                CDN = (bool)c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
                                 ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)c.ScaleUnits).ToString(),
-                                State = c.State,
-                                LastModified = c.LastModified.ToLocalTime(),
+                                State =(StreamingEndpointResourceState) c.ResourceState,
+                                LastModified = ((DateTime)c.LastModified).ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)
                             };
 

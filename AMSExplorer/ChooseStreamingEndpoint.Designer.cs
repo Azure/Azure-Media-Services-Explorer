@@ -46,7 +46,6 @@
             this.textBoxHLSAudioTrackName = new System.Windows.Forms.TextBox();
             this.radioButtonSmoothLegacy = new System.Windows.Forms.RadioButton();
             this.radioButtonDASH = new System.Windows.Forms.RadioButton();
-            this.radioButtonHDS = new System.Windows.Forms.RadioButton();
             this.radioButtonHLSv4 = new System.Windows.Forms.RadioButton();
             this.radioButtonHLSv3 = new System.Windows.Forms.RadioButton();
             this.radioButtonSmooth = new System.Windows.Forms.RadioButton();
@@ -153,7 +152,6 @@
             this.groupBox1.Controls.Add(this.textBoxHLSAudioTrackName);
             this.groupBox1.Controls.Add(this.radioButtonSmoothLegacy);
             this.groupBox1.Controls.Add(this.radioButtonDASH);
-            this.groupBox1.Controls.Add(this.radioButtonHDS);
             this.groupBox1.Controls.Add(this.radioButtonHLSv4);
             this.groupBox1.Controls.Add(this.radioButtonHLSv3);
             this.groupBox1.Controls.Add(this.radioButtonSmooth);
@@ -191,13 +189,6 @@
             this.radioButtonDASH.Name = "radioButtonDASH";
             this.radioButtonDASH.UseVisualStyleBackColor = true;
             this.radioButtonDASH.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
-            // 
-            // radioButtonHDS
-            // 
-            resources.ApplyResources(this.radioButtonHDS, "radioButtonHDS");
-            this.radioButtonHDS.Name = "radioButtonHDS";
-            this.radioButtonHDS.UseVisualStyleBackColor = true;
-            this.radioButtonHDS.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
             // 
             // radioButtonHLSv4
             // 
@@ -279,7 +270,6 @@
         private System.Windows.Forms.TextBox textBoxHLSAudioTrackName;
         private System.Windows.Forms.RadioButton radioButtonSmoothLegacy;
         private System.Windows.Forms.RadioButton radioButtonDASH;
-        private System.Windows.Forms.RadioButton radioButtonHDS;
         private System.Windows.Forms.RadioButton radioButtonHLSv4;
         private System.Windows.Forms.RadioButton radioButtonHLSv3;
         private System.Windows.Forms.RadioButton radioButtonSmooth;

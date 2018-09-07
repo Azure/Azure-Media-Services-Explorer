@@ -39,10 +39,8 @@
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.moreinfoSE = new System.Windows.Forms.LinkLabel();
             this.groupBoxTypeScale = new System.Windows.Forms.GroupBox();
-            this.labelInfoMigration = new System.Windows.Forms.Label();
             this.radioButtonPremium = new System.Windows.Forms.RadioButton();
             this.radioButtonStandard = new System.Windows.Forms.RadioButton();
-            this.radioButtonClassic = new System.Windows.Forms.RadioButton();
             this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.labelcdn = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
@@ -174,20 +172,12 @@
             // 
             // groupBoxTypeScale
             // 
-            this.groupBoxTypeScale.Controls.Add(this.labelInfoMigration);
             this.groupBoxTypeScale.Controls.Add(this.radioButtonPremium);
             this.groupBoxTypeScale.Controls.Add(this.radioButtonStandard);
-            this.groupBoxTypeScale.Controls.Add(this.radioButtonClassic);
             this.groupBoxTypeScale.Controls.Add(this.numericUpDownRU);
             resources.ApplyResources(this.groupBoxTypeScale, "groupBoxTypeScale");
             this.groupBoxTypeScale.Name = "groupBoxTypeScale";
             this.groupBoxTypeScale.TabStop = false;
-            // 
-            // labelInfoMigration
-            // 
-            this.labelInfoMigration.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.labelInfoMigration, "labelInfoMigration");
-            this.labelInfoMigration.Name = "labelInfoMigration";
             // 
             // radioButtonPremium
             // 
@@ -206,14 +196,6 @@
             this.toolTip1.SetToolTip(this.radioButtonStandard, resources.GetString("radioButtonStandard.ToolTip"));
             this.radioButtonStandard.UseVisualStyleBackColor = true;
             this.radioButtonStandard.CheckedChanged += new System.EventHandler(this.radioButtonStandard_CheckedChanged);
-            // 
-            // radioButtonClassic
-            // 
-            resources.ApplyResources(this.radioButtonClassic, "radioButtonClassic");
-            this.radioButtonClassic.Name = "radioButtonClassic";
-            this.toolTip1.SetToolTip(this.radioButtonClassic, resources.GetString("radioButtonClassic.ToolTip"));
-            this.radioButtonClassic.UseVisualStyleBackColor = true;
-            this.radioButtonClassic.CheckedChanged += new System.EventHandler(this.radioButtonClassic_CheckedChanged);
             // 
             // numericUpDownRU
             // 
@@ -573,8 +555,6 @@
         private System.Windows.Forms.GroupBox groupBoxTypeScale;
         private System.Windows.Forms.RadioButton radioButtonPremium;
         private System.Windows.Forms.RadioButton radioButtonStandard;
-        private System.Windows.Forms.RadioButton radioButtonClassic;
-        private System.Windows.Forms.Label labelInfoMigration;
         private System.Windows.Forms.LinkLabel moreinfoSE;
     }
 }
