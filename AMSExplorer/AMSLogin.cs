@@ -996,6 +996,8 @@ namespace AMSExplorer
                 authority: environment.Authority,
                 validateAuthority: true);
 
+               
+
                 var accessToken = await authContext.AcquireTokenAsync(
                                                                      resource: environment.ArmResource,
                                                                      clientId: environment.ClientApplicationId,
@@ -1008,6 +1010,10 @@ namespace AMSExplorer
 
                 var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
                 var subscriptions = subscriptionClient.Subscriptions.List();
+
+                //var tenants = subscriptionClient.Tenants.List();
+               
+
 
                 var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);
                 if (addaccount2.ShowDialog() == DialogResult.OK)

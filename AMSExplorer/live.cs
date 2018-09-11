@@ -505,7 +505,7 @@ namespace AMSExplorer
         }
     }
 
-    public class DataGridViewLiveProgram : DataGridView
+    public class DataGridViewLiveOutput : DataGridView
     {
         private List<string> idsList = new List<string>();
         private List<StatusInfo> ListStatus = new List<StatusInfo>();

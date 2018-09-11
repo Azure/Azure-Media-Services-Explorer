@@ -482,7 +482,7 @@
     <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetRename.Text" xml:space="preserve">
-    <value>Rename...</value>
+    <value>Edit Description...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
@@ -2651,7 +2651,7 @@
   <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="dataGridViewProgramsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <metadata name="contextMenuStripPrograms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -2875,7 +2875,7 @@
   <data name="&gt;&gt;contextMenuStripPrograms.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="dataGridViewProgramsV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
         ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
@@ -2884,25 +2884,25 @@
         ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
-  <data name="dataGridViewProgramsV.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 18</value>
   </data>
-  <data name="dataGridViewProgramsV.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
     <value>992, 153</value>
   </data>
-  <data name="dataGridViewProgramsV.TabIndex" type="System.Int32, mscorlib">
+  <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
-  <data name="&gt;&gt;dataGridViewProgramsV.Name" xml:space="preserve">
-    <value>dataGridViewProgramsV</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
+    <value>dataGridViewLiveOutputV</value>
   </data>
-  <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.2.1, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=4.3.2.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
   </data>
-  <data name="&gt;&gt;dataGridViewProgramsV.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
@@ -4535,7 +4535,7 @@
     <value>220, 22</value>
   </data>
   <data name="renameToolStripMenuItem.Text" xml:space="preserve">
-    <value>Rename...</value>
+    <value>Edit Description...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 22</value>

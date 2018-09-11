@@ -213,7 +213,7 @@
             this.allJobsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageLive = new System.Windows.Forms.TabPage();
             this.panelPrograms = new System.Windows.Forms.Panel();
-            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
+            this.dataGridViewLiveOutputV = new AMSExplorer.DataGridViewLiveOutput();
             this.contextMenuStripPrograms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
@@ -545,7 +545,7 @@
             this.contextMenuStripJobs.SuspendLayout();
             this.tabPageLive.SuspendLayout();
             this.panelPrograms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveOutputV)).BeginInit();
             this.contextMenuStripPrograms.SuspendLayout();
             this.panelChannels.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveEventsV)).BeginInit();
@@ -1959,7 +1959,7 @@
             // 
             // panelPrograms
             // 
-            this.panelPrograms.Controls.Add(this.dataGridViewProgramsV);
+            this.panelPrograms.Controls.Add(this.dataGridViewLiveOutputV);
             this.panelPrograms.Controls.Add(this.labelPrograms);
             this.panelPrograms.Controls.Add(this.radioButtonChNone);
             this.panelPrograms.Controls.Add(this.comboBoxSearchProgramOption);
@@ -1975,32 +1975,32 @@
             resources.ApplyResources(this.panelPrograms, "panelPrograms");
             this.panelPrograms.Name = "panelPrograms";
             // 
-            // dataGridViewProgramsV
+            // dataGridViewLiveOutputV
             // 
-            this.dataGridViewProgramsV.AllowUserToAddRows = false;
-            this.dataGridViewProgramsV.AllowUserToDeleteRows = false;
-            this.dataGridViewProgramsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewProgramsV, "dataGridViewProgramsV");
-            this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
-            this.dataGridViewProgramsV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
-            this.dataGridViewProgramsV.FilterState = "All";
-            this.dataGridViewProgramsV.ItemsPerPage = 50;
-            this.dataGridViewProgramsV.LiveEventSourceNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.LiveEventSourceNames")));
-            this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
-            this.dataGridViewProgramsV.ReadOnly = true;
-            this.dataGridViewProgramsV.RowHeadersVisible = false;
+            this.dataGridViewLiveOutputV.AllowUserToAddRows = false;
+            this.dataGridViewLiveOutputV.AllowUserToDeleteRows = false;
+            this.dataGridViewLiveOutputV.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewLiveOutputV, "dataGridViewLiveOutputV");
+            this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripPrograms;
+            this.dataGridViewLiveOutputV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
+            this.dataGridViewLiveOutputV.FilterState = "All";
+            this.dataGridViewLiveOutputV.ItemsPerPage = 50;
+            this.dataGridViewLiveOutputV.LiveEventSourceNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewLiveOutputV.LiveEventSourceNames")));
+            this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
+            this.dataGridViewLiveOutputV.ReadOnly = true;
+            this.dataGridViewLiveOutputV.RowHeadersVisible = false;
             searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
             searchObject2.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject2;
-            this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProgramsV.TimeFilter = "Last week";
-            this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
-            this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
-            this.dataGridViewProgramsV.ColumnSortModeChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewV_ColumnSortModeChanged);
-            this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewProgramsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewProgramsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
+            this.dataGridViewLiveOutputV.SearchInName = searchObject2;
+            this.dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewLiveOutputV.TimeFilter = "Last week";
+            this.dataGridViewLiveOutputV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
+            this.dataGridViewLiveOutputV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
+            this.dataGridViewLiveOutputV.ColumnSortModeChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewV_ColumnSortModeChanged);
+            this.dataGridViewLiveOutputV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewLiveOutputV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewLiveOutputV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
             // contextMenuStripPrograms
             // 
@@ -4282,7 +4282,7 @@
             this.tabPageLive.ResumeLayout(false);
             this.panelPrograms.ResumeLayout(false);
             this.panelPrograms.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveOutputV)).EndInit();
             this.contextMenuStripPrograms.ResumeLayout(false);
             this.panelChannels.ResumeLayout(false);
             this.panelChannels.PerformLayout();
@@ -4602,7 +4602,7 @@
         private DataGridViewLiveChannel dataGridViewLiveEventsV;
         private System.Windows.Forms.Label labelPrograms;
         private System.Windows.Forms.Label label15;
-        private DataGridViewLiveProgram dataGridViewProgramsV;
+        private DataGridViewLiveOutput dataGridViewLiveOutputV;
         private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;
         private System.Windows.Forms.ComboBox comboBoxStatusProgram;
         private System.Windows.Forms.Label label16;
