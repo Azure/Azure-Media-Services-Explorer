@@ -2739,8 +2739,10 @@ namespace AMSExplorer
                         }
                         if (protocolDASH && locator.GetMpegDashUri() != null)
                         {
-                            sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
+                            sbuilderThisAsset.AppendLine(AssetInfo._dash_csf + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
+                            sbuilderThisAsset.AppendLine(AssetInfo._dash_cmaf + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri.Replace(AssetInfo.format_dash_csf, AssetInfo.format_dash_cmaf)));
                         }
                         if (protocolHLS && locator.GetHlsUri() != null)
                         {
@@ -2748,6 +2750,8 @@ namespace AMSExplorer
                             sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
                             sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true).AbsoluteUri));
+                            sbuilderThisAsset.AppendLine(AssetInfo._hls_cmaf + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri.Replace(AssetInfo.format_hls_v4, AssetInfo.format_hls_cmaf)));
                         }
                     }
 

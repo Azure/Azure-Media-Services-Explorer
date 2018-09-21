@@ -111,6 +111,7 @@ namespace AMSExplorer
                 {
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
+                        case AssetInfo._dash_cmaf:
                         case AssetInfo._dash:
                             AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,context:myContext, client: _client, cred: _cred, mainForm: myMainForm);
                             break;
@@ -134,14 +135,14 @@ namespace AMSExplorer
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
 
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) | TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_cmaf)))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
@@ -673,48 +674,55 @@ namespace AMSExplorer
                             indexn++;
                         }
                         else if (myAsset.AssetType == AssetType.SmoothStreaming || myAsset.AssetType == AssetType.MultiBitrateMP4 || myAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                                                                                                                                                                             // It's not Static HLS
-                                                                                                                                                                             // Smooth or multi MP4
                         {
                             if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
                             {
                                 Color ColorSmooth = ((myAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.NotSpecified, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = ColorSmooth });
                                 }
-                                indexn++;
 
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.SmoothLegacy, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn+1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
-                                indexn++;
+                                indexn = indexn + 2;
                             }
                             if (protocolDASH && locator.GetMpegDashUri() != null)
                             {
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash_csf) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCsf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
-                                indexn++;
-                            }
-                            if (protocolHLS && locator.GetHlsUri() != null)
-                            {
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash_cmaf) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCmaf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 indexn = indexn + 2;
+                            }
+                            if (protocolHLS && locator.GetHlsUri() != null)
+                            {
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_cmaf) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSCmaf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
+                                }
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv4, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
+                                }
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv3, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 2].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
+                                }
+                                indexn = indexn + 3;
                             }
                         }
                     }
@@ -1132,14 +1140,14 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-
                             buttonDASH.Enabled = false;
                             buttonAzureMediaPlayer.Enabled = true;
                             buttonHTML.Enabled = false;
                             buttonOpen.Enabled = false;
                             break;
 
-                        case AssetInfo._dash:
+                        case AssetInfo._dash_csf:
+                        case AssetInfo._dash_cmaf:
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
                             buttonHTML.Enabled = false;
@@ -1185,7 +1193,7 @@ namespace AMSExplorer
                 {
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
-                        case AssetInfo._dash:
+                        case AssetInfo._dash_csf:
                             AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _client, cred: _cred, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
