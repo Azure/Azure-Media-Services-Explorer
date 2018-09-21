@@ -904,7 +904,7 @@ namespace AMSExplorer
         public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
-        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v2.6.8/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v2.9.0/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
@@ -1590,18 +1590,21 @@ namespace AMSExplorer
         public const string Type_Thumbnails = "Thumbnails";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
         public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
+        public const string _hls_cmaf = "HLS CMAF URL";
         public const string _hls_v4 = "HLS v4 URL";
         public const string _hls_v3 = "HLS v3 URL";
-        public const string _dash = "MPEG-DASH URL";
+        public const string _dash_csf = "MPEG-DASH CSF URL";
+        public const string _dash_cmaf = "MPEG-DASH CMAF URL";
         public const string _smooth = "Smooth Streaming URL";
         public const string _smooth_legacy = "Smooth Streaming (legacy) URL";
         public const string _hls = "HLS URL";
 
-        private const string format_smooth_legacy = "fmp4-v20";
-        private const string format_hls_v4 = "m3u8-aapl";
-        private const string format_hls_v3 = "m3u8-aapl-v3";
-        private const string format_dash = "mpd-time-csf";
-        private const string format_hds = "f4m-f4f";
+        public const string format_smooth_legacy = "fmp4-v20";
+        public const string format_hls_v4 = "m3u8-aapl";
+        public const string format_hls_v3 = "m3u8-aapl-v3";
+        public const string format_hls_cmaf = "m3u8-cmaf";
+        public const string format_dash_csf = "mpd-time-csf";
+        public const string format_dash_cmaf = "mpd-time-cmaf";
 
         private const string format_url = "format={0}";
         private const string filter_url = "filter={0}";
@@ -1723,47 +1726,6 @@ namespace AMSExplorer
         }
 
 
-        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.NotSpecified, audiotrack);
-        }
-
-        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.SmoothLegacy, audiotrack);
-        }
-
-        /// <summary>
-        /// Returns the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.
-        /// </summary>
-        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
-        /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv4, audiotrack);
-        }
-
-        /// <summary>
-        /// Returns the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.
-        /// </summary>
-        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
-        /// <returns>A <see cref="System.Uri"/> representing the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv3, audiotrack);
-        }
-
-        /// <summary>
-        /// Returns the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.
-        /// </summary>
-        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
-        /// <returns>A <see cref="System.Uri"/> representing the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.Dash, audiotrack);
-        }
-
-
         public static IEnumerable<IAssetFile> GetManifestAssetFiles(IAsset asset)
         {
             if (asset == null)
@@ -1778,6 +1740,14 @@ namespace AMSExplorer
                 .Where(af => af.Name.EndsWith(ILocatorExtensions.ManifestFileExtension, StringComparison.OrdinalIgnoreCase))
                   .ToList();
         }
+
+
+        public static IEnumerable<Uri> GetUrisForSpecificProtocol(ILocator originLocator, AMSOutputProtocols protocol, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
+        {
+            return GetStreamingUris(originLocator, se, filter, https, customhostname, protocol, audiotrack);
+        }
+
+
 
         private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols outputprotocol = AMSOutputProtocols.NotSpecified, string audiotrack = null)
         {
@@ -1869,17 +1839,20 @@ namespace AMSExplorer
         {
             switch (protocol)
             {
-                case AMSOutputProtocols.Dash:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                case AMSOutputProtocols.DashCsf:
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
 
-                case AMSOutputProtocols.HDS:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hds));
+                case AMSOutputProtocols.DashCmaf:
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf));
 
                 case AMSOutputProtocols.HLSv3:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v3));
 
                 case AMSOutputProtocols.HLSv4:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v4));
+
+                case AMSOutputProtocols.HLSCmaf:
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_cmaf));
 
                 case AMSOutputProtocols.SmoothLegacy:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_smooth_legacy));
@@ -2843,13 +2816,13 @@ namespace AMSExplorer
                         // Smooth or multi MP4
                         if (locator.GetSmoothStreamingUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, null, true))
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.NotSpecified, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._smooth + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
                             }
 
-                            foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, null, true))
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.SmoothLegacy, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._smooth_legacy + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
@@ -2858,21 +2831,31 @@ namespace AMSExplorer
 
                         if (locator.GetMpegDashUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, null, true))
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCsf, SelectedSE, null, true))
                             {
-                                sb.AppendLine(AssetInfo._dash + " : ");
+                                sb.AppendLine(AssetInfo._dash_csf + " : ");
+                                sb.AppendLine(uri.AbsoluteUri);
+                            }
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCmaf, SelectedSE, null, true))
+                            {
+                                sb.AppendLine(AssetInfo._dash_cmaf + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
                             }
                         }
 
                         if (locator.GetHlsUri() != null)
                         {
-                            foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, null, true))
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSCmaf, SelectedSE, null, true))
+                            {
+                                sb.AppendLine(AssetInfo._hls_cmaf + " : ");
+                                sb.AppendLine(uri.AbsoluteUri.Replace(AssetInfo.format_hls_v4, AssetInfo.format_hls_cmaf));
+                            }
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv4, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._hls_v4 + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
                             }
-                            foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, null, true))
+                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv3, SelectedSE, null, true))
                             {
                                 sb.AppendLine(AssetInfo._hls_v3 + " : ");
                                 sb.AppendLine(uri.AbsoluteUri);
@@ -2939,7 +2922,7 @@ namespace AMSExplorer
                     {
                         if (typeplayer == PlayerType.DASHIFRefPlayer)
                         {
-                            Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.Dash).ToString();
+                            Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.DashCsf).ToString();
                         }
                         else
                         {
@@ -3147,9 +3130,9 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.DASHIFRefPlayer:
-                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
+                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) && !Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)))
                         {
-                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
                         }
                         FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, Urlstr);
                         break;
@@ -4031,10 +4014,11 @@ namespace AMSExplorer
         NotSpecified = 0,
         Smooth,
         SmoothLegacy,
-        Dash,
+        DashCsf,
         HLSv3,
         HLSv4,
-        HDS
+        HLSCmaf,
+        DashCmaf
     }
 
     public enum AzureMediaPlayerTechnologies

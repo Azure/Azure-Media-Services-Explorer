@@ -122,16 +122,30 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonDASH.Checked)
-                { return AMSOutputProtocols.Dash; }
+                if (radioButtonDASHCSF.Checked)
+                {
+                    return AMSOutputProtocols.DashCsf;
+                }
                 else if (radioButtonSmoothLegacy.Checked)
-                { return AMSOutputProtocols.SmoothLegacy; }
-                else if (radioButtonHDS.Checked)
-                { return AMSOutputProtocols.HDS; }
+                {
+                    return AMSOutputProtocols.SmoothLegacy;
+                }
+                else if (radioButtonDASHCMAF.Checked)
+                {
+                    return AMSOutputProtocols.DashCmaf;
+                }
                 else if (radioButtonHLSv3.Checked)
-                { return AMSOutputProtocols.HLSv3; }
+                {
+                    return AMSOutputProtocols.HLSv3;
+                }
                 else if (radioButtonHLSv4.Checked)
-                { return AMSOutputProtocols.HLSv4; }
+                {
+                    return AMSOutputProtocols.HLSv4;
+                }
+                else if (radioButtonHLSCMAF.Checked)
+                {
+                    return AMSOutputProtocols.HLSCmaf;
+                }
 
                 return AMSOutputProtocols.Smooth;
             }
@@ -159,7 +173,7 @@ namespace AMSExplorer
             IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
             foreach (var se in _context.StreamingEndpoints)
             {
-                listBoxSE.Items.Add(new Item(string.Format( AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.Id + "|" + se.HostName));
+                listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.State, StreamingEndpointInformation.ReturnTypeSE(se)), se.Id + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
                 foreach (var custom in se.CustomHostNames)
                 {
@@ -202,7 +216,7 @@ namespace AMSExplorer
 
             if (_playertype == PlayerType.DASHIFRefPlayer)
             {
-                radioButtonDASH.Checked = true;
+                radioButtonDASHCSF.Checked = true;
             }
 
             comboBoxBrowser.Items.Add(new Item(AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser, string.Empty));

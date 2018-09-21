@@ -303,57 +303,6 @@
   <data name="groupBoxForceLocator.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;listViewFilters.Name" xml:space="preserve">
-    <value>listViewFilters</value>
-  </data>
-  <data name="&gt;&gt;listViewFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listViewFilters.Parent" xml:space="preserve">
-    <value>groupBoxForceLocator</value>
-  </data>
-  <data name="&gt;&gt;listViewFilters.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>groupBoxForceLocator</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxForceLocator.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
-  <data name="groupBoxForceLocator.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 229</value>
-  </data>
-  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 228</value>
-  </data>
-  <data name="groupBoxForceLocator.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="groupBoxForceLocator.Text" xml:space="preserve">
-    <value>Filters</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Name" xml:space="preserve">
-    <value>groupBoxForceLocator</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="listViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -411,8 +360,47 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="groupBoxForceLocator.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBoxForceLocator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 229</value>
+  </data>
+  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 228</value>
+  </data>
+  <data name="groupBoxForceLocator.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBoxForceLocator.Text" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Name" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="comboBoxBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="comboBoxBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 17</value>
+  </data>
+  <data name="comboBoxBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
+  <data name="comboBoxBrowser.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;comboBoxBrowser.Name" xml:space="preserve">
     <value>comboBoxBrowser</value>
@@ -447,167 +435,41 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="comboBoxBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="comboBoxBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 17</value>
-  </data>
-  <data name="comboBoxBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="comboBoxBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;comboBoxBrowser.Name" xml:space="preserve">
-    <value>comboBoxBrowser</value>
-  </data>
-  <data name="&gt;&gt;comboBoxBrowser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxBrowser.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;comboBoxBrowser.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;checkBoxNoAudioOnly.Name" xml:space="preserve">
-    <value>checkBoxNoAudioOnly</value>
+  <data name="radioButtonHLSCMAF.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxNoAudioOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="radioButtonHLSCMAF.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="&gt;&gt;checkBoxNoAudioOnly.Parent" xml:space="preserve">
+  <data name="radioButtonHLSCMAF.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonHLSCMAF.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 156</value>
+  </data>
+  <data name="radioButtonHLSCMAF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 19</value>
+  </data>
+  <data name="radioButtonHLSCMAF.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="radioButtonHLSCMAF.Text" xml:space="preserve">
+    <value>HLS (CMAF)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonHLSCMAF.Name" xml:space="preserve">
+    <value>radioButtonHLSCMAF</value>
+  </data>
+  <data name="&gt;&gt;radioButtonHLSCMAF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonHLSCMAF.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;checkBoxNoAudioOnly.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonHLSCMAF.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelaudiotrackname.Name" xml:space="preserve">
-    <value>labelaudiotrackname</value>
-  </data>
-  <data name="&gt;&gt;labelaudiotrackname.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelaudiotrackname.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;labelaudiotrackname.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxHLSAudioTrackName.Name" xml:space="preserve">
-    <value>textBoxHLSAudioTrackName</value>
-  </data>
-  <data name="&gt;&gt;textBoxHLSAudioTrackName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxHLSAudioTrackName.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxHLSAudioTrackName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmoothLegacy.Name" xml:space="preserve">
-    <value>radioButtonSmoothLegacy</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmoothLegacy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmoothLegacy.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmoothLegacy.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Name" xml:space="preserve">
-    <value>radioButtonDASH</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHDS.Name" xml:space="preserve">
-    <value>radioButtonHDS</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHDS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHDS.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHDS.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv4.Name" xml:space="preserve">
-    <value>radioButtonHLSv4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv4.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv3.Name" xml:space="preserve">
-    <value>radioButtonHLSv3</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHLSv3.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmooth.Name" xml:space="preserve">
-    <value>radioButtonSmooth</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmooth.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmooth.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSmooth.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 229</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 228</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Adaptive Streaming Protocol</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="checkBoxNoAudioOnly.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -619,7 +481,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxNoAudioOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 116</value>
+    <value>49, 109</value>
   </data>
   <data name="checkBoxNoAudioOnly.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 19</value>
@@ -640,7 +502,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxNoAudioOnly.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="labelaudiotrackname.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -652,7 +514,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="labelaudiotrackname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 94</value>
+    <value>46, 87</value>
   </data>
   <data name="labelaudiotrackname.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 15</value>
@@ -673,7 +535,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;labelaudiotrackname.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="textBoxHLSAudioTrackName.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -682,7 +544,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxHLSAudioTrackName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>159, 91</value>
+    <value>159, 84</value>
   </data>
   <data name="textBoxHLSAudioTrackName.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 23</value>
@@ -700,7 +562,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxHLSAudioTrackName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonSmoothLegacy.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -709,7 +571,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="radioButtonSmoothLegacy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 47</value>
+    <value>23, 44</value>
   </data>
   <data name="radioButtonSmoothLegacy.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 19</value>
@@ -730,67 +592,67 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonSmoothLegacy.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="radioButtonDASH.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonDASH.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="radioButtonDASH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 170</value>
-  </data>
-  <data name="radioButtonDASH.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 19</value>
-  </data>
-  <data name="radioButtonDASH.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="radioButtonDASH.Text" xml:space="preserve">
-    <value>MPEG-DASH</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Name" xml:space="preserve">
-    <value>radioButtonDASH</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDASH.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="radioButtonHDS.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonDASHCSF.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonHDS.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="radioButtonDASHCSF.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="radioButtonHDS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 195</value>
+  <data name="radioButtonDASHCSF.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 178</value>
   </data>
-  <data name="radioButtonHDS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 19</value>
+  <data name="radioButtonDASHCSF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 19</value>
   </data>
-  <data name="radioButtonHDS.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="radioButtonDASHCSF.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="radioButtonHDS.Text" xml:space="preserve">
-    <value>HDS (for Adobe PrimeTime/Access licensees only)</value>
+  <data name="radioButtonDASHCSF.Text" xml:space="preserve">
+    <value>MPEG-DASH (CSF)</value>
   </data>
-  <data name="&gt;&gt;radioButtonHDS.Name" xml:space="preserve">
-    <value>radioButtonHDS</value>
+  <data name="&gt;&gt;radioButtonDASHCSF.Name" xml:space="preserve">
+    <value>radioButtonDASHCSF</value>
   </data>
-  <data name="&gt;&gt;radioButtonHDS.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonDASHCSF.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButtonHDS.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonDASHCSF.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;radioButtonHDS.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonDASHCSF.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="radioButtonDASHCMAF.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonDASHCMAF.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="radioButtonDASHCMAF.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 200</value>
+  </data>
+  <data name="radioButtonDASHCMAF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 19</value>
+  </data>
+  <data name="radioButtonDASHCMAF.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="radioButtonDASHCMAF.Text" xml:space="preserve">
+    <value>MPEG-DASH (CMAF)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDASHCMAF.Name" xml:space="preserve">
+    <value>radioButtonDASHCMAF</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDASHCMAF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDASHCMAF.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDASHCMAF.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="radioButtonHLSv4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -799,7 +661,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="radioButtonHLSv4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 145</value>
+    <value>23, 134</value>
   </data>
   <data name="radioButtonHLSv4.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 19</value>
@@ -820,7 +682,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonHLSv4.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="radioButtonHLSv3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -829,7 +691,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="radioButtonHLSv3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 72</value>
+    <value>23, 66</value>
   </data>
   <data name="radioButtonHLSv3.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 19</value>
@@ -850,7 +712,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonHLSv3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="radioButtonSmooth.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -880,7 +742,34 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonSmooth.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
+  </data>
+  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 229</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>323, 228</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Adaptive Streaming Protocol</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="label.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>

@@ -45,14 +45,15 @@
             this.labelaudiotrackname = new System.Windows.Forms.Label();
             this.textBoxHLSAudioTrackName = new System.Windows.Forms.TextBox();
             this.radioButtonSmoothLegacy = new System.Windows.Forms.RadioButton();
-            this.radioButtonDASH = new System.Windows.Forms.RadioButton();
-            this.radioButtonHDS = new System.Windows.Forms.RadioButton();
+            this.radioButtonDASHCSF = new System.Windows.Forms.RadioButton();
+            this.radioButtonDASHCMAF = new System.Windows.Forms.RadioButton();
             this.radioButtonHLSv4 = new System.Windows.Forms.RadioButton();
             this.radioButtonHLSv3 = new System.Windows.Forms.RadioButton();
             this.radioButtonSmooth = new System.Windows.Forms.RadioButton();
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPreviewURL = new System.Windows.Forms.TextBox();
+            this.radioButtonHLSCMAF = new System.Windows.Forms.RadioButton();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -148,12 +149,13 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.radioButtonHLSCMAF);
             this.groupBox1.Controls.Add(this.checkBoxNoAudioOnly);
             this.groupBox1.Controls.Add(this.labelaudiotrackname);
             this.groupBox1.Controls.Add(this.textBoxHLSAudioTrackName);
             this.groupBox1.Controls.Add(this.radioButtonSmoothLegacy);
-            this.groupBox1.Controls.Add(this.radioButtonDASH);
-            this.groupBox1.Controls.Add(this.radioButtonHDS);
+            this.groupBox1.Controls.Add(this.radioButtonDASHCSF);
+            this.groupBox1.Controls.Add(this.radioButtonDASHCMAF);
             this.groupBox1.Controls.Add(this.radioButtonHLSv4);
             this.groupBox1.Controls.Add(this.radioButtonHLSv3);
             this.groupBox1.Controls.Add(this.radioButtonSmooth);
@@ -185,19 +187,19 @@
             this.radioButtonSmoothLegacy.UseVisualStyleBackColor = true;
             this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
             // 
-            // radioButtonDASH
+            // radioButtonDASHCSF
             // 
-            resources.ApplyResources(this.radioButtonDASH, "radioButtonDASH");
-            this.radioButtonDASH.Name = "radioButtonDASH";
-            this.radioButtonDASH.UseVisualStyleBackColor = true;
-            this.radioButtonDASH.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            resources.ApplyResources(this.radioButtonDASHCSF, "radioButtonDASHCSF");
+            this.radioButtonDASHCSF.Name = "radioButtonDASHCSF";
+            this.radioButtonDASHCSF.UseVisualStyleBackColor = true;
+            this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
             // 
-            // radioButtonHDS
+            // radioButtonDASHCMAF
             // 
-            resources.ApplyResources(this.radioButtonHDS, "radioButtonHDS");
-            this.radioButtonHDS.Name = "radioButtonHDS";
-            this.radioButtonHDS.UseVisualStyleBackColor = true;
-            this.radioButtonHDS.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            resources.ApplyResources(this.radioButtonDASHCMAF, "radioButtonDASHCMAF");
+            this.radioButtonDASHCMAF.Name = "radioButtonDASHCMAF";
+            this.radioButtonDASHCMAF.UseVisualStyleBackColor = true;
+            this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
             // 
             // radioButtonHLSv4
             // 
@@ -239,6 +241,12 @@
             this.textBoxPreviewURL.Name = "textBoxPreviewURL";
             this.textBoxPreviewURL.ReadOnly = true;
             // 
+            // radioButtonHLSCMAF
+            // 
+            resources.ApplyResources(this.radioButtonHLSCMAF, "radioButtonHLSCMAF");
+            this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
+            this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
+            // 
             // ChooseStreamingEndpoint
             // 
             this.AcceptButton = this.buttonOk;
@@ -278,8 +286,8 @@
         private System.Windows.Forms.Label labelaudiotrackname;
         private System.Windows.Forms.TextBox textBoxHLSAudioTrackName;
         private System.Windows.Forms.RadioButton radioButtonSmoothLegacy;
-        private System.Windows.Forms.RadioButton radioButtonDASH;
-        private System.Windows.Forms.RadioButton radioButtonHDS;
+        private System.Windows.Forms.RadioButton radioButtonDASHCSF;
+        private System.Windows.Forms.RadioButton radioButtonDASHCMAF;
         private System.Windows.Forms.RadioButton radioButtonHLSv4;
         private System.Windows.Forms.RadioButton radioButtonHLSv3;
         private System.Windows.Forms.RadioButton radioButtonSmooth;
@@ -292,5 +300,6 @@
         private System.Windows.Forms.TextBox textBoxPreviewURL;
         private System.Windows.Forms.ListView listViewFilters;
         private System.Windows.Forms.ComboBox comboBoxBrowser;
+        private System.Windows.Forms.RadioButton radioButtonHLSCMAF;
     }
 }
