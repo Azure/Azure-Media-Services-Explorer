@@ -55,7 +55,7 @@ namespace AMSExplorer
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
-        public static CredentialsEntryV3 _credentialsV3;
+        //public static CredentialsEntryV3 _amsClientV3.credentialsEntry;
         public static bool havestoragecredentials = true;
 
         // Field for service context.
@@ -101,7 +101,8 @@ namespace AMSExplorer
         private static readonly int S2AssetSizeLimit = 640; // GBytes
         private static readonly int S3AssetSizeLimit = 240; // GBytes
         public string _accountname;
-        private static AzureMediaServicesClient _mediaServicesClient;
+        //private static AzureMediaServicesClient _amsClientV3.AMSclient;
+        private static AMSClientV3 _amsClientV3;
 
         public Mainform()
         {
@@ -164,9 +165,9 @@ namespace AMSExplorer
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
-            AMSLogin form = new AMSLogin();
+            AMSLogin formLogin = new AMSLogin();
 
-            if (form.ShowDialog() == DialogResult.Cancel)
+            if (formLogin.ShowDialog() == DialogResult.Cancel)
             {
                 Environment.Exit(0);
             }
@@ -174,14 +175,12 @@ namespace AMSExplorer
             //_credentials = form.LoginCredentials;
 
             // Get the service context.
-            _context = form.context;// Program.ConnectAndGetNewContext(_credentials, true);
+            _context = formLogin.context;// Program.ConnectAndGetNewContext(_credentials, true);
+            _amsClientV3 = formLogin.AMSClient;
 
-            _mediaServicesClient = form.mediaServicesClient;
-            _credentialsV3 = form.LoginInfo;
+            _accountname = _amsClientV3.credentialsEntry.AccountName;
 
-            _accountname = _credentialsV3.AccountName;
-
-            DisplaySplashDuringLoading = true;
+           DisplaySplashDuringLoading = true;
             ThreadPool.QueueUserWorkItem((x) =>
             {
                 using (var splashForm = new Splash(_accountname))
@@ -296,7 +295,7 @@ namespace AMSExplorer
             // Let's check if there is one streaming unit running
             try
             {
-                var se = _mediaServicesClient.StreamingEndpoints.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+                var se = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
                 if (se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
@@ -310,7 +309,7 @@ namespace AMSExplorer
                 //      TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
 
                 // Let's check if there is dynamic packaging for the channels
-                double nbchannels = (double)_mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+                double nbchannels = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
                 double nbse = (double)se.Count();
                 if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
                     TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
@@ -341,7 +340,7 @@ namespace AMSExplorer
          */
 
             // nb assets limits
-            int nbassets = _mediaServicesClient.Assets.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+            int nbassets = _amsClientV3.AMSclient.Assets.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
             largeAccount = nbassets > triggerForLargeAccountNbAssets;
             if (largeAccount)
             {
@@ -354,8 +353,8 @@ namespace AMSExplorer
 
             /*
             // nb jobs limits
-                var transforms = _mediaServicesClient.Transforms.List(_credentialsV3.ResourceGroup(), _credentialsV3.AccountName());
-            int nbjobs = _mediaServicesClient.Jobs.List(_credentialsV3.ResourceGroup(), _credentialsV3.AccountName(),"").Count();
+                var transforms = _amsClientV3.AMSclient.Transforms.List(_amsClientV3.credentialsEntry.ResourceGroup(), _amsClientV3.credentialsEntry.AccountName());
+            int nbjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup(), _amsClientV3.credentialsEntry.AccountName(),"").Count();
             /*
             if (nbjobs > triggerForLargeAccountNbJobs)
             {
@@ -917,17 +916,17 @@ namespace AMSExplorer
 
         static Job GetJob(string transformName, string jobName)
         {
-            return _mediaServicesClient.Jobs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, transformName, jobName);
+            return _amsClientV3.AMSclient.Jobs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName, jobName);
         }
 
         static Transform GetTransform(string transformName)
         {
-            return _mediaServicesClient.Transforms.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, transformName);
+            return _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
         }
 
         static LiveEvent GetChannel(string channelName)
         {
-            return _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channelName);
+            return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channelName);
         }
 
         static IChannel GetChannelFromName(string name)
@@ -974,7 +973,7 @@ namespace AMSExplorer
 
         static StreamingEndpoint GetStreamingEndpoint(string seName)
         {
-            return _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, seName);
+            return _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, seName);
         }
 
 
@@ -1181,7 +1180,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewAssetsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+                dataGridViewAssetsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
@@ -1234,7 +1233,7 @@ namespace AMSExplorer
 
             if (firstime)
             {
-                dataGridViewTransformsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+                dataGridViewTransformsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
             }
 
@@ -1255,7 +1254,7 @@ namespace AMSExplorer
             if (!dataGridViewJobsV._initialized)
             //  if (firstime)
             {
-                dataGridViewJobsV.Init(_mediaServicesClient, _credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+                dataGridViewJobsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
                 //      for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
                 //       comboBoxPageJobs.SelectedIndex = 0;
             }
@@ -1643,13 +1642,13 @@ namespace AMSExplorer
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
 
-                                StreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_mediaServicesClient, _credentialsV3);
+                                StreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_amsClientV3);
                                 StringBuilder sb = new StringBuilder();
                                 Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                 string playbackurl = null;
                                 if (SmoothUri != null)
                                 {
-                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, _mediaServicesClient, _credentialsV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
+                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, _amsClientV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
                                     sb.AppendLine("Link to playback the asset:");
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
@@ -2212,13 +2211,13 @@ namespace AMSExplorer
             {
                 // Refresh the asset.
                 //_context = Program.ConnectAndGetNewContext(_credentials);
-                asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, asset.Name);
+                asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name);
                 if (asset != null)
                 {
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        AssetInformation form = new AssetInformation(this, _mediaServicesClient, _credentialsV3)
+                        AssetInformation form = new AssetInformation(this, _amsClientV3)
                         {
                             myAssetV3 = asset//,
                             //myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
@@ -2298,7 +2297,7 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    JobInformation form = new JobInformation(this, _mediaServicesClient)
+                    JobInformation form = new JobInformation(this, _amsClientV3.AMSclient)
                     {
                         MyJob = job
                         //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
@@ -2324,7 +2323,7 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    TransformInformation form = new TransformInformation(this, _mediaServicesClient)
+                    TransformInformation form = new TransformInformation(this, _amsClientV3.AMSclient)
                     {
                         MyTransform = t
                         //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
@@ -2363,7 +2362,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetTORename.Description = value;
-                            _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, AssetTORename.Name, AssetTORename);
+                            _amsClientV3.AMSclient.Assets.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename);
                         }
                         catch
                         {
@@ -2395,7 +2394,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                            _mediaServicesClient.Assets.Update(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
+                            _amsClientV3.AMSclient.Assets.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
                         }
                         catch
                         {
@@ -2652,9 +2651,7 @@ namespace AMSExplorer
                 if (locator == null) return;
 
                 // let's choose a SE that running and with higher number of RU
-                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_mediaServicesClient, _credentialsV3);
-
-
+                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_amsClientV3);
 
                 StringBuilder sbuilderThisAsset = new StringBuilder();
                 sbuilderThisAsset.AppendLine("Asset:");
@@ -2872,7 +2869,7 @@ namespace AMSExplorer
             {
                 foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
                 {
-                    var asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                    var asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                     if (asset != null)
                     {
                         SelectedAssets.Add(asset);
@@ -2976,7 +2973,7 @@ namespace AMSExplorer
                         try
                         {
                             TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
 
                             //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             Task.WaitAll(deleteTasks);
@@ -3012,7 +3009,7 @@ namespace AMSExplorer
                         try
                         {
                             TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a.Name)).ToArray();
+                            Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
 
                             //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                             Task.WaitAll(deleteTasks);
@@ -4493,7 +4490,7 @@ namespace AMSExplorer
 
             if (copyAltId)
             {
-                clonedAsset.AlternateId = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, sourceProgram.AssetName).AlternateId;
+                clonedAsset.AlternateId = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, sourceProgram.AssetName).AlternateId;
                 clonedAsset.Update();
             }
 
@@ -4564,7 +4561,7 @@ namespace AMSExplorer
                 ManifestName = sourceProgram.ManifestName
             };
 
-            var STask = LiveEventCreateAsync(_mediaServicesClient, _credentialsV3,  eOutputs.CreateAsync Create CreateLiveOutput LiveOutputCreate ProgramExecuteAsync(
+            var STask = LiveEventCreateAsync(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry,  eOutputs.CreateAsync Create CreateLiveOutput LiveOutputCreate ProgramExecuteAsync(
               () =>
                   clonedchannel.Programs.CreateAsync(options),
                  sourceProgram.Name,
@@ -4647,7 +4644,7 @@ namespace AMSExplorer
                     Task.Run(async () =>
                     {
                         bool Error = false;
-                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => _mediaServicesClient.Jobs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, j.TransformName, j.Job.Name)).ToArray();
+                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => _amsClientV3.AMSclient.Jobs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, j.TransformName, j.Job.Name)).ToArray();
                         TextBoxLogWriteLine("Deleting job(s)");
                         try
                         {
@@ -6984,7 +6981,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                Asset asset = _mediaServicesClient.Assets.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                Asset asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 DisplayInfo(asset);
             }
         }
@@ -8330,11 +8327,11 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewLiveEventsV.Init(_mediaServicesClient, _credentialsV3);
+                dataGridViewLiveEventsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
             }
             dataGridViewLiveEventsV.Invoke(new Action(() => dataGridViewLiveEventsV.RefreshChannels(1)));
 
-            var count = _mediaServicesClient.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Count();
+            var count = _amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
             tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
             labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
         }
@@ -8345,7 +8342,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 Debug.WriteLine("DoRefreshGridProgramVforsttime");
-                dataGridViewLiveOutputV.Init(_credentialsV3, _mediaServicesClient);
+                dataGridViewLiveOutputV.Init(_amsClientV3.credentialsEntry, _amsClientV3.AMSclient);
             }
             else
             {
@@ -8363,7 +8360,7 @@ namespace AMSExplorer
 
             if (firstime)
             {
-                dataGridViewStreamingEndpointsV.Init(_mediaServicesClient, _credentialsV3);
+                dataGridViewStreamingEndpointsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
@@ -8527,7 +8524,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the channel can be null (if just deleted)
-                var liveEvent = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                var liveEvent = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
                 if (liveEvent != null)
                 {
                     SelectedLiveEvents.Add(liveEvent);
@@ -8542,7 +8539,7 @@ namespace AMSExplorer
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                var se = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
+                var se = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
                 if (se != null)
                 {
                     SelectedOrigins.Add(se);
@@ -8572,7 +8569,7 @@ namespace AMSExplorer
             List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
             foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
             {
-                var liveOutput = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
+                var liveOutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveOutput != null)
                 {
                     SelectedLiveOutputs.Add(liveOutput);
@@ -8615,7 +8612,7 @@ namespace AMSExplorer
                 while (program.ResourceState == state)
                 {
                     System.Threading.Thread.Sleep(1000);
-                    program = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, program.Name);
+                    program = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, program.Name);
                 }
                 if (program != null)
                     dataGridViewLiveOutputV.BeginInvoke(new Action(() => dataGridViewLiveOutputV.RefreshProgram(channel.Name, program)), null);
@@ -8630,7 +8627,7 @@ namespace AMSExplorer
                 while (channel.ResourceState == state)
                 {
                     System.Threading.Thread.Sleep(1000);
-                    channel = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name);
+                    channel = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name);
                 }
                 dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
             }
@@ -8675,7 +8672,7 @@ namespace AMSExplorer
 
             foreach (var le in ListEvents)
             {
-                LOList.AddRange(_mediaServicesClient.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList());
+                LOList.AddRange(_amsClientV3.AMSclient.LiveOutputs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name).ToList());
             }
 
             string channelstr = ListEvents.Count > 1 ? "live events" : "live event";
@@ -8788,7 +8785,7 @@ namespace AMSExplorer
 
             foreach (var le in ListEvents)
             {
-                var plist = _mediaServicesClient.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                var plist = _amsClientV3.AMSclient.LiveOutputs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -8806,11 +8803,11 @@ namespace AMSExplorer
                         Task.Run(async () =>
                         {
                             programqueryrunning.ToList().ForEach(p => TextBoxLogWriteLine("Stopping program '{0}'...", p.LiveOutputItem.Name));
-                            var tasks = programqueryrunning.Select(p => _mediaServicesClient.LiveOutputs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
+                            var tasks = programqueryrunning.Select(p => _amsClientV3.AMSclient.LiveOutputs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
                             await Task.WhenAll(tasks);
 
                             // let's reset the channels now that running programs are stopped
-                            var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                            var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                             await Task.WhenAll(tasksreset);
                         }
                         );
@@ -8826,7 +8823,7 @@ namespace AMSExplorer
                         Task.Run(async () =>
                        {
                            // let's reset the channels now that running programs are stopped
-                           var tasksreset = ListEvents.Select(c => _mediaServicesClient.LiveEvents.ResetAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                           var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                            await Task.WhenAll(tasksreset);
                        });
                     }
@@ -8896,7 +8893,7 @@ namespace AMSExplorer
                     };
 
                     liveEvent = new LiveEvent(
-                      location: _credentialsV3.MediaService.Location,
+                      location: _amsClientV3.credentialsEntry.MediaService.Location,
                       description: form.LiveEventDescription,
                       vanityUrl: form.VanityUrl,
                       encoding: form.Encoding,
@@ -8933,7 +8930,7 @@ namespace AMSExplorer
 
 
                     await Task.Run(() =>
-                     _mediaServicesClient.LiveEvents.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.LiveEventName, liveEvent, autoStart: form.StartChannelNow ? true : false)
+                     _amsClientV3.AMSclient.LiveEvents.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.LiveEventName, liveEvent, autoStart: form.StartChannelNow ? true : false)
 
                    );
 
@@ -8980,7 +8977,7 @@ namespace AMSExplorer
 
             if (firstchannel != null)
             {
-                LiveEventInformation form = new LiveEventInformation(this, _mediaServicesClient, _credentialsV3)
+                LiveEventInformation form = new LiveEventInformation(this, _amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
                 {
                     MyLiveEvent = firstchannel,
                     MultipleSelection = multiselection
@@ -9123,7 +9120,7 @@ namespace AMSExplorer
 
                         Task.Run(async () =>
                         {
-                            await _mediaServicesClient.LiveEvents.UpdateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, channel);
+                            await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, channel);
                             dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
                             TextBoxLogWriteLine("Live event '{0}' : updated.", channel.Name);
                         }
@@ -9167,7 +9164,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Stopping live event(s) : {0}...", names));
                     var states = liveeventsrunning.Select(p => p.ResourceState).ToList();
-                    var taskcstop = liveeventsrunning.Select(c => _mediaServicesClient.LiveEvents.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcstop = liveeventsrunning.Select(c => _amsClientV3.AMSclient.LiveEvents.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     int complete = 0;
                     while (!taskcstop.All(t => t.IsCompleted) && complete != liveeventsrunning.Count)
@@ -9176,7 +9173,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveeventsrunning)
                         {
-                            var loitemR = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9210,7 +9207,7 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine(string.Format("Deleting live event(s) : {0}...", names2));
                     var states = ListEvents.Select(p => p.ResourceState).ToList();
-                    var taskcdel = ListEvents.Select(c => _mediaServicesClient.LiveEvents.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcdel = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     while (!taskcdel.All(t => t.IsCompleted))
                     {
@@ -9218,7 +9215,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in ListEvents)
                         {
-                            var loitemR = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9256,7 +9253,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Starting live event(s) : {0}...", names));
                     var states = liveevntsstopped.Select(p => p.ResourceState).ToList();
-                    var taskcstop = liveevntsstopped.Select(c => _mediaServicesClient.LiveEvents.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcstop = liveevntsstopped.Select(c => _amsClientV3.AMSclient.LiveEvents.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
 
                     while (!taskcstop.All(t => t.IsCompleted) && complete != liveevntsstopped.Count)
@@ -9265,7 +9262,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveevntsstopped)
                         {
-                            var loitemR = _mediaServicesClient.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9323,7 +9320,7 @@ namespace AMSExplorer
             {   // delete programs
                 ListOutputs.ToList().ForEach(p => TextBoxLogWriteLine("Live output '{0}' : deleting...", p.Name));
                 var states = ListOutputs.Select(p => p.ResourceState).ToList();
-                var tasks = ListOutputs.Select(p => _mediaServicesClient.LiveOutputs.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, LiveOutputUtil.ReturnLiveEventFromOutput(p), p.Name)).ToArray();
+                var tasks = ListOutputs.Select(p => _amsClientV3.AMSclient.LiveOutputs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, LiveOutputUtil.ReturnLiveEventFromOutput(p), p.Name)).ToArray();
 
                 while (!tasks.All(t => t.IsCompleted))
                 {
@@ -9331,7 +9328,7 @@ namespace AMSExplorer
 
                     foreach (var loitem in ListOutputs)
                     {
-                        var loitemR = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
+                        var loitemR = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
                         if (loitemR != null && states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                         {
                             states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9359,7 +9356,7 @@ namespace AMSExplorer
             if (DeleteAsset && Error == false)
             {
                 assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a));
-                var tasksassets = assets.Select(a => _mediaServicesClient.Assets.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, a)).ToArray();
+                var tasksassets = assets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a)).ToArray();
                 try
                 {
                     await Task.WhenAll(tasksassets);
@@ -9386,7 +9383,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Starting streaming endpoint(s) : {0}...", names));
                     var states = streamingendpointsstopped.Select(p => p.ResourceState).ToList();
-                    var taskcstop = streamingendpointsstopped.Select(c => _mediaServicesClient.StreamingEndpoints.StartAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcstop = streamingendpointsstopped.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
 
                     while (!taskcstop.All(t => t.IsCompleted) && complete != streamingendpointsstopped.Count)
@@ -9395,7 +9392,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in streamingendpointsstopped)
                         {
-                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[streamingendpointsstopped.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9429,13 +9426,13 @@ namespace AMSExplorer
             try
             {
                 TextBoxLogWriteLine(string.Format("updating streaming endpoint : {0}...", se.Name));
-                await _mediaServicesClient.StreamingEndpoints.UpdateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, se.Name, se);
+                await _amsClientV3.AMSclient.StreamingEndpoints.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, se.Name, se);
                 TextBoxLogWriteLine(string.Format("Streaming endpoint updated : {0}.", se.Name));
 
                 if (units != null)
                 {
                     TextBoxLogWriteLine(string.Format("scaling streaming endpoint : {0}...", se.Name));
-                    await _mediaServicesClient.StreamingEndpoints.ScaleAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, se.Name, units);
+                    await _amsClientV3.AMSclient.StreamingEndpoints.ScaleAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, se.Name, units);
                     TextBoxLogWriteLine(string.Format("Streaming endpoint scaled : {0}.", se.Name));
                 }
 
@@ -9463,7 +9460,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Stopping streaming endpoints(s) : {0}...", names));
                     var states = sesrunning.Select(p => p.ResourceState).ToList();
-                    var taskcstop = sesrunning.Select(c => _mediaServicesClient.StreamingEndpoints.StopAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcstop = sesrunning.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     int complete = 0;
                     while (!taskcstop.All(t => t.IsCompleted) && complete != sesrunning.Count)
@@ -9472,7 +9469,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in sesrunning)
                         {
-                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[sesrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[sesrunning.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9505,7 +9502,7 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine(string.Format("Deleting streaming endpoints(s) : {0}...", names2));
                     var states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
-                    var taskcdel = ListStreamingEndpoints.Select(c => _mediaServicesClient.StreamingEndpoints.DeleteAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, c.Name)).ToArray();
+                    var taskcdel = ListStreamingEndpoints.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     while (!taskcdel.All(t => t.IsCompleted))
                     {
@@ -9513,7 +9510,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in ListStreamingEndpoints)
                         {
-                            var loitemR = _mediaServicesClient.StreamingEndpoints.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, loitem.Name);
+                            var loitemR = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
                             if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9598,7 +9595,7 @@ namespace AMSExplorer
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
 
-                CreateProgram form = new CreateProgram(_mediaServicesClient, _credentialsV3)
+                CreateProgram form = new CreateProgram(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
                 {
                     ChannelName = channel.Name,
                     archiveWindowLength = new TimeSpan(4, 0, 0),
@@ -9618,7 +9615,7 @@ namespace AMSExplorer
                         try
                         {
                             TextBoxLogWriteLine("Asset creation...");
-                            Asset asset = _mediaServicesClient.Assets.CreateOrUpdate(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, assetname, new Asset());
+                            Asset asset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, new Asset());
                             TextBoxLogWriteLine("Asset created.");
 
                             TextBoxLogWriteLine("Live output creation...");
@@ -9630,7 +9627,7 @@ namespace AMSExplorer
                             }
 
                             LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ForceManifestName ?? "output", hlsParam);
-                            var liveOutput2 = await _mediaServicesClient.LiveOutputs.CreateAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, channel.Name, form.ProgramName, liveOutput);
+                            var liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, form.ProgramName, liveOutput);
                             TextBoxLogWriteLine("Live output created.");
                         }
                         catch (Exception ex)
@@ -9788,7 +9785,7 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    LiveOutputInformation form = new LiveOutputInformation(this, _mediaServicesClient, _credentialsV3)
+                    LiveOutputInformation form = new LiveOutputInformation(this, _amsClientV3)
                     {
                         MyLiveOutput = liveoutputs.FirstOrDefault(),
                         MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
@@ -10204,7 +10201,7 @@ namespace AMSExplorer
                                                                  cdnEnabled: form.EnableAzureCDN,
                                                                  cdnProvider: (form.EnableAzureCDN ? cdnform.ProviderSelected.ToString() : null),
                                                                  cdnProfile: (form.EnableAzureCDN ? cdnform.Profile : null),
-                                                                 location: _credentialsV3.MediaService.Location
+                                                                 location: _amsClientV3.credentialsEntry.MediaService.Location
                                                                  );
 
                 Task.Run(async () =>
@@ -10213,7 +10210,7 @@ namespace AMSExplorer
                     try
                     {
                         TextBoxLogWriteLine("Streaming endpoint creation...");
-                        var secreated = _mediaServicesClient.StreamingEndpoints.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, form.StreamingEndpointName, newStreamingEndpoint);
+                        var secreated = _amsClientV3.AMSclient.StreamingEndpoints.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.StreamingEndpointName, newStreamingEndpoint);
                         TextBoxLogWriteLine("Streaming endpoint created.");
 
                     }
@@ -10268,7 +10265,7 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 //  IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
-                var liveoutput = _mediaServicesClient.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
+                var liveoutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveoutput != null)
                 {
                     DoDisplayLiveOutputInfo(new List<LiveOutput>() { liveoutput });
@@ -10345,7 +10342,8 @@ namespace AMSExplorer
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: ptype,
                             Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri,
-                            DoNotRewriteURL: true, client: _mediaServicesClient, cred: _credentialsV3,
+                            DoNotRewriteURL: true,
+                            client: _amsClientV3,
                             formatamp: AzureMediaPlayerFormats.Smooth,
                             UISelectSEFiltersAndProtocols: false,
                             mainForm: this,
@@ -12052,7 +12050,7 @@ namespace AMSExplorer
 
                     if (true)//_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
-                        var form = new ChooseStreamingEndpoint(_mediaServicesClient, _credentialsV3, asset, url);
+                        var form = new ChooseStreamingEndpoint(_amsClientV3, asset, url);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -12821,7 +12819,7 @@ namespace AMSExplorer
                             //ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
                             string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                             var policy = new StreamingPolicy(Guid.NewGuid().ToString(), "strpol" + uniqueness, null, DateTime.Now, null, null, null, null, null);
-                            var policy2 = _mediaServicesClient.StreamingPolicies.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, policy.Name, policy);
+                            var policy2 = _amsClientV3.AMSclient.StreamingPolicies.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, policy.Name, policy);
 
 
                             StreamingLocator locator = new StreamingLocator(
@@ -12831,7 +12829,7 @@ namespace AMSExplorer
                                                                             streamingLocatorId: null
                                                                             );
 
-                            _mediaServicesClient.StreamingLocators.Create(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, "loc" + uniqueness, locator);
+                            _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
 
                             dataGridViewAssetsV.PurgeCacheAsset(myAsset);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -12851,7 +12849,7 @@ namespace AMSExplorer
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, _mediaServicesClient, _credentialsV3, this, myAsset, false, filter);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, _amsClientV3, this, myAsset, false, filter);
                     }
                     else
                     {

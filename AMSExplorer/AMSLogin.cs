@@ -37,6 +37,8 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.Storage;
+using Microsoft.Azure;
 
 namespace AMSExplorer
 {
@@ -59,9 +61,13 @@ namespace AMSExplorer
         private string[] labelEntry1;
         private string[] labelEntry2;
 
-        public CredentialsEntryV3 LoginInfo;
-        public AzureMediaServicesClient mediaServicesClient;
-        public AuthenticationResult accessToken;
+        private CredentialsEntryV3 LoginInfo;
+        private AzureEnvironmentV3 environment;
+
+
+        public AMSClientV3 AMSClient { get; private set; }
+
+
 
         public CredentialsEntry GenerateLoginCredentials
         {
@@ -294,109 +300,11 @@ namespace AMSExplorer
                 return;
             }
 
-
-            //var accName = LoginCredentials.ReturnAccountName();
-
-            //var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == accName.ToLower().Trim()).FirstOrDefault();
-            //// if found the same name
-            //if (entryWithSameName == null)  // not found
-            //{
-            //    var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_SaveCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            //    if (result == DialogResult.Yes) // ok to save
-            //    {
-            //        /* V2 API CODE
-            //      CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-            //      Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-            //      Program.SaveAndProtectUserConfig();
-
-            //      AddItemToListviewAccounts(LoginCredentials);
-
-            //      */
-            //    }
-            //    else if (result == DialogResult.Cancel)
-            //    {
-            //        return;
-            //    }
-            //}
-            //else // found
-            //{
-            //    if (!LoginCredentials.Equals(entryWithSameName)) // changed ?
-            //    {
-            //        var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, accName), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            //        if (result == DialogResult.Yes) // ok to update the credentials
-            //        {
-            //            /* V2 API CODE
-            //          CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
-            //          Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-            //          Program.SaveAndProtectUserConfig();
-            //          */
-            //        }
-            //        else if (result == DialogResult.Cancel)
-            //        {
-            //            return;
-            //        }
-            //    }
-            //}
-
-            //if (LoginCredentials.UseAADServicePrincipal)  // service principal mode
-            //{
-            //    var spcrendentialsform = new AMSLoginServicePrincipal();
-            //    if (spcrendentialsform.ShowDialog() == DialogResult.OK)
-            //    {
-            //        LoginCredentials.ADSPClientId = spcrendentialsform.ClientId;
-            //        LoginCredentials.ADSPClientSecret = spcrendentialsform.ClientSecret;
-            //    }
-            //    else
-            //    {
-            //        return;
-            //    }
-            //}
-
-            //// OLD ACS Mode - let's warm the user
-            //if (!LoginCredentials.UseAADServicePrincipal && !LoginCredentials.UseAADInteract)
-            //{
-            //    var f = new DisplayBox("Warning", "ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible.", 10);
-            //    f.ShowDialog();
-            //}
-
-            //// Context creation
-            //this.Cursor = Cursors.WaitCursor;
-
-            //context = Program.ConnectAndGetNewContext(LoginCredentials, false, true);
-
-            //accName = LoginCredentials.ReturnAccountName();
-
-
-
-            var environment = LoginInfo.Environment;
-
-            var authContext = new AuthenticationContext(
-            authority: environment.Authority,
-            validateAuthority: true);
-
-            accessToken = await authContext.AcquireTokenAsync(
-                                                                 resource: environment.ArmResource,
-                                                                 clientId: environment.ClientApplicationId,
-                                                                 redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                 parameters: new PlatformParameters(LoginInfo.PromptUser, null)
-                                                                 );
-
-            var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-
-            /*
-            var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-            var subscriptions = subscriptionClient.Subscriptions.List();
-
-            var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);
-           */
-
-            // Getting Media Services accounts...
-            mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
-            mediaServicesClient.SubscriptionId = LoginInfo.AzureSubscriptionId;
-
+            AMSClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
+            var response = await AMSClient.ConnectAndGetNewClientV3();
             try
             {
-                var a = await mediaServicesClient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
+                var a = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
                 this.Cursor = Cursors.Default;
 
             }
@@ -406,6 +314,19 @@ namespace AMSExplorer
                 this.Cursor = Cursors.Default;
                 return;
             }
+
+          
+
+            // test to get storage keys
+            var resourceManagementClient = new ResourceManagementClient(AMSClient.credentials);
+            resourceManagementClient.SubscriptionId = LoginInfo.AzureSubscriptionId;
+            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
+            SubscriptionCloudCredentials creds = new TokenCloudCredentials(LoginInfo.AzureSubscriptionId, AMSClient.accessToken.AccessToken);
+            var storageManagementClient = new StorageManagementClient(creds);
+            var asssets = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
+            var firsta = asssets.First();
+            var keys = storageManagementClient.StorageAccounts.ListKeys("us", firsta.StorageAccountName);
+
 
             this.DialogResult = DialogResult.OK;  // form will close with OK result
                                                   // else --> form won't close...
@@ -990,13 +911,13 @@ namespace AMSExplorer
             var addaccount1 = new AddAMSAccount1();
             if (addaccount1.ShowDialog() == DialogResult.OK)
             {
-                var environment = addaccount1.GetEnvironment();
+                environment = addaccount1.GetEnvironment();
 
                 var authContext = new AuthenticationContext(
                 authority: environment.Authority,
                 validateAuthority: true);
 
-               
+
 
                 var accessToken = await authContext.AcquireTokenAsync(
                                                                      resource: environment.ArmResource,
@@ -1012,7 +933,7 @@ namespace AMSExplorer
                 var subscriptions = subscriptionClient.Subscriptions.List();
 
                 //var tenants = subscriptionClient.Tenants.List();
-               
+
 
 
                 var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);

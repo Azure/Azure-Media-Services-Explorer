@@ -50,6 +50,11 @@ using System.Net.Http;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
+using Microsoft.Rest;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure;
+using Microsoft.Azure.Management.Storage;
+using Microsoft.Azure.Management.Storage.Models;
 
 namespace AMSExplorer
 {
@@ -465,6 +470,7 @@ namespace AMSExplorer
 
             return ss[0]; // all strings identical
         }
+
 
 
         public static string ReturnS(int number)
@@ -2992,7 +2998,7 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, AzureMediaServicesClient client, CredentialsEntryV3 cred, Mainform mainForm,
+        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, AMSClientV3 client, Mainform mainForm,
             Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "")
@@ -3001,7 +3007,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(Urlstr))
             {
-                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(client,cred);
+                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(client);
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
@@ -3012,7 +3018,7 @@ namespace AMSExplorer
                         //(context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
                     {
-                        var form = new ChooseStreamingEndpoint(client, cred, myasset, Urlstr, filter, typeplayer, true);
+                        var form = new ChooseStreamingEndpoint(client, myasset, Urlstr, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -3281,10 +3287,10 @@ namespace AMSExplorer
 
 
 
-        internal static StreamingEndpoint GetBestStreamingEndpoint(AzureMediaServicesClient client, CredentialsEntryV3 cred)
+        internal static StreamingEndpoint GetBestStreamingEndpoint(AMSClientV3 client)
         {
-            StreamingEndpoint SESelected = client.StreamingEndpoints.List(cred.ResourceGroup, cred.AccountName).AsEnumerable().Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
-            if (SESelected == null) SESelected = client.StreamingEndpoints.Get(cred.ResourceGroup, cred.AccountName, "default");
+            StreamingEndpoint SESelected = client.AMSclient.StreamingEndpoints.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName).AsEnumerable().Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            if (SESelected == null) SESelected = client.AMSclient.StreamingEndpoints.Get(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
 
             return SESelected;
         }
@@ -4490,6 +4496,66 @@ namespace AMSExplorer
         }
     }
 
+    public class AMSClientV3
+    {
+        public AzureMediaServicesClient AMSclient;
+        public AuthenticationResult accessToken;
+        public CredentialsEntryV3 credentialsEntry;
+        public TokenCredentials credentials;
+        public AzureEnvironmentV3 environment;
+        private string _azureSubscriptionId;
+
+        public AMSClientV3(AzureEnvironmentV3 myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry)
+        {
+            environment = myEnvironment;
+            _azureSubscriptionId = azureSubscriptionId;
+            credentialsEntry = myCredentialsEntry;
+        }
+
+
+        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3()
+        {
+            var authContext = new AuthenticationContext(
+            authority: environment.Authority,
+            validateAuthority: true);
+
+            accessToken = await authContext.AcquireTokenAsync(
+                                                                resource: environment.ArmResource,
+                                                                clientId: environment.ClientApplicationId,
+                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
+                                                                );
+
+            credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+            // Getting Media Services accounts...
+            AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+            AMSclient.SubscriptionId = _azureSubscriptionId;
+            return AMSclient;
+        }
+
+        public StorageAccountListKeysResponse GetStorageKeys(string storageAccountName, string resourceGroupName = null)
+        {
+            // test to get storage keys
+            var resourceManagementClient = new ResourceManagementClient(credentials);
+            resourceManagementClient.SubscriptionId = _azureSubscriptionId;
+            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
+            SubscriptionCloudCredentials creds = new TokenCloudCredentials(_azureSubscriptionId, accessToken.AccessToken);
+            var storageManagementClient = new StorageManagementClient(creds);
+
+            if (resourceGroupName == null)
+            {
+                var storage = storageManagementClient.StorageAccounts.List().Where(s => s.Name == storageAccountName).FirstOrDefault();
+                if (storage != null)
+                {
+                    resourceGroupName = storage.Id.Split('/')[4];
+                }
+            }
+            return (resourceGroupName != null) ? storageManagementClient.StorageAccounts.ListKeys(resourceGroupName, storageAccountName) : null;
+        }
+
+    }
+
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
     {
         public SubscriptionMediaService MediaService;
@@ -4600,6 +4666,19 @@ namespace AMSExplorer
                     ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
                     break;
             }
+        }
+
+
+        public string ReturnStorageSuffix()
+        {
+            return "core." + ReturnHostNameTwoSegmentsRight(ArmResource); // "core.cloudapi.de"
+        }
+
+        private string ReturnHostNameTwoSegmentsRight(string myUrl)
+        {
+            var hosts = (new Uri(myUrl)).Host.Split('.');
+            int i = hosts.Count();
+            return hosts[i - 2] + "." + hosts[i - 1];
         }
     }
 

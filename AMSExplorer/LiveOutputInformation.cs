@@ -43,7 +43,7 @@ namespace AMSExplorer
         private IEnumerable<Uri> NotValidURIs;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
         private Mainform MyMainForm;
-        private AzureMediaServicesClient _client;
+        private AMSClientV3 _client;
         public bool MultipleSelection = false;
         public ExplorerProgramModifications Modifications = new ExplorerProgramModifications();
         private CredentialsEntryV3 _cred;
@@ -65,13 +65,12 @@ namespace AMSExplorer
 
 
 
-        public LiveOutputInformation(Mainform mainform, AzureMediaServicesClient client, CredentialsEntryV3 cred)
+        public LiveOutputInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             _client = client;
-            _cred = cred;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -103,10 +102,10 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            var AssetToDisplayP = _client.Assets.Get(_cred.ResourceGroup, _cred.AccountName, MyLiveOutput.AssetName);
+            var AssetToDisplayP = _client.AMSclient.Assets.Get(_cred.ResourceGroup, _cred.AccountName, MyLiveOutput.AssetName);
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm, _client, _cred)
+                AssetInformation form = new AssetInformation(MyMainForm, _client)
                 {
                     myAssetV3 = AssetToDisplayP,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
@@ -114,8 +113,6 @@ namespace AMSExplorer
                 DialogResult dialogResult = form.ShowDialog(this);
             }
         }
-
-
 
 
         private void LiveOutputInformation_Load(object sender, EventArgs e)

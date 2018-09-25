@@ -44,7 +44,6 @@
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.makeItPrimaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +54,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.buttonCreateMail = new System.Windows.Forms.Button();
             this.buttonCopyStats = new System.Windows.Forms.Button();
-            this.buttonSetPrimary = new System.Windows.Forms.Button();
             this.buttonDeleteFile = new System.Windows.Forms.Button();
             this.buttonDownloadFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
@@ -266,7 +264,6 @@
             // 
             this.contextMenuStripFiles.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.makeItPrimaryToolStripMenuItem,
             this.showMetadataToolStripMenuItem,
             this.toolStripMenuItemOpenFile,
             this.toolStripMenuItemDownloadFile,
@@ -277,12 +274,6 @@
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
             resources.ApplyResources(this.contextMenuStripFiles, "contextMenuStripFiles");
             this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
-            // 
-            // makeItPrimaryToolStripMenuItem
-            // 
-            this.makeItPrimaryToolStripMenuItem.Name = "makeItPrimaryToolStripMenuItem";
-            resources.ApplyResources(this.makeItPrimaryToolStripMenuItem, "makeItPrimaryToolStripMenuItem");
-            this.makeItPrimaryToolStripMenuItem.Click += new System.EventHandler(this.makeItPrimaryToolStripMenuItem_Click);
             // 
             // showMetadataToolStripMenuItem
             // 
@@ -344,13 +335,6 @@
             this.buttonCopyStats.Name = "buttonCopyStats";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
             this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
-            // 
-            // buttonSetPrimary
-            // 
-            resources.ApplyResources(this.buttonSetPrimary, "buttonSetPrimary");
-            this.buttonSetPrimary.Name = "buttonSetPrimary";
-            this.buttonSetPrimary.UseVisualStyleBackColor = true;
-            this.buttonSetPrimary.Click += new System.EventHandler(this.buttonSetPrimary_Click);
             // 
             // buttonDeleteFile
             // 
@@ -439,12 +423,12 @@
             this.tabPage2.Controls.Add(this.buttonDeleteFile);
             this.tabPage2.Controls.Add(this.buttonOpenFile);
             this.tabPage2.Controls.Add(this.buttonDownloadFile);
-            this.tabPage2.Controls.Add(this.buttonSetPrimary);
             this.tabPage2.Controls.Add(this.DGFiles);
             this.tabPage2.Controls.Add(this.listViewFiles);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_Enter);
             // 
             // buttonGenerateManifest
             // 
@@ -1021,8 +1005,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonCreateMail;
         private System.Windows.Forms.Button buttonCopyStats;
-        private System.Windows.Forms.ToolStripMenuItem makeItPrimaryToolStripMenuItem;
-        private System.Windows.Forms.Button buttonSetPrimary;
         private System.Windows.Forms.Button buttonDeleteFile;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.Button buttonDownloadFile;

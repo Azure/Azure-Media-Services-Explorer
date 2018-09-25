@@ -36,8 +36,7 @@ namespace AMSExplorer
         PlayerType _playertype;
         private string _url;
         private bool _displayBrowserSelection;
-        private AzureMediaServicesClient _client;
-        private CredentialsEntryV3 _cred;
+        private AMSClientV3 _client;
         private string _resourceName;
         private string _accountName;
 
@@ -47,7 +46,7 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
                 string seName = val.Split("|".ToCharArray())[0];
-                return _client.StreamingEndpoints.Get(_resourceName, _accountName, seName);
+                return _client.AMSclient.StreamingEndpoints.Get(_resourceName, _accountName, seName);
             }
         }
 
@@ -156,12 +155,11 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(AzureMediaServicesClient client, CredentialsEntryV3 cred, Asset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
+        public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
-            _cred = cred;
             _asset = asset;
             _filter = filter;
             _playertype = playertype;
@@ -175,8 +173,8 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client, _cred);
-            foreach (var se in _client.StreamingEndpoints.List(_resourceName, _accountName))
+            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client);
+            foreach (var se in _client.AMSclient.StreamingEndpoints.List(_resourceName, _accountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
