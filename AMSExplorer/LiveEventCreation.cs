@@ -62,6 +62,12 @@ namespace AMSExplorer
             set { checkBoxVanityUrl.Checked = value; }
         }
 
+        public bool LowLatencyMode
+        {
+            get { return checkBoxLowLatency.Checked; }
+            set { checkBoxLowLatency.Checked = value; }
+        }
+
         public LiveEventEncoding Encoding
         {
             get

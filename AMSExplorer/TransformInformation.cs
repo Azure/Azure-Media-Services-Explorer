@@ -101,8 +101,8 @@ namespace AMSExplorer
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyTransform.Created).ToLocalTime().ToString("G"));
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyTransform.LastModified).ToLocalTime().ToString("G"));
 
-           
-           
+
+
 
             bool boutoutsinjobs = (MyTransform.Outputs.Count() > 0);
 
@@ -114,7 +114,7 @@ namespace AMSExplorer
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     var outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
-                
+
 
 
                 }
@@ -126,7 +126,7 @@ namespace AMSExplorer
 
         private void ListJobAssets()
         {
-           
+
 
             listViewOutputs.BeginUpdate();
             try
@@ -172,13 +172,13 @@ namespace AMSExplorer
 
             //  DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, task.Name);
 
-           /*
-            int i = DGOutputs.Rows.Add("Preset", "");
-            DataGridViewButtonCell btn = new DataGridViewButtonCell();
-            DGOutputs.Rows[i].Cells[1] = btn;
-            DGOutputs.Rows[i].Cells[1].Value = "see preset";
-            DGOutputs.Rows[i].Cells[1].Tag = output.Preset;
-            */
+            /*
+             int i = DGOutputs.Rows.Add("Preset", "");
+             DataGridViewButtonCell btn = new DataGridViewButtonCell();
+             DGOutputs.Rows[i].Cells[1] = btn;
+             DGOutputs.Rows[i].Cells[1].Value = "see preset";
+             DGOutputs.Rows[i].Cells[1].Tag = output.Preset;
+             */
 
             /*
             i = DGOutputs.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Body, "");
@@ -188,11 +188,11 @@ namespace AMSExplorer
             DGOutputs.Rows[i].Cells[1].Tag = task.TaskBody;
             */
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
-            
-          
+
+
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
-                var pmes = (BuiltInStandardEncoderPreset) output.Preset;
+                var pmes = (BuiltInStandardEncoderPreset)output.Preset;
                 DGOutputs.Rows.Add("Preset name", pmes.PresetName);
             }
             else if (output.Preset.GetType() == typeof(AudioAnalyzerPreset))
@@ -203,20 +203,20 @@ namespace AMSExplorer
             else if (output.Preset.GetType() == typeof(StandardEncoderPreset))
             {
                 var pmes = (StandardEncoderPreset)output.Preset;
-               // DGOutputs.Rows.Add("Audio language", pmes.);
+                // DGOutputs.Rows.Add("Audio language", pmes.);
             }
             else if (output.Preset.GetType() == typeof(VideoAnalyzerPreset))
             {
                 var pmes = (VideoAnalyzerPreset)output.Preset;
-                 DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
-                DGOutputs.Rows.Add("Audio Insights Only", pmes.AudioInsightsOnly);
+                DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
+                DGOutputs.Rows.Add("Insights To Extract", pmes.InsightsToExtract);
             }
 
 
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
 
 
-         
+
         }
 
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)

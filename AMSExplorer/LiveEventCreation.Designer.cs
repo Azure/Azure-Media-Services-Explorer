@@ -46,6 +46,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
@@ -97,7 +98,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
+            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -216,6 +217,7 @@
             // 
             // TabSettings
             // 
+            this.TabSettings.Controls.Add(this.checkBoxLowLatency);
             this.TabSettings.Controls.Add(this.checkBoxVanityUrl);
             this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
@@ -232,6 +234,12 @@
             resources.ApplyResources(this.TabSettings, "TabSettings");
             this.TabSettings.Name = "TabSettings";
             this.TabSettings.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxVanityUrl
+            // 
+            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
+            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
+            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
             // 
             // moreinfoLiveStreamingProfilelink
             // 
@@ -596,15 +604,13 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // checkBoxVanityUrl
+            // checkBoxLowLatency
             // 
-            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
-            this.checkBoxVanityUrl.Checked = true;
-            this.checkBoxVanityUrl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
-            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
+            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
+            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
             // 
-            // CreateLiveEvent
+            // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -620,7 +626,7 @@
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxchannelname);
-            this.Name = "CreateLiveEvent";
+            this.Name = "LiveEventCreation";
             this.Load += new System.EventHandler(this.CreateLiveChannel_Load);
             this.panel1.ResumeLayout(false);
             this.tabControlLiveChannel.ResumeLayout(false);
@@ -720,5 +726,6 @@
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
         private System.Windows.Forms.CheckBox checkBoxVanityUrl;
+        private System.Windows.Forms.CheckBox checkBoxLowLatency;
     }
 }

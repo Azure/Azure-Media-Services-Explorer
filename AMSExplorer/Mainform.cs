@@ -180,7 +180,7 @@ namespace AMSExplorer
 
             _accountname = _amsClientV3.credentialsEntry.AccountName;
 
-           DisplaySplashDuringLoading = true;
+            DisplaySplashDuringLoading = true;
             ThreadPool.QueueUserWorkItem((x) =>
             {
                 using (var splashForm = new Splash(_accountname))
@@ -8892,17 +8892,30 @@ namespace AMSExplorer
                   )
                     };
 
+                    LiveEventInput liveEventInput = new LiveEventInput
+                    {
+                        StreamingProtocol = form.Protocol,
+                        KeyFrameIntervalDuration = form.KeyframeInterval,
+                        AccessControl = new LiveEventInputAccessControl(
+                             ip: new IPAccessControl(
+                         allow: form.inputIPAllow
+                     )
+                 )
+                    };
+
                     liveEvent = new LiveEvent(
+                        
+                      name: form.LiveEventName,
                       location: _amsClientV3.credentialsEntry.MediaService.Location,
                       description: form.LiveEventDescription,
                       vanityUrl: form.VanityUrl,
                       encoding: form.Encoding,
-                      input: new LiveEventInput(form.Protocol, form.KeyframeInterval),
+                      input: liveEventInput,
                       preview: liveEventPreview,
                       streamOptions: new List<StreamOptionsFlag?>()
                       {
                         // Set this to Default or Low Latency
-                        StreamOptionsFlag.Default
+                       form.LowLatencyMode ?  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
                       }
 
                   );
@@ -9032,28 +9045,28 @@ namespace AMSExplorer
                             }
                         }
 
-                        /*
+                       
 
                          if (modifications.InputIPAllowList)
                          {
                              // Input allow list
-                             if (form.GetInputIPAllowList != null)
+                             if (form.GetInputAllowList != null)
                              {
                                  if (channel.Input.AccessControl == null)
                                  {
-                                     channel.Input.AccessControl = new ChannelAccessControl();
+                                     channel.Input.AccessControl = new LiveEventInputAccessControl();
                                  }
-                                 channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
+                                 channel.Input.AccessControl.Ip = form.GetInputAllowList;
                              }
                              else
                              {
                                  if (channel.Input.AccessControl != null)
                                  {
-                                     channel.Input.AccessControl.IPAllowList = null;
+                                     channel.Input.AccessControl.Ip = null;
                                  }
                              }
                          }
-                         */
+                        
 
                         if (modifications.PreviewIPAllowList)
                         {
@@ -12362,7 +12375,7 @@ namespace AMSExplorer
 
         private async void DoAttachAnotherStorageAccount()
         {
-            AttachStorage form = new AttachStorage(_credentials);
+            AttachStorage form = new AttachStorage(_amsClientV3);
 
             if (form.ShowDialog() == DialogResult.OK)
             {

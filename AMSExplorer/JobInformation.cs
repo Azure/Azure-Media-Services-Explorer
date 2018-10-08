@@ -163,10 +163,10 @@ namespace AMSExplorer
             listViewInputAssets.BeginUpdate();
             try
             {
-
-                ListViewItem item = new ListViewItem(MyJob.Input.Label, 0);
+                
+                //ListViewItem item = new ListViewItem(MyJob.Input....Label, 0);
                 //item.SubItems.Add(AssetInfo.GetAssetType(asset));
-                listViewInputAssets.Items.Add(item);
+                //listViewInputAssets.Items.Add(item);
 
             }
             catch

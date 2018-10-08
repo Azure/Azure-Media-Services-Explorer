@@ -32,26 +32,9 @@ namespace AMSExplorer
 {
     public partial class AttachStorage : Form
     {
-        private CredentialsEntry _credentials;
         private IAzureMediaServicesClient mediaClient;
         private MediaService mediaService;
-
-        public string AzureSubscriptionID
-        {
-            get
-            {
-                return textBoxSubId.Text;
-            }
-        }
-
-
-        public string AMSResourceGroup
-        {
-            get
-            {
-                return textBoxAMSResourceGroup.Text;
-            }
-        }
+        private AMSClientV3 _amsClient;
 
         public List<string> StorageResourceIdToDetach
         {
@@ -76,16 +59,53 @@ namespace AMSExplorer
             }
         }
 
-        public AttachStorage(CredentialsEntry credentials)
+        public AttachStorage(AMSClientV3 amsClient)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _credentials = credentials;
+            _amsClient = amsClient;
         }
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-            groupBoxAMSAcct.Text = string.Format(groupBoxAMSAcct.Text, _credentials.ReturnAccountName());
+
+            try
+            {
+                //AskServicePrincipalCredentialsIfNeeded();
+                //ConfigWrapper config = new ConfigWrapper(_credentials, AzureSubscriptionID, AMSResourceGroup, "72f988bf-86f1-41af-91ab-2d7cd011db47", new Uri("https://management.core.windows.net/"), "West Europe", new Uri("https://login.microsoftonline.com"), new Uri("https://management.azure.com/"));
+                mediaClient = _amsClient.AMSclient;
+                // Set the polling interval for long running operations to 2 seconds.
+                // The default value is 30 seconds for the .NET client SDK
+                mediaClient.LongRunningOperationRetryTimeout = 2;
+
+                mediaService =  mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error when connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                buttonAttach.Enabled = groupBoxStorage.Enabled = false;
+                return;
+            }
+
+            var storages = mediaService.StorageAccounts.ToList();
+            listViewStorage.Items.Clear();
+
+            storages.ForEach(s =>
+            {
+                // if (!(bool)s.IsPrimary)
+                if (s.Type == StorageAccountType.Secondary)
+                {
+                    var names = s.Id.Split('/');
+                    var lvitem = new ListViewItem(new string[] { names.Last(), s.Id });
+                    lvitem.ToolTipText = s.Id;
+                    listViewStorage.Items.Add(lvitem);
+                }
+            }
+            );
+
+            buttonAttach.Enabled = groupBoxStorage.Enabled = true;
+
+
         }
 
         private void textBoxStorageName_TextChanged(object sender, EventArgs e)
@@ -133,29 +153,6 @@ namespace AMSExplorer
         }
         */
 
-        private void AskServicePrincipalCredentialsIfNeeded()
-        {
-            if (!_credentials.UseAADServicePrincipal)
-            {
-                var formSP = new AMSLoginServicePrincipal();
-                if (formSP.ShowDialog() == DialogResult.OK)
-                {
-                    _credentials.ADSPClientId = formSP.ClientId;
-                    _credentials.ADSPClientSecret = formSP.ClientSecret;
-                }
-            }
-        }
-
-
-        private static IAzureMediaServicesClient CreateMediaServicesClient(ConfigWrapper config)
-        {
-            ArmClientCredentials credentials = new ArmClientCredentials(config);
-
-            return new AzureMediaServicesClient(config.ArmEndpoint, credentials)
-            {
-                SubscriptionId = config.SubscriptionId,
-            };
-        }
 
 
         public void UpdateStorageAccounts()
@@ -206,48 +203,7 @@ namespace AMSExplorer
                 mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
             }
 
-            mediaClient.Mediaservices.Update(AMSResourceGroup, _credentials.ReturnAccountName(), mediaService);
-
-
-        }
-
-        private async void buttonConnect_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                AskServicePrincipalCredentialsIfNeeded();
-                ConfigWrapper config = new ConfigWrapper(_credentials, AzureSubscriptionID, AMSResourceGroup, "72f988bf-86f1-41af-91ab-2d7cd011db47", new Uri("https://management.core.windows.net/"), "West Europe", new Uri("https://login.microsoftonline.com"), new Uri("https://management.azure.com/"));
-                mediaClient = CreateMediaServicesClient(config);
-                // Set the polling interval for long running operations to 2 seconds.
-                // The default value is 30 seconds for the .NET client SDK
-                mediaClient.LongRunningOperationRetryTimeout = 2;
-
-                mediaService = await mediaClient.Mediaservices.GetAsync(AMSResourceGroup, _credentials.ReturnAccountName());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error when connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                buttonAttach.Enabled = groupBoxStorage.Enabled = false;
-                return;
-            }
-
-            var storages = mediaService.StorageAccounts.ToList();
-            listViewStorage.Items.Clear();
-
-            storages.ForEach(s =>
-            {
-                // if (!(bool)s.IsPrimary)
-                if (s.Type == StorageAccountType.Secondary)
-                {
-                    var names = s.Id.Split('/');
-                    var lvitem = new ListViewItem(new string[] { names.Last(), s.Id });
-                    lvitem.ToolTipText = s.Id;
-                    listViewStorage.Items.Add(lvitem);
-                }
-            }
-            );
-
-            buttonAttach.Enabled = groupBoxStorage.Enabled = true;
+            mediaClient.Mediaservices.Update(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
         }
     }
 }

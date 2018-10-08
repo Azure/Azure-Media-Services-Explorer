@@ -325,7 +325,7 @@ namespace AMSExplorer
             var storageManagementClient = new StorageManagementClient(creds);
             var asssets = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
             var firsta = asssets.First();
-            var keys = storageManagementClient.StorageAccounts.ListKeys("us", firsta.StorageAccountName);
+            //var keys = storageManagementClient.StorageAccounts.ListKeys("us", firsta.StorageAccountName);
 
 
             this.DialogResult = DialogResult.OK;  // form will close with OK result

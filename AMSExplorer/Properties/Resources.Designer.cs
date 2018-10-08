@@ -19,7 +19,7 @@ namespace AMSExplorer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -165,18 +165,16 @@ namespace AMSExplorer.Properties {
                         "emWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to save the credentials for {0} ?.
+        ///   Looks up a localized string similar to ACS authentication keys will no longer be supported by Azure Media Services as of June 1st, 2018.\n\nYou should move to Azure AD authentication as soon as possible..
         /// </summary>
-        internal static string AMSLogin_buttonLogin_Click_ACSAuthenticationWarning
-        {
-            get
-            {
+        internal static string AMSLogin_buttonLogin_Click_ACSAuthenticationWarning {
+            get {
                 return ResourceManager.GetString("AMSLogin_buttonLogin_Click_ACSAuthenticationWarning", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Do you want to save the credentials for {0} ?.
         /// </summary>
@@ -3538,7 +3536,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Channels.
+        ///   Looks up a localized string similar to Live Events.
         /// </summary>
         internal static string LabelChannel {
             get {
@@ -3547,7 +3545,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Programs.
+        ///   Looks up a localized string similar to Live Outputs.
         /// </summary>
         internal static string LabelProgram {
             get {

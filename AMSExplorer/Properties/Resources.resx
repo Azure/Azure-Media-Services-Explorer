@@ -124,10 +124,10 @@
     <value>OK</value>
   </data>
   <data name="LabelChannel" xml:space="preserve">
-    <value>Channels</value>
+    <value>Live Events</value>
   </data>
   <data name="LabelProgram" xml:space="preserve">
-    <value>Programs</value>
+    <value>Live Outputs</value>
   </data>
   <data name="TabAssets" xml:space="preserve">
     <value>Assets</value>

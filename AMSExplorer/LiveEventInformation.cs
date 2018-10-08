@@ -41,14 +41,14 @@ namespace AMSExplorer
         private CredentialsEntryV3 _credentials;
         private string defaultEncodingPreset = "";
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
-        private string defaultAudioStreamCode = null;
         private string _radioButtonDefaultPreset;
 
-        public IList<IPRange> GetInputIPAllowList
+        public IPAccessControl GetInputAllowList
         {
             get
             {
-                return (checkBoxInputSet.Checked) ? InputEndpointSettingList : null;
+                var ipac = new IPAccessControl(InputEndpointSettingList);
+                return (checkBoxInputSet.Checked) ? ipac : null;
             }
         }
 
@@ -196,7 +196,7 @@ namespace AMSExplorer
                     }
                     i++;
                 }
-                if (i==0)
+                if (i == 0)
                 {
                     DGLiveEvent.Rows.Add("Input url(s)", "(None. Start the live event to get them ?)");
                 }
@@ -269,11 +269,6 @@ namespace AMSExplorer
                 }
 
 
-
-
-
-
-
                 UpdateProfileGrids();
             }
             else
@@ -281,19 +276,16 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
             }
 
-            /*
-            if (MyChannel.Input.AccessControl != null)
+
+            if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
             {
-                if (MyChannel.Input.AccessControl.IPAllowList != null)
+                checkBoxInputSet.Checked = true;
+                foreach (var endpoint in MyLiveEvent.Input.AccessControl.Ip.Allow)
                 {
-                    checkBoxInputSet.Checked = true;
-                    foreach (var endpoint in MyChannel.Input.AccessControl.IPAllowList)
-                    {
-                        InputEndpointSettingList.Add(endpoint);
-                    }
+                    InputEndpointSettingList.Add(endpoint);
                 }
             }
-            */
+
             dataGridViewInputIP.DataSource = InputEndpointSettingList;
             dataGridViewInputIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
@@ -460,8 +452,9 @@ namespace AMSExplorer
 
         private void buttonAllowAllPreviewIP_Click(object sender, EventArgs e)
         {
-            checkBoxPreviewSet.Checked = false;
             PreviewEndpointSettingList.Clear();
+            PreviewEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0").ToString(), SubnetPrefixLength = 0 });
+            checkBoxPreviewSet.Checked = true;
             Modifications.PreviewIPAllowList = true;
         }
 

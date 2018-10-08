@@ -196,7 +196,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxRestrictIngestIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="checkBoxRestrictIngestIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -223,7 +223,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxRestrictIngestIP.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +301,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="comboBoxProtocolInput.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 92</value>
@@ -322,7 +322,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;comboBoxProtocolInput.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -349,7 +349,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -373,7 +373,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -483,6 +483,36 @@
   <data name="tabControlLiveChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 312</value>
+  </data>
+  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 19</value>
+  </data>
+  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="checkBoxLowLatency.Text" xml:space="preserve">
+    <value>Low latency mode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
+    <value>checkBoxLowLatency</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Parent" xml:space="preserve">
+    <value>TabSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -511,7 +541,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="moreinfoLiveStreamingProfilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -538,7 +568,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="moreinfoLiveEncodingProfilelink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -568,7 +598,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="checkBoxRestrictPreviewIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -595,7 +625,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxRestrictPreviewIP.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="textBoxRestrictPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -619,7 +649,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;textBoxRestrictPreviewIP.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -646,7 +676,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="comboBoxEncodingType.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 33</value>
@@ -667,7 +697,7 @@
     <value>TabSettings</value>
   </data>
   <data name="&gt;&gt;comboBoxEncodingType.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="TabSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -1462,7 +1492,7 @@
     <value>listViewJPG1</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=4.3.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=4.3.2.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Parent" xml:space="preserve">
     <value>panelInsertSlate</value>
@@ -1855,7 +1885,7 @@
     <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>CreateLiveEvent</value>
+    <value>LiveEventCreation</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
