@@ -4539,18 +4539,41 @@ namespace AMSExplorer
             // test to get storage keys
             var resourceManagementClient = new ResourceManagementClient(credentials);
             resourceManagementClient.SubscriptionId = _azureSubscriptionId;
-            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
+            //var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
+            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.ClassicStorage");
             SubscriptionCloudCredentials creds = new TokenCloudCredentials(_azureSubscriptionId, accessToken.AccessToken);
             var storageManagementClient = new StorageManagementClient(creds);
 
             if (resourceGroupName == null)
             {
+                var l = storageManagementClient.StorageAccounts.List();
                 var storage = storageManagementClient.StorageAccounts.List().Where(s => s.Name == storageAccountName).FirstOrDefault();
                 if (storage != null)
                 {
                     resourceGroupName = storage.Id.Split('/')[4];
                 }
+                else
+                {
+                    string token = accessToken.AccessToken;
+                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://management.azure.com/subscriptions/{0}/providers/Microsoft.ClassicStorage/storageAccounts?api-version=2016-12-01", _azureSubscriptionId));
+
+                    request.Method = "GET";
+                    request.Headers["Authorization"] = "Bearer " + token;
+
+
+                    HttpWebResponse response = null;
+                    try
+                    {
+                        response = (HttpWebResponse)request.GetResponse();
+                        //extract data from response
+                    }
+                    catch (WebException ex)
+                    {
+                        //ex.Message;
+                    }
+                }
             }
+
             return (resourceGroupName != null) ? storageManagementClient.StorageAccounts.ListKeys(resourceGroupName, storageAccountName) : null;
         }
 
