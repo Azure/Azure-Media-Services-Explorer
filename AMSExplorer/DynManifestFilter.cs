@@ -517,13 +517,11 @@ namespace AMSExplorer
                     FilterTrackPropertyType property = (FilterTrackPropertyType)Enum.Parse(typeof(FilterTrackPropertyType), condition.property);
 
                     filterTrackSelectStatement.TrackSelections.Add(new FilterTrackPropertyCondition(property, condition.value, oper));
-
-
                 }
                 filterTrackSelectStatements.Add(filterTrackSelectStatement);
             }
 
-            return filterTrackSelectStatements;
+            return filtertracks.Count > 0 ? filterTrackSelectStatements: null;
         }
 
         private void RefreshTracks()

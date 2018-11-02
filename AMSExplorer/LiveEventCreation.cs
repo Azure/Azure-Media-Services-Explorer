@@ -193,11 +193,16 @@ namespace AMSExplorer
             }
         }
 
-
         public bool StartChannelNow
         {
             get { return checkBoxStartChannel.Checked; }
             set { checkBoxStartChannel.Checked = value; }
+        }
+
+        public string AccessToken
+        {
+            get { return string.IsNullOrWhiteSpace(textBoxToken.Text) ? null : textBoxToken.Text; }
+            set { textBoxToken.Text = value; }
         }
 
         public LiveEventCreation()
@@ -650,6 +655,11 @@ namespace AMSExplorer
         private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonGenerateToken_Click(object sender, EventArgs e)
+        {
+            textBoxToken.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
     }
 

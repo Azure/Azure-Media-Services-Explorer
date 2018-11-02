@@ -38,15 +38,12 @@
             this.textboxchannelname = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxProtocolInput = new System.Windows.Forms.ComboBox();
-            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
-            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.checkBoxStartChannel = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
-            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
@@ -98,7 +95,14 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tabPageAdv = new System.Windows.Forms.TabPage();
+            this.textBoxToken = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
+            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
+            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
+            this.buttonGenerateToken = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -115,6 +119,7 @@
             this.tabPageAdConfig.SuspendLayout();
             this.panelInsertSlate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.tabPageAdv.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -168,19 +173,6 @@
             this.comboBoxProtocolInput.Name = "comboBoxProtocolInput";
             this.comboBoxProtocolInput.SelectedIndexChanged += new System.EventHandler(this.comboBoxProtocolInput_SelectedIndexChanged);
             // 
-            // checkBoxKeyFrameIntDefined
-            // 
-            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
-            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
-            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
-            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
-            // 
-            // textBoxKeyFrame
-            // 
-            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
-            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
-            this.textBoxKeyFrame.TextChanged += new System.EventHandler(this.textBoxKeyFrame_TextChanged);
-            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
@@ -210,6 +202,7 @@
             resources.ApplyResources(this.tabControlLiveChannel, "tabControlLiveChannel");
             this.tabControlLiveChannel.Controls.Add(this.TabSettings);
             this.tabControlLiveChannel.Controls.Add(this.tabPageLiveEncoding);
+            this.tabControlLiveChannel.Controls.Add(this.tabPageAdv);
             this.tabControlLiveChannel.Controls.Add(this.tabPageAudioOptions);
             this.tabControlLiveChannel.Controls.Add(this.tabPageAdConfig);
             this.tabControlLiveChannel.Name = "tabControlLiveChannel";
@@ -217,29 +210,19 @@
             // 
             // TabSettings
             // 
-            this.TabSettings.Controls.Add(this.checkBoxLowLatency);
-            this.TabSettings.Controls.Add(this.checkBoxVanityUrl);
             this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictPreviewIP);
-            this.TabSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
             this.TabSettings.Controls.Add(this.label2);
             this.TabSettings.Controls.Add(this.label4);
             this.TabSettings.Controls.Add(this.comboBoxEncodingType);
             this.TabSettings.Controls.Add(this.comboBoxProtocolInput);
-            this.TabSettings.Controls.Add(this.textBoxKeyFrame);
             this.TabSettings.Controls.Add(this.checkBoxRestrictIngestIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictIngestIP);
             resources.ApplyResources(this.TabSettings, "TabSettings");
             this.TabSettings.Name = "TabSettings";
             this.TabSettings.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxVanityUrl
-            // 
-            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
-            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
-            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
             // 
             // moreinfoLiveStreamingProfilelink
             // 
@@ -604,11 +587,58 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // tabPageAdv
+            // 
+            this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
+            this.tabPageAdv.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.tabPageAdv.Controls.Add(this.textBoxKeyFrame);
+            this.tabPageAdv.Controls.Add(this.checkBoxLowLatency);
+            this.tabPageAdv.Controls.Add(this.checkBoxVanityUrl);
+            this.tabPageAdv.Controls.Add(this.label7);
+            this.tabPageAdv.Controls.Add(this.textBoxToken);
+            resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
+            this.tabPageAdv.Name = "tabPageAdv";
+            this.tabPageAdv.UseVisualStyleBackColor = true;
+            // 
+            // textBoxToken
+            // 
+            resources.ApplyResources(this.textBoxToken, "textBoxToken");
+            this.textBoxToken.Name = "textBoxToken";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // checkBoxVanityUrl
+            // 
+            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
+            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
+            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
+            // 
             // checkBoxLowLatency
             // 
             resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
             this.checkBoxLowLatency.Name = "checkBoxLowLatency";
             this.checkBoxLowLatency.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxKeyFrameIntDefined
+            // 
+            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
+            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
+            // 
+            // textBoxKeyFrame
+            // 
+            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
+            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
+            // 
+            // buttonGenerateToken
+            // 
+            resources.ApplyResources(this.buttonGenerateToken, "buttonGenerateToken");
+            this.buttonGenerateToken.Name = "buttonGenerateToken";
+            this.buttonGenerateToken.UseVisualStyleBackColor = true;
+            this.buttonGenerateToken.Click += new System.EventHandler(this.buttonGenerateToken_Click);
             // 
             // LiveEventCreation
             // 
@@ -651,6 +681,8 @@
             this.panelInsertSlate.ResumeLayout(false);
             this.panelInsertSlate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.tabPageAdv.ResumeLayout(false);
+            this.tabPageAdv.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -666,11 +698,9 @@
         private System.Windows.Forms.CheckBox checkBoxRestrictIngestIP;
         private System.Windows.Forms.ComboBox comboBoxProtocolInput;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxKeyFrame;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxStartChannel;
-        private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControlLiveChannel;
         private System.Windows.Forms.TabPage TabSettings;
@@ -725,7 +755,13 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
-        private System.Windows.Forms.CheckBox checkBoxVanityUrl;
+        private System.Windows.Forms.TabPage tabPageAdv;
+        private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
+        private System.Windows.Forms.TextBox textBoxKeyFrame;
         private System.Windows.Forms.CheckBox checkBoxLowLatency;
+        private System.Windows.Forms.CheckBox checkBoxVanityUrl;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxToken;
+        private System.Windows.Forms.Button buttonGenerateToken;
     }
 }

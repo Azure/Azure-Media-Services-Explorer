@@ -8899,77 +8899,45 @@ namespace AMSExplorer
                 LiveEvent liveEvent = new LiveEvent();
                 try
                 {
-                    /*
-                    options = new ChannelCreationOptions()
-                    {
-                        Name = form.ChannelName,
-                        Description = form.ChannelDescription,
-                        EncodingType = form.EncodingType,
-                        Input = new ChannelInput()
-                        {
-                            StreamingProtocol = form.Protocol,
-                            AccessControl = new ChannelAccessControl()
-                            {
-                                IPAllowList = form.inputIPAllow
-                            },
-                            KeyFrameInterval = form.KeyframeInterval
-                        },
-                        Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } },
-                        Preview = new ChannelPreview()
-                        {
-                            AccessControl = new ChannelAccessControl()
-                            {
-                                IPAllowList = form.previewIPAllow
-                            },
-                        }
-                    };
-                    */
 
                     LiveEventPreview liveEventPreview = new LiveEventPreview
                     {
                         AccessControl = new LiveEventPreviewAccessControl(
-                      ip: new IPAccessControl(
-                          allow: form.inputIPAllow
-                      )
-                  )
+                                                                            ip: new IPAccessControl
+                                                                            (
+                                                                                allow: form.inputIPAllow
+                                                                            )
+                                                                         )
                     };
 
                     LiveEventInput liveEventInput = new LiveEventInput
                     {
                         StreamingProtocol = form.Protocol,
+                        AccessToken = form.AccessToken,
                         KeyFrameIntervalDuration = form.KeyframeInterval,
                         AccessControl = new LiveEventInputAccessControl(
-                             ip: new IPAccessControl(
-                         allow: form.inputIPAllow
-                     )
-                 )
+                                                                            ip: new IPAccessControl
+                                                                            (
+                                                                                allow: form.inputIPAllow
+                                                                            )
+                                                                       )
                     };
 
                     liveEvent = new LiveEvent(
+                                              name: form.LiveEventName,
+                                              location: _amsClientV3.credentialsEntry.MediaService.Location,
+                                              description: form.LiveEventDescription,
+                                              vanityUrl: form.VanityUrl,
+                                              encoding: form.Encoding,
+                                              input: liveEventInput,
+                                              preview: liveEventPreview,
+                                              streamOptions: new List<StreamOptionsFlag?>()
+                                              {
+                                                // Set this to Default or Low Latency
+                                               form.LowLatencyMode ?  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                              }
+                                                );
 
-                      name: form.LiveEventName,
-                      location: _amsClientV3.credentialsEntry.MediaService.Location,
-                      description: form.LiveEventDescription,
-                      vanityUrl: form.VanityUrl,
-                      encoding: form.Encoding,
-                      input: liveEventInput,
-                      preview: liveEventPreview,
-                      streamOptions: new List<StreamOptionsFlag?>()
-                      {
-                        // Set this to Default or Low Latency
-                       form.LowLatencyMode ?  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                      }
-
-                  );
-
-
-                    /*
-                                        if (form.EncodingType != ChannelEncodingType.None)
-                                        {
-                                            options.Encoding = form.EncodingOptions;
-                                            options.Slate = form.Slate;
-                                        }
-                                        */
                 }
 
                 catch (Exception ex)
@@ -8981,13 +8949,14 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-
-
-
                     await Task.Run(() =>
-                     _amsClientV3.AMSclient.LiveEvents.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.LiveEventName, liveEvent, autoStart: form.StartChannelNow ? true : false)
-
-                   );
+                     _amsClientV3.AMSclient.LiveEvents.CreateAsync(
+                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                     _amsClientV3.credentialsEntry.AccountName,
+                                                                     form.LiveEventName,
+                                                                     liveEvent,
+                                                                     autoStart: form.StartChannelNow ? true : false)
+                                                                  );
 
                     DoRefreshGridLiveEventV(false);
 
@@ -13777,7 +13746,7 @@ namespace AMSExplorer
                 {
                     filterinfotoupdate = form.GetFilterInfo;
 
-                    _amsClientV3.AMSclient.AccountFilters.Update(
+                    _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(
                         _amsClientV3.credentialsEntry.ResourceGroup,
                         _amsClientV3.credentialsEntry.AccountName,
                         filter.Name,
