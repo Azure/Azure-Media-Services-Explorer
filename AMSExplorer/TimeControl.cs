@@ -28,7 +28,7 @@ namespace AMSExplorer
 {
     public partial class TimeControl : UserControl
     {
-        private ulong? timescale;
+        private long timescale;
         private ulong scaledoffset = 0;
         private TimeSpan min = new TimeSpan(0);
         private TimeSpan max = new TimeSpan(Int64.MaxValue);
@@ -81,7 +81,7 @@ namespace AMSExplorer
             }
         }
 
-        public ulong? TimeScale
+        public long TimeScale
         {
             get { return timescale; }
             set { timescale = value; }
@@ -138,36 +138,40 @@ namespace AMSExplorer
         }
 
 
-        public ulong? ScaledTimeStampWithoutOffset
+        public long ScaledTimeStampWithoutOffset
         {
             get
             {
                 TimeSpan ts = TimeStampWithoutOffset;
-                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                return (ulong)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
+                //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+                double timescale2 = timescale;
+                return (long)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
             }
         }
         
-        public ulong ScaledTimeStampWithOffset
+        public long ScaledTimeStampWithOffset
         {
             get
             {
                 TimeSpan ts = TimeStampWithOffset;
-                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                return (ulong)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
+                // double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+                double timescale2 = timescale;
+
+                return (long)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
             }
         }
 
         
-        public void SetScaledTimeStamp(ulong? value)
+        public void SetScaledTimeStamp(long value)
         {
-            if (value == 0 || value == null)
+            if (value == 0)
             {
                 SetTimeStamp(new TimeSpan(0));
             }
             else
             {
-                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+                //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+                double timescale2 = timescale;
 
                 double scale = ((double)TimeSpan.TicksPerSecond) / (timescale2);
                 TimeSpan ts = new TimeSpan(Convert.ToInt64((((double)value) - (double)ScaledFirstTimestampOffset) * scale));
@@ -196,7 +200,8 @@ namespace AMSExplorer
        
         public TimeSpan GetOffSetAsTimeSpan()
         {
-            double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+            //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+            double timescale2 = timescale;
 
             return new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / (timescale2)));
         }

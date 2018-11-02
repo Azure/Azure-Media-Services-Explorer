@@ -41,9 +41,6 @@
             this.checkBoxDVRWindow = new System.Windows.Forms.CheckBox();
             this.checkBoxEndTime = new System.Windows.Forms.CheckBox();
             this.checkBoxStartTime = new System.Windows.Forms.CheckBox();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlDVR = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
@@ -128,6 +125,11 @@
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.checkBoxForValueForLive = new System.Windows.Forms.CheckBox();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlDVR = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
+            this.checkBoxForValueLiveRaw = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -221,55 +223,6 @@
             this.checkBoxStartTime.UseVisualStyleBackColor = true;
             this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
             // 
-            // timeControlStart
-            // 
-            resources.ApplyResources(this.timeControlStart, "timeControlStart");
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Label1 = "Start time :";
-            this.timeControlStart.Label2 = "(Live and VOD)";
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlStart, resources.GetString("timeControlStart.ToolTip"));
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlDVR
-            // 
-            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
-            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDVR.DisplayTrackBar = true;
-            this.timeControlDVR.Label1 = "";
-            this.timeControlDVR.Label2 = "DVR Window :";
-            this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
-            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDVR.Name = "timeControlDVR";
-            this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDVR.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlDVR, resources.GetString("timeControlDVR.ToolTip"));
-            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
-            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
-            // 
-            // timeControlEnd
-            // 
-            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Label1 = "End time :";
-            this.timeControlEnd.Label2 = "(VOD)";
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlEnd, resources.GetString("timeControlEnd.ToolTip"));
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
             // tabControl1
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
@@ -282,6 +235,7 @@
             // 
             // tabPageTR
             // 
+            this.tabPageTR.Controls.Add(this.checkBoxForValueForLive);
             this.tabPageTR.Controls.Add(this.textBoxDurationTime);
             this.tabPageTR.Controls.Add(this.label39);
             this.tabPageTR.Controls.Add(this.labelDefaultBakckoff);
@@ -376,6 +330,7 @@
             // 
             // tabPageTRRaw
             // 
+            this.tabPageTRRaw.Controls.Add(this.checkBoxForValueLiveRaw);
             this.tabPageTRRaw.Controls.Add(this.label21);
             this.tabPageTRRaw.Controls.Add(this.label19);
             this.tabPageTRRaw.Controls.Add(this.label18);
@@ -794,6 +749,7 @@
             // 
             // contextMenuStripInfo
             // 
+            this.contextMenuStripInfo.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripInfo.Name = "contextMenuStripDG";
@@ -873,6 +829,67 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // checkBoxForValueForLive
+            // 
+            resources.ApplyResources(this.checkBoxForValueForLive, "checkBoxForValueForLive");
+            this.checkBoxForValueForLive.Name = "checkBoxForValueForLive";
+            this.checkBoxForValueForLive.UseVisualStyleBackColor = true;
+            // 
+            // timeControlStart
+            // 
+            resources.ApplyResources(this.timeControlStart, "timeControlStart");
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.Label1 = "Start time :";
+            this.timeControlStart.Label2 = "(Live and VOD)";
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStart.TimeScale = ((long)(10000000));
+            this.toolTip1.SetToolTip(this.timeControlStart, resources.GetString("timeControlStart.ToolTip"));
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
+            // timeControlDVR
+            // 
+            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
+            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlDVR.DisplayTrackBar = true;
+            this.timeControlDVR.Label1 = "";
+            this.timeControlDVR.Label2 = "DVR Window :";
+            this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
+            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.Name = "timeControlDVR";
+            this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlDVR.TimeScale = ((long)(10000000));
+            this.toolTip1.SetToolTip(this.timeControlDVR, resources.GetString("timeControlDVR.ToolTip"));
+            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
+            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
+            // 
+            // timeControlEnd
+            // 
+            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.Label1 = "End time :";
+            this.timeControlEnd.Label2 = "(VOD)";
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEnd.TimeScale = ((long)(10000000));
+            this.toolTip1.SetToolTip(this.timeControlEnd, resources.GetString("timeControlEnd.ToolTip"));
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
+            // checkBoxForValueLiveRaw
+            // 
+            resources.ApplyResources(this.checkBoxForValueLiveRaw, "checkBoxForValueLiveRaw");
+            this.checkBoxForValueLiveRaw.Name = "checkBoxForValueLiveRaw";
+            this.checkBoxForValueLiveRaw.UseVisualStyleBackColor = true;
             // 
             // DynManifestFilter
             // 
@@ -1024,5 +1041,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFirstQualityBitrate;
         private System.Windows.Forms.CheckBox checkBoxFirstQualityBitrate;
         private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckBox checkBoxForValueForLive;
+        private System.Windows.Forms.CheckBox checkBoxForValueLiveRaw;
     }
 }

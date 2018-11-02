@@ -58,14 +58,6 @@ namespace AMSExplorer
         private ManifestTimingData myassetmanifesttimingdata = null;
         private IEnumerable<IListBlobItem> blobs;
 
-        public AssetInformation(Mainform mainform, CloudMediaContext context)
-        {
-            InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            myMainForm = mainform;
-            myContext = context;
-        }
-
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
         {
             InitializeComponent();
@@ -200,7 +192,7 @@ namespace AMSExplorer
         }
 
 
-     
+
 
         private void ListAssetBlobs()
         {
@@ -777,7 +769,7 @@ namespace AMSExplorer
                 DGFiles.Rows.Clear();
                 DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
                 DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
-                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified !=null ? ((DateTimeOffset) blob.Properties.LastModified).ToLocalTime().ToString("G"): null);
+                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
 
             }
         }
@@ -1022,7 +1014,7 @@ namespace AMSExplorer
             MyAssetReport.CreateOutlookMail();
         }
 
-       
+
         private void buttonDeleteFile_Click(object sender, EventArgs e)
         {
             DoDeleteBlobs();
@@ -1030,7 +1022,7 @@ namespace AMSExplorer
 
         private void DoDeleteBlobs()
         {
-            var SelectedBlobs = ReturnSelectedBlobs().Where(b=> b.GetType()== typeof(CloudBlockBlob)).Select(b=>(CloudBlockBlob)b);
+            var SelectedBlobs = ReturnSelectedBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b);
 
             if (SelectedBlobs.Count() > 0)
             {
@@ -1052,7 +1044,7 @@ namespace AMSExplorer
                     {
                         MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS);
                         ListAssetBlobs();
-                       // BuildLocatorsTree();
+                        // BuildLocatorsTree();
                     }
                 }
             }
@@ -1995,14 +1987,14 @@ namespace AMSExplorer
         {
             DoFilterInfo();
         }
-        private List<IStreamingAssetFilter> ReturnSelectedFilters()
+        private List<AssetFilter> ReturnSelectedFilters()
         {
-
-            List<IStreamingAssetFilter> SelectedFilters = new List<IStreamingAssetFilter>();
+            var SelectedFilters = new List<AssetFilter>();
+            var afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
-                IStreamingAssetFilter myfilter = myAsset.AssetFilters.Where(f => f.Id == filterid).FirstOrDefault();
+                AssetFilter myfilter = afilters.Where(f => f.Id == filterid).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -2016,7 +2008,7 @@ namespace AMSExplorer
             if (filters.Count == 1)
             {
                 var filter = filters.FirstOrDefault();
-                DynManifestFilter form = new DynManifestFilter(myContext, (IStreamingFilter)filter, myAsset);
+                DynManifestFilter form = new DynManifestFilter(_amsClient, filter, myAssetV3);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -2025,9 +2017,15 @@ namespace AMSExplorer
                     {
                         filtertoupdate = form.GetFilterInfo;
                         filter.PresentationTimeRange = filtertoupdate.Presentationtimerange;
-                        filter.Tracks = filtertoupdate.Trackconditions;
+                        filter.Tracks = filtertoupdate.Tracks;
                         filter.FirstQuality = filtertoupdate.Firstquality;
-                        filter.Update();
+                        _amsClient.AMSclient.AssetFilters.Update(
+                            _amsClient.credentialsEntry.ResourceGroup,
+                            _amsClient.credentialsEntry.AccountName,
+                            myAssetV3.Name,
+                            filter.Name,
+                            new AssetFilter(name: filtertoupdate.Name, presentationTimeRange: filtertoupdate.Presentationtimerange, firstQuality: filtertoupdate.Firstquality, tracks: filtertoupdate.Tracks)
+                            );
                         myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated, filtertoupdate.Name);
                     }
                     catch (Exception e)
@@ -2048,7 +2046,7 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(myContext, null, myAsset);
+            DynManifestFilter form = new DynManifestFilter(_amsClient, null, myAssetV3);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -2057,7 +2055,17 @@ namespace AMSExplorer
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+
+
+                    _amsClient.AMSclient.AssetFilters.CreateOrUpdate(
+                        _amsClient.credentialsEntry.ResourceGroup,
+                        _amsClient.credentialsEntry.AccountName,
+                        myAssetV3.Name,
+                        filterinfo.Name,
+                        new AssetFilter(name: filterinfo.Name, presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
+    );
+
+                    //myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks);
                     myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated, filterinfo.Name);
                 }
                 catch (Exception e)
@@ -2080,7 +2088,7 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             try
             {
-                filters.ForEach(f => f.Delete());
+                filters.ForEach(f => _amsClient.AMSclient.AssetFilters.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, f.Name));
             }
 
             catch
@@ -2101,14 +2109,23 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                IStreamingAssetFilter sourcefilter = filters.FirstOrDefault();
+                var sourcefilter = filters.FirstOrDefault();
 
                 string newfiltername = sourcefilter.Name + AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_Copy;
                 if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter, ref newfiltername) == DialogResult.OK)
                 {
                     try
                     {
-                        myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
+                        //myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
+
+                        _amsClient.AMSclient.AssetFilters.CreateOrUpdate(
+                            _amsClient.credentialsEntry.ResourceGroup,
+                            _amsClient.credentialsEntry.AccountName,
+                            myAssetV3.Name,
+                            newfiltername,
+                            sourcefilter
+                            );
+
                     }
                     catch (Exception e)
                     {

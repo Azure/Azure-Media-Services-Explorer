@@ -37,7 +37,7 @@ namespace AMSExplorer
         CloudMediaContext _context;
         private List<IAsset> _selectedAssets;
         private ManifestTimingData _parentassetmanifestdata;
-        private ulong? _timescale = TimeSpan.TicksPerSecond;
+        private long _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
         bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
@@ -674,7 +674,7 @@ namespace AMSExplorer
                 }
             }
             else if (subclipConfig.CreateAssetFilter) // create a asset filter
-            {
+            { /* TO DO V3
                 IAsset selasset = _selectedAssets.FirstOrDefault();
                 DynManifestFilter formAF = new DynManifestFilter(_context, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
@@ -683,7 +683,7 @@ namespace AMSExplorer
                     try
                     {
                         filterinfo = formAF.GetFilterInfo;
-                        selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                        selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks);
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
                     catch (Exception ex)
@@ -694,7 +694,7 @@ namespace AMSExplorer
 
                     _mainform.DoRefreshGridFiltersV(false);
                 }
-
+                */
             }
             else // no reencode or asset filter but stream copy
             {

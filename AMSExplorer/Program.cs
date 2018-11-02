@@ -2151,6 +2151,10 @@ namespace AMSExplorer
             return response;
         }
 
+        static public ManifestTimingData GetManifestTimingData(Asset asset)
+        {
+            return null;
+        }
 
         static public ManifestTimingData GetManifestTimingData(IAsset asset)
         // Parse the manifest and get data from it
@@ -2179,8 +2183,9 @@ namespace AMSExplorer
                     {
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                     }
-                    ulong timescale = ulong.Parse(timescalefrommanifest);
-                    response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
+                    long timescale = long.Parse(timescalefrommanifest);
+                    //response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
+                    response.TimeScale = timescale; 
 
                     // Timestamp offset
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
@@ -4845,7 +4850,7 @@ namespace AMSExplorer
     {
         public TimeSpan AssetDuration { get; set; }
         public ulong TimestampOffset { get; set; }
-        public ulong? TimeScale { get; set; }
+        public long TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
         public List<ulong> TimestampList { get; set; }
@@ -4872,11 +4877,9 @@ namespace AMSExplorer
     public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
-        public Microsoft.WindowsAzure.MediaServices.Client.FirstQuality Firstquality { get; set; }
-        public Microsoft.WindowsAzure.MediaServices.Client.PresentationTimeRange Presentationtimerange { get; set; }
-        public IList<FilterTrackSelectStatement> Trackconditions { get; set; }
-
-
+        public Microsoft.Azure.Management.Media.Models.FirstQuality Firstquality { get; set; }
+        public Microsoft.Azure.Management.Media.Models.PresentationTimeRange Presentationtimerange { get; set; }
+        public IList<FilterTrackSelection> Tracks { get; set; }
     }
     public class SubClipConfiguration
     {
@@ -5022,17 +5025,17 @@ namespace AMSExplorer
         public static readonly string avc1 = "avc1";
         public static readonly string mp4v = "mp4v";
         public static readonly string ec3 = "ec-3";
+        public static readonly string hev1 = "hev1";
+        public static readonly string hvc1 = "hvc1";
     }
 
-
-    public sealed class FilterProperty
+    public sealed class FilterPropertyTypeValue
     {
-        public const string Type = "Type";
-        public const string Name = "Name";
-        public const string Language = "Language";
-        public const string FourCC = "FourCC";
-        public const string Bitrate = "Bitrate";
+        public static readonly string Audio = "audio";
+        public static readonly string Video = "video";
+        public static readonly string Text = "text";
     }
+
 
     public class ExFilterTrack
     {

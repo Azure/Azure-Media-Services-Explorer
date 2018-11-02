@@ -25,6 +25,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -1053,6 +1054,12 @@ namespace AMSExplorer
             if (e.InnerException != null)
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
+            }
+            if (e.GetType() == typeof(ApiErrorException))
+            {
+                var eApi = (ApiErrorException)e;
+                dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
+                TextBoxLogWriteLine((string)error?.error?.message, true);
             }
         }
 
@@ -2886,6 +2893,8 @@ namespace AMSExplorer
             return SelectedAssets;
         }
 
+
+
         private List<IJob> ReturnSelectedJobs()
         {
             List<IJob> SelectedJobs = new List<IJob>();
@@ -2913,29 +2922,31 @@ namespace AMSExplorer
             return SelectedIngestManifests;
         }
 
-        private IStorageAccount ReturnSelectedStorage()
+        private StorageAccount ReturnSelectedStorage()
         {
 
-            IStorageAccount SelectedStorage = null;
+            StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
                 var row = dataGridViewStorage.SelectedRows[0];
                 var index = dataGridViewStorage.Columns["StrictName"].Index;
                 var storagename = row.Cells[index].Value.ToString();
-                SelectedStorage = _context.StorageAccounts.Where(s => s.Name == storagename).FirstOrDefault();
+                SelectedStorage = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts.Where(s => s.Id.Split('/').Last() == storagename).FirstOrDefault();
             }
 
             return SelectedStorage;
         }
 
-        private List<IStreamingFilter> ReturnSelectedFilters()
+        private List<AccountFilter> ReturnSelectedAccountFilters()
         {
 
-            List<IStreamingFilter> SelectedFilters = new List<IStreamingFilter>();
+            List<AccountFilter> SelectedFilters = new List<AccountFilter>();
+
+            var aFilters = _amsClientV3.AMSclient.AccountFilters.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                IStreamingFilter myfilter = _context.Filters.Where(f => f.Name == filtername).FirstOrDefault();
+                AccountFilter myfilter = aFilters.Where(f => f.Name == filtername).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -8372,15 +8383,17 @@ namespace AMSExplorer
 
         private void DoRefreshGridStorageV(bool firstime)
         {
-            return; // migration to V3 API
+            // return; // migration to V3 API
+            var amsaccount = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             const long OneTBInByte = 1099511627776;
             const long TotalStorageInBytes = OneTBInByte * 500;
 
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 3;
+                dataGridViewStorage.ColumnCount = 2;
 
+                /*
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
                     Name = "% used",
@@ -8388,45 +8401,62 @@ namespace AMSExplorer
                     HeaderText = "% used"
                 };
                 dataGridViewStorage.Columns.Add(col);
+                */
 
+                dataGridViewStorage.Columns[0].Name = "Name";
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
                 dataGridViewStorage.Columns[0].Width = 280;
-                dataGridViewStorage.Columns[1].HeaderText = "Used space";
-                dataGridViewStorage.Columns[1].Width = 100;
+                dataGridViewStorage.Columns[1].Name = "Id";
+                dataGridViewStorage.Columns[1].HeaderText = "Id";
+                dataGridViewStorage.Columns[1].Width = 400;
+                /*
                 dataGridViewStorage.Columns[2].Name = "StrictName";
                 dataGridViewStorage.Columns[2].Visible = false;
                 dataGridViewStorage.Columns[3].Width = 600;
+                */
             }
             dataGridViewStorage.Rows.Clear();
-            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
-            foreach (IStorageAccount storage in Storages)
+            //List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+            foreach (var storage in amsaccount.StorageAccounts)
             {
                 bool displaycapacity = false;
+                /*
                 double? capacityPercentageFullTmp = null;
                 if (storage.BytesUsed != null)
                 {
                     displaycapacity = true;
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
+                */
 
-                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "(are the metrics enabled ?)", storage.Name, displaycapacity ? capacityPercentageFullTmp : null);
-                if (storage.IsDefault)
+                var name = storage.Id.Split('/');
+
+                string append = "";
+                if (storage.Type == StorageAccountType.Primary)
+                {
+                    append = " (primary)";
+                }
+                int rowi = dataGridViewStorage.Rows.Add(name.Last() + append, storage.Id);
+
+                //int rowi = dataGridViewStorage.Rows.Add(names.Last() + append), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "(are the metrics enabled ?)", storage.Name, displaycapacity? capacityPercentageFullTmp : null);
+                if (storage.Type == StorageAccountType.Primary)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
-                    dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Default storage account";
+                    dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
+
                 }
                 if (!displaycapacity)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
                 }
             }
-            tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", Storages.Count());
+            tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count());
         }
 
 
         public void DoRefreshGridFiltersV(bool firstime)
         {
-            return; // migration to V3 API
+            //return; // migration to V3 API
             if (firstime)
             {
                 // Storage tab
@@ -8453,7 +8483,8 @@ namespace AMSExplorer
             }
             dataGridViewFilters.Rows.Clear();
 
-            foreach (var filter in _context.Filters)
+            var filters = _amsClientV3.AMSclient.AccountFilters.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            foreach (var filter in filters)
             {
                 string s = null;
                 string e = null;
@@ -8462,12 +8493,12 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    ulong? start = filter.PresentationTimeRange.StartTimestamp;
-                    ulong? end = filter.PresentationTimeRange.EndTimestamp;
-                    TimeSpan? dvr = filter.PresentationTimeRange.PresentationWindowDuration;
-                    TimeSpan? live = filter.PresentationTimeRange.LiveBackoffDuration;
+                    ulong? start = (ulong?)filter.PresentationTimeRange.StartTimestamp;
+                    ulong? end = (ulong?)filter.PresentationTimeRange.EndTimestamp;
+                    ulong? dvr = (ulong?)filter.PresentationTimeRange.PresentationWindowDuration;
+                    ulong? backoff = (ulong?)filter.PresentationTimeRange.LiveBackoffDuration;
 
-                    if (filter.PresentationTimeRange.Timescale != null)
+                    if (true)//filter.PresentationTimeRange.Timescale != null)
                     {
                         double dscale = (double)filter.PresentationTimeRange.Timescale / (double)TimeSpan.TicksPerSecond;
                         if (start != null)
@@ -8478,6 +8509,14 @@ namespace AMSExplorer
                         {
                             end = (ulong)((double)end / dscale);
                         }
+                        if (dvr != null)
+                        {
+                            dvr = (ulong)((double)dvr / dscale);
+                        }
+                        if (backoff != null)
+                        {
+                            backoff = (ulong)((double)backoff / dscale);
+                        }
                     }
 
                     //double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
@@ -8485,8 +8524,8 @@ namespace AMSExplorer
                     s = (start != null) ? TimeSpan.FromTicks((long)start).ToString(@"d\.hh\:mm\:ss") : "min";
                     e = (end != null) ? TimeSpan.FromTicks((long)end).ToString(@"d\.hh\:mm\:ss") : "max";
 
-                    d = (dvr != null) ? ((TimeSpan)dvr).ToString(@"d\.hh\:mm\:ss") : "max";
-                    l = (live != null) ? ((TimeSpan)live).ToString(@"d\.hh\:mm\:ss") : "min";
+                    d = (dvr != null) ? TimeSpan.FromTicks((long)dvr).ToString(@"d\.hh\:mm\:ss") : "min";
+                    l = (backoff != null) ? TimeSpan.FromTicks((long)backoff).ToString(@"d\.hh\:mm\:ss") : "min";
                 }
                 try
                 {
@@ -8498,7 +8537,10 @@ namespace AMSExplorer
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
-            tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", _context.Filters.Count());
+
+            //foreach (var filter in filters)
+
+            tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
         }
 
 
@@ -8904,7 +8946,7 @@ namespace AMSExplorer
                     };
 
                     liveEvent = new LiveEvent(
-                        
+
                       name: form.LiveEventName,
                       location: _amsClientV3.credentialsEntry.MediaService.Location,
                       description: form.LiveEventDescription,
@@ -9045,28 +9087,28 @@ namespace AMSExplorer
                             }
                         }
 
-                       
 
-                         if (modifications.InputIPAllowList)
-                         {
-                             // Input allow list
-                             if (form.GetInputAllowList != null)
-                             {
-                                 if (channel.Input.AccessControl == null)
-                                 {
-                                     channel.Input.AccessControl = new LiveEventInputAccessControl();
-                                 }
-                                 channel.Input.AccessControl.Ip = form.GetInputAllowList;
-                             }
-                             else
-                             {
-                                 if (channel.Input.AccessControl != null)
-                                 {
-                                     channel.Input.AccessControl.Ip = null;
-                                 }
-                             }
-                         }
-                        
+
+                        if (modifications.InputIPAllowList)
+                        {
+                            // Input allow list
+                            if (form.GetInputAllowList != null)
+                            {
+                                if (channel.Input.AccessControl == null)
+                                {
+                                    channel.Input.AccessControl = new LiveEventInputAccessControl();
+                                }
+                                channel.Input.AccessControl.Ip = form.GetInputAllowList;
+                            }
+                            else
+                            {
+                                if (channel.Input.AccessControl != null)
+                                {
+                                    channel.Input.AccessControl.Ip = null;
+                                }
+                            }
+                        }
+
 
                         if (modifications.PreviewIPAllowList)
                         {
@@ -12786,7 +12828,6 @@ namespace AMSExplorer
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStorageV(false);
         }
 
@@ -13675,7 +13716,7 @@ namespace AMSExplorer
 
         private void DoCreateFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_context);
+            DynManifestFilter form = new DynManifestFilter(_amsClientV3);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -13683,7 +13724,13 @@ namespace AMSExplorer
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions, filterinfo.Firstquality);
+                    _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(
+                        _amsClientV3.credentialsEntry.ResourceGroup,
+                        _amsClientV3.credentialsEntry.AccountName,
+                        filterinfo.Name,
+                        new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: null /* filterinfo.Tracks */)
+                        );
+                    // _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks, filterinfo.Firstquality);
                     TextBoxLogWriteLine("Global filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
@@ -13704,7 +13751,7 @@ namespace AMSExplorer
         {
             try
             {
-                ReturnSelectedFilters().ForEach(f => f.Delete());
+                ReturnSelectedAccountFilters().ForEach(f => _amsClientV3.AMSclient.AccountFilters.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, f.Name));
             }
             catch (Exception e)
             {
@@ -13720,8 +13767,8 @@ namespace AMSExplorer
 
         private void DoUpdateFilter()
         {
-            IStreamingFilter filter = ReturnSelectedFilters().FirstOrDefault();
-            DynManifestFilter form = new DynManifestFilter(_context, filter);
+            var filter = ReturnSelectedAccountFilters().FirstOrDefault();
+            DynManifestFilter form = new DynManifestFilter(_amsClientV3, filter);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -13729,15 +13776,18 @@ namespace AMSExplorer
                 try
                 {
                     filterinfotoupdate = form.GetFilterInfo;
-                    filter.PresentationTimeRange = filterinfotoupdate.Presentationtimerange;
-                    filter.Tracks = filterinfotoupdate.Trackconditions;
-                    filter.FirstQuality = filterinfotoupdate.Firstquality;
-                    filter.Update();
+
+                    _amsClientV3.AMSclient.AccountFilters.Update(
+                        _amsClientV3.credentialsEntry.ResourceGroup,
+                        _amsClientV3.credentialsEntry.AccountName,
+                        filter.Name,
+                        new AccountFilter(presentationTimeRange: filterinfotoupdate.Presentationtimerange, firstQuality: filterinfotoupdate.Firstquality, tracks: filterinfotoupdate.Tracks)
+                        );
                     TextBoxLogWriteLine("Global filter '{0}' updated.", filter.Name);
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when creating filter '{0}'.", filter.Name, true);
+                    TextBoxLogWriteLine("Error when updating filter '{0}'.", filter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -13930,7 +13980,7 @@ namespace AMSExplorer
 
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
-            var filters = ReturnSelectedFilters();
+            var filters = ReturnSelectedAccountFilters();
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
@@ -13953,7 +14003,7 @@ namespace AMSExplorer
 
         private void filterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            var filters = ReturnSelectedFilters();
+            var filters = ReturnSelectedAccountFilters();
             bool singleitem = (filters.Count == 1);
             toolStripMenuItemFilterInfo.Enabled = singleitem;
         }
@@ -13997,9 +14047,9 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            IAsset selasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            var selasset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
 
-            DynManifestFilter form = new DynManifestFilter(_context, null, selasset);
+            DynManifestFilter form = new DynManifestFilter(_amsClientV3, null, selasset);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -14007,7 +14057,15 @@ namespace AMSExplorer
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                    _amsClientV3.AMSclient.AssetFilters.CreateOrUpdate
+                        (
+                        _amsClientV3.credentialsEntry.ResourceGroup,
+                        _amsClientV3.credentialsEntry.AccountName,
+                        selasset.Name,
+                        filterinfo.Name,
+                        new AssetFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
+                        )
+                        ;
                     TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
@@ -14027,17 +14085,18 @@ namespace AMSExplorer
 
         private void DoDuplicateFilter()
         {
-            var filters = ReturnSelectedFilters();
+            var filters = ReturnSelectedAccountFilters();
             if (filters.Count == 1)
             {
-                IStreamingFilter sourcefilter = filters.FirstOrDefault();
+                var sourcefilter = filters.FirstOrDefault();
 
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
                     try
                     {
-                        _context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks, sourcefilter.FirstQuality);
+                        _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, newfiltername, sourcefilter);
+                        //_context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks, sourcefilter.FirstQuality);
                     }
                     catch (Exception e)
                     {
@@ -14217,42 +14276,47 @@ namespace AMSExplorer
             DoStorageVersion();
         }
 
-        private void DoStorageVersion(string storageName = null)
+        private void DoStorageVersion(string storageId = null)
         {
             string valuekey = "";
-            bool StorageKeyKnown = false;
-            if (storageName == null)
+
+            if (storageId == null)
             {
-                storageName = ReturnSelectedStorage().Name;
+                storageId = ReturnSelectedStorage().Id;
             }
 
-            if (storageName == _context.DefaultStorageAccount.Name && havestoragecredentials)
+            /*
+            if (storageId == _context.DefaultStorageAccount.Name && havestoragecredentials)
             {
                 valuekey = _credentials.DefaultStorageKey;
                 StorageKeyKnown = true;
             }
+            */
 
-            if ((!havestoragecredentials && storageName == _context.DefaultStorageAccount.Name) || (storageName != _context.DefaultStorageAccount.Name))
+            /*
+            if (true)//(!havestoragecredentials && storageId == _context.DefaultStorageAccount.Name) || (storageId != _context.DefaultStorageAccount.Name))
             { // No blob credentials. Let's ask the user
                 StorageKeyKnown = false;
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey, true) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageId + ":", ref valuekey, true) == DialogResult.OK)
                 {
                     StorageKeyKnown = true;
-                    if (storageName == _context.DefaultStorageAccount.Name)
+                    if (storageId == _context.DefaultStorageAccount.Name)
                     {
                         _credentials.DefaultStorageKey = valuekey;
                         havestoragecredentials = true;
                     }
                 }
             }
-            if (StorageKeyKnown) // if we have the storage credentials
+            */
+            string storageName = storageId.Split('/').Last();
+            if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey, true) == DialogResult.OK)
             {
                 bool Error = false;
                 ServiceProperties serviceProperties = null;
                 CloudBlobClient blobClient = null;
                 try
                 {
-                    var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
+                    var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _amsClientV3.environment.ReturnStorageSuffix(), true);
                     blobClient = storageAccount.CreateCloudBlobClient();
 
                     // Get the current service properties
@@ -14268,7 +14332,7 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-                    var form = new StorageSettings(storageName, serviceProperties);
+                    var form = new StorageSettings(storageId, serviceProperties);
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -14396,8 +14460,8 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                string storagename = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString();
-                DoStorageVersion(storagename);
+                string storageId = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["Id"].Index].Value.ToString();
+                DoStorageVersion(storageId);
             }
         }
 

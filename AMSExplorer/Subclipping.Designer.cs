@@ -451,7 +451,7 @@
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.TimeScale = null;
+            this.timeControlStart.TimeScale = 10000000;
             this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
@@ -466,7 +466,7 @@
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.TimeScale = null;
+            this.timeControlEnd.TimeScale = 10000000;
             this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
