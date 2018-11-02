@@ -315,7 +315,7 @@ namespace AMSExplorer
                 return;
             }
 
-          
+          /*
 
             // test to get storage keys
             var resourceManagementClient = new ResourceManagementClient(AMSClient.credentials);
@@ -327,6 +327,7 @@ namespace AMSExplorer
             var firsta = asssets.First();
             //var keys = storageManagementClient.StorageAccounts.ListKeys("us", firsta.StorageAccountName);
 
+            */
 
             this.DialogResult = DialogResult.OK;  // form will close with OK result
                                                   // else --> form won't close...

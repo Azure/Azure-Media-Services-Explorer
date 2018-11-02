@@ -2226,8 +2226,9 @@ namespace AMSExplorer
                         this.Cursor = Cursors.WaitCursor;
                         AssetInformation form = new AssetInformation(this, _amsClientV3)
                         {
-                            myAssetV3 = asset//,
-                            //myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                            myAssetV3 = asset,
+
+                            myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
                         dialogResult = form.ShowDialog(this);
@@ -2619,6 +2620,57 @@ namespace AMSExplorer
             }
         }
 
+        private void DoCreateLocator(List<Asset> SelectedAssets)
+        {
+            string labelAssetName;
+            if (SelectedAssets.Count > 0)
+            {
+                labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+
+                if (SelectedAssets.Count > 1)
+                {
+                    labelAssetName = "A locator will be created for the " + SelectedAssets.Count.ToString() + " selected assets.";
+                }
+
+                CreateLocator form = new CreateLocator()
+                {
+                    LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
+                    LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
+                    LocAssetName = labelAssetName,
+                    LocatorHasStartDate = false,
+                    LocWarning = string.Empty
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    // The permissions for the locator's access policy.
+                    AccessPermissions accessPolicyPermissions = AccessPermissions.Read | AccessPermissions.List;
+
+                    // The duration for the locator's access policy.
+                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (form.LocatorStartDate != null)
+                    {
+                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                    }
+
+                    sbuilder.Clear();
+
+                    try
+                    {
+                        Task.Factory.StartNew(() => ProcessCreateLocatorV3(PredefinedStreamingPolicy.ClearStreamingOnly, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid));
+                    }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating a locator", true);
+                        TextBoxLogWriteLine(e);
+                    }
+
+                }
+            }
+        }
+
 
         private void ProcessCreateLocator(LocatorType locatorType, List<IAsset> assets, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
@@ -2797,6 +2849,46 @@ namespace AMSExplorer
             dataGridViewAssetsV.AnalyzeItemsInBackground();
         }
 
+
+
+        private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID)
+        {
+
+            foreach (var AssetToP in assets)
+            {
+                StreamingLocator locator = null;
+
+                try
+                {
+                    var uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                    var streamingLocatorName = "locator-" + uniqueness;
+
+                    locator = new StreamingLocator(
+
+                        assetName: AssetToP.Name,
+                        streamingPolicyName: streamingPolicyName,
+                        streamingLocatorId: string.IsNullOrEmpty(ForceLocatorGUID) ? (Guid?)null : Guid.Parse(ForceLocatorGUID),
+                        startTime: startTime,
+                        endTime: endTime
+
+                        );
+
+
+                    _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
+
+                }
+
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error. Could not create a locator for '{0}' ", AssetToP.Name, true);
+                    TextBoxLogWriteLine(ex);
+                    return;
+                }
+            }
+
+            dataGridViewAssetsV.PurgeCacheAssetsV3(assets);
+            dataGridViewAssetsV.AnalyzeItemsInBackground();
+        }
 
         public string AddBracket(string url)
         {
@@ -6603,8 +6695,7 @@ namespace AMSExplorer
 
         private void createALocatorForTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
-            DoCreateLocator(SelectedAssets);
+            DoCreateLocator(ReturnSelectedAssetsFromProgramsOrAssetsV3());
         }
 
         private void deleteAllLocatorsOfTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -12031,8 +12122,7 @@ namespace AMSExplorer
 
         private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
-            DoCreateLocator(SelectedAssets);
+            DoCreateLocator(ReturnSelectedAssetsFromProgramsOrAssetsV3());
         }
 
         private void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)

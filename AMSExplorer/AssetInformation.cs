@@ -347,6 +347,25 @@ namespace AMSExplorer
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAssetV3.Created).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAssetV3.LastModified).ToLocalTime().ToString("G"));
 
+
+
+
+
+
+            foreach (var se in myStreamingEndpoints)
+            {
+                comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
+                if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
+                foreach (var custom in se.CustomHostNames)
+                {
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
+                }
+            }
+
+
+            oktobuildlocator = true;
+            BuildLocatorsTree();
+
             return;
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
@@ -549,12 +568,18 @@ namespace AMSExplorer
             // LOCATORS TREE
             if (!oktobuildlocator) return;
 
-            IEnumerable<IAssetFile> MyAssetFiles;
-            List<Uri> ProgressiveDownloadUris;
+            // IEnumerable<IAssetFile> MyAssetFiles;
+            // List<Uri> ProgressiveDownloadUris;
             StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
             string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
 
+            UriBuilder uriBuilder = new UriBuilder();
+            uriBuilder.Scheme = checkBoxHttps.Checked ? "https" : "http";
+            uriBuilder.Host = SelectedSE.HostName;
 
+
+
+            /*
             // delivery policies
             bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
 
@@ -587,18 +612,26 @@ namespace AMSExplorer
             {
                 protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
             }
-
+            */
 
             if (SelectedSE != null)
             {
                 Color colornodeRU = Color.Black;
-                string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
+                //string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();
                 TreeViewLocators.Nodes.Clear();
                 int indexloc = -1;
-                foreach (ILocator locator in myAsset.Locators)
+
+                var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+
+                foreach (var locatorbase in locators)
                 {
+                    var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
+
+                    var streamingPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
+                    var downloadPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+
                     indexloc++;
                     Color colornode;
                     string locatorstatus = string.Empty;
@@ -624,7 +657,7 @@ namespace AMSExplorer
                     }
                     if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;
 
-                    TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
+                    TreeNode myLocNode = new TreeNode(locator.Name);
                     myLocNode.ForeColor = colornode;
 
                     TreeViewLocators.Nodes.Add(myLocNode);
@@ -632,7 +665,7 @@ namespace AMSExplorer
                     TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                   string.Format("{0}", (locator.Id))
+                   string.Format("Id: {0}", (locator.StreamingLocatorId))
                    ));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
@@ -640,7 +673,7 @@ namespace AMSExplorer
                         ));
 
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                        string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Type0, locator.Type.ToString())
+                        string.Format("Policy name: {0}", locator.StreamingPolicyName.ToString())
                         ));
 
                     if (locator.StartTime != null)
@@ -648,13 +681,31 @@ namespace AMSExplorer
                            string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, (((DateTime)locator.StartTime).ToLocalTime().ToString("G")))
                            ));
 
-                    if (locator.ExpirationDateTime != null)
+                    if (locator.EndTime != null)
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                         string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString("G")))
+                         string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, (((DateTime)locator.EndTime).ToLocalTime().ToString("G")))
                          ));
 
-                    if (locator.Type == LocatorType.OnDemandOrigin)
+
+
+                    if (streamingPaths.Count > 0)//locator.Type == LocatorType.OnDemandOrigin)
                     {
+
+
+                        int indexn = 1;
+                        foreach (var path in streamingPaths)
+                        {
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
+                            foreach (var p in path.Paths)
+                            {
+                                uriBuilder.Path = p;
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()) { ForeColor = colornodeRU });
+                            }
+                            indexn = indexn + 1;
+                        }
+
+                        /*
+
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
                      string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName))
                      ));
@@ -733,10 +784,19 @@ namespace AMSExplorer
                                 indexn = indexn + 3;
                             }
                         }
+                        */
                     }
 
-                    if (locator.Type == LocatorType.Sas)
+                    if (downloadPaths.Count > 0)//locator.Type == LocatorType.Sas)
                     {
+
+                        foreach (var p in downloadPaths)
+                        {
+                            uriBuilder.Path = p;
+                            TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uriBuilder.ToString()));
+                        }
+
+                        /*
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
                      string.Format("Container Path: {0}", locator.Path.Replace("http://", "https://"))
                      ));
@@ -751,6 +811,7 @@ namespace AMSExplorer
                         ProgressiveDownloadUris =
                             MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
                         ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.AbsoluteUri)));
+                        */
                     }
                 }
                 TreeViewLocators.EndUpdate();
@@ -1388,7 +1449,9 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
-                            myAsset.Locators[TreeViewLocators.SelectedNode.Index].Delete();
+                            var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+                            _amsClient.AMSclient.StreamingLocators.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name);
+                            //myAsset.Locators[TreeViewLocators.SelectedNode.Index].Delete();
                         }
 
                         catch

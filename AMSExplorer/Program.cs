@@ -2133,6 +2133,28 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+        public static PublishStatus GetPublishedStatusForLocator(StreamingLocator Locator)
+        {
+            PublishStatus LocPubStatus;
+            if (!(Locator.EndTime < DateTime.UtcNow))
+            {// not in the past
+             // if  locator is not valid today but will be in the future
+                if (Locator.StartTime != null)
+                {
+                    LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
+                }
+                else
+                {
+                    LocPubStatus = PublishStatus.PublishedActive;
+                }
+            }
+            else      // if locator is in the past
+            {
+                LocPubStatus = PublishStatus.PublishedExpired;
+            }
+            return LocPubStatus;
+        }
+
         static public TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
         {
             var response = ts;
