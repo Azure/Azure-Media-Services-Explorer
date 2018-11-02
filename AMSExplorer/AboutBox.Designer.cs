@@ -44,14 +44,14 @@
             // tableLayoutPanel
             // 
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.linkLabelWebSite, 1, 5);
-            this.tableLayoutPanel.Controls.Add(this.linkLabelContact, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.buttonLicTerms, 1, 6);
+            this.tableLayoutPanel.Controls.Add(this.linkLabelContact, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.linkLabelWebSite, 1, 5);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             // 
             // linkLabelWebSite
