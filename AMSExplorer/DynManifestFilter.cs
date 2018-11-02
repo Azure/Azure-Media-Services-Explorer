@@ -360,12 +360,12 @@ namespace AMSExplorer
             dataProperty = new DataTable();
             dataProperty.Columns.Add(new DataColumn("Property", typeof(string)));
             dataProperty.Columns.Add(new DataColumn("Description", typeof(string)));
-            dataProperty.Rows.Add(FilterTrackPropertyType.Type, FilterTrackPropertyType.Type);
-            dataProperty.Rows.Add(FilterTrackPropertyType.Bitrate, FilterTrackPropertyType.Bitrate);
-            dataProperty.Rows.Add(FilterTrackPropertyType.FourCC, FilterTrackPropertyType.FourCC);
-            dataProperty.Rows.Add(FilterTrackPropertyType.Language, FilterTrackPropertyType.Language);
-            dataProperty.Rows.Add(FilterTrackPropertyType.Name, FilterTrackPropertyType.Name);
-            dataProperty.Rows.Add(FilterTrackPropertyType.Unknown, FilterTrackPropertyType.Unknown);
+            dataProperty.Rows.Add(FilterTrackPropertyType.Type.ToString(), FilterTrackPropertyType.Type.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), FilterTrackPropertyType.Bitrate.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), FilterTrackPropertyType.FourCC.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Language.ToString(), FilterTrackPropertyType.Language.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Name.ToString(), FilterTrackPropertyType.Name.ToString());
+            dataProperty.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), FilterTrackPropertyType.Unknown.ToString());
 
             // dataOperator
             dataOperator = new DataTable();
@@ -413,6 +413,8 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, accfilter.PresentationTimeRange.Timescale.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, accfilter.PresentationTimeRange.StartTimestamp.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, accfilter.PresentationTimeRange.EndTimestamp.ToString());
+                DGInfo.Rows.Add("Force end timestamp", accfilter.PresentationTimeRange.ForceEndTimestamp);
+
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, accfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, accfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, accfilter.Tracks.Count);
@@ -431,6 +433,8 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange.Timescale.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, assetfilter.PresentationTimeRange.StartTimestamp.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, assetfilter.PresentationTimeRange.EndTimestamp.ToString());
+                DGInfo.Rows.Add("Force end timestamp", assetfilter.PresentationTimeRange.ForceEndTimestamp);
+
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, assetfilter.Tracks.Count);
@@ -693,7 +697,7 @@ namespace AMSExplorer
                 {
                     if (condition.property == FilterTrackPropertyType.Type.ToString()) // property type - we want to propose audio, video or text dropbox
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type.ToString(), condition.oper, condition.value);
                         var cellValue = new DataGridViewComboBoxCell();
                         cellValue.DataSource = dataPropertyType;
                         cellValue.ValueMember = "Value";
@@ -703,7 +707,7 @@ namespace AMSExplorer
                     }
                     else if (condition.property == FilterTrackPropertyType.FourCC.ToString()) // property FourCC - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), condition.oper, condition.value);
                         var cellValue = new DataGridViewComboBoxCell();
                         cellValue.DataSource = dataPropertyFourCC;
                         cellValue.ValueMember = "Value";
@@ -713,19 +717,19 @@ namespace AMSExplorer
                     }
                     else if (condition.property == FilterTrackPropertyType.Language.ToString()) // property language
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.oper, condition.value);
                     }
                     else if (condition.property == FilterTrackPropertyType.Bitrate.ToString()) // property bitrate
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.oper, condition.value);
                     }
                     else if (condition.property == FilterTrackPropertyType.Name.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.oper, condition.value);
                     }
                     else if (condition.property == FilterTrackPropertyType.Unknown.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.oper, condition.value);
                     }
                     else
                     {

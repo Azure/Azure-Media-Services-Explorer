@@ -13728,7 +13728,7 @@ namespace AMSExplorer
                         _amsClientV3.credentialsEntry.ResourceGroup,
                         _amsClientV3.credentialsEntry.AccountName,
                         filterinfo.Name,
-                        new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: null /* filterinfo.Tracks */)
+                        new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
                         );
                     // _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks, filterinfo.Firstquality);
                     TextBoxLogWriteLine("Global filter '{0}' created.", filterinfo.Name);
