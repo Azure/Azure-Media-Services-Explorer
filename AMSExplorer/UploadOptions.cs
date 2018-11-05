@@ -25,14 +25,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
-
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
     public partial class UploadOptions : Form
     {
-        CloudMediaContext context;
-        
+        private AMSClientV3 _amsClientV3;
+
         public string StorageSelected
         {
             get
@@ -50,25 +51,11 @@ namespace AMSExplorer
         }
 
 
-        public AssetCreationOptions AssetCreationOptions
-        {
-            get
-            {
-                return checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None;
-            }
-            set
-            {
-                checkBoxUseStorageEncryption.Checked = value == AssetCreationOptions.StorageEncrypted;
-            }
-
-        }
-
-
-        public UploadOptions(CloudMediaContext myContext, bool multifilesMode)
+        public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            context = myContext;
+            _amsClientV3 = amsClient;
 
             ControlsResetToDefault();
 
@@ -80,22 +67,21 @@ namespace AMSExplorer
 
         private void ControlsResetToDefault()
         {
+            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+
             comboBoxStorage.Items.Clear();
-            foreach (var storage in context.StorageAccounts)
+            foreach (var storage in storAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                string sname = storage.Id.Split('/').Last();
+                bool primary = (storage.Type == StorageAccountType.Primary);
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
+                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-
-            checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
         }
-
 
         private void UploadOptions_Load(object sender, EventArgs e)
         {
 
         }
-
     }
-
 }

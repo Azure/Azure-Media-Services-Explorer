@@ -196,6 +196,22 @@ namespace AMSExplorer
 
         private void ListAssetBlobs()
         {
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.ReadWrite,
+                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+            };
+
+            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+
+            string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+            var sasUri = new Uri(uploadSasUrl);
+            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+
+            /*
+
+
             var keys = _amsClient.GetStorageKeys(myAssetV3.StorageAccountName);
 
             CloudStorageAccount storageAccount;
@@ -203,6 +219,7 @@ namespace AMSExplorer
             var cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
             var container = cloudBlobClient.GetContainerReference(myAssetV3.Container);
+            */
             blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata);
 
             listViewFiles.Items.Clear();

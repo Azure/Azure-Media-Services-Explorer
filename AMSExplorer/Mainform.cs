@@ -1297,7 +1297,7 @@ namespace AMSExplorer
           */
         }
 
-    
+
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuUploadFromSingleFiles_Step1();
@@ -1323,19 +1323,19 @@ namespace AMSExplorer
                 return;
             }
 
-            var form = new UploadOptions(_context, FileNames.Count() > 1) { AssetCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None };
+            var form = new UploadOptions(_amsClientV3, FileNames.Count() > 1) ;
             if (form.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
-            if (FileNames.Count() > 1 && form.SingleAsset)
+            if (FileNames.Count() > 1 && form.SingleAsset) // all files in one asset
             {
                 try
                 {
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(FileNames.ToList(), response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected), response.token);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -1353,7 +1353,7 @@ namespace AMSExplorer
                     {
                         var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(new List<string>() { file }, response.Id, form.AssetCreationOptions, response.token, storageaccount: form.StorageSelected), response.token);
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(new List<string>() { file }, response.Id, response.token, form.StorageSelected), response.token);
                         DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     }
                     catch (Exception ex)
@@ -1714,9 +1714,100 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
+        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null)
+        {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(guidTransfer);
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+
+            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+
+            if (storageaccount == null) storageaccount = storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id.Split('/').Last(); // no storage account or null, then let's take the default one
+
+            bool Error = false;
+            Asset asset = null;
+            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+            string assetName = "uploaded-" + uniqueness;
+             var listfiles = new List<WatchFolder.assetfileinJson>();
+
+            var listpb = AssetInfo.ReturnFilenamesWithProblem(filenames);
+            if (listpb.Count > 0)
+            {
+                TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
+                DoGridTransferDeclareError(guidTransfer);
+                Error = true;
+            }
+            else
+            {
+                TextBoxLogWriteLine("Starting upload of file '{0}'", filenames[0]);
+                try
+                {
+                    asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, new Asset() { StorageAccountName = storageaccount, Description= Path.GetFileName(filenames[0]) }, token);
+
+                    ListContainerSasInput input = new ListContainerSasInput()
+                    {
+                        Permissions = AssetContainerPermission.ReadWrite,
+                        ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                    };
+
+                    var response = _amsClientV3.AMSclient.Assets.ListContainerSasAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime).Result;
+
+                    string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+                    var sasUri = new Uri(uploadSasUrl);
+                    CloudBlobContainer container = new CloudBlobContainer(sasUri);
+
+                    foreach (var file in filenames)
+                    {
+                        if (token.IsCancellationRequested) return;
+                     
+                        string filename = Path.GetFileName(file);
+
+                        var blob = container.GetBlockBlobReference(filename);
+                        //blob.Properties.ContentType = "video/mp4";
+                        //Console.WriteLine("Uploading File to container: {0}", sasUri);
+                        
+                        await blob.UploadFromFileAsync(file, token);
+
+
+                        MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    DoGridTransferDeclareError(guidTransfer, e);
+                    TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filenames), true);
+                    TextBoxLogWriteLine(e);
+                }
+            }
+
+
+            if (!Error && !token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+            }
+            else if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+            }
+            DoRefreshGridAssetV(false);
+        }
+
+
         private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer, int indexfile, int nbfiles)
         {
             double progress = 100 * (double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
+            DoGridTransferUpdateProgress(progress, guidTransfer);
+        }
+
+        private void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
+        {
+            double progress = 100 * (double)indexfile / (double)nbfiles;
             DoGridTransferUpdateProgress(progress, guidTransfer);
         }
 
@@ -1990,7 +2081,7 @@ namespace AMSExplorer
                         return;
                     }
 
-                    var form = new UploadOptions(_context, false) { AssetCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None };
+                    var form = new UploadOptions(_amsClientV3, false);
                     if (form.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
@@ -2003,7 +2094,7 @@ namespace AMSExplorer
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
                           SelectedPath,
                           response.Id,
-                          form.AssetCreationOptions,//Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                          AssetCreationOptions.None,//Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                           response.token,
                           storageaccount: form.StorageSelected
                           ), response.token);
@@ -2990,7 +3081,7 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-           private StorageAccount ReturnSelectedStorage()
+        private StorageAccount ReturnSelectedStorage()
         {
 
             StorageAccount SelectedStorage = null;

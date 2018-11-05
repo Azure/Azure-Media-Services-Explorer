@@ -34,8 +34,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
-            this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelJobOptions = new System.Windows.Forms.Label();
             this.radioButtonOneAssetPerFile = new System.Windows.Forms.RadioButton();
             this.radioButtonSingleAsset = new System.Windows.Forms.RadioButton();
@@ -43,7 +41,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxMultifiles.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,19 +77,6 @@
             this.comboBoxStorage.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxStorage, "comboBoxStorage");
             this.comboBoxStorage.Name = "comboBoxStorage";
-            // 
-            // checkBoxUseStorageEncryption
-            // 
-            resources.ApplyResources(this.checkBoxUseStorageEncryption, "checkBoxUseStorageEncryption");
-            this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
-            this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
             // 
             // labelJobOptions
             // 
@@ -141,15 +125,12 @@
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.groupBoxMultifiles);
             this.Controls.Add(this.labelJobOptions);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.checkBoxUseStorageEncryption);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
             this.Name = "UploadOptions";
             this.Load += new System.EventHandler(this.UploadOptions_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxMultifiles.ResumeLayout(false);
             this.groupBoxMultifiles.PerformLayout();
             this.ResumeLayout(false);
@@ -166,8 +147,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
-        private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelJobOptions;
         private System.Windows.Forms.RadioButton radioButtonOneAssetPerFile;
         private System.Windows.Forms.RadioButton radioButtonSingleAsset;
