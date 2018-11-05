@@ -56,6 +56,7 @@ namespace AMSExplorer
         private Mainform myMainForm;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
+        private CloudBlobContainer container = null;
         private IEnumerable<IListBlobItem> blobs;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
@@ -196,22 +197,23 @@ namespace AMSExplorer
 
         private void ListAssetBlobs()
         {
-            ListContainerSasInput input = new ListContainerSasInput()
+            if (container == null) //first time
             {
-                Permissions = AssetContainerPermission.ReadWrite,
-                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
-            };
+                ListContainerSasInput input = new ListContainerSasInput()
+                {
+                    Permissions = AssetContainerPermission.ReadWriteDelete,
+                    ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                };
 
-            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+                var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
 
-            string uploadSasUrl = response.AssetContainerSasUrls.First();
+                string uploadSasUrl = response.AssetContainerSasUrls.First();
 
-            var sasUri = new Uri(uploadSasUrl);
-            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+                var sasUri = new Uri(uploadSasUrl);
+                container = new CloudBlobContainer(sasUri);
+            }
 
             /*
-
-
             var keys = _amsClient.GetStorageKeys(myAssetV3.StorageAccountName);
 
             CloudStorageAccount storageAccount;
@@ -220,6 +222,7 @@ namespace AMSExplorer
 
             var container = cloudBlobClient.GetContainerReference(myAssetV3.Container);
             */
+
             blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata);
 
             listViewFiles.Items.Clear();
@@ -1280,17 +1283,18 @@ namespace AMSExplorer
 
         private void DoDuplicate()
         {
-            /*
+
             var SelectedAssetBlobs = ReturnSelectedBlobs().FirstOrDefault();
 
             if (SelectedAssetBlobs != null)
             {
                 try
                 {
-                   
-                        string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, SelectedAssetBlobs.Name);
-                        if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
-                        {
+
+                    string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, SelectedAssetBlobs.Name);
+                    if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
+                    {
+                        /*
                             IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
                             CloudMediaContext _context = Mainform._context;
                             CloudStorageAccount storageAccount;
@@ -1304,56 +1308,45 @@ namespace AMSExplorer
                             string assetTargetContainerName = uploadUri.Segments[1];
                             CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
                             var mediaBlobContainer = assetTargetContainer; // same container
+                            */
 
-                            CloudBlockBlob sourceCloudBlob, destinationBlob;
+                        CloudBlockBlob sourceCloudBlob, destinationBlob;
 
-                            sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(SelectedAssetBlobs.Name);
-                            sourceCloudBlob.FetchAttributes();
+                        sourceCloudBlob = container.GetBlockBlobReference(SelectedAssetBlobs.Name);
+                        sourceCloudBlob.FetchAttributes();
 
-                            if (sourceCloudBlob.Properties.Length > 0)
+                        if (sourceCloudBlob.Properties.Length > 0)
+                        {
+
+                            destinationBlob = container.GetBlockBlobReference(newfilename);
+
+                            //destinationBlob.DeleteIfExists();
+                            destinationBlob.StartCopy(sourceCloudBlob);
+
+                            CloudBlockBlob blob;
+                            blob = (CloudBlockBlob)container.GetBlobReferenceFromServer(newfilename);
+
+                            while (blob.CopyState.Status == CopyStatus.Pending)
                             {
-
-                                destinationBlob = assetTargetContainer.GetBlockBlobReference(AFDup.Name);
-
-                                destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopy(sourceCloudBlob);
-
-                                CloudBlockBlob blob;
-                                blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AFDup.Name);
-
-                                while (blob.CopyState.Status == CopyStatus.Pending)
-                                {
-                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    blob.FetchAttributes();
-                                }
-                                destinationBlob.FetchAttributes();
-                                AFDup.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                AFDup.Update();
-
-                                myAsset.Update();
-
-                                destinationLocator.Delete();
-                                writePolicy.Delete();
-
-                                // Refresh the asset.
-                                myAsset = _context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
-
+                                Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                blob.FetchAttributes();
                             }
+                            destinationBlob.FetchAttributes();
                         }
+                    }
+                    ListAssetBlobs();
+                    BuildLocatorsTree();
 
-                        ListAssetFiles();
-                        BuildLocatorsTree();
-                   
 
                 }
                 catch
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile);
-                    ListAssetFiles();
+                    ListAssetBlobs();
                     BuildLocatorsTree();
                 }
             }
-            */
+
         }
 
         private async void DoUpload()
@@ -1774,9 +1767,9 @@ namespace AMSExplorer
         }
 
 
-        private List<IListBlobItem> ReturnSelectedBlobs()
+        private List<CloudBlockBlob> ReturnSelectedBlobs()
         {
-            var Selection = new List<IListBlobItem>();
+            var Selection = new List<CloudBlockBlob>();
 
             foreach (int selectedindex in listViewFiles.SelectedIndices)
             {
@@ -1784,7 +1777,7 @@ namespace AMSExplorer
 
                 if (AF != null)
                 {
-                    Selection.Add(AF);
+                    Selection.Add((CloudBlockBlob)AF);
                 }
             }
             return Selection;
@@ -2220,20 +2213,20 @@ namespace AMSExplorer
         {
             try
             {
-                string question = "Delete all files ?";
+                string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    var assetArray = myAsset.AssetFiles.ToArray();
-                    for (int i = 0; i < assetArray.Length; i++)
+                    var Array = blobs.ToArray();
+                    for (int i = 0; i < Array.Count(); i++)
                     {
-                        IAssetFile AF = assetArray[i];
-                        AF.Delete();
+                        var blob = Array[i];
+                        ((CloudBlockBlob)blob).Delete();
                     }
                     ListAssetBlobs();
                     BuildLocatorsTree();
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles);
                 ListAssetBlobs();
