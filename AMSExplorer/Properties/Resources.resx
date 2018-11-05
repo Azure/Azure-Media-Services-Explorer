@@ -133,7 +133,7 @@
     <value>Assets</value>
   </data>
   <data name="TabFilters" xml:space="preserve">
-    <value>Global filters</value>
+    <value>Account filters</value>
   </data>
   <data name="TabJobs" xml:space="preserve">
     <value>Jobs</value>
@@ -315,7 +315,7 @@ Select 'Yes' to replace them, 'No' to merge them.</value>
     <value>Asset filter  : </value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_GlobalFilter" xml:space="preserve">
-    <value>Global filter : </value>
+    <value>Account filter : </value>
   </data>
   <data name="AssetInformation_BuildLocatorsTree_LocatorInformation" xml:space="preserve">
     <value>Locator information</value>
@@ -865,7 +865,7 @@ The first entry '{0}' will be used.</value>
     <value>asset filter : </value>
   </data>
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter" xml:space="preserve">
-    <value>global filter : </value>
+    <value>account filter : </value>
   </data>
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
     <value>Default browser</value>
@@ -1067,7 +1067,7 @@ The first entry '{0}' will be used.</value>
     <value>It can take up to 2 minutes for streaming endpoint to refresh the rules</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_GlobalFilter" xml:space="preserve">
-    <value>Global filter</value>
+    <value>Account filter</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_AssetFilter" xml:space="preserve">
     <value>Asset filter</value>
@@ -1097,7 +1097,7 @@ The first entry '{0}' will be used.</value>
     <value>Please specify a filter name</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead" xml:space="preserve">
-    <value>It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.</value>
+    <value>It is not recommended to use an Account Filter to do time trimming. Consider creating an asset filter instead.</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime" xml:space="preserve">
     <value>Start time must be lower than end time</value>

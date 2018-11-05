@@ -23,6 +23,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
@@ -107,6 +109,14 @@ namespace AMSExplorer
             }
         }
 
+        public string StreamingPolicyName
+        {
+            get
+            {
+                return (string)comboBoxPolicyName.Text;
+            }
+        }
+
         public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
@@ -148,7 +158,8 @@ namespace AMSExplorer
 
         private void CreateLocator_Load(object sender, EventArgs e)
         {
-
+            comboBoxPolicyName.Items.AddRange(typeof(PredefinedStreamingPolicy).GetFields().Select(field => field.GetValue(field)).ToArray());
+            comboBoxPolicyName.Text = PredefinedStreamingPolicy.ClearStreamingOnly;
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)

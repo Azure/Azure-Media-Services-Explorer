@@ -1152,7 +1152,6 @@ namespace AMSExplorer
                     DoRefreshGridFiltersV(false);
                     break;
                 case "tabPageTransfers":
-                    DoRefreshGridIngestManifestV(false);
                     break;
                 case "tabPageJobs":
                     DoRefreshGridJobV(false);
@@ -1176,11 +1175,9 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
             DoRefreshGridLiveEventV(false);
-            return;
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridStorageV(false);
             DoRefreshGridFiltersV(false);
-            DoRefreshGridIngestManifestV(false);
         }
 
         public void DoRefreshGridAssetV(bool firstime)
@@ -1300,18 +1297,7 @@ namespace AMSExplorer
           */
         }
 
-        public void DoRefreshGridIngestManifestV(bool firstime)
-        {
-            return; // migration to V3 API
-            if (firstime)
-            {
-                dataGridViewIngestManifestsV.Init(_credentials, _context);
-                Debug.WriteLine("DoRefreshGridUngestManifestforsttime");
-            }
-            Debug.WriteLine("DoRefreshGridUngestManifestNotforsttime");
-            dataGridViewIngestManifestsV.Invoke(new Action(() => dataGridViewIngestManifestsV.RefreshIngestManifests(_context)));
-        }
-
+    
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuUploadFromSingleFiles_Step1();
@@ -2657,7 +2643,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        Task.Factory.StartNew(() => ProcessCreateLocatorV3(PredefinedStreamingPolicy.ClearStreamingOnly, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid));
+                        Task.Factory.StartNew(() => ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid));
                     }
 
                     catch (Exception e)
@@ -2853,7 +2839,6 @@ namespace AMSExplorer
 
         private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID)
         {
-
             foreach (var AssetToP in assets)
             {
                 StreamingLocator locator = null;
@@ -2864,18 +2849,18 @@ namespace AMSExplorer
                     var streamingLocatorName = "locator-" + uniqueness;
 
                     locator = new StreamingLocator(
-
                         assetName: AssetToP.Name,
                         streamingPolicyName: streamingPolicyName,
                         streamingLocatorId: string.IsNullOrEmpty(ForceLocatorGUID) ? (Guid?)null : Guid.Parse(ForceLocatorGUID),
                         startTime: startTime,
                         endTime: endTime
-
                         );
 
 
                     _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
 
+                    TextBoxLogWriteLine("Locator created : {0}", locator.Name);
+                    var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locator.Name).StreamingPaths;
                 }
 
                 catch (Exception ex)
@@ -3005,16 +2990,7 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-        private List<IIngestManifest> ReturnSelectedIngestManifests()
-        {
-            List<IIngestManifest> SelectedIngestManifests = new List<IIngestManifest>();
-            foreach (DataGridViewRow Row in dataGridViewIngestManifestsV.SelectedRows)
-                SelectedIngestManifests.Add(_context.IngestManifests.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
-            SelectedIngestManifests.Reverse();
-            return SelectedIngestManifests;
-        }
-
-        private StorageAccount ReturnSelectedStorage()
+           private StorageAccount ReturnSelectedStorage()
         {
 
             StorageAccount SelectedStorage = null;
@@ -6567,7 +6543,6 @@ namespace AMSExplorer
             DoRefreshGridTransformV(true);
             DoRefreshGridJobV(true);
             DoGridTransferInit();
-            DoRefreshGridIngestManifestV(true);
             DoRefreshGridAssetV(true);
             DoRefreshGridLiveEventV(true);
             DoRefreshGridLiveOutputV(true);
@@ -6577,9 +6552,6 @@ namespace AMSExplorer
 
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
-
-            dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
-            dateTimePickerEndDate.Value = DateTime.Now;
 
             DisplaySplashDuringLoading = false;
 
@@ -8296,95 +8268,6 @@ namespace AMSExplorer
             DoRefresh();
         }
 
-
-        private void buttonbuildchart_Click(object sender, EventArgs e)
-        {
-            chart.Series.Clear();
-
-            var seriesJobTotal = new Series()
-            {
-                Name = "Jobs total",
-                XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.Line,
-                MarkerStyle = MarkerStyle.Square,
-                Color = Color.Black,
-                IsValueShownAsLabel = false
-            };
-            chart.Series.Add(seriesJobTotal);
-
-            var seriesError = new Series()
-            {
-                Name = "Jobs in error",
-                XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.Line,
-                MarkerStyle = MarkerStyle.Square,
-                Color = Color.Red,
-                IsValueShownAsLabel = false
-            };
-            chart.Series.Add(seriesError);
-
-            var seriesCancel = new Series()
-            {
-                Name = "Jobs cancelled",
-                XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.Line,
-                MarkerStyle = MarkerStyle.Square,
-                Color = Color.Blue,
-                IsValueShownAsLabel = false
-            };
-            chart.Series.Add(seriesCancel);
-
-            var seriesSucess = new Series()
-            {
-                Name = "Jobs succeeded",
-                XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.Line,
-                MarkerStyle = MarkerStyle.Square,
-                Color = Color.Green,
-                IsValueShownAsLabel = false
-            };
-            chart.Series.Add(seriesSucess);
-
-            IEnumerable<IJob> jobs = _context.Jobs.Where(j => j.LastModified >= dateTimePickerStartDate.Value && j.LastModified <= dateTimePickerEndDate.Value);
-
-            var querytotal = jobs.GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var queryerror = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var querycancel = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var querysuccess = jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-
-            DateTime day = dateTimePickerStartDate.Value.Date;
-
-            int val;
-            while (day <= dateTimePickerEndDate.Value.Date)
-            {
-                if (querytotal.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querytotal.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesJobTotal, "(total)", day, val);
-
-                if (queryerror.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = queryerror.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesError, "in error", day, val);
-
-                if (querycancel.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querycancel.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesCancel, "canceled", day, val);
-
-                if (querysuccess.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querysuccess.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesSucess, "finished", day, val);
-
-                day = day.AddDays(1);
-            }
-
-            // draw!
-            chart.Invalidate();
-        }
-
-        private static void DrawPoint(Series seriestoprocess, string word, DateTime day, int val)
-        {
-            int pos = seriestoprocess.Points.AddXY(day, val);
-            if (val != 0)
-            {
-                seriestoprocess.Points[pos].IsValueShownAsLabel = true;
-                seriestoprocess.Points[pos].LabelToolTip = string.Format("{0} jobs {1} on {2}", val, word, day.ToShortDateString());
-            }
-        }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -13790,7 +13673,7 @@ namespace AMSExplorer
                         new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
                         );
                     // _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks, filterinfo.Firstquality);
-                    TextBoxLogWriteLine("Global filter '{0}' created.", filterinfo.Name);
+                    TextBoxLogWriteLine("Account filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
                 {
@@ -13842,7 +13725,7 @@ namespace AMSExplorer
                         filter.Name,
                         new AccountFilter(presentationTimeRange: filterinfotoupdate.Presentationtimerange, firstQuality: filterinfotoupdate.Firstquality, tracks: filterinfotoupdate.Tracks)
                         );
-                    TextBoxLogWriteLine("Global filter '{0}' updated.", filter.Name);
+                    TextBoxLogWriteLine("Account filter '{0}' updated.", filter.Name);
                 }
                 catch (Exception e)
                 {
@@ -14541,374 +14424,15 @@ namespace AMSExplorer
             }
         }
 
-        private void withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCreateNewBulkUpload();
-        }
-
-
-
-        private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
-        {
-            Program.dataGridViewV_Resize(sender);
-        }
-
-        private void deleteToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DeleteIngestManifests();
-        }
-
-        private void DeleteIngestManifests()
-        {
-            var ims = ReturnSelectedIngestManifests();
-            if (ims.Count > 0)
-            {
-                string question = (ims.Count == 1) ? "Delete bulk container " + ims[0].Name + " ?" : "Delete these " + ims.Count + " bulk containers ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Bulk container deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    bool Error = false;
-                    try
-                    {
-                        Task[] deleteTasks = ims.Select(a => a.DeleteAsync()).ToArray();
-                        TextBoxLogWriteLine("Deleting bulk container(s)");
-                        this.Cursor = Cursors.WaitCursor;
-                        Task.WaitAll(deleteTasks);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the bulk container(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-                    if (!Error) TextBoxLogWriteLine("Bulk container(s) deleted.");
-                    this.Cursor = Cursors.Default;
-                    DoRefreshGridIngestManifestV(false);
-                }
-            }
-        }
-
-        private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCreateNewBulkUpload();
-        }
-
-        private void DoCreateNewBulkUpload()
-        {
-            BulkUpload form = new BulkUpload(_context);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                if (form.AssetFiles.Count() > 0)
-                {
-                    // Encryption of files
-                    if (form.AssetCreationOption == AssetCreationOptions.StorageEncrypted)
-                    {
-                        if (!Directory.Exists(form.EncryptToFolder))
-                        {
-                            if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.EncryptToFolder), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                            {
-                                try
-                                {
-                                    Directory.CreateDirectory(form.EncryptToFolder);
-                                }
-                                catch
-                                {
-                                    MessageBox.Show(string.Format("Error when creating folder '{0}'.", form.EncryptToFolder), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    TextBoxLogWriteLine("Bulk: Error when creating folder '{0}'.", form.EncryptToFolder, true);
-                                }
-                            }
-                            else
-                            {
-                                TextBoxLogWriteLine("Bulk: User cancelled the folder creation.", true);
-                                return;
-                            }
-                        }
-                    }
-
-                    Task.Run(async () =>
-                    {
-                        try
-                        {
-                            DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.AssetCreationOption, form.EncryptToFolder, form.GenerateAzCopy, form.GenerateSigniant, form.SigniantServersSelected, form.SigniantAPIKey, form.GenerateAspera);
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine(ex);
-                        }
-                    }
-           );
-
-
-                }
-                else
-                {
-                    MessageBox.Show("There is no asset file name(s)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextBoxLogWriteLine("There is no asset file name(s).", true);
-                }
-            }
-        }
-
-        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, AssetCreationOptions creationoption, string encryptToFolder, bool GenerateAzCopy, bool GenerateSigniant, List<string> SigniantServers, string SigniantAPIKey, bool GenerateAspera)
-        {
-            TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
-            IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
-
-            // Create the assets that will be associated with this bulk ingest manifest
-            foreach (var asset in assetFiles)
-            {
-                try
-                {
-                    IAsset destAsset = _context.Assets.Create(asset.AssetName, assetStorage, creationoption);
-                    IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, asset.AssetFiles);
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Bulk: Error when declaring asset '{0}'.", asset.AssetName, true);
-                    TextBoxLogWriteLine(ex);
-                    return;
-                }
-            }
-            TextBoxLogWriteLine("Bulk: {0} asset(s) / {1} file(s) declared for bulk ingest container '{2}'.", assetFiles.Count, manifest.Statistics.PendingFilesCount, manifest.Name);
-
-
-            // Encryption of files
-            bool Error = false;
-            if (creationoption == AssetCreationOptions.StorageEncrypted)
-            {
-
-                TextBoxLogWriteLine("Encryption of asset files for bulk upload...");
-                try
-                {
-                    manifest.EncryptFilesAsync(encryptToFolder, CancellationToken.None).Wait();
-                    TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", encryptToFolder);
-                    Process.Start(encryptToFolder);
-                }
-                catch
-                {
-                    TextBoxLogWriteLine("Error when encrypting files to folder '{0}'.", encryptToFolder, true);
-                    Error = true;
-                }
-            }
-
-            if (!Error)
-            {
-                TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
-                if (creationoption == AssetCreationOptions.StorageEncrypted)
-                {
-                    TextBoxLogWriteLine("Encrypted files are in {0}", encryptToFolder);
-                }
-                if (GenerateAspera)
-                {
-                    string commandline = GenerateAsperaUrl(manifest);
-                    var form = new EditorXMLJSON("Aspera Ingest URL", commandline, false, false, false);
-                    form.Display();
-                }
-
-                if (GenerateSigniant)
-                {
-                    string commandline = GenerateSigniantCommandLine(manifest, assetFiles, creationoption == AssetCreationOptions.StorageEncrypted, encryptToFolder, SigniantServers, SigniantAPIKey);
-                    var form = new EditorXMLJSON("Signiant Command Line", commandline, false, false, false);
-                    form.Display();
-                }
-
-                if (GenerateAzCopy)
-                {
-                    string commandline = GenerateAzCopyCommandLine(manifest, assetFiles, creationoption == AssetCreationOptions.StorageEncrypted, encryptToFolder);
-                    var form = new EditorXMLJSON("AzCopy Command Line", commandline, false, false, false);
-                    form.Display();
-                }
-            }
-            DoRefreshGridIngestManifestV(false);
-        }
-
-        private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyIngestURL();
-        }
-
-        private void DoCopyIngestURL()
-        {
-            var im = ReturnSelectedIngestManifests().FirstOrDefault();
-            if (im != null)
-            {
-                string myurl = im.BlobStorageUriForUpload;
-                var form = new EditorXMLJSON("Bulk Ingest URL", myurl, false, false, false);
-                form.Display();
-            }
-        }
-
-        private static string GenerateAsperaUrl(IIngestManifest im)
-        {
-            string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
-            {
-                storKey = _credentials.DefaultStorageKey;
-            }
-            return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
-        }
-
-        private static string GenerateSigniantCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder, List<string> signantservers, string APIKey)
-        {
-            string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
-            {
-                storKey = _credentials.DefaultStorageKey;
-            }
-            string server = signantservers[0];
-            if (signantservers.Count == 2)
-            {
-                server = server + " --server " + signantservers[1];  // secondary server
-            }
-            var command = string.Format(@"sigcli --apikey {0} --direction upload --server {1} --account-name {2} --access-key {3} --container {4}",
-                             APIKey,
-                             server,
-                             im.StorageAccountName,
-                             storKey,
-                             (new Uri(im.BlobStorageUriForUpload)).PathAndQuery.Substring(1));
-
-            if (!fileencrypted)
-            {
-                foreach (var asset in assetFiles)
-                {
-                    foreach (var file in asset.AssetFiles)
-                    {
-                        command = command + string.Format(@" ""{0}""", file);
-                    }
-                }
-            }
-            else
-            {
-                foreach (var asset in im.IngestManifestAssets)
-                {
-                    foreach (var file in asset.IngestManifestFiles)
-                    {
-                        command = command + string.Format(@" ""{0}""", Path.Combine(encryptedfilefolder, file.Name));
-                    }
-                }
-            }
-
-            return command;
-        }
-
-        private static string GenerateAzCopyCommandLine(IIngestManifest im, List<BulkUpload.BulkAsset> assetFiles, bool fileencrypted, string encryptedfilefolder)
-        {
-            StringBuilder command = new StringBuilder();
-            string storKey = "InsertStorageKey";
-            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.DefaultStorageKey))
-            {
-                storKey = _credentials.DefaultStorageKey;
-            }
-
-            if (!fileencrypted)
-            {
-                foreach (var asset in assetFiles)
-                {
-                    foreach (var file in asset.AssetFiles)
-                    {
-                        command.AppendLine(
-                          string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
-                          Path.GetDirectoryName(file),
-                          im.BlobStorageUriForUpload,
-                          storKey,
-                          Path.GetFileName(file)
-                          )
-                          );
-                    }
-                }
-            }
-            else // files encrypted
-            {
-                command.AppendLine(
-                         string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""*""",
-                         encryptedfilefolder,
-                         im.BlobStorageUriForUpload,
-                         storKey
-                         )
-                         );
-
-                /*
-             foreach (var asset in im.IngestManifestAssets)
-             {
-                 foreach (var file in asset.IngestManifestFiles)
-                 {
-                     command.AppendLine(
-                         string.Format(@"AzCopy /Source:""{0}"" /Dest:{1} /DestKey:{2} /Pattern:""{3}""",
-                         encryptedfilefolder,
-                         im.BlobStorageUriForUpload,
-                         storKey,
-                         file.Name
-                         )
-                         );
-                 }
-                
-            }
-             */
-            }
-
-            return command.ToString();
-        }
-
         private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateTestsAssets();
         }
 
-        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoBulkContainerInfo(ReturnSelectedIngestManifests().FirstOrDefault());
-        }
-
-        private void DoBulkContainerInfo(IIngestManifest manifest)
-        {
-            if (manifest != null)
-            {
-                var form = new BulkContainerInfo(this, _context, manifest);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    manifest.Name = form.IngestManifestName;
-                    Task.Run(async () =>
-                    {
-                        await manifest.UpdateAsync();
-                        DoRefreshGridIngestManifestV(false);
-                    }
-           );
-                }
-            }
-        }
-
-
-        private void contextMenuStripIngestManifests_Opening(object sender, CancelEventArgs e)
-        {
-            var manifests = ReturnSelectedIngestManifests();
-            bool singleitem = (manifests.Count == 1);
-
-            infoToolStripMenuItem.Enabled =
-                copyIngestURLToClipboardToolStripMenuItem.Enabled =
-                singleitem;
-
-            deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
-        }
-
-        private void dataGridViewIngestManifestsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                var manifestId = dataGridViewIngestManifestsV.Rows[e.RowIndex].Cells[dataGridViewIngestManifestsV.Columns["Id"].Index].Value.ToString();
-                DoBulkContainerInfo(_context.IngestManifests.Where(m => m.Id == manifestId).FirstOrDefault());
-            }
-        }
-
-        private void toolStripMenuItem33Refresh_Click(object sender, EventArgs e)
-        {
-            DoRefreshGridIngestManifestV(false);
-        }
-
-
         private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
-
 
         private void toolStripMenuItem33_Click(object sender, EventArgs e)
         {
@@ -14942,30 +14466,14 @@ namespace AMSExplorer
         }
 
 
-
-        private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            var bulks = ReturnSelectedIngestManifests();
-            bool single = bulks.Count == 1;
-            bool oneOrMore = bulks.Count > 0;
-
-            toolStripMenuItem36BulkIngestInfo.Enabled =
-               toolStripMenuItem38CopyBulkURL.Enabled =
-               single;
-
-            toolStripMenuItem37DelBulk.Enabled = oneOrMore;
-        }
-
         private void toolStripMenuItem33_Click_1(object sender, EventArgs e)
         {
             DoMenuEncodeWithAMESystemPreset();
-
         }
 
         private void toolStripMenuItem36_Click_1(object sender, EventArgs e)
         {
             DoMenuEncodeWithAMEAdvanced();
-
         }
 
 

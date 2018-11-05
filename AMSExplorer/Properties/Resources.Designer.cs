@@ -537,7 +537,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filter : .
+        ///   Looks up a localized string similar to Account filter : .
         /// </summary>
         internal static string AssetInformation_DisplayAssetFilters_GlobalFilter {
             get {
@@ -2192,7 +2192,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to global filter : .
+        ///   Looks up a localized string similar to account filter : .
         /// </summary>
         internal static string ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter {
             get {
@@ -2763,7 +2763,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead..
+        ///   Looks up a localized string similar to It is not recommended to use an Account Filter to do time trimming. Consider creating an asset filter instead..
         /// </summary>
         internal static string DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead {
             get {
@@ -2819,7 +2819,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filter.
+        ///   Looks up a localized string similar to Account filter.
         /// </summary>
         internal static string DynManifestFilter_DisplayFilterInfo_GlobalFilter {
             get {
@@ -3689,7 +3689,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global filters.
+        ///   Looks up a localized string similar to Account filters.
         /// </summary>
         internal static string TabFilters {
             get {
