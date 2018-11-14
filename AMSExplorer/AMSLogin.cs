@@ -45,7 +45,6 @@ namespace AMSExplorer
     public partial class AMSLogin : Form
     {
         ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
-        //CredentialsEntry CurrentCredential;
 
         // strings for field API
         private const string _Default = "Default";
@@ -66,7 +65,6 @@ namespace AMSExplorer
 
 
         public AMSClientV3 AMSClient { get; private set; }
-
 
 
         public CredentialsEntry GenerateLoginCredentials
@@ -152,8 +150,6 @@ namespace AMSExplorer
                     AddItemToListviewAccounts(c)
                 );
             }
-
-
 
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
@@ -291,8 +287,6 @@ namespace AMSExplorer
             //            LoginCredentials = GenerateLoginCredentials;
             LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
-
-
             if (LoginInfo == null)
             {
                 MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -314,20 +308,6 @@ namespace AMSExplorer
                 this.Cursor = Cursors.Default;
                 return;
             }
-
-          /*
-
-            // test to get storage keys
-            var resourceManagementClient = new ResourceManagementClient(AMSClient.credentials);
-            resourceManagementClient.SubscriptionId = LoginInfo.AzureSubscriptionId;
-            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
-            SubscriptionCloudCredentials creds = new TokenCloudCredentials(LoginInfo.AzureSubscriptionId, AMSClient.accessToken.AccessToken);
-            var storageManagementClient = new StorageManagementClient(creds);
-            var asssets = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
-            var firsta = asssets.First();
-            //var keys = storageManagementClient.StorageAccounts.ListKeys("us", firsta.StorageAccountName);
-
-            */
 
             this.DialogResult = DialogResult.OK;  // form will close with OK result
                                                   // else --> form won't close...
@@ -542,89 +522,9 @@ namespace AMSExplorer
             DialogResult diares = openFileDialog1.ShowDialog();
             if (diares == DialogResult.OK)
             {
-                /*
-                 if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".xml")  // XML file
-                 {
-                     XDocument xmlimport = new XDocument();
-
-                     System.IO.Stream myStream = openFileDialog1.OpenFile();
-                     xmlimport = XDocument.Load(myStream);
-
-                     var test = xmlimport.Descendants("Credentials").FirstOrDefault();
-                     Version version = new Version(xmlimport.Descendants("Credentials").Attributes("Version").FirstOrDefault().Value.ToString());
-
-                     if ((test != null) && (version >= new Version("1.0")))
-                     {
-                         if (!mergesentries)
-                         {
-                             CredentialList.MediaServicesAccounts.Clear();
-                             // let's purge entries if user does not want to keep them
-                         }
-                         try
-                         {
-                             foreach (var att in xmlimport.Descendants("Credentials").Elements("Entry"))
-                             {
-                                 string OtherManagementPortal = "";
-                                 if ((version >= new Version("1.1")) && (att.Attribute("OtherManagementPortal")) != null)
-                                 {
-                                     OtherManagementPortal = att.Attribute("OtherManagementPortal").Value.ToString();
-                                 }
-
-                                 string OtherAzureEndpoint = "";
-                                 if (att.Attribute("OtherAzureEndpoint") != null)
-                                 {
-                                     OtherAzureEndpoint = att.Attribute("OtherAzureEndpoint").Value.ToString();
-                                 }
-
-                                 CredentialList.MediaServicesAccounts.Add(new CredentialsEntry(
-                                         att.Attribute("AccountName").Value.ToString(),
-                                         att.Attribute("AccountKey").Value.ToString(),
-                                         string.Empty, // client id not stored in XML
-                                         string.Empty, // client secret not stored in XML
-                                         att.Attribute("StorageKey").Value.ToString(),
-                                         att.Attribute("Description").Value.ToString(),
-                                         false,
-                                         false,
-                                         att.Attribute("UsePartnerAPI").Value.ToString() == true.ToString() ? true : false,
-                                         att.Attribute("UseOtherAPI").Value.ToString() == true.ToString() ? true : false,
-                                         att.Attribute("OtherAPIServer").Value.ToString(),
-                                         att.Attribute("OtherScope").Value.ToString(),
-                                         att.Attribute("OtherACSBaseAddress").Value.ToString(),
-                                         OtherAzureEndpoint,
-                                         OtherManagementPortal
-                                     ));
-                             }
-                         }
-                         catch
-                         {
-                             MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect);
-                             return;
-
-                         }
-
-                         listViewAccounts.Items.Clear();
-                         DoClearFields();
-                         CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) );
-                         buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
-
-                         // let's save the list of credentials in settings
-                         Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                         Program.SaveAndProtectUserConfig();
-                     }
-                     else
-                     {
-                         MessageBox.Show("Wrong XML file.");
-                         return;
-                     }
-                 }
-
-                 else */
                 if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".json")
                 {
-
                     string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
-
-                    /* V2 API CODE
 
                     if (!mergesentries)
                     {
@@ -632,19 +532,19 @@ namespace AMSExplorer
                         // let's purge entries if user does not want to keep them
                     }
 
-                    var ImportedCredentialList = (ListCredentials)JsonConvert.DeserializeObject(json, typeof(ListCredentials));
+                    var ImportedCredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv3));
                     CredentialList.MediaServicesAccounts.AddRange(ImportedCredentialList.MediaServicesAccounts);
 
                     listViewAccounts.Items.Clear();
-                    DoClearFields();
+                    //DoClearFields();
                     CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) );
                     buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
-                    Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
+                    Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
-                    LoginCredentials = null;
-                    */
+                    //LoginCredentials = null;
+                   
                 }
             }
         }
@@ -656,7 +556,7 @@ namespace AMSExplorer
 
         private void AMSLogin_Shown(object sender, EventArgs e)
         {
-            Program.CheckAMSEVersion();
+            Program.CheckAMSEVersionV3();
         }
 
 

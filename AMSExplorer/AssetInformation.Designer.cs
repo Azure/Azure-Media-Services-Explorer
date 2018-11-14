@@ -494,6 +494,7 @@
             resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPage6.Enter += new System.EventHandler(this.tabPage6_Enter);
             // 
             // buttonPlayFilter
             // 
@@ -849,6 +850,7 @@
             resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
             // 
             // label5
             // 

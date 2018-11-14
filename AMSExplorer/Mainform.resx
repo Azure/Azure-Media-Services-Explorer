@@ -131,6 +131,9 @@
   <data name="tabControlMain.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="tabControlMain.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
+    <value>FlatButtons</value>
+  </data>
   <data name="comboBoxSearchAssetOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -142,7 +145,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxSearchAssetOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 413</value>
+    <value>6, 410</value>
   </data>
   <data name="comboBoxSearchAssetOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 23</value>
@@ -178,7 +181,7 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>307, 417</value>
+    <value>307, 414</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -211,7 +214,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 413</value>
+    <value>352, 410</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -247,7 +250,7 @@
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>460, 417</value>
+    <value>460, 414</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -280,7 +283,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxStateAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>511, 413</value>
+    <value>511, 410</value>
   </data>
   <data name="comboBoxStateAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -313,7 +316,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 413</value>
+    <value>236, 410</value>
   </data>
   <data name="buttonAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -346,7 +349,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 413</value>
+    <value>160, 410</value>
   </data>
   <data name="textBoxAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 23</value>
@@ -385,7 +388,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>871, 413</value>
+    <value>871, 410</value>
   </data>
   <data name="butPrevPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -1152,7 +1155,7 @@
     <value>6, 6</value>
   </data>
   <data name="dataGridViewAssetsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 401</value>
+    <value>994, 398</value>
   </data>
   <data name="dataGridViewAssetsV.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -1161,7 +1164,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1185,7 +1188,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>638, 417</value>
+    <value>638, 414</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -1218,7 +1221,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxOrderAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>703, 413</value>
+    <value>703, 410</value>
   </data>
   <data name="comboBoxOrderAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -1251,7 +1254,7 @@
     <value>NoControl</value>
   </data>
   <data name="butNextPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>972, 413</value>
+    <value>972, 410</value>
   </data>
   <data name="butNextPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -1284,7 +1287,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxPageAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>905, 413</value>
+    <value>905, 410</value>
   </data>
   <data name="comboBoxPageAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 23</value>
@@ -1320,7 +1323,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>830, 417</value>
+    <value>830, 414</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -1344,13 +1347,13 @@
     <value>13</value>
   </data>
   <data name="tabPageAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageAssets.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageAssets.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1422,7 +1425,7 @@
     <value>5, 6</value>
   </data>
   <data name="dataGridViewFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 429</value>
+    <value>997, 426</value>
   </data>
   <data name="dataGridViewFilters.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -1440,13 +1443,13 @@
     <value>0</value>
   </data>
   <data name="tabPageFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageFilters.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageFilters.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1473,7 +1476,7 @@
     <value>NoControl</value>
   </data>
   <data name="trackBarConcurrentTransfers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 393</value>
+    <value>6, 390</value>
   </data>
   <data name="trackBarConcurrentTransfers.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 45</value>
@@ -1506,7 +1509,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelConcurrentTransfers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 406</value>
+    <value>167, 403</value>
   </data>
   <data name="labelConcurrentTransfers.Size" type="System.Drawing.Size, System.Drawing">
     <value>139, 15</value>
@@ -1619,7 +1622,7 @@
     <value>6, 19</value>
   </data>
   <data name="dataGridViewTransfer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 368</value>
+    <value>997, 365</value>
   </data>
   <data name="dataGridViewTransfer.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -1637,13 +1640,13 @@
     <value>3</value>
   </data>
   <data name="tabPageTransfers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageTransfers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageTransfers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageTransfers.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1670,7 +1673,7 @@
     <value>9, 7</value>
   </data>
   <data name="dataGridViewTransformsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 345</value>
+    <value>371, 342</value>
   </data>
   <data name="dataGridViewTransformsV.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -1679,7 +1682,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -1697,7 +1700,7 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelMoreInfoMediaUnits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 421</value>
+    <value>6, 418</value>
   </data>
   <data name="linkLabelMoreInfoMediaUnits.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 15</value>
@@ -1730,7 +1733,7 @@
     <value>NoControl</value>
   </data>
   <data name="trackBarEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 393</value>
+    <value>268, 390</value>
   </data>
   <data name="trackBarEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>587, 45</value>
@@ -1760,7 +1763,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonUpdateEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>926, 401</value>
+    <value>926, 398</value>
   </data>
   <data name="buttonUpdateEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -1790,7 +1793,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxSearchJobOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 358</value>
+    <value>6, 355</value>
   </data>
   <data name="comboBoxSearchJobOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 23</value>
@@ -1823,7 +1826,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>861, 405</value>
+    <value>861, 402</value>
   </data>
   <data name="labelnbunits.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -1862,7 +1865,7 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>327, 362</value>
+    <value>327, 359</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -1898,7 +1901,7 @@
     <value>NoControl</value>
   </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 405</value>
+    <value>6, 402</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 15</value>
@@ -1928,7 +1931,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 358</value>
+    <value>369, 355</value>
   </data>
   <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -1955,7 +1958,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 403</value>
+    <value>158, 400</value>
   </data>
   <data name="comboBoxEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 23</value>
@@ -1985,7 +1988,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 358</value>
+    <value>262, 355</value>
   </data>
   <data name="buttonJobSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -2015,7 +2018,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 358</value>
+    <value>160, 355</value>
   </data>
   <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 23</value>
@@ -2051,7 +2054,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>482, 362</value>
+    <value>482, 359</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2081,7 +2084,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>524, 358</value>
+    <value>524, 355</value>
   </data>
   <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -2114,7 +2117,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>871, 358</value>
+    <value>871, 355</value>
   </data>
   <data name="butPrevPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -2150,7 +2153,7 @@
     <value>NoControl</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>972, 358</value>
+    <value>972, 355</value>
   </data>
   <data name="butNextPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -2180,7 +2183,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxPageJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>905, 358</value>
+    <value>905, 355</value>
   </data>
   <data name="comboBoxPageJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 23</value>
@@ -2213,7 +2216,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>651, 362</value>
+    <value>651, 359</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -2249,7 +2252,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>829, 362</value>
+    <value>829, 359</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2279,7 +2282,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>713, 358</value>
+    <value>713, 355</value>
   </data>
   <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -2529,7 +2532,7 @@
     <value>386, 6</value>
   </data>
   <data name="dataGridViewJobsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>614, 346</value>
+    <value>614, 343</value>
   </data>
   <data name="dataGridViewJobsV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -2547,7 +2550,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2556,13 +2559,13 @@
     <value>20</value>
   </data>
   <data name="tabPageJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageJobs.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageJobs.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2819,7 +2822,7 @@
     <value>4, 18</value>
   </data>
   <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>992, 153</value>
+    <value>992, 150</value>
   </data>
   <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -2828,7 +2831,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -2882,7 +2885,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>941, 179</value>
+    <value>941, 176</value>
   </data>
   <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
@@ -2915,7 +2918,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxSearchProgramOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 177</value>
+    <value>6, 174</value>
   </data>
   <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 23</value>
@@ -2948,7 +2951,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>896, 179</value>
+    <value>896, 176</value>
   </data>
   <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 19</value>
@@ -2981,7 +2984,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>176, 177</value>
+    <value>176, 174</value>
   </data>
   <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 23</value>
@@ -3020,7 +3023,7 @@
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>734, 181</value>
+    <value>734, 178</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 15</value>
@@ -3056,7 +3059,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 177</value>
+    <value>299, 174</value>
   </data>
   <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -3092,7 +3095,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>821, 179</value>
+    <value>821, 176</value>
   </data>
   <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 19</value>
@@ -3131,7 +3134,7 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>539, 181</value>
+    <value>539, 178</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -3164,7 +3167,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 177</value>
+    <value>590, 174</value>
   </data>
   <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -3200,7 +3203,7 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>385, 181</value>
+    <value>385, 178</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -3233,7 +3236,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 177</value>
+    <value>430, 174</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -3260,7 +3263,7 @@
     <value>3, 223</value>
   </data>
   <data name="panelPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 215</value>
+    <value>1000, 212</value>
   </data>
   <data name="panelPrograms.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -3508,7 +3511,7 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3811,13 +3814,13 @@
     <value>1</value>
   </data>
   <data name="tabPageLive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageLive.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageLive.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageLive.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -3967,7 +3970,7 @@
     <value>6, 6</value>
   </data>
   <data name="dataGridViewStreamingEndpointsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 429</value>
+    <value>994, 426</value>
   </data>
   <data name="dataGridViewStreamingEndpointsV.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3976,7 +3979,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -3985,13 +3988,13 @@
     <value>0</value>
   </data>
   <data name="tabPageOrigins.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageOrigins.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageOrigins.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageOrigins.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -4048,7 +4051,7 @@
     <value>5, 6</value>
   </data>
   <data name="dataGridViewStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 388</value>
+    <value>997, 385</value>
   </data>
   <data name="dataGridViewStorage.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -4066,13 +4069,13 @@
     <value>0</value>
   </data>
   <data name="tabPageStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 27</value>
   </data>
   <data name="tabPageStorage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 441</value>
+    <value>1006, 438</value>
   </data>
   <data name="tabPageStorage.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -4218,50 +4221,35 @@
   <metadata name="contextMenuStripIngestManifests.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>486, 95</value>
   </metadata>
-  <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="toolStripMenuItem33Refresh.Text" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="toolStripSeparator42.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
-  </data>
-  <data name="defineAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="defineAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>New bulk ingest (for external upload)...</value>
-  </data>
-  <data name="infoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="infoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display information and settings...</value>
-  </data>
-  <data name="deleteToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="deleteToolStripMenuItem3.Text" xml:space="preserve">
-    <value>Delete bulk ingest...</value>
-  </data>
-  <data name="toolStripSeparator41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
-  </data>
-  <data name="copyIngestURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="copyIngestURLToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display ingest URL...</value>
-  </data>
   <data name="contextMenuStripIngestManifests.Size" type="System.Drawing.Size, System.Drawing">
-    <value>279, 126</value>
+    <value>61, 4</value>
   </data>
   <data name="&gt;&gt;contextMenuStripIngestManifests.Name" xml:space="preserve">
     <value>contextMenuStripIngestManifests</value>
   </data>
   <data name="&gt;&gt;contextMenuStripIngestManifests.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripSeparator42.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 6</value>
+  </data>
+  <data name="defineAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="infoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="deleteToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripSeparator41.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 6</value>
+  </data>
+  <data name="copyIngestURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4503,9 +4491,6 @@
   <data name="withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 22</value>
   </data>
-  <data name="withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Bulk upload (for external upload)...</value>
-  </data>
   <data name="uploadFromASingleFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -4692,76 +4677,8 @@
   <data name="filterToolStripMenuItem.Text" xml:space="preserve">
     <value>Account filter</value>
   </data>
-  <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="toolStripMenuItem33NewBulk.Text" xml:space="preserve">
-    <value>New bulk ingest (for external upload)...</value>
-  </data>
-  <data name="toolStripMenuItem36BulkIngestInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="toolStripMenuItem36BulkIngestInfo.Text" xml:space="preserve">
-    <value>Bulk ingest information and settings...</value>
-  </data>
-  <data name="toolStripMenuItem37DelBulk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="toolStripMenuItem37DelBulk.Text" xml:space="preserve">
-    <value>Delete bulk ingest...</value>
-  </data>
-  <data name="toolStripMenuItem38CopyBulkURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="toolStripMenuItem38CopyBulkURL.Text" xml:space="preserve">
-    <value>Display ingest URL...</value>
-  </data>
-  <data name="toolStripSeparator44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
-  </data>
-  <data name="openDestinationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB2SURBVDhPzZNLCoAwDER7Ie/nSk+iUBdeM3YkAyUm
-        YiuCA6/T79s1icgr3M0WkL2AWSuZAnvwmFrQk+8FcwFnaC+3Aj4mniQU8PGivWpbSSjAeiwMOkdjfbkX
-        CSbtWoBwnwkFjBXY/Ejg/QXECuyd7RRg6EfSATdSB94Xxzh1AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="openDestinationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+T</value>
-  </data>
-  <data name="openDestinationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="openDestinationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open destination</value>
-  </data>
-  <data name="displayErrorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="displayErrorToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Display error</value>
-  </data>
-  <data name="cancelToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="cancelToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="clearCompletedTransfersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
-  </data>
-  <data name="clearCompletedTransfersToolStripMenuItem.Text" xml:space="preserve">
-    <value>Clear completed transfers</value>
-  </data>
-  <data name="transferToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="transferToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="transferToolStripMenuItem.Text" xml:space="preserve">
-    <value>Transfer</value>
+    <value>12, 20</value>
   </data>
   <data name="encodeAssetWithAMEStandardToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -6088,6 +6005,56 @@
   </data>
   <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
     <value>17</value>
+  </data>
+  <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripMenuItem36BulkIngestInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripMenuItem37DelBulk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripMenuItem38CopyBulkURL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 19</value>
+  </data>
+  <data name="toolStripSeparator44.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 6</value>
+  </data>
+  <data name="openDestinationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB2SURBVDhPzZNLCoAwDER7Ie/nSk+iUBdeM3YkAyUm
+        YiuCA6/T79s1icgr3M0WkL2AWSuZAnvwmFrQk+8FcwFnaC+3Aj4mniQU8PGivWpbSSjAeiwMOkdjfbkX
+        CSbtWoBwnwkFjBXY/Ejg/QXECuyd7RRg6EfSATdSB94Xxzh1AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="openDestinationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+T</value>
+  </data>
+  <data name="openDestinationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 22</value>
+  </data>
+  <data name="openDestinationToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open destination</value>
+  </data>
+  <data name="displayErrorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 22</value>
+  </data>
+  <data name="displayErrorToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Display error</value>
+  </data>
+  <data name="cancelToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 22</value>
+  </data>
+  <data name="cancelToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="clearCompletedTransfersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 22</value>
+  </data>
+  <data name="clearCompletedTransfersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Clear completed transfers</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>533, 17</value>
@@ -8637,6 +8604,9 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
   </data>
@@ -10020,60 +9990,6 @@
   <data name="&gt;&gt;transferToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem33NewBulk.Name" xml:space="preserve">
-    <value>toolStripMenuItem33NewBulk</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem33NewBulk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36BulkIngestInfo.Name" xml:space="preserve">
-    <value>toolStripMenuItem36BulkIngestInfo</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36BulkIngestInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem37DelBulk.Name" xml:space="preserve">
-    <value>toolStripMenuItem37DelBulk</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem37DelBulk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem38CopyBulkURL.Name" xml:space="preserve">
-    <value>toolStripMenuItem38CopyBulkURL</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem38CopyBulkURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator44.Name" xml:space="preserve">
-    <value>toolStripSeparator44</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator44.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openDestinationToolStripMenuItem.Name" xml:space="preserve">
-    <value>openDestinationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;openDestinationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayErrorToolStripMenuItem1.Name" xml:space="preserve">
-    <value>displayErrorToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;displayErrorToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cancelToolStripMenuItem1.Name" xml:space="preserve">
-    <value>cancelToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;cancelToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clearCompletedTransfersToolStripMenuItem.Name" xml:space="preserve">
-    <value>clearCompletedTransfersToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;clearCompletedTransfersToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;processToolStripMenuItem.Name" xml:space="preserve">
     <value>processToolStripMenuItem</value>
   </data>
@@ -10906,6 +10822,60 @@
     <value>aboutToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem33NewBulk.Name" xml:space="preserve">
+    <value>toolStripMenuItem33NewBulk</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem33NewBulk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem36BulkIngestInfo.Name" xml:space="preserve">
+    <value>toolStripMenuItem36BulkIngestInfo</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem36BulkIngestInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem37DelBulk.Name" xml:space="preserve">
+    <value>toolStripMenuItem37DelBulk</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem37DelBulk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem38CopyBulkURL.Name" xml:space="preserve">
+    <value>toolStripMenuItem38CopyBulkURL</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem38CopyBulkURL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator44.Name" xml:space="preserve">
+    <value>toolStripSeparator44</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator44.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openDestinationToolStripMenuItem.Name" xml:space="preserve">
+    <value>openDestinationToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openDestinationToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayErrorToolStripMenuItem1.Name" xml:space="preserve">
+    <value>displayErrorToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;displayErrorToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelToolStripMenuItem1.Name" xml:space="preserve">
+    <value>cancelToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;cancelToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearCompletedTransfersToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearCompletedTransfersToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearCompletedTransfersToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabelConnection.Name" xml:space="preserve">

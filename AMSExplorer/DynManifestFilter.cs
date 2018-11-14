@@ -43,7 +43,7 @@ namespace AMSExplorer
         private DataTable dataProperty;
         private DataTable dataOperator;
         private ManifestTimingData _parentassetmanifestdata;
-        private long _timescale;
+        private long _timescale= 10000000;
         private Asset _parentAsset;
         private SubClipConfiguration _subclipconfig;
         private AMSClientV3 _amsClient;
@@ -191,7 +191,7 @@ namespace AMSExplorer
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -274,7 +274,7 @@ namespace AMSExplorer
                 textBoxFilterName.Text = _filter_name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
 
                 _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = assetFilter.PresentationTimeRange.Timescale;
 

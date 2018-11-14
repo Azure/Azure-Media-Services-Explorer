@@ -92,8 +92,8 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonConnectFullyInteractive = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.buttonConnectFullyInteractive = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
@@ -555,18 +555,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // labelVersion
+            // 
+            resources.ApplyResources(this.labelVersion, "labelVersion");
+            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.labelVersion.Name = "labelVersion";
+            // 
             // buttonConnectFullyInteractive
             // 
             resources.ApplyResources(this.buttonConnectFullyInteractive, "buttonConnectFullyInteractive");
             this.buttonConnectFullyInteractive.Name = "buttonConnectFullyInteractive";
             this.buttonConnectFullyInteractive.UseVisualStyleBackColor = true;
             this.buttonConnectFullyInteractive.Click += new System.EventHandler(this.buttonConnectFullyInteractive_Click);
-            // 
-            // labelVersion
-            // 
-            resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelVersion.Name = "labelVersion";
             // 
             // errorProvider1
             // 

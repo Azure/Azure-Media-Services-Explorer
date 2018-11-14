@@ -384,7 +384,8 @@ namespace AMSExplorer
 
 
             oktobuildlocator = true;
-            BuildLocatorsTree();
+           // BuildLocatorsTree();
+
 
             return;
 
@@ -432,7 +433,6 @@ namespace AMSExplorer
                 buttonUpload.Enabled = true;
             }
 
-            DisplayAssetFilters();
             oktobuildlocator = true;
             BuildLocatorsTree();
 
@@ -442,9 +442,8 @@ namespace AMSExplorer
 
         private void DisplayAssetFilters()
         {
-            // let's refresh the asset
-            myAsset = myContext.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
-            if (myAsset == null) return; // Error!
+
+            var assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
             dataGridViewFilters.ColumnCount = 7;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
@@ -467,12 +466,12 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.BeginUpdate();
             comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
 
-            if (myAsset.AssetFilters.Count() > 0 && myassetmanifesttimingdata == null)
+            if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
-                myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAsset);
+                myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAssetV3, _amsClient);
             }
 
-            foreach (var filter in myAsset.AssetFilters)
+            foreach (var filter in assetFilters)
             {
                 string s = null;
                 string e = null;
@@ -481,23 +480,26 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    ulong? start = filter.PresentationTimeRange.StartTimestamp;
-                    ulong? end = filter.PresentationTimeRange.EndTimestamp;
-                    TimeSpan? dvr = filter.PresentationTimeRange.PresentationWindowDuration;
-                    TimeSpan? live = filter.PresentationTimeRange.LiveBackoffDuration;
+                    ulong? start = (ulong)filter.PresentationTimeRange.StartTimestamp;
+                    ulong? end = (ulong)filter.PresentationTimeRange.EndTimestamp;
+                    ulong? dvr = (ulong)filter.PresentationTimeRange.PresentationWindowDuration;
+                    ulong? live = (ulong)filter.PresentationTimeRange.LiveBackoffDuration;
 
                     double dscale = (filter.PresentationTimeRange.Timescale != null) ?
                         (double)filter.PresentationTimeRange.Timescale
                         : (double)TimeSpan.TicksPerSecond;
 
-                    double dscaleoffset = (myassetmanifesttimingdata.TimeScale != null) ?
+                    double dscaleoffset = (!myassetmanifesttimingdata.Error && myassetmanifesttimingdata.TimeScale != null) ?
                         (double)myassetmanifesttimingdata.TimeScale
                         : (double)TimeSpan.TicksPerSecond;
 
                     s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
-                    d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
-                    l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
+                    d = ReturnFilterTextWithOffSet(dvr, dscale, 0, dscaleoffset, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
+                    l = ReturnFilterTextWithOffSet(live, dscale, 0, dscaleoffset, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
+
+                    //d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
+                    //l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
                 }
                 try
                 {
@@ -514,7 +516,7 @@ namespace AMSExplorer
             }
 
 
-            myContext.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_GlobalFilter + g.Name, g.Name)));
+            //.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_GlobalFilter + g.Name, g.Name)));
             comboBoxLocatorsFilters.SelectedIndex = 0;
             comboBoxLocatorsFilters.EndUpdate();
         }
@@ -2553,6 +2555,17 @@ namespace AMSExplorer
         private void tabPageBlobs_Enter(object sender, EventArgs e)
         {
             ListAssetBlobs();
+        }
+
+        private void tabPage6_Enter(object sender, EventArgs e)
+        {
+            DisplayAssetFilters();
+
+        }
+
+        private void tabPage3_Enter(object sender, EventArgs e)
+        {
+            BuildLocatorsTree();
         }
     }
 
