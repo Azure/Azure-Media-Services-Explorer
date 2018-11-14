@@ -2213,10 +2213,10 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
-        public static PublishStatus GetPublishedStatusForLocator(ILocator Locator)
+        public static PublishStatus GetPublishedStatusForLocator(AssetStreamingLocator Locator)
         {
             PublishStatus LocPubStatus;
-            if (!(Locator.ExpirationDateTime < DateTime.UtcNow))
+            if (!(Locator.EndTime < DateTime.UtcNow))
             {// not in the past
              // if  locator is not valid today but will be in the future
                 if (Locator.StartTime != null)

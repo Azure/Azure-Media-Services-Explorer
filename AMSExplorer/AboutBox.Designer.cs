@@ -29,14 +29,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLabelWebSite = new System.Windows.Forms.LinkLabel();
-            this.linkLabelContact = new System.Windows.Forms.LinkLabel();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.buttonLicTerms = new System.Windows.Forms.Button();
+            this.linkLabelContact = new System.Windows.Forms.LinkLabel();
+            this.linkLabelWebSite = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -53,22 +53,6 @@
             this.tableLayoutPanel.Controls.Add(this.linkLabelContact, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.linkLabelWebSite, 1, 5);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            // 
-            // linkLabelWebSite
-            // 
-            resources.ApplyResources(this.linkLabelWebSite, "linkLabelWebSite");
-            this.linkLabelWebSite.Name = "linkLabelWebSite";
-            this.linkLabelWebSite.TabStop = true;
-            this.linkLabelWebSite.UseCompatibleTextRendering = true;
-            this.linkLabelWebSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelWebSite_LinkClicked);
-            // 
-            // linkLabelContact
-            // 
-            resources.ApplyResources(this.linkLabelContact, "linkLabelContact");
-            this.linkLabelContact.Name = "linkLabelContact";
-            this.linkLabelContact.TabStop = true;
-            this.linkLabelContact.UseCompatibleTextRendering = true;
-            this.linkLabelContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelContact_LinkClicked);
             // 
             // labelCompanyName
             // 
@@ -105,6 +89,22 @@
             this.buttonLicTerms.Name = "buttonLicTerms";
             this.buttonLicTerms.UseVisualStyleBackColor = true;
             this.buttonLicTerms.Click += new System.EventHandler(this.buttonLicTerms_Click);
+            // 
+            // linkLabelContact
+            // 
+            resources.ApplyResources(this.linkLabelContact, "linkLabelContact");
+            this.linkLabelContact.Name = "linkLabelContact";
+            this.linkLabelContact.TabStop = true;
+            this.linkLabelContact.UseCompatibleTextRendering = true;
+            this.linkLabelContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelContact_LinkClicked);
+            // 
+            // linkLabelWebSite
+            // 
+            resources.ApplyResources(this.linkLabelWebSite, "linkLabelWebSite");
+            this.linkLabelWebSite.Name = "linkLabelWebSite";
+            this.linkLabelWebSite.TabStop = true;
+            this.linkLabelWebSite.UseCompatibleTextRendering = true;
+            this.linkLabelWebSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelWebSite_LinkClicked);
             // 
             // AboutBox
             // 

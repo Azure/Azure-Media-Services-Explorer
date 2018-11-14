@@ -66,16 +66,6 @@ namespace AMSExplorer
             }
         }
 
-        public AssetCreationOptions EncryptionOption
-        {
-            get
-            {
-                return  (AssetCreationOptions)Enum.Parse(typeof(AssetCreationOptions), (comboBoxEncryption.SelectedItem as Item).Value);
-            }
-        }
-
-
-
         public BatchUploadFrame1()
         {
             InitializeComponent();
@@ -92,17 +82,6 @@ namespace AMSExplorer
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload, AssetCreationOptions.None.ToString()));
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload, AssetCreationOptions.StorageEncrypted.ToString()));
-            comboBoxEncryption.Items.Add(new Item(AMSExplorer.Properties.Resources.BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady, AssetCreationOptions.CommonEncryptionProtected.ToString()));
-            if (Properties.Settings.Default.useStorageEncryption)
-            {
-                comboBoxEncryption.SelectedIndex = 1;
-            }
-            else
-            {
-                comboBoxEncryption.SelectedIndex = 0;
-            }
         }
 
         private void buttonNext_Click(object sender, EventArgs e)

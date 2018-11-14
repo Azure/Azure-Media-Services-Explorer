@@ -51,7 +51,6 @@ namespace AMSExplorer
 
             Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat = checkBoxUseAdaptiveStreamingFormat.Checked;
             Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
-            Properties.Settings.Default.useStorageEncryption = checkBoxUseStorageEncryption.Checked;
             Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
 
             Properties.Settings.Default.AssetAnalysisStart = (int)numericUpDownAssetAnalysisStart.Value;
@@ -94,7 +93,6 @@ namespace AMSExplorer
 
             checkBoxUseAdaptiveStreamingFormat.Checked = false;
             checkBoxUseProtectedConfig.Checked = false;
-            checkBoxUseStorageEncryption.Checked = false;
             checkBoxShowPremiumLiveEncoding.Checked = false;
             checkBoxHideTaskbarNotifications.Checked = false;
 
@@ -153,7 +151,6 @@ namespace AMSExplorer
 
             checkBoxUseAdaptiveStreamingFormat.Checked = Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat;
             checkBoxUseProtectedConfig.Checked = Properties.Settings.Default.useProtectedConfiguration;
-            checkBoxUseStorageEncryption.Checked = Properties.Settings.Default.useStorageEncryption;
 
             textBoxCustomPlayer.Text = Properties.Settings.Default.CustomPlayerUrl;
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;

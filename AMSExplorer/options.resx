@@ -174,36 +174,6 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxUseStorageEncryption.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxUseStorageEncryption.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxUseStorageEncryption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 27</value>
-  </data>
-  <data name="checkBoxUseStorageEncryption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>396, 19</value>
-  </data>
-  <data name="checkBoxUseStorageEncryption.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="checkBoxUseStorageEncryption.Text" xml:space="preserve">
-    <value>Use storage encryption for new assets (except storage to storage copy)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUseStorageEncryption.Name" xml:space="preserve">
-    <value>checkBoxUseStorageEncryption</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUseStorageEncryption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUseStorageEncryption.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUseStorageEncryption.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
   <data name="checkBoxUseProtectedConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -232,7 +202,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxUseProtectedConfig.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>15</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1067,30 +1037,6 @@
   </data>
   <data name="&gt;&gt;numericUpDownPriority.ZOrder" xml:space="preserve">
     <value>14</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 27</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>16</value>
   </data>
   <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>

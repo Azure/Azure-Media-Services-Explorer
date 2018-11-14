@@ -33,7 +33,6 @@ using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
-using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
@@ -46,7 +45,6 @@ namespace AMSExplorer
         private AMSClientV3 _client;
         public bool MultipleSelection = false;
         public ExplorerProgramModifications Modifications = new ExplorerProgramModifications();
-        private CredentialsEntryV3 _cred;
         public LiveOutput MyLiveOutput;
 
         public string ProgramDescription
@@ -102,7 +100,7 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            var AssetToDisplayP = _client.AMSclient.Assets.Get(_cred.ResourceGroup, _cred.AccountName, MyLiveOutput.AssetName);
+            var AssetToDisplayP = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, MyLiveOutput.AssetName);
             if (AssetToDisplayP != null)
             {
                 AssetInformation form = new AssetInformation(MyMainForm, _client)

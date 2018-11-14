@@ -38,7 +38,7 @@ namespace AMSExplorer
             StorageSelected = string.Empty,
             TasksOptionsSetting = Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
             TasksOptionsSettingReadOnly = false,
-            OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+            OutputAssetsCreationOptions = AssetCreationOptions.None,
             OutputAssetsFormatOption = Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None
         };
         JobOptionsVar savedSettings;
@@ -55,7 +55,7 @@ namespace AMSExplorer
                         (checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None) |
                         (checkBoxDoNotCancelOnJobFailure.Checked ? TaskOptions.DoNotCancelOnJobFailure : TaskOptions.None) |
                         (checkBoxDoNotDeleteOutputAssetOnFailure.Checked ? TaskOptions.DoNotDeleteOutputAssetOnFailure : TaskOptions.None),
-                    OutputAssetsCreationOptions = checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    OutputAssetsCreationOptions = AssetCreationOptions.None,
                     OutputAssetsFormatOption= checkBoxFragmented.Checked ? AssetFormatOption.AdaptiveStreaming: AssetFormatOption.None
                 };
             }
@@ -94,7 +94,6 @@ namespace AMSExplorer
 
             numericUpDownPriority.Value = defaultSettings.Priority;
             checkBoxUseProtectedConfig.Checked = defaultSettings.TasksOptionsSetting == TaskOptions.ProtectedConfiguration;
-            checkBoxUseStorageEncryption.Checked = defaultSettings.OutputAssetsCreationOptions == AssetCreationOptions.StorageEncrypted;
             checkBoxFragmented.Checked = defaultSettings.OutputAssetsFormatOption == AssetFormatOption.AdaptiveStreaming;
         }
 
@@ -115,7 +114,7 @@ namespace AMSExplorer
                 savedSettings.StorageSelected = ((Item)comboBoxStorage.SelectedItem).Value;
                 savedSettings.Priority = (int)numericUpDownPriority.Value;
                 savedSettings.TasksOptionsSetting = checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None;
-                savedSettings.OutputAssetsCreationOptions = checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None;
+                savedSettings.OutputAssetsCreationOptions = AssetCreationOptions.None;
             }
             else // let's reset the controls to default
             {

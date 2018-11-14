@@ -219,7 +219,7 @@ namespace AMSExplorer
                 asset = _context.Assets.CreateFromFile(
                                                       fileName as string,
                                                       storageaccount,
-                                                      Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                                      AssetCreationOptions.None,
                                                       (af, p) =>
                                                       {
                                                           progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);

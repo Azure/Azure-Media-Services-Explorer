@@ -518,8 +518,7 @@ namespace AMSExplorer
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
         static CloudMediaContext _context;
-        static private CredentialsEntryV3 _credentialsV3;
-        private AzureMediaServicesClient _client;
+        private AMSClientV3 _client;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ProgramName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -644,18 +643,17 @@ namespace AMSExplorer
 
 
 
-        public void Init(CredentialsEntryV3 credentials, AzureMediaServicesClient client)
+        public void Init(AMSClientV3 client)
         {
             IEnumerable<LiveOutputEntry> programquery;
-            _credentialsV3 = credentials;
             _client = client;
 
-            var ListEvents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).ToList();
+            var ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
             foreach (var le in ListEvents)
             {
-                var plist = _client.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                var plist = _client.AMSclient.LiveOutputs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -739,7 +737,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                program = _client.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveeventName, program.Name); //refresh
+                program = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, program.Name); //refresh
                 if (program != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
@@ -769,7 +767,7 @@ namespace AMSExplorer
                 liveOutputItem = null;
                 try
                 {
-                    liveOutputItem = _client.LiveOutputs.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, CE.LiveEventName, CE.Name);
+                    liveOutputItem = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;
@@ -1000,12 +998,12 @@ namespace AMSExplorer
             }
             */
 
-            var ListEvents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).ToList();
+            var ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
             foreach (var le in ListEvents)
             {
-                var plist = _client.LiveOutputs.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, le.Name).ToList();
+                var plist = _client.AMSclient.LiveOutputs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -1019,7 +1017,7 @@ namespace AMSExplorer
                                    Description = c.LiveOutputItem.Description,
                                    ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
                                    LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                   Published = null,
+                                   Published = DataGridViewAssets.BuildBitmapPublication(c.LiveOutputItem.AssetName, _client).bitmap,
                                    LiveEventName = c.LiveEventName
                                };
 

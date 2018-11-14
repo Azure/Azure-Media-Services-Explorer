@@ -422,7 +422,7 @@ namespace AMSExplorer
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
-                asset = _context.Assets.Create(assetname, targetStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, targetStorage, AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 assetFile = asset.AssetFiles.Create(fileName);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
@@ -587,7 +587,7 @@ namespace AMSExplorer
                 // Create a new asset.
                 TextBoxLogWriteLine("Creating Azure Media Services asset...");
 
-                asset = _context.Assets.Create(assetname, destStorage, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                asset = _context.Assets.Create(assetname, destStorage, AssetCreationOptions.None);
                 writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(2), AccessPermissions.Write);
                 destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
@@ -984,26 +984,18 @@ namespace AMSExplorer
             asset.Delete();
         }
 
-        public void DeleteLocatorsForAsset(IAsset asset, bool onlyStreamingLocators)
+        public void DeleteLocatorsForAsset(Asset asset)
         {
             if (asset != null)
             {
-                string assetId = asset.Id;
-                var locators = from a in _context.Locators
-                               where a.AssetId == assetId
-                               select a;
-
-                if (onlyStreamingLocators)
-                {
-                    locators = locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-                }
+                var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
 
                 foreach (var locator in locators)
                 {
-                    TextBoxLogWriteLine("Deleting locator {0} for asset {1}", locator.Path, assetId);
+                    TextBoxLogWriteLine("Deleting locator {0} for asset {1}", locator.Name, asset.Name);
                     try
                     {
-                        locator.Delete();
+                        _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locator.Name);
                     }
                     catch
                     {
@@ -1184,7 +1176,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewAssetsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+                dataGridViewAssetsV.Init(_amsClientV3);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
@@ -1323,7 +1315,7 @@ namespace AMSExplorer
                 return;
             }
 
-            var form = new UploadOptions(_amsClientV3, FileNames.Count() > 1) ;
+            var form = new UploadOptions(_amsClientV3, FileNames.Count() > 1);
             if (form.ShowDialog() == DialogResult.Cancel)
             {
                 return;
@@ -1732,7 +1724,7 @@ namespace AMSExplorer
             Asset asset = null;
             string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
             string assetName = "uploaded-" + uniqueness;
-             var listfiles = new List<WatchFolder.assetfileinJson>();
+            var listfiles = new List<WatchFolder.assetfileinJson>();
 
             var listpb = AssetInfo.ReturnFilenamesWithProblem(filenames);
             if (listpb.Count > 0)
@@ -1746,7 +1738,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting upload of file '{0}'", filenames[0]);
                 try
                 {
-                    asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, new Asset() { StorageAccountName = storageaccount, Description= Path.GetFileName(filenames[0]) }, token);
+                    asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, new Asset() { StorageAccountName = storageaccount, Description = Path.GetFileName(filenames[0]) }, token);
 
                     ListContainerSasInput input = new ListContainerSasInput()
                     {
@@ -1764,13 +1756,13 @@ namespace AMSExplorer
                     foreach (var file in filenames)
                     {
                         if (token.IsCancellationRequested) return;
-                     
+
                         string filename = Path.GetFileName(file);
 
                         var blob = container.GetBlockBlobReference(filename);
                         //blob.Properties.ContentType = "video/mp4";
                         //Console.WriteLine("Uploading File to container: {0}", sasUri);
-                        
+
                         await blob.UploadFromFileAsync(file, token);
 
 
@@ -2948,7 +2940,7 @@ namespace AMSExplorer
                         );
 
 
-                    _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
+                    locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
 
                     TextBoxLogWriteLine("Locator created : {0}", locator.Name);
                     var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locator.Name).StreamingPaths;
@@ -2977,7 +2969,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeleteAllLocatorsOnAssets(List<IAsset> SelectedAssets, bool onlyStreamingLocators = false)
+        private void DoDeleteAllLocatorsOnAssets(List<Asset> SelectedAssets)
         {
             if (SelectedAssets.Count > 0)
             {
@@ -2985,7 +2977,7 @@ namespace AMSExplorer
                 if (SelectedAssets.Count == 1) question = "Delete all the locators of " + SelectedAssets[0].Name + " ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Locators deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    foreach (IAsset AssetToProcess in SelectedAssets)
+                    foreach (var AssetToProcess in SelectedAssets)
                     {
                         if (AssetToProcess != null)
                         {
@@ -2993,7 +2985,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting locators of asset '{0}'", AssetToProcess.Name);
                             try
                             {
-                                DeleteLocatorsForAsset(AssetToProcess, onlyStreamingLocators);
+                                DeleteLocatorsForAsset(AssetToProcess);
                                 TextBoxLogWriteLine("Deletion done.");
                             }
 
@@ -3003,7 +2995,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(ex);
                             }
-                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                            dataGridViewAssetsV.PurgeCacheAssetsV3(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                     }
@@ -3019,7 +3011,9 @@ namespace AMSExplorer
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
-                return new List<Asset>();// ReturnSelectedPrograms().Select(p => p.Asset).ToList();
+                return ReturnSelectedLiveOutputs()
+                        .Select(p => _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, p.AssetName))
+                        .ToList();
             }
             else
             {
@@ -5010,7 +5004,7 @@ namespace AMSExplorer
                 StorageSelected = string.Empty,
                 TasksOptionsSetting = TaskOptions.None, // we want to force this as encryption is not supported for empty string
                 TasksOptionsSettingReadOnly = true,
-                OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
+                OutputAssetsCreationOptions = AssetCreationOptions.None
             };
 
             DialogResult dialogResult = form.ShowDialog();
@@ -5363,7 +5357,7 @@ namespace AMSExplorer
                     jobname, Properties.Settings.Default.DefaultJobPriority,
                     taskname, outputassetname,
                     new List<string> { configHLS },
-                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    AssetCreationOptions.None,
                     AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
@@ -5424,7 +5418,7 @@ namespace AMSExplorer
                         taskname,
                         outputassetname,
                         new List<string> { smoothConfig },
-                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                        AssetCreationOptions.None,
                         Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
                         Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
                         );
@@ -5935,7 +5929,7 @@ namespace AMSExplorer
                     taskname,
                     outputassetname,
                     new List<string> { configMp4Validation },
-                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    AssetCreationOptions.None,
                     Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
                     Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
@@ -6518,7 +6512,6 @@ namespace AMSExplorer
 
 
             toolStripStatusLabelWatchFolder.Visible = false;
-            UpdateLabelStorageEncryption();
 
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search for asset Id :", SearchIn.AssetId.ToString()));
@@ -6727,11 +6720,6 @@ namespace AMSExplorer
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
-        private void UpdateLabelStorageEncryption()
-        {
-            toolStripStatusLabelSE.Visible = Properties.Settings.Default.useStorageEncryption;
-        }
-
         private void comboBoxStateJobsCountJobs() // To ad number of jobs in the combobox
         {
             int c = 0;
@@ -6763,7 +6751,7 @@ namespace AMSExplorer
 
         private void deleteAllLocatorsOfTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssetsFromProgramsOrAssets();
+            var SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
@@ -8138,7 +8126,7 @@ namespace AMSExplorer
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                               new List<string>() { path },
                               response.Id,
-                              Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                              AssetCreationOptions.None,
                               response.token,
                               MyWatchFolderSettings),
                               response.token);
@@ -8241,8 +8229,8 @@ namespace AMSExplorer
             EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
 
             EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
-            EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
-            EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            EnableChildItems(ref contextMenuStripLiveEvents, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            EnableChildItems(ref contextMenuStripLiveOutputs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
 
             // let's disable Premium Workflow if not present
             if (!AMEPremiumWorkflowPresent)
@@ -8371,7 +8359,6 @@ namespace AMSExplorer
             if (myForm.ShowDialog() == DialogResult.OK)
             {
                 ApplySettingsOptions();
-                UpdateLabelStorageEncryption();
             }
         }
 
@@ -8418,7 +8405,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 Debug.WriteLine("DoRefreshGridProgramVforsttime");
-                dataGridViewLiveOutputV.Init(_amsClientV3.credentialsEntry, _amsClientV3.AMSclient);
+                dataGridViewLiveOutputV.Init(_amsClientV3);
             }
             else
             {
@@ -10422,21 +10409,21 @@ namespace AMSExplorer
 
         private void DoPlaybackChannelPreview(PlayerType ptype)
         {
-            foreach (var channel in ReturnSelectedChannels())
+            foreach (var liveEvent in ReturnSelectedLiveEvents())
             {
-                if (channel != null && channel.Preview != null)
+                if (liveEvent != null && liveEvent.Preview != null)
                 {
-                    if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+                    if (liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
                     {
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: ptype,
-                            Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri,
+                            Urlstr: liveEvent.Preview.Endpoints.FirstOrDefault().Url,
                             DoNotRewriteURL: true,
                             client: _amsClientV3,
-                            formatamp: AzureMediaPlayerFormats.Smooth,
+                            formatamp: AzureMediaPlayerFormats.Auto,
                             UISelectSEFiltersAndProtocols: false,
                             mainForm: this,
-                            selectedBrowser: Constants.BrowserIE[1],
+                            //selectedBrowser: Constants.BrowserIE[1],
                             launchbrowser: true,
                             context: _context
                             );
@@ -10493,7 +10480,7 @@ namespace AMSExplorer
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
                             var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, form.EncryptionOption, response.token, form2.StorageSelected), response.token);
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
                             MyTasks.Add(myTask);
                         }
 
@@ -10503,7 +10490,7 @@ namespace AMSExplorer
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
                                   new List<string>() { file },
                                   response.Id,
-                                  Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                  AssetCreationOptions.None,
                                   response.token,
                                   null,
                                   form2.StorageSelected), response.token);
@@ -10616,7 +10603,7 @@ namespace AMSExplorer
             {
                 if (MessageBox.Show("Some selected asset(s) are published.\nYou need to unpublish them before doing any dynamic encryption change.\n\nOk to unpublish (delete locators) ?", "Published assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    DoDeleteAllLocatorsOnAssets(publishedAssets, true);
+                    //DoDeleteAllLocatorsOnAssets(publishedAssets, true);
                 }
                 else
                 {
@@ -12101,7 +12088,7 @@ namespace AMSExplorer
 
         private void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
+            var SelectedAssets = ReturnSelectedAssetsV3();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
@@ -12189,7 +12176,7 @@ namespace AMSExplorer
 
         private void DoMenuCreateLocatorOnPrograms()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
+            var SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
             DoCreateLocator(SelectedAssets);
             DoRefreshGridLiveOutputV(false);
         }
@@ -12206,7 +12193,7 @@ namespace AMSExplorer
 
         private void DoMenuDeleteAllLocatorsOnPrograms()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
+            var SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
             DoRefreshGridLiveOutputV(false);
         }
@@ -13409,108 +13396,73 @@ namespace AMSExplorer
             ChannelRunOnPremisesLiveEncoder();
         }
 
-        private void inputSSLURLToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void DoCopyChannelInputURLToClipboard(object sender, EventArgs e)
         {
-            DoCopyChannelInputURLToClipboard(false, true);
-
-        }
-
-        private void inputURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, false);
-        }
-
-        private void DoCopyChannelInputURLToClipboard(bool secondary = false, bool https = false)
-        {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-            string absuri;
-            bool Error = false;
-
-            if (secondary && channel.Input.Endpoints.Count > 1) // secondary
+            int index = 0;
+            if (sender.GetType() == typeof(ToolStrip))
             {
-                absuri = channel.Input.Endpoints[1].Url.AbsoluteUri;
+                var send = (ToolStrip)sender;
+                index = Convert.ToInt32(send.Name.Last().ToString()) - 1;
             }
-            else // primary
+            if (sender.GetType() == typeof(ToolStripMenuItem))
             {
-                absuri = channel.Input.Endpoints.FirstOrDefault().Url.AbsoluteUri;
+                var send = (ToolStripMenuItem)sender;
+                index = Convert.ToInt32(send.Name.Last().ToString()) - 1;
             }
 
-            if (https)
-            {
-                if (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
-                {
-                    absuri.Replace("http://", "https://");
-                }
-                else
-                {
-                    MessageBox.Show("SSL is only possible for Smooth Streaming input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Error = true;
-                }
-            }
+            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
+            string absuri = channel.Input.Endpoints[index].Url;
 
-            if (!Error) //System.Windows.Forms.Clipboard.SetText(absuri);
-            {
-                string label = string.Format("Input URL ({0})", secondary ? "secondary" : "primary");
-                EditorXMLJSON DisplayForm = new EditorXMLJSON(label, absuri, false, false, false);
-                DisplayForm.Display();
-            }
+            string label = string.Format("Input URL ({0})", index);
+            EditorXMLJSON DisplayForm = new EditorXMLJSON(label, absuri, false, false, false);
+            DisplayForm.Display();
         }
 
-        private void primaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, false);
-
-        }
-
-        private void secondaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(true, false);
-
-        }
 
         private void ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening(object sender, EventArgs e)
         {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+            ContextMenuOpeningLiveEventCopyInputUrl();
+        }
 
-            inputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count == 1);
-            inputSSLURLToolStripMenuItem.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
-            primaryInputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count > 1);
-            secondaryInputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count > 1);
+        private void DropDownOpeningLiveEventCopyInputUrl()
+        {
+            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
+
+            inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 0);
+            inputURLToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1);
+            inputURLToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
+            inputURLToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
+
+            inputURLToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : "";
+            inputURLToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : "";
+            inputURLToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : "";
+            inputURLToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : "";
+
+        }
+
+        private void ContextMenuOpeningLiveEventCopyInputUrl()
+        {
+            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
+
+            inputURLMToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 0);
+            inputURLMToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1);
+            inputURLMToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
+            inputURLMToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
+
+            inputURLMToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : "";
+            inputURLMToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : "";
+            inputURLMToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : "";
+            inputURLMToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : "";
 
         }
 
         private void copyInputURLToClipboardToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-
-            inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count == 1);
-            inputSSLURLToolStripMenuItem1.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
-            primaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
-            secondaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
+            DropDownOpeningLiveEventCopyInputUrl();
         }
 
-        private void inputURLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, false);
-        }
 
-        private void inputSSLURLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, true);
-
-        }
-
-        private void primaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, false);
-
-        }
-
-        private void secondaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(true, false);
-
-        }
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayChannelAdSlateControl();
@@ -13531,7 +13483,7 @@ namespace AMSExplorer
             ContextMenuItemChannelDisplayInfomation.Enabled = oneOrMore;
 
             // slate control if at least one channel with live transcoding
-            ContextMenuItemChannelAdAndSlateControl.Enabled = channels.Any(c => c.Encoding != null);
+            ContextMenuItemChannelAdAndSlateControl.Enabled = false;//channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
             ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = single;
@@ -13546,14 +13498,14 @@ namespace AMSExplorer
             ContextMenuItemChannelStart.Enabled = oneOrMore;
             ContextMenuItemChannelStop.Enabled = oneOrMore;
             ContextMenuItemChannelReset.Enabled = oneOrMore;
-            cloneChannelsToolStripMenuItem.Enabled = oneOrMore;
+            cloneChannelsToolStripMenuItem.Enabled = false;// oneOrMore;
             ContextMenuItemChannelDelete.Enabled = oneOrMore;
 
             // playback preview
             playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
 
             // telemetry
-            loadMetricsToolStripMenuItem.Enabled = enableTelemetry;
+            loadMetricsToolStripMenuItem.Enabled = false;// enableTelemetry;
         }
 
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -13566,7 +13518,7 @@ namespace AMSExplorer
             channInfoToolStripMenuItem.Enabled = oneOrMore;
 
             // slate control if at least one channel with live transcoding
-            channelsAdAndSlateControlToolStripMenuItem.Enabled = channels.Any(c => c.Encoding != null);
+            channelsAdAndSlateControlToolStripMenuItem.Enabled = false;// channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
             copyInputURLToClipboardToolStripMenuItem.Enabled = single;
@@ -13582,13 +13534,13 @@ namespace AMSExplorer
             stopChannelsToolStripMenuItem.Enabled = oneOrMore;
             resetChannelsToolStripMenuItem.Enabled = oneOrMore;
             deleteChannelsToolStripMenuItem.Enabled = oneOrMore;
-            toolStripMenuItemCloneChannel.Enabled = oneOrMore;
+            toolStripMenuItemCloneChannel.Enabled = false;// oneOrMore;
 
             // playback preview
             playbackThePreviewToolStripMenuItem.Enabled = oneOrMore;
 
             // telemetry
-            telemetryToolStripMenuItem1.Enabled = enableTelemetry;
+            telemetryToolStripMenuItem1.Enabled = false;// enableTelemetry;
 
             ////////////
 
@@ -13609,10 +13561,10 @@ namespace AMSExplorer
             deleteProgramsToolStripMenuItem1.Enabled = oneOrMore;
 
             // clone program
-            toolStripMenuItemCloneProgram.Enabled = oneOrMore;
+            toolStripMenuItemCloneProgram.Enabled = false;// oneOrMore;
 
             // sublcip program
-            subclipLiveStreamsarchivesToolStripMenuItem1.Enabled = oneOrMore;
+            subclipLiveStreamsarchivesToolStripMenuItem1.Enabled = false;// oneOrMore;
 
         }
 
@@ -14054,13 +14006,12 @@ namespace AMSExplorer
 
         private void publishToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            var assets = ReturnSelectedAssetsFromProgramsOrAssets();
+            var assets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
 
             // get test token, create asset filter, or copy publish URL only if one asset
-            getATestTokenToolStripMenuItem.Enabled =
-            createAnAssetFilterToolStripMenuItem1.Enabled =
-            toolStripMenuItemPublishCopyPubURLToClipb.Enabled =
-            assets.Count == 1;
+            getATestTokenToolStripMenuItem.Enabled = false;
+            createAnAssetFilterToolStripMenuItem1.Enabled = false;
+            toolStripMenuItemPublishCopyPubURLToClipb.Enabled = assets.Count == 1;
         }
 
         private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -15986,9 +15937,7 @@ namespace AMSExplorer
         static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
 
-        static AzureMediaServicesClient _client;
-        private string _resourceName;
-        private string _accountName;
+        static AMSClientV3 _client;
         static BindingList<AssetEntryV3> _MyObservAssetV3;
 
         public int AssetsPerPage
@@ -16089,16 +16038,14 @@ namespace AMSExplorer
         }
 
 
-        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
+        public void Init(AMSClientV3 client)
         {
             Debug.WriteLine("AssetsInit");
 
             //IEnumerable<AssetEntry> assetquery;
             _client = client;
-            _resourceName = resourceName;
-            _accountName = accountName;
 
-            var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
+            var assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -16231,7 +16178,7 @@ namespace AMSExplorer
                     //asset = _client.Assets.List(_resourceName,_accountName).Where(a => a.Id == AE.Id).FirstOrDefault();
 
                     //var odataQuery = new ODataQuery<Asset>("properties/Id eq "+AE.Id);
-                    asset = _client.Assets.Get(_resourceName, _accountName, AE.Name);
+                    asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, AE.Name);
 
                     /*
                     var firstPage = await MediaServicesArmClient.Assets.ListAsync(TestSettings.CustomerResourceGroup, TestSettings.CustomerAccountName);
@@ -16265,11 +16212,11 @@ namespace AMSExplorer
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
 
-                        /*
-                        assetBitmapAndText = BuildBitmapPublication(asset);
+                        
+                        var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
-                        */
+                        
 
                         /*
                         var assetfiles =  asset.AssetFiles.ToList();
@@ -16277,16 +16224,21 @@ namespace AMSExplorer
                         AE.SizeLong = assetfiles.Sum(f => f.ContentFileSize);
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
                         AE.AssetWarning = (AE.SizeLong == 0 || assetfiles.Any(f => f.ContentFileSize == 0));
+                        */
 
-                        assetBitmapAndText = BuildBitmapDynEncryption(asset);
+
+                        /*
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+                        */
 
+                        /*
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
                         AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()) : false;
+                        */
 
-                        assetBitmapAndText = BuildBitmapAssetFilters(asset);
+                        /*
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
@@ -16362,7 +16314,7 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-            var assets = _client.Assets.List(_resourceName, _accountName).Select(a => new AssetEntryV3
+            var assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -17044,73 +16996,72 @@ namespace AMSExplorer
 
 
 
-        public static AssetBitmapAndText BuildBitmapPublication(IAsset asset)
+        public static AssetBitmapAndText BuildBitmapPublication(string assetName, AMSClientV3 client)
         {
-            if (asset == null) return null;
-
             Bitmap returnedImage = null;
             string returnedText = null;
 
-            foreach (var locator in asset.Locators)
+            foreach (var locator in client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators)
             {
                 Bitmap newbitmap = null;
                 string newtext = null;
                 PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
 
-                switch (locator.Type)
+                //switch (locator.StreamingPolicyName)
                 {
 
-                    case (LocatorType.OnDemandOrigin):
-                        switch (Status)
-                        {
-                            case PublishStatus.PublishedActive:
-                                newbitmap = Streaminglocatorimage;
-                                newtext = "Active Streaming locator";
-                                break;
+                    //                    case (LocatorType.OnDemandOrigin):
+                    switch (Status)
+                    {
+                        case PublishStatus.PublishedActive:
+                            newbitmap = Streaminglocatorimage;
+                            newtext = "Active Streaming locator";
+                            break;
 
-                            case PublishStatus.PublishedExpired:
-                                newbitmap = Redstreamimage;
-                                newtext = "Expired Streaming locator";
-                                break;
+                        case PublishStatus.PublishedExpired:
+                            newbitmap = Redstreamimage;
+                            newtext = "Expired Streaming locator";
+                            break;
 
-                            case PublishStatus.PublishedFuture:
-                                newbitmap = Bluestreamimage;
-                                newtext = "Future Streaming locator";
-                                break;
+                        case PublishStatus.PublishedFuture:
+                            newbitmap = Bluestreamimage;
+                            newtext = "Future Streaming locator";
+                            break;
 
-                            case PublishStatus.NotPublished:
-                            default:
-                                break;
-                        }
-                        break;
+                        case PublishStatus.NotPublished:
+                        default:
+                            break;
+                    }
+                    //break;
+                    /*
+                                        case (LocatorType.Sas):
+                                            switch (Status)
+                                            {
+                                                case PublishStatus.PublishedActive:
+                                                    newbitmap = SASlocatorimage;
+                                                    newtext = "Active SAS locator";
+                                                    break;
 
-                    case (LocatorType.Sas):
-                        switch (Status)
-                        {
-                            case PublishStatus.PublishedActive:
-                                newbitmap = SASlocatorimage;
-                                newtext = "Active SAS locator";
-                                break;
+                                                case PublishStatus.PublishedExpired:
+                                                    newbitmap = Reddownloadimage;
+                                                    newtext = "Expired SAS locator";
+                                                    break;
 
-                            case PublishStatus.PublishedExpired:
-                                newbitmap = Reddownloadimage;
-                                newtext = "Expired SAS locator";
-                                break;
+                                                case PublishStatus.PublishedFuture:
+                                                    newbitmap = Bluedownloadimage;
+                                                    newtext = "Future SAS locator";
+                                                    break;
 
-                            case PublishStatus.PublishedFuture:
-                                newbitmap = Bluedownloadimage;
-                                newtext = "Future SAS locator";
-                                break;
-
-                            case PublishStatus.NotPublished:
-                            default:
-                                break;
-                        }
-                        break;
+                                                case PublishStatus.NotPublished:
+                                                default:
+                                                    break;
+                                            }
+                                            break;
 
 
-                    default:
-                        break;
+                                        default:
+                                            break;
+                                            */
                 }
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);

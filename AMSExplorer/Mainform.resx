@@ -2588,7 +2588,7 @@
   <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="contextMenuStripPrograms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextMenuStripLiveOutputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>215, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
@@ -2643,6 +2643,9 @@
   </data>
   <data name="recreateProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Reset live output(s)</value>
+  </data>
+  <data name="cloneToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="cloneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 22</value>
@@ -2706,6 +2709,9 @@
   <data name="toolStripMenuItem10.Text" xml:space="preserve">
     <value>Remove keys for the asset(s)...</value>
   </data>
+  <data name="securityToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="securityToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 22</value>
   </data>
@@ -2732,6 +2738,9 @@
   </data>
   <data name="deleteAllLocatorsToolStripMenuItem1.Text" xml:space="preserve">
     <value>Delete all locators...</value>
+  </data>
+  <data name="toolStripMenuItem25.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItem25.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2762,6 +2771,9 @@
   </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Text" xml:space="preserve">
     <value>Display Output URL...</value>
+  </data>
+  <data name="subclipProgramsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="subclipProgramsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+R</value>
@@ -2800,13 +2812,13 @@
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
     <value>Playback the live output(s)</value>
   </data>
-  <data name="contextMenuStripPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 286</value>
+  <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 308</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripPrograms.Name" xml:space="preserve">
-    <value>contextMenuStripPrograms</value>
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
+    <value>contextMenuStripLiveOutputs</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripPrograms.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
@@ -3283,7 +3295,7 @@
   <data name="dataGridViewLiveEventsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="contextMenuStripChannels.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextMenuStripLiveEvents.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
@@ -3422,29 +3434,29 @@
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 6</value>
   </data>
-  <data name="inputURLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLMToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="inputURLToolStripMenuItem.Text" xml:space="preserve">
-    <value>Input URL...</value>
+  <data name="inputURLMToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Input 1 Url ({0})...</value>
   </data>
-  <data name="inputSSLURLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLMToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="inputSSLURLToolStripMenuItem.Text" xml:space="preserve">
-    <value>Input (SSL) URL...</value>
+  <data name="inputURLMToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Input 2 Url ({0})...</value>
   </data>
-  <data name="primaryInputURLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLMToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="primaryInputURLToolStripMenuItem.Text" xml:space="preserve">
-    <value>Primary Input URL...</value>
+  <data name="inputURLMToolStripMenuItem3.Text" xml:space="preserve">
+    <value>Input 3 Url ({0})...</value>
   </data>
-  <data name="secondaryInputURLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLMToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="secondaryInputURLToolStripMenuItem.Text" xml:space="preserve">
-    <value>Secondary Input URL...</value>
+  <data name="inputURLMToolStripMenuItem4.Text" xml:space="preserve">
+    <value>Input 4 Url ({0})...</value>
   </data>
   <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
@@ -3489,13 +3501,13 @@
   <data name="playbackTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback the Preview</value>
   </data>
-  <data name="contextMenuStripChannels.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="contextMenuStripLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
     <value>302, 330</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripChannels.Name" xml:space="preserve">
-    <value>contextMenuStripChannels</value>
+  <data name="&gt;&gt;contextMenuStripLiveEvents.Name" xml:space="preserve">
+    <value>contextMenuStripLiveEvents</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripChannels.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextMenuStripLiveEvents.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
@@ -5168,6 +5180,9 @@
   <data name="encodingToolStripMenuItem.Text" xml:space="preserve">
     <value>Job</value>
   </data>
+  <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+D</value>
   </data>
@@ -5176,6 +5191,9 @@
   </data>
   <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>Add dynamic encryption and key delivery policies for the asset(s)...</value>
+  </data>
+  <data name="getATestTokenToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="getATestTokenToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+O</value>
@@ -5186,6 +5204,9 @@
   <data name="getATestTokenToolStripMenuItem.Text" xml:space="preserve">
     <value>Get a test token...</value>
   </data>
+  <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+D</value>
   </data>
@@ -5194,6 +5215,9 @@
   </data>
   <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove all dynamic encryption policies for the asset(s)...</value>
+  </data>
+  <data name="removeKeysForTheAssetsToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="removeKeysForTheAssetsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+Shift+D</value>
@@ -5227,6 +5251,9 @@
   <data name="createALocatorForTheAssetToolStripMenuItem.Text" xml:space="preserve">
     <value>Publish : Create a locator...</value>
   </data>
+  <data name="extendExistingStreamingLocatorsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="extendExistingStreamingLocatorsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+L</value>
   </data>
@@ -5259,6 +5286,9 @@
   <data name="toolStripMenuItemPublishCopyPubURLToClipb.Text" xml:space="preserve">
     <value>Display published URL...</value>
   </data>
+  <data name="findTheAssetFromTheLocatorToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="findTheAssetFromTheLocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>467, 22</value>
   </data>
@@ -5268,6 +5298,9 @@
   <data name="toolStripSeparator23.Size" type="System.Drawing.Size, System.Drawing">
     <value>464, 6</value>
   </data>
+  <data name="toolStripMenuItem26.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="toolStripMenuItem26.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F</value>
   </data>
@@ -5276,6 +5309,9 @@
   </data>
   <data name="toolStripMenuItem26.Text" xml:space="preserve">
     <value>Create a global filter...</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5469,28 +5505,28 @@
     <value>Delete live event(s)...</value>
   </data>
   <data name="inputURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="inputURLToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Input URL...</value>
+    <value>Input 1 Url ({0})...</value>
   </data>
-  <data name="inputSSLURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="inputSSLURLToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Input (SSL) URL...</value>
+  <data name="inputURLToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Input 2 Url ({0})...</value>
   </data>
-  <data name="primaryInputURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="primaryInputURLToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Primary Input URL...</value>
+  <data name="inputURLToolStripMenuItem3.Text" xml:space="preserve">
+    <value>Input 3 Url ({0})...</value>
   </data>
-  <data name="secondaryInputURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 22</value>
+  <data name="inputURLToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="secondaryInputURLToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Secondary Input URL...</value>
+  <data name="inputURLToolStripMenuItem4.Text" xml:space="preserve">
+    <value>Input 4 Url ({0})...</value>
   </data>
   <data name="copyInputURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
@@ -6071,17 +6107,11 @@
   <data name="toolStripStatusLabelWatchFolder.Text" xml:space="preserve">
     <value>Watch folder running</value>
   </data>
-  <data name="toolStripStatusLabelSE.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 17</value>
-  </data>
-  <data name="toolStripStatusLabelSE.Text" xml:space="preserve">
-    <value>New asset will be storage encrypted</value>
-  </data>
   <data name="toolStripStatusLabelEncRU.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
   <data name="toolStripStatusLabelEncRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>576, 17</value>
+    <value>787, 17</value>
   </data>
   <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
     <value>{0} {1} Media RU</value>
@@ -8604,9 +8634,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
   </data>
@@ -9528,28 +9555,28 @@
   <data name="&gt;&gt;ContextMenuItemChannelCopyIngestURLToClipboard.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem.Name" xml:space="preserve">
-    <value>inputURLToolStripMenuItem</value>
+  <data name="&gt;&gt;inputURLMToolStripMenuItem1.Name" xml:space="preserve">
+    <value>inputURLMToolStripMenuItem1</value>
   </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLMToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inputSSLURLToolStripMenuItem.Name" xml:space="preserve">
-    <value>inputSSLURLToolStripMenuItem</value>
+  <data name="&gt;&gt;inputURLMToolStripMenuItem2.Name" xml:space="preserve">
+    <value>inputURLMToolStripMenuItem2</value>
   </data>
-  <data name="&gt;&gt;inputSSLURLToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLMToolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;primaryInputURLToolStripMenuItem.Name" xml:space="preserve">
-    <value>primaryInputURLToolStripMenuItem</value>
+  <data name="&gt;&gt;inputURLMToolStripMenuItem3.Name" xml:space="preserve">
+    <value>inputURLMToolStripMenuItem3</value>
   </data>
-  <data name="&gt;&gt;primaryInputURLToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLMToolStripMenuItem3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;secondaryInputURLToolStripMenuItem.Name" xml:space="preserve">
-    <value>secondaryInputURLToolStripMenuItem</value>
+  <data name="&gt;&gt;inputURLMToolStripMenuItem4.Name" xml:space="preserve">
+    <value>inputURLMToolStripMenuItem4</value>
   </data>
-  <data name="&gt;&gt;secondaryInputURLToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLMToolStripMenuItem4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemChannelRunOnPremisesLiveEncoder.Name" xml:space="preserve">
@@ -10506,22 +10533,22 @@
   <data name="&gt;&gt;inputURLToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inputSSLURLToolStripMenuItem1.Name" xml:space="preserve">
-    <value>inputSSLURLToolStripMenuItem1</value>
+  <data name="&gt;&gt;inputURLToolStripMenuItem2.Name" xml:space="preserve">
+    <value>inputURLToolStripMenuItem2</value>
   </data>
-  <data name="&gt;&gt;inputSSLURLToolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLToolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;primaryInputURLToolStripMenuItem1.Name" xml:space="preserve">
-    <value>primaryInputURLToolStripMenuItem1</value>
+  <data name="&gt;&gt;inputURLToolStripMenuItem3.Name" xml:space="preserve">
+    <value>inputURLToolStripMenuItem3</value>
   </data>
-  <data name="&gt;&gt;primaryInputURLToolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLToolStripMenuItem3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;secondaryInputURLToolStripMenuItem1.Name" xml:space="preserve">
-    <value>secondaryInputURLToolStripMenuItem1</value>
+  <data name="&gt;&gt;inputURLToolStripMenuItem4.Name" xml:space="preserve">
+    <value>inputURLToolStripMenuItem4</value>
   </data>
-  <data name="&gt;&gt;secondaryInputURLToolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputURLToolStripMenuItem4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;runAnOnpremisesLiveEncoderToolStripMenuItem.Name" xml:space="preserve">
@@ -10888,12 +10915,6 @@
     <value>toolStripStatusLabelWatchFolder</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabelWatchFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabelSE.Name" xml:space="preserve">
-    <value>toolStripStatusLabelSE</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabelSE.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabelEncRU.Name" xml:space="preserve">
