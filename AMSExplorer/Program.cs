@@ -1642,6 +1642,7 @@ namespace AMSExplorer
         public const string Type_Fragmented = "Pre-fragmented";
         public const string Type_AMSHLS = "Media Services HLS";
         public const string Type_Thumbnails = "Thumbnails";
+        public const string Type_Unknown = "Unknown";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
         public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
         public const string _hls_cmaf = "HLS CMAF URL";
@@ -1776,7 +1777,7 @@ namespace AMSExplorer
             return tempLocator;
         }
 
-        public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset , AMSClientV3 _amsClientV3)
+        public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
 
@@ -2275,7 +2276,7 @@ namespace AMSExplorer
             return response;
         }
 
-  
+
         static public ManifestTimingData GetManifestTimingData(IAsset asset)
         // Parse the manifest and get data from it
         {
@@ -2305,7 +2306,7 @@ namespace AMSExplorer
                     }
                     long timescale = long.Parse(timescalefrommanifest);
                     //response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
-                    response.TimeScale = timescale; 
+                    response.TimeScale = timescale;
 
                     // Timestamp offset
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
@@ -2747,6 +2748,161 @@ namespace AMSExplorer
                     break;
             }
             return string.Format("{0} ({1})", type, number);
+        }
+
+        public static AssetInfoData GetAssetType(string assetName, AMSClientV3 _amsClient)
+        {
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.ReadWriteDelete,
+                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+            };
+
+            string type = "";
+            long size = 0;
+
+            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime).Result;
+
+            string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+            var sasUri = new Uri(uploadSasUrl);
+            var container = new CloudBlobContainer(sasUri);
+
+            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
+            var blocsc = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            var blocsdir = blobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
+
+            int number = blocsc.Count;
+
+            var ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+            blocsc.ForEach(b => size += b.Properties.Length);
+
+            var mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (mp4files.Count() > 0 && ismcfiles.Count() == 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
+            {
+                number = mp4files.Count();
+                type = number == 1 ? Type_Single : Type_Multi;
+            }
+
+            else if (blocsc.Count == 0) return new AssetInfoData() { Size = size, Type = Type_Empty };
+
+            else if (ismcfiles.Count() == 1 && ismfiles.Count() == 1 && blocsdir.Count > 0)
+            {
+                type = Type_LiveArchive;
+                number = blocsdir.Count;
+            }
+
+            else if (blocsc.Count == 1)
+            {
+                number = 1;
+                var ext = Path.GetExtension(blocsc.FirstOrDefault().Name.ToUpper());
+                if (!string.IsNullOrEmpty(ext)) ext = ext.Substring(1);
+                switch (ext)
+                {
+                    case "WORKFLOW":
+                        type = Type_Workflow;
+                        break;
+
+                    default:
+                        type = ext;
+                        break;
+                }
+            }
+
+            else
+            {
+                type = Type_Unknown;
+            }
+
+
+            return new AssetInfoData() { Size = size, Type = string.Format("{0} ({1})", type, number) };
+
+            /*
+
+            switch (asset.AssetType)
+            {
+                case AssetType.MediaServicesHLS:
+                    type = Type_AMSHLS;
+                    break;
+
+                case AssetType.MP4:
+                    break;
+
+                case AssetType.MultiBitrateMP4:
+                    var mp4files = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = mp4files.Count();
+                    type = number == 1 ? Type_Single : Type_Multi;
+                    break;
+
+                case AssetType.SmoothStreaming:
+                    type = Type_Smooth;
+                    var cfffiles = AssetFiles.Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = cfffiles.Count();
+
+                    if (number == 0
+                        && AssetFiles.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).Count() == 2
+                        )
+                    {
+                        var fragmentedFilesCount = AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count();
+                        if (fragmentedFilesCount == AssetFiles.Count - 2)
+                        {
+                            number = AssetFiles.Count - 2;  // tracks - 2 manifest files
+                            type = Type_LiveArchive;
+                        }
+                        else if ((fragmentedFilesCount == AssetFiles.Count - 4)
+                            &&
+                            AssetFiles.Where(f => f.Name.EndsWith("_manifest.xml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith("_metadata.xml", StringComparison.OrdinalIgnoreCase)).Count() == 2
+                            )
+                        {
+                            number = AssetFiles.Count - 4;  // tracks - 4 manifest files
+                            type = Type_Fragmented;
+                        }
+                    }
+                    break;
+
+                case AssetType.Unknown:
+                    string ext;
+                    string pr = string.Empty;
+
+                    if (assetfilescount == 0) return Type_Empty;
+
+                    if (assetfilescount == 1)
+                    {
+                        number = 1;
+                        ext = Path.GetExtension(AssetFiles.FirstOrDefault().Name.ToUpper());
+                        if (!string.IsNullOrEmpty(ext)) ext = ext.Substring(1);
+                        switch (ext)
+                        {
+                            case "WORKFLOW":
+                                type = Type_Workflow;
+                                break;
+
+                            default:
+                                type = ext;
+                                break;
+                        }
+                    }
+                    else
+                    { // multi files in asset
+                        var ThumbnailsAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        var XMLAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        int nonThumbnailFilesCount = AssetFiles.Count - ThumbnailsAssetFiles.Count();
+
+                        if ((ThumbnailsAssetFiles.Count() > 0) && ((nonThumbnailFilesCount == 0) || (XMLAssetFiles.Count() == 1)))
+                        {
+                            type = Type_Thumbnails;
+                            number = ThumbnailsAssetFiles.Count();
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            return string.Format("{0} ({1})", type, number);
+            */
         }
 
         static public void SetISMFileAsPrimary(IAsset asset)
@@ -4072,22 +4228,7 @@ namespace AMSExplorer
                 }
             }
         }
-        /*
-        private AssetStorageEncryptionFormat _StorageEncryptionFormat;
-        public AssetStorageEncryptionFormat StorageEncryptionFormat
-        {
-            get
-            { return _StorageEncryptionFormat; }
-            set
-            {
-                if (value != _StorageEncryptionFormat)
-                {
-                    _StorageEncryptionFormat = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        */
+
         private string _Size;
         public string Size
         {
@@ -4117,34 +4258,6 @@ namespace AMSExplorer
             }
         }
 
-        public Bitmap _StaticEncryption = null;
-        public Bitmap StaticEncryption
-        {
-            get
-            { return _StaticEncryption; }
-            set
-            {
-                if (value != _StaticEncryption)
-                {
-                    _StaticEncryption = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _StaticEncryptionMouseOver;
-        public string StaticEncryptionMouseOver
-        {
-            get
-            { return _StaticEncryptionMouseOver; }
-            set
-            {
-                if (value != _StaticEncryptionMouseOver)
-                {
-                    _StaticEncryptionMouseOver = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
         private Bitmap _DynamicEncryption;
         public Bitmap DynamicEncryption
         {
@@ -4722,7 +4835,11 @@ namespace AMSExplorer
             return idParts[10];
         }
     }
-
+    public class AssetInfoData
+    {
+        public long Size;
+        public string Type;
+    }
     public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
@@ -4946,7 +5063,7 @@ namespace AMSExplorer
         public string ClientApplicationId => "24f03a2b-432b-41f7-bc67-941b965f82ed";
     }
 
-    
+
     internal class ProductionEnvironment : AzureEnvironmentV3
     {
         public string DisplayName => "Production";

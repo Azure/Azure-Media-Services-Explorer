@@ -256,7 +256,14 @@ namespace AMSExplorer
                         listViewFiles.Items.Add(item);
                         //size += file.ContentFileSize;
                     }
+                    else if (blob.GetType() == typeof(CloudBlobDirectory))
+                    {
+                        var bl = (CloudBlobDirectory)blob; 
+                        ListViewItem item = new ListViewItem(bl.Prefix, 0);
+                        item.ForeColor = Color.DarkGoldenrod;
+                        listViewFiles.Items.Add(item);
 
+                    }
 
                 }
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

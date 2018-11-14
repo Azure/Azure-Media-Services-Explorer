@@ -7280,12 +7280,6 @@ namespace AMSExplorer
                 if (value != null && (((bool)value) == true))
                     e.CellStyle.ForeColor = Color.Red;
             }
-            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
-            {
-                var cell3 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value != null)
-                    cell3.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value.ToString();
-            }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._dynEnc].Index)// Mouseover for icons
             {
                 var cell4 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
@@ -15890,11 +15884,9 @@ namespace AMSExplorer
 
     public class DataGridViewAssets : DataGridView
     {
-        public string _statEnc = "StaticEncryption";
         public string _publication = "Publication";
         public string _dynEnc = "DynamicEncryption";
         public string _filter = "Filters";
-        public string _statEncMouseOver = "StaticEncryptionMouseOver";
         public string _publicationMouseOver = "PublicationMouseOver";
         public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
         public string _filterMouseOver = "FiltersMouseOver";
@@ -16083,14 +16075,6 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol);
 
-            DataGridViewImageColumn imageCol2 = new DataGridViewImageColumn()
-            {
-                DefaultCellStyle = cellstyle,
-                Name = _statEnc,
-                DataPropertyName = _statEnc,
-            };
-            this.Columns.Add(imageCol2);
-
             DataGridViewImageColumn imageCol3 = new DataGridViewImageColumn()
             {
                 DefaultCellStyle = cellstyle,
@@ -16114,7 +16098,6 @@ namespace AMSExplorer
             this.DataSource = MyObservAssethisPageV3;
 
             int lastColumn_sIndex = this.Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
-            this.Columns[_statEncMouseOver].Visible = false;
             this.Columns[_dynEncMouseOver].Visible = false;
             this.Columns[_publicationMouseOver].Visible = false;
             this.Columns[_filterMouseOver].Visible = false;
@@ -16132,15 +16115,11 @@ namespace AMSExplorer
             this.Columns[_publication].DefaultCellStyle.NullValue = null;
             this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 2;
             this.Columns[_dynEnc].DefaultCellStyle.NullValue = null;
-            this.Columns[_statEnc].DisplayIndex = lastColumn_sIndex - 3;
-            this.Columns[_statEnc].DefaultCellStyle.NullValue = null;
 
-            this.Columns[_statEnc].HeaderText = "Static Encryption";
             this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
             this.Columns["Type"].Width = 140;
             this.Columns["Size"].Width = 80;
-            this.Columns[_statEnc].Width = 80;
             this.Columns[_dynEnc].Width = 80;
             this.Columns[_publication].Width = 90;
             this.Columns[_filter].Width = 50;
@@ -16216,15 +16195,16 @@ namespace AMSExplorer
                         var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
-                        
 
-                        /*
-                        var assetfiles =  asset.AssetFiles.ToList();
-                        AE.Type = AssetInfo.GetAssetType(asset);
-                        AE.SizeLong = assetfiles.Sum(f => f.ContentFileSize);
+
+
+                        // var assetfiles =  asset.AssetFiles.ToList();
+                        var data = AssetInfo.GetAssetType(asset.Name, _client);
+                        AE.Type = data.Type;
+                        AE.SizeLong = data.Size;
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
-                        AE.AssetWarning = (AE.SizeLong == 0 || assetfiles.Any(f => f.ContentFileSize == 0));
-                        */
+                        AE.AssetWarning = (AE.SizeLong == 0);// || assetfiles.Any(f => f.ContentFileSize == 0));
+                        
 
 
                         /*
@@ -16320,7 +16300,7 @@ namespace AMSExplorer
                 Description = a.Description,
                 AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
-                Type = a.Type,
+                //Type = a.Type,
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
