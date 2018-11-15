@@ -17,6 +17,8 @@
 // Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
+using Microsoft.Rest.Azure.OData;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
@@ -892,8 +894,6 @@ namespace AMSExplorer
             return processors.ToList();
         }
 
-
-
         static IJob GetJob(string jobId)
         {
             // Use a Linq select query to get an updated 
@@ -930,47 +930,6 @@ namespace AMSExplorer
             return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channelName);
         }
 
-        static IChannel GetChannelFromName(string name)
-        {
-            IChannel channel;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var channelInstance =
-                    from a in _context.Channels
-                    where a.Name == name
-                    select a;
-                // Reference the asset as an IAsset.
-                channel = channelInstance.FirstOrDefault();
-            }
-            catch
-            {
-                channel = null;
-            }
-            return channel;
-        }
-
-        static IProgram GetProgram(string programId)
-        {
-            IProgram program;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var programInstance =
-                    from a in _context.Programs
-                    where a.Id == programId
-                    select a;
-                // Reference the asset as an IAsset.
-                program = programInstance.FirstOrDefault();
-            }
-            catch
-            {
-                program = null;
-            }
-            return program;
-        }
 
         static StreamingEndpoint GetStreamingEndpoint(string seName)
         {
@@ -1004,21 +963,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-        void DeleteAccessPolicy(string existingPolicyId)
-        {
-            // To delete a specific access policy, get a reference to the policy.  
-            // based on the policy Id passed to the method.
-            var policyInstance =
-                 from p in _context.AccessPolicies
-                 where p.Id == existingPolicyId
-                 select p;
-            IAccessPolicy policy = policyInstance.FirstOrDefault();
-
-            TextBoxLogWriteLine("Deleting policy {0}", existingPolicyId);
-            policy.Delete();
-        }
-
 
         public void TextBoxLogWriteLine(string message, object o1, bool Error = false)
         {
@@ -1177,20 +1121,21 @@ namespace AMSExplorer
             if (firstime)
             {
                 dataGridViewAssetsV.Init(_amsClientV3);
-                for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
+                for (int i = 0; i <= 10 /*dataGridViewAssetsV.PageCount*/; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
-            int ComboBackupindex = 0;
-            int DGpagecount = 0;
+            // int ComboBackupindex = 0;
+            // int DGpagecount = 0;
 
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
-            comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(0 /* ComboBackupindex + 1 */)));
-            dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
+            //  dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
+            //  comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(comboBoxPageAssets.SelectedIndex)));
+            //dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
 
+            /*
             if (comboBoxPageAssets.Items.Count < DGpagecount) // more assets, let's add pages
             {
                 for (int i = comboBoxPageAssets.Items.Count; i < DGpagecount; i++)
@@ -1205,13 +1150,17 @@ namespace AMSExplorer
                     comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Remove(i)));
                 }
             }
+            */
 
+            /*
             if ((dataGridViewAssetsV.CurrentPage <= comboBoxPageAssets.Items.Count) && (comboBoxPageAssets.Items.Count > 0)) // if multiple refresh at the same time, it may happen that comboBoxPageAssets.Items.Count =0 which creates an exception
             {
                 comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
             }
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
+            */
+
+            //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
         }
 
         public void DoPurgeAssetInfoFromCache(Asset asset)
@@ -1706,7 +1655,7 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null)
+        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -1722,8 +1671,6 @@ namespace AMSExplorer
 
             bool Error = false;
             Asset asset = null;
-            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
-            string assetName = "uploaded-" + uniqueness;
             var listfiles = new List<WatchFolder.assetfileinJson>();
 
             var listpb = AssetInfo.ReturnFilenamesWithProblem(filenames);
@@ -1738,7 +1685,16 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting upload of file '{0}'", filenames[0]);
                 try
                 {
-                    asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, new Asset() { StorageAccountName = storageaccount, Description = Path.GetFileName(filenames[0]) }, token);
+                    if (destAssetName == null) // let create a new asset
+                    {
+                        string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                        destAssetName = "uploaded-" + uniqueness;
+                        asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = Path.GetFileName(filenames[0]) }, token);
+                    }
+                    else // let's reusing existing asset
+                    {
+                        asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, token);
+                    }
 
                     ListContainerSasInput input = new ListContainerSasInput()
                     {
@@ -1746,7 +1702,7 @@ namespace AMSExplorer
                         ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
                     };
 
-                    var response = _amsClientV3.AMSclient.Assets.ListContainerSasAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime).Result;
+                    var response = _amsClientV3.AMSclient.Assets.ListContainerSasAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, input.Permissions, input.ExpiryTime).Result;
 
                     string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -1760,11 +1716,10 @@ namespace AMSExplorer
                         string filename = Path.GetFileName(file);
 
                         var blob = container.GetBlockBlobReference(filename);
-                        //blob.Properties.ContentType = "video/mp4";
+                        if (filename.ToLower().EndsWith(".mp4")) blob.Properties.ContentType = "video/mp4";
                         //Console.WriteLine("Uploading File to container: {0}", sasUri);
 
                         await blob.UploadFromFileAsync(file, token);
-
 
                         MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
                     }
@@ -1781,7 +1736,7 @@ namespace AMSExplorer
 
             if (!Error && !token.IsCancellationRequested)
             {
-                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+                DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
             }
             else if (token.IsCancellationRequested)
             {
@@ -1805,18 +1760,18 @@ namespace AMSExplorer
 
         private void DoMenuUploadFileToAsset_Step1()
         {
-            var assets = ReturnSelectedAssets();
+            var assets = ReturnSelectedAssetsV3();
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, new List<IAsset>() /* assets*/);
+                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, assets);
             }
         }
 
-        private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<IAsset> assets)
+        private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<Asset> assets)
         {
             var listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
@@ -1831,7 +1786,9 @@ namespace AMSExplorer
                 {
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
+                    //Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
+
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -1841,7 +1798,6 @@ namespace AMSExplorer
                 }
             }
         }
-
 
         private async Task ProcessUploadFilesToAsset(string[] FileNames, IAsset asset, Guid guidTransfer, CancellationToken token)
         {
@@ -2073,7 +2029,7 @@ namespace AMSExplorer
                         return;
                     }
 
-                    var form = new UploadOptions(_amsClientV3, false);
+                    var form = new UploadOptions(_amsClientV3, true);
                     if (form.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
@@ -2082,6 +2038,7 @@ namespace AMSExplorer
                     _backuprootfolderupload = SelectedPath;
                     var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
+                    /*
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
                           SelectedPath,
@@ -2090,7 +2047,39 @@ namespace AMSExplorer
                           response.token,
                           storageaccount: form.StorageSelected
                           ), response.token);
+*/
 
+                    var filePaths = Directory.EnumerateFiles(SelectedPath as string);
+
+                    TextBoxLogWriteLine("There are {0} files in {1}", filePaths.Count().ToString(), (SelectedPath as string));
+                    if (!filePaths.Any())
+                    {
+                        throw new FileNotFoundException(String.Format("No files in directory, check folderPath: {0}", SelectedPath));
+                    }
+
+
+                    if (form.SingleAsset)
+                    {
+                        var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                              filePaths.ToList(),
+                              response.Id,
+                              response.token,
+                              storageaccount: form.StorageSelected
+                              ), response.token);
+
+                    }
+                    else
+                    {
+                        foreach (var f in filePaths.ToList())
+                        {
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                                  new List<string>() { f },
+                                  response.Id,
+                                  response.token,
+                                  storageaccount: form.StorageSelected
+                                  ), response.token);
+                        }
+                    }
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     DoRefreshGridAssetV(false);
@@ -7060,6 +7049,7 @@ namespace AMSExplorer
 
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
+
             if (comboBoxPageAssets.SelectedIndex < (comboBoxPageAssets.Items.Count - 1))
             {
                 comboBoxPageAssets.SelectedIndex++;
@@ -7067,16 +7057,19 @@ namespace AMSExplorer
             }
             else butNextPageAsset.Enabled = false;
 
+
         }
 
         private void butPrevPageAsset_Click(object sender, EventArgs e)
         {
+
             if (comboBoxPageAssets.SelectedIndex > 0)
             {
                 comboBoxPageAssets.SelectedIndex--;
                 butNextPageAsset.Enabled = true;
             }
             else butPrevPageAsset.Enabled = false;
+
         }
 
         private void butNextPageJob_Click(object sender, EventArgs e)
@@ -7152,9 +7145,9 @@ namespace AMSExplorer
         private void comboBoxPageAssets_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedindex = ((ComboBox)sender).SelectedIndex;
-            dataGridViewAssetsV.DisplayPage(selectedindex + 1);
-            butPrevPageAsset.Enabled = (selectedindex == 0) ? false : true;
-            butNextPageAsset.Enabled = (selectedindex == (dataGridViewAssetsV.PageCount - 1)) ? false : true;
+            dataGridViewAssetsV.RefreshAssets(selectedindex);
+            //butPrevPageAsset.Enabled = (selectedindex == 0) ? false : true;
+            //butNextPageAsset.Enabled = (selectedindex == (dataGridViewAssetsV.PageCount - 1)) ? false : true;
         }
 
         private void dataGridViewJobsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -7596,7 +7589,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
-                            Asset asset = null;// AssetInfo.GetAsset(location, _context);
+                            Asset asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, location);
                             if (asset != null) DisplayInfo(asset);
                             break;
 
@@ -10334,7 +10327,6 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                //  IProgram program = GetProgram(dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString());
                 var liveoutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveoutput != null)
                 {
@@ -10463,7 +10455,7 @@ namespace AMSExplorer
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context) { Left = form.Left, Top = form.Top };
+                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _amsClientV3) { Left = form.Left, Top = form.Top };
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
@@ -10474,20 +10466,32 @@ namespace AMSExplorer
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
                             var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
+                            //var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
+
+
+                            var filePaths = Directory.EnumerateFiles(folder as string);
+
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                                      filePaths.ToList(),
+                                      response.Id,
+                                      response.token,
+                                      storageaccount: form2.StorageSelected
+                                      ), response.token);
+
                             MyTasks.Add(myTask);
                         }
 
                         foreach (string file in form2.BatchSelectedFiles)
                         {
                             var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                                  new List<string>() { file },
-                                  response.Id,
-                                  AssetCreationOptions.None,
-                                  response.token,
-                                  null,
-                                  form2.StorageSelected), response.token);
+
+                            var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                                      new List<string>() { file },
+                                      response.Id,
+                                      response.token,
+                                      storageaccount: form2.StorageSelected
+                                      ), response.token);
+
                             MyTasks.Add(myTask);
                         }
                         await Task.WhenAll(MyTasks);
@@ -15767,14 +15771,10 @@ namespace AMSExplorer
 {
     public static class OrderAssets
     {
-        public const string LastModifiedDescending = "Last modified >";
-        public const string LastModifiedAscending = "Last modified <";
+        public const string CreatedDescending = "Created >";
+        public const string CreatedAscending = "Created <";
         public const string NameDescending = "Name >";
         public const string NameAscending = "Name <";
-        public const string SizeDescending = "Size >";
-        public const string SizeAscending = "Size <";
-        public const string LocatorExpirationAscending = "Publication exp >";
-        public const string LocatorExpirationDescending = "Publication exp <";
 
     }
 
@@ -15910,7 +15910,7 @@ namespace AMSExplorer
         static private string _statefilter = "";
         static private string _timefilter = FilterTime.First50Items;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        static string _orderassets = OrderAssets.LastModifiedDescending;
+        static string _orderassets = OrderAssets.CreatedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
 
         static Bitmap cancelimage = Bitmaps.cancel;
@@ -15931,6 +15931,7 @@ namespace AMSExplorer
 
         static AMSClientV3 _client;
         static BindingList<AssetEntryV3> _MyObservAssetV3;
+        private IPage<Asset> firstpage;
 
         public int AssetsPerPage
         {
@@ -16191,7 +16192,7 @@ namespace AMSExplorer
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
 
-                        
+
                         var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
@@ -16204,7 +16205,7 @@ namespace AMSExplorer
                         AE.SizeLong = data.Size;
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
                         AE.AssetWarning = (AE.SizeLong == 0);// || assetfiles.Any(f => f.ContentFileSize == 0));
-                        
+
 
 
                         /*
@@ -16245,6 +16246,10 @@ namespace AMSExplorer
             if (!_initialized) return;
             if (!_refreshedatleastonetime) return;
 
+
+
+
+
             if (_neveranalyzed) // first display of the page, let's analyzed the assets
             {
                 _neveranalyzed = false;
@@ -16258,6 +16263,7 @@ namespace AMSExplorer
 
                 this.DataSource = MyObservAssethisPage;
             }
+
         }
 
         public void PurgeCacheAssets(List<IAsset> assets)
@@ -16294,7 +16300,90 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-            var assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
+            /*
+             * 
+
+Property
+Name	Filtering	Ordering
+	Equals	Greater than	Less Than	Ascending	Descending
+Name	✓	✓	✓	✓	✓
+Properties/AssetId	✓				
+Properties/Created	✓	✓	✓	✓	✓
+Properties/LastModified					
+Properties/AlternateId	✓				
+Properties/Description					
+Properties/Container					
+Properties/StorageId					
+
+
+             */
+
+
+
+            ///////////////////////
+            // SORTING
+            ///////////////////////
+            var odataQuery = new ODataQuery<Asset>();
+
+            switch (_orderassets)
+            {
+                case OrderAssets.CreatedDescending:
+                    odataQuery.OrderBy = "Properties/Created desc";
+                    break;
+
+                case OrderAssets.CreatedAscending:
+                    odataQuery.OrderBy = "Properties/Created"; break;
+
+                case OrderAssets.NameAscending:
+                    odataQuery.OrderBy = "Name";
+                    break;
+
+                case OrderAssets.NameDescending:
+                    odataQuery.OrderBy = "Name desc";
+                    break;
+
+               
+                default:
+                    odataQuery.OrderBy = "Properties/Created desc";
+                    break;
+            }
+
+
+            //var odataQuery = new ODataQuery<Asset>("properties/created lt 2018-05-11T17:39:08.387Z");
+            //var firstPage = await MediaServicesArmClient.Assets.ListAsync(TestSettings.CustomerResourceGroup, TestSettings.CustomerAccountName, odataQuery);
+
+
+            IPage < Asset> currentPage = null;
+
+            //var assets2 = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            if (pagetodisplay == 0)
+            {
+                firstpage = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
+                currentPage = firstpage;
+            }
+            else
+            {
+                currentPage = firstpage;
+                int i = 0;
+                while (currentPage.NextPageLink != null && pagetodisplay > i)
+                // for (int i = 0; i < pagetodisplay; i++)
+                {
+                    i++;
+                    currentPage= _client.AMSclient.Assets.ListNext(currentPage.NextPageLink);
+
+                }
+            }
+
+            /*
+            var currentPage = firstPage;
+            while (currentPage.NextPageLink != null)
+            {
+                currentPage = await MediaServicesArmClient.Assets.ListNextAsync(currentPage.NextPageLink);
+            }
+            */
+
+
+            var assets = currentPage.Select(a => new AssetEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -16304,7 +16393,7 @@ namespace AMSExplorer
                 LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
-           );
+            );
 
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 

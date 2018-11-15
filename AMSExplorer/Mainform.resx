@@ -378,9 +378,6 @@
   <data name="butPrevPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="butPrevPageAsset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="butPrevPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1214,9 +1211,6 @@
   <data name="comboBoxOrderAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="comboBoxOrderAssets.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="comboBoxOrderAssets.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1243,9 +1237,6 @@
   </data>
   <data name="butNextPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="butNextPageAsset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="butNextPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -1279,9 +1270,6 @@
   </data>
   <data name="comboBoxPageAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxPageAssets.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="comboBoxPageAssets.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -2813,7 +2801,7 @@
     <value>Playback the live output(s)</value>
   </data>
   <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 308</value>
+    <value>292, 286</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
     <value>contextMenuStripLiveOutputs</value>
@@ -4482,6 +4470,9 @@
   <data name="batchUploadToolStripMenuItem.Text" xml:space="preserve">
     <value>Batch upload...</value>
   </data>
+  <data name="setupAWatchFolderToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="setupAWatchFolderToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -4545,6 +4536,9 @@
   <data name="fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Text" xml:space="preserve">
     <value>From a single HTTP/HTTPS URL...</value>
   </data>
+  <data name="importToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="importToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -4586,6 +4580,9 @@
   </data>
   <data name="toAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>To Azure Storage...</value>
+  </data>
+  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

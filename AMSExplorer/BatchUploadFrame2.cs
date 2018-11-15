@@ -24,17 +24,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using Microsoft.WindowsAzure.MediaServices.Client;
-
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
     public partial class BatchUploadFrame2 : Form
     {
+        private AMSClientV3 _client;
         private List<string> folders;
         private List<string> files;
         private bool ErrorConnect = false;
-        private CloudMediaContext _context;
 
         public List<string> BatchSelectedFolders
         {
@@ -70,11 +70,11 @@ namespace AMSExplorer
             }
         }
 
-        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, CloudMediaContext context)
+        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _client = client;
 
             folders = Directory.GetDirectories(BatchFolderPath).ToList();
             files = Directory.GetFiles(BatchFolderPath).ToList();
@@ -126,10 +126,18 @@ namespace AMSExplorer
             {
                 this.Close();
             }
-            foreach (var storage in _context.StorageAccounts)
+
+            foreach (var storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                string sname = storage.Id.Split('/').Last();
+                bool primary = (storage.Type == StorageAccountType.Primary);
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
+                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+
+
+
+//                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
+  //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
 
