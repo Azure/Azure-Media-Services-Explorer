@@ -998,7 +998,18 @@ namespace AMSExplorer
             }
             */
 
-            var ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList();
+            IEnumerable<LiveEvent> ListEvents;
+            if (_anyChannel == enumDisplayProgram.None)
+            {
+                ListEvents = new List<LiveEvent>();
+            }
+            else
+            {
+                ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList()
+                .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
+            }
+
+
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
             foreach (var le in ListEvents)

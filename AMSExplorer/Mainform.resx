@@ -137,10 +137,6 @@
   <data name="comboBoxSearchAssetOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comboBoxSearchAssetOption.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="comboBoxSearchAssetOption.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -150,6 +146,7 @@
   <data name="comboBoxSearchAssetOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 23</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="comboBoxSearchAssetOption.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
   </data>
@@ -207,9 +204,6 @@
   <data name="comboBoxFilterAssetsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="comboBoxFilterAssetsTime.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="comboBoxFilterAssetsTime.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -234,80 +228,8 @@
   <data name="&gt;&gt;comboBoxFilterAssetsTime.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>460, 414</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 15</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Status :</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>tabPageAssets</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="comboBoxStateAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxStateAssets.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxStateAssets.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxStateAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>511, 410</value>
-  </data>
-  <data name="comboBoxStateAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="comboBoxStateAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateAssets.Name" xml:space="preserve">
-    <value>comboBoxStateAssets</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateAssets.Parent" xml:space="preserve">
-    <value>tabPageAssets</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateAssets.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="buttonAssetSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="buttonAssetSearch.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="buttonAssetSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -337,13 +259,10 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;buttonAssetSearch.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="textBoxAssetSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxAssetSearch.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="textBoxAssetSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -373,7 +292,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;textBoxAssetSearch.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="butPrevPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -406,7 +325,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;butPrevPageAsset.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="dataGridViewAssetsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -438,6 +357,9 @@
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
+  </data>
+  <data name="displayParentJobToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="displayParentJobToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F4</value>
@@ -472,6 +394,9 @@
   <data name="toolStripMenuItem30.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
+  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -487,7 +412,7 @@
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
     <value>Report</value>
   </data>
-  <data name="ContextMenuItemAssetRename.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemAssetEditDescription.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACWSURBVDhP1c7BCYNAEIXhJbGAePBiOlCCnQgWFAK2
@@ -496,13 +421,13 @@
         J4s5ENmusvMAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="ContextMenuItemAssetRename.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="ContextMenuItemAssetEditDescription.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F2</value>
   </data>
-  <data name="ContextMenuItemAssetRename.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemAssetEditDescription.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="ContextMenuItemAssetRename.Text" xml:space="preserve">
+  <data name="ContextMenuItemAssetEditDescription.Text" xml:space="preserve">
     <value>Edit Description...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -520,11 +445,17 @@
   <data name="deleteSelectedToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete selected assets...</value>
   </data>
+  <data name="deleteVisibleAssetsInGridToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="deleteVisibleAssetsInGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>248, 22</value>
   </data>
   <data name="deleteVisibleAssetsInGridToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete visible assets in grid...</value>
+  </data>
+  <data name="deleteAllAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="deleteAllAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+Del</value>
@@ -575,6 +506,9 @@
   </data>
   <data name="toolStripMenuItem42.Text" xml:space="preserve">
     <value>Fix systemBitrate in manifests...</value>
+  </data>
+  <data name="toolsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
@@ -687,6 +621,9 @@
   <data name="toolStripMenuItem15.Text" xml:space="preserve">
     <value>From a single HTTP/HTTPS URL...</value>
   </data>
+  <data name="importToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -726,11 +663,17 @@
   <data name="contextMenuExportToAnotherMediaServicesAccount.Text" xml:space="preserve">
     <value>Export to another Azure Media Services Account...</value>
   </data>
+  <data name="exportToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="exportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
   <data name="exportToolStripMenuItem.Text" xml:space="preserve">
     <value>Export</value>
+  </data>
+  <data name="toolStripMenuItem37.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItem37.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -811,6 +754,9 @@
   </data>
   <data name="deprecatedToolStripMenuItem1.Text" xml:space="preserve">
     <value>(Deprecated)</value>
+  </data>
+  <data name="encodeToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="encodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
@@ -904,6 +850,9 @@
   <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Text" xml:space="preserve">
     <value>Process asset(s) with Azure Media Video Annotator...</value>
   </data>
+  <data name="mediaIntelligenceToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="mediaIntelligenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -958,11 +907,17 @@
   <data name="toolStripMenuItem44.Text" xml:space="preserve">
     <value>Static packaging</value>
   </data>
+  <data name="advancedProcessingToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="advancedProcessingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
   <data name="advancedProcessingToolStripMenuItem.Text" xml:space="preserve">
     <value>Advanced processing</value>
+  </data>
+  <data name="subclipToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="subclipToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+R</value>
@@ -1021,6 +976,9 @@
   <data name="toolStripMenuItem13.Text" xml:space="preserve">
     <value>Storage decrypt the asset(s)...</value>
   </data>
+  <data name="toolStripMenuItem4.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -1038,6 +996,9 @@
   </data>
   <data name="createALocatorToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a locator...</value>
+  </data>
+  <data name="extendExistingLocatorsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+L</value>
@@ -1057,11 +1018,17 @@
   <data name="deleteAllLocatorsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete all locators...</value>
   </data>
+  <data name="findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 22</value>
   </data>
   <data name="findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Text" xml:space="preserve">
     <value>Find the asset from the locator Id/GUID...</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1167,7 +1134,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1206,7 +1173,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="comboBoxOrderAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1233,7 +1200,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;comboBoxOrderAssets.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="butNextPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1266,7 +1233,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;butNextPageAsset.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="comboBoxPageAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1293,7 +1260,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;comboBoxPageAssets.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1332,7 +1299,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="tabPageAssets.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
@@ -1367,17 +1334,29 @@
   <metadata name="contextMenuStripFilters.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>305, 95</value>
   </metadata>
+  <data name="contextMenuStripFilters.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripMenuItem12.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="toolStripMenuItem12.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="filterInfoupdateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
+  </data>
+  <data name="toolStripMenuItem16.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItem16.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F</value>
@@ -1388,11 +1367,17 @@
   <data name="toolStripMenuItem16.Text" xml:space="preserve">
     <value>Create an account filter...</value>
   </data>
+  <data name="deleteToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="deleteToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="deleteToolStripMenuItem1.Text" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
@@ -1684,6 +1669,9 @@
   <data name="linkLabelMoreInfoMediaUnits.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="linkLabelMoreInfoMediaUnits.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="linkLabelMoreInfoMediaUnits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1717,6 +1705,9 @@
   <data name="trackBarEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="trackBarEncodingRU.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="trackBarEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1743,6 +1734,9 @@
   </data>
   <data name="buttonUpdateEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="buttonUpdateEncodingRU.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="buttonUpdateEncodingRU.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -1777,6 +1771,9 @@
   <data name="comboBoxSearchJobOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
+  <data name="comboBoxSearchJobOption.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="comboBoxSearchJobOption.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1806,6 +1803,9 @@
   </data>
   <data name="labelnbunits.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labelnbunits.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="labelnbunits.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -1846,6 +1846,9 @@
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label11.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1882,6 +1885,9 @@
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label22.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1915,6 +1921,9 @@
   <data name="comboBoxFilterJobsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="comboBoxFilterJobsTime.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="comboBoxFilterJobsTime.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1942,6 +1951,9 @@
   <data name="comboBoxEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
+  <data name="comboBoxEncodingRU.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="comboBoxEncodingRU.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1968,6 +1980,9 @@
   </data>
   <data name="buttonJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="buttonJobSearch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="buttonJobSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -2002,6 +2017,9 @@
   <data name="textBoxJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="textBoxJobSearch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="textBoxJobSearch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -2035,6 +2053,9 @@
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label6.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -2067,6 +2088,9 @@
   </data>
   <data name="comboBoxStateJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="comboBoxStateJobs.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="comboBoxStateJobs.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -2167,6 +2191,9 @@
   <data name="comboBoxPageJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="comboBoxPageJobs.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="comboBoxPageJobs.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -2196,6 +2223,9 @@
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label4.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -2233,6 +2263,9 @@
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label2.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -2265,6 +2298,9 @@
   </data>
   <data name="comboBoxOrderJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="comboBoxOrderJobs.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="comboBoxOrderJobs.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -2878,9 +2914,6 @@
   <data name="radioButtonChNone.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonChNone.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="radioButtonChNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2943,9 +2976,6 @@
   </data>
   <data name="radioButtonChAll.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="radioButtonChAll.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="radioButtonChAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -3012,9 +3042,6 @@
   </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label14.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -3087,9 +3114,6 @@
   </data>
   <data name="radioButtonChSelected.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="radioButtonChSelected.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="radioButtonChSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -3308,6 +3332,9 @@
   <data name="ContextMenuItemChannelDisplayInfomation.Text" xml:space="preserve">
     <value>Live event(s) infomation and settings...</value>
   </data>
+  <data name="loadMetricsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="loadMetricsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+T</value>
   </data>
@@ -3316,6 +3343,9 @@
   </data>
   <data name="loadMetricsToolStripMenuItem.Text" xml:space="preserve">
     <value>Load Telemetry...</value>
+  </data>
+  <data name="ContextMenuItemChannelAdAndSlateControl.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="ContextMenuItemChannelAdAndSlateControl.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+A</value>
@@ -3395,6 +3425,9 @@
   </data>
   <data name="ContextMenuItemChannelReset.Text" xml:space="preserve">
     <value>Reset live event(s)</value>
+  </data>
+  <data name="cloneChannelsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="cloneChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
@@ -4216,19 +4249,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <metadata name="contextMenuStripIngestManifests.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>486, 95</value>
-  </metadata>
-  <data name="contextMenuStripIngestManifests.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 4</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripIngestManifests.Name" xml:space="preserve">
-    <value>contextMenuStripIngestManifests</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripIngestManifests.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>11</value>
   </data>
   <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 19</value>
@@ -4282,7 +4303,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -4302,6 +4323,9 @@
   </data>
   <data name="informationToolStripMenuItem.Text" xml:space="preserve">
     <value>Display information</value>
+  </data>
+  <data name="displayParentJobToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="displayParentJobToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F4</value>
@@ -4336,13 +4360,16 @@
   <data name="toolStripMenuItem29.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
+  <data name="createOutlookReportEmailToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="createOutlookReportEmailToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 22</value>
   </data>
   <data name="createOutlookReportEmailToolStripMenuItem1.Text" xml:space="preserve">
     <value>Report</value>
   </data>
-  <data name="renameToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="editDescriptionToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACWSURBVDhP1c7BCYNAEIXhJbGAePBiOlCCnQgWFAK2
@@ -4351,13 +4378,13 @@
         J4s5ENmusvMAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="renameToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="editDescriptionToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F2</value>
   </data>
-  <data name="renameToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="editDescriptionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 22</value>
   </data>
-  <data name="renameToolStripMenuItem.Text" xml:space="preserve">
+  <data name="editDescriptionToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit Description...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
@@ -4372,11 +4399,17 @@
   <data name="selectedAssetToolStripMenuItem.Text" xml:space="preserve">
     <value>Selected asset(s)...</value>
   </data>
+  <data name="visibleAssetsInGridToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="visibleAssetsInGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 22</value>
   </data>
   <data name="visibleAssetsInGridToolStripMenuItem.Text" xml:space="preserve">
     <value>Visible asset(s) in grid...</value>
+  </data>
+  <data name="allAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="allAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+Del</value>
@@ -4427,6 +4460,9 @@
   </data>
   <data name="fixSystemBitrateInManifestjan15FixToolStripMenuItem.Text" xml:space="preserve">
     <value>Fix systemBitrate in manifests...</value>
+  </data>
+  <data name="toolsToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 22</value>
@@ -4598,6 +4634,9 @@
   </data>
   <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>Export</value>
+  </data>
+  <data name="toolStripMenuItemDownloadToLocal.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItemDownloadToLocal.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+X</value>
@@ -4959,6 +4998,9 @@
   </data>
   <data name="dynamicPackagingToolStripMenuItem.Text" xml:space="preserve">
     <value>Dynamic Packaging (Smooth, HLS, DASH)...</value>
+  </data>
+  <data name="processToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="processToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
@@ -5763,6 +5805,9 @@
   <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>Attach/Detach storage accounts...</value>
   </data>
+  <data name="configureTelemetryToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="configureTelemetryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 22</value>
   </data>
@@ -6037,7 +6082,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 19</value>
@@ -6138,7 +6183,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6174,7 +6219,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -6220,7 +6265,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="linkLabelFeedbackAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6256,7 +6301,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabelFeedbackAMS.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>822, 17</value>
@@ -8617,7 +8662,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefreshTab.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -8630,6 +8675,9 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
@@ -8676,10 +8724,10 @@
   <data name="&gt;&gt;toolStripMenuItem30.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemAssetRename.Name" xml:space="preserve">
-    <value>ContextMenuItemAssetRename</value>
+  <data name="&gt;&gt;ContextMenuItemAssetEditDescription.Name" xml:space="preserve">
+    <value>ContextMenuItemAssetEditDescription</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemAssetRename.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemAssetEditDescription.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;editAlternateIdToolStripMenuItem.Name" xml:space="preserve">
@@ -9780,10 +9828,10 @@
   <data name="&gt;&gt;toolStripMenuItem29.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;renameToolStripMenuItem.Name" xml:space="preserve">
-    <value>renameToolStripMenuItem</value>
+  <data name="&gt;&gt;editDescriptionToolStripMenuItem.Name" xml:space="preserve">
+    <value>editDescriptionToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;renameToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;editDescriptionToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;editAlternateIdToolStripMenuItem1.Name" xml:space="preserve">

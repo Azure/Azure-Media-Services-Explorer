@@ -211,6 +211,16 @@
     <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGrid\DataGridViewAssets.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewJobs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewProgress.cs" />
+    <Compile Include="DataGrid\DataGridViewTransforms.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TransformInformation.cs">
       <SubType>Form</SubType>
     </Compile>
