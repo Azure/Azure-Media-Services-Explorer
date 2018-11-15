@@ -53,7 +53,7 @@
     <StartupObject>AMSExplorer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
+    <ApplicationIcon>BitmapsPNG\Azure Explorer_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hyak.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

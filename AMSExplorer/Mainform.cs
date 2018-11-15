@@ -894,6 +894,12 @@ namespace AMSExplorer
             return processors.ToList();
         }
 
+        static Asset GetAsset(string assetName)
+        {
+            return _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName);
+        }
+
+
         static IJob GetJob(string jobId)
         {
             // Use a Linq select query to get an updated 
@@ -925,7 +931,7 @@ namespace AMSExplorer
             return _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
         }
 
-        static LiveEvent GetChannel(string channelName)
+        static LiveEvent GetLiveEvent(string channelName)
         {
             return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channelName);
         }
@@ -2353,7 +2359,7 @@ namespace AMSExplorer
         }
 
 
-        public DialogResult? DisplayInfo(Job job)
+        public DialogResult? DisplayInfo(JobExtension job)
         {
             DialogResult? dialogResult = null;
             if (job != null)
@@ -2365,7 +2371,7 @@ namespace AMSExplorer
                     this.Cursor = Cursors.WaitCursor;
                     JobInformation form = new JobInformation(this, _amsClientV3.AMSclient)
                     {
-                        MyJob = job
+                        MyJob = job.Job
                         //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
                     };
                     dialogResult = form.ShowDialog(this);
@@ -2586,31 +2592,31 @@ namespace AMSExplorer
 
         private void DoCancelJobs()
         {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            var SelectedJobs = ReturnSelectedJobsV3();
 
             if (SelectedJobs.Count > 0)
             {
                 string question = "Cancel these " + SelectedJobs.Count + " jobs ?";
-                if (SelectedJobs.Count == 1) question = "Cancel " + SelectedJobs[0].Name + " ?";
+                if (SelectedJobs.Count == 1) question = "Cancel " + SelectedJobs[0].Job.Name + " ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job(s) cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    foreach (IJob JobToCancel in SelectedJobs)
+                    foreach (var JobToCancel in SelectedJobs)
                     {
                         if (JobToCancel != null)
                         {
                             //delete
-                            TextBoxLogWriteLine("Canceling job '{0}'...", JobToCancel.Name);
+                            TextBoxLogWriteLine("Canceling job '{0}'...", JobToCancel.Job.Name);
 
                             try
                             {
-                                JobToCancel.Cancel();
-                                TextBoxLogWriteLine("Job '{0}' canceled.", JobToCancel.Name);
+                                _amsClientV3.AMSclient.Jobs.CancelJob(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToCancel.TransformName, JobToCancel.Job.Name);
+                                TextBoxLogWriteLine("Job '{0}' canceled.", JobToCancel.Job.Name);
 
                             }
                             catch (Exception e)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("Error when canceling job '{0}'.", JobToCancel.Name, true);
+                                TextBoxLogWriteLine("Error when canceling job '{0}'.", JobToCancel.Job.Name, true);
                                 TextBoxLogWriteLine(e);
                             }
                         }
@@ -3055,11 +3061,15 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-        private List<Job> ReturnSelectedJobsV3()
+        private List<JobExtension> ReturnSelectedJobsV3()
         {
-            List<Job> SelectedJobs = new List<Job>();
+            var SelectedJobs = new List<JobExtension>();
             foreach (DataGridViewRow Row in dataGridViewJobsV.SelectedRows)
-                SelectedJobs.Add(GetJob(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString()));
+                SelectedJobs.Add(new JobExtension()
+                {
+                    Job = GetJob(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString()),
+                    TransformName = Row.Cells["TransformName"].Value.ToString()
+                });
             SelectedJobs.Reverse();
             return SelectedJobs;
         }
@@ -7177,7 +7187,12 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 var row = dataGridViewJobsV.Rows[e.RowIndex];
-                Job job = GetJob(row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString(), row.Cells[dataGridViewJobsV.Columns["Name"].Index].Value.ToString());
+                var job = new JobExtension()
+                {
+                    Job = GetJob(row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString(), row.Cells[dataGridViewJobsV.Columns["Name"].Index].Value.ToString()),
+                    TransformName = row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString()
+                };
+
                 if (job != null)
                 {
                     try
@@ -7360,7 +7375,7 @@ namespace AMSExplorer
 
         private void contextMenuStripJobs_Opening(object sender, CancelEventArgs e)
         {
-            bool singleitem = (ReturnSelectedJobs().Count == 1);
+            bool singleitem = (ReturnSelectedJobsV3().Count == 1);
             ContextMenuItemJobDisplayInfo.Enabled = singleitem;
         }
 
@@ -7643,33 +7658,33 @@ namespace AMSExplorer
 
         private void DoChangeJobPriority()
         {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            var SelectedJobs = ReturnSelectedJobsV3();
 
             if (SelectedJobs.Count > 0)
             {
-                Priority form = new Priority()
+                PriorityForm form = new PriorityForm()
                 {
-                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : Properties.Settings.Default.DefaultJobPriority // if only one job so we pass the current priority to dialog box
+                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Job.Priority : Priority.Normal // if only one job so we pass the current priority to dialog box
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    foreach (IJob JobToProcess in SelectedJobs)
+                    foreach (var JobToProcess in SelectedJobs)
 
                         if (JobToProcess != null)
                         {
                             //delete
-                            TextBoxLogWriteLine(string.Format("Changing priority to {0} for job '{1}'.", form.JobPriority, JobToProcess.Name));
+                            TextBoxLogWriteLine(string.Format("Changing priority to {0} for job '{1}'.", form.JobPriority, JobToProcess.Job.Name));
                             try
                             {
-                                JobToProcess.Priority = form.JobPriority;
-                                JobToProcess.Update();
+                                JobToProcess.Job.Priority = form.JobPriority;
+                                _amsClientV3.AMSclient.Jobs.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
                             }
 
                             catch (Exception e)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when changing priority for {0}.", JobToProcess.Name, true);
+                                TextBoxLogWriteLine("There is a problem when changing priority for {0}.", JobToProcess.Job.Name, true);
                                 TextBoxLogWriteLine(e);
                             }
                         }
@@ -7831,30 +7846,46 @@ namespace AMSExplorer
 
         private void DoOpenJobAsset(bool inputasset) // if false, then display first outputasset
         {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            var SelectedJobs = ReturnSelectedJobsV3();
             if (SelectedJobs.Count != 0)
             {
-                // Refresh the job.
-                IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == SelectedJobs.FirstOrDefault().Id).FirstOrDefault();
-                if (JobToDisplayP2 != null)
+                var jobToDisplay = SelectedJobs.FirstOrDefault();
+                if (jobToDisplay != null)
                 {
-                    ReadOnlyCollection<IAsset> assetcol = null;
                     try
                     {
-                        assetcol = inputasset ? JobToDisplayP2.InputMediaAssets : JobToDisplayP2.OutputMediaAssets;
+                        if (inputasset) // input
+                        {
+                            if (jobToDisplay.Job.Input.GetType() == typeof(JobInputAsset))
+                            {
+                                var jobinputasset = (JobInputAsset)jobToDisplay.Job.Input;
+                                var asset = GetAsset(jobinputasset.AssetName);
+                                if (asset != null)
+                                    DisplayInfo(GetAsset(jobinputasset.AssetName));
+                                else
+                                    MessageBox.Show($"Input asset '{jobinputasset.AssetName}' not found.", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            }
+
+                        }
+                        else // output
+                        {
+                            if (jobToDisplay.Job.Outputs.FirstOrDefault() != null && (jobToDisplay.Job.Outputs.FirstOrDefault().GetType() == typeof(JobOutputAsset)))
+                            {
+                                var joboutputasset = (JobOutputAsset)jobToDisplay.Job.Outputs.FirstOrDefault();
+                                var asset = GetAsset(joboutputasset.AssetName);
+                                if (asset != null)
+                                    DisplayInfo(GetAsset(joboutputasset.AssetName));
+                                else
+                                    MessageBox.Show($"Output asset '{joboutputasset.AssetName}' not found.", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            }
+
+                        }
                     }
                     catch
                     {
                         MessageBox.Show("Error when accessing the asset", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    if (assetcol != null && assetcol.Count > 0)
-                    {
-                        if (assetcol.Count > 1) MessageBox.Show("There are " + assetcol.Count + " assets. Displaying only the first one.");
-                        IAsset asset = assetcol.FirstOrDefault();
-                        if (asset != null)
-                        {
-                            DisplayInfo(asset);
-                        }
                     }
                 }
             }
@@ -8185,14 +8216,14 @@ namespace AMSExplorer
             // let's enable or disable all items from menu and context menu
             EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets) || (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive))));
             EnableChildItems(ref processToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
-          //  EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
-          //  EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
+            //  EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
+            //  EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
 
-           // EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
-           // EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
+            // EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
+            // EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
 
-           // EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
-           // EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
+            // EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
+            // EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
 
             EnableChildItems(ref transferToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
@@ -8529,7 +8560,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the channel can be null (if just deleted)
-                var liveEvent = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                var liveEvent = GetLiveEvent(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
                 if (liveEvent != null)
                 {
                     SelectedLiveEvents.Add(liveEvent);
@@ -8632,7 +8663,7 @@ namespace AMSExplorer
                 while (channel.ResourceState == state)
                 {
                     System.Threading.Thread.Sleep(1000);
-                    channel = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name);
+                    channel = GetLiveEvent(channel.Name);
                 }
                 dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
             }
@@ -9160,7 +9191,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveeventsrunning)
                         {
-                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
+                            var loitemR = GetLiveEvent(loitem.Name);
                             if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9202,7 +9233,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in ListEvents)
                         {
-                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
+                            var loitemR = GetLiveEvent(loitem.Name);
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
@@ -9249,7 +9280,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveevntsstopped)
                         {
-                            var loitemR = _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, loitem.Name);
+                            var loitemR = GetLiveEvent(loitem.Name);
                             if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
@@ -10239,7 +10270,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                var channel = GetChannel(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                var channel = GetLiveEvent(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
                 if (channel != null)
                 {
                     DoDisplayLiveEventInfo((new List<LiveEvent>() { channel }));
@@ -12388,27 +12419,22 @@ namespace AMSExplorer
 
         private void DoDisplayJobError()
         {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            var SelectedJobs = ReturnSelectedJobsV3();
             if (SelectedJobs.Count == 1)
             {
-                IJob JobToDisplayP = SelectedJobs.FirstOrDefault();
+                var JobToDisplayP = SelectedJobs.FirstOrDefault();
 
-                // Refresh the job.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == JobToDisplayP.Id).FirstOrDefault();
-
-                if (JobToDisplayP2 != null)
+                if (JobToDisplayP != null)
                 {
-                    var jobqueue = _context.Jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing).Count();
-                    if (JobToDisplayP2.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error)
+                    // var jobqueue = _context.Jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing).Count();
+                    var outputsError = JobToDisplayP.Job.Outputs.Where(o => o.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                    if (outputsError.Count() > 0)
                     {
                         StringBuilder sb = new StringBuilder();
-                        foreach (var task in JobToDisplayP2.Tasks)
+                        foreach (var output in outputsError)
                         {
-                            foreach (var details in task.ErrorDetails)
-                            {
-                                sb.AppendLine(details.Message);
-                            }
+                            sb.AppendLine(output.Error.Code.ToString());
+                            sb.AppendLine(output.Error.Message);
                         }
                         MessageBox.Show(sb.ToString(), "Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -15504,7 +15530,7 @@ namespace AMSExplorer
 
     public static class FilterTime
     {
-       // public const string First50Items = "First 50 items";
+        // public const string First50Items = "First 50 items";
         public const string First1000Items = "First 1000 items";
         public const string LastDay = "Last 24 hours";
         public const string LastWeek = "Last week";

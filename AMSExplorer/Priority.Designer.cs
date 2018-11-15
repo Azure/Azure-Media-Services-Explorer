@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class Priority
+    partial class PriorityForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Priority));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PriorityForm));
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonUpdate = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.comboBoxPriority = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,16 +45,6 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // numericUpDownPriority
-            // 
-            resources.ApplyResources(this.numericUpDownPriority, "numericUpDownPriority");
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
             // buttonUpdate
             // 
             resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
@@ -64,12 +52,6 @@
             this.buttonUpdate.Image = global::AMSExplorer.Bitmaps.change_priority;
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
             // 
             // panel1
             // 
@@ -85,20 +67,25 @@
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
             this.label2.Name = "label2";
             // 
-            // Priority
+            // comboBoxPriority
+            // 
+            this.comboBoxPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPriority.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxPriority, "comboBoxPriority");
+            this.comboBoxPriority.Name = "comboBoxPriority";
+            // 
+            // PriorityForm
             // 
             this.AcceptButton = this.buttonUpdate;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.comboBoxPriority);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownPriority);
-            this.Name = "Priority";
+            this.Name = "PriorityForm";
             this.Load += new System.EventHandler(this.Priority_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,9 +95,8 @@
         #endregion
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxPriority;
     }
 }

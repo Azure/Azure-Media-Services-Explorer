@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,29 +28,34 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class Priority : Form
+    public partial class PriorityForm : Form
     {
-        public int JobPriority
+        public Priority? JobPriority
         {
             get
             {
-                return (int)numericUpDownPriority.Value;
+                //return (Priority?)comboBoxPriority.SelectedValue;
+                return (Priority?)Enum.Parse(typeof(Priority), (string)comboBoxPriority.SelectedItem);
             }
 
             set
             {
-                numericUpDownPriority.Value = value;
+                comboBoxPriority.SelectedIndex =  (int)((Priority)value);
             }
         }
-        public Priority()
+        public PriorityForm()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+
+            var ep = Enum.GetNames(typeof(Priority));
+            comboBoxPriority.Items.AddRange(ep);
+            comboBoxPriority.SelectedIndex = 1;
+
         }
 
         private void Priority_Load(object sender, EventArgs e)
         {
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

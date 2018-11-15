@@ -2423,6 +2423,9 @@
   <data name="toolStripMenuItem27.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
+  <data name="ContextMenuItemJobCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="ContextMenuItemJobCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -2487,6 +2490,9 @@
   <data name="ContextMenuItemJobCancel.Text" xml:space="preserve">
     <value>Cancel...</value>
   </data>
+  <data name="resubmitToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="resubmitToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+S</value>
   </data>
@@ -2495,15 +2501,6 @@
   </data>
   <data name="resubmitToolStripMenuItem.Text" xml:space="preserve">
     <value>Resubmit...</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save as template...</value>
   </data>
   <data name="selectedJobsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
@@ -5090,6 +5087,9 @@
   <data name="toolStripMenuItem28.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
+  <data name="createReportEmailToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="createReportEmailToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -5154,6 +5154,9 @@
   <data name="cancelJobToolStripMenuItem.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="resubmitToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="resubmitToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+S</value>
   </data>
@@ -5162,15 +5165,6 @@
   </data>
   <data name="resubmitToolStripMenuItem1.Text" xml:space="preserve">
     <value>Resubmit...</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="saveAsTemplateToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Save as template...</value>
   </data>
   <data name="selectedJobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>205, 22</value>
@@ -8676,9 +8670,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
   </data>
@@ -9346,12 +9337,6 @@
     <value>resubmitToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;resubmitToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAsTemplateToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveAsTemplateToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveAsTemplateToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemJobDelete.Name" xml:space="preserve">
@@ -10360,12 +10345,6 @@
     <value>resubmitToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;resubmitToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAsTemplateToolStripMenuItem1.Name" xml:space="preserve">
-    <value>saveAsTemplateToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;saveAsTemplateToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;deleteToolStripMenuItem2.Name" xml:space="preserve">

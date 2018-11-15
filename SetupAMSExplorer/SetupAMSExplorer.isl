@@ -1170,6 +1170,7 @@
 		<col def="S255">ISFolderName</col>
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>AZURE_MEDIA_SERVICES_DEMO_INTERFACE</td><td>MICROSOFT_CORPORATION</td><td>AZUREM~1|Azure Media Services Explorer</td><td/><td>0</td><td/></row>
+		<row><td>AZURE_MEDIA_SERVICES_EXPLORER_FOR_V3</td><td>MICROSOFT_CORPORATION</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
@@ -1180,7 +1181,7 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>AZURE_MEDIA_SERVICES_DEMO_INTERFACE</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>AZURE_MEDIA_SERVICES_EXPLORER_FOR_V3</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1212,6 +1213,7 @@
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>azurem_1_azure_media_services_demo_interface</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Demo Interface</td><td/><td>1</td><td/></row>
 		<row><td>azurem_1_azure_media_services_explorer</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Explorer</td><td/><td>1</td><td/></row>
+		<row><td>azurem_1_azure_media_services_explorer_for_v3</td><td>micros_1_microsoft_corporation</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td/><td>1</td><td/></row>
 		<row><td>kayakd_1_kayakdemointerface</td><td>micros_1_microsoft_corporation</td><td>KAYAKD~1|KayakDemoInterface</td><td/><td>1</td><td/></row>
 		<row><td>micros_1_microsoft_corporation</td><td>ProgramMenuFolder</td><td>MICROS~1|Microsoft Corporation</td><td/><td>1</td><td/></row>
 	</table>
@@ -1973,6 +1975,7 @@
 		<col def="S255">Data</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
+		<row><td>_Built1</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2734,7 +2737,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-526101295</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>2108035891</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ACROBAT5FOLDER</td><td>1033</td><td>   Adobe Acrobat 5 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1033</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
@@ -3587,7 +3590,9 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Azure Media Services Demo Interface</td><td>0</td><td/><td>983720875</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-744310937</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108078419</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME11</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2108070707</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME12</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108052307</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch KayakDemoInterface.vshost.exe</td><td>0</td><td/><td>-366838349</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Azure Media Services Demo Interface</td><td>0</td><td/><td>983718384</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>983727793</td></row>
@@ -3888,18 +3893,18 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>https://azure.microsoft.com/en-us/services/media-services</td><td>0</td><td/><td>1931877295</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-526101295</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>2108035891</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>2108035891</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>1931897775</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>2108035891</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-366859085</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
-		<row><td>UniqueId</td><td>80879242-C088-469B-A16B-2A9B23436A25</td></row>
+		<row><td>UniqueId</td><td>8C5762B7-C11A-4D6C-BA9E-6A2CF6602A81</td></row>
 	</table>
 
 	<table name="ISTargetImage">
@@ -4017,6 +4022,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>KayakDemoInterface_B01AA13565D54E19B2202AF22AAED385.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
+		<row><td>_Built1_8E8F95F0734A4955BB693AA0367A822F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>_Built_7CBECF5DD63B4DAC88869F3398803345.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
 		<row><td>_Built_88A92BF5B48E49FE8E4BD1F83B583DF5.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
 	</table>
@@ -4153,7 +4159,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{94055368-1BA8-484D-94B3-4FED11E44A97}</td></row>
 		<row><td>ISUSSignature</td><td>{0E4FDF20-D1F5-4528-B0F9-E06E51155DB1}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts,viewTextMessages,viewLearnMore</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4505,7 +4511,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
 		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td/></row>
 		<row><td>LAUNCHPROGRAMFILEKEY</td><td>amsexplorer.primary_output</td><td/></row>
-		<row><td>MSIFASTINSTALL</td><td>0</td><td/></row>
+		<row><td>MSIFASTINSTALL</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
@@ -4533,8 +4539,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{3C8880C7-AF30-4ECA-A8CC-686827509538}</td><td/></row>
-		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
+		<row><td>ProductCode</td><td>{242D51B0-67C1-4D9A-B75C-894744EE8268}</td><td/></row>
+		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
 		<row><td>ProductVersion</td><td>5.0.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
@@ -4552,7 +4558,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{A5BBF44B-328F-4634-A473-DDE290B53475}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{16FA33A7-9F0D-4022-91D5-6161725D5A09}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4612,7 +4618,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>_Built</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer</td><td>2</td></row>
+		<row><td>FileKey1</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer_for_v3</td><td>2</td></row>
+		<row><td>_Built1</td><td>AMSExplorer.Primary_output</td><td/><td>azurem_1_azure_media_services_explorer_for_v3</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4698,7 +4705,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>azurem_1_azure_media_services_explorer</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>azurem_1_azure_media_services_explorer_for_v3</td><td>##IDS_SHORTCUT_DISPLAY_NAME12##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_8E8F95F0734A4955BB693AA0367A822F.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -4821,7 +4828,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{A5BBF44B-328F-4634-A473-DDE290B53475}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
+		<row><td>{16FA33A7-9F0D-4022-91D5-6161725D5A09}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
 	</table>
 
 	<table name="Verb">
