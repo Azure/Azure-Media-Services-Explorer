@@ -1107,7 +1107,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 452</value>
+    <value>290, 474</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -2541,7 +2541,7 @@
     <value>Delete</value>
   </data>
   <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 258</value>
+    <value>227, 236</value>
   </data>
   <data name="&gt;&gt;contextMenuStripJobs.Name" xml:space="preserve">
     <value>contextMenuStripJobs</value>
@@ -10941,12 +10941,6 @@
   <data name="&gt;&gt;toolStripStatusLabelWatchFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabelEncRU.Name" xml:space="preserve">
-    <value>toolStripStatusLabelEncRU</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabelEncRU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
   </data>
@@ -10958,6 +10952,12 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelEncRU.Name" xml:space="preserve">
+    <value>toolStripStatusLabelEncRU</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelEncRU.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

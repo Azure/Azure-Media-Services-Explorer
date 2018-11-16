@@ -34,19 +34,16 @@ namespace AMSExplorer
         Asset _asset;
         string _filter;
         PlayerType _playertype;
-        private string _url;
+        private string _path;
         private bool _displayBrowserSelection;
         private AMSClientV3 _client;
-        private string _resourceName;
-        private string _accountName;
-
         public StreamingEndpoint SelectStreamingEndpoint
         {
             get
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
                 string seName = val.Split("|".ToCharArray())[0];
-                return _client.AMSclient.StreamingEndpoints.Get(_resourceName, _accountName, seName);
+                return _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, seName);
             }
         }
 
@@ -155,7 +152,7 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
+        public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string path, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -163,7 +160,7 @@ namespace AMSExplorer
             _asset = asset;
             _filter = filter;
             _playertype = playertype;
-            _url = Url;
+            _path = path;
             _displayBrowserSelection = displayBrowserSelection;
         }
 
@@ -174,7 +171,7 @@ namespace AMSExplorer
 
             // SE List
             StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client);
-            foreach (var se in _client.AMSclient.StreamingEndpoints.List(_resourceName, _accountName))
+            foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
@@ -256,7 +253,7 @@ namespace AMSExplorer
         {
             try
             {
-                textBoxPreviewURL.Text = AssetInfo.RW(new Uri(_url), SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
+                textBoxPreviewURL.Text = AssetInfo.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
             }
             catch
             {

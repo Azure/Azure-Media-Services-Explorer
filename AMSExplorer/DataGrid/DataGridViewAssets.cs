@@ -194,7 +194,7 @@ namespace AMSExplorer
                 AssetId = a.AssetId,
                 Type = a.Type,
                 AlternateId = a.AlternateId,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
             );
@@ -256,7 +256,7 @@ namespace AMSExplorer
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
             this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
             this.Columns["Type"].HeaderText = "Type (streams nb)";
-            this.Columns["LastModified"].HeaderText = "Last modified";
+            this.Columns["Created"].HeaderText = "Created";
             this.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
@@ -277,7 +277,7 @@ namespace AMSExplorer
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
             this.Columns[_locatorexpirationdate].Width = 130;
-            this.Columns["LastModified"].Width = 140;
+            this.Columns["Created"].Width = 140;
             this.Columns["AlternateId"].Width = 300;
             this.Columns["StorageAccountName"].Width = 140;
 
@@ -327,7 +327,7 @@ namespace AMSExplorer
                         //AE.AssetId = asset.AssetId;
                         //AE.Created = asset.Created;
                         AE.Description = asset.Description;
-                        AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
+                        AE.Created = asset.Created.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
                         // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
@@ -589,7 +589,7 @@ Properties/StorageId
                 AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
                 //Type = a.Type,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
             );

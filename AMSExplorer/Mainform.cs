@@ -67,7 +67,7 @@ namespace AMSExplorer
         private string _backuprootfolderupload = "";
         private string _backuprootfolderdownload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
-        private ILocator PlayBackLocator = null;
+        private AssetStreamingLocator PlayBackLocator = null;
 
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
@@ -1588,7 +1588,7 @@ namespace AMSExplorer
                                 string playbackurl = null;
                                 if (SmoothUri != null)
                                 {
-                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, _amsClientV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
+                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _amsClientV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
                                     sb.AppendLine("Link to playback the asset:");
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
@@ -2633,57 +2633,6 @@ namespace AMSExplorer
 
 
 
-        private void DoCreateLocator(List<IAsset> SelectedAssets)
-        {
-            string labelAssetName;
-            if (SelectedAssets.Count > 0)
-            {
-                labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
-
-                if (SelectedAssets.Count > 1)
-                {
-                    labelAssetName = "A locator will be created for the " + SelectedAssets.Count.ToString() + " selected assets.";
-                }
-
-                CreateLocator form = new CreateLocator()
-                {
-                    LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
-                    LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
-                    LocAssetName = labelAssetName,
-                    LocatorHasStartDate = false,
-                    LocWarning = string.Empty
-                };
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    // The permissions for the locator's access policy.
-                    AccessPermissions accessPolicyPermissions = AccessPermissions.Read | AccessPermissions.List;
-
-                    // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
-                    if (form.LocatorStartDate != null)
-                    {
-                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
-                    }
-
-                    sbuilder.Clear();
-
-                    try
-                    {
-                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocatorType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocatorStartDate, form.ForceLocatorGuid));
-                    }
-
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when creating a locator", true);
-                        TextBoxLogWriteLine(e);
-                    }
-
-                }
-            }
-        }
-
         private void DoCreateLocator(List<Asset> SelectedAssets)
         {
             string labelAssetName;
@@ -2734,185 +2683,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
-        private void ProcessCreateLocator(LocatorType locatorType, List<IAsset> assets, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
-        {
-            IAccessPolicy policy;
-            try
-            {
-                policy = _context.AccessPolicies.Create("AP AMSE", accessPolicyDuration, accessPolicyPermissions);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Error. Could not create access policy.", true);
-                TextBoxLogWriteLine(ex);
-                return;
-            }
-
-            foreach (var AssetToP in assets)
-            {
-                ILocator locator = null;
-
-                try
-                {
-                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS locator or user does not want to force the GUID if this is a Streaming locator
-                    {
-                        locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
-                    }
-                    else // Streaming locator and user wants to force the GUID
-                    {
-                        locator = _context.Locators.CreateLocator(ForceLocatorGUID, LocatorType.OnDemandOrigin, AssetToP, policy, startTime);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error. Could not create a locator for '{0}' (is the asset encrypted, or locators quota has been reached ?)", AssetToP.Name, true);
-                    TextBoxLogWriteLine(ex);
-                    return;
-                }
-                if (locator == null) return;
-
-                // let's choose a SE that running and with higher number of RU
-                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_amsClientV3);
-
-                StringBuilder sbuilderThisAsset = new StringBuilder();
-                sbuilderThisAsset.AppendLine("Asset:");
-                sbuilderThisAsset.AppendLine(AssetToP.Name);
-                sbuilderThisAsset.AppendLine("Locator ID:");
-                sbuilderThisAsset.AppendLine(locator.Id);
-
-                if (locatorType == LocatorType.OnDemandOrigin)
-                {
-                    sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
-                    sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected, https: true));
-                    sbuilderThisAsset.AppendLine("");
-
-                    // delivery policies
-                    bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
-
-                    if (AssetToP.DeliveryPolicies.Count > 0)
-                    { // some dynamic encryption, let's analyse the procotols
-
-                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = false;
-
-                        foreach (var pol in AssetToP.DeliveryPolicies)
-                        {
-                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
-                            {
-                                protocolDASH = true;
-                            }
-                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.HLS) == AssetDeliveryProtocol.HLS)
-                            {
-                                protocolHLS = true;
-                            }
-                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.SmoothStreaming) == AssetDeliveryProtocol.SmoothStreaming)
-                            {
-                                protocolSmooth = true;
-                            }
-                            if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.ProgressiveDownload) == AssetDeliveryProtocol.ProgressiveDownload)
-                            {
-                                protocolProgressiveDownload = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
-                    }
-
-
-                    // Get the MPEG-DASH URL of the asset for adaptive streaming.
-                    Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected, https: true);
-
-                    // Get the HLS URL of the asset for adaptive streaming.
-                    Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected, https: true);
-                    Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true);
-
-                    // Get the Smooth URL of the asset for adaptive streaming.
-                    Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected, https: true);
-
-                    if (
-                            (AssetToP.Options == AssetCreationOptions.None && AssetToP.DeliveryPolicies.Count == 0)
-                            ||
-                            (AssetToP.Options == AssetCreationOptions.StorageEncrypted && protocolProgressiveDownload)
-                            ) // if no dynamic encryption and asset clear, or asset storage encrypted with progressive download decryption
-                    {
-                        sbuilderThisAsset.AppendLine(AssetInfo._prog_down_http_streaming + " : ");
-                        foreach (IAssetFile IAF in AssetToP.AssetFiles)
-                        {
-                            sbuilderThisAsset.AppendLine(AddBracket((new Uri(AssetInfo.RW(locator.Path, SESelected, https: true) + IAF.Name)).AbsoluteUri));
-                        }
-                    }
-
-
-
-                    if ((AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
-                    // Smooth or multi MP4, SE RU so dynamic packaging is possible
-                    {
-                        if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
-                        {
-                            sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
-                        }
-                        if (protocolDASH && locator.GetMpegDashUri() != null)
-                        {
-                            sbuilderThisAsset.AppendLine(AssetInfo._dash_csf + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._dash_cmaf + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri.Replace(AssetInfo.format_dash_csf, AssetInfo.format_dash_cmaf)));
-                        }
-                        if (protocolHLS && locator.GetHlsUri() != null)
-                        {
-                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected, https: true).AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._hls_cmaf + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri.Replace(AssetInfo.format_hls_v4, AssetInfo.format_hls_cmaf)));
-                        }
-                    }
-
-                }
-                else //SAS
-                {
-                    sbuilderThisAsset.AppendLine("SAS Container Path :");
-                    sbuilderThisAsset.AppendLine(locator.Path.Replace("http://", "https://"));
-                    sbuilderThisAsset.AppendLine("");
-
-                    IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
-
-                    // Generate the Progressive Download URLs for each file. 
-                    List<Uri> ProgressiveDownloadUris =
-                        AssetFiles.Select(af => af.GetSasUri()).ToList();
-
-
-                    TextBoxLogWriteLine("You can progressively download the following files :");
-                    ProgressiveDownloadUris.ForEach(uri =>
-                    {
-                        sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri.Replace("http://", "https://")));
-                    }
-                                        );
-                }
-                //log window
-                TextBoxLogWriteLine(sbuilderThisAsset.ToString());
-
-                if (sbuilderThisAsset != null)
-                {
-                    sbuilder.Append(sbuilderThisAsset); // we add this builder to the general builder
-                                                        // COPY to clipboard. We need to create a STA thread for it
-                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                    MyThread.SetApartmentState(ApartmentState.STA);
-                    MyThread.IsBackground = true;
-                    MyThread.Start(sbuilder.ToString());
-                }
-            }
-            dataGridViewAssetsV.PurgeCacheAssets(assets);
-            dataGridViewAssetsV.AnalyzeItemsInBackground();
-        }
-
 
 
         private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID)
@@ -7759,12 +7529,15 @@ namespace AMSExplorer
 
         }
 
-        private bool IsThereALocatorValid(IAsset asset, ref ILocator locator, LocatorType mylocatortype = LocatorType.OnDemandOrigin)
+
+        private bool IsThereALocatorValid(Asset asset, ref AssetStreamingLocator locator, AMSClientV3 client)
         {
+
             bool valid = false;
-            if (asset != null && asset.Locators.Count > 0)
+            var locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, asset.Name).StreamingLocators;
+            if (asset != null && locators.Count > 0)
             {
-                ILocator LocatorQuery = asset.Locators.Where(l => (l.Type == mylocatortype) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
+                var LocatorQuery = locators.Where(l => ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
                 if (LocatorQuery != null)
                 {
                     //OK we can play the content
@@ -7774,28 +7547,7 @@ namespace AMSExplorer
 
             }
             return valid;
-        }
 
-
-        private bool IsThereALocatorValid(Asset asset, ref ILocator locator, LocatorType mylocatortype = LocatorType.OnDemandOrigin)
-        {
-            return true;  // v3 migration
-
-            /*
-            bool valid = false;
-            if (asset != null && asset.Locators.Count > 0)
-            {
-                ILocator LocatorQuery = asset.Locators.Where(l => (l.Type == mylocatortype) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
-                if (LocatorQuery != null)
-                {
-                    //OK we can play the content
-                    locator = LocatorQuery;
-                    valid = true;
-                }
-
-            }
-            return valid;
-            */
         }
 
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10358,15 +10110,14 @@ namespace AMSExplorer
                     {
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: ptype,
-                            Urlstr: liveEvent.Preview.Endpoints.FirstOrDefault().Url,
+                            path: liveEvent.Preview.Endpoints.FirstOrDefault().Url,
                             DoNotRewriteURL: true,
                             client: _amsClientV3,
                             formatamp: AzureMediaPlayerFormats.Auto,
                             UISelectSEFiltersAndProtocols: false,
                             mainForm: this,
                             //selectedBrowser: Constants.BrowserIE[1],
-                            launchbrowser: true,
-                            context: _context
+                            launchbrowser: true
                             );
                     }
                 }
@@ -12829,10 +12580,10 @@ namespace AMSExplorer
             foreach (var myAsset in listassets)
             {
                 bool Error = false;
-                if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // No streaming locator valid
+                if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // No streaming locator valid
                 {
 
-                    if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                    if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                     {
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         try
@@ -12840,18 +12591,19 @@ namespace AMSExplorer
                             //IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
                             //ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
                             string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
-                            var policy = new StreamingPolicy(Guid.NewGuid().ToString(), "strpol" + uniqueness, null, DateTime.Now, null, null, null, null, null);
-                            var policy2 = _amsClientV3.AMSclient.StreamingPolicies.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, policy.Name, policy);
-
+                            //var policy = new StreamingPolicy(Guid.NewGuid().ToString(), "strpol" + uniqueness, null, DateTime.Now, null, null, null, null, null);
+                            //var policy2 = _amsClientV3.AMSclient.StreamingPolicies.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, policy.Name, policy);
 
                             StreamingLocator locator = new StreamingLocator(
                                                                             assetName: myAsset.Name,
-                                                                            streamingPolicyName: policy.Name,
+                                                                            streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
                                                                             defaultContentKeyPolicyName: null,
                                                                             streamingLocatorId: null
                                                                             );
 
-                            _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
+                            locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
+
+                            PlayBackLocator = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, myAsset.Name).StreamingLocators.Where(l => l.Name == locator.Name).FirstOrDefault();
 
                             dataGridViewAssetsV.PurgeCacheAsset(myAsset);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -12865,13 +12617,15 @@ namespace AMSExplorer
                     }
                 }
 
-                if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
+                if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // There is a streaming locator valid
                 {
-                    Uri MyUri = PlayBackLocator.GetSmoothStreamingUri();
+                    var MyUri = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PlayBackLocator.Name)
+                        .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
+                        .FirstOrDefault().Paths.FirstOrDefault();
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, _amsClientV3, this, myAsset, false, filter);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri, _amsClientV3, this, myAsset, false, filter, locator: PlayBackLocator);
                     }
                     else
                     {
@@ -12896,7 +12650,7 @@ namespace AMSExplorer
 
         private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, new List<Asset>());// ReturnSelectedAssetsFromProgramsOrAssets());
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssetsV3());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)

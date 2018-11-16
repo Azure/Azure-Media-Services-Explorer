@@ -497,13 +497,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -4031,14 +4031,6 @@
             this.toolStripStatusLabelWatchFolder.Name = "toolStripStatusLabelWatchFolder";
             resources.ApplyResources(this.toolStripStatusLabelWatchFolder, "toolStripStatusLabelWatchFolder");
             // 
-            // toolStripStatusLabelEncRU
-            // 
-            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
-            resources.ApplyResources(this.toolStripStatusLabelEncRU, "toolStripStatusLabelEncRU");
-            this.toolStripStatusLabelEncRU.Spring = true;
-            this.toolStripStatusLabelEncRU.Tag = "";
-            // 
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
@@ -4071,6 +4063,14 @@
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
+            // 
+            // toolStripStatusLabelEncRU
+            // 
+            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
+            resources.ApplyResources(this.toolStripStatusLabelEncRU, "toolStripStatusLabelEncRU");
+            this.toolStripStatusLabelEncRU.Spring = true;
+            this.toolStripStatusLabelEncRU.Tag = "";
             // 
             // Mainform
             // 
@@ -4476,7 +4476,6 @@
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ToolStripMenuItem storageVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
@@ -4610,6 +4609,7 @@
         private System.Windows.Forms.Button buttonRefreshTab;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
         private DataGridViewTransforms dataGridViewTransformsV;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
     }
 }
 

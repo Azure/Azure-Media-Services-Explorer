@@ -2053,6 +2053,11 @@ namespace AMSExplorer
             return urlstr;
         }
 
+        public static Uri RW(string path, StreamingEndpoint se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
+        {
+            return RW(new Uri("https://" + se.HostName + path), se, filters, https, customHostName, protocol, audiotrackname, HLSNoAudioOnly);
+        }
+
         // return the URL with hostname from streaming endpoint
         public static Uri RW(Uri url, StreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
@@ -3168,6 +3173,53 @@ namespace AMSExplorer
             return type;
         }
 
+        public static AssetProtectionType GetAssetProtection(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
+        {
+            AssetProtectionType type = AssetProtectionType.None;
+
+            // MIGRATION TO V3
+            /*
+           // IAssetDeliveryPolicy policy = MyAsset.DeliveryPolicies.FirstOrDefault();
+
+            if (policy != null)
+            {
+                switch (policy.AssetDeliveryPolicyType)
+                {
+                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
+                        type = AssetProtectionType.AES;
+                        break;
+
+                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
+                        if (
+                            policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl)
+                            &&
+                            (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
+                            )
+                        {
+                            type = AssetProtectionType.PlayReadyAndWidevine;
+                        }
+                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
+                        {
+                            type = AssetProtectionType.Widevine;
+                        }
+                        else
+                        {
+                            type = AssetProtectionType.PlayReady;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else if (MyAsset.Options == AssetCreationOptions.CommonEncryptionProtected)
+            {
+                type = AssetProtectionType.PlayReady; // CENC Static protection
+            }
+            */
+            return type;
+        }
+
 
         public StringBuilder GetStats()
         {
@@ -3381,14 +3433,15 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, AMSClientV3 client, Mainform mainForm,
+        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
             Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
-            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "")
+            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "",
+            AssetStreamingLocator locator = null)
         {
             string FullPlayBackLink = null;
 
-            if (!string.IsNullOrEmpty(Urlstr))
+            if (!string.IsNullOrEmpty(path))
             {
                 StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(client);
 
@@ -3401,10 +3454,10 @@ namespace AMSExplorer
                         //(context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
                     {
-                        var form = new ChooseStreamingEndpoint(client, myasset, Urlstr, filter, typeplayer, true);
+                        var form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
-                            Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                            path = AssetInfo.RW(path, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                             choosenSE = form.SelectStreamingEndpoint;
                             selectedBrowser = form.ReturnSelectedBrowser;
                         }
@@ -3417,11 +3470,11 @@ namespace AMSExplorer
                     {
                         if (typeplayer == PlayerType.DASHIFRefPlayer)
                         {
-                            Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.DashCsf).ToString();
+                            path = AssetInfo.RW(new Uri(path), choosenSE, filter, false, null, AMSOutputProtocols.DashCsf).ToString();
                         }
                         else
                         {
-                            Urlstr = RW(Urlstr, choosenSE, filter);
+                            // Urlstr = RW(Urlstr, choosenSE, filter);
                         }
                     }
                 }
@@ -3430,9 +3483,9 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = AssetInfo.GetAssetProtection(/*myasset*/ null, context); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
+                    keytype = locator != null ? AssetInfo.GetAssetProtection(myasset, client, locator) : AssetProtectionType.None; // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
 
-                    if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(/*myasset*/ null, context)) // dynamic encryption with token  V3 migration
+                    if (false)//DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(/*myasset*/ null, null)) // dynamic encryption with token  V3 migration
                     {
                         // user wants perhaps to play an asset with a token, so let's try to generate it
                         switch (typeplayer)
@@ -3449,7 +3502,7 @@ namespace AMSExplorer
                                     case AssetProtectionType.PlayReady:
                                     case AssetProtectionType.Widevine:
                                     case AssetProtectionType.PlayReadyAndWidevine:
-                                        tokenresult = DynamicEncryption.GetTestToken(/*myasset*/ null, context, displayUI: true); // v3 migration
+                                        tokenresult = DynamicEncryption.GetTestToken(/*myasset*/ null, null, displayUI: true); // v3 migration
                                         if (!string.IsNullOrEmpty(tokenresult.TokenString))
                                         {
                                             tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
@@ -3617,24 +3670,24 @@ namespace AMSExplorer
                             playerurlbase = Constants.PlayerAMPToLaunch.Replace("https://", "http://");
                         }
 
-                        FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(Urlstr)) + playerurl;
+                        FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(path)) + playerurl;
                         break;
 
                     case PlayerType.DASHIFRefPlayer:
-                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) && !Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)))
+                        if (!path.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) && !path.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)))
                         {
-                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
+                            path = AssetInfo.AddParameterToUrlString(path, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
                         }
-                        FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, Urlstr);
+                        FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, path);
                         break;
 
                     case PlayerType.MP4AzurePage:
-                        FullPlayBackLink = string.Format(Constants.PlayerMP4AzurePage, HttpUtility.UrlEncode(Urlstr));
+                        FullPlayBackLink = string.Format(Constants.PlayerMP4AzurePage, HttpUtility.UrlEncode(path));
                         break;
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(Urlstr)).Replace(Constants.NameconvToken, tokenresult.TokenString);
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, tokenresult.TokenString);
                         break;
                 }
 
@@ -4214,16 +4267,16 @@ namespace AMSExplorer
         }
 
 
-        private string _LastModified;
-        public string LastModified
+        private string _Created;
+        public string Created
         {
             get
-            { return _LastModified; }
+            { return _Created; }
             set
             {
-                if (value != _LastModified)
+                if (value != _Created)
                 {
-                    _LastModified = value;
+                    _Created = value;
                     NotifyPropertyChanged();
                 }
             }

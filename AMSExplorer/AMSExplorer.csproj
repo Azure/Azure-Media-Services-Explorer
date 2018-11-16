@@ -211,6 +211,12 @@
     <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGrid\DataGridViewLiveChannel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataGrid\DataGridViewAssets.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -679,9 +685,7 @@
     <Compile Include="LiveEventCreation.Designer.cs">
       <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="live.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="live.cs" />
     <Compile Include="options.cs">
       <SubType>Form</SubType>
     </Compile>

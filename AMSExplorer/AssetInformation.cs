@@ -102,7 +102,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._dash_cmaf:
                         case AssetInfo.format_dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                             break;
 
                         default:
@@ -175,7 +175,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, mainForm: myMainForm);
+                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -1253,24 +1253,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
