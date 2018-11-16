@@ -21,7 +21,6 @@ using System.Linq;
 using System.Windows.Forms;
 
 // Azure Management dependencies
-using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.WindowsAzure.MediaServices.Client;

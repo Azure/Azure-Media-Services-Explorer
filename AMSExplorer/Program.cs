@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -46,8 +45,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System.Net.Http;
-using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Rest;
@@ -55,6 +52,7 @@ using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
+using Microsoft.Rest.Azure.Authentication;
 
 namespace AMSExplorer
 {
