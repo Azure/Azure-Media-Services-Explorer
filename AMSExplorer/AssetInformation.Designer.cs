@@ -112,8 +112,6 @@
             this.contextMenuStripDelPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeDeliveryPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
@@ -466,6 +464,7 @@
             // 
             resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
             this.progressBarUpload.Name = "progressBarUpload";
+            this.progressBarUpload.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             // 
             // buttonUpload
             // 
@@ -835,8 +834,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPage3.Controls.Add(this.checkBoxHttps);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
@@ -851,19 +848,6 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // comboBoxLocatorsFilters
-            // 
-            resources.ApplyResources(this.comboBoxLocatorsFilters, "comboBoxLocatorsFilters");
-            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
-            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
             // checkBoxHttps
             // 
@@ -1073,8 +1057,6 @@
         private System.Windows.Forms.Button buttonCreateAssetFilter;
         private System.Windows.Forms.Button buttonFilterInfo;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
         private System.Windows.Forms.Button buttonPlayFilter;
         private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteAll;

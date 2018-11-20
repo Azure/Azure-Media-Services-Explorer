@@ -258,7 +258,7 @@ namespace AMSExplorer
                     }
                     else if (blob.GetType() == typeof(CloudBlobDirectory))
                     {
-                        var bl = (CloudBlobDirectory)blob; 
+                        var bl = (CloudBlobDirectory)blob;
                         ListViewItem item = new ListViewItem(bl.Prefix, 0);
                         item.ForeColor = Color.DarkGoldenrod;
                         listViewFiles.Items.Add(item);
@@ -391,7 +391,7 @@ namespace AMSExplorer
 
 
             oktobuildlocator = true;
-           // BuildLocatorsTree();
+            // BuildLocatorsTree();
 
 
             return;
@@ -469,9 +469,6 @@ namespace AMSExplorer
             dataGridViewFilters.Columns[6].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoff;
 
             dataGridViewFilters.Rows.Clear();
-            comboBoxLocatorsFilters.Items.Clear(); //drop list in locator tab
-            comboBoxLocatorsFilters.BeginUpdate();
-            comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
 
             if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
@@ -517,15 +514,7 @@ namespace AMSExplorer
                 {
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, "Error", s, e, d, l);
                 }
-
-                // droplist
-                comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_AssetFilter + filter.Name, filter.Name));
             }
-
-
-            //.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_GlobalFilter + g.Name, g.Name)));
-            comboBoxLocatorsFilters.SelectedIndex = 0;
-            comboBoxLocatorsFilters.EndUpdate();
         }
 
         private static string ReturnFilterTextWithOffSet(string value, ulong offset, double scale)
@@ -851,16 +840,27 @@ namespace AMSExplorer
         private void DoDisplayFileProperties()
         {
             var SelectedfBlobs = ReturnSelectedBlobs();
+            DGFiles.Rows.Clear();
 
-            if (SelectedfBlobs.Count > 0 && (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob)))
+
+            if (SelectedfBlobs.Count > 0)
             {
-                var blob = (CloudBlockBlob)SelectedfBlobs.FirstOrDefault();
+                if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob))
+                {
+                    var blob = (CloudBlockBlob)SelectedfBlobs.FirstOrDefault();
 
-                DGFiles.Rows.Clear();
-                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
-                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
-                DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
+                    DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
+                    DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
+                    DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
+                    DGFiles.Rows.Add("Uri", blob.Uri);
+                }
+                else if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlobDirectory))
+                {
+                    var dir = (CloudBlobDirectory)SelectedfBlobs.FirstOrDefault();
 
+                    DGFiles.Rows.Add("Prefix", dir.Prefix);
+                    DGFiles.Rows.Add("Uri", dir.Uri);
+                }
             }
         }
 
@@ -1253,24 +1253,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true,  client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -1293,14 +1293,15 @@ namespace AMSExplorer
         private void DoDuplicate()
         {
 
-            var SelectedAssetBlobs = ReturnSelectedBlobs().FirstOrDefault();
+            var SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
 
-            if (SelectedAssetBlobs != null)
+            if (SelectedAssetBlob != null && SelectedAssetBlob.GetType() == typeof(CloudBlockBlob))
             {
+                var sourceblob = (CloudBlockBlob)SelectedAssetBlob;
                 try
                 {
 
-                    string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, SelectedAssetBlobs.Name);
+                    string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, sourceblob.Name);
                     if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
                     {
                         /*
@@ -1321,7 +1322,7 @@ namespace AMSExplorer
 
                         CloudBlockBlob sourceCloudBlob, destinationBlob;
 
-                        sourceCloudBlob = container.GetBlockBlobReference(SelectedAssetBlobs.Name);
+                        sourceCloudBlob = container.GetBlockBlobReference(sourceblob.Name);
                         sourceCloudBlob.FetchAttributes();
 
                         if (sourceCloudBlob.Properties.Length > 0)
@@ -1345,8 +1346,6 @@ namespace AMSExplorer
                     }
                     ListAssetBlobs();
                     BuildLocatorsTree();
-
-
                 }
                 catch
                 {
@@ -1355,7 +1354,6 @@ namespace AMSExplorer
                     BuildLocatorsTree();
                 }
             }
-
         }
 
         private async void DoUpload()
@@ -1364,21 +1362,51 @@ namespace AMSExplorer
             Dialog.Multiselect = true;
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
-                progressBarUpload.Maximum = 100 * Dialog.FileNames.Count();
+                progressBarUpload.Maximum = 100 * (Dialog.FileNames.Count() + 1);
+                progressBarUpload.Value = 0;
                 progressBarUpload.Visible = true;
+
                 buttonClose.Enabled = false;
                 buttonUpload.Enabled = false;
+
+                CloudBlobContainer container = GetRWContainerOfAsset();
+
+                int i = 1;
                 foreach (string file in Dialog.FileNames)
                 {
-                    await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(file), file, myAsset));
+                    var blob = container.GetBlockBlobReference(Path.GetFileName(file));
+                    if (file.ToLower().EndsWith(".mp4")) blob.Properties.ContentType = "video/mp4";
+                    //Console.WriteLine("Uploading File to container: {0}", sasUri);
+
+                    await Task.Factory.StartNew(() => blob.UploadFromFile(file));
+                    //blob.UploadFromFile(file);
+                    progressBarUpload.Value = (int)(100 * i);
+                    i++;
+
+                    //await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(file), file, myAssetV3));
                 }
                 // Refresh the asset.
-                myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+                //    myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
                 progressBarUpload.Visible = false;
                 buttonClose.Enabled = true;
                 buttonUpload.Enabled = true;
                 ListAssetBlobs();
             }
+        }
+
+        private CloudBlobContainer GetRWContainerOfAsset()
+        {
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.ReadWrite,
+                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+            };
+
+            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+            string uploadSasUrl = response.AssetContainerSasUrls.First();
+            var sasUri = new Uri(uploadSasUrl);
+            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+            return container;
         }
 
         private void ProcessUploadFileToAsset(string SafeFileName, string FileName, IAsset MyAsset)
@@ -1776,17 +1804,22 @@ namespace AMSExplorer
         }
 
 
-        private List<CloudBlockBlob> ReturnSelectedBlobs()
+        private List<IListBlobItem> ReturnSelectedBlobs()
         {
-            var Selection = new List<CloudBlockBlob>();
+            var Selection = new List<IListBlobItem>();
 
             foreach (int selectedindex in listViewFiles.SelectedIndices)
             {
-                var AF = blobs.Where(af => af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewFiles.Items[selectedindex].Text).FirstOrDefault();
+                var AF = blobs.Where(af =>
+                (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewFiles.Items[selectedindex].Text)
+                ||
+                (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewFiles.Items[selectedindex].Text)
+                )
+                .FirstOrDefault();
 
                 if (AF != null)
                 {
-                    Selection.Add((CloudBlockBlob)AF);
+                    Selection.Add(AF);
                 }
             }
             return Selection;
@@ -2412,7 +2445,7 @@ namespace AMSExplorer
         {
             try
             {
-                var smildata = Program.LoadAndUpdateManifestTemplate(myAsset);
+                var smildata = Program.LoadAndUpdateManifestTemplate(myAssetV3, _amsClient, container);
 
                 var editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
                     AMSExplorer.Properties.Resources.AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses);
@@ -2434,16 +2467,17 @@ namespace AMSExplorer
                     progressBarUpload.Visible = true;
                     buttonClose.Enabled = false;
 
-                    await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
+                    CloudBlobContainer container = GetRWContainerOfAsset();
+
+                    var blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
+
+                    await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
 
                     if (File.Exists(filePath))
                     {
                         File.Delete(filePath);
                     }
 
-                    // Refresh the asset.
-                    myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
-                    AssetInfo.SetFileAsPrimary(myAsset, smildata.FileName);
                 }
             }
             catch

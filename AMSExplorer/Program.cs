@@ -358,11 +358,14 @@ namespace AMSExplorer
             return myText;
         }
 
-        public static ManifestGenerated LoadAndUpdateManifestTemplate(IAsset asset)
+        public static ManifestGenerated LoadAndUpdateManifestTemplate(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
         {
-            var mp4AssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var m4aAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var mediaAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c=> c as CloudBlockBlob);
+
+
+            var mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            var mediaAssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (mediaAssetFiles.Count() != 0)
             {
@@ -392,7 +395,7 @@ namespace AMSExplorer
                                                                (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
                                                                );
 
-                    var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.ContentFileSize);
+                    var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.Properties.Length);
 
                     string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
@@ -5100,34 +5103,6 @@ namespace AMSExplorer
         }
     }
 
-    /*
-    internal class TestEnvironment : AzureEnvironmentV3
-    {
-        public string DisplayName => "Test";
-
-        public string Authority => "https://login.windows-ppe.net/common/oauth2/authorize";
-
-        public string ArmResource => "https://management.core.windows.net/";
-
-        public Uri ArmEndpoint => new Uri("https://api-dogfood.resources.windows-int.net/");
-
-        public string ClientApplicationId => "24f03a2b-432b-41f7-bc67-941b965f82ed";
-    }
-
-
-    internal class ProductionEnvironment : AzureEnvironmentV3
-    {
-        public string DisplayName => "Production";
-
-        public string Authority => "https://login.windows.net/common/oauth2/authorize";
-
-        public string ArmResource => "https://management.core.windows.net/";
-
-        public Uri ArmEndpoint => new Uri("https://management.azure.com/");
-
-        public string ClientApplicationId => "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
-    }
-    */
     public enum PlayerType
     {
         AzureMediaPlayer = 0,
