@@ -360,7 +360,7 @@ namespace AMSExplorer
 
         public static ManifestGenerated LoadAndUpdateManifestTemplate(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
         {
-            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c=> c as CloudBlockBlob);
+            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
 
 
             var mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
@@ -1634,6 +1634,8 @@ namespace AMSExplorer
     public class AssetInfo
     {
         private List<IAsset> SelectedAssets;
+        private List<Asset> SelectedAssetsV3;
+        private AMSClientV3 _amsClient;
         public const string Type_Empty = "(empty)";
         public const string Type_Workflow = "Workflow";
         public const string Type_Single = "Single Bitrate MP4";
@@ -1668,24 +1670,37 @@ namespace AMSExplorer
 
         private const string ManifestFileExtension = ".ism";
 
-        public AssetInfo(List<IAsset> mySelectedAssets)
+        /*  public AssetInfo(List<IAsset> mySelectedAssets)
+          {
+              SelectedAssets = mySelectedAssets;
+          }
+          */
+
+        /*
+
+    public AssetInfo(IAsset asset, AMSClientV3 amsClient)
+    {
+        SelectedAssets = new List<IAsset>();
+        SelectedAssets.Add(asset);
+        _amsClient = amsClient;
+    }
+    */
+
+        public AssetInfo(Asset myAsset, AMSClientV3 amsClient)
         {
-            SelectedAssets = mySelectedAssets;
-        }
-        public AssetInfo(IAsset asset)
-        {
-            SelectedAssets = new List<IAsset>();
-            SelectedAssets.Add(asset);
+            SelectedAssetsV3 = new List<Asset>() { myAsset };
+            _amsClient = amsClient;
+
         }
 
-        public AssetInfo(List<Asset> mySelectedAssets)
+        public AssetInfo(List<Asset> mySelectedAssets, AMSClientV3 amsClient)
         {
-            //SelectedAssets = mySelectedAssets;
+            SelectedAssetsV3 = mySelectedAssets;
+            _amsClient = amsClient;
         }
         public AssetInfo(Asset asset)
         {
-            //SelectedAssets = new List<Asset>();
-            //SelectedAssets.Add(asset);
+            SelectedAssetsV3 = new List<Asset>() { asset };
         }
 
 
@@ -1819,7 +1834,7 @@ namespace AMSExplorer
 
         public static Uri GetValidOnDemandURI(IAsset asset)
         {
-            var aivalidurls = new AssetInfo(asset).GetValidURIs();
+            var aivalidurls = new AssetInfo(null/*asset*/).GetValidURIs();
             if (aivalidurls != null)
             {
                 return aivalidurls.FirstOrDefault();
@@ -2823,7 +2838,12 @@ namespace AMSExplorer
             }
 
 
-            return new AssetInfoData() { Size = size, Type = string.Format("{0} ({1})", type, number) };
+            return new AssetInfoData()
+            {
+                Size = size,
+                Type = string.Format("{0} ({1})", type, number),
+                Blobs = blobs
+            };
 
             /*
 
@@ -3226,17 +3246,17 @@ namespace AMSExplorer
         {
             StringBuilder sb = new StringBuilder();
 
-            if (SelectedAssets.Count > 0)
+            if (SelectedAssetsV3.Count > 0)
             {
                 // Asset Stats
-                foreach (IAsset theAsset in SelectedAssets)
+                foreach (Asset theAsset in SelectedAssetsV3)
                 {
-                    sb.Append(GetStat(theAsset));
+                    sb.Append(GetStat(theAsset, _amsClient));
                 }
             }
             return sb;
         }
-
+        /*
         public static StringBuilder GetStat(IAsset MyAsset, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
@@ -3328,104 +3348,145 @@ namespace AMSExplorer
 
             return sb;
         }
+        */
+        public static StringBuilder GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
+        {
+            StringBuilder sb = new StringBuilder();
+            var MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
+            string MyAssetType = MyAssetTypeInfo.Type;
+            bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
+            long size = -1;
+            if (bfileinasset)
+            {
+                size = 0;
+                foreach (var blob in MyAssetTypeInfo.Blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)))
+                {
+                    size += (blob as CloudBlockBlob).Properties.Length;
+                }
+            }
+            sb.AppendLine("Asset Name          : " + MyAsset.Name);
+            sb.AppendLine("Asset Description   : " + MyAsset.Description);
 
-        public static StringBuilder GetDescriptionLocators(IAsset MyAsset, StreamingEndpoint SelectedSE = null)
+            sb.AppendLine("Asset Type          : " + MyAssetTypeInfo.Type);
+            sb.AppendLine("Id                  : " + MyAsset.Id);
+            sb.AppendLine("Asset Id            : " + MyAsset.AssetId);
+
+            sb.AppendLine("Alternate ID        : " + MyAsset.AlternateId);
+            if (size != -1)
+                sb.AppendLine("Size                : " + FormatByteSize(size));
+            sb.AppendLine("Container           : " + MyAsset.Container);
+            sb.AppendLine("Created (UTC)       : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            sb.AppendLine("Last Modified (UTC) : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            sb.AppendLine("Storage account     : " + MyAsset.StorageAccountName);
+            sb.AppendLine("Storage Encryption  : " + MyAsset.StorageEncryptionFormat);
+
+
+            if (true)//MyAsset.State != AssetState.Deleted)
+            {
+                /*
+                sb.AppendLine("IsStreamable        : " + MyAsset.IsStreamable);
+                sb.AppendLine("SupportsDynEnc      : " + MyAsset.SupportsDynamicEncryption);
+                sb.AppendLine("Uri                 : " + MyAsset.Uri.AbsoluteUri);
+                sb.AppendLine("");
+                sb.AppendLine("Storage Name        : " + MyAsset.StorageAccountName);
+                sb.AppendLine("Storage Bytes used  : " + FormatByteSize(MyAsset.StorageAccount.BytesUsed));
+                sb.AppendLine("Storage IsDefault   : " + MyAsset.StorageAccount.IsDefault);
+                sb.AppendLine("");
+
+                foreach (IAsset p_asset in MyAsset.ParentAssets)
+                {
+                    sb.AppendLine("Parent asset Name   : " + p_asset.Name);
+                    sb.AppendLine("Parent asset Id     : " + p_asset.Id);
+                }
+                sb.AppendLine("");
+                foreach (IContentKey key in MyAsset.ContentKeys)
+                {
+                    sb.AppendLine("Content key         : " + key.Name);
+                    sb.AppendLine("Content key Id      : " + key.Id);
+                    sb.AppendLine("Content key Type    : " + key.ContentKeyType);
+                }
+                sb.AppendLine("");
+                foreach (var pol in MyAsset.DeliveryPolicies)
+                {
+                    sb.AppendLine("Deliv policy Name   : " + pol.Name);
+                    sb.AppendLine("Deliv policy Id     : " + pol.Id);
+                    sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
+                    sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
+                }
+                */
+                sb.AppendLine("");
+
+                foreach (var blob in MyAssetTypeInfo.Blobs)
+                {
+                    sb.AppendLine("   -----------------------------------------------");
+
+                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    {
+                        var blobc = blob as CloudBlockBlob;
+                        sb.AppendLine("   Blob Name            : " + blobc.Name);
+                        sb.AppendLine("   Blob Type            : " + blobc.BlobType);
+                        sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
+                        sb.AppendLine("   Content type         : " + blobc.Properties.ContentType);
+                        sb.AppendLine("   Created (UTC)        : " + blobc.Properties.Created?.ToString("G"));
+                        sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
+                        sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
+                        sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
+                        sb.AppendLine("");
+
+                    }
+                    else if (blob.GetType() == typeof(CloudBlobDirectory))
+                    {
+
+                    }
+                }
+                sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
+            }
+            sb.AppendLine("");
+            sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            sb.AppendLine("");
+
+            return sb;
+        }
+
+
+        public static StringBuilder GetDescriptionLocators(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (ILocator locator in MyAsset.Locators)
+            var locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
+
+            if (locators.Count == 0)
             {
-                sb.AppendLine("Locator Name      : " + locator.Name);
-                sb.AppendLine("Locator Type      : " + locator.Type.ToString());
-                sb.AppendLine("Locator Id        : " + locator.Id);
-                if (locator.StartTime != null) sb.AppendLine("Start Time        : " + ((DateTime)locator.StartTime).ToLongDateString() + " " + ((DateTime)locator.StartTime).ToLongTimeString());
-                if (locator.ExpirationDateTime != null) sb.AppendLine("Expiration Time   : " + ((DateTime)locator.ExpirationDateTime).ToLongDateString() + " " + ((DateTime)locator.ExpirationDateTime).ToLongTimeString());
+                sb.AppendLine("No streaming locator created for this asset.");
+            }
 
-                if (locator.Type == LocatorType.OnDemandOrigin)
+            foreach (var locatorbase in locators)
+            {
+                var locator = amsClient.AMSclient.StreamingLocators.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+
+                sb.AppendLine("Locator Name                    : " + locator.Name);
+                sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
+                sb.AppendLine("Start Time                      : " + locator.StartTime?.ToLongDateString());
+                sb.AppendLine("End Time                        : " + locator.EndTime?.ToLongDateString());
+                sb.AppendLine("Streaming Policy Name           : " + locator.StreamingPolicyName);
+                sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
+
+                var streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
+                var downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+
+                foreach (var path in streamingPaths)
                 {
-                    sb.AppendLine("Locator Path      : " + locator.Path);
-                    sb.AppendLine("");
-                    sb.AppendLine(_prog_down_http_streaming + " : ");
-                    foreach (IAssetFile IAF in MyAsset.AssetFiles)
+                    foreach (var p in path.Paths)
                     {
-                        // sb.AppendLine(RW(new Uri(locator.Path + IAF.Name), https: true).AbsoluteUri); V3 migration
-                    }
-                    sb.AppendLine("");
-
-                    if (MyAsset.AssetType == AssetType.MediaServicesHLS) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                    {
-                        sb.AppendLine(AssetInfo._hls + " : ");
-                        sb.AppendLine(locator.GetHlsUri().AbsoluteUri);
-                        sb.AppendLine("");
-                    }
-                    else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                    {
-                        // It's not Static HLS
-                        // Smooth or multi MP4
-                        if (locator.GetSmoothStreamingUri() != null)
-                        {
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.NotSpecified, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._smooth + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.SmoothLegacy, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._smooth_legacy + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-                        }
-
-                        if (locator.GetMpegDashUri() != null)
-                        {
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCsf, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._dash_csf + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCmaf, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._dash_cmaf + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-                        }
-
-                        if (locator.GetHlsUri() != null)
-                        {
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSCmaf, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._hls_cmaf + " : ");
-                                sb.AppendLine(uri.AbsoluteUri.Replace(AssetInfo.format_hls_v4, AssetInfo.format_hls_cmaf));
-                            }
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv4, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._hls_v4 + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-                            foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv3, SelectedSE, null, true))
-                            {
-                                sb.AppendLine(AssetInfo._hls_v3 + " : ");
-                                sb.AppendLine(uri.AbsoluteUri);
-                            }
-                            sb.AppendLine("");
-                        }
+                        sb.AppendLine(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme + new String(' ', 30 - path.StreamingProtocol.ToString().Length - path.EncryptionScheme.ToString().Length) + " : " + p);
                     }
                 }
-                if (locator.Type == LocatorType.Sas)
-                {
-                    sb.AppendLine("Container Path    : " + locator.Path);
-                    sb.AppendLine("");
 
-                    List<Uri> ProgressiveDownloadUris;
-                    IEnumerable<IAssetFile> MyAssetFiles;
-                    sb.AppendLine(AssetInfo._prog_down_https_SAS + " : ");
-                    MyAssetFiles = MyAsset.AssetFiles.ToList();
-                    // Generate the Progressive Download URLs for each file. 
-                    ProgressiveDownloadUris = MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                    ProgressiveDownloadUris.ForEach(uri => sb.AppendLine(uri.AbsoluteUri));
+                foreach (var path in downloadPaths)
+                {
+                    sb.AppendLine("Download                        : " + path);
                 }
-                sb.AppendLine("");
+
                 sb.AppendLine("==============================================================================");
                 sb.AppendLine("");
             }
@@ -4893,6 +4954,7 @@ namespace AMSExplorer
     {
         public long Size;
         public string Type;
+        public IEnumerable<IListBlobItem> Blobs;
     }
     public class AMSClientV3
     {

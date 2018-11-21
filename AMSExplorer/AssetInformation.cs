@@ -709,7 +709,6 @@ namespace AMSExplorer
                     if (streamingPaths.Count > 0)//locator.Type == LocatorType.OnDemandOrigin)
                     {
 
-
                         int indexn = 1;
                         foreach (var path in streamingPaths)
                         {
@@ -1087,7 +1086,7 @@ namespace AMSExplorer
 
         private void DoDisplayAssetStats()
         {
-            AssetInfo MyAssetReport = new AssetInfo(myAsset);
+            AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
             StringBuilder SB = MyAssetReport.GetStats();
             var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
@@ -1100,7 +1099,7 @@ namespace AMSExplorer
 
         private void DoAssetCreateMail()
         {
-            AssetInfo MyAssetReport = new AssetInfo(myAsset);
+            AssetInfo MyAssetReport = new AssetInfo(myAssetV3);
             MyAssetReport.CreateOutlookMail();
         }
 

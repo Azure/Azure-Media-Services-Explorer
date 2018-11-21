@@ -1593,7 +1593,7 @@ namespace AMSExplorer
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
                                 }
-                                sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+                               // sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
 
                                 Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
 
@@ -1615,7 +1615,7 @@ namespace AMSExplorer
                                 if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
                                     StringBuilder sb = new StringBuilder();
-                                    sb.Append(AssetInfo.GetStat(oasset));
+                                    //sb.Append(AssetInfo.GetStat(oasset));
 
                                     if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
                                     {
@@ -1649,7 +1649,7 @@ namespace AMSExplorer
                     if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
                         StringBuilder sb = new StringBuilder();
-                        sb.Append(AssetInfo.GetStat(asset));
+                        //sb.Append(AssetInfo.GetStat(asset));
                         Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
                     }
                 }
@@ -7564,13 +7564,13 @@ namespace AMSExplorer
 
         private void DoCreateAssetReportEmail()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
+            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClientV3);
             AR.CreateOutlookMail();
         }
 
         private void DoDisplayAssetReport()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
+            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClientV3);
             StringBuilder SB = AR.GetStats();
             var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
