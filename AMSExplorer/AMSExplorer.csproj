@@ -217,6 +217,12 @@
     <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateTransform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTransform.Designer.cs">
+      <DependentUpon>CreateTransform.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1002,6 +1008,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTransform.ja.resx">
+      <DependentUpon>CreateTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTransform.resx">
+      <DependentUpon>CreateTransform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformInformation.ja.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>

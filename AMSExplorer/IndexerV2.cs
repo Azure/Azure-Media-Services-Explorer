@@ -35,26 +35,11 @@ namespace AMSExplorer
 {
     public partial class IndexerV2 : Form
     {
-        private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions(true);
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
-        private string _version;
 
-        /*
-        public readonly List<Item> LanguagesIndexV2 = new List<Item> {
-            new Item("English", "EnUs"),
-            new Item("Spanish", "EsEs"),
-            new Item("Mandarin Chinese", "ZhCn"),
-            new Item("French", "FrFr"),
-            new Item("German", "DeDe"),
-            new Item("Italian", "ItIt"),
-            new Item("Portuguese", "PtBr"),
-            new Item("Arabic (Egyptian)", "ArEg"),
-            new Item("Japanese", "JaJp")
-        };
-        */
+            public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN" };
 
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "EnUs", "EnGb", "EsEs", "EsMx", "ZhCn", "FrFr", "DeDe", "ItIt", "PtBr", "ArEg", "JaJp", "RuRu" };
 
         public IndexerOptionsVar IndexerGenerationOptions
         {
@@ -63,81 +48,30 @@ namespace AMSExplorer
                 return optionsVar;
             }
         }
+       
 
-        public bool CopySubtitlesFilesToInputAsset
+        public string Language
         {
             get
             {
-                return checkBoxCopyToInput.Checked;
-            }
-
-        }
-
-        public string IndexerInputAssetName
-        {
-            get
-            {
-                return labelAssetName.Text;
-            }
-            set
-            {
-                labelAssetName.Text = value;
-            }
-        }
-
-        public string IndexerOutputAssetName
-        {
-            get
-            {
-                return textboxoutputassetname.Text;
-            }
-            set
-            {
-                textboxoutputassetname.Text = value;
+                return  ((Item)comboBoxLanguage.SelectedItem).Value as string;
             }
         }
 
 
-        public JobOptionsVar JobOptions
-        {
-            get
-            {
-                return buttonJobOptions.GetSettings();
-            }
-            set
-            {
-                buttonJobOptions.SetSettings(value);
-            }
-        }
-
-        public string IndexerJobName
-        {
-            get
-            {
-                return textBoxJobName.Text;
-            }
-            set
-            {
-                textBoxJobName.Text = value;
-            }
-        }
-
-        public IndexerV2(CloudMediaContext context, string version)
+        public IndexerV2()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
-            _version = version;
 
-            buttonJobOptions.Initialize(_context);
+           // buttonJobOptions.Initialize(_context);
         }
 
         private void IndexerV2_Load(object sender, EventArgs e)
         {
             //comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
-            LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c.Substring(0, 2) + "-" + c.Substring(2, 2))).DisplayName, c)));
+            LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
-            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexerV2));
         }
 

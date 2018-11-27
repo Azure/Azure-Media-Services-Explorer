@@ -1593,7 +1593,7 @@ namespace AMSExplorer
                                     sb.AppendLine(playbackurl);
                                     sb.AppendLine();
                                 }
-                               // sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+                                // sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
 
                                 Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
 
@@ -5733,7 +5733,7 @@ namespace AMSExplorer
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
-            Indexer form = new Indexer(_context, processor.Version)
+            Indexer form = new Indexer()
             {
                 IndexerJobName = "Media Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
@@ -5751,16 +5751,17 @@ namespace AMSExplorer
                 var ListConfig = new List<string>();
                 foreach (var asset in SelectedAssets)
                 {
-                    ListConfig.Add(
-                                    Indexer.LoadAndUpdateIndexerConfiguration(
-                                                                                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
-                                                                                form.IndexerTitle,
-                                                                                form.IndexerDescription,
-                                                                                form.IndexerLanguage,
-                                                                                form.IndexerGenerationOptions,
-                                                                                null//proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
-                                                                                )
-                                                                                );
+                    /*                 ListConfig.Add(
+                                                     Indexer.LoadAndUpdateIndexerConfiguration(
+                                                                                                 Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
+                                                                                                 form.IndexerTitle,
+                                                                                                 form.IndexerDescription,
+                                                                                                 form.IndexerLanguage,
+                                                                                                 form.IndexerGenerationOptions,
+                                                                                                 null//proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
+                                                                                                 )
+                                                                                                 );
+                                                                                                 */
 
                 }
                 LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
@@ -5781,75 +5782,6 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuIndex2PreviewAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
-
-            // var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
-
-            // Removed as not supported by Indexer v2 Preview
-            //var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
-
-            //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
-
-            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2);
-            if (processor == null)
-            {
-                processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer2Preview);
-            }
-            if (processor == null)
-            {
-                return;
-            }
-
-            var form = new IndexerV2(_context, processor.Version)
-            {
-                IndexerJobName = "Media Indexing v2 of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
-
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
-                SelectedAssets.Count + " assets have been selected for media indexing."
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
-            };
-
-            string taskname = "Media Indexing v2 of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var ListConfig = new List<string>();
-                foreach (var asset in SelectedAssets)
-                {
-                    ListConfig.Add(form.JsonConfig());
-                }
-                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
-                            processor,
-                            SelectedAssets,
-                            form.IndexerJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.IndexerOutputAssetName,
-                            ListConfig,
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.OutputAssetsFormatOption,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected,
-                            copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
-                                );
-            }
-        }
 
         private void DoMenuVideoOCR()
         {
@@ -14689,12 +14621,10 @@ namespace AMSExplorer
 
         private void toolStripMenuItem38_Click_1(object sender, EventArgs e)
         {
-            DoMenuIndex2PreviewAssets();
         }
 
         private void toolStripMenuItem38Indexer2_Click(object sender, EventArgs e)
         {
-            DoMenuIndex2PreviewAssets();
         }
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
@@ -14773,7 +14703,6 @@ namespace AMSExplorer
 
         private void toolStripMenuItemIndexv2_Click(object sender, EventArgs e)
         {
-            DoMenuIndex2PreviewAssets();
         }
 
         private void processAssetsWithHyperlapseToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -15238,6 +15167,28 @@ namespace AMSExplorer
                         this.Cursor = Cursors.Arrow;
                     }
                 }
+            }
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateVideoAnalyzerTransform();
+        }
+
+        private void CreateVideoAnalyzerTransform()
+        {
+            var form = new IndexerV2();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                TransformOutput[] outputs = new TransformOutput[]
+                                                       {
+                                                                new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language  }),
+                                                       };
+
+                // Create the Transform with the output defined above
+                var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "mytransformanaylzyzer", outputs);
+
             }
         }
     }

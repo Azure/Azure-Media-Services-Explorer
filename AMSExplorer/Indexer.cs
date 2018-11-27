@@ -135,14 +135,12 @@ namespace AMSExplorer
             }
         }
 
-        public Indexer(CloudMediaContext context, string version)
+        public Indexer()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
-            _version = version;
 
-            buttonJobOptions.Initialize(_context);
+            //buttonJobOptions.Initialize(_context);
         }
 
         private void Indexer_Load(object sender, EventArgs e)
@@ -161,32 +159,6 @@ namespace AMSExplorer
             }
         }
 
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar, string proposedfile = null)
-        {
-            // Prepare the encryption task template
-            XDocument doc = XDocument.Load(xmlFileName);
-
-            var inputxml = doc.Element("configuration").Element("input");
-            if (proposedfile != null)
-            {
-                inputxml.Add(new XAttribute("name", proposedfile));
-            }
-            if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
-            if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
-
-            var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
-            settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
-            settings.Add(new XElement("add", new XAttribute("key", "ForceFullCaption"), new XAttribute("value", optionsVar.ForFullCaptions.ToString())));
-
-            string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
-            cformats += optionsVar.SAMI ? "sami;" : string.Empty;
-            cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
-            settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
-
-            return doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
-        }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

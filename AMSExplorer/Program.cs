@@ -3150,50 +3150,6 @@ namespace AMSExplorer
         }
 
 
-        public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
-        {
-            AssetProtectionType type = AssetProtectionType.None;
-            IAssetDeliveryPolicy policy = MyAsset.DeliveryPolicies.FirstOrDefault();
-
-            if (policy != null)
-            {
-                switch (policy.AssetDeliveryPolicyType)
-                {
-                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
-                        type = AssetProtectionType.AES;
-                        break;
-
-                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        if (
-                            policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl)
-                            &&
-                            (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
-                            )
-                        {
-                            type = AssetProtectionType.PlayReadyAndWidevine;
-                        }
-                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
-                        {
-                            type = AssetProtectionType.Widevine;
-                        }
-                        else
-                        {
-                            type = AssetProtectionType.PlayReady;
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-            else if (MyAsset.Options == AssetCreationOptions.CommonEncryptionProtected)
-            {
-                type = AssetProtectionType.PlayReady; // CENC Static protection
-            }
-
-            return type;
-        }
-
         public static AssetProtectionType GetAssetProtection(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
         {
             AssetProtectionType type = AssetProtectionType.None;
@@ -4975,22 +4931,52 @@ namespace AMSExplorer
 
         public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3()
         {
-            var authContext = new AuthenticationContext(
-            authority: environment.Authority,
-            validateAuthority: true);
 
-            accessToken = await authContext.AcquireTokenAsync(
-                                                                resource: environment.ArmResource,
-                                                                clientId: environment.ClientApplicationId,
-                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
-                                                                );
+            if (!credentialsEntry.UseSPAuth)
+            {
+                var authContext = new AuthenticationContext(authority: environment.Authority, validateAuthority: true);
 
-            credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+                accessToken = await authContext.AcquireTokenAsync(
+                                                                    resource: environment.ArmResource,
+                                                                    clientId: environment.ClientApplicationId,
+                                                                    redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                    parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
+                                                                    );
 
-            // Getting Media Services accounts...
-            AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
-            AMSclient.SubscriptionId = _azureSubscriptionId;
+                credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+                // Getting Media Services accounts...
+                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+                AMSclient.SubscriptionId = _azureSubscriptionId;
+
+            }
+
+            else // SP
+            {
+                // other code for service principal
+                var form = new AMSLoginServicePrincipal();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    credentialsEntry.ADSPClientId = form.ClientId;
+                    credentialsEntry.ADSPClientSecret = form.ClientSecret;
+
+                    ClientCredential clientCredential = new ClientCredential(credentialsEntry.ADSPClientId, credentialsEntry.ADSPClientSecret);
+                    var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, ActiveDirectoryServiceSettings.Azure);
+
+                    // Getting Media Services accounts...
+                    AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
+                    AMSclient.SubscriptionId = _azureSubscriptionId;
+
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+
+
             return AMSclient;
         }
 
@@ -5043,22 +5029,24 @@ namespace AMSExplorer
     {
         public SubscriptionMediaService MediaService;
         public string ADSPClientId;
-        private string ADSPClientSecret;
+        public string ADSPClientSecret;
+        public string AadTenantId;
         public AzureEnvironmentV3 Environment;
         public PromptBehavior PromptUser;
+        public bool ManualConfig = false;
+        public bool UseSPAuth = false;
+        public string Description;
 
-        public CredentialsEntryV3()
-        {
 
-        }
-
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, string adspclientid = null, string adspclientsecret = null)
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string description = null)
         {
             MediaService = mediaService;
             Environment = environment;
-            ADSPClientId = adspclientid;
-            ADSPClientSecret = adspclientsecret;
+            UseSPAuth = useSPAuth;
             PromptUser = promptUser;
+            ManualConfig = manualConfig;
+            Description = description;
+            AadTenantId = tenantId;
         }
 
         public string AccountName

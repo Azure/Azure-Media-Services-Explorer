@@ -39,6 +39,7 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -51,8 +52,6 @@ namespace AMSExplorer
         private const string _Partner = "Partner";
         private const string _Other = "Other";
         private const string CustomString = "Custom";
-        private bool pageTabAADPresent = true;
-        private bool pageTabACSPresent = true;
 
         public CloudMediaContext context;
         public string accountName;
@@ -67,26 +66,48 @@ namespace AMSExplorer
         public AMSClientV3 AMSClient { get; private set; }
 
 
-        public CredentialsEntry GenerateLoginCredentials
+        public CredentialsEntryV3 GenerateLoginCredentials
         {
             get
             {
-                string mgtprtal = "";
-                if (radioButtonAADAut.Checked /*&& ReturnDeploymentName() == CustomString*/)
-                {
-                    mgtprtal = textBoxAADManagementPortal.Text;
-                }
-                else
-                {
-                    mgtprtal = textBoxManagementPortal.Text;
-                }
+                /*
+                 {
+  "AadClientId": "00000000-0000-0000-0000-000000000000",
+  "AadEndpoint": "https://login.microsoftonline.com",
+  "AadSecret": "00000000-0000-0000-0000-000000000000",
+  "AadTenantId": "00000000-0000-0000-0000-000000000000",
+  "AccountName": "amsaccount",
+  "ArmAadAudience": "https://management.core.windows.net/",
+  "ArmEndpoint": "https://management.azure.com/",
+  "Region": "West US 2",
+  "ResourceGroup": "amsResourceGroup",
+  "SubscriptionId": "00000000-0000-0000-0000-000000000000"
+}
+                */
 
-                return new CredentialsEntry(
-               textBoxAccountName.Text,
+
+                string mgtprtal = "";
+                mgtprtal = textBoxAADManagementPortal.Text;
+
+                string accountnamecc = textBoxAMSResourceId.Text.Split('/').Last();
+
+
+                return new CredentialsEntryV3(
+                                                new SubscriptionMediaService(textBoxAMSResourceId.Text, accountnamecc, null, null, textBoxLocation.Text),
+                                                new AzureEnvironmentV3(AzureEnvType.Production),
+                                                PromptBehavior.Auto,
+                                                radioButtonAADServicePrincipal.Checked,
+                                                textBoxAADtenant.Text,
+                                                true,
+                                                textBoxDescription.Text
+                                                );
+
+
+                /*
                textBoxAccountKey.Text,
                textBoxAADtenant.Text,
                textBoxRestAPIEndpoint.Text,
-               textBoxBlobKey.Text,
+               textBoxLocation.Text,
                textBoxDescription.Text,
                radioButtonAADAut.Checked && radioButtonAADInteractive.Checked,
                radioButtonAADAut.Checked && radioButtonAADServicePrincipal.Checked,
@@ -100,9 +121,11 @@ namespace AMSExplorer
                (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName() : null,
                (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings() : null
                              );
+                             */
             }
         }
 
+        public bool _manualMode { get; private set; }
 
         public AMSLogin()
         {
@@ -112,9 +135,6 @@ namespace AMSExplorer
 
         private void AMSLogin_Load(object sender, EventArgs e)
         {
-            labelEntry1 = labelE1.Text.Split('|');
-            labelEntry2 = labelE2.Text.Split('|');
-
             /* V2 API CODE
  
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
@@ -156,11 +176,6 @@ namespace AMSExplorer
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
 
-            foreach (var map in CredentialsEntry.ACSMappings)
-            {
-                comboBoxMappingList.Items.Add(map.Name);
-            }
-            comboBoxMappingList.SelectedIndex = 0;
 
             comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvironments.AzureChinaCloudEnvironment)));
             comboBoxAADMappingList.Items.Add(new Item("Azure Germany", nameof(AzureEnvironments.AzureGermanCloudEnvironment)));
@@ -171,8 +186,9 @@ namespace AMSExplorer
             // version
             labelVersion.Text = String.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
 
-            UpdateTexboxUI();
             UpdateAADSettingsTextBoxes();
+
+            DoEnableManualFields(false);
         }
 
         private void AddItemToListviewAccounts(CredentialsEntryV3 c)
@@ -282,10 +298,17 @@ namespace AMSExplorer
             }
         }
 
+
+
+
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            //            LoginCredentials = GenerateLoginCredentials;
-            LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+            if (_manualMode)
+                LoginInfo = GenerateLoginCredentials;
+            else
+                // code when used from pick-up
+                LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+
 
             if (LoginInfo == null)
             {
@@ -322,6 +345,33 @@ namespace AMSExplorer
 
             buttonDeleteAccountEntry.Enabled = (listViewAccounts.SelectedIndices.Count > 0); // no selected item, so login button not active
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
+
+            if (listViewAccounts.SelectedIndices.Count > 0) // one selected
+            {
+                LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+                textBoxDescription.Text = LoginInfo.Description;
+
+                if (!LoginInfo.ManualConfig) // from pick-up mode
+
+                {
+                    //tabControlAMS.Enabled = false;
+                    DoEnableManualFields(false);
+                    textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
+                    textBoxLocation.Text = LoginInfo.MediaService.Location;
+                    // textBoxAADtenant.Text = LoginInfo.MediaService.
+                    _manualMode = false;
+
+                }
+                else
+                {
+                    //tabControlAMS.Enabled = true;
+                    DoEnableManualFields(true);
+                    _manualMode = true;
+
+                }
+            }
+
+
 
 
             /* V2 API CODE
@@ -424,20 +474,13 @@ namespace AMSExplorer
 
         private void DoClearFields()
         {
-            textBoxAccountName.Text =
-            textBoxAccountKey.Text =
             textBoxAADtenant.Text =
-            textBoxRestAPIEndpoint.Text =
-            textBoxBlobKey.Text =
+            textBoxAMSResourceId.Text =
+            textBoxLocation.Text =
             textBoxDescription.Text =
-            textBoxACSBaseAddress.Text =
-            textBoxAPIServer.Text =
-            textBoxScope.Text =
-            textBoxAzureEndpoint.Text = string.Empty;
+              string.Empty;
 
-            radioButtonProd.Checked = true;
-            radioButtonAADAut.Checked = true;
-            radioButtonACSAut.Checked = false;
+
             radioButtonAADInteractive.Checked = true;
 
             int i = 0;
@@ -448,17 +491,16 @@ namespace AMSExplorer
             }
         }
 
-        private void radioButtonOther_CheckedChanged(object sender, EventArgs e)
+        private void DoEnableManualFields(bool enable)
         {
-            textBoxACSBaseAddress.Enabled =
-                                            textBoxAPIServer.Enabled =
-                                            textBoxScope.Enabled =
-                                            textBoxAzureEndpoint.Enabled =
-                                            textBoxManagementPortal.Enabled =
-                                            buttonAddMapping.Enabled =
-                                            comboBoxMappingList.Enabled =
-                                            radioButtonOther.Checked;
+            textBoxAADtenant.Enabled =
+            textBoxAMSResourceId.Enabled =
+            textBoxLocation.Enabled =
+            buttonSaveToList.Enabled =
+            buttonClear.Enabled =
+                                    enable;
         }
+
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
@@ -537,14 +579,14 @@ namespace AMSExplorer
 
                     listViewAccounts.Items.Clear();
                     //DoClearFields();
-                    CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c) );
+                    CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
                     buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
                     Program.SaveAndProtectUserConfig();
                     //LoginCredentials = null;
-                   
+
                 }
             }
         }
@@ -572,17 +614,6 @@ namespace AMSExplorer
             mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
         }
 
-
-        private void buttonAddMapping_Click(object sender, EventArgs e)
-        {
-            ACSEndPointMapping EPM = CredentialsEntry.ACSMappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
-
-            textBoxAPIServer.Text = EPM.APIServer;
-            textBoxACSBaseAddress.Text = EPM.ACSBaseAddress;
-            textBoxScope.Text = EPM.Scope;
-            textBoxAzureEndpoint.Text = EPM.AzureEndpoint;
-            textBoxManagementPortal.Text = EPM.ManagementPortal;
-        }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -643,48 +674,6 @@ namespace AMSExplorer
             buttonLogin_Click(sender, e);
         }
 
-        private void radioButtonAADInteract_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateTexboxUI();
-        }
-
-        private void UpdateTexboxUI()
-        {
-            if (radioButtonAADAut.Checked)
-            {
-                labelE1.Text = labelEntry1[1];
-                labelE2.Text = labelEntry2[1];
-                if (!pageTabAADPresent)
-                {
-                    tabControlAMS.TabPages.Add(tabPageAAD);
-                    pageTabAADPresent = true;
-                }
-                if (pageTabACSPresent)
-                {
-                    tabControlAMS.TabPages.Remove(tabPageACS);
-                    pageTabACSPresent = false;
-                }
-            }
-            else // ACS
-            {
-                labelE1.Text = labelEntry1[0];
-                labelE2.Text = labelEntry2[0];
-                if (pageTabAADPresent)
-                {
-                    tabControlAMS.TabPages.Remove(tabPageAAD);
-                    pageTabAADPresent = false;
-                }
-                if (!pageTabACSPresent)
-                {
-                    tabControlAMS.TabPages.Add(tabPageACS);
-                    pageTabACSPresent = true;
-                }
-            }
-
-            linkLabelAADAut.Visible = textBoxAADtenant.Visible = textBoxRestAPIEndpoint.Visible = radioButtonAADAut.Checked;
-            textBoxAccountName.Visible = textBoxAccountKey.Visible = radioButtonACSAut.Checked;
-            groupBoxAADMode.Visible = radioButtonAADAut.Checked;
-        }
 
         private void textBoxAADtenant_Validating(object sender, CancelEventArgs e)
         {
@@ -791,10 +780,6 @@ namespace AMSExplorer
             }
         }
 
-        private void radioButtonACSAut_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonLogin.Visible = radioButtonAADAut.Checked;
-        }
 
         private async void buttonConnectFullyInteractive_Click(object sender, EventArgs e)
         {
@@ -840,11 +825,16 @@ namespace AMSExplorer
                 var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);
                 if (addaccount2.ShowDialog() == DialogResult.OK)
                 {
-
                     // Getting Media Services accounts...
                     var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
 
-                    var entry = new CredentialsEntryV3(addaccount2.selectedAccount, environment, addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto);
+                    var entry = new CredentialsEntryV3(addaccount2.selectedAccount, 
+                        environment, 
+                        addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, 
+                        false,
+                        null,
+                        false, 
+                        textBoxDescription.Text);
                     CredentialList.MediaServicesAccounts.Add(entry);
                     AddItemToListviewAccounts(entry);
 
@@ -887,6 +877,14 @@ namespace AMSExplorer
                 Console.WriteLine(asset.Name);
             }
             */
+        }
+
+        private void buttonManualEntry_Click(object sender, EventArgs e)
+        {
+            tabControlAMS.Enabled = true;
+            DoClearFields();
+            DoEnableManualFields(true);
+            _manualMode = true;
         }
     }
 }

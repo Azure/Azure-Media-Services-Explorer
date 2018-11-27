@@ -156,6 +156,8 @@
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
+            this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
@@ -497,13 +499,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
-            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -521,6 +523,7 @@
             this.contextMenuStripTransfers.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).BeginInit();
+            this.contextMenuStripTransforms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1522,12 +1525,26 @@
             this.dataGridViewTransformsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewTransformsV, "dataGridViewTransformsV");
             this.dataGridViewTransformsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTransformsV.ContextMenuStrip = this.contextMenuStripTransforms;
             this.dataGridViewTransformsV.Name = "dataGridViewTransformsV";
             this.dataGridViewTransformsV.ReadOnly = true;
             this.dataGridViewTransformsV.RowHeadersVisible = false;
             this.dataGridViewTransformsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTransformsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransformsV_CellDoubleClick);
             this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.dataGridViewTransformsV_SelectionChanged);
+            // 
+            // contextMenuStripTransforms
+            // 
+            this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem});
+            this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
+            resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // linkLabelMoreInfoMediaUnits
             // 
@@ -4031,6 +4048,14 @@
             this.toolStripStatusLabelWatchFolder.Name = "toolStripStatusLabelWatchFolder";
             resources.ApplyResources(this.toolStripStatusLabelWatchFolder, "toolStripStatusLabelWatchFolder");
             // 
+            // toolStripStatusLabelEncRU
+            // 
+            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
+            resources.ApplyResources(this.toolStripStatusLabelEncRU, "toolStripStatusLabelEncRU");
+            this.toolStripStatusLabelEncRU.Spring = true;
+            this.toolStripStatusLabelEncRU.Tag = "";
+            // 
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
@@ -4063,14 +4088,6 @@
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
-            // 
-            // toolStripStatusLabelEncRU
-            // 
-            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
-            resources.ApplyResources(this.toolStripStatusLabelEncRU, "toolStripStatusLabelEncRU");
-            this.toolStripStatusLabelEncRU.Spring = true;
-            this.toolStripStatusLabelEncRU.Tag = "";
             // 
             // Mainform
             // 
@@ -4110,6 +4127,7 @@
             this.tabPageJobs.ResumeLayout(false);
             this.tabPageJobs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).EndInit();
+            this.contextMenuStripTransforms.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.contextMenuStripJobs.ResumeLayout(false);
@@ -4610,6 +4628,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
         private DataGridViewTransforms dataGridViewTransformsV;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
     }
 }
 
