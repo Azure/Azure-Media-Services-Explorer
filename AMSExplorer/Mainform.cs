@@ -178,7 +178,7 @@ namespace AMSExplorer
             //_credentials = form.LoginCredentials;
 
             // Get the service context.
-            _context = formLogin.context;// Program.ConnectAndGetNewContext(_credentials, true);
+            _context = null;// ormLogin.context;// Program.ConnectAndGetNewContext(_credentials, true);
             _amsClientV3 = formLogin.AMSClient;
 
             _accountname = _amsClientV3.credentialsEntry.AccountName;

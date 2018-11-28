@@ -35,6 +35,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButtonAddAMSAccount = new System.Windows.Forms.RadioButton();
             this.checkBoxSelectUser = new System.Windows.Forms.CheckBox();
+            this.radioButtonJsonCliOutput = new System.Windows.Forms.RadioButton();
+            this.radioButtonAddManual = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +81,18 @@
             this.checkBoxSelectUser.Name = "checkBoxSelectUser";
             this.checkBoxSelectUser.UseVisualStyleBackColor = true;
             // 
+            // radioButtonJsonCliOutput
+            // 
+            resources.ApplyResources(this.radioButtonJsonCliOutput, "radioButtonJsonCliOutput");
+            this.radioButtonJsonCliOutput.Name = "radioButtonJsonCliOutput";
+            this.radioButtonJsonCliOutput.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAddManual
+            // 
+            resources.ApplyResources(this.radioButtonAddManual, "radioButtonAddManual");
+            this.radioButtonAddManual.Name = "radioButtonAddManual";
+            this.radioButtonAddManual.UseVisualStyleBackColor = true;
+            // 
             // AddAMSAccount1
             // 
             this.AcceptButton = this.buttonNext;
@@ -86,6 +100,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.radioButtonAddManual);
+            this.Controls.Add(this.radioButtonJsonCliOutput);
             this.Controls.Add(this.checkBoxSelectUser);
             this.Controls.Add(this.radioButtonAddAMSAccount);
             this.Controls.Add(this.panel1);
@@ -106,5 +122,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButtonAddAMSAccount;
         private System.Windows.Forms.CheckBox checkBoxSelectUser;
+        private System.Windows.Forms.RadioButton radioButtonJsonCliOutput;
+        private System.Windows.Forms.RadioButton radioButtonAddManual;
     }
 }

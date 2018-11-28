@@ -38,15 +38,21 @@ namespace AMSExplorer
             }
         }
 
+        public AddAccountMode SelectedMode
+        {
+            get
+            {
+                return radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions: ( radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson :  AddAccountMode.ManualEntry);
+            }
+        }
+
 
         public AddAMSAccount1()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-          
-        }
 
-      
+        }
 
         private void AddAMSAccount1_Load(object sender, EventArgs e)
         {
@@ -55,7 +61,14 @@ namespace AMSExplorer
 
         internal AzureEnvironmentV3 GetEnvironment()
         {
-            return new AzureEnvironmentV3(AzureEnvType.Production);
+            return new AzureEnvironmentV3(AzureEnvType.Azure);
         }
+    }
+
+    public enum AddAccountMode
+    {
+        BrowseSubscriptions = 0,
+        FromAzureCliJson,
+        ManualEntry
     }
 }

@@ -205,11 +205,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AMSLogin\AddAMSAccount2.cs">
+    <Compile Include="AMSLogin\AddAMSAccount2Manual.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AMSLogin\AddAMSAccount2.Designer.cs">
-      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    <Compile Include="AMSLogin\AddAMSAccount2Manual.Designer.cs">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AMSLogin\AddAMSAccount2Browse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AMSLogin\AddAMSAccount2Browse.Designer.cs">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
     </Compile>
     <Compile Include="AMSLogin\AddAMSAccount1.cs">
       <SubType>Form</SubType>
@@ -976,11 +982,17 @@
     <EmbeddedResource Include="AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin\AddAMSAccount2.ja.resx">
-      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.ja.resx">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin\AddAMSAccount2.resx">
-      <DependentUpon>AddAMSAccount2.cs</DependentUpon>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.resx">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Browse.ja.resx">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Browse.resx">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AddAMSAccount1.ja.resx">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>

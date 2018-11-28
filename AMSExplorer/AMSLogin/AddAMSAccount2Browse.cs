@@ -31,7 +31,7 @@ using System.Drawing;
 
 namespace AMSExplorer
 {
-    public partial class AddAMSAccount2 : Form
+    public partial class AddAMSAccount2Browse : Form
     {
         private TokenCredentials credentials;
         private AzureEnvironmentV3 environment;
@@ -39,7 +39,7 @@ namespace AMSExplorer
         private Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
 
-        public AddAMSAccount2(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment)
+        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

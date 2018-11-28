@@ -180,42 +180,6 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>293, 17</value>
-  </metadata>
-  <data name="buttonSaveToList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonSaveToList.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="buttonSaveToList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 391</value>
-  </data>
-  <data name="buttonSaveToList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 27</value>
-  </data>
-  <data name="buttonSaveToList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonSaveToList.Text" xml:space="preserve">
-    <value>&lt;-- Save to the list</value>
-  </data>
-  <data name="buttonSaveToList.ToolTip" xml:space="preserve">
-    <value>Credentials are saved in clear in your user profile. Use Bitlocker or do not save them if your PC is unsecured.</value>
-  </data>
-  <data name="&gt;&gt;buttonSaveToList.Name" xml:space="preserve">
-    <value>buttonSaveToList</value>
-  </data>
-  <data name="&gt;&gt;buttonSaveToList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSaveToList.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonSaveToList.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
   <data name="buttonDeleteAccountEntry.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -249,38 +213,62 @@
   <data name="&gt;&gt;buttonDeleteAccountEntry.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="buttonClear.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonClear.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="buttonClear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>350, 141</value>
-  </data>
-  <data name="buttonClear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 27</value>
-  </data>
-  <data name="buttonClear.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonClear.Text" xml:space="preserve">
-    <value>Clear fields</value>
-  </data>
-  <data name="&gt;&gt;buttonClear.Name" xml:space="preserve">
-    <value>buttonClear</value>
-  </data>
-  <data name="&gt;&gt;buttonClear.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonClear.Parent" xml:space="preserve">
-    <value>tabPageCredentials</value>
-  </data>
-  <data name="&gt;&gt;buttonClear.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="tabControlAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 304</value>
+  </data>
+  <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>417, 23</value>
+  </data>
+  <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
+    <value>textBoxDescription</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
+    <value>tabPageCredentials</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 287</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPageCredentials</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="linkLabelAADAut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -316,7 +304,7 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;linkLabelAADAut.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="radioButtonAADServicePrincipal.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -375,8 +363,11 @@
   <data name="&gt;&gt;radioButtonAADInteractive.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="groupBoxAADAutMode.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 141</value>
+    <value>20, 22</value>
   </data>
   <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 82</value>
@@ -385,10 +376,7 @@
     <value>82</value>
   </data>
   <data name="groupBoxAADAutMode.Text" xml:space="preserve">
-    <value>Mode</value>
-  </data>
-  <data name="groupBoxAADAutMode.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+    <value>Authentication Mode</value>
   </data>
   <data name="&gt;&gt;groupBoxAADAutMode.Name" xml:space="preserve">
     <value>groupBoxAADAutMode</value>
@@ -400,13 +388,19 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;groupBoxAADAutMode.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>293, 17</value>
+  </metadata>
   <data name="textBoxAMSResourceId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="textBoxAMSResourceId.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="textBoxAMSResourceId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 46</value>
+    <value>20, 139</value>
   </data>
   <data name="textBoxAMSResourceId.Size" type="System.Drawing.Size, System.Drawing">
     <value>417, 23</value>
@@ -414,11 +408,8 @@
   <data name="textBoxAMSResourceId.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>293, 17</value>
-  </metadata>
   <data name="textBoxAMSResourceId.ToolTip" xml:space="preserve">
-    <value>Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount</value>
+    <value>Found in Azure portal / AMS Account / Properties. Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount</value>
   </data>
   <data name="&gt;&gt;textBoxAMSResourceId.Name" xml:space="preserve">
     <value>textBoxAMSResourceId</value>
@@ -430,37 +421,34 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxAMSResourceId.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
-  <data name="textBoxAADtenant.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxAADtenantId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="textBoxAADtenant.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 255</value>
-  </data>
-  <data name="textBoxAADtenant.Size" type="System.Drawing.Size, System.Drawing">
-    <value>417, 23</value>
-  </data>
-  <data name="textBoxAADtenant.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="textBoxAADtenant.ToolTip" xml:space="preserve">
-    <value>Example : microsoft.onmicrosoft.com</value>
-  </data>
-  <data name="textBoxAADtenant.Visible" type="System.Boolean, mscorlib">
+  <data name="textBoxAADtenantId.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;textBoxAADtenant.Name" xml:space="preserve">
-    <value>textBoxAADtenant</value>
+  <data name="textBoxAADtenantId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 249</value>
   </data>
-  <data name="&gt;&gt;textBoxAADtenant.Type" xml:space="preserve">
+  <data name="textBoxAADtenantId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>417, 23</value>
+  </data>
+  <data name="textBoxAADtenantId.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;textBoxAADtenantId.Name" xml:space="preserve">
+    <value>textBoxAADtenantId</value>
+  </data>
+  <data name="&gt;&gt;textBoxAADtenantId.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxAADtenant.Parent" xml:space="preserve">
+  <data name="&gt;&gt;textBoxAADtenantId.Parent" xml:space="preserve">
     <value>tabPageCredentials</value>
   </data>
-  <data name="&gt;&gt;textBoxAADtenant.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;textBoxAADtenantId.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="labelADTenant.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -469,19 +457,16 @@
     <value>NoControl</value>
   </data>
   <data name="labelADTenant.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 237</value>
+    <value>17, 231</value>
   </data>
   <data name="labelADTenant.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 15</value>
+    <value>106, 15</value>
   </data>
   <data name="labelADTenant.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
   <data name="labelADTenant.Text" xml:space="preserve">
-    <value>Azure AD tenant domain</value>
-  </data>
-  <data name="labelADTenant.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+    <value>Azure AD tenant Id</value>
   </data>
   <data name="&gt;&gt;labelADTenant.Name" xml:space="preserve">
     <value>labelADTenant</value>
@@ -493,7 +478,7 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;labelADTenant.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="labelE2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -502,7 +487,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelE2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 28</value>
+    <value>17, 121</value>
   </data>
   <data name="labelE2.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 15</value>
@@ -523,13 +508,16 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;labelE2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="textBoxLocation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="textBoxLocation.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="textBoxLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 101</value>
+    <value>20, 194</value>
   </data>
   <data name="textBoxLocation.Size" type="System.Drawing.Size, System.Drawing">
     <value>417, 23</value>
@@ -550,13 +538,13 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;textBoxLocation.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="labelLocation.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 83</value>
+    <value>17, 176</value>
   </data>
   <data name="labelLocation.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 15</value>
@@ -577,7 +565,7 @@
     <value>tabPageCredentials</value>
   </data>
   <data name="&gt;&gt;labelLocation.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="tabPageCredentials.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -586,7 +574,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageCredentials.Size" type="System.Drawing.Size, System.Drawing">
-    <value>459, 306</value>
+    <value>459, 339</value>
   </data>
   <data name="tabPageCredentials.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -606,162 +594,6 @@
   <data name="&gt;&gt;tabPageCredentials.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Name" xml:space="preserve">
-    <value>textBoxAADManagementPortal</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Name" xml:space="preserve">
-    <value>comboBoxAADMappingList</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Name" xml:space="preserve">
-    <value>textBoxAADAzureEndpoint</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Name" xml:space="preserve">
-    <value>textBoxAADRedirect</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Name" xml:space="preserve">
-    <value>textBoxAADClienid</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label14.Name" xml:space="preserve">
-    <value>label14</value>
-  </data>
-  <data name="&gt;&gt;label14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Name" xml:space="preserve">
-    <value>textBoxAADAMSResource</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
-  </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Name" xml:space="preserve">
-    <value>radioButtonAADOther</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Name" xml:space="preserve">
-    <value>radioButtonAADProd</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
   <data name="tabPageAAD.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
   </data>
@@ -769,7 +601,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageAAD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>459, 320</value>
+    <value>459, 339</value>
   </data>
   <data name="tabPageAAD.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -796,7 +628,7 @@
     <value>292, 51</value>
   </data>
   <data name="tabControlAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 334</value>
+    <value>467, 367</value>
   </data>
   <data name="tabControlAMS.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -812,396 +644,6 @@
   </data>
   <data name="&gt;&gt;tabControlAMS.ZOrder" xml:space="preserve">
     <value>9</value>
-  </data>
-  <data name="textBoxAADManagementPortal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAADManagementPortal.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxAADManagementPortal.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 270</value>
-  </data>
-  <data name="textBoxAADManagementPortal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 23</value>
-  </data>
-  <data name="textBoxAADManagementPortal.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Name" xml:space="preserve">
-    <value>textBoxAADManagementPortal</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADManagementPortal.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 252</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Management Portal</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="comboBoxAADMappingList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxAADMappingList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 34</value>
-  </data>
-  <data name="comboBoxAADMappingList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 23</value>
-  </data>
-  <data name="comboBoxAADMappingList.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Name" xml:space="preserve">
-    <value>comboBoxAADMappingList</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAADMappingList.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxAADAzureEndpoint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAADAzureEndpoint.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxAADAzureEndpoint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 225</value>
-  </data>
-  <data name="textBoxAADAzureEndpoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 23</value>
-  </data>
-  <data name="textBoxAADAzureEndpoint.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Name" xml:space="preserve">
-    <value>textBoxAADAzureEndpoint</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAzureEndpoint.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label12.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 207</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 15</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Azure Endpoint</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="textBoxAADRedirect.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAADRedirect.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxAADRedirect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 180</value>
-  </data>
-  <data name="textBoxAADRedirect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 23</value>
-  </data>
-  <data name="textBoxAADRedirect.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Name" xml:space="preserve">
-    <value>textBoxAADRedirect</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADRedirect.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label13.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 162</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 15</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Media Services application redirect URI</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="textBoxAADClienid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAADClienid.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxAADClienid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 135</value>
-  </data>
-  <data name="textBoxAADClienid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 23</value>
-  </data>
-  <data name="textBoxAADClienid.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Name" xml:space="preserve">
-    <value>textBoxAADClienid</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADClienid.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label14.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 117</value>
-  </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 15</value>
-  </data>
-  <data name="label14.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>Media Services application client ID</value>
-  </data>
-  <data name="&gt;&gt;label14.Name" xml:space="preserve">
-    <value>label14</value>
-  </data>
-  <data name="&gt;&gt;label14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="textBoxAADAMSResource.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAADAMSResource.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxAADAMSResource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 90</value>
-  </data>
-  <data name="textBoxAADAMSResource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 23</value>
-  </data>
-  <data name="textBoxAADAMSResource.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Name" xml:space="preserve">
-    <value>textBoxAADAMSResource</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;textBoxAADAMSResource.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label15.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 72</value>
-  </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 15</value>
-  </data>
-  <data name="label15.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>Media Services Resource</value>
-  </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
-  </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="radioButtonAADOther.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAADOther.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonAADOther.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonAADOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 34</value>
-  </data>
-  <data name="radioButtonAADOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 19</value>
-  </data>
-  <data name="radioButtonAADOther.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="radioButtonAADOther.Text" xml:space="preserve">
-    <value>Other:</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Name" xml:space="preserve">
-    <value>radioButtonAADOther</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADOther.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="radioButtonAADProd.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAADProd.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonAADProd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonAADProd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 9</value>
-  </data>
-  <data name="radioButtonAADProd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 19</value>
-  </data>
-  <data name="radioButtonAADProd.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="radioButtonAADProd.Text" xml:space="preserve">
-    <value>Default (Azure Global)</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Name" xml:space="preserve">
-    <value>radioButtonAADProd</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.Parent" xml:space="preserve">
-    <value>tabPageAAD</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADProd.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1458,6 +900,9 @@
   <data name="&gt;&gt;buttonConnectFullyInteractive.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>293, 17</value>
+  </metadata>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>390, 17</value>
   </metadata>

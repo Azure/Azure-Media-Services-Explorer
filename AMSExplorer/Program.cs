@@ -4912,6 +4912,24 @@ namespace AMSExplorer
         public string Type;
         public IEnumerable<IListBlobItem> Blobs;
     }
+
+
+    public class JsonFromAzureCli
+    {
+        public string AadClientId { get; set; }
+        public Uri AadEndpoint { get; set; }
+        public string AadSecret { get; set; }
+        public string AadTenantId { get; set; }
+        public string AccountName { get; set; }
+        public Uri ArmAadAudience { get; set; }
+        public Uri ArmEndpoint { get; set; }
+        public string Region { get; set; }
+        public string ResourceGroup { get; set; }
+        public string SubscriptionId { get; set; }
+    }
+
+
+
     public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
@@ -4937,7 +4955,7 @@ namespace AMSExplorer
                 var authContext = new AuthenticationContext(authority: environment.Authority, validateAuthority: true);
 
                 accessToken = await authContext.AcquireTokenAsync(
-                                                                    resource: environment.ArmResource,
+                                                                    resource: environment.AADSettings.TokenAudience.ToString(),
                                                                     clientId: environment.ClientApplicationId,
                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                     parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
@@ -4951,31 +4969,37 @@ namespace AMSExplorer
 
             }
 
-            else // SP
+            else // Service Principal
             {
                 // other code for service principal
                 var form = new AMSLoginServicePrincipal();
+                form.ClientId = credentialsEntry.ADSPClientId;
+                form.ClientSecret = credentialsEntry.ADSPClientSecret;
+
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     credentialsEntry.ADSPClientId = form.ClientId;
                     credentialsEntry.ADSPClientSecret = form.ClientSecret;
 
                     ClientCredential clientCredential = new ClientCredential(credentialsEntry.ADSPClientId, credentialsEntry.ADSPClientSecret);
+
+                    var set = new ActiveDirectoryServiceSettings()
+                    {
+                        AuthenticationEndpoint = credentialsEntry.Environment.AADSettings.AuthenticationEndpoint,
+                        TokenAudience = credentialsEntry.Environment.AADSettings.TokenAudience,
+                        ValidateAuthority = true
+                    };
                     var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, ActiveDirectoryServiceSettings.Azure);
 
                     // Getting Media Services accounts...
                     AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
                     AMSclient.SubscriptionId = _azureSubscriptionId;
-
-
                 }
                 else
                 {
                     return null;
                 }
             }
-
-
 
             return AMSclient;
         }
@@ -5029,7 +5053,6 @@ namespace AMSExplorer
     {
         public SubscriptionMediaService MediaService;
 
-        [JsonIgnore] // In order to not export the SP credential
         public string ADSPClientId;
         [JsonIgnore] // In order to not export the SP credential
         public string ADSPClientSecret;
@@ -5107,17 +5130,20 @@ namespace AMSExplorer
 
     public enum AzureEnvType
     {
-        Test = 0,
-        Production
+        Azure = 0,
+        Test,
+        AzureChina,
+        Custom
     }
 
     public class AzureEnvironmentV3
     {
         public string DisplayName { get; set; }
         public string Authority { get; set; }
-        public string ArmResource { get; set; }
         public Uri ArmEndpoint { get; set; }
         public string ClientApplicationId { get; set; }
+        public ActiveDirectoryServiceSettings AADSettings { get; set; }
+
 
         public AzureEnvironmentV3(AzureEnvType type)
         {
@@ -5127,25 +5153,45 @@ namespace AMSExplorer
 
                     DisplayName = "Test";
                     Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
-                    ArmResource = "https://management.core.windows.net/";
                     ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
                     ClientApplicationId = "24f03a2b-432b-41f7-bc67-941b965f82ed";
+                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true };
                     break;
 
-                case AzureEnvType.Production:
-                    DisplayName = "Production";
+                case AzureEnvType.Azure:
+                    DisplayName = "Azure Global";
                     Authority = "https://login.windows.net/common/oauth2/authorize";
-                    ArmResource = "https://management.core.windows.net/";
                     ArmEndpoint = new Uri("https://management.azure.com/");
                     ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
+                    AADSettings = ActiveDirectoryServiceSettings.Azure;
+
+                    break;
+
+                case AzureEnvType.AzureChina:
+                    DisplayName = "Azure China";
+                    Authority = "https://login.chinacloudapi.cn/common/oauth2/authorize";
+                    ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
+                    ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c"; // is it the same ?
+                    AADSettings = ActiveDirectoryServiceSettings.AzureChina;
+
+                    break;
+
+                case AzureEnvType.Custom:
+                    DisplayName = "Custom";
+                    Authority = "";
+                    ArmEndpoint = null;
+                    ClientApplicationId = "";
+                    AADSettings = new ActiveDirectoryServiceSettings();
                     break;
             }
         }
 
 
+
+
         public string ReturnStorageSuffix()
         {
-            return "core." + ReturnHostNameTwoSegmentsRight(ArmResource); // "core.cloudapi.de"
+            return "core." + ReturnHostNameTwoSegmentsRight(AADSettings.TokenAudience.ToString()); // "core.cloudapi.de"
         }
 
         private string ReturnHostNameTwoSegmentsRight(string myUrl)

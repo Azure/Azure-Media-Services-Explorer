@@ -72,7 +72,6 @@
             // 
             resources.ApplyResources(this.textBoxClientId, "textBoxClientId");
             this.textBoxClientId.Name = "textBoxClientId";
-            this.textBoxClientId.TextChanged += new System.EventHandler(this.textBoxClientId_TextChanged);
             // 
             // textBoxClientSecret
             // 

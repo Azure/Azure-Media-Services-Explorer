@@ -184,7 +184,7 @@
     <value>42</value>
   </data>
   <data name="labelAssetName.Text" xml:space="preserve">
-    <value>label2</value>
+    <value>Select how you want to add a Media Services account</value>
   </data>
   <data name="&gt;&gt;labelAssetName.Name" xml:space="preserve">
     <value>labelAssetName</value>
@@ -196,7 +196,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelAssetName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -220,7 +220,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="radioButtonAddAMSAccount.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -232,13 +232,13 @@
     <value>28, 82</value>
   </data>
   <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 19</value>
+    <value>353, 19</value>
   </data>
   <data name="radioButtonAddAMSAccount.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Add a Media Services Account (Production)</value>
+    <value>Browse your subscriptions and select an Account (Production)</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.Name" xml:space="preserve">
     <value>radioButtonAddAMSAccount</value>
@@ -250,7 +250,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="checkBoxSelectUser.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -277,6 +277,66 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBoxSelectUser.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 151</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>310, 19</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
+    <value>Use the JSON output from Azure Cli (az ams sp create)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJsonCliOutput.Name" xml:space="preserve">
+    <value>radioButtonJsonCliOutput</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJsonCliOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJsonCliOutput.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJsonCliOutput.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonAddManual.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonAddManual.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonAddManual.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 194</value>
+  </data>
+  <data name="radioButtonAddManual.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 19</value>
+  </data>
+  <data name="radioButtonAddManual.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="radioButtonAddManual.Text" xml:space="preserve">
+    <value>Enter manually the settings</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddManual.Name" xml:space="preserve">
+    <value>radioButtonAddManual</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddManual.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddManual.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddManual.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

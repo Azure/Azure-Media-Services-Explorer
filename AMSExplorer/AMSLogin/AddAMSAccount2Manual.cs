@@ -14,49 +14,37 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Azure.Management.ResourceManager.Models;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using System.Drawing;
 
 namespace AMSExplorer
 {
-    public partial class AMSLoginServicePrincipal : Form
+    public partial class AddAMSAccount2Manual : Form
     {
-        public string ClientId
-        {
-            get
-            {
-                return textBoxClientId.Text;
-            }
-            set
-            {
-                textBoxClientId.Text = value;
-            }
-        }
 
-        public string ClientSecret
-        {
-            get
-            {
-                return textBoxClientSecret.Text;
-            }
-            set
-            {
-                textBoxClientSecret.Text = value;
-            }
-        }
-        public AMSLoginServicePrincipal()
+        public AddAMSAccount2Manual()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+        }
 
+        private void AddAMSAccount2_Load(object sender, EventArgs e)
+        {
+            comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvType.Azure)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvType.AzureChina)));
+            comboBoxAADMappingList.SelectedIndex = 0;
         }
     }
 }

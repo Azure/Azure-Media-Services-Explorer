@@ -32,7 +32,6 @@ using System.Reflection;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.IO;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using Microsoft.Azure.Management.Media;
@@ -40,6 +39,7 @@ using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure.Authentication;
 
 namespace AMSExplorer
 {
@@ -53,78 +53,12 @@ namespace AMSExplorer
         private const string _Other = "Other";
         private const string CustomString = "Custom";
 
-        public CloudMediaContext context;
         public string accountName;
-
-        private string[] labelEntry1;
-        private string[] labelEntry2;
 
         private CredentialsEntryV3 LoginInfo;
         private AzureEnvironmentV3 environment;
 
-
         public AMSClientV3 AMSClient { get; private set; }
-
-
-        public CredentialsEntryV3 GenerateLoginCredentials
-        {
-            get
-            {
-                /*
-                 {
-  "AadClientId": "00000000-0000-0000-0000-000000000000",
-  "AadEndpoint": "https://login.microsoftonline.com",
-  "AadSecret": "00000000-0000-0000-0000-000000000000",
-  "AadTenantId": "00000000-0000-0000-0000-000000000000",
-  "AccountName": "amsaccount",
-  "ArmAadAudience": "https://management.core.windows.net/",
-  "ArmEndpoint": "https://management.azure.com/",
-  "Region": "West US 2",
-  "ResourceGroup": "amsResourceGroup",
-  "SubscriptionId": "00000000-0000-0000-0000-000000000000"
-}
-                */
-
-
-                string mgtprtal = "";
-                mgtprtal = textBoxAADManagementPortal.Text;
-
-                string accountnamecc = textBoxAMSResourceId.Text.Split('/').Last();
-
-
-                return new CredentialsEntryV3(
-                                                new SubscriptionMediaService(textBoxAMSResourceId.Text, accountnamecc, null, null, textBoxLocation.Text),
-                                                new AzureEnvironmentV3(AzureEnvType.Production),
-                                                PromptBehavior.Auto,
-                                                radioButtonAADServicePrincipal.Checked,
-                                                textBoxAADtenant.Text,
-                                                true
-                                                );
-
-
-                /*
-               textBoxAccountKey.Text,
-               textBoxAADtenant.Text,
-               textBoxRestAPIEndpoint.Text,
-               textBoxLocation.Text,
-               textBoxDescription.Text,
-               radioButtonAADAut.Checked && radioButtonAADInteractive.Checked,
-               radioButtonAADAut.Checked && radioButtonAADServicePrincipal.Checked,
-               radioButtonPartner.Checked,
-               radioButtonOther.Checked,
-               textBoxAPIServer.Text,
-               textBoxScope.Text,
-               textBoxACSBaseAddress.Text,
-               textBoxAzureEndpoint.Text,
-               mgtprtal,
-               (radioButtonAADOther.Checked && ReturnDeploymentName() != CustomString) ? ReturnDeploymentName() : null,
-               (radioButtonAADOther.Checked && ReturnDeploymentName() == CustomString) ? ReturnADCustomSettings() : null
-                             );
-                             */
-            }
-        }
-
-        public bool _manualMode { get; private set; }
 
         public AMSLogin()
         {
@@ -134,18 +68,6 @@ namespace AMSExplorer
 
         private void AMSLogin_Load(object sender, EventArgs e)
         {
-            /* V2 API CODE
- 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListJSON))
-            {
-                // JSon deserialize
-                CredentialList = (ListCredentials)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListJSON, typeof(ListCredentials));
-                // Display accounts in the list
-                CredentialList.MediaServicesAccounts.ForEach(c =>
-                    AddItemToListviewAccounts(c)
-                );
-            }
-            */
 
             // To clear list
             //Properties.Settings.Default.LoginListRPv3JSON = "";
@@ -156,13 +78,6 @@ namespace AMSExplorer
                 // JSon deserialize
                 CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
 
-                /*
-                CredentialList = (ListCredentialsRPv3)Newtonsoft.Json.JsonConvert.DeserializeObject<ListCredentialsRPv3>(Properties.Settings.Default.LoginListRPv3JSON, new Newtonsoft.Json.JsonSerializerSettings
-                {
-                    TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                });
-                */
 
                 // Display accounts in the list
                 CredentialList.MediaServicesAccounts.ForEach(c =>
@@ -175,17 +90,8 @@ namespace AMSExplorer
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
 
-
-            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvironments.AzureChinaCloudEnvironment)));
-            comboBoxAADMappingList.Items.Add(new Item("Azure Germany", nameof(AzureEnvironments.AzureGermanCloudEnvironment)));
-            comboBoxAADMappingList.Items.Add(new Item("Azure US Government", nameof(AzureEnvironments.AzureUsGovernmentEnvironment)));
-            comboBoxAADMappingList.Items.Add(new Item(CustomString, CustomString));
-            comboBoxAADMappingList.SelectedIndex = 0;
-
             // version
             labelVersion.Text = String.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
-
-            UpdateAADSettingsTextBoxes();
 
             DoEnableManualFields(false);
         }
@@ -197,33 +103,6 @@ namespace AMSExplorer
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
 
-        private string ReturnDeploymentName()
-        {
-            if (radioButtonAADOther.Checked)
-                return ((Item)comboBoxAADMappingList.SelectedItem).Value;
-            else
-                return null;
-        }
-
-
-        private AzureEnvironment ReturnADCustomSettings()
-        {
-            if (ReturnDeploymentName() == CustomString)
-            {
-                AzureEnvironment env = null;
-                try
-                {
-                    env = new AzureEnvironment(new Uri(textBoxAADAzureEndpoint.Text), textBoxAADAMSResource.Text, textBoxAADClienid.Text, new Uri(textBoxAADRedirect.Text));
-                }
-                catch
-                {
-                    return null;
-                }
-                return env;
-            }
-            else
-                return null;
-        }
 
         private string ReturnAzureEndpoint(string mystring)
         {
@@ -236,75 +115,6 @@ namespace AMSExplorer
             return temp.Count() > 1 ? temp[1] : string.Empty;
         }
 
-
-        private void buttonSaveToList_Click(object sender, EventArgs e)
-        {
-
-            var LoginCredentials = GenerateLoginCredentials;
-
-            if (string.IsNullOrEmpty(LoginCredentials.AccountName))
-            {
-                MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
-                return;
-            }
-
-            var indexSameElement = CredentialList.MediaServicesAccounts.FindIndex(c => c.AccountName.ToLower() == LoginCredentials.AccountName.ToLower());
-            // if found the same name
-            if (indexSameElement >= 0)
-            {
-                //var i = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
-                CredentialList.MediaServicesAccounts[indexSameElement] = LoginCredentials;
-            }
-            else
-            {
-                CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-                AddItemToListviewAccounts(LoginCredentials);
-
-            }
-            //LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
-            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-            Program.SaveAndProtectUserConfig();
-
-            //LoginCredentials = GenerateLoginCredentials;
-
-            /* V2 API CODE
-
-          // New code for JSON
-          if (string.IsNullOrEmpty(LoginCredentials.ReturnAccountName()))
-          {
-              MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
-              return;
-          }
-
-          var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.ReturnAccountName().ToLower().Trim() == LoginCredentials.ReturnAccountName().ToLower().Trim()).FirstOrDefault();
-          // if found the same name
-          if (entryWithSameName != null)
-          {
-              CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
-          }
-          else
-          {
-              CredentialList.MediaServicesAccounts.Add(LoginCredentials);
-              //listViewAccounts.Items.Add(ReturnAccountName(LoginCredentials));
-              AddItemToListviewAccounts(LoginCredentials);
-
-          }
-          Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-          Program.SaveAndProtectUserConfig();
-
-          */
-
-
-            /*
-
-            LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
-
-
-            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-            Program.SaveAndProtectUserConfig();
-
-            */
-        }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
         {
@@ -329,16 +139,10 @@ namespace AMSExplorer
             }
         }
 
-
-
-
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (_manualMode)
-                LoginInfo = GenerateLoginCredentials;
-            else
-                // code when used from pick-up
-                LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+            // code when used from pick-up
+            LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
 
             if (LoginInfo == null)
@@ -373,9 +177,6 @@ namespace AMSExplorer
 
         private void listViewAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* V2 API CODE
-          LoginCredentials = GenerateLoginCredentials;
-          */
 
             buttonDeleteAccountEntry.Enabled = (listViewAccounts.SelectedIndices.Count > 0); // no selected item, so login button not active
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
@@ -384,120 +185,20 @@ namespace AMSExplorer
             {
                 LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
+                textBoxDescription.Text = LoginInfo.Description;
                 textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
                 textBoxLocation.Text = LoginInfo.MediaService.Location;
-                textBoxAADtenant.Text = LoginInfo.AadTenantId;
+                textBoxAADtenantId.Text = LoginInfo.AadTenantId;
 
-                labelADTenant.Visible = textBoxAADtenant.Visible = LoginInfo.ManualConfig && LoginInfo.UseSPAuth; // onsly show tenant if SP is used
+                DoEnableManualFields(false);
+                groupBoxAADAutMode.Visible = true;
 
-                if (!LoginInfo.ManualConfig) // from pick-up mode
-                {
-                    DoEnableManualFields(false);
-                    _manualMode = false;
-                    groupBoxAADAutMode.Visible = false;
-                }
-                else // manual mode
-                {
-                    DoEnableManualFields(true);
-                    _manualMode = true;
-                    radioButtonAADServicePrincipal.Checked = LoginInfo.UseSPAuth;
-                    radioButtonAADInteractive.Checked = !LoginInfo.UseSPAuth;
-                    groupBoxAADAutMode.Visible = true;
-                }
+                radioButtonAADInteractive.Checked = !LoginInfo.UseSPAuth;
+                radioButtonAADServicePrincipal.Checked = LoginInfo.UseSPAuth;
             }
 
 
-            /* V2 API CODE
-           if (listViewAccounts.SelectedIndices.Count > 0) // one selected
-           {
-               if (LoginCredentials != null)
-               {
-                   var entryWithSameName = CredentialList.MediaServicesAccounts.Where(c => c.AccountName().ToLower().Trim() == LoginCredentials.AccountName().ToLower().Trim()).FirstOrDefault();
-
-                   if (entryWithSameName != null && !LoginCredentials.Equals(entryWithSameName))
-                   {
-                       var result = MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0, LoginCredentials.AccountName()), AMSExplorer.Properties.Resources.AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                       if (result == DialogResult.Yes) // ok to update the credentials
-                       {
-
-                           CredentialList.MediaServicesAccounts[CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName)] = LoginCredentials;
-                           Properties.Settings.Default.LoginListJSON = JsonConvert.SerializeObject(CredentialList);
-                           Program.SaveAndProtectUserConfig();
-
-                       }
-                   }
-               }
-               */
-
-
-            /* V2 API CODE
-
-          radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
-          radioButtonAADServicePrincipal.Checked = entry.UseAADServicePrincipal;
-          radioButtonAADInteractive.Checked = !radioButtonAADServicePrincipal.Checked;
-
-          if (entry.ADCustomSettings != null)  // custom settings
-          {
-              radioButtonAADOther.Checked = true;
-              comboBoxAADMappingList.SelectedIndex = comboBoxAADMappingList.Items.Count - 1; // last one
-
-              textBoxAADAMSResource.Text = entry.ADCustomSettings.MediaServicesResource;
-              textBoxAADClienid.Text = entry.ADCustomSettings.MediaServicesSdkClientId;
-              textBoxAADRedirect.Text = entry.ADCustomSettings.MediaServicesSdkRedirectUri.ToString();
-              textBoxAADAzureEndpoint.Text = entry.ADCustomSettings.ActiveDirectoryEndpoint.ToString();
-              textBoxAADManagementPortal.Text = entry.OtherManagementPortal;
-
-          }
-          else if (entry.ADDeploymentName != null)
-          {
-              radioButtonAADOther.Checked = true;
-              int index = 0;
-              foreach (var it in comboBoxAADMappingList.Items)
-              {
-                  if (((Item)it).Value == entry.ADDeploymentName)
-                  {
-                      break;
-                  }
-                  index++;
-              }
-              comboBoxAADMappingList.SelectedIndex = index;
-          }
-          else
-          {
-              radioButtonAADProd.Checked = true;
-          }
-
-          textBoxAccountName.Text = entry.AccountName;
-          textBoxAccountKey.Text = entry.AccountKey;
-          textBoxAADtenant.Text = entry.ADTenantDomain;
-          textBoxRestAPIEndpoint.Text = entry.ADRestAPIEndpoint;
-          textBoxBlobKey.Text = entry.DefaultStorageKey;
-          textBoxDescription.Text = entry.Description;
-          radioButtonACSAut.Checked = !entry.UseAADInteract && !entry.UseAADServicePrincipal; ;
-          radioButtonAADAut.Checked = entry.UseAADInteract || entry.UseAADServicePrincipal;
-          radioButtonPartner.Checked = entry.UsePartnerAPI;
-          radioButtonOther.Checked = entry.UseOtherAPI;
-          textBoxAPIServer.Text = entry.OtherAPIServer;
-          textBoxScope.Text = entry.OtherScope;
-          textBoxACSBaseAddress.Text = entry.OtherACSBaseAddress;
-          textBoxAzureEndpoint.Text = entry.OtherAzureEndpoint;
-          textBoxManagementPortal.Text = entry.OtherManagementPortal;
-
-          // if not partner or other, then defaut
-          if (!radioButtonPartner.Checked && !radioButtonOther.Checked)
-          {
-              radioButtonProd.Checked = true;
-          }
-
-          // to clear or set the error
-          CheckTextBox((object)textBoxAccountName);
-          CheckTextBox((object)textBoxAccountKey);
-          CheckTextBox((object)textBoxAADtenant);
-          CheckTextBox((object)textBoxRestAPIEndpoint);
-
-          UpdateTexboxUI();
-
-     } */
+          
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -507,11 +208,10 @@ namespace AMSExplorer
 
         private void DoClearFields()
         {
-            textBoxAADtenant.Text =
+            textBoxAADtenantId.Text =
             textBoxAMSResourceId.Text =
             textBoxLocation.Text =
               string.Empty;
-
 
             radioButtonAADInteractive.Checked = true;
 
@@ -525,14 +225,10 @@ namespace AMSExplorer
 
         private void DoEnableManualFields(bool enable)
         {
-            textBoxAADtenant.Enabled =
+            textBoxAADtenantId.Enabled =
             textBoxAMSResourceId.Enabled =
             textBoxLocation.Enabled =
-            buttonSaveToList.Enabled =
-            buttonClear.Enabled =
                                     enable;
-
-
         }
 
 
@@ -748,169 +444,155 @@ namespace AMSExplorer
         }
 
 
-        private void radioButtonAADOther_CheckedChanged(object sender, EventArgs e)
-        {
-            comboBoxAADMappingList.Enabled = radioButtonAADOther.Checked;
-            UpdateAADSettingsTextBoxes();
-        }
-
-        private void comboBoxAADMappingList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAADSettingsTextBoxes();
-        }
-
-        private void UpdateAADSettingsTextBoxes()
-        {
-            if (radioButtonAADProd.Checked)
-            {
-                textBoxAADAMSResource.Enabled =
-                     textBoxAADClienid.Enabled =
-                     textBoxAADRedirect.Enabled =
-                     textBoxAADAzureEndpoint.Enabled =
-                     textBoxAADManagementPortal.Enabled = false;
-
-                AADEndPointMapping entrymapping = CredentialsEntry.AADMappings.Where(m => m.Name == nameof(AzureEnvironments.AzureCloudEnvironment)).FirstOrDefault();
-
-                var env = AzureEnvironments.AzureCloudEnvironment;
-                textBoxAADAMSResource.Text = env.MediaServicesResource;
-                textBoxAADClienid.Text = env.MediaServicesSdkClientId;
-                textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();
-                textBoxAADAzureEndpoint.Text = env.ActiveDirectoryEndpoint.ToString();
-                textBoxAADManagementPortal.Text = entrymapping.ManagementPortal;
-            }
-            else
-            {
-                if (((Item)comboBoxAADMappingList.SelectedItem).Value == CustomString)
-                {
-                    textBoxAADAMSResource.Enabled =
-                    textBoxAADClienid.Enabled =
-                    textBoxAADRedirect.Enabled =
-                    textBoxAADAzureEndpoint.Enabled =
-                    textBoxAADManagementPortal.Enabled = true;
-
-                    textBoxAADAMSResource.Text =
-                    textBoxAADClienid.Text =
-                    textBoxAADRedirect.Text =
-                    textBoxAADAzureEndpoint.Text =
-                    textBoxAADManagementPortal.Text = "";
-                }
-                else
-                {
-                    textBoxAADAMSResource.Enabled =
-                    textBoxAADClienid.Enabled =
-                    textBoxAADRedirect.Enabled =
-                    textBoxAADAzureEndpoint.Enabled =
-                    textBoxAADManagementPortal.Enabled = false;
-
-                    AADEndPointMapping entrymapping = CredentialsEntry.AADMappings.Where(m => m.Name == ((Item)comboBoxAADMappingList.SelectedItem).Value).FirstOrDefault();
-
-                    var env = CredentialsEntry.ReturnADEnvironment(((Item)comboBoxAADMappingList.SelectedItem).Value);
-                    textBoxAADAMSResource.Text = env.MediaServicesResource;
-                    textBoxAADClienid.Text = env.MediaServicesSdkClientId;
-                    textBoxAADRedirect.Text = env.MediaServicesSdkRedirectUri.ToString();
-                    textBoxAADAzureEndpoint.Text = env.ActiveDirectoryEndpoint.ToString();
-                    textBoxAADManagementPortal.Text = entrymapping.ManagementPortal;
-                }
-            }
-        }
-
-
         private async void buttonConnectFullyInteractive_Click(object sender, EventArgs e)
         {
-            /*
-            var environments = new IAzureEnvironment[]
-       {
-                new ProductionEnvironment(),
-                new TestEnvironment()
-       };
-       */
-            //var environment = new ProductionEnvironment();
-
-
-
             var addaccount1 = new AddAMSAccount1();
             if (addaccount1.ShowDialog() == DialogResult.OK)
             {
-                environment = addaccount1.GetEnvironment();
 
-                var authContext = new AuthenticationContext(
-                authority: environment.Authority,
-                validateAuthority: true);
-
-
-
-                var accessToken = await authContext.AcquireTokenAsync(
-                                                                     resource: environment.ArmResource,
-                                                                     clientId: environment.ClientApplicationId,
-                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                     parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
-                                                                     //promptBehavior: PromptBehavior.Auto
-                                                                     );
-
-                var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-
-                var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                var subscriptions = subscriptionClient.Subscriptions.List();
-
-                //var tenants = subscriptionClient.Tenants.List();
-
-
-
-                var addaccount2 = new AddAMSAccount2(credentials, subscriptions, environment);
-                if (addaccount2.ShowDialog() == DialogResult.OK)
+                if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
-                    // Getting Media Services accounts...
-                    var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+                    environment = addaccount1.GetEnvironment();
 
-                    var entry = new CredentialsEntryV3(addaccount2.selectedAccount,
-                        environment,
-                        addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto,
-                        false,
-                        null,
-                        false
-                        );
-                    CredentialList.MediaServicesAccounts.Add(entry);
-                    AddItemToListviewAccounts(entry);
-
-                    // LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+                    var authContext = new AuthenticationContext(
+                    authority: environment.Authority,
+                    validateAuthority: true);
 
 
-                    Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                    Program.SaveAndProtectUserConfig();
+
+                    var accessToken = await authContext.AcquireTokenAsync(
+                                                                         resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                         clientId: environment.ClientApplicationId,
+                                                                         redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                         parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                         );
+
+                    var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+                    var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                    var subscriptions = subscriptionClient.Subscriptions.List();
+
+                    var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
+                    if (addaccount2.ShowDialog() == DialogResult.OK)
+                    {
+                        // Getting Media Services accounts...
+                        var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+
+                        var entry = new CredentialsEntryV3(addaccount2.selectedAccount,
+                            environment,
+                            addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto,
+                            false,
+                            null,
+                            false
+                            );
+                        CredentialList.MediaServicesAccounts.Add(entry);
+                        AddItemToListviewAccounts(entry);
+
+                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+                        Program.SaveAndProtectUserConfig();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                else
+
+
+                // Get info from the Azure CLI JSON
+                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliJson)
                 {
-                    return;
+                    string example = @"{
+  ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
+  ""AadEndpoint"": ""https://login.microsoftonline.com"",
+  ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
+  ""AadTenantId"": ""00000000-0000-0000-0000-000000000000"",
+  ""AccountName"": ""amsaccount"",
+  ""ArmAadAudience"": ""https://management.core.windows.net/"",
+  ""ArmEndpoint"": ""https://management.azure.com/"",
+  ""Region"": ""West Europe"",
+  ""ResourceGroup"": ""amsResourceGroup"",
+  ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
+}";
+                    var form = new EditorXMLJSON("Enter the JSON output of Azure Cli Service Principal creation (az ams account sp create)", example, true, false, true, "The Service Principal secret is kept in memory but will not be saved by AMSE. Keep and store the secret in a secure place.");
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        JsonFromAzureCli json = null;
+                        try
+                        {
+                            json = (JsonFromAzureCli)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCli));
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error reading the json", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        string resourceId = string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}", json.SubscriptionId, json.ResourceGroup, json.AccountName);
+                        string AADtenantId = json.AadTenantId;
+
+                        var aadSettings = new ActiveDirectoryServiceSettings()
+                        {
+                            AuthenticationEndpoint = json.AadEndpoint,
+                            TokenAudience = json.ArmAadAudience,
+                            ValidateAuthority = true
+                        };
+
+                        var env = new AzureEnvironmentV3(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
+
+                        var entry = new CredentialsEntryV3(
+                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Region),
+                                                        env,
+                                                        PromptBehavior.Auto,
+                                                        true,
+                                                        AADtenantId,
+                                                        false
+                                                        );
+
+                        entry.ADSPClientId = json.AadClientId;
+                        entry.ADSPClientSecret = json.AadSecret;
+
+                        CredentialList.MediaServicesAccounts.Add(entry);
+                        AddItemToListviewAccounts(entry);
+
+                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+                        Program.SaveAndProtectUserConfig();
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+                else if (addaccount1.SelectedMode == AddAccountMode.ManualEntry)
+                {
+                    var form = new AddAMSAccount2Manual();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
+
+                        var t = (AzureEnvType)Enum.Parse(typeof(AzureEnvType), (form.comboBoxAADMappingList.SelectedItem as Item).Value.ToString());
+                        var env = new AzureEnvironmentV3(t);
+
+                        var entry = new CredentialsEntryV3(
+                                                        new SubscriptionMediaService(form.textBoxAMSResourceId.Text, accountnamecc, null, null, form.textBoxLocation.Text),
+                                                        env,
+                                                        PromptBehavior.Auto,
+                                                        radioButtonAADServicePrincipal.Checked,
+                                                        form.textBoxAADtenantId.Text,
+                                                        true
+                                                        );
+
+
+                        CredentialList.MediaServicesAccounts.Add(entry);
+                        AddItemToListviewAccounts(entry);
+
+                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+                        Program.SaveAndProtectUserConfig();
+                    }
+                    else return;
                 }
             }
-            else
-            {
-                return;
-            }
-
-
-            /*
-         
-
-            Console.WriteLine("Getting subscriptions...");
-           
-            var selectedSubscription = subscriptions.FirstOrDefault();
-
-            Console.WriteLine("Getting Media Services accounts...");
-            var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
-            mediaServicesClient.SubscriptionId = selectedSubscription.SubscriptionId;
-            var mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
-            var mediaServicesAccount = mediaServicesAccounts.FirstOrDefault();
-            var idParts = mediaServicesAccount.Id.Split('/');
-            var resourceGroup = idParts[4];
-            var accountName = mediaServicesAccount.Name;
-
-            Console.WriteLine("Listing Assets...");
-            foreach (var asset in mediaServicesClient.Assets.List(resourceGroup, accountName))
-            {
-                Console.WriteLine(asset.Name);
-            }
-            */
         }
 
         private void buttonManualEntry_Click(object sender, EventArgs e)
@@ -918,16 +600,29 @@ namespace AMSExplorer
             tabControlAMS.Enabled = true;
             DoClearFields();
             DoEnableManualFields(true);
-            labelADTenant.Visible = textBoxAADtenant.Visible = false; // onsly show tenant if SP is used
+            labelADTenant.Visible = textBoxAADtenantId.Visible = false; // onsly show tenant if SP is used
             radioButtonAADInteractive.Checked = true;
             groupBoxAADAutMode.Visible = true;
-            _manualMode = true;
         }
 
         private void radioButtonAADServicePrincipal_CheckedChanged(object sender, EventArgs e)
         {
-            labelADTenant.Visible = textBoxAADtenant.Visible = radioButtonAADServicePrincipal.Checked; // onsly show tenant if SP is used
+            labelADTenant.Visible = textBoxAADtenantId.Visible = radioButtonAADServicePrincipal.Checked; // onsly show tenant if SP is used
 
+        }
+
+        private void buttonImportSPJson_Click(object sender, EventArgs e)
+        {
+            //  Azure portal / AMS Account / Properties. Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount
+
+
+        }
+
+        private void textBoxDescription_TextChanged(object sender, EventArgs e)
+        {
+            CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]].Description = textBoxDescription.Text;
+            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+            Program.SaveAndProtectUserConfig();
         }
     }
 }
