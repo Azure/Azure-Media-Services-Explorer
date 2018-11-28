@@ -391,11 +391,11 @@
     <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.Designer.cs">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </Compile>
-    <Compile Include="IndexerV2.cs">
+    <Compile Include="PresetVideoAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IndexerV2.Designer.cs">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
+    <Compile Include="PresetVideoAnalyzer.Designer.cs">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </Compile>
     <Compile Include="AMSLoginServicePrincipal.cs">
       <SubType>Form</SubType>
@@ -1261,11 +1261,11 @@
     <EmbeddedResource Include="IndexerOptions.ja.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndexerV2.ja.resx">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
+    <EmbeddedResource Include="PresetVideoAnalyzer.ja.resx">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndexerV2.resx">
-      <DependentUpon>IndexerV2.cs</DependentUpon>
+    <EmbeddedResource Include="PresetVideoAnalyzer.resx">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLoginServicePrincipal.ja.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>

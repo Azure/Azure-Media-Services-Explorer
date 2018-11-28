@@ -98,8 +98,7 @@ namespace AMSExplorer
                                                 PromptBehavior.Auto,
                                                 radioButtonAADServicePrincipal.Checked,
                                                 textBoxAADtenant.Text,
-                                                true,
-                                                textBoxDescription.Text
+                                                true
                                                 );
 
 
@@ -240,6 +239,32 @@ namespace AMSExplorer
 
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
+
+            var LoginCredentials = GenerateLoginCredentials;
+
+            if (string.IsNullOrEmpty(LoginCredentials.AccountName))
+            {
+                MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty);
+                return;
+            }
+
+            var indexSameElement = CredentialList.MediaServicesAccounts.FindIndex(c => c.AccountName.ToLower() == LoginCredentials.AccountName.ToLower());
+            // if found the same name
+            if (indexSameElement >= 0)
+            {
+                //var i = CredentialList.MediaServicesAccounts.IndexOf(entryWithSameName);
+                CredentialList.MediaServicesAccounts[indexSameElement] = LoginCredentials;
+            }
+            else
+            {
+                CredentialList.MediaServicesAccounts.Add(LoginCredentials);
+                AddItemToListviewAccounts(LoginCredentials);
+
+            }
+            //LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
+            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
+            Program.SaveAndProtectUserConfig();
+
             //LoginCredentials = GenerateLoginCredentials;
 
             /* V2 API CODE
@@ -268,11 +293,17 @@ namespace AMSExplorer
           Program.SaveAndProtectUserConfig();
 
           */
+
+
+            /*
+
             LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
 
             Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
             Program.SaveAndProtectUserConfig();
+
+            */
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -319,6 +350,9 @@ namespace AMSExplorer
 
             AMSClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
             var response = await AMSClient.ConnectAndGetNewClientV3();
+
+            if (response == null) return;
+
             try
             {
                 var a = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
@@ -349,29 +383,28 @@ namespace AMSExplorer
             if (listViewAccounts.SelectedIndices.Count > 0) // one selected
             {
                 LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
-                textBoxDescription.Text = LoginInfo.Description;
+
+                textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
+                textBoxLocation.Text = LoginInfo.MediaService.Location;
+                textBoxAADtenant.Text = LoginInfo.AadTenantId;
+
+                labelADTenant.Visible = textBoxAADtenant.Visible = LoginInfo.ManualConfig && LoginInfo.UseSPAuth; // onsly show tenant if SP is used
 
                 if (!LoginInfo.ManualConfig) // from pick-up mode
-
                 {
-                    //tabControlAMS.Enabled = false;
                     DoEnableManualFields(false);
-                    textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
-                    textBoxLocation.Text = LoginInfo.MediaService.Location;
-                    // textBoxAADtenant.Text = LoginInfo.MediaService.
                     _manualMode = false;
-
+                    groupBoxAADAutMode.Visible = false;
                 }
-                else
+                else // manual mode
                 {
-                    //tabControlAMS.Enabled = true;
                     DoEnableManualFields(true);
                     _manualMode = true;
-
+                    radioButtonAADServicePrincipal.Checked = LoginInfo.UseSPAuth;
+                    radioButtonAADInteractive.Checked = !LoginInfo.UseSPAuth;
+                    groupBoxAADAutMode.Visible = true;
                 }
             }
-
-
 
 
             /* V2 API CODE
@@ -477,7 +510,6 @@ namespace AMSExplorer
             textBoxAADtenant.Text =
             textBoxAMSResourceId.Text =
             textBoxLocation.Text =
-            textBoxDescription.Text =
               string.Empty;
 
 
@@ -499,6 +531,8 @@ namespace AMSExplorer
             buttonSaveToList.Enabled =
             buttonClear.Enabled =
                                     enable;
+
+
         }
 
 
@@ -828,13 +862,13 @@ namespace AMSExplorer
                     // Getting Media Services accounts...
                     var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
 
-                    var entry = new CredentialsEntryV3(addaccount2.selectedAccount, 
-                        environment, 
-                        addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, 
+                    var entry = new CredentialsEntryV3(addaccount2.selectedAccount,
+                        environment,
+                        addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto,
                         false,
                         null,
-                        false, 
-                        textBoxDescription.Text);
+                        false
+                        );
                     CredentialList.MediaServicesAccounts.Add(entry);
                     AddItemToListviewAccounts(entry);
 
@@ -884,7 +918,16 @@ namespace AMSExplorer
             tabControlAMS.Enabled = true;
             DoClearFields();
             DoEnableManualFields(true);
+            labelADTenant.Visible = textBoxAADtenant.Visible = false; // onsly show tenant if SP is used
+            radioButtonAADInteractive.Checked = true;
+            groupBoxAADAutMode.Visible = true;
             _manualMode = true;
+        }
+
+        private void radioButtonAADServicePrincipal_CheckedChanged(object sender, EventArgs e)
+        {
+            labelADTenant.Visible = textBoxAADtenant.Visible = radioButtonAADServicePrincipal.Checked; // onsly show tenant if SP is used
+
         }
     }
 }

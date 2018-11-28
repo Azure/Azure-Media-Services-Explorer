@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace AMSExplorer
 {
-    public partial class IndexerV2 : Form
+    public partial class PresetVideoAnalyzer : Form
     {
         private IndexerOptions formOptions = new IndexerOptions(true);
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
@@ -59,7 +59,7 @@ namespace AMSExplorer
         }
 
 
-        public IndexerV2()
+        public PresetVideoAnalyzer()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

@@ -1096,6 +1096,7 @@ namespace AMSExplorer
                 case "tabPageTransfers":
                     break;
                 case "tabPageJobs":
+                    DoRefreshGridTransformV(false);
                     DoRefreshGridJobV(false);
                     break;
                 case "tabPageLive":
@@ -1115,6 +1116,7 @@ namespace AMSExplorer
         {
 
             DoRefreshGridJobV(false);
+            DoRefreshGridTransformV(false);
             DoRefreshGridAssetV(false);
             DoRefreshGridLiveEventV(false);
             DoRefreshGridStreamingEndpointV(false);
@@ -1190,7 +1192,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
 
-            dataGridViewTransformsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(0)));
+            dataGridViewTransformsV.Invoke(new Action(() => dataGridViewTransformsV.RefreshTransforms()));
 
 
 
@@ -1206,8 +1208,6 @@ namespace AMSExplorer
             //  if (firstime)
             {
                 dataGridViewJobsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
-                //      for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
-                //       comboBoxPageJobs.SelectedIndex = 0;
             }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
@@ -2843,6 +2843,25 @@ namespace AMSExplorer
             SelectedJobs.Reverse();
             return SelectedJobs;
         }
+
+        private List<Transform> ReturnSelectedTransforms()
+        {
+            var SelectedTransforms = new List<Transform>();
+
+            var Transforms = _amsClientV3.AMSclient.Transforms.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+
+            foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
+            {
+                string transformName = Row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString();
+                var myTransform = Transforms.Where(f => f.Name == transformName).FirstOrDefault();
+                if (myTransform != null)
+                {
+                    SelectedTransforms.Add(myTransform);
+                }
+            }
+            return SelectedTransforms;
+        }
+
 
         private StorageAccount ReturnSelectedStorage()
         {
@@ -15177,7 +15196,7 @@ namespace AMSExplorer
 
         private void CreateVideoAnalyzerTransform()
         {
-            var form = new IndexerV2();
+            var form = new PresetVideoAnalyzer();
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -15186,10 +15205,87 @@ namespace AMSExplorer
                                                                 new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language  }),
                                                        };
 
-                // Create the Transform with the output defined above
-                var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "mytransformanaylzyzer", outputs);
+                try
+                {
+                    // Create the Transform with the output defined above
+                    var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "TransformVideoAnalyzer-" + Guid.NewGuid().ToString("N"), outputs);
+                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
 
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error whrn creating the transform.", ex); // Warning
+                }
+
+                DoRefreshGridTransformV(false);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
+        }
+
+        private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
+        {
+            var sel = ReturnSelectedTransforms();
+            if (sel.Count > 0)
+            {
+                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : " + string.Join(", ", ReturnSelectedTransforms().Select(t=>t.Name));
+                toolStripMenuItemSelectedTransform.Enabled = true;
+            }
+            else
+            {
+                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : (no selection)";
+                toolStripMenuItemSelectedTransform.Enabled = false;
+            }
+        }
+
+        private void toolStripMenuItemSelectedTransform_Click(object sender, EventArgs e)
+        {
+            var sel = ReturnSelectedTransforms();
+            var assets = ReturnSelectedAssetsV3();
+            foreach (var asset in assets)
+            {
+                foreach (var transform in sel)
+                {
+                    string uniqueness = Guid.NewGuid().ToString("N");
+                    string jobName = $"job-{uniqueness}";
+                    string outputAssetName = $"output-{uniqueness}";
+
+                    JobInputAsset jobInput = new JobInputAsset(asset.Name);
+
+                    try
+                    {
+
+
+                        var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
+                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                    _amsClientV3.credentialsEntry.AccountName,
+                                                                    outputAssetName,
+                                                                    new Asset()
+                                                                    );
+
+
+                        JobOutput[] jobOutputs =
+                         {
+                    new JobOutputAsset(outputAsset.Name),
+                };
+                        Job job = _amsClientV3.AMSclient.Jobs.Create(
+                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                    _amsClientV3.credentialsEntry.AccountName,
+                                                                    transform.Name,
+                                                                    jobName,
+                                                                    new Job
+                                                                    {
+                                                                        Input = jobInput,
+                                                                        Outputs = jobOutputs,
+                                                                    });
+                        TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
+                    }
+                }
+            }
+            DoRefreshGridJobV(false);
         }
     }
 }

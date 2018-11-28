@@ -696,73 +696,29 @@
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
   </data>
-  <data name="encodeAssetsWithAMEStandardToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+R</value>
+  <data name="toolStripMenuItemSelectedTransform.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
   </data>
-  <data name="encodeAssetsWithAMEStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
+  <data name="toolStripMenuItemSelectedTransform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
   </data>
-  <data name="encodeAssetsWithAMEStandardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder Standard (MES)...</value>
+  <data name="toolStripMenuItemSelectedTransform.Text" xml:space="preserve">
+    <value>With selected transform :</value>
   </data>
-  <data name="ContextMenuItemPremiumWorkflow.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+K</value>
-  </data>
-  <data name="ContextMenuItemPremiumWorkflow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="ContextMenuItemPremiumWorkflow.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder Premium Workflow...</value>
-  </data>
-  <data name="toolStripSeparator32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripMenuItem40.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABgSURBVDhPzZNBDoAgDAT5uY+Tf1VGbFIFJK0c3GSa
-        Qti5kUTkEyQX2LzsKqjTn9L/s2C7eMtQQJE7sJKntCuwZUWL9kwaQa88gjQC+2AGWS/w5iYIsUwQ/Uz5
-        FDDiSDoAuM0FlgiVSXQAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="toolStripMenuItem40.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="toolStripMenuItemSelectTransform.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+T</value>
   </data>
-  <data name="toolStripMenuItem40.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
+  <data name="toolStripMenuItemSelectTransform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
   </data>
-  <data name="toolStripMenuItem40.Text" xml:space="preserve">
-    <value>Generate thumbnails for the asset(s) with MES...</value>
+  <data name="toolStripMenuItemSelectTransform.Text" xml:space="preserve">
+    <value>Select transform...</value>
   </data>
-  <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripMenuItem49.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 22</value>
-  </data>
-  <data name="toolStripMenuItem49.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder (system preset)...</value>
-  </data>
-  <data name="toolStripMenuItem50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 22</value>
-  </data>
-  <data name="toolStripMenuItem50.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder (advanced mode with custom preset)...</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem1.Text" xml:space="preserve">
-    <value>(Deprecated)</value>
-  </data>
-  <data name="encodeToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="encodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="encodeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encode</value>
+  <data name="toolStripMenuItem32.Text" xml:space="preserve">
+    <value>Create job</value>
   </data>
   <data name="toolStripMenuItemIndexer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1107,7 +1063,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 452</value>
+    <value>290, 474</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1128,7 +1084,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1646,13 +1602,13 @@
     <value>837, 56</value>
   </metadata>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Video Analyzer...</value>
   </data>
   <data name="contextMenuStripTransforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 48</value>
+    <value>162, 26</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTransforms.Name" xml:space="preserve">
     <value>contextMenuStripTransforms</value>
@@ -1673,7 +1629,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2589,7 +2545,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2882,7 +2838,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3559,7 +3515,7 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4027,7 +3983,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -8907,58 +8863,22 @@
   <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;encodeToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripMenuItem32.Name" xml:space="preserve">
+    <value>toolStripMenuItem32</value>
   </data>
-  <data name="&gt;&gt;encodeToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItem32.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;encodeAssetsWithAMEStandardToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeAssetsWithAMEStandardToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripMenuItemSelectedTransform.Name" xml:space="preserve">
+    <value>toolStripMenuItemSelectedTransform</value>
   </data>
-  <data name="&gt;&gt;encodeAssetsWithAMEStandardToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItemSelectedTransform.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemPremiumWorkflow.Name" xml:space="preserve">
-    <value>ContextMenuItemPremiumWorkflow</value>
+  <data name="&gt;&gt;toolStripMenuItemSelectTransform.Name" xml:space="preserve">
+    <value>toolStripMenuItemSelectTransform</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemPremiumWorkflow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator32.Name" xml:space="preserve">
-    <value>toolStripSeparator32</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator32.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem40.Name" xml:space="preserve">
-    <value>toolStripMenuItem40</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem40.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem1.Name" xml:space="preserve">
-    <value>deprecatedToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem49.Name" xml:space="preserve">
-    <value>toolStripMenuItem49</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem49.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem50.Name" xml:space="preserve">
-    <value>toolStripMenuItem50</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem50.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItemSelectTransform.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;mediaIntelligenceToolStripMenuItem.Name" xml:space="preserve">

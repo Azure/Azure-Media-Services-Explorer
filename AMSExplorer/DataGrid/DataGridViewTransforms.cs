@@ -45,8 +45,6 @@ namespace AMSExplorer
             _resourceName = resourceName;
             _accountName = accountName;
 
-
-
             var transforms = _client.Transforms.List(_resourceName, _accountName).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
@@ -60,8 +58,6 @@ namespace AMSExplorer
 
             _initialized = true;
         }
-
-
 
 
         public void RefreshTransforms() // all transforms are refreshed
@@ -80,19 +76,14 @@ namespace AMSExplorer
             }
           );
 
-
             _MyObservTransformsV3 = new BindingList<TransformEntryV3>(transforms.ToList());
-
 
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservTransformsV3));
             _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshTransforms End");
 
-
             this.FindForm().Cursor = Cursors.Default;
-
-
         }
 
         public List<Transform> ReturnSelectedTransforms()
@@ -110,6 +101,5 @@ namespace AMSExplorer
             SelectedTransforms.Reverse();
             return SelectedTransforms;
         }
-
     }
 }

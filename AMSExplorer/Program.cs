@@ -5028,8 +5028,12 @@ namespace AMSExplorer
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
     {
         public SubscriptionMediaService MediaService;
+
+        [JsonIgnore] // In order to not export the SP credential
         public string ADSPClientId;
+        [JsonIgnore] // In order to not export the SP credential
         public string ADSPClientSecret;
+
         public string AadTenantId;
         public AzureEnvironmentV3 Environment;
         public PromptBehavior PromptUser;
@@ -5038,14 +5042,13 @@ namespace AMSExplorer
         public string Description;
 
 
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string description = null)
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false)
         {
             MediaService = mediaService;
             Environment = environment;
             UseSPAuth = useSPAuth;
             PromptUser = promptUser;
             ManualConfig = manualConfig;
-            Description = description;
             AadTenantId = tenantId;
         }
 

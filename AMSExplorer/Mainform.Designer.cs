@@ -80,15 +80,9 @@
             this.contextMenuExportToAnotherMediaServicesAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem37 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.encodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.encodeAssetsWithAMEStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemPremiumWorkflow = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem40 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.deprecatedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem49 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem50 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSelectedTransform = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSelectTransform = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaIntelligenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem38Indexer2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -680,7 +674,7 @@
             this.exportToolStripMenuItem,
             this.toolStripMenuItem37,
             this.toolStripSeparator5,
-            this.encodeToolStripMenuItem,
+            this.toolStripMenuItem32,
             this.mediaIntelligenceToolStripMenuItem,
             this.advancedProcessingToolStripMenuItem,
             this.subclipToolStripMenuItem,
@@ -929,70 +923,28 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             // 
-            // encodeToolStripMenuItem
+            // toolStripMenuItem32
             // 
-            this.encodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.encodeAssetsWithAMEStandardToolStripMenuItem,
-            this.ContextMenuItemPremiumWorkflow,
-            this.toolStripSeparator32,
-            this.toolStripMenuItem40,
-            this.toolStripSeparator17,
-            this.deprecatedToolStripMenuItem1});
-            resources.ApplyResources(this.encodeToolStripMenuItem, "encodeToolStripMenuItem");
-            this.encodeToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
+            this.toolStripMenuItem32.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSelectedTransform,
+            this.toolStripMenuItemSelectTransform});
+            this.toolStripMenuItem32.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.toolStripMenuItem32.Name = "toolStripMenuItem32";
+            resources.ApplyResources(this.toolStripMenuItem32, "toolStripMenuItem32");
+            this.toolStripMenuItem32.DropDownOpening += new System.EventHandler(this.toolStripMenuItem32_DropDownOpening);
             // 
-            // encodeAssetsWithAMEStandardToolStripMenuItem
+            // toolStripMenuItemSelectedTransform
             // 
-            this.encodeAssetsWithAMEStandardToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.encodeAssetsWithAMEStandardToolStripMenuItem.Name = "encodeAssetsWithAMEStandardToolStripMenuItem";
-            resources.ApplyResources(this.encodeAssetsWithAMEStandardToolStripMenuItem, "encodeAssetsWithAMEStandardToolStripMenuItem");
-            this.encodeAssetsWithAMEStandardToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAMEStandardToolStripMenuItem_Click);
+            this.toolStripMenuItemSelectedTransform.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.toolStripMenuItemSelectedTransform.Name = "toolStripMenuItemSelectedTransform";
+            resources.ApplyResources(this.toolStripMenuItemSelectedTransform, "toolStripMenuItemSelectedTransform");
+            this.toolStripMenuItemSelectedTransform.Click += new System.EventHandler(this.toolStripMenuItemSelectedTransform_Click);
             // 
-            // ContextMenuItemPremiumWorkflow
+            // toolStripMenuItemSelectTransform
             // 
-            this.ContextMenuItemPremiumWorkflow.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemPremiumWorkflow.Name = "ContextMenuItemPremiumWorkflow";
-            resources.ApplyResources(this.ContextMenuItemPremiumWorkflow, "ContextMenuItemPremiumWorkflow");
-            this.ContextMenuItemPremiumWorkflow.Click += new System.EventHandler(this.encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator32
-            // 
-            this.toolStripSeparator32.Name = "toolStripSeparator32";
-            resources.ApplyResources(this.toolStripSeparator32, "toolStripSeparator32");
-            // 
-            // toolStripMenuItem40
-            // 
-            resources.ApplyResources(this.toolStripMenuItem40, "toolStripMenuItem40");
-            this.toolStripMenuItem40.Name = "toolStripMenuItem40";
-            this.toolStripMenuItem40.Click += new System.EventHandler(this.toolStripMenuItem40_Click);
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            resources.ApplyResources(this.toolStripSeparator17, "toolStripSeparator17");
-            // 
-            // deprecatedToolStripMenuItem1
-            // 
-            this.deprecatedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem49,
-            this.toolStripMenuItem50});
-            this.deprecatedToolStripMenuItem1.Name = "deprecatedToolStripMenuItem1";
-            resources.ApplyResources(this.deprecatedToolStripMenuItem1, "deprecatedToolStripMenuItem1");
-            // 
-            // toolStripMenuItem49
-            // 
-            this.toolStripMenuItem49.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.toolStripMenuItem49.Name = "toolStripMenuItem49";
-            resources.ApplyResources(this.toolStripMenuItem49, "toolStripMenuItem49");
-            this.toolStripMenuItem49.Click += new System.EventHandler(this.toolStripMenuItem49_Click);
-            // 
-            // toolStripMenuItem50
-            // 
-            this.toolStripMenuItem50.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.toolStripMenuItem50.Name = "toolStripMenuItem50";
-            resources.ApplyResources(this.toolStripMenuItem50, "toolStripMenuItem50");
-            this.toolStripMenuItem50.Click += new System.EventHandler(this.toolStripMenuItem50_Click);
+            this.toolStripMenuItemSelectTransform.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.toolStripMenuItemSelectTransform.Name = "toolStripMenuItemSelectTransform";
+            resources.ApplyResources(this.toolStripMenuItemSelectTransform, "toolStripMenuItemSelectTransform");
             // 
             // mediaIntelligenceToolStripMenuItem
             // 
@@ -4326,8 +4278,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeDynamicEncryptionForTheAssetsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encodeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemPremiumWorkflow;
         private System.Windows.Forms.ToolStripMenuItem publishToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem createALocatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsToolStripMenuItem;
@@ -4402,7 +4352,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator24;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem;
@@ -4466,7 +4415,6 @@
         private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator35;
         private System.Windows.Forms.ToolStripMenuItem encodeAssetWithAMEStandardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithAMEStandardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilterInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem23;
@@ -4565,8 +4513,6 @@
         private System.Windows.Forms.ToolStripMenuItem advancedProcessingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem39;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem40;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem41;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem42;
@@ -4577,9 +4523,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem47;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem48;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
-        private System.Windows.Forms.ToolStripMenuItem deprecatedToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem49;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem50;
         private System.Windows.Forms.ToolStripMenuItem mediaAnalyticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem indexAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemIndexv2;
@@ -4630,6 +4573,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectTransform;
     }
 }
 
