@@ -59,7 +59,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
-            this.buttonManualEntry = new System.Windows.Forms.Button();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControlAMS.SuspendLayout();
@@ -265,12 +264,6 @@
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
             // 
-            // buttonManualEntry
-            // 
-            resources.ApplyResources(this.buttonManualEntry, "buttonManualEntry");
-            this.buttonManualEntry.Name = "buttonManualEntry";
-            this.buttonManualEntry.UseVisualStyleBackColor = true;
-            // 
             // textBoxDescription
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
@@ -289,7 +282,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.buttonManualEntry);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonConnectFullyInteractive);
@@ -350,7 +342,6 @@
         private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
         private System.Windows.Forms.Button buttonConnectFullyInteractive;
-        private System.Windows.Forms.Button buttonManualEntry;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label1;
     }
