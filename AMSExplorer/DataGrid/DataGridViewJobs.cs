@@ -15,6 +15,8 @@
 //--------------------------------------------------------------------------------------------- 
 
 using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure.OData;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System;
 using System.Collections.Generic;
@@ -169,6 +171,8 @@ namespace AMSExplorer
             _accountName = accountName;
 
             List<JobEntryV3> jobs = new List<JobEntryV3>();
+            jobs.Add(new JobEntryV3());
+            /*
 
             foreach (var t in _transformName)
             {
@@ -177,10 +181,23 @@ namespace AMSExplorer
                     Name = a.Name,
                     Description = a.Description,
                     LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                    TransformName = t
+                    TransformName = t,
+                    Outputs = a.Outputs.Count
                 }
          ));
             }
+            */
+
+
+            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
+            {
+                Name = "Progress",
+                DataPropertyName = "Progress",
+                HeaderText = "Progress"
+            };
+
+            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
+            this.Columns.Add(col);
 
 
             /*
@@ -228,8 +245,18 @@ namespace AMSExplorer
             */
 
             BindingList<JobEntryV3> MyObservJobthisPageV3 = new BindingList<JobEntryV3>(jobs);
-            //    this.DataSource = MyObservJobthisPageV3;
-            this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
+            // this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
+            this.DataSource = MyObservJobthisPageV3;
+
+            this.Columns["Id"].Visible = false;
+            this.Columns["TransformName"].Visible = false;
+
+            this.Columns["Progress"].DisplayIndex = 5;
+            this.Columns["Progress"].Width = 150;
+            this.Columns["Outputs"].Width = 80;
+            this.Columns["Priority"].Width = 50;
+            this.Columns["State"].Width = 80;
+
 
             _initialized = true;
         }
@@ -295,11 +322,13 @@ namespace AMSExplorer
                     Name = a.Name,
                     Description = a.Description,
                     LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                    TransformName = t
+                    TransformName = t,
+                    Outputs = a.Outputs.Count,
+                    Priority = a.Priority,
+                    State = a.State
                 }
          ));
             }
-
 
             _MyObservJobV3 = new BindingList<JobEntryV3>(jobs);
 
@@ -309,7 +338,6 @@ namespace AMSExplorer
             Debug.WriteLine("RefreshJobs End");
 
             this.FindForm().Cursor = Cursors.Default;
-
         }
 
 
@@ -319,7 +347,27 @@ namespace AMSExplorer
         {
             Task.Run(() =>
             {
-                IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing));
+                // IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing));
+
+                var transforms = _client.Transforms.List(_resourceName, _accountName);
+
+                var odataQuery = new ODataQuery<Job>();
+
+
+                odataQuery.Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' ";
+
+                List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
+                foreach (var t in transforms)
+                {
+                    ActiveAndVisibleJobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t.Name, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t.Name }));
+                }
+
+                /*
+            foreach (var t in transforms)
+            {
+                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t).Select(a => new JobEntryV3
+                {
+                */
 
                 // let's cancel monitor task of non visible jobs
                 List<string> listToCancel = new List<string>();
@@ -327,7 +375,7 @@ namespace AMSExplorer
                 {
                     foreach (var jobmonitored in _MyListJobsMonitored)
                     {
-                        if (ActiveAndVisibleJobs.Where(j => j.Id == jobmonitored.Key).FirstOrDefault() == null)
+                        if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
                         {
                             jobmonitored.Value.Cancel();
                             listToCancel.Add(jobmonitored.Key);
@@ -340,9 +388,9 @@ namespace AMSExplorer
                     JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
 
                     // let's monitor job that are not yet monitored
-                    foreach (IJob job in ActiveAndVisibleJobs.ToList())
+                    foreach (var job in ActiveAndVisibleJobs)
                     {
-                        if (!_MyListJobsMonitored.ContainsKey(job.Id))
+                        if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
                         {
                             this.DoJobProgress(job); // token will be added to dictionnary in this function
                         }
@@ -355,6 +403,204 @@ namespace AMSExplorer
             });
         }
 
+        public void DoJobProgress(JobExtension job)
+        {
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+            const int SleepIntervalMs = 60 * 1000;
+
+            _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    Job myJob = null;
+
+                    do
+                    {
+                        myJob = _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
+
+                        if (token.IsCancellationRequested == true)
+                        {
+                            return;
+                        }
+
+
+                        int index = -1;
+                        foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
+                        {
+                            if (je.Name == myJob.Name)
+                            {
+                                index = _MyObservJobV3.IndexOf(je);
+                                break;
+                            }
+                        }
+
+                        StringBuilder sb = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
+
+                        double progress = 0;
+                        for (int i = 0; i < myJob.Outputs.Count; i++)
+                        {
+
+                            JobOutput output = myJob.Outputs[i];
+
+                            if (output.State == Microsoft.Azure.Management.Media.Models.JobState.Processing)
+                            {
+                                progress += output.Progress;
+
+                                sb.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
+                            }
+
+                        }
+                        if (myJob.Outputs.Count > 0) progress = progress / myJob.Outputs.Count;
+
+                        _MyObservJobV3[index].Progress = progress;
+                        _MyObservJobV3[index].Priority = myJob.Priority;
+                        //_MyObservJobV3[index].StartTime = myJob...StartTime.HasValue ? ((DateTime)myJob.StartTime).ToLocalTime().ToString("G") : null;
+                        //_MyObservJobV3[index].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
+
+                        _MyObservJobV3[index].State = myJob.State;
+
+
+
+                        /*
+                        // let's calculate the estipated time
+                        string ETAstr = "", Durationstr = "";
+                        if (progress > 3)
+                        {
+                            DateTime startlocaltime = ((DateTime)myJob.StartTime).ToLocalTime();
+                            TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
+                            DateTime ETA = DateTime.Now.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
+                            TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
+
+                            ETAstr = "Estimated: " + ETA.ToString("G");
+                            Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
+                            _MyObservJobV3[index].EndTime = ETA.ToString(@"G") + " ?";
+                            _MyObservJobV3[index].Duration = myJob.EndTime.HasValue ?
+                                         ((TimeSpan)((DateTime)myJob.EndTime - (DateTime)myJob.StartTime)).ToString(@"d\.hh\:mm\:ss")
+                                         : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
+                        }
+                        */
+
+                        int indexdisplayed = -1;
+                        foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index in the page
+                        {
+                            if (je.Name == myJob.Name)
+                            {
+                                indexdisplayed = _MyObservJobV3.IndexOf(je);
+                                try
+                                {
+                                    this.BeginInvoke(new Action(() =>
+                                    {
+                                        this.Rows[indexdisplayed].Cells[this.Columns["Progress"].Index].ToolTipText = sb.ToString(); // mouse hover info
+                                        if (progress != 0)
+                                        {
+                                            //  this.Rows[indexdisplayed].Cells[this.Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
+                                            //      this.Rows[indexdisplayed].Cells[this.Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
+                                        }
+                                        this.Refresh();
+                                    }));
+                                }
+                                catch
+                                {
+
+                                }
+
+                                break;
+                            }
+                        }
+
+
+
+                        if (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled)
+                        {
+                            Task.Delay(SleepIntervalMs);
+                        }
+                    }
+                    while (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished
+                    && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error
+                    && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
+
+
+
+                    // job finished
+                    myJob = _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
+
+                    int index2 = -1;
+                    foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
+                    {
+                        if (je.Name == myJob.Name)
+                        {
+                            index2 = _MyObservJobV3.IndexOf(je);
+                            break;
+                        }
+                    }
+
+                    StringBuilder sb2 = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
+
+                    double progress2 = 0;
+                    for (int i = 0; i < myJob.Outputs.Count; i++)
+                    {
+                        JobOutput output = myJob.Outputs[i];
+
+                        if (output.State == Microsoft.Azure.Management.Media.Models.JobState.Processing)
+                        {
+                            progress2 += output.Progress;
+
+                            sb2.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
+                        }
+                    }
+                    if (myJob.Outputs.Count > 0) progress2 = progress2 / myJob.Outputs.Count;
+
+                    _MyObservJobV3[index2].Progress = progress2;
+                    _MyObservJobV3[index2].Priority = myJob.Priority;
+                    _MyObservJobV3[index2].State = myJob.State;
+
+                    if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
+                    {
+                        _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
+                        Mainform myform = (Mainform)this.FindForm();
+
+
+                        string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
+
+                        myform.BeginInvoke(new Action(() =>
+                        {
+
+                            myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index2].Name), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                            myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJob[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                            if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
+                            {
+                                foreach (var output in myJob.Outputs)
+                                {
+
+                                    if (output.Error != null && output.Error.Details != null)
+                                    {
+                                        for (int i = 0; i < output.Error.Details.Count(); i++)
+                                        {
+                                            myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
+                                        }
+                                    }
+                                }
+                            }
+                            //myform.DoRefreshGridAssetV(false);
+                        }));
+
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            this.Refresh();
+                        }));
+
+                    }
+                }
+                catch
+                {
+                    //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
+                }
+            }, token);
+
+        }
 
 
         public void DoJobProgress(IJob job, bool CopySubtitlesToSourceAsset = false)

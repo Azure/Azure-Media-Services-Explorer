@@ -3929,9 +3929,9 @@ namespace AMSExplorer
         public string Id { get; set; }
 
         public string Description { get; set; }
-        public int Tasks { get; set; }
-        public int Priority { get; set; }
-        public Microsoft.WindowsAzure.MediaServices.Client.JobState State { get; set; }
+        public int Outputs { get; set; }
+        public Priority? Priority { get; set; }
+        public Microsoft.Azure.Management.Media.Models.JobState State { get; set; }
         public string StartTime { get; set; }
         public string LastModified { get; set; }
         public string EndTime { get; set; }

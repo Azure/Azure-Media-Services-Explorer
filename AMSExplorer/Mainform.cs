@@ -380,6 +380,7 @@ namespace AMSExplorer
 
                 ApplySettingsOptions(true);
                 */
+
         }
 
 
@@ -4735,6 +4736,37 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDeleteTransforms(List<Transform> SelectedTransforms)
+        {
+            if (SelectedTransforms.Count > 0)
+            {
+                string question = (SelectedTransforms.Count == 1) ? "Delete " + SelectedTransforms[0].Name + " ?" : "Delete these " + SelectedTransforms.Count + " transforms ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Transform deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Task.Run(async () =>
+                    {
+                        bool Error = false;
+                        Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClientV3.AMSclient.Transforms.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, t.Name)).ToArray();
+                        TextBoxLogWriteLine("Deleting transform(s)");
+                        try
+                        {
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the transform(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Transform(s) deleted.");
+                        DoRefreshGridTransformV(false);
+                    }
+           );
+                }
+            }
+        }
+
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6875,24 +6907,24 @@ namespace AMSExplorer
 
                 if (celljobstatevalue != null)
                 {
-                    Microsoft.WindowsAzure.MediaServices.Client.JobState JS = (Microsoft.WindowsAzure.MediaServices.Client.JobState)celljobstatevalue;
+                    var JS = (Microsoft.Azure.Management.Media.Models.JobState)celljobstatevalue;
                     Color mycolor;
 
                     switch (JS)
                     {
-                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Error:
+                        case Microsoft.Azure.Management.Media.Models.JobState.Error:
                             mycolor = Color.Red;
                             break;
-                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceled:
+                        case Microsoft.Azure.Management.Media.Models.JobState.Canceled:
                             mycolor = Color.Blue;
                             break;
-                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Canceling:
+                        case Microsoft.Azure.Management.Media.Models.JobState.Canceling:
                             mycolor = Color.Blue;
                             break;
-                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing:
+                        case Microsoft.Azure.Management.Media.Models.JobState.Processing:
                             mycolor = Color.DarkGreen;
                             break;
-                        case Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued:
+                        case Microsoft.Azure.Management.Media.Models.JobState.Queued:
                             mycolor = Color.Green;
                             break;
                         default:
@@ -15219,9 +15251,9 @@ namespace AMSExplorer
                 }
 
                 DoRefreshGridTransformV(false);
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-            }
+                //DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
         }
+    }
 
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {
@@ -15279,6 +15311,8 @@ namespace AMSExplorer
                                                                         Outputs = jobOutputs,
                                                                     });
                         TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+
+                        dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                     }
                     catch (Exception ex)
                     {
@@ -15287,6 +15321,11 @@ namespace AMSExplorer
                 }
             }
             DoRefreshGridJobV(false);
+        }
+
+        private void deleteTransformsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteTransforms(ReturnSelectedTransforms());
         }
     }
 }

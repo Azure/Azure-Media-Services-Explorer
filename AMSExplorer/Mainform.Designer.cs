@@ -500,6 +500,7 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1488,7 +1489,8 @@
             // contextMenuStripTransforms
             // 
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem});
+            this.addToolStripMenuItem,
+            this.deleteTransformsToolStripMenuItem});
             this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
             // 
@@ -4041,6 +4043,13 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
+            // deleteTransformsToolStripMenuItem
+            // 
+            this.deleteTransformsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteTransformsToolStripMenuItem.Name = "deleteTransformsToolStripMenuItem";
+            resources.ApplyResources(this.deleteTransformsToolStripMenuItem, "deleteTransformsToolStripMenuItem");
+            this.deleteTransformsToolStripMenuItem.Click += new System.EventHandler(this.deleteTransformsToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -4576,6 +4585,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectTransform;
+        private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
     }
 }
 
