@@ -223,6 +223,12 @@
     <Compile Include="AMSLogin\AddAMSAccount1.Designer.cs">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AMSLogin\ExportSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AMSLogin\ExportSettings.Designer.cs">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateTransform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,10 +409,10 @@
     <Compile Include="PresetVideoAnalyzer.Designer.cs">
       <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </Compile>
-    <Compile Include="AMSLoginServicePrincipal.cs">
+    <Compile Include="AMSLogin\AMSLoginServicePrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AMSLoginServicePrincipal.Designer.cs">
+    <Compile Include="AMSLogin\AMSLoginServicePrincipal.Designer.cs">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -573,10 +579,10 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="AMSLogin.cs">
+    <Compile Include="AMSLogin\AMSLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AMSLogin.Designer.cs">
+    <Compile Include="AMSLogin\AMSLogin.Designer.cs">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Bitmaps.Designer.cs">
@@ -979,7 +985,7 @@
     <EmbeddedResource Include="AboutBox.ja.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.ja.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.ja.resx">
@@ -999,6 +1005,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AddAMSAccount1.resx">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\ExportSettings.ja.resx">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\ExportSettings.resx">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.ja.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
@@ -1279,10 +1291,10 @@
     <EmbeddedResource Include="PresetVideoAnalyzer.resx">
       <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLoginServicePrincipal.ja.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.ja.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLoginServicePrincipal.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx" />
@@ -1427,7 +1439,7 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AMSLogin.resx">
+    <EmbeddedResource Include="AMSLogin\AMSLogin.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MetadataInformation.resx">

@@ -120,7 +120,8 @@ namespace AMSExplorer
             // upgrade settings from previous version
             if (Properties.Settings.Default.CallUpgrade)
             {
-                Properties.Settings.Default.Upgrade();
+                //  Properties.Settings.Default.Upgrade();
+                // we remove temporary the upgrade as schema has changed
                 Properties.Settings.Default.CallUpgrade = false;
             }
 

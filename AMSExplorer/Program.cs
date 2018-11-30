@@ -53,6 +53,8 @@ using Microsoft.Azure;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest.Azure.Authentication;
+using System.Security.Cryptography;
+using Newtonsoft.Json.Serialization;
 
 namespace AMSExplorer
 {
@@ -4966,7 +4968,6 @@ namespace AMSExplorer
                 // Getting Media Services accounts...
                 AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
                 AMSclient.SubscriptionId = _azureSubscriptionId;
-
             }
 
             else // Service Principal
@@ -4974,14 +4975,14 @@ namespace AMSExplorer
                 // other code for service principal
                 var form = new AMSLoginServicePrincipal();
                 form.ClientId = credentialsEntry.ADSPClientId;
-                form.ClientSecret = credentialsEntry.ADSPClientSecret;
+                form.ClientSecret = credentialsEntry.ClearADSPClientSecret;
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     credentialsEntry.ADSPClientId = form.ClientId;
-                    credentialsEntry.ADSPClientSecret = form.ClientSecret;
+                    credentialsEntry.ClearADSPClientSecret = form.ClientSecret;
 
-                    ClientCredential clientCredential = new ClientCredential(credentialsEntry.ADSPClientId, credentialsEntry.ADSPClientSecret);
+                    ClientCredential clientCredential = new ClientCredential(credentialsEntry.ADSPClientId, credentialsEntry.ClearADSPClientSecret);
 
                     var set = new ActiveDirectoryServiceSettings()
                     {
@@ -5003,50 +5004,6 @@ namespace AMSExplorer
 
             return AMSclient;
         }
-
-        public StorageAccountListKeysResponse GetStorageKeys(string storageAccountName, string resourceGroupName = null)
-        {
-            // test to get storage keys
-            var resourceManagementClient = new ResourceManagementClient(credentials);
-            resourceManagementClient.SubscriptionId = _azureSubscriptionId;
-            //var storageProvider = resourceManagementClient.Providers.Register("Microsoft.Storage");
-            var storageProvider = resourceManagementClient.Providers.Register("Microsoft.ClassicStorage");
-            SubscriptionCloudCredentials creds = new TokenCloudCredentials(_azureSubscriptionId, accessToken.AccessToken);
-            var storageManagementClient = new StorageManagementClient(creds);
-
-            if (resourceGroupName == null)
-            {
-                var l = storageManagementClient.StorageAccounts.List();
-                var storage = storageManagementClient.StorageAccounts.List().Where(s => s.Name == storageAccountName).FirstOrDefault();
-                if (storage != null)
-                {
-                    resourceGroupName = storage.Id.Split('/')[4];
-                }
-                else
-                {
-                    string token = accessToken.AccessToken;
-                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://management.azure.com/subscriptions/{0}/providers/Microsoft.ClassicStorage/storageAccounts?api-version=2016-12-01", _azureSubscriptionId));
-
-                    request.Method = "GET";
-                    request.Headers["Authorization"] = "Bearer " + token;
-
-
-                    HttpWebResponse response = null;
-                    try
-                    {
-                        response = (HttpWebResponse)request.GetResponse();
-                        //extract data from response
-                    }
-                    catch (WebException ex)
-                    {
-                        //ex.Message;
-                    }
-                }
-            }
-
-            return (resourceGroupName != null) ? storageManagementClient.StorageAccounts.ListKeys(resourceGroupName, storageAccountName) : null;
-        }
-
     }
 
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
@@ -5054,8 +5011,9 @@ namespace AMSExplorer
         public SubscriptionMediaService MediaService;
 
         public string ADSPClientId;
-        [JsonIgnore] // In order to not export the SP credential
-        public string ADSPClientSecret;
+
+        //  A contract is used to ignore this property when exporting the entry
+        public string EncryptedADSPClientSecret;
 
         public string AadTenantId;
         public AzureEnvironmentV3 Environment;
@@ -5101,6 +5059,21 @@ namespace AMSExplorer
             }
         }
 
+        //  A contract is used to ignore this property when saveing settings to disk
+        public string ClearADSPClientSecret
+        {
+            get
+            {
+
+                return EncryptedADSPClientSecret != null ? DecryptSecret(EncryptedADSPClientSecret) : null;
+            }
+            set
+            {
+                EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
+            }
+        }
+
+
 
         public bool Equals(CredentialsEntryV3 other)
         {
@@ -5125,6 +5098,62 @@ namespace AMSExplorer
                 && (this.DefaultStorageKey ?? "") == (other.DefaultStorageKey ?? "")
                  ;
                  */
+        }
+
+
+        private string EncryptSecret(string clientSecretClear)
+        {
+            // Create the original data to be encrypted
+            byte[] toEncrypt = UnicodeEncoding.ASCII.GetBytes(clientSecretClear);
+
+            byte[] encryptedSecret = Protect(toEncrypt);
+
+            return Convert.ToBase64String(encryptedSecret);
+        }
+
+        private string DecryptSecret(string clientSecretEncrypted)
+        {
+            // Create the original data to be encrypted (The data length should be a multiple of 16).
+            byte[] toDecrypt = Convert.FromBase64String(clientSecretEncrypted);
+
+
+            // Decrypt the data and store in a byte array.
+            byte[] originalData = Unprotect(toDecrypt);
+            return UnicodeEncoding.ASCII.GetString(originalData);
+
+        }
+
+        static byte[] s_aditionalEntropy = { 9, 1, 4, 5, 5 };
+
+        public static byte[] Protect(byte[] data)
+        {
+            try
+            {
+                // Encrypt the data using DataProtectionScope.CurrentUser. The result can be decrypted
+                //  only by the same current user.
+                return ProtectedData.Protect(data, s_aditionalEntropy, DataProtectionScope.CurrentUser);
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine("Data was not encrypted. An error occurred.");
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+
+        public static byte[] Unprotect(byte[] data)
+        {
+            try
+            {
+                //Decrypt the data using DataProtectionScope.CurrentUser.
+                return ProtectedData.Unprotect(data, s_aditionalEntropy, DataProtectionScope.CurrentUser);
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine("Data was not decrypted. An error occurred.");
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 
@@ -5755,6 +5784,73 @@ namespace AMSExplorer
             // object.
             ThisListView.ListViewItemSorter = new ListViewItemComparer(e.Column,
                                                               ThisListView.Sorting);
+        }
+    }
+
+
+    public class PropertyRenameAndIgnoreSerializerContractResolver : DefaultContractResolver
+    {
+        private readonly Dictionary<Type, HashSet<string>> _ignores;
+        private readonly Dictionary<Type, Dictionary<string, string>> _renames;
+
+        public PropertyRenameAndIgnoreSerializerContractResolver()
+        {
+            _ignores = new Dictionary<Type, HashSet<string>>();
+            _renames = new Dictionary<Type, Dictionary<string, string>>();
+        }
+
+        public void IgnoreProperty(Type type, params string[] jsonPropertyNames)
+        {
+            if (!_ignores.ContainsKey(type))
+                _ignores[type] = new HashSet<string>();
+
+            foreach (var prop in jsonPropertyNames)
+                _ignores[type].Add(prop);
+        }
+
+        public void RenameProperty(Type type, string propertyName, string newJsonPropertyName)
+        {
+            if (!_renames.ContainsKey(type))
+                _renames[type] = new Dictionary<string, string>();
+
+            _renames[type][propertyName] = newJsonPropertyName;
+        }
+
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        {
+            var property = base.CreateProperty(member, memberSerialization);
+
+            if (IsIgnored(property.DeclaringType, property.PropertyName))
+            {
+                property.ShouldSerialize = i => false;
+                property.Ignored = true;
+            }
+
+            if (IsRenamed(property.DeclaringType, property.PropertyName, out var newJsonPropertyName))
+                property.PropertyName = newJsonPropertyName;
+
+            return property;
+        }
+
+        private bool IsIgnored(Type type, string jsonPropertyName)
+        {
+            if (!_ignores.ContainsKey(type))
+                return false;
+
+            return _ignores[type].Contains(jsonPropertyName);
+        }
+
+        private bool IsRenamed(Type type, string jsonPropertyName, out string newJsonPropertyName)
+        {
+            Dictionary<string, string> renames;
+
+            if (!_renames.TryGetValue(type, out renames) || !renames.TryGetValue(jsonPropertyName, out newJsonPropertyName))
+            {
+                newJsonPropertyName = null;
+                return false;
+            }
+
+            return true;
         }
     }
 

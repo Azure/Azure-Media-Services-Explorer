@@ -122,8 +122,7 @@ namespace AMSExplorer
             if (index > -1)
             {
                 CredentialList.MediaServicesAccounts.RemoveAt(index);
-                Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                Program.SaveAndProtectUserConfig();
+                SaveCredentialsToSettings();
 
                 listViewAccounts.Items.Clear();
                 CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
@@ -153,9 +152,25 @@ namespace AMSExplorer
             }
 
             AMSClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
-            var response = await AMSClient.ConnectAndGetNewClientV3();
+
+            AzureMediaServicesClient response = null;
+            try
+            {
+                response = await AMSClient.ConnectAndGetNewClientV3();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
 
             if (response == null) return;
+
+
+            // let's save the credentials (SP) They may be updated by the user when connecting
+            CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AMSClient.credentialsEntry;
+            SaveCredentialsToSettings();
 
             try
             {
@@ -196,9 +211,6 @@ namespace AMSExplorer
                 radioButtonAADInteractive.Checked = !LoginInfo.UseSPAuth;
                 radioButtonAADServicePrincipal.Checked = LoginInfo.UseSPAuth;
             }
-
-
-          
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -235,46 +247,51 @@ namespace AMSExplorer
         private void buttonExport_Click(object sender, EventArgs e)
         {
             bool exportAll = true;
+            bool exportSPSecrets = false;
+            var form = new ExportSettings();
 
-            if (CredentialList.MediaServicesAccounts.Count > 1 && listViewAccounts.SelectedIndices.Count > 0) // There are more than one entry and one has been selected. Let's ask if user want to export all or not
+            // There are more than one entry and one has been selected. 
+            form.radioButtonAllEntries.Enabled = CredentialList.MediaServicesAccounts.Count > 1 && listViewAccounts.SelectedIndices.Count > 0;
+            form.checkBoxIncludeSPSecrets.Checked = exportSPSecrets;
+
+
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                var diag = System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_ExportAllEntries, System.Windows.Forms.MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                switch (diag)
-                {
-                    case DialogResult.Yes:
-                        break;
-                    case DialogResult.No:
-                        exportAll = false;
-                        break;
-                    case DialogResult.Cancel:
-                        return;
-                }
-            }
+                exportAll = form.radioButtonAllEntries.Checked;
+                exportSPSecrets = form.checkBoxIncludeSPSecrets.Checked;
 
-            DialogResult diares = saveFileDialog1.ShowDialog();
-            if (diares == DialogResult.OK)
-            {
-                try
-                {
-                    JsonSerializerSettings settings = new JsonSerializerSettings();
-                    settings.NullValueHandling = NullValueHandling.Ignore;
-                    settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                var jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+                List<string> properties = new List<string> { "EncryptedADSPClientSecret" };
+                if (!exportSPSecrets)
+                    properties.Add("ClearADSPClientSecret");
+                jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), properties.ToArray()); // let's not export encrypted secret and may be clear secret
 
-                    if (exportAll)
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.NullValueHandling = NullValueHandling.Ignore;
+                settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                settings.ContractResolver = jsonResolver;
+
+                DialogResult diares = saveFileDialog1.ShowDialog();
+                if (diares == DialogResult.OK)
+                {
+                    try
                     {
-                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, settings));
+                        if (exportAll)
+                        {
+                            System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(CredentialList, settings));
+                        }
+                        else
+                        {
+                            var copyEntry = new ListCredentialsRPv3();
+                            copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]]);
+                            System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, settings));
+                        }
                     }
-                    else
-                    {
-                        var copyEntry = new ListCredentialsRPv3();
-                        copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]]);
-                        System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, settings));
-                    }
-                }
-                catch (Exception ex)
+                    catch (Exception ex)
 
-                {
-                    MessageBox.Show(ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show(ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -313,12 +330,20 @@ namespace AMSExplorer
                     buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
-                    Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                    Program.SaveAndProtectUserConfig();
-                    //LoginCredentials = null;
+                    SaveCredentialsToSettings();
 
                 }
             }
+        }
+
+        private void SaveCredentialsToSettings()
+        {
+            var jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), "ClearADSPClientSecret"); // let's not save the clear SP secret
+            JsonSerializerSettings settings = new JsonSerializerSettings() { ContractResolver = jsonResolver };
+            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList, settings);
+            var t = JsonConvert.SerializeObject(CredentialList, settings);
+            Program.SaveAndProtectUserConfig();
         }
 
         private void accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -488,8 +513,7 @@ namespace AMSExplorer
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
 
-                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                        Program.SaveAndProtectUserConfig();
+                        SaveCredentialsToSettings();
                     }
                     else
                     {
@@ -513,7 +537,7 @@ namespace AMSExplorer
   ""ResourceGroup"": ""amsResourceGroup"",
   ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
 }";
-                    var form = new EditorXMLJSON("Enter the JSON output of Azure Cli Service Principal creation (az ams account sp create)", example, true, false, true, "The Service Principal secret is kept in memory but will not be saved by AMSE. Keep and store the secret in a secure place.");
+                    var form = new EditorXMLJSON("Enter the JSON output of Azure Cli Service Principal creation (az ams account sp create)", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -550,13 +574,12 @@ namespace AMSExplorer
                                                         );
 
                         entry.ADSPClientId = json.AadClientId;
-                        entry.ADSPClientSecret = json.AadSecret;
+                        entry.ClearADSPClientSecret = json.AadSecret;
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
 
-                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                        Program.SaveAndProtectUserConfig();
+                        SaveCredentialsToSettings();
                     }
                     else
                     {
@@ -587,8 +610,7 @@ namespace AMSExplorer
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
 
-                        Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-                        Program.SaveAndProtectUserConfig();
+                        SaveCredentialsToSettings();
                     }
                     else return;
                 }
@@ -621,8 +643,7 @@ namespace AMSExplorer
         private void textBoxDescription_TextChanged(object sender, EventArgs e)
         {
             CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]].Description = textBoxDescription.Text;
-            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList);
-            Program.SaveAndProtectUserConfig();
+            SaveCredentialsToSettings();
         }
     }
 }
