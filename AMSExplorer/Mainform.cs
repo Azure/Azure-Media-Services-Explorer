@@ -15327,6 +15327,15 @@ namespace AMSExplorer
         {
             DoDeleteTransforms(ReturnSelectedTransforms());
         }
+
+        private void dataGridViewTransformsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // on line on two is blue
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+        }
     }
 }
 

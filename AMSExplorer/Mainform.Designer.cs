@@ -152,6 +152,7 @@
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
@@ -500,7 +501,6 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
-            this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1484,6 +1484,7 @@
             this.dataGridViewTransformsV.RowHeadersVisible = false;
             this.dataGridViewTransformsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTransformsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransformsV_CellDoubleClick);
+            this.dataGridViewTransformsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTransformsV_RowPostPaint);
             this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.dataGridViewTransformsV_SelectionChanged);
             // 
             // contextMenuStripTransforms
@@ -1499,6 +1500,13 @@
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // deleteTransformsToolStripMenuItem
+            // 
+            this.deleteTransformsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteTransformsToolStripMenuItem.Name = "deleteTransformsToolStripMenuItem";
+            resources.ApplyResources(this.deleteTransformsToolStripMenuItem, "deleteTransformsToolStripMenuItem");
+            this.deleteTransformsToolStripMenuItem.Click += new System.EventHandler(this.deleteTransformsToolStripMenuItem_Click);
             // 
             // linkLabelMoreInfoMediaUnits
             // 
@@ -4042,13 +4050,6 @@
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
-            // 
-            // deleteTransformsToolStripMenuItem
-            // 
-            this.deleteTransformsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
-            this.deleteTransformsToolStripMenuItem.Name = "deleteTransformsToolStripMenuItem";
-            resources.ApplyResources(this.deleteTransformsToolStripMenuItem, "deleteTransformsToolStripMenuItem");
-            this.deleteTransformsToolStripMenuItem.Click += new System.EventHandler(this.deleteTransformsToolStripMenuItem_Click);
             // 
             // Mainform
             // 
