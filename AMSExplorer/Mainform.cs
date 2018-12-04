@@ -74,17 +74,6 @@ namespace AMSExplorer
         private TimeSpan seenInterval = new TimeSpan();
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
-        private bool AMEPremiumWorkflowPresent = true;
-        private bool AMFaceDetectorPresent = true;
-        private bool AMRedactorPresent = true;
-        private bool AMMotionDetectorPresent = true;
-        private bool AMStabilizerPresent = true;
-        private bool AMVideoThumbnailsPresent = true;
-        private bool AMVideoOCRPresent = true;
-        private bool AMContentModerator = true;
-        private bool AMVideoAnnotator = true;
-
-
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
         private bool MediaRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
@@ -1295,15 +1284,27 @@ namespace AMSExplorer
             }
             else // one asset per file
             {
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                int i = 0;
                 // Each file goes in a individual asset
                 foreach (String file in FileNames)
                 {
                     try
                     {
+                        i++;
                         var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(new List<string>() { file }, response.Id, response.token, form.StorageSelected), response.token);
-                        DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+
+                        if (i == 10) // let's use a batch of 10 threads at the same time
+                        {
+                            do
+                            {
+                                Task.Delay(1000).Wait();
+                            }
+                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            i = 0;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -1788,16 +1789,27 @@ namespace AMSExplorer
                 return;
             }
 
+            DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+            int i = 0;
             foreach (var asset in assets)
             {
                 try
                 {
+                    i++;
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     //Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
                     Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
 
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    if (i == 10) // let's use a batch of 10 threads at the same time
+                    {
+                        do
+                        {
+                            Task.Delay(1000).Wait();
+                        }
+                        while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                        i = 0;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -2044,18 +2056,6 @@ namespace AMSExplorer
                     }
 
                     _backuprootfolderupload = SelectedPath;
-                    var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
-
-                    /*
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(
-                          SelectedPath,
-                          response.Id,
-                          AssetCreationOptions.None,//Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                          response.token,
-                          storageaccount: form.StorageSelected
-                          ), response.token);
-*/
 
                     var filePaths = Directory.EnumerateFiles(SelectedPath as string);
 
@@ -2068,6 +2068,8 @@ namespace AMSExplorer
 
                     if (form.SingleAsset)
                     {
+                        var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
+
                         var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
                               filePaths.ToList(),
                               response.Id,
@@ -2078,15 +2080,45 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        foreach (var f in filePaths.ToList())
+                        Task.Factory.StartNew(() =>
                         {
-                            var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+
+                            int i = 0;
+                            foreach (var f in filePaths.ToList())
+                            {
+                                try
+                                {
+                                    i++;
+                                    var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
+                                    // Start a worker thread that does uploading.
+                                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
                                   new List<string>() { f },
                                   response.Id,
                                   response.token,
                                   storageaccount: form.StorageSelected
                                   ), response.token);
-                        }
+
+                                    if (i == 10) // let's use a batch of 10 threads at the same time
+                                    {
+                                        do
+                                        {
+                                            Task.Delay(1000).Wait();
+                                        }
+                                        while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                                        i = 0;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+                            }
+
+
+                        });
+
+
                     }
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
@@ -10153,8 +10185,10 @@ namespace AMSExplorer
                     Task.Run(async () =>
                     {
                         List<Task> MyTasks = new List<Task>();
+                        int i = 0;
                         foreach (string folder in form2.BatchSelectedFolders)
                         {
+                            i++;
                             var response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
                             //var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
 
@@ -10169,10 +10203,21 @@ namespace AMSExplorer
                                       ), response.token);
 
                             MyTasks.Add(myTask);
+
+                            if (i == 10) // let's use a batch of 10 threads at the same time
+                            {
+                                do
+                                {
+                                    Task.Delay(1000).Wait();
+                                }
+                                while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                                i = 0;
+                            }
                         }
 
                         foreach (string file in form2.BatchSelectedFiles)
                         {
+                            i++;
                             var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
 
                             var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
@@ -10183,8 +10228,26 @@ namespace AMSExplorer
                                       ), response.token);
 
                             MyTasks.Add(myTask);
+
+                            if (i >= 10) // let's use a batch of 10 threads at the same time
+                            {
+                                do
+                                {
+                                    Task.Delay(1000).Wait();
+                                }
+                                while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                                i = 0;
+                            }
                         }
-                        await Task.WhenAll(MyTasks);
+
+                        try
+                        {
+                            await Task.WhenAll(MyTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine(ex);
+                        }
 
                         // DoRefreshGridAssetV(false);
                     }
@@ -15252,15 +15315,15 @@ namespace AMSExplorer
 
                 DoRefreshGridTransformV(false);
                 //DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+            }
         }
-    }
 
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {
             var sel = ReturnSelectedTransforms();
             if (sel.Count > 0)
             {
-                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : " + string.Join(", ", ReturnSelectedTransforms().Select(t=>t.Name));
+                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
                 toolStripMenuItemSelectedTransform.Enabled = true;
             }
             else
