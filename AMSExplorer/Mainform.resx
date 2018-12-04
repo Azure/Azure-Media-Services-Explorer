@@ -134,6 +134,40 @@
   <data name="tabControlMain.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
     <value>FlatButtons</value>
   </data>
+  <data name="textBoxAssetsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxAssetsPageNumber.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxAssetsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
+    <value>941, 410</value>
+  </data>
+  <data name="textBoxAssetsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 23</value>
+  </data>
+  <data name="textBoxAssetsPageNumber.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="textBoxAssetsPageNumber.Text" xml:space="preserve">
+    <value>99</value>
+  </data>
+  <data name="textBoxAssetsPageNumber.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Name" xml:space="preserve">
+    <value>textBoxAssetsPageNumber</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="comboBoxSearchAssetOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -144,9 +178,8 @@
     <value>6, 410</value>
   </data>
   <data name="comboBoxSearchAssetOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 23</value>
+    <value>175, 23</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="comboBoxSearchAssetOption.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
   </data>
@@ -160,7 +193,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;comboBoxSearchAssetOption.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -178,7 +211,7 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>307, 414</value>
+    <value>334, 414</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -199,7 +232,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -208,7 +241,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 410</value>
+    <value>379, 410</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -226,7 +259,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;comboBoxFilterAssetsTime.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="buttonAssetSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -238,7 +271,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 410</value>
+    <value>263, 410</value>
   </data>
   <data name="buttonAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -259,7 +292,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;buttonAssetSearch.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="textBoxAssetSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -268,7 +301,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 410</value>
+    <value>187, 410</value>
   </data>
   <data name="textBoxAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 23</value>
@@ -292,10 +325,13 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;textBoxAssetSearch.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="butPrevPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="butPrevPageAsset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="butPrevPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -304,7 +340,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>871, 410</value>
+    <value>907, 410</value>
   </data>
   <data name="butPrevPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -325,7 +361,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;butPrevPageAsset.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="dataGridViewAssetsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1090,7 +1126,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1129,7 +1165,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="comboBoxOrderAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1156,7 +1192,7 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;comboBoxOrderAssets.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="butNextPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1189,33 +1225,6 @@
     <value>tabPageAssets</value>
   </data>
   <data name="&gt;&gt;butNextPageAsset.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="comboBoxPageAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxPageAssets.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxPageAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>905, 410</value>
-  </data>
-  <data name="comboBoxPageAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 23</value>
-  </data>
-  <data name="comboBoxPageAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPageAssets.Name" xml:space="preserve">
-    <value>comboBoxPageAssets</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPageAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPageAssets.Parent" xml:space="preserve">
-    <value>tabPageAssets</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPageAssets.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -1234,7 +1243,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>830, 414</value>
+    <value>862, 414</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>

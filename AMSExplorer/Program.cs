@@ -5433,7 +5433,9 @@ namespace AMSExplorer
 
     public enum SearchIn
     {
-        AssetName = 0,
+        AssetNameEquals = 0,
+        AssetNameGreaterThan,
+        AssetNameLessThan,
         AssetId,
         AssetAltId,
         AssetFileName,

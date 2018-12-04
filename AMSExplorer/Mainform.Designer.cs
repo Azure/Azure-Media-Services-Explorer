@@ -36,6 +36,7 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
+            this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             this.comboBoxSearchAssetOption = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
@@ -128,7 +129,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
-            this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageFilters = new System.Windows.Forms.TabPage();
             this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
@@ -573,6 +573,7 @@
             // tabPageAssets
             // 
             this.tabPageAssets.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageAssets.Controls.Add(this.textBoxAssetsPageNumber);
             this.tabPageAssets.Controls.Add(this.comboBoxSearchAssetOption);
             this.tabPageAssets.Controls.Add(this.label10);
             this.tabPageAssets.Controls.Add(this.comboBoxFilterAssetsTime);
@@ -583,10 +584,15 @@
             this.tabPageAssets.Controls.Add(this.label3);
             this.tabPageAssets.Controls.Add(this.comboBoxOrderAssets);
             this.tabPageAssets.Controls.Add(this.butNextPageAsset);
-            this.tabPageAssets.Controls.Add(this.comboBoxPageAssets);
             this.tabPageAssets.Controls.Add(this.label1);
             resources.ApplyResources(this.tabPageAssets, "tabPageAssets");
             this.tabPageAssets.Name = "tabPageAssets";
+            // 
+            // textBoxAssetsPageNumber
+            // 
+            resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
+            this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
+            this.textBoxAssetsPageNumber.TextChanged += new System.EventHandler(this.textBoxAssetsPageNumber_TextChanged);
             // 
             // comboBoxSearchAssetOption
             // 
@@ -643,7 +649,7 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
             searchObject1.Text = "";
             this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1273,14 +1279,6 @@
             this.butNextPageAsset.Name = "butNextPageAsset";
             this.butNextPageAsset.UseVisualStyleBackColor = true;
             this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
-            // 
-            // comboBoxPageAssets
-            // 
-            resources.ApplyResources(this.comboBoxPageAssets, "comboBoxPageAssets");
-            this.comboBoxPageAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPageAssets.FormattingEnabled = true;
-            this.comboBoxPageAssets.Name = "comboBoxPageAssets";
-            this.comboBoxPageAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageAssets_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -4154,7 +4152,6 @@
         private System.Windows.Forms.ToolStripMenuItem createALocatorForTheAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsOfTheAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encodeAssetWithPremiumWorkflowToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboBoxPageAssets;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxPageJobs;
@@ -4587,6 +4584,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectTransform;
         private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBoxAssetsPageNumber;
     }
 }
 

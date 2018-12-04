@@ -1120,8 +1120,9 @@ namespace AMSExplorer
             if (firstime)
             {
                 dataGridViewAssetsV.Init(_amsClientV3);
-                for (int i = 0; i <= 10 /*dataGridViewAssetsV.PageCount*/; i++) comboBoxPageAssets.Items.Add(i);
-                comboBoxPageAssets.SelectedIndex = 0;
+                //for (int i = 0; i <= 10 /*dataGridViewAssetsV.PageCount*/; i++) comboBoxPageAssets.Items.Add(i);
+                SetTextBoxAssetsPageNumber(0);
+                //comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
@@ -1131,7 +1132,9 @@ namespace AMSExplorer
 
             //  dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
             //  comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(comboBoxPageAssets.SelectedIndex)));
+
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber())));
+
             //dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
 
             /*
@@ -6296,9 +6299,12 @@ namespace AMSExplorer
 
             toolStripStatusLabelWatchFolder.Visible = false;
 
-            comboBoxSearchAssetOption.Items.Add(new Item("Search asset name :", SearchIn.AssetName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search asset Id :", SearchIn.AssetId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search asset alt Id :", SearchIn.AssetAltId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset name (equals) :", SearchIn.AssetNameEquals.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset name (greater than) :", SearchIn.AssetNameGreaterThan.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset name (less than) :", SearchIn.AssetNameLessThan.ToString()));
+
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset Id (equals) :", SearchIn.AssetId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset alt Id (equals) :", SearchIn.AssetAltId.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
 
             comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
@@ -6828,29 +6834,28 @@ namespace AMSExplorer
             }
         }
 
+        private int GetTextBoxAssetsPageNumber()
+        {
+            return int.Parse(textBoxAssetsPageNumber.Text);
+        }
+        private void SetTextBoxAssetsPageNumber(int number)
+        {
+            textBoxAssetsPageNumber.Text = number.ToString();
+        }
+
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
-
-            if (comboBoxPageAssets.SelectedIndex < (comboBoxPageAssets.Items.Count - 1))
-            {
-                comboBoxPageAssets.SelectedIndex++;
-                butPrevPageAsset.Enabled = true;
-            }
-            else butNextPageAsset.Enabled = false;
-
-
+            SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
+            if (!butPrevPageAsset.Enabled) butPrevPageAsset.Enabled = true;
         }
 
         private void butPrevPageAsset_Click(object sender, EventArgs e)
         {
-
-            if (comboBoxPageAssets.SelectedIndex > 0)
+            if (GetTextBoxAssetsPageNumber() > 0)
             {
-                comboBoxPageAssets.SelectedIndex--;
-                butNextPageAsset.Enabled = true;
+                SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() - 1);
             }
-            else butPrevPageAsset.Enabled = false;
-
+            butPrevPageAsset.Enabled = GetTextBoxAssetsPageNumber() > 0;
         }
 
         private void butNextPageJob_Click(object sender, EventArgs e)
@@ -6921,14 +6926,6 @@ namespace AMSExplorer
             {
                 DoRefreshGridAssetV(false);
             }
-        }
-
-        private void comboBoxPageAssets_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedindex = ((ComboBox)sender).SelectedIndex;
-            dataGridViewAssetsV.RefreshAssets(selectedindex);
-            //butPrevPageAsset.Enabled = (selectedindex == 0) ? false : true;
-            //butNextPageAsset.Enabled = (selectedindex == (dataGridViewAssetsV.PageCount - 1)) ? false : true;
         }
 
         private void dataGridViewJobsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -15398,6 +15395,12 @@ namespace AMSExplorer
             {
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
             }
+        }
+
+        private void textBoxAssetsPageNumber_TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber());
+
         }
     }
 }

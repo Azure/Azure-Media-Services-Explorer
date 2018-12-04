@@ -56,7 +56,7 @@ namespace AMSExplorer
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static private bool _neveranalyzed = true;
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetName, Text = "" };
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
         static private string _statefilter = "";
         static private string _timefilter = FilterTime.First1000Items;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -504,9 +504,19 @@ Properties/StorageId
                 string search = "'" + _searchinname.Text + "'";
                 switch (_searchinname.SearchType)
                 {
-                    // Search on Asset name
-                    case SearchIn.AssetName:
+                    // Search on Asset name Equals
+                    case SearchIn.AssetNameEquals:
                         odataQuery.Filter = "name eq "+ search;
+                        break;
+
+                    // Search on Asset name Greater than
+                    case SearchIn.AssetNameGreaterThan:
+                        odataQuery.Filter = "name gt " + search;
+                        break;
+
+                    // Search on Asset name Less than
+                    case SearchIn.AssetNameLessThan:
+                        odataQuery.Filter = "name lt " + search;
                         break;
 
                     // Search on Asset aternate id
