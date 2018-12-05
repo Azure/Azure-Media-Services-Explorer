@@ -110,7 +110,7 @@ namespace AMSExplorer
         private void UpdateTransformLabel()
         {
 
-            textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString() + "-" + _unique;
+            textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();// + "-" + _unique;
         }
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)

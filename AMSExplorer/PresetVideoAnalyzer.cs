@@ -38,23 +38,14 @@ namespace AMSExplorer
         private IndexerOptions formOptions = new IndexerOptions(true);
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
         private string _unique;
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN" };
-
-
-        public IndexerOptionsVar IndexerGenerationOptions
-        {
-            get
-            {
-                return optionsVar;
-            }
-        }
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ru-RU", "hi-IN" };
 
 
         public string Language
         {
             get
             {
-                return ((Item)comboBoxLanguage.SelectedItem).Value as string;
+                return checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value as string;
             }
         }
 
@@ -90,9 +81,8 @@ namespace AMSExplorer
             _unique = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
-        private void IndexerV2_Load(object sender, EventArgs e)
+        private void PresetVideoAnalyzer_Load(object sender, EventArgs e)
         {
-            //comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
@@ -106,45 +96,6 @@ namespace AMSExplorer
             {
                 optionsVar = formOptions.IndexerGenerationOptions;
             }
-        }
-
-        public string JsonConfig()
-        {
-            // Example of config :
-            /*
-              	{
-                      "Features": [{
-                                      "Options": {
-                                                      "Formats": ["WebVtt", "Sami", “TTML”],
-                                                      "Language": "EnUs",
-                                                      "Type": "RecoOptions"
-                                      },
-                                      "Type": "SpReco"
-                      }],
-                      "Version": 1.0
-      }
-             */
-
-            dynamic obj = new JObject();
-            obj.Version = "1.0";
-            obj.Features = new JArray();
-            dynamic Feature = new JObject();
-            obj.Features.Add(Feature);
-            dynamic Option = new JObject();
-            Feature.Options = Option;
-            dynamic Format = new JArray();
-
-            var options = IndexerGenerationOptions;
-            if (options.SAMI) Format.Add("Sami");
-            if (options.WebVTT) Format.Add("WebVtt");
-            if (options.TTML) Format.Add("TTML");
-
-            Option.Formats = Format;
-            Option.Language = ((Item)comboBoxLanguage.SelectedItem).Value as string;
-            Option.Type = "RecoOptions";
-            Feature.Type = "SpReco";
-
-            return JsonConvert.SerializeObject(obj);
         }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -162,17 +113,23 @@ namespace AMSExplorer
         {
             if (AudioOnlyMode)
             {
-                textBoxTransformName.Text = "AudioAnalyzer-" + Language + "-" + _unique;
+                textBoxTransformName.Text = "AudioAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
 
             }
             else
             {
-                textBoxTransformName.Text = "VideoAnalyzer-" + Language + "-" + _unique;
+                textBoxTransformName.Text = "VideoAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
             }
         }
 
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateTransformLabel();
+        }
+
+        private void checkBoxAutoLanguage_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxLanguage.Enabled = !checkBoxAutoLanguage.Checked;
             UpdateTransformLabel();
         }
     }
