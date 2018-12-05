@@ -37,8 +37,8 @@ namespace AMSExplorer
     {
         private IndexerOptions formOptions = new IndexerOptions(true);
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
-
-            public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN" };
+        private string _unique;
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN" };
 
 
         public IndexerOptionsVar IndexerGenerationOptions
@@ -48,13 +48,37 @@ namespace AMSExplorer
                 return optionsVar;
             }
         }
-       
+
 
         public string Language
         {
             get
             {
-                return  ((Item)comboBoxLanguage.SelectedItem).Value as string;
+                return ((Item)comboBoxLanguage.SelectedItem).Value as string;
+            }
+        }
+
+        public string TransformName
+        {
+            get
+            {
+                return textBoxTransformName.Text;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
+            }
+        }
+
+        public bool AudioOnlyMode
+        {
+            get
+            {
+                return radioButtonAudioOnly.Checked;
             }
         }
 
@@ -63,8 +87,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-
-           // buttonJobOptions.Initialize(_context);
+            _unique = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
         private void IndexerV2_Load(object sender, EventArgs e)
@@ -72,7 +95,8 @@ namespace AMSExplorer
             //comboBoxLanguage.Items.AddRange(LanguagesIndexV2.ToArray());
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexerV2));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
+            UpdateTransformLabel();
         }
 
         private void buttonGenOptions_Click(object sender, EventArgs e)
@@ -127,6 +151,29 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void radioButtonAudioAndVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTransformLabel();
+        }
+
+        private void UpdateTransformLabel()
+        {
+            if (AudioOnlyMode)
+            {
+                textBoxTransformName.Text = "AudioAnalyzer-" + Language + "-" + _unique;
+
+            }
+            else
+            {
+                textBoxTransformName.Text = "VideoAnalyzer-" + Language + "-" + _unique;
+            }
+        }
+
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTransformLabel();
         }
     }
 }

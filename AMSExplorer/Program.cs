@@ -1026,7 +1026,9 @@ namespace AMSExplorer
         public const string LinkMoreInfoHyperlapse = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-hyperlapse-content";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-index-content";
-        public const string LinkMoreInfoIndexerV2 = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-process-content-with-indexer2";
+        public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
+        public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
+
         public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-optical-character-recognition";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";

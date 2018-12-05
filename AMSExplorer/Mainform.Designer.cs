@@ -151,7 +151,8 @@
             this.tabPageJobs = new System.Windows.Forms.TabPage();
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.videoAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
@@ -501,6 +502,7 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.mediaEncoderStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1488,16 +1490,24 @@
             // contextMenuStripTransforms
             // 
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem,
+            this.createATransformToolStripMenuItem,
             this.deleteTransformsToolStripMenuItem});
             this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
             // 
-            // addToolStripMenuItem
+            // createATransformToolStripMenuItem
             // 
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            this.createATransformToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.videoAnalyzerToolStripMenuItem,
+            this.mediaEncoderStandardToolStripMenuItem});
+            this.createATransformToolStripMenuItem.Name = "createATransformToolStripMenuItem";
+            resources.ApplyResources(this.createATransformToolStripMenuItem, "createATransformToolStripMenuItem");
+            // 
+            // videoAnalyzerToolStripMenuItem
+            // 
+            this.videoAnalyzerToolStripMenuItem.Name = "videoAnalyzerToolStripMenuItem";
+            resources.ApplyResources(this.videoAnalyzerToolStripMenuItem, "videoAnalyzerToolStripMenuItem");
+            this.videoAnalyzerToolStripMenuItem.Click += new System.EventHandler(this.videoAnalyzerToolStripMenuItem_Click);
             // 
             // deleteTransformsToolStripMenuItem
             // 
@@ -4049,6 +4059,12 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
+            // mediaEncoderStandardToolStripMenuItem
+            // 
+            this.mediaEncoderStandardToolStripMenuItem.Name = "mediaEncoderStandardToolStripMenuItem";
+            resources.ApplyResources(this.mediaEncoderStandardToolStripMenuItem, "mediaEncoderStandardToolStripMenuItem");
+            this.mediaEncoderStandardToolStripMenuItem.Click += new System.EventHandler(this.mediaEncoderStandardToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -4579,12 +4595,14 @@
         private DataGridViewTransforms dataGridViewTransformsV;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
-        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectTransform;
         private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxAssetsPageNumber;
+        private System.Windows.Forms.ToolStripMenuItem createATransformToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem videoAnalyzerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mediaEncoderStandardToolStripMenuItem;
     }
 }
 

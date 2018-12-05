@@ -1610,20 +1610,32 @@
   <metadata name="contextMenuStripTransforms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>837, 56</value>
   </metadata>
-  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+  <data name="videoAnalyzerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
   </data>
-  <data name="addToolStripMenuItem.Text" xml:space="preserve">
-    <value>Video Analyzer...</value>
+  <data name="videoAnalyzerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Audio / Video analyzer...</value>
+  </data>
+  <data name="mediaEncoderStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="mediaEncoderStandardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Standard Encoder...</value>
+  </data>
+  <data name="createATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="createATransformToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a simple transform</value>
   </data>
   <data name="deleteTransformsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="deleteTransformsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete transform(s)...</value>
   </data>
   <data name="contextMenuStripTransforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 48</value>
+    <value>211, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTransforms.Name" xml:space="preserve">
     <value>contextMenuStripTransforms</value>
@@ -9202,10 +9214,16 @@
   <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
-    <value>addToolStripMenuItem</value>
+  <data name="&gt;&gt;createATransformToolStripMenuItem.Name" xml:space="preserve">
+    <value>createATransformToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;addToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;createATransformToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;videoAnalyzerToolStripMenuItem.Name" xml:space="preserve">
+    <value>videoAnalyzerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;videoAnalyzerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;deleteTransformsToolStripMenuItem.Name" xml:space="preserve">
@@ -10923,6 +10941,12 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mediaEncoderStandardToolStripMenuItem.Name" xml:space="preserve">
+    <value>mediaEncoderStandardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mediaEncoderStandardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

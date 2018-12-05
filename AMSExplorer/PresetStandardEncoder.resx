@@ -196,16 +196,16 @@
     <value>NoControl</value>
   </data>
   <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
-    <value>415, 9</value>
+    <value>454, 9</value>
   </data>
   <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 25</value>
+    <value>172, 25</value>
   </data>
   <data name="label34.TabIndex" type="System.Int32, mscorlib">
     <value>65</value>
   </data>
   <data name="label34.Text" xml:space="preserve">
-    <value>Audio / Video Analyzer</value>
+    <value>Standard Encoder</value>
   </data>
   <data name="label34.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
@@ -253,16 +253,16 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 134</value>
+    <value>14, 85</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 15</value>
+    <value>87, 15</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Language :</value>
+    <value>Built-in preset :</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -276,33 +276,9 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 152</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 23</value>
-  </data>
-  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>The natural language to be recognized in the multimedia file</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
-    <value>comboBoxLanguage</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="moreinfoprofilelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -334,34 +310,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 101</value>
-  </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -391,7 +340,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="textBoxTransformName.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 256</value>
@@ -412,94 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTransformName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>Key</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 47</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 19</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioButtonAudioAndVideo.Text" xml:space="preserve">
-    <value>Audio and Video</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioAndVideo.Name" xml:space="preserve">
-    <value>radioButtonAudioAndVideo</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioAndVideo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioAndVideo.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioAndVideo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonAudioOnly.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAudioOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 22</value>
-  </data>
-  <data name="radioButtonAudioOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 19</value>
-  </data>
-  <data name="radioButtonAudioOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonAudioOnly.Text" xml:space="preserve">
-    <value>Audio only</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioOnly.Name" xml:space="preserve">
-    <value>radioButtonAudioOnly</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioOnly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioOnly.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAudioOnly.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 134</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 82</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Mode</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 316</value>
@@ -520,7 +382,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -550,7 +412,91 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="richTextBoxDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="richTextBoxDesc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>308, 103</value>
+  </data>
+  <data name="richTextBoxDesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>318, 109</value>
+  </data>
+  <data name="richTextBoxDesc.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="richTextBoxDesc.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;richTextBoxDesc.Name" xml:space="preserve">
+    <value>richTextBoxDesc</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxDesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxDesc.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxDesc.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="listboxPresets.ItemHeight" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="listboxPresets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 103</value>
+  </data>
+  <data name="listboxPresets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 109</value>
+  </data>
+  <data name="listboxPresets.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="&gt;&gt;listboxPresets.Name" xml:space="preserve">
+    <value>listboxPresets</value>
+  </data>
+  <data name="&gt;&gt;listboxPresets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listboxPresets.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;listboxPresets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Value</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -567,14 +513,11 @@
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Audio / Video Analyzer</value>
+    <value>Standard Encoder</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
@@ -595,7 +538,7 @@
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>PresetVideoAnalyzer</value>
+    <value>PresetStandardEncoder</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class PresetVideoAnalyzer
+    partial class PresetStandardEncoder
     {
         /// <summary>
         /// Required designer variable.
@@ -29,28 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PresetVideoAnalyzer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PresetStandardEncoder));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTransformName = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonAudioOnly = new System.Windows.Forms.RadioButton();
-            this.radioButtonAudioAndVideo = new System.Windows.Forms.RadioButton();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.listboxPresets = new System.Windows.Forms.ListBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -87,28 +84,12 @@
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
-            // comboBoxLanguage
-            // 
-            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLanguage.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
-            this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
-            // 
             // moreinfoprofilelink
             // 
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps._01_indexer;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -120,39 +101,6 @@
             resources.ApplyResources(this.textBoxTransformName, "textBoxTransformName");
             this.textBoxTransformName.Name = "textBoxTransformName";
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioButtonAudioAndVideo);
-            this.groupBox1.Controls.Add(this.radioButtonAudioOnly);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // radioButtonAudioOnly
-            // 
-            resources.ApplyResources(this.radioButtonAudioOnly, "radioButtonAudioOnly");
-            this.radioButtonAudioOnly.Name = "radioButtonAudioOnly";
-            this.radioButtonAudioOnly.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAudioAndVideo
-            // 
-            resources.ApplyResources(this.radioButtonAudioAndVideo, "radioButtonAudioAndVideo");
-            this.radioButtonAudioAndVideo.Checked = true;
-            this.radioButtonAudioAndVideo.Name = "radioButtonAudioAndVideo";
-            this.radioButtonAudioAndVideo.TabStop = true;
-            this.radioButtonAudioAndVideo.UseVisualStyleBackColor = true;
-            this.radioButtonAudioAndVideo.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
-            // 
             // textBoxDescription
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
@@ -163,29 +111,58 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // PresetVideoAnalyzer
+            // richTextBoxDesc
+            // 
+            this.richTextBoxDesc.AcceptsTab = true;
+            resources.ApplyResources(this.richTextBoxDesc, "richTextBoxDesc");
+            this.richTextBoxDesc.Name = "richTextBoxDesc";
+            this.richTextBoxDesc.ReadOnly = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // listboxPresets
+            // 
+            this.listboxPresets.FormattingEnabled = true;
+            resources.ApplyResources(this.listboxPresets, "listboxPresets");
+            this.listboxPresets.Name = "listboxPresets";
+            this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // PresetStandardEncoder
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.listboxPresets);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.richTextBoxDesc);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxTransformName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.moreinfoprofilelink);
-            this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
-            this.Name = "PresetVideoAnalyzer";
-            this.Load += new System.EventHandler(this.IndexerV2_Load);
+            this.Name = "PresetStandardEncoder";
+            this.Load += new System.EventHandler(this.PresetStandardEncoder_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,16 +176,14 @@
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButtonAudioAndVideo;
-        private System.Windows.Forms.RadioButton radioButtonAudioOnly;
         private System.Windows.Forms.TextBox textBoxTransformName;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox richTextBoxDesc;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.ListBox listboxPresets;
     }
 }

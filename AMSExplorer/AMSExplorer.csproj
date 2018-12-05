@@ -251,6 +251,12 @@
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PresetStandardEncoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresetStandardEncoder.Designer.cs">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransformInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1038,6 +1044,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTransform.resx">
       <DependentUpon>CreateTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoder.ja.resx">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoder.resx">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformInformation.ja.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>

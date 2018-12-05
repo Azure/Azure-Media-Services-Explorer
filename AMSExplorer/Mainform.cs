@@ -15293,25 +15293,65 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                TransformOutput[] outputs = new TransformOutput[]
+                TransformOutput[] outputs;
+
+                if (form.AudioOnlyMode)
+                {
+                    outputs = new TransformOutput[]
+                                                     {
+                                                                new TransformOutput( new AudioAnalyzerPreset( ){ AudioLanguage=form.Language  }),
+                                                     };
+                }
+                else // video mode
+                {
+                    outputs = new TransformOutput[]
                                                        {
                                                                 new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language  }),
                                                        };
+                }
 
                 try
                 {
                     // Create the Transform with the output defined above
-                    var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "TransformVideoAnalyzer-" + Guid.NewGuid().ToString("N"), outputs);
+                    var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
 
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error whrn creating the transform.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
                 }
 
                 DoRefreshGridTransformV(false);
-                //DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+            }
+        }
+
+        private void CreateStandardEncoderTransform()
+        {
+            var form = new PresetStandardEncoder();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                TransformOutput[] outputs;
+               
+                    outputs = new TransformOutput[]
+                                                     {
+                                                                new TransformOutput( new BuiltInStandardEncoderPreset( ){ PresetName= form.BuiltInPreset }),
+                                                     };
+               
+                try
+                {
+                    // Create the Transform with the output defined above
+                    var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
+                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                }
+
+                DoRefreshGridTransformV(false);
             }
         }
 
@@ -15401,6 +15441,17 @@ namespace AMSExplorer
         {
             dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber());
 
+        }
+
+        private void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateVideoAnalyzerTransform();
+
+        }
+
+        private void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateStandardEncoderTransform();
         }
     }
 }
