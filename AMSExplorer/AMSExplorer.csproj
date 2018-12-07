@@ -163,10 +163,10 @@
       <HintPath>..\packages\windowsazure.mediaservices.extensions.4.2.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.9.3.2\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -250,6 +250,12 @@
     <Compile Include="DataGrid\DataGridViewProgress.cs" />
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HttpSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HttpSource.Designer.cs">
+      <DependentUpon>HttpSource.cs</DependentUpon>
     </Compile>
     <Compile Include="PresetStandardEncoder.cs">
       <SubType>Form</SubType>
@@ -1044,6 +1050,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTransform.resx">
       <DependentUpon>CreateTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HttpSource.ja.resx">
+      <DependentUpon>HttpSource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HttpSource.resx">
+      <DependentUpon>HttpSource.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresetStandardEncoder.ja.resx">
       <DependentUpon>PresetStandardEncoder.cs</DependentUpon>

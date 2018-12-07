@@ -83,7 +83,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSelectedTransform = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSelectTransform = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaIntelligenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem38Indexer2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,23 +153,21 @@
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.videoAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mediaEncoderStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.createJobUsingAnHttpSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
-            this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
-            this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
             this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
-            this.labelnbunits = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
-            this.comboBoxEncodingRU = new System.Windows.Forms.ComboBox();
             this.buttonJobSearch = new System.Windows.Forms.Button();
             this.textBoxJobSearch = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxStateJobs = new System.Windows.Forms.ComboBox();
             this.butPrevPageJob = new System.Windows.Forms.Button();
             this.butNextPageJob = new System.Windows.Forms.Button();
-            this.comboBoxPageJobs = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
@@ -502,7 +500,7 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
-            this.mediaEncoderStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -521,7 +519,6 @@
             this.tabPageJobs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).BeginInit();
             this.contextMenuStripTransforms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.contextMenuStripJobs.SuspendLayout();
             this.tabPageLive.SuspendLayout();
@@ -867,8 +864,8 @@
             this.toolStripMenuItem14,
             this.fromAzureStorageSASContainerPathToolStripMenuItem,
             this.toolStripMenuItem15});
-            resources.ApplyResources(this.importToolStripMenuItem1, "importToolStripMenuItem1");
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
+            resources.ApplyResources(this.importToolStripMenuItem1, "importToolStripMenuItem1");
             // 
             // toolStripMenuItem14
             // 
@@ -878,8 +875,8 @@
             // 
             // fromAzureStorageSASContainerPathToolStripMenuItem
             // 
-            this.fromAzureStorageSASContainerPathToolStripMenuItem.Name = "fromAzureStorageSASContainerPathToolStripMenuItem";
             resources.ApplyResources(this.fromAzureStorageSASContainerPathToolStripMenuItem, "fromAzureStorageSASContainerPathToolStripMenuItem");
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Name = "fromAzureStorageSASContainerPathToolStripMenuItem";
             this.fromAzureStorageSASContainerPathToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStorageSASContainerPathToolStripMenuItem_Click);
             // 
             // toolStripMenuItem15
@@ -936,7 +933,7 @@
             // 
             this.toolStripMenuItem32.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemSelectedTransform,
-            this.toolStripMenuItemSelectTransform});
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem});
             this.toolStripMenuItem32.Image = global::AMSExplorer.Bitmaps.encoding;
             this.toolStripMenuItem32.Name = "toolStripMenuItem32";
             resources.ApplyResources(this.toolStripMenuItem32, "toolStripMenuItem32");
@@ -944,16 +941,16 @@
             // 
             // toolStripMenuItemSelectedTransform
             // 
-            this.toolStripMenuItemSelectedTransform.Image = global::AMSExplorer.Bitmaps.encoding;
             this.toolStripMenuItemSelectedTransform.Name = "toolStripMenuItemSelectedTransform";
             resources.ApplyResources(this.toolStripMenuItemSelectedTransform, "toolStripMenuItemSelectedTransform");
             this.toolStripMenuItemSelectedTransform.Click += new System.EventHandler(this.toolStripMenuItemSelectedTransform_Click);
             // 
-            // toolStripMenuItemSelectTransform
+            // fromHttpsSourceWithSelectedTransformToolStripMenuItem
             // 
-            this.toolStripMenuItemSelectTransform.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.toolStripMenuItemSelectTransform.Name = "toolStripMenuItemSelectTransform";
-            resources.ApplyResources(this.toolStripMenuItemSelectTransform, "toolStripMenuItemSelectTransform");
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.SAS_locator;
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem.Name = "fromHttpsSourceWithSelectedTransformToolStripMenuItem";
+            resources.ApplyResources(this.fromHttpsSourceWithSelectedTransformToolStripMenuItem, "fromHttpsSourceWithSelectedTransformToolStripMenuItem");
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem.Click += new System.EventHandler(this.fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click);
             // 
             // mediaIntelligenceToolStripMenuItem
             // 
@@ -1447,23 +1444,19 @@
             // tabPageJobs
             // 
             this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageJobs.Controls.Add(this.textBoxJobsPageNumber);
             this.tabPageJobs.Controls.Add(this.dataGridViewTransformsV);
             this.tabPageJobs.Controls.Add(this.linkLabelMoreInfoMediaUnits);
-            this.tabPageJobs.Controls.Add(this.trackBarEncodingRU);
-            this.tabPageJobs.Controls.Add(this.buttonUpdateEncodingRU);
             this.tabPageJobs.Controls.Add(this.comboBoxSearchJobOption);
-            this.tabPageJobs.Controls.Add(this.labelnbunits);
             this.tabPageJobs.Controls.Add(this.label11);
             this.tabPageJobs.Controls.Add(this.label22);
             this.tabPageJobs.Controls.Add(this.comboBoxFilterJobsTime);
-            this.tabPageJobs.Controls.Add(this.comboBoxEncodingRU);
             this.tabPageJobs.Controls.Add(this.buttonJobSearch);
             this.tabPageJobs.Controls.Add(this.textBoxJobSearch);
             this.tabPageJobs.Controls.Add(this.label6);
             this.tabPageJobs.Controls.Add(this.comboBoxStateJobs);
             this.tabPageJobs.Controls.Add(this.butPrevPageJob);
             this.tabPageJobs.Controls.Add(this.butNextPageJob);
-            this.tabPageJobs.Controls.Add(this.comboBoxPageJobs);
             this.tabPageJobs.Controls.Add(this.label4);
             this.tabPageJobs.Controls.Add(this.label2);
             this.tabPageJobs.Controls.Add(this.comboBoxOrderJobs);
@@ -1491,7 +1484,9 @@
             // 
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createATransformToolStripMenuItem,
-            this.deleteTransformsToolStripMenuItem});
+            this.deleteTransformsToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.createJobUsingAnHttpSourceToolStripMenuItem});
             this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
             // 
@@ -1505,9 +1500,17 @@
             // 
             // videoAnalyzerToolStripMenuItem
             // 
+            this.videoAnalyzerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
             this.videoAnalyzerToolStripMenuItem.Name = "videoAnalyzerToolStripMenuItem";
             resources.ApplyResources(this.videoAnalyzerToolStripMenuItem, "videoAnalyzerToolStripMenuItem");
             this.videoAnalyzerToolStripMenuItem.Click += new System.EventHandler(this.videoAnalyzerToolStripMenuItem_Click);
+            // 
+            // mediaEncoderStandardToolStripMenuItem
+            // 
+            this.mediaEncoderStandardToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.mediaEncoderStandardToolStripMenuItem.Name = "mediaEncoderStandardToolStripMenuItem";
+            resources.ApplyResources(this.mediaEncoderStandardToolStripMenuItem, "mediaEncoderStandardToolStripMenuItem");
+            this.mediaEncoderStandardToolStripMenuItem.Click += new System.EventHandler(this.mediaEncoderStandardToolStripMenuItem_Click);
             // 
             // deleteTransformsToolStripMenuItem
             // 
@@ -1515,6 +1518,18 @@
             this.deleteTransformsToolStripMenuItem.Name = "deleteTransformsToolStripMenuItem";
             resources.ApplyResources(this.deleteTransformsToolStripMenuItem, "deleteTransformsToolStripMenuItem");
             this.deleteTransformsToolStripMenuItem.Click += new System.EventHandler(this.deleteTransformsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
+            // 
+            // createJobUsingAnHttpSourceToolStripMenuItem
+            // 
+            this.createJobUsingAnHttpSourceToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.SAS_locator;
+            this.createJobUsingAnHttpSourceToolStripMenuItem.Name = "createJobUsingAnHttpSourceToolStripMenuItem";
+            resources.ApplyResources(this.createJobUsingAnHttpSourceToolStripMenuItem, "createJobUsingAnHttpSourceToolStripMenuItem");
+            this.createJobUsingAnHttpSourceToolStripMenuItem.Click += new System.EventHandler(this.createJobUsingAnHttpSourceToolStripMenuItem_Click);
             // 
             // linkLabelMoreInfoMediaUnits
             // 
@@ -1524,34 +1539,12 @@
             this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
             this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
             // 
-            // trackBarEncodingRU
-            // 
-            resources.ApplyResources(this.trackBarEncodingRU, "trackBarEncodingRU");
-            this.trackBarEncodingRU.Maximum = 25;
-            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
-            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.trackBarEncodingRU_ValueChanged);
-            // 
-            // buttonUpdateEncodingRU
-            // 
-            resources.ApplyResources(this.buttonUpdateEncodingRU, "buttonUpdateEncodingRU");
-            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
-            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
-            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.buttonUpdateMediaRU_Click);
-            // 
             // comboBoxSearchJobOption
             // 
             resources.ApplyResources(this.comboBoxSearchJobOption, "comboBoxSearchJobOption");
             this.comboBoxSearchJobOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchJobOption.FormattingEnabled = true;
             this.comboBoxSearchJobOption.Name = "comboBoxSearchJobOption";
-            // 
-            // labelnbunits
-            // 
-            resources.ApplyResources(this.labelnbunits, "labelnbunits");
-            this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Tag = "";
             // 
             // label11
             // 
@@ -1570,13 +1563,6 @@
             this.comboBoxFilterJobsTime.FormattingEnabled = true;
             this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
             this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
-            // 
-            // comboBoxEncodingRU
-            // 
-            resources.ApplyResources(this.comboBoxEncodingRU, "comboBoxEncodingRU");
-            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEncodingRU.FormattingEnabled = true;
-            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
             // 
             // buttonJobSearch
             // 
@@ -1618,14 +1604,6 @@
             this.butNextPageJob.Name = "butNextPageJob";
             this.butNextPageJob.UseVisualStyleBackColor = true;
             this.butNextPageJob.Click += new System.EventHandler(this.butNextPageJob_Click);
-            // 
-            // comboBoxPageJobs
-            // 
-            resources.ApplyResources(this.comboBoxPageJobs, "comboBoxPageJobs");
-            this.comboBoxPageJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPageJobs.FormattingEnabled = true;
-            this.comboBoxPageJobs.Name = "comboBoxPageJobs";
-            this.comboBoxPageJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageJobs_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -4059,11 +4037,10 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
-            // mediaEncoderStandardToolStripMenuItem
+            // textBoxPageJobs
             // 
-            this.mediaEncoderStandardToolStripMenuItem.Name = "mediaEncoderStandardToolStripMenuItem";
-            resources.ApplyResources(this.mediaEncoderStandardToolStripMenuItem, "mediaEncoderStandardToolStripMenuItem");
-            this.mediaEncoderStandardToolStripMenuItem.Click += new System.EventHandler(this.mediaEncoderStandardToolStripMenuItem_Click);
+            resources.ApplyResources(this.textBoxJobsPageNumber, "textBoxPageJobs");
+            this.textBoxJobsPageNumber.Name = "textBoxPageJobs";
             // 
             // Mainform
             // 
@@ -4104,7 +4081,6 @@
             this.tabPageJobs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).EndInit();
             this.contextMenuStripTransforms.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.contextMenuStripJobs.ResumeLayout(false);
             this.tabPageLive.ResumeLayout(false);
@@ -4170,7 +4146,6 @@
         private System.Windows.Forms.ToolStripMenuItem encodeAssetWithPremiumWorkflowToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxPageJobs;
         private System.Windows.Forms.ComboBox comboBoxOrderAssets;
         private System.Windows.Forms.ComboBox comboBoxOrderJobs;
         private System.Windows.Forms.Label label3;
@@ -4512,11 +4487,7 @@
         private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem36;
-        private System.Windows.Forms.TrackBar trackBarEncodingRU;
-        private System.Windows.Forms.Button buttonUpdateEncodingRU;
-        private System.Windows.Forms.Label labelnbunits;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadToLocal;
         private System.Windows.Forms.ToolStripMenuItem editAlternateIdToolStripMenuItem;
@@ -4597,12 +4568,15 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectTransform;
         private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxAssetsPageNumber;
         private System.Windows.Forms.ToolStripMenuItem createATransformToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem videoAnalyzerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mediaEncoderStandardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createJobUsingAnHttpSourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromHttpsSourceWithSelectedTransformToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.TextBox textBoxJobsPageNumber;
     }
 }
 

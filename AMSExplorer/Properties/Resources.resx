@@ -136,10 +136,10 @@
     <value>Account filters</value>
   </data>
   <data name="TabJobs" xml:space="preserve">
-    <value>Jobs</value>
+    <value>Transforms &amp; jobs</value>
   </data>
   <data name="TabLive" xml:space="preserve">
-    <value>Live</value>
+    <value>Live events &amp; outputs</value>
   </data>
   <data name="TabLog" xml:space="preserve">
     <value>Log</value>

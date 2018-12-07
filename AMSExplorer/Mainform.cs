@@ -1758,6 +1758,117 @@ namespace AMSExplorer
         }
 
 
+        private async Task ProcessHttpSourceV3(Uri source, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, string destAssetDescription = null)
+        {
+
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+
+            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+
+            if (storageaccount == null) storageaccount = storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id.Split('/').Last(); // no storage account or null, then let's take the default one
+
+            bool Error = false;
+            Asset asset = null;
+
+            try
+            {
+
+                if (destAssetName == null) destAssetName = "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
+                asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = destAssetDescription }, token);
+
+
+                ListContainerSasInput input = new ListContainerSasInput()
+                {
+                    Permissions = AssetContainerPermission.ReadWrite,
+                    ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                };
+
+                var response = _amsClientV3.AMSclient.Assets.ListContainerSasAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, input.Permissions, input.ExpiryTime).Result;
+
+                string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+                var sasUri = new Uri(uploadSasUrl);
+                CloudBlobContainer container = new CloudBlobContainer(sasUri);
+
+                if (token.IsCancellationRequested) return;
+
+                string filename = Path.GetFileName(source.LocalPath);
+
+                var blob = container.GetBlockBlobReference(filename);
+                if (filename.ToLower().EndsWith(".mp4")) blob.Properties.ContentType = "video/mp4";
+
+                string stringOperation = await blob.StartCopyAsync(source, token);
+
+                bool Cancelled = false;
+
+                bool continueLoop = true;
+
+                while (continueLoop)// && !token.IsCancellationRequested)
+                {
+                    if (token.IsCancellationRequested && !Cancelled)
+                    {
+                        await blob.AbortCopyAsync(stringOperation);
+                        Cancelled = true;
+                    }
+
+                    blob.FetchAttributes();
+                    var copyStatus = blob.CopyState;
+                    if (copyStatus != null)
+                    {
+                        double percentComplete = (long)100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
+
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+
+                        if (copyStatus.Status != CopyStatus.Pending)
+                        {
+                            continueLoop = false;
+                        }
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+
+
+                if (blob.CopyState.Status == CopyStatus.Failed)
+                {
+                    DoGridTransferDeclareError(guidTransfer, blob.CopyState.StatusDescription);
+                    Error = true;
+                }
+
+                if (blob.CopyState.Status == CopyStatus.Aborted)
+                {
+                    DoGridTransferDeclareCancelled(guidTransfer);
+                    Error = true;
+                }
+
+                //   MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
+
+            }
+            catch (Exception e)
+            {
+                Error = true;
+                DoGridTransferDeclareError(guidTransfer, e);
+                TextBoxLogWriteLine("Error when importing '{0}'.", source.ToString());
+                TextBoxLogWriteLine(e);
+            }
+
+
+
+            if (!Error && !token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
+            }
+            else if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+            }
+            DoRefreshGridAssetV(false);
+        }
+
+
         private void MyUploadFileRohzetModeProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e, Guid guidTransfer, int indexfile, int nbfiles)
         {
             double progress = 100 * (double)indexfile / (double)nbfiles + e.Progress / (double)nbfiles;
@@ -2139,52 +2250,31 @@ namespace AMSExplorer
 
         private void DoMenuImportFromHttp()
         {
-            ImportHttp form = new ImportHttp(_context);
+            ImportHttp form = new ImportHttp(_amsClientV3);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
 
-                string DestStorage = _context.DefaultStorageAccount.Name;
-                string passwordDestStorage = _credentials.DefaultStorageKey;
-                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
+                try
                 {
-                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
-                    string valuekey2 = "";
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
-                    {
-                        DestStorage = form.StorageSelected;
-                        passwordDestStorage = valuekey2;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (!havestoragecredentials)
-                { // No blob credentials. Let's ask the user
+                    var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", Path.GetFileName(form.GetURL.LocalPath)), TransferType.ImportFromHttp, false);
+                    // Start a worker thread that does uploading.
+                    // ProcessHttpSourceV3
+                    Task.Factory.StartNew(() => ProcessHttpSourceV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.GetAssetName, form.GetAssetDescription), response.token);
 
-                    string valuekey = "";
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                    {
-                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
-                        havestoragecredentials = true;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
-
-                var response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
-                // Start a worker thread that does uploading.
-                var myTask = Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, response.Id, response.token, DestStorage, passwordDestStorage), response.token);
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
+                }
             }
         }
 
         private void DoMenuImportFromAzureStorageSASContainer()
         {
-            ImportHttp form = new ImportHttp(_context, true);
+            ImportHttp form = null;// new ImportHttp(_context, true);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -2219,7 +2309,7 @@ namespace AMSExplorer
                     }
                 }
 
-                var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", "" /*form.GetAssetFileName*/), TransferType.ImportFromHttp, false);
                 // Start a worker thread that does uploading.
                 var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrl(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
@@ -6843,6 +6933,15 @@ namespace AMSExplorer
             textBoxAssetsPageNumber.Text = number.ToString();
         }
 
+        private int GetTextBoxJobsPageNumber()
+        {
+            return int.Parse(textBoxJobsPageNumber.Text);
+        }
+        private void SetTextBoxJobsPageNumber(int number)
+        {
+            textBoxJobsPageNumber.Text = number.ToString();
+        }
+
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
             SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
@@ -6860,22 +6959,17 @@ namespace AMSExplorer
 
         private void butNextPageJob_Click(object sender, EventArgs e)
         {
-            if (comboBoxPageJobs.SelectedIndex < (comboBoxPageJobs.Items.Count - 1))
-            {
-                comboBoxPageJobs.SelectedIndex++;
-                butPrevPageJob.Enabled = true;
-            }
-            else butNextPageJob.Enabled = false;
+            SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() + 1);
+            if (!butPrevPageJob.Enabled) butPrevPageJob.Enabled = true;
         }
 
         private void butPrevPageJob_Click(object sender, EventArgs e)
         {
-            if (comboBoxPageJobs.SelectedIndex > 0)
+            if (GetTextBoxJobsPageNumber() > 0)
             {
-                comboBoxPageJobs.SelectedIndex--;
-                butNextPageJob.Enabled = true;
+                SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() - 1);
             }
-            else butPrevPageJob.Enabled = false;
+            butPrevPageJob.Enabled = GetTextBoxJobsPageNumber() > 0;
         }
 
         private void encodeAssetWithAzureMediaEncoderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -12507,87 +12601,6 @@ namespace AMSExplorer
 
         }
 
-        private void buttonUpdateMediaRU_Click(object sender, EventArgs e)
-        {
-            DoUpdateMediaRU();
-        }
-
-        private async void DoUpdateMediaRU()
-        {
-            bool oktocontinue = true;
-
-            if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Value != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
-            // user selected 0 with a non S1 hardware...
-            {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
-                {
-                    oktocontinue = false;
-                }
-            }
-
-            if (oktocontinue)
-            {
-                TextBoxLogWriteLine(string.Format("Updating to {0} {1} Media Reserved Unit{2}...", (int)trackBarEncodingRU.Value, ((Item)comboBoxEncodingRU.SelectedItem).Name, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
-
-                IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
-                EncResUnit.CurrentReservedUnits = (int)trackBarEncodingRU.Value;
-                EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), ((Item)comboBoxEncodingRU.SelectedItem).Value));
-
-                trackBarEncodingRU.Enabled = false;
-                comboBoxEncodingRU.Enabled = false;
-                buttonUpdateEncodingRU.Enabled = false;
-
-                await Task.Run(() =>
-                {
-                    try
-                    {
-                        EncResUnit.Update();
-                        TextBoxLogWriteLine("Media Reserved Unit(s) updated.");
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when updating Media Reserved Unit(s).");
-                        TextBoxLogWriteLine(ex);
-                    }
-                }
-
-                    );
-                trackBarEncodingRU.Enabled = true;
-                comboBoxEncodingRU.Enabled = true;
-                buttonUpdateEncodingRU.Enabled = true;
-            }
-        }
-
-
-        private void RUEncodingUpdateControls()
-        {
-            // If RU is set to 0, let's switch to S1
-            if (trackBarEncodingRU.Value == 0)
-            {
-                foreach (var it in comboBoxEncodingRU.Items)
-                {
-                    if (((Item)it).Value == Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic))
-                    {
-                        comboBoxEncodingRU.SelectedItem = it;
-                    }
-                }
-            }
-        }
-
-        private void trackBarEncodingRU_ValueChanged(object sender, EventArgs e)
-        {
-            RUEncodingUpdateControls();
-        }
-
-        private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
-        {
-            UpdateLabelProcessorUnits();
-        }
-
-        private void UpdateLabelProcessorUnits()
-        {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
-        }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -15333,12 +15346,12 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 TransformOutput[] outputs;
-               
-                    outputs = new TransformOutput[]
-                                                     {
+
+                outputs = new TransformOutput[]
+                                                 {
                                                                 new TransformOutput( new BuiltInStandardEncoderPreset( ){ PresetName= form.BuiltInPreset }),
-                                                     };
-               
+                                                 };
+
                 try
                 {
                     // Create the Transform with the output defined above
@@ -15360,13 +15373,15 @@ namespace AMSExplorer
             var sel = ReturnSelectedTransforms();
             if (sel.Count > 0)
             {
-                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
-                toolStripMenuItemSelectedTransform.Enabled = true;
+                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
+                fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
+                toolStripMenuItemSelectedTransform.Enabled = fromHttpsSourceWithSelectedTransformToolStripMenuItem.Enabled = true;
             }
             else
             {
-                toolStripMenuItemSelectedTransform.Text = "Selected transform(s) : (no selection)";
-                toolStripMenuItemSelectedTransform.Enabled = false;
+                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : (no selection)";
+                fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : (no selection)";
+                toolStripMenuItemSelectedTransform.Enabled = fromHttpsSourceWithSelectedTransformToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -15452,6 +15467,72 @@ namespace AMSExplorer
         private void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateStandardEncoderTransform();
+        }
+
+        private void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateJobFromTransformUsingHttpSource();
+        }
+
+        private void CreateJobFromTransformUsingHttpSource()
+        {
+            var sel = ReturnSelectedTransforms();
+
+            var form = new HttpSource();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                JobInputHttp jobInput = new JobInputHttp(files: new[] { form.GetURL.ToString() });
+
+                foreach (var transform in sel)
+                {
+                    string uniqueness = Guid.NewGuid().ToString("N");
+                    string jobName = $"job-{uniqueness}";
+                    string outputAssetName = $"output-{uniqueness}";
+
+                    try
+                    {
+
+
+                        var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
+                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                    _amsClientV3.credentialsEntry.AccountName,
+                                                                    outputAssetName,
+                                                                    new Asset()
+                                                                    );
+
+
+                        JobOutput[] jobOutputs =
+                         {
+                    new JobOutputAsset(outputAsset.Name),
+                };
+                        Job job = _amsClientV3.AMSclient.Jobs.Create(
+                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                    _amsClientV3.credentialsEntry.AccountName,
+                                                                    transform.Name,
+                                                                    jobName,
+                                                                    new Job
+                                                                    {
+                                                                        Input = jobInput,
+                                                                        Outputs = jobOutputs,
+                                                                    });
+                        TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+
+                        dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
+                    }
+                }
+            }
+
+            DoRefreshGridJobV(false);
+        }
+
+        private void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateJobFromTransformUsingHttpSource();
         }
     }
 }

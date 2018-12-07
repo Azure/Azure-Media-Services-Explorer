@@ -15,21 +15,14 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.WindowsAzure.MediaServices.Client;
 
 
 namespace AMSExplorer
 {
-    public partial class ImportHttp : Form
+    public partial class HttpSource : Form
     {
-        private AMSClientV3 _amsClientV3;
-        private string _uniqueness;
-
         public Uri GetURL
         {
             get
@@ -43,53 +36,15 @@ namespace AMSExplorer
             }
         }
 
-        public string GetAssetName
-        {
-            get
-            {
-                return textBoxAssetName.Text;
-            }
-        }
-
-        public string GetAssetDescription
-        {
-            get
-            {
-                return textBoxDescription.Text;
-            }
-        }
-
-        public string StorageSelected
-        {
-            get
-            {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
-            }
-        }
-
-        public ImportHttp(AMSClientV3 amsClient)
+        public HttpSource()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-
-            _amsClientV3 = amsClient;
-            _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
-        private void ImportHttp_Load(object sender, EventArgs e)
+        private void HttpSource_Load(object sender, EventArgs e)
         {
             labelURLFileNameWarning.Text = string.Empty;
-
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
-
-            comboBoxStorage.Items.Clear();
-            foreach (var storage in storAccounts)
-            {
-                string sname = storage.Id.Split('/').Last();
-                bool primary = (storage.Type == StorageAccountType.Primary);
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
-                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
@@ -112,8 +67,6 @@ namespace AMSExplorer
             if (!Error)
             {
                 labelURLFileNameWarning.Text = string.Empty;
-                textBoxAssetName.Text = Path.GetFileNameWithoutExtension(GetURL.LocalPath) + "-" + _uniqueness;
-                textBoxDescription.Text = "Imported from : " + GetURL.AbsoluteUri;
             }
         }
     }

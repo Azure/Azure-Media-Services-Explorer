@@ -3698,7 +3698,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jobs.
+        ///   Looks up a localized string similar to Transforms &amp; jobs.
         /// </summary>
         internal static string TabJobs {
             get {
@@ -3707,7 +3707,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live.
+        ///   Looks up a localized string similar to Live events &amp; outputs.
         /// </summary>
         internal static string TabLive {
             get {
