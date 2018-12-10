@@ -4463,6 +4463,21 @@ namespace AMSExplorer
             }
         }
 
+        private string _LastModified;
+        public string LastModified
+        {
+            get
+            { return _LastModified; }
+            set
+            {
+                if (value != _LastModified)
+                {
+                    _LastModified = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

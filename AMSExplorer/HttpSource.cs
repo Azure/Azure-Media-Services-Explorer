@@ -16,8 +16,6 @@
 
 using System;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
-
 
 namespace AMSExplorer
 {

@@ -641,7 +641,6 @@
             this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
             this.dataGridViewAssetsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
-            this.dataGridViewAssetsV.AssetsPerPage = 50;
             this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
             this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";

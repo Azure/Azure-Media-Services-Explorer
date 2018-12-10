@@ -45,20 +45,15 @@ namespace AMSExplorer
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
         public string _assetwarning = "AssetWarning";
 
-        static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
-        static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
         static Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
 
-        static private int _assetsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
+        static private int _currentPageNumber = 0;
+        static private bool _currentPageNumberIsMax = false; // true when we reached the max
         static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
-        static private bool _neveranalyzed = true;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
         static private string _statefilter = "";
-        static private string _timefilter = FilterTime.First1000Items;
+        static private string _timefilter = FilterTime.AllItems;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static string _orderassets = OrderAssets.CreatedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
@@ -83,31 +78,22 @@ namespace AMSExplorer
         static BindingList<AssetEntryV3> _MyObservAssetV3;
         private IPage<Asset> firstpage;
 
-        public int AssetsPerPage
-        {
-            get
-            {
-                return _assetsperpage;
-            }
-            set
-            {
-                _assetsperpage = value;
-            }
-        }
-        public int PageCount
-        {
-            get
-            {
-                return _pagecount;
-            }
-        }
         public int CurrentPage
         {
             get
             {
-                return _currentpage;
+                return _currentPageNumber;
             }
         }
+
+        public bool CurrentPageIsMax
+        {
+            get
+            {
+                return _currentPageNumberIsMax;
+            }
+        }
+
         public string OrderAssetsInGrid
         {
             get
@@ -296,18 +282,12 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             Asset asset = null;
 
-            PublishStatus SASLoc;
-            PublishStatus OrigLoc;
-
             var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
             foreach (AssetEntryV3 AE in listae)
             {
                 try
                 {
-                    //asset = _client.Assets.List(_resourceName,_accountName).Where(a => a.Id == AE.Id).FirstOrDefault();
-
-                    //var odataQuery = new ODataQuery<Asset>("properties/Id eq "+AE.Id);
                     asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, AE.Name);
 
                     /*
@@ -324,14 +304,12 @@ namespace AMSExplorer
                     {
                         //AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.AlternateId = asset.AlternateId;
-                        //AE.AssetId = asset.AssetId;
-                        //AE.Created = asset.Created;
                         AE.Description = asset.Description;
                         AE.Created = asset.Created.ToLocalTime().ToString("G");
+                        AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
                         // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
-
 
                         //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
@@ -342,12 +320,9 @@ namespace AMSExplorer
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
 
-
                         var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
-
-
 
                         // var assetfiles =  asset.AssetFiles.ToList();
                         var data = AssetInfo.GetAssetType(asset.Name, _client);
@@ -355,8 +330,6 @@ namespace AMSExplorer
                         AE.SizeLong = data.Size;
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
                         AE.AssetWarning = (AE.SizeLong == 0);// || assetfiles.Any(f => f.ContentFileSize == 0));
-
-
 
                         /*
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
@@ -415,29 +388,24 @@ namespace AMSExplorer
 
         public void PurgeCacheAssets(List<IAsset> assets)
         {
-            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
+            // assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
         }
 
         public void PurgeCacheAssetsV3(List<Asset> assets)
         {
-            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Name));
+            assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
         }
 
-        public void PurgeCacheAsset(IAsset asset)
-        {
-            cacheAssetentriesV3.Remove(asset.Name);
-        }
 
         public void PurgeCacheAsset(Asset asset)
         {
             cacheAssetentriesV3.Remove(asset.Name);
         }
 
-
-
         public void RefreshAssets(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
+            if (pagetodisplay == 0) _currentPageNumberIsMax = false;
             Debug.WriteLine("RefreshAssets Start");
 
             if (WorkerAnalyzeAssets.IsBusy)
@@ -488,7 +456,6 @@ Properties/StorageId
                     odataQuery.OrderBy = "Name desc";
                     break;
 
-
                 default:
                     odataQuery.OrderBy = "Properties/Created desc";
                     break;
@@ -506,7 +473,7 @@ Properties/StorageId
                 {
                     // Search on Asset name Equals
                     case SearchIn.AssetNameEquals:
-                        odataQuery.Filter = "name eq "+ search;
+                        odataQuery.Filter = "name eq " + search;
                         break;
 
                     // Search on Asset name Greater than
@@ -573,7 +540,6 @@ Properties/StorageId
                 odataQuery.Filter = odataQuery.Filter + $"Properties/Created lt {dateTimeRangeEnd.ToString("o")}";
             }
 
-
             IPage<Asset> currentPage = null;
 
             if (pagetodisplay == 0)
@@ -584,660 +550,54 @@ Properties/StorageId
             else
             {
                 currentPage = firstpage;
-                int i = 0;
-                while (currentPage.NextPageLink != null && pagetodisplay > i)
+                _currentPageNumber = 0;
+                while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
-                    i++;
+                    _currentPageNumber++;
                     currentPage = _client.AMSclient.Assets.ListNext(currentPage.NextPageLink);
                 }
+                if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
 
+            /*
             var assets = currentPage.Select(a => new AssetEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
                 AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
-                //Type = a.Type,
                 Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
             );
+            */
 
+           
+            var assets = currentPage.Select(a =>
+            (cacheAssetentriesV3.ContainsKey(a.Name)
+               && cacheAssetentriesV3[a.Name].LastModified != null
+               && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
+               cacheAssetentriesV3[a.Name] :
+            new AssetEntryV3
+            {
+                Name = a.Name,
+                Description = a.Description,
+                AssetId = a.AssetId,
+                AlternateId = a.AlternateId,
+                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                StorageAccountName = a.StorageAccountName
+            }
+         ));
+          
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));
-            _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
             this.FindForm().Cursor = Cursors.Default;
-
-            return;
-
-
-
-
-
-
-            //// DAYS
-            //bool filterStartDate = false;
-            //bool filterEndDate = false;
-
-            //DateTime dateTimeStart = DateTime.UtcNow;
-            //DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
-
-            //int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            //if (days > 0)
-            //{
-            //    filterStartDate = true;
-            //    dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
-            //}
-            //else if (days == -1) // TimeRange
-            //{
-            //    filterStartDate = true;
-            //    filterEndDate = true;
-            //    dateTimeStart = _timefilterTimeRange.StartDate;
-            //    if (_timefilterTimeRange.EndDate != null) // there is an end time
-            //    {
-            //        dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
-            //    }
-            //}
-
-            //IQueryable<IAsset> assetsServerQuery = null;// = context.Assets.AsQueryable(); ;
-            //bool SwitchedToLocalQuery = false;
-
-            /////////////////////////
-            //// SEARCH
-            /////////////////////////
-            //if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
-            //{
-            //    bool Error = false;
-            //    int skipSize = 0;
-            //    int batchSize = 1000;
-            //    int currentSkipSize = 0;
-            //    string strsearch = _searchinname.Text.ToLower();
-
-            //    switch (_searchinname.SearchType)
-            //    {
-            //        // Search on Asset name
-            //        case SearchIn.AssetName:
-
-            //            assetsServerQuery = context.Assets.Where(a =>
-            //                    (a.Name.Contains(_searchinname.Text))
-            //                    &&
-            //                    (!filterStartDate || a.LastModified > dateTimeStart)
-            //                    &&
-            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                    );
-
-            //        break;
-
-            //        // Search on Asset aternate id
-            //        case SearchIn.AssetAltId:
-            //            assetsServerQuery = context.Assets.Where(a =>
-            //                      (a.AlternateId.Contains(_searchinname.Text))
-            //                      &&
-            //                      (!filterStartDate || a.LastModified > dateTimeStart)
-            //                      &&
-            //                      (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                      );
-            //            break;
-
-            //        // Search on Asset ID
-            //        case SearchIn.AssetId:
-            //            string assetguid = _searchinname.Text;
-            //            if (assetguid.StartsWith(Constants.AssetIdPrefix))
-            //            {
-            //                assetguid = assetguid.Substring(Constants.AssetIdPrefix.Length);
-            //            }
-            //            try
-            //            {
-            //                var g = new Guid(assetguid);
-            //            }
-            //            catch
-            //            {
-            //                Error = true;
-            //                MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            if (!Error)
-            //            {
-            //                assetsServerQuery = context.Assets.Where(a =>
-            //                                                 (a.Id == Constants.AssetIdPrefix + assetguid)
-            //                                                 &&
-            //                                                 (!filterStartDate || a.LastModified > dateTimeStart)
-            //                                                 &&
-            //                                                 (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                                                 );
-            //            }
-            //            break;
-
-
-            //        // Search on Asset file name
-            //        case SearchIn.AssetFileName:
-            //            IList<string> assetFileListID = new List<string>();
-
-            //            while (true)
-            //            {
-            //                // Enumerate through all asset files (1000 at a time)
-            //                var filesq = context.Files
-            //                    .Skip(skipSize).Take(batchSize).ToList();
-
-            //                currentSkipSize += filesq.Count;
-            //                var filesq2 = filesq.Where(f => f.Name.ToLower().Contains(strsearch)).Select(f => f.ParentAssetId);
-
-            //                foreach (var a in filesq2)
-            //                {
-            //                    assetFileListID.Add(a);
-            //                }
-
-            //                if (currentSkipSize == batchSize)
-            //                {
-            //                    skipSize += batchSize;
-            //                    currentSkipSize = 0;
-            //                }
-            //                else
-            //                {
-            //                    break;
-            //                }
-            //            }
-
-            //            var assetlist = new List<IAsset>();
-            //            foreach (var a in assetFileListID.Distinct())
-            //            {
-            //                assetlist.Add(AssetInfo.GetAsset(a, context));
-            //            }
-
-            //            SwitchedToLocalQuery = true;
-            //            assets = assetlist.Where(a =>
-            //                    (!filterStartDate || a.LastModified > dateTimeStart)
-            //                    &&
-            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                    );
-
-
-            //            break;
-
-            //        // Search on Asset file ID
-            //        case SearchIn.AssetFileId:
-            //            string fileguid = _searchinname.Text;
-            //            if (fileguid.StartsWith(Constants.AssetFileIdPrefix))
-            //            {
-            //                fileguid = fileguid.Substring(Constants.AssetFileIdPrefix.Length);
-            //            }
-            //            try
-            //            {
-            //                var g = new Guid(fileguid);
-            //            }
-            //            catch
-            //            {
-            //                Error = true;
-            //                MessageBox.Show("Error with file asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            if (!Error)
-            //            {
-            //                var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
-            //                if (myfile != null)
-            //                {
-            //                    assetsServerQuery = context.Assets.Where(a =>
-            //                                                       (!filterStartDate || a.LastModified > dateTimeStart)
-            //                                                       &&
-            //                                                       (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                                                       &&
-            //                                                       myfile.Asset.Id == a.Id
-            //                                                       );
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("No file was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                }
-            //            }
-            //            break;
-
-            //        // Search on Locator id / guid
-            //        case SearchIn.LocatorId:
-            //            string locatorguid = _searchinname.Text;
-            //            if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
-            //            {
-            //                locatorguid = locatorguid.Substring(Constants.LocatorIdPrefix.Length);
-            //            }
-            //            try
-            //            {
-            //                var g = new Guid(locatorguid);
-            //            }
-            //            catch
-            //            {
-            //                Error = true;
-            //                MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            if (!Error)
-            //            {
-            //                var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
-            //                if (myloc != null)
-            //                {
-            //                    assetsServerQuery = context.Assets.Where(a =>
-            //                                                        (!filterStartDate || a.LastModified > dateTimeStart)
-            //                                                        &&
-            //                                                        (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                                                        &&
-            //                                                        a.Id == myloc.AssetId
-            //                                                        );
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                }
-            //            }
-            //            break;
-
-            //        // Search on Program id / guid
-            //        case SearchIn.ProgramId:
-            //            string programguid = _searchinname.Text;
-            //            if (programguid.StartsWith(Constants.ProgramIdPrefix))
-            //            {
-            //                programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
-            //            }
-            //            try
-            //            {
-            //                var g = new Guid(programguid);
-            //            }
-            //            catch
-            //            {
-            //                Error = true;
-            //                MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            if (!Error)
-            //            {
-            //                var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
-            //                if (queryprog != null)
-            //                {
-            //                    assetsServerQuery = context.Assets.Where(a =>
-            //                                                       (!filterStartDate || a.LastModified > dateTimeStart)
-            //                                                       &&
-            //                                                       (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                                                       &&
-            //                                                       queryprog.AssetId == a.Id
-            //                                                       );
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("No program was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                }
-            //            }
-            //            break;
-
-            //        // Search on Program name
-            //        case SearchIn.ProgramName:
-
-            //            IList<string> assetFileListIDP = new List<string>();
-
-            //            while (true)
-            //            {
-            //                // Enumerate through all programs (1000 at a time)
-            //                var programsq = context.Programs
-            //                    .Skip(skipSize).Take(batchSize).ToList();
-
-            //                currentSkipSize += programsq.Count;
-            //                var programsq2 = programsq.Where(p => p.Name.ToLower().Contains(strsearch)).Select(p => p.AssetId);
-
-            //                foreach (var a in programsq2)
-            //                {
-            //                    assetFileListIDP.Add(a);
-            //                }
-
-            //                if (currentSkipSize == batchSize)
-            //                {
-            //                    skipSize += batchSize;
-            //                    currentSkipSize = 0;
-            //                }
-            //                else
-            //                {
-            //                    break;
-            //                }
-            //            }
-
-            //            var assetlist2 = new List<IAsset>();
-            //            foreach (var a in assetFileListIDP)
-            //            {
-            //                assetlist2.Add(AssetInfo.GetAsset(a, context));
-            //            }
-
-            //            SwitchedToLocalQuery = true;
-            //            assets = assetlist2.Where(a =>
-            //                    (!filterStartDate || a.LastModified > dateTimeStart)
-            //                    &&
-            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                    );
-
-            //            break;
-
-
-            //        default:
-            //            break;
-            //    }
-            //}
-            //else // NO SEARCH
-            //{
-            //    assetsServerQuery = context.Assets.Where(a =>
-            //                    (!filterStartDate || a.LastModified > dateTimeStart)
-            //                    &&
-            //                    (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-            //                    );
-            //}
-
-            //if (!SwitchedToLocalQuery && assetsServerQuery == null) // teh current query did not find asset (locator id search for example)
-            //{
-            //    assets = _client.Assets.AsEnumerable().Take(0);
-            //    SwitchedToLocalQuery = true;
-            //}
-
-
-            //// SHORTCUT (needed for account with large number fo assets)
-            //if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
-            //{
-            //    if (_timefilter == FilterTime.First50Items)
-            //    {
-            //        assets = assetsServerQuery.Take(50);
-            //    }
-            //    else if (_timefilter == FilterTime.First1000Items)
-            //    {
-            //        assets = assetsServerQuery.Take(1000);
-            //    }
-            //    else
-            //    {
-            //        assets = assetsServerQuery;
-            //    }
-            //}
-            //else // general case
-
-            //{
-
-            //    ///////////////////////
-            //    // STATE FILTER
-            //    ///////////////////////
-            //    // we need to do paging
-            //    // not excuted for large account as state filter control is disabled
-
-            //    IList<IAsset> aggregateListAssets = new List<IAsset>();
-            //    int skipSize2 = 0;
-            //    int batchSize2 = 1000;
-            //    int currentSkipSize2 = 0;
-
-            //    while (true)
-            //    {
-            //        // Enumerate through all assets (1000 at a time)
-            //        IEnumerable<IAsset> listPagedAssets;
-            //        IList<IAsset> fassets = new List<IAsset>();
-
-            //        if (SwitchedToLocalQuery)
-            //        {
-            //            listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
-            //        }
-            //        else
-            //        {
-            //            listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
-            //        }
-            //        currentSkipSize2 += listPagedAssets.Count();
-
-            //        switch (_statefilter)
-            //        {
-            //            case StatusAssets.Published:
-            //            case StatusAssets.PublishedExpired:
-
-            //                bool bexpired = _statefilter == StatusAssets.PublishedExpired;
-            //                IList<IAsset> newListAssets1 = new List<IAsset>();
-
-            //                int skipSizeLoc = 0;
-            //                int batchSizeLoc = 1000;
-            //                int currentSkipSizeLoc = 0;
-
-            //                while (true)
-            //                {
-            //                    // Enumerate through all locators (1000 at a time)
-            //                    var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
-            //                    currentSkipSizeLoc += listlocators.Count;
-
-            //                    var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
-
-            //                    foreach (var a in assetexpired)
-            //                    {
-            //                        newListAssets1.Add(a);
-            //                    }
-
-            //                    if (currentSkipSizeLoc == batchSizeLoc)
-            //                    {
-            //                        skipSizeLoc += batchSizeLoc;
-            //                        currentSkipSizeLoc = 0;
-            //                    }
-            //                    else
-            //                    {
-            //                        break;
-            //                    }
-            //                }
-
-            //                foreach (var a in newListAssets1)
-            //                {
-            //                    fassets.Add(a);
-            //                }
-            //                break;
-
-
-            //            case StatusAssets.DynEnc:
-            //                var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
-            //                foreach (var a in assetwithDelPol)
-            //                {
-            //                    fassets.Add(a);
-            //                }
-            //                break;
-
-            //            case StatusAssets.Empty:
-
-            //                IList<IAsset> newListAssets2 = listPagedAssets.ToList();
-
-            //                int skipSizeEmpty = 0;
-            //                int batchSizeEmpty = 1000;
-            //                int currentSkipSizeEmpty = 0;
-
-            //                while (true)
-            //                {
-            //                    // Enumerate through all files (1000 at a time)
-            //                    var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
-            //                    currentSkipSizeEmpty += listfiles.Count;
-
-            //                    var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
-
-            //                    foreach (var a in assetsnotempty)
-            //                    {
-            //                        newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
-            //                    }
-
-            //                    if (currentSkipSizeEmpty == batchSizeEmpty)
-            //                    {
-            //                        skipSizeEmpty += batchSizeEmpty;
-            //                        currentSkipSizeEmpty = 0;
-            //                    }
-            //                    else
-            //                    {
-            //                        break;
-            //                    }
-            //                }
-
-            //                foreach (var a in newListAssets2)
-            //                {
-            //                    fassets.Add(a);
-            //                }
-            //                break;
-
-
-            //            case StatusAssets.All: // we need this to parse all assets
-            //            default:
-            //                foreach (var a in listPagedAssets)
-            //                {
-            //                    fassets.Add(a);
-            //                }
-            //                break;
-            //                /*
-
-            //                // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
-            //                // executed locally and would be slow. Could be reintroduce if customer demand.
-
-            //            case StatusAssets.NotPublished:
-            //                fassets = listassets.Where(a => a.Locators.Count == 0);
-            //                break;
-            //            case StatusAssets.Storage:
-            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-            //                break;
-            //            case StatusAssets.CENC:
-            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-            //                break;
-            //            case StatusAssets.Envelope:
-            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-            //                break;
-            //            case StatusAssets.NotEncrypted:
-            //                fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
-            //                break;
-            //            case StatusAssets.DynEnc:
-            //                fassets = listassets.Where(a => a.DeliveryPolicies.Any());
-            //                break;
-            //            case StatusAssets.Streamable:
-            //                fassets = listassets.Where(a => a.IsStreamable);
-            //                break;
-            //            case StatusAssets.SupportDynEnc:
-            //                fassets = listassets.Where(a => a.SupportsDynamicEncryption);
-            //                break;
-            //            case StatusAssets.Empty:
-            //                fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
-            //                break;
-            //            case StatusAssets.DefaultStorage:
-            //                fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-            //                break;
-            //            case StatusAssets.NotDefaultStorage:
-            //                fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-            //                break;
-            //                */
-            //        }
-
-            //        foreach (var a in fassets)
-            //        {
-            //            aggregateListAssets.Add(a);
-            //        }
-
-            //        if (currentSkipSize2 == batchSize2)
-            //        {
-            //            skipSize2 += batchSize2;
-            //            currentSkipSize2 = 0;
-            //        }
-            //        else
-            //        {
-            //            break;
-            //        }
-            //    }
-            //    SwitchedToLocalQuery = true;
-            //    assets = aggregateListAssets;
-
-            //    ///////////////////////
-            //    // SORTING
-            //    ///////////////////////
-            //    // let's sort the aggregate results
-            //    var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-            //    // client side only ! (a take is done otherwise)
-
-            //    switch (_orderassets)
-            //    {
-            //        case OrderAssets.LastModifiedDescending:
-            //            assets = from a in assets orderby a.LastModified descending select a;
-            //            break;
-
-            //        case OrderAssets.LastModifiedAscending:
-            //            assets = from a in assets orderby a.LastModified ascending select a;
-            //            break;
-
-            //        case OrderAssets.NameAscending:
-            //            assets = from a in assets orderby a.Name ascending select a;
-            //            break;
-
-            //        case OrderAssets.NameDescending:
-            //            assets = from a in assets orderby a.Name descending select a;
-            //            break;
-
-            //        case OrderAssets.SizeDescending:
-            //            assets = from a in assets orderby size(a) descending select a;
-            //            break;
-
-            //        case OrderAssets.SizeAscending:
-            //            assets = from a in assets orderby size(a) ascending select a;
-            //            break;
-
-            //        case OrderAssets.LocatorExpirationAscending:
-            //            assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
-            //            break;
-
-            //        case OrderAssets.LocatorExpirationDescending:
-            //            assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
-            //            break;
-
-            //        default:
-            //            assets = from a in assets orderby a.LastModified descending select a;
-            //            break;
-            //    }
-
-            //    if (_timefilter == FilterTime.First50Items)
-            //    {
-            //        assets = assets.Take(50);
-            //    }
-            //    else // if (_timefilter == FilterTime.First1000Items)
-            //    {
-            //        assets = assets.Take(1000);
-            //    }
-
-            //}// end of general case
-
-            //_client = context;
-            //_pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
-            //if (_pagecount == 0) _pagecount = 1; // no asset but one page
-
-            //if (pagetodisplay < 1) pagetodisplay = 1;
-            //if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            //_currentpage = pagetodisplay;
-
-            //try
-            //{
-            //    IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
-            //   // let's return the data cached in memory of it exists and last modified time is the same
-            //   (cacheAssetentries.ContainsKey(a.Id)
-            //   && cacheAssetentries[a.Id].LastModified != null
-            //   && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
-            //   cacheAssetentries[a.Id] :
-            //                 new AssetEntry
-            //                 {
-            //                     Name = a.Name,
-            //                     Id = a.Id,
-            //                     AlternateId = a.AlternateId,
-            //                     Type = null,
-            //                     LastModified = a.LastModified.ToLocalTime().ToString("G"),
-            //                     Storage = a.StorageAccountName
-            //                 }
-            //                  ));
-
-            //    _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
-            //    Environment.Exit(0);
-            //}
-
-            //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
-            //this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
-            //_refreshedatleastonetime = true;
-
-            //Debug.WriteLine("RefreshAssets End");
-            //AnalyzeItemsInBackground();
-
-            //this.FindForm().Cursor = Cursors.Default;
         }
 
 
@@ -1259,9 +619,7 @@ Properties/StorageId
                     catch { }
                 }
             });
-
         }
-
 
 
         public static AssetBitmapAndText BuildBitmapPublication(string assetName, AMSClientV3 client)

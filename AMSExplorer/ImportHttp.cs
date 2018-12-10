@@ -20,8 +20,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAzure.MediaServices.Client;
-
 
 namespace AMSExplorer
 {
@@ -79,6 +77,7 @@ namespace AMSExplorer
         private void ImportHttp_Load(object sender, EventArgs e)
         {
             labelURLFileNameWarning.Text = string.Empty;
+            textBoxAssetName.Text = "import-" + _uniqueness;
 
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
@@ -112,7 +111,6 @@ namespace AMSExplorer
             if (!Error)
             {
                 labelURLFileNameWarning.Text = string.Empty;
-                textBoxAssetName.Text = Path.GetFileNameWithoutExtension(GetURL.LocalPath) + "-" + _uniqueness;
                 textBoxDescription.Text = "Imported from : " + GetURL.AbsoluteUri;
             }
         }

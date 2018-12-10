@@ -204,60 +204,6 @@
   <data name="&gt;&gt;checkBoxUseProtectedConfig.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>139, 31</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>items displayed per page</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="comboBoxNbItems.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxNbItems.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 28</value>
-  </data>
-  <data name="comboBoxNbItems.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 23</value>
-  </data>
-  <data name="comboBoxNbItems.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;comboBoxNbItems.Name" xml:space="preserve">
-    <value>comboBoxNbItems</value>
-  </data>
-  <data name="&gt;&gt;comboBoxNbItems.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxNbItems.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;comboBoxNbItems.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
   <data name="buttonReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -313,7 +259,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayAssetID.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="checkBoxDisplayJobID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -343,7 +289,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayJobID.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

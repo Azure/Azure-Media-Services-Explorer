@@ -51,7 +51,6 @@ namespace AMSExplorer
 
             Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat = checkBoxUseAdaptiveStreamingFormat.Checked;
             Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
-            Properties.Settings.Default.NbItemsDisplayedInGrid = Convert.ToInt16(comboBoxNbItems.SelectedItem.ToString());
 
             Properties.Settings.Default.AssetAnalysisStart = (int)numericUpDownAssetAnalysisStart.Value;
             Properties.Settings.Default.AssetAnalysisStep = (int)numericUpDownAssetAnalysisStep.Value;
@@ -96,10 +95,6 @@ namespace AMSExplorer
             checkBoxShowPremiumLiveEncoding.Checked = false;
             checkBoxHideTaskbarNotifications.Checked = false;
 
-            int indexc = comboBoxNbItems.Items.IndexOf("50");
-            if (indexc == -1) indexc = 1; // not found!
-            comboBoxNbItems.SelectedIndex = indexc;
-
             textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions, Constants.NameconvManifestURL);
             checkBoxEnableCustomPlayer.Checked = false;
 
@@ -133,11 +128,6 @@ namespace AMSExplorer
 
         private void options_Load(object sender, EventArgs e)
         {
-            comboBoxNbItems.Items.AddRange(new string[] { "25", "50", "75", "100", "150" });
-            int indexc = comboBoxNbItems.Items.IndexOf(Properties.Settings.Default.NbItemsDisplayedInGrid.ToString());
-            if (indexc == -1) indexc = 1; // not found!
-            comboBoxNbItems.SelectedIndex = indexc;
-
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
             checkBoxDisplayAssetAltId.Checked = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;

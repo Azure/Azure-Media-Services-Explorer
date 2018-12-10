@@ -33,8 +33,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxNbItems = new System.Windows.Forms.ComboBox();
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
@@ -140,18 +138,6 @@
             this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
             this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // comboBoxNbItems
-            // 
-            this.comboBoxNbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxNbItems, "comboBoxNbItems");
-            this.comboBoxNbItems.FormattingEnabled = true;
-            this.comboBoxNbItems.Name = "comboBoxNbItems";
-            // 
             // buttonReset
             // 
             resources.ApplyResources(this.buttonReset, "buttonReset");
@@ -181,9 +167,7 @@
             this.groupBox1.Controls.Add(this.checkBoxDisplayOriginID);
             this.groupBox1.Controls.Add(this.checkBoxDisplayProgramID);
             this.groupBox1.Controls.Add(this.checkBoxDisplayChannelID);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.checkBoxDisplayJobID);
-            this.groupBox1.Controls.Add(this.comboBoxNbItems);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
@@ -701,8 +685,6 @@
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxNbItems;
         public System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetID;
         private System.Windows.Forms.CheckBox checkBoxDisplayJobID;

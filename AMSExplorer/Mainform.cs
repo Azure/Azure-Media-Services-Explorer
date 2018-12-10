@@ -1117,11 +1117,12 @@ namespace AMSExplorer
 
         public void DoRefreshGridAssetV(bool firstime)
         {
+            SetTextBoxAssetsPageNumber(0);
+
             if (firstime)
             {
                 dataGridViewAssetsV.Init(_amsClientV3);
                 //for (int i = 0; i <= 10 /*dataGridViewAssetsV.PageCount*/; i++) comboBoxPageAssets.Items.Add(i);
-                SetTextBoxAssetsPageNumber(0);
                 //comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
@@ -1172,7 +1173,7 @@ namespace AMSExplorer
 
         public void DoPurgeAssetInfoFromCache(IAsset asset)
         {
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
+           // dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
         }
 
         private void DoRefreshGridTransformV(bool firstime)
@@ -7388,16 +7389,7 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripComboBoxNbItemsPage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ToolStripComboBox CB = (ToolStripComboBox)sender;
-            string sel = CB.SelectedItem.ToString();
-            sel = sel.Substring(0, sel.IndexOf(" "));
-            int nbitem = Convert.ToInt16(sel);
-
-            dataGridViewAssetsV.AssetsPerPage = nbitem;
-            dataGridViewJobsV.JobssPerPage = nbitem;
-        }
+      
 
         private void buttonJobSearch_Click(object sender, EventArgs e)
         {
@@ -8170,13 +8162,10 @@ namespace AMSExplorer
                 dataGridViewAssetsV.Columns["AssetId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
                 dataGridViewAssetsV.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
                 dataGridViewAssetsV.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
-                // dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewLiveEventsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewLiveOutputV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-                // dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             }
 
-            dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid;
             dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid;
 
             TimerAutoRefresh.Interval = Properties.Settings.Default.AutoRefreshTime * 1000;
@@ -15455,13 +15444,12 @@ namespace AMSExplorer
         private void textBoxAssetsPageNumber_TextChanged(object sender, EventArgs e)
         {
             dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber());
-
+            butNextPageAsset.Enabled = !dataGridViewAssetsV.CurrentPageIsMax;
         }
 
         private void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateVideoAnalyzerTransform();
-
         }
 
         private void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -15579,7 +15567,7 @@ namespace AMSExplorer
     public static class FilterTime
     {
         // public const string First50Items = "First 50 items";
-        public const string First1000Items = "First 1000 items";
+        public const string AllItems = "All items";
         public const string LastDay = "Last 24 hours";
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
