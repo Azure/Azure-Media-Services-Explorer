@@ -426,7 +426,7 @@ namespace AMSExplorer
                 while (!DoGridTransferQueueOurTurn(guid) && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
                 {
                     Debug.Print("wait " + guid.ToString());
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
                 }
                 DoGridTransferDeclareTransferStarted(guid);
             }
