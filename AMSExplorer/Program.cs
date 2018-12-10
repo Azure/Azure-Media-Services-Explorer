@@ -844,7 +844,6 @@ namespace AMSExplorer
         public const string AzureMediaIndexer = "Azure Media Indexer";
         public const string AzureMediaIndexer2Preview = "Azure Media Indexer 2 Preview";
         public const string AzureMediaIndexer2 = "Azure Speech Analyzer";
-        public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
         public const string AzureMediaFaceDetector = "Azure Media Face Detector";
         public const string AzureMediaRedactor = "Azure Media Redactor";
         public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
@@ -966,8 +965,6 @@ namespace AMSExplorer
 
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-encode-with-premium-workflow";
-        public const string LinkMoreInfoHyperlapse = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-hyperlapse-content";
-        public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkMoreInfoIndexer = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-index-content";
         public const string LinkMoreInfoIndexerV2 = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-process-content-with-indexer2";
         public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-optical-character-recognition";
@@ -1286,11 +1283,6 @@ namespace AMSExplorer
                             case (Constants.AzureMediaIndexer):
                                 // Indexing task
                                 // TO DO: GET DURATION OF CONTENT
-                                //pricetask = ?
-                                break;
-                            case (Constants.AzureMediaHyperlapse):
-                                // Hyperlapse task
-                                // TO DO when final cost 
                                 //pricetask = ?
                                 break;
                             default:

@@ -492,12 +492,6 @@
     <Compile Include="JobOptions.Designer.cs">
       <DependentUpon>JobOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hyperlapse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hyperlapse.Designer.cs">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </Compile>
     <Compile Include="IndexerOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1173,9 +1167,6 @@
     <EmbeddedResource Include="HLSAESStatic.ja.resx">
       <DependentUpon>HLSAESStatic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.ja.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImportFromAzureStorage.ja.resx">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
@@ -1219,6 +1210,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.ja.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MetadataInformation.ja.resx">
       <DependentUpon>MetadataInformation.cs</DependentUpon>
@@ -1327,9 +1319,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerOptions.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>

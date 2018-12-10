@@ -5965,40 +5965,6 @@ namespace AMSExplorer
         }
 
 
-        private void DoMenuHyperlapseAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            // not needed as ism as primary seems to work ok
-            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
-
-            Hyperlapse form = new Hyperlapse(_context, processor.Version)
-            {
-                HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
-                HyperlapseOutputAssetName = Constants.NameconvInputasset + " - Hyperlapsed",
-                HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
-            };
-
-            string taskname = "Hyperlapse processing of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                string configHyperlapse = form.JsonConfig();
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
-            }
-        }
-
         private static void CheckPrimaryFileExtension(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
         {
             // if one asset selected
@@ -14980,11 +14946,6 @@ namespace AMSExplorer
             DoMenuIndexAssets();
         }
 
-        private void toolStripMenuItem37_Click(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-        }
-
         private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
         {
             DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
@@ -15588,11 +15549,6 @@ namespace AMSExplorer
             DoMenuIndex2PreviewAssets();
         }
 
-        private void processAssetsWithHyperlapseToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-
-        }
 
         private void ProcessFaceDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {

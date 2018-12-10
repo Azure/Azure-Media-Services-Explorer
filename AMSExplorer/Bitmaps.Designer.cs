@@ -19,7 +19,7 @@ namespace AMSExplorer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Bitmaps {
@@ -66,16 +66,6 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap _01_indexer {
             get {
                 object obj = ResourceManager.GetObject("_01_indexer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _02_hyperlapse {
-            get {
-                object obj = ResourceManager.GetObject("_02_hyperlapse", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,26 +396,6 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap hyperlapse {
-            get {
-                object obj = ResourceManager.GetObject("hyperlapse", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap hyperlapse_large {
-            get {
-                object obj = ResourceManager.GetObject("hyperlapse_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
