@@ -96,7 +96,9 @@ namespace AMSExplorer
         //private static AzureMediaServicesClient _amsClientV3.AMSclient;
         private static AMSClientV3 _amsClientV3;
 
-        public Mainform()
+        const string resetcredentials = "/resetcredentials";
+
+        public Mainform(string[] args)
         {
             InitializeComponent();
 
@@ -109,10 +111,20 @@ namespace AMSExplorer
             // upgrade settings from previous version
             if (Properties.Settings.Default.CallUpgrade)
             {
-                //  Properties.Settings.Default.Upgrade();
+
+                // let's migrate data 
+                Properties.Settings.Default.Upgrade();
+
                 // we remove temporary the upgrade as schema has changed
                 Properties.Settings.Default.CallUpgrade = false;
             }
+
+            if (args.Length > 0 && args.Any(a => a.ToLower() == resetcredentials))
+            {
+                // let's clean the list
+                Properties.Settings.Default.LoginListRPv3JSON = "";
+            }
+
 
             // if installation file has been downloaded, let's delete it now
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DeleteInstallationFile))
@@ -1173,7 +1185,7 @@ namespace AMSExplorer
 
         public void DoPurgeAssetInfoFromCache(IAsset asset)
         {
-           // dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
+            // dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
         }
 
         private void DoRefreshGridTransformV(bool firstime)
@@ -7389,7 +7401,7 @@ namespace AMSExplorer
         }
 
 
-      
+
 
         private void buttonJobSearch_Click(object sender, EventArgs e)
         {

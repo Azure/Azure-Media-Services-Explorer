@@ -65,16 +65,19 @@ namespace AMSExplorer
         /// </summary>
         /// 
 
+        const string languageparam = "/language:";
+
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            if (args.Length > 0 && args.Any(a=> a.StartsWith(languageparam)))
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(args[0], false);
+                var language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mainform());
+            Application.Run(new Mainform(args));
         }
 
         public static void dataGridViewV_Resize(object sender)
