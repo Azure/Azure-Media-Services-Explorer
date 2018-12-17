@@ -7046,27 +7046,56 @@ namespace AMSExplorer
                     var JS = (Microsoft.Azure.Management.Media.Models.JobState)celljobstatevalue;
                     Color mycolor;
 
-                    switch (JS)
+                    //switch (JS)
+                    //{
+                    //    case Microsoft.Azure.Management.Media.Models.JobState.Error:
+                    //        mycolor = Color.Red;
+                    //        break;
+                    //    case Microsoft.Azure.Management.Media.Models.JobState.Canceled:
+                    //        mycolor = Color.Blue;
+                    //        break;
+                    //    case Microsoft.Azure.Management.Media.Models.JobState.Canceling:
+                    //        mycolor = Color.Blue;
+                    //        break;
+                    //    case Microsoft.Azure.Management.Media.Models.JobState.Processing:
+                    //        mycolor = Color.DarkGreen;
+                    //        break;
+                    //    case Microsoft.Azure.Management.Media.Models.JobState.Queued:
+                    //        mycolor = Color.Green;
+                    //        break;
+                    //    default:
+                    //        mycolor = Color.Black;
+                    //        break;
+                    //}
+
+                    if (JS == Microsoft.Azure.Management.Media.Models.JobState.Error)
                     {
-                        case Microsoft.Azure.Management.Media.Models.JobState.Error:
-                            mycolor = Color.Red;
-                            break;
-                        case Microsoft.Azure.Management.Media.Models.JobState.Canceled:
-                            mycolor = Color.Blue;
-                            break;
-                        case Microsoft.Azure.Management.Media.Models.JobState.Canceling:
-                            mycolor = Color.Blue;
-                            break;
-                        case Microsoft.Azure.Management.Media.Models.JobState.Processing:
-                            mycolor = Color.DarkGreen;
-                            break;
-                        case Microsoft.Azure.Management.Media.Models.JobState.Queued:
-                            mycolor = Color.Green;
-                            break;
-                        default:
-                            mycolor = Color.Black;
-                            break;
+                        mycolor = Color.Red;
                     }
+                    else if (JS == Microsoft.Azure.Management.Media.Models.JobState.Canceled)
+                    {
+                        mycolor = Color.Blue;
+                    }
+                    else if (JS == Microsoft.Azure.Management.Media.Models.JobState.Canceling)
+                    {
+                        mycolor = Color.Blue;
+                    }
+                    else if (JS == Microsoft.Azure.Management.Media.Models.JobState.Processing)
+                    {
+                        mycolor = Color.DarkGreen;
+                    }
+                    else if (JS == Microsoft.Azure.Management.Media.Models.JobState.Queued)
+                    {
+                        mycolor = Color.Green;
+                    }
+                    else
+                    {
+                        mycolor = Color.Black;
+                    }
+
+
+
+
                     e.CellStyle.ForeColor = mycolor;
                 }
             }
@@ -8347,38 +8376,36 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    ulong? start = (ulong?)filter.PresentationTimeRange.StartTimestamp;
-                    ulong? end = (ulong?)filter.PresentationTimeRange.EndTimestamp;
-                    ulong? dvr = (ulong?)filter.PresentationTimeRange.PresentationWindowDuration;
-                    ulong? backoff = (ulong?)filter.PresentationTimeRange.LiveBackoffDuration;
+                    var start = filter.PresentationTimeRange.StartTimestamp;
+                    var end = filter.PresentationTimeRange.EndTimestamp;
+                    var dvr = filter.PresentationTimeRange.PresentationWindowDuration;
+                    var backoff = filter.PresentationTimeRange.LiveBackoffDuration;
 
                     if (true)//filter.PresentationTimeRange.Timescale != null)
                     {
                         double dscale = (double)filter.PresentationTimeRange.Timescale / (double)TimeSpan.TicksPerSecond;
                         if (start != null)
                         {
-                            start = (ulong)((double)start / dscale);
+                            start = (long)((double)start / dscale);
                         }
                         if (end != null)
                         {
-                            end = (ulong)((double)end / dscale);
+                            end = (long)((double)end / dscale);
                         }
                         if (dvr != null)
                         {
-                            dvr = (ulong)((double)dvr / dscale);
+                            dvr = (long)((double)dvr / dscale);
                         }
                         if (backoff != null)
                         {
-                            backoff = (ulong)((double)backoff / dscale);
+                            backoff = (long)((double)backoff / dscale);
                         }
                     }
-
-                    //double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
 
                     s = (start != null) ? TimeSpan.FromTicks((long)start).ToString(@"d\.hh\:mm\:ss") : "min";
                     e = (end != null) ? TimeSpan.FromTicks((long)end).ToString(@"d\.hh\:mm\:ss") : "max";
 
-                    d = (dvr != null) ? TimeSpan.FromTicks((long)dvr).ToString(@"d\.hh\:mm\:ss") : "min";
+                    d = (dvr != null) ? TimeSpan.FromTicks((long)dvr).ToString(@"d\.hh\:mm\:ss") : "max";
                     l = (backoff != null) ? TimeSpan.FromTicks((long)backoff).ToString(@"d\.hh\:mm\:ss") : "min";
                 }
                 try
@@ -8391,8 +8418,6 @@ namespace AMSExplorer
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
-
-            //foreach (var filter in filters)
 
             tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
         }
@@ -13724,11 +13749,10 @@ namespace AMSExplorer
 
 
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
-        {/*
+        {
             var filters = ReturnSelectedAccountFilters();
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
-            */
         }
 
         private void toolStripMenuItem23_Click(object sender, EventArgs e)

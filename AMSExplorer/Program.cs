@@ -5363,7 +5363,7 @@ namespace AMSExplorer
     {
         public TimeSpan AssetDuration { get; set; }
         public ulong TimestampOffset { get; set; }
-        public long TimeScale { get; set; }
+        public long? TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
         public List<ulong> TimestampList { get; set; }

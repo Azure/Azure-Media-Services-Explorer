@@ -40,7 +40,7 @@ namespace AMSExplorer
 
             set
             {
-                comboBoxPriority.SelectedIndex =  (int)((Priority)value);
+                comboBoxPriority.SelectedIndex = comboBoxPriority.Items.IndexOf(value);
             }
         }
         public PriorityForm()

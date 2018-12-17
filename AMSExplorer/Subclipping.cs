@@ -107,7 +107,9 @@ namespace AMSExplorer
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
-                    _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentassetmanifestdata.TimeScale;
+                    timeControlStart.TimeScale = timeControlEnd.TimeScale = (long?)_parentassetmanifestdata.TimeScale;
+                    _timescale = _parentassetmanifestdata.TimeScale ?? TimeSpan.TicksPerSecond;
+
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
                     buttonShowEDL.Offset = timeControlStart.GetOffSetAsTimeSpan();
 
@@ -512,7 +514,7 @@ namespace AMSExplorer
                 (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name) // archive top bitrate
                  ||
                 (radioButtonArchiveLowBitrate.Checked && senderr.Name == radioButtonArchiveLowBitrate.Name) // archive low bitrate
-                )  
+                )
             {
                 checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;

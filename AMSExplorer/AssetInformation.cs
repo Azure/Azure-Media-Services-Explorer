@@ -484,10 +484,10 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    ulong? start = (ulong)filter.PresentationTimeRange.StartTimestamp;
-                    ulong? end = (ulong)filter.PresentationTimeRange.EndTimestamp;
-                    ulong? dvr = (ulong)filter.PresentationTimeRange.PresentationWindowDuration;
-                    ulong? live = (ulong)filter.PresentationTimeRange.LiveBackoffDuration;
+                    var start = filter.PresentationTimeRange.StartTimestamp;
+                    var end = filter.PresentationTimeRange.EndTimestamp;
+                    var dvr = filter.PresentationTimeRange.PresentationWindowDuration;
+                    var backoff = filter.PresentationTimeRange.LiveBackoffDuration;
 
                     double dscale = (filter.PresentationTimeRange.Timescale != null) ?
                         (double)filter.PresentationTimeRange.Timescale
@@ -499,8 +499,8 @@ namespace AMSExplorer
 
                     s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
-                    d = ReturnFilterTextWithOffSet(dvr, dscale, 0, dscaleoffset, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
-                    l = ReturnFilterTextWithOffSet(live, dscale, 0, dscaleoffset, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
+                    d = ReturnFilterTextWithOffSet(dvr, dscale, 0, dscaleoffset, "max");
+                    l = ReturnFilterTextWithOffSet(backoff, dscale, 0, dscaleoffset, "min");
 
                     //d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
                     //l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
@@ -531,7 +531,7 @@ namespace AMSExplorer
             }
         }
 
-        private static string ReturnFilterTextWithOffSet(ulong? value, double scalevalue, ulong offset, double scaleoffset, string defaultwhennull)
+        private static string ReturnFilterTextWithOffSet(long? value, double scalevalue, ulong offset, double scaleoffset, string defaultwhennull)
         {
 
             if (value == null)

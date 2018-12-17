@@ -1299,29 +1299,17 @@
   <metadata name="contextMenuStripFilters.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>305, 95</value>
   </metadata>
-  <data name="contextMenuStripFilters.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItem12.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="toolStripMenuItem12.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="filterInfoupdateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
-  </data>
-  <data name="toolStripMenuItem16.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="toolStripMenuItem16.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F</value>
@@ -1332,17 +1320,11 @@
   <data name="toolStripMenuItem16.Text" xml:space="preserve">
     <value>Create an account filter...</value>
   </data>
-  <data name="deleteToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="deleteToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
   </data>
   <data name="deleteToolStripMenuItem1.Text" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="duplicateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
@@ -1351,7 +1333,7 @@
     <value>Duplicate...</value>
   </data>
   <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 114</value>
+    <value>247, 136</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFilters.Name" xml:space="preserve">
     <value>contextMenuStripFilters</value>
@@ -1604,37 +1586,37 @@
   <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxPageJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxJobsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="textBoxPageJobs.Enabled" type="System.Boolean, mscorlib">
+  <data name="textBoxJobsPageNumber.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="textBoxPageJobs.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
     <value>941, 385</value>
   </data>
-  <data name="textBoxPageJobs.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="textBoxJobsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
   </data>
-  <data name="textBoxPageJobs.TabIndex" type="System.Int32, mscorlib">
+  <data name="textBoxJobsPageNumber.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
   </data>
-  <data name="textBoxPageJobs.Text" xml:space="preserve">
+  <data name="textBoxJobsPageNumber.Text" xml:space="preserve">
     <value>99</value>
   </data>
-  <data name="textBoxPageJobs.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+  <data name="textBoxJobsPageNumber.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
   </data>
-  <data name="&gt;&gt;textBoxPageJobs.Name" xml:space="preserve">
-    <value>textBoxPageJobs</value>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Name" xml:space="preserve">
+    <value>textBoxJobsPageNumber</value>
   </data>
-  <data name="&gt;&gt;textBoxPageJobs.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxJobsPageNumber.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxPageJobs.Parent" xml:space="preserve">
+  <data name="&gt;&gt;textBoxJobsPageNumber.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
   </data>
-  <data name="&gt;&gt;textBoxPageJobs.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;textBoxJobsPageNumber.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="dataGridViewTransformsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

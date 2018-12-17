@@ -1106,7 +1106,7 @@ The first entry '{0}' will be used.</value>
     <value>End time must be higher than start time</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore" xml:space="preserve">
-    <value>The DVR Window must be at least 2 minutes (or more)</value>
+    <value>The DVR Window must be at least 1 minute (or more)</value>
   </data>
   <data name="DynManifestFilter_textBoxRawulong_Validating_IncorrectValue" xml:space="preserve">
     <value>Incorrect value</value>

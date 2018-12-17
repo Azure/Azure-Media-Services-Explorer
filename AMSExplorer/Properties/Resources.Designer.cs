@@ -2782,7 +2782,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The DVR Window must be at least 2 minutes (or more).
+        ///   Looks up a localized string similar to The DVR Window must be at least 1 minute (or more).
         /// </summary>
         internal static string DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore {
             get {
