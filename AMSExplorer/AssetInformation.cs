@@ -452,21 +452,19 @@ namespace AMSExplorer
 
             var assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
-            dataGridViewFilters.ColumnCount = 7;
+            dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
             dataGridViewFilters.Columns[0].Name = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
-            dataGridViewFilters.Columns[1].HeaderText = "Id";
-            dataGridViewFilters.Columns[1].Name = "Id";
-            dataGridViewFilters.Columns[2].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_TrackRules;
-            dataGridViewFilters.Columns[2].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Rules;
-            dataGridViewFilters.Columns[3].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_StartDHMS;
-            dataGridViewFilters.Columns[3].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Start;
-            dataGridViewFilters.Columns[4].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_EndDHMS;
-            dataGridViewFilters.Columns[4].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_End;
-            dataGridViewFilters.Columns[5].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVRDHMS;
-            dataGridViewFilters.Columns[5].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVR;
-            dataGridViewFilters.Columns[6].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoffDHMS;
-            dataGridViewFilters.Columns[6].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoff;
+            dataGridViewFilters.Columns[1].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_TrackRules;
+            dataGridViewFilters.Columns[1].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Rules;
+            dataGridViewFilters.Columns[2].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_StartDHMS;
+            dataGridViewFilters.Columns[2].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Start;
+            dataGridViewFilters.Columns[3].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_EndDHMS;
+            dataGridViewFilters.Columns[3].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_End;
+            dataGridViewFilters.Columns[4].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVRDHMS;
+            dataGridViewFilters.Columns[4].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_DVR;
+            dataGridViewFilters.Columns[5].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoffDHMS;
+            dataGridViewFilters.Columns[5].Name = AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_LiveBackoff;
 
             dataGridViewFilters.Rows.Clear();
 
@@ -508,11 +506,11 @@ namespace AMSExplorer
                 try
                 {
                     var nbtrack = filter.Tracks.Count;
-                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
                 }
                 catch
                 {
-                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, "Error", s, e, d, l);
+                    int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
         }
@@ -2107,8 +2105,8 @@ namespace AMSExplorer
             var afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
-                string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
-                AssetFilter myfilter = afilters.Where(f => f.Id == filterid).FirstOrDefault();
+                string filterName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
+                AssetFilter myfilter = afilters.Where(f => f.Name == filterName).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -2116,12 +2114,12 @@ namespace AMSExplorer
             }
             return SelectedFilters;
         }
-        private void DoFilterInfo()
+        private void DoFilterInfo(AssetFilter filter = null)
         {
             var filters = ReturnSelectedFilters();
-            if (filters.Count == 1)
+            if (filter != null || filters.Count == 1)
             {
-                var filter = filters.FirstOrDefault();
+                filter = filter ?? filters.FirstOrDefault();
                 DynManifestFilter form = new DynManifestFilter(_amsClient, filter, myAssetV3);
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -2606,6 +2604,15 @@ namespace AMSExplorer
         private void tabPage3_Enter(object sender, EventArgs e)
         {
             BuildLocatorsTree();
+        }
+
+        private void dataGridViewFilters_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                var filter = _amsClient.AMSclient.AssetFilters.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
+                DoFilterInfo(filter);
+            }
         }
     }
 

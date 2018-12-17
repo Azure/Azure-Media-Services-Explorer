@@ -79,12 +79,7 @@ namespace AMSExplorer
             {
                 if (radioButtonOrigin.Checked && checkBoxForLocatorGUID.Checked)
                 {
-                    string locatorstr = textBoxLocatorGUID.Text;
-                    if (!locatorstr.StartsWith(Constants.LocatorIdPrefix))
-                    {
-                        locatorstr = Constants.LocatorIdPrefix + locatorstr;
-                    }
-                    return locatorstr;
+                    return textBoxLocatorGUID.Text;
                 }
                 else
                 {

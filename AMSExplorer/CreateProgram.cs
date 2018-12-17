@@ -191,7 +191,7 @@ namespace AMSExplorer
             {
                 Uri myUri = new Uri(url);
                 filename = System.IO.Path.GetFileNameWithoutExtension((myUri).LocalPath);
-                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath).Replace(@"\", Constants.LocatorIdPrefix);
+                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath);//.Replace(@"\", Constants.LocatorIdPrefix);
             }
             catch
             {

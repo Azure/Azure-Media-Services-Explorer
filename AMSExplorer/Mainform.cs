@@ -7359,17 +7359,13 @@ namespace AMSExplorer
         {
             string locatorID = string.Empty;
             string clipbs = Clipboard.GetText();
-            if (clipbs != null && clipbs.StartsWith(Constants.LocatorIdPrefix))
+            if (clipbs != null)
             {
                 locatorID = clipbs;
             }
 
             if (Program.InputBox("Locator ID/GUID", "Please enter the known Locator Id or GUID :", ref locatorID) == DialogResult.OK)
             {
-                if (!locatorID.StartsWith(Constants.LocatorIdPrefix))
-                {
-                    locatorID = Constants.LocatorIdPrefix + locatorID;
-                }
                 ILocator knownLocator = _context.Locators.Where(l => l.Id == locatorID).FirstOrDefault();
 
                 if (knownLocator == null)
@@ -13459,10 +13455,6 @@ namespace AMSExplorer
             DoMenuDisplayAssetInfoFromLocatorID();
         }
 
-        private void findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoFromLocatorID();
-        }
 
         private void displayParentJobToolStripMenuItem1_Click(object sender, EventArgs e)
         {

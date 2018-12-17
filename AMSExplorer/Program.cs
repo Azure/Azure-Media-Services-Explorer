@@ -70,7 +70,7 @@ namespace AMSExplorer
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length > 0 && args.Any(a=> a.StartsWith(languageparam)))
+            if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
                 var language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
@@ -985,7 +985,6 @@ namespace AMSExplorer
         public static readonly string[] BrowserIE = { "Internet Explorer", "iexplore.exe" };
         public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
 
-        public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
         public const string AssetFileIdPrefix = "nb:cid:UUID:";
         public const string ContentKeyIdPrefix = "nb:kid:UUID:";
@@ -1033,7 +1032,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
 
         public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-optical-character-recognition";
-        public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
+        public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-overview";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
         public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-manage-live-encoder-enabled-channels";
@@ -1857,6 +1856,7 @@ namespace AMSExplorer
             var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
             var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             var runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
+            if (runningSes == null) runningSes = ses.FirstOrDefault();
             if (locators.Count > 0)
             {
                 var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
@@ -3929,10 +3929,7 @@ namespace AMSExplorer
     public class JobEntryV3
     {
         public string Name { get; set; }
-
         public string TransformName { get; set; }
-        public string Id { get; set; }
-
         public string Description { get; set; }
         public int Outputs { get; set; }
         public Priority? Priority { get; set; }
@@ -5538,7 +5535,6 @@ namespace AMSExplorer
     {
         public static readonly string mp4a = "mp4a";
         public static readonly string avc1 = "avc1";
-        public static readonly string mp4v = "mp4v";
         public static readonly string ec3 = "ec-3";
         public static readonly string hev1 = "hev1";
         public static readonly string hvc1 = "hvc1";

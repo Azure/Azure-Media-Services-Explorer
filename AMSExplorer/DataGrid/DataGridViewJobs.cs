@@ -244,18 +244,22 @@ namespace AMSExplorer
             */
 
             BindingList<JobEntryV3> MyObservJobthisPageV3 = new BindingList<JobEntryV3>(jobs);
-            // this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
-            this.DataSource = MyObservJobthisPageV3;
+            var result = this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
+            //this.DataSource = MyObservJobthisPageV3;
 
-            this.Columns["Id"].Visible = false;
-            this.Columns["TransformName"].Visible = false;
+            var myTask = Task.Factory.StartNew(() =>
+            {
+                result.AsyncWaitHandle.WaitOne();
+                this.BeginInvoke(new Action(() => {
+                    this.Columns["TransformName"].Visible = false;
+                    this.Columns["Progress"].DisplayIndex = 5;
+                    this.Columns["Progress"].Width = 150;
+                    this.Columns["Outputs"].Width = 80;
+                    this.Columns["Priority"].Width = 50;
+                    this.Columns["State"].Width = 80;
 
-            this.Columns["Progress"].DisplayIndex = 5;
-            this.Columns["Progress"].Width = 150;
-            this.Columns["Outputs"].Width = 80;
-            this.Columns["Priority"].Width = 50;
-            this.Columns["State"].Width = 80;
-
+                }));
+            });
 
             _initialized = true;
         }
@@ -300,8 +304,6 @@ namespace AMSExplorer
                 _transformName = value;
             }
         }
-
-
 
 
         public void Refreshjobs(int pagetodisplay) // all jobs are refreshed
@@ -351,10 +353,6 @@ namespace AMSExplorer
         {
             Task.Run(() =>
             {
-                // IEnumerable<IJob> ActiveAndVisibleJobs = jobs.Where(j => (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled) || (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing));
-
-                //var transforms = _client.Transforms.List(_resourceName, _accountName);
-
                 var odataQuery = new ODataQuery<Job>();
                 odataQuery.Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' ";
 
@@ -364,12 +362,6 @@ namespace AMSExplorer
                     ActiveAndVisibleJobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t }));
                 }
 
-                /*
-            foreach (var t in transforms)
-            {
-                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t).Select(a => new JobEntryV3
-                {
-                */
 
                 // let's cancel monitor task of non visible jobs
                 List<string> listToCancel = new List<string>();

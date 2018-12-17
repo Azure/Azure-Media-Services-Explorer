@@ -46,6 +46,7 @@
             this.radioButtonOrigin = new System.Windows.Forms.RadioButton();
             this.radioButtonSAS = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWarning = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
             this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -193,6 +193,12 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
+            // comboBoxPolicyName
+            // 
+            this.comboBoxPolicyName.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
+            this.comboBoxPolicyName.Name = "comboBoxPolicyName";
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.SAS_locator;
@@ -247,12 +253,6 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
-            // 
-            // comboBoxPolicyName
-            // 
-            this.comboBoxPolicyName.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
-            this.comboBoxPolicyName.Name = "comboBoxPolicyName";
             // 
             // CreateLocator
             // 

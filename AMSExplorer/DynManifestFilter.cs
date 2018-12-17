@@ -75,8 +75,6 @@ namespace AMSExplorer
             {
                 var filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
                 filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
-
-                // asset.AssetFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
             // account filters
 
@@ -84,7 +82,6 @@ namespace AMSExplorer
 
             acFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
 
-            //_context.Filters.ToList().Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
             if (comboBoxLocatorsFilters.Items.Count > 1)
             {
                 comboBoxLocatorsFilters.Enabled = true;
@@ -137,7 +134,6 @@ namespace AMSExplorer
                 isAccountFilter = true;
                 DisplayFilterInfo();
                 _filter_name = accFilter.Name;
-                //var _filter_presentationtimerange = accFilter.PresentationTimeRange;
                 filtertracks = ConvertFilterTracksToInternalVar(accFilter.Tracks);
 
                 _timescale = accFilter.PresentationTimeRange.Timescale ?? _timescale;
@@ -186,8 +182,6 @@ namespace AMSExplorer
                 newfilter = true;
                 isAccountFilter = false;
                 tabControl1.TabPages.Remove(tabPageInformation);
-
-                //_filter_presentationtimerange = new PresentationTimeRange() { Timescale = 10000000 };
 
                 filtertracks = new List<ExFilterTrack>();
 
@@ -240,7 +234,6 @@ namespace AMSExplorer
                         checkBoxStartTime.Checked = checkBoxEndTime.Checked = true;
                         textBoxFilterName.Text = "subclip" + new Random().Next(9999).ToString();
                     }
-
                 }
 
                 else // not able to read asset timings
@@ -264,7 +257,6 @@ namespace AMSExplorer
                 DisplayFilterInfo();
 
                 _filter_name = assetFilter.Name;
-                //_filter_presentationtimerange = assetFilter.PresentationTimeRange;
                 filtertracks = ConvertFilterTracksToInternalVar(assetFilter.Tracks);
 
                 _timescale = assetFilter.PresentationTimeRange.Timescale ?? _timescale;
@@ -318,7 +310,6 @@ namespace AMSExplorer
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
 
-
                 checkBoxStartTime.Checked = assetFilter.PresentationTimeRange.StartTimestamp != null;
                 checkBoxEndTime.Checked = assetFilter.PresentationTimeRange.EndTimestamp != null;
                 checkBoxPresentationWindowDuration.Checked = assetFilter.PresentationTimeRange.PresentationWindowDuration != null;
@@ -342,7 +333,6 @@ namespace AMSExplorer
                 }
 
                 checkBoxForValueForLive.Checked = assetFilter.PresentationTimeRange.ForceEndTimestamp ?? false;
-
             }
 
             // Common code
@@ -365,7 +355,6 @@ namespace AMSExplorer
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.avc1, FilterPropertyFourCCValue.avc1);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
-            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hev1, FilterPropertyFourCCValue.hev1);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.hvc1, FilterPropertyFourCCValue.hvc1);
 
@@ -431,7 +420,6 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, accfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, accfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, accfilter.Tracks.Count);
-
             }
             else
             {
@@ -440,7 +428,6 @@ namespace AMSExplorer
 
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_AssetFilter);
                 DGInfo.Rows.Add("Id", assetfilter.Id);
-                //DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, assetfilter..ParentAssetId);
 
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, assetfilter.FirstQuality == null ? Constants.stringNull : assetfilter.FirstQuality.Bitrate.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange.Timescale.ToString());
@@ -451,7 +438,6 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, assetfilter.Tracks.Count);
-
             }
         }
 
@@ -470,40 +456,6 @@ namespace AMSExplorer
                     mycondition.property = condition.Property.ToString();
                     mycondition.value = condition.Value;
 
-                    /*
-
-                    if (condition.GetType() == typeof(FilterTrackTypeCondition)) // property type
-                    {
-                        FilterTrackTypeCondition conditionc = condition as FilterTrackTypeCondition;
-                        mycondition.property = FilterProperty.Type;
-                        mycondition.value = conditionc.Value.ToString();
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackFourCCCondition)) // property FourCC 
-                    {
-                        FilterTrackFourCCCondition conditionc = condition as FilterTrackFourCCCondition;
-                        mycondition.property = FilterProperty.FourCC;
-                        mycondition.value = conditionc.Value;
-
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackLanguageCondition)) // property Type - we want to propose supported FourCC
-                    {
-                        FilterTrackLanguageCondition conditionc = condition as FilterTrackLanguageCondition;
-                        mycondition.property = FilterProperty.Language;
-                        mycondition.value = conditionc.Value;
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackBitrateRangeCondition)) // property Bitrange - we want to propose supported FourCC
-                    {
-                        FilterTrackBitrateRangeCondition conditionc = condition as FilterTrackBitrateRangeCondition;
-                        mycondition.property = FilterProperty.Bitrate;
-                        mycondition.value = ReturnFilterTrackBitrateRangeAsString(conditionc.Value);
-                    }
-                    else if (condition.GetType() == typeof(FilterTrackNameCondition)) // property Name - we want to propose supported FourCC
-                    {
-                        FilterTrackNameCondition conditionc = condition as FilterTrackNameCondition;
-                        mycondition.property = FilterProperty.Name;
-                        mycondition.value = conditionc.Value;
-                    }
-                    */
                     myconditions.Add(mycondition);
                 }
                 mytrack.conditions = myconditions;
@@ -516,7 +468,6 @@ namespace AMSExplorer
         private List<FilterTrackSelection> CreateFilterTracks()
         // use internal list to create filter tracks
         {
-
             List<FilterTrackSelection> filterTrackSelectStatements = new List<FilterTrackSelection>();
 
             foreach (var track in filtertracks)
@@ -536,7 +487,6 @@ namespace AMSExplorer
                     {
                         op = FilterTrackPropertyCompareOperation.NotEqual;
                     }
-
 
                     FilterTrackPropertyType prop;
                     if (condition.property == FilterTrackPropertyType.Bitrate.ToString())
@@ -728,7 +678,6 @@ namespace AMSExplorer
             if (listBoxTracks.SelectedIndex > -1)
             {
                 filtertracks[listBoxTracks.SelectedIndex].conditions.Add(new ExCondition() { oper = FilterTrackPropertyCompareOperation.Equal.ToString() });
-                //_filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Video, FilterTrackCompareOperator.Equal));
                 RefreshTracksConditions();
             }
         }
@@ -790,7 +739,6 @@ namespace AMSExplorer
             if (listBoxTracks.SelectedIndex > -1 && dataGridViewTracks.SelectedRows.Count > 0)
             {
                 filtertracks[listBoxTracks.SelectedIndex].conditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
-                //_filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
                 RefreshTracksConditions();
             }
         }
@@ -813,7 +761,6 @@ namespace AMSExplorer
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
             // Filter sample
-            // _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
 
             List<FilterTrackSelection> filterTrackSelections = new List<FilterTrackSelection>()
             {
@@ -869,8 +816,6 @@ namespace AMSExplorer
             buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxFilterName.Text);
         }
 
-
-
         private void CheckIfErrorTimeControls()
         {
 
@@ -888,9 +833,6 @@ namespace AMSExplorer
                 errorProvider1.SetError(timeControlStart, String.Empty);
             }
 
-
-
-
             // time end control
             if (checkBoxEndTime.Checked && isAccountFilter)
             {
@@ -905,7 +847,6 @@ namespace AMSExplorer
                 errorProvider1.SetError(timeControlEnd, String.Empty);
             }
 
-
             // dvr
             if (checkBoxPresentationWindowDuration.Checked && timeControlDVR.TimeStampWithoutOffset < TimeSpan.FromMinutes(1))
             {
@@ -915,9 +856,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlDVR, String.Empty);
             }
-
         }
-
 
 
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
@@ -925,7 +864,6 @@ namespace AMSExplorer
             CheckIfErrorTimeControls();
             UpdateDurationText();
         }
-
 
 
         private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
@@ -981,8 +919,6 @@ namespace AMSExplorer
 
         private void timeControlDVR_ValueChanged(object sender, EventArgs e)
         {
-
-
             CheckIfErrorTimeControls();
         }
 
@@ -1060,7 +996,6 @@ namespace AMSExplorer
 
                     }
                 }
-
             }
         }
 
@@ -1136,5 +1071,4 @@ namespace AMSExplorer
             numericUpDownFirstQualityBitrate.Enabled = checkBoxFirstQualityBitrate.Checked;
         }
     }
-
 }
