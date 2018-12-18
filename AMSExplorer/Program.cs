@@ -5217,7 +5217,7 @@ namespace AMSExplorer
                     DisplayName = "Azure China";
                     Authority = "https://login.chinacloudapi.cn/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
-                    ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c"; // is it the same ?
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureChina;
 
                     break;
