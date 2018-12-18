@@ -134,10 +134,376 @@
   <data name="tabControlMain.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
     <value>FlatButtons</value>
   </data>
+  <data name="&gt;&gt;tabPageAssets.Name" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPageFilters.Name" xml:space="preserve">
+    <value>tabPageFilters</value>
+  </data>
+  <data name="&gt;&gt;tabPageFilters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageFilters.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageFilters.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Name" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tabPageJobs.Name" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;tabPageJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageJobs.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Name" xml:space="preserve">
+    <value>tabPageLive</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;tabPageOrigins.Name" xml:space="preserve">
+    <value>tabPageOrigins</value>
+  </data>
+  <data name="&gt;&gt;tabPageOrigins.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageOrigins.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageOrigins.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.Name" xml:space="preserve">
+    <value>tabPageStorage</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tabControlMain.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="tabControlMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 6</value>
+  </data>
+  <data name="tabControlMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1014, 469</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabControlMain.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Name" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Parent" xml:space="preserve">
+    <value>splitContainerMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel1.Name" xml:space="preserve">
+    <value>splitContainerMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerMain</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="richTextBoxLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripLog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>668, 56</value>
+  </metadata>
+  <data name="contextMenuStripLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 48</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLog.Name" xml:space="preserve">
+    <value>contextMenuStripLog</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="richTextBoxLog.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="richTextBoxLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="richTextBoxLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1014, 68</value>
+  </data>
+  <data name="richTextBoxLog.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="richTextBoxLog.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;richTextBoxLog.Name" xml:space="preserve">
+    <value>richTextBoxLog</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxLog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxLog.Parent" xml:space="preserve">
+    <value>splitContainerMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxLog.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel2.Name" xml:space="preserve">
+    <value>splitContainerMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel2.Parent" xml:space="preserve">
+    <value>splitContainerMain</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitContainerMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1020, 556</value>
+  </data>
+  <data name="splitContainerMain.SplitterDistance" type="System.Int32, mscorlib">
+    <value>478</value>
+  </data>
+  <data name="splitContainerMain.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Name" xml:space="preserve">
+    <value>splitContainerMain</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Name" xml:space="preserve">
+    <value>textBoxAssetsPageNumber</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetsPageNumber.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchAssetOption.Name" xml:space="preserve">
+    <value>comboBoxSearchAssetOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchAssetOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchAssetOption.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchAssetOption.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterAssetsTime.Name" xml:space="preserve">
+    <value>comboBoxFilterAssetsTime</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterAssetsTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterAssetsTime.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterAssetsTime.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;buttonAssetSearch.Name" xml:space="preserve">
+    <value>buttonAssetSearch</value>
+  </data>
+  <data name="&gt;&gt;buttonAssetSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAssetSearch.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;buttonAssetSearch.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetSearch.Name" xml:space="preserve">
+    <value>textBoxAssetSearch</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetSearch.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetSearch.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageAsset.Name" xml:space="preserve">
+    <value>butPrevPageAsset</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageAsset.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageAsset.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Name" xml:space="preserve">
+    <value>dataGridViewAssetsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderAssets.Name" xml:space="preserve">
+    <value>comboBoxOrderAssets</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderAssets.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderAssets.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;butNextPageAsset.Name" xml:space="preserve">
+    <value>butNextPageAsset</value>
+  </data>
+  <data name="&gt;&gt;butNextPageAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butNextPageAsset.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;butNextPageAsset.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="tabPageAssets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="tabPageAssets.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1006, 438</value>
+  </data>
+  <data name="tabPageAssets.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageAssets.Text" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.Name" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageAssets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="textBoxAssetsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="textBoxAssetsPageNumber.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -294,6 +660,9 @@
   <data name="&gt;&gt;buttonAssetSearch.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>208, 95</value>
+  </metadata>
   <data name="textBoxAssetSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -309,9 +678,6 @@
   <data name="textBoxAssetSearch.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>208, 95</value>
-  </metadata>
   <data name="textBoxAssetSearch.ToolTip" xml:space="preserve">
     <value>Search in asset name and asset Id</value>
   </data>
@@ -369,6 +735,36 @@
   <metadata name="contextMenuStripAssets.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>350, 17</value>
   </metadata>
+  <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 386</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
+    <value>contextMenuStripAssets</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewAssetsV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="dataGridViewAssetsV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>994, 398</value>
+  </data>
+  <data name="dataGridViewAssetsV.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Name" xml:space="preserve">
+    <value>dataGridViewAssetsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
+    <value>tabPageAssets</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewAssetsV.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="refreshToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -394,6 +790,24 @@
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
   </data>
+  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
+        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
+        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
+    <value>Report</value>
+  </data>
   <data name="copyToClipboardToolStripMenuItem3.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+A</value>
   </data>
@@ -418,24 +832,6 @@
   <data name="toolStripMenuItem30.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
-    <value>Report</value>
-  </data>
   <data name="ContextMenuItemAssetEditDescription.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -459,6 +855,20 @@
   </data>
   <data name="editAlternateIdToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit Alternate Id...</value>
+  </data>
+  <data name="ContextMenuItemAssetDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="ContextMenuItemAssetDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="ContextMenuItemAssetDelete.Text" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
@@ -490,19 +900,14 @@
   <data name="deleteAllAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete all assets...</value>
   </data>
-  <data name="ContextMenuItemAssetDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
+  <data name="toolsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="ContextMenuItemAssetDelete.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="ContextMenuItemAssetDelete.Text" xml:space="preserve">
-    <value>Delete</value>
+  <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tools</value>
   </data>
   <data name="analyzeAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>343, 22</value>
@@ -531,17 +936,23 @@
   <data name="toolStripMenuItem42.Text" xml:space="preserve">
     <value>Fix systemBitrate in manifests...</value>
   </data>
-  <data name="toolsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Tools</value>
-  </data>
   <data name="toolStripSeparator36.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
+  </data>
+  <data name="toolStripMenuItem17.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="toolStripMenuItem17.Text" xml:space="preserve">
+    <value>Upload</value>
   </data>
   <data name="toolStripMenuItem18.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -597,20 +1008,11 @@
   <data name="toolStripMenuItem21.Text" xml:space="preserve">
     <value>Setup a watch folder...</value>
   </data>
-  <data name="toolStripMenuItem17.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
-        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
-        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
-        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="toolStripMenuItem17.Text" xml:space="preserve">
-    <value>Upload</value>
+  <data name="importToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Import</value>
   </data>
   <data name="toolStripMenuItem14.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -654,11 +1056,14 @@
   <data name="toolStripMenuItem15.Text" xml:space="preserve">
     <value>From a single HTTP/HTTPS URL...</value>
   </data>
-  <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="exportToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="exportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="importToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Import</value>
+  <data name="exportToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 22</value>
@@ -693,15 +1098,6 @@
   <data name="contextMenuExportToAnotherMediaServicesAccount.Text" xml:space="preserve">
     <value>Export to another Azure Media Services Account...</value>
   </data>
-  <data name="exportToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="exportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="exportToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
   <data name="toolStripMenuItem37.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -726,6 +1122,12 @@
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
   </data>
+  <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="toolStripMenuItem32.Text" xml:space="preserve">
+    <value>Create job</value>
+  </data>
   <data name="toolStripMenuItemSelectedTransform.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+S</value>
   </data>
@@ -741,69 +1143,6 @@
   <data name="fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text" xml:space="preserve">
     <value>From http(s) source with selected transform :</value>
   </data>
-  <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="toolStripMenuItem32.Text" xml:space="preserve">
-    <value>Create job</value>
-  </data>
-  <data name="toolStripMenuItem22.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+J</value>
-  </data>
-  <data name="toolStripMenuItem22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 22</value>
-  </data>
-  <data name="toolStripMenuItem22.Text" xml:space="preserve">
-    <value>Process asset(s) from a job template...</value>
-  </data>
-  <data name="toolStripMenuItem39.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+G</value>
-  </data>
-  <data name="toolStripMenuItem39.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 22</value>
-  </data>
-  <data name="toolStripMenuItem39.Text" xml:space="preserve">
-    <value>Process asset(s) with multiple processors...</value>
-  </data>
-  <data name="toolStripMenuItem45.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem45.Text" xml:space="preserve">
-    <value>(deprecated) Validate the multi MP4 asset(s)....</value>
-  </data>
-  <data name="toolStripMenuItem46.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem46.Text" xml:space="preserve">
-    <value>(deprecated) Package the multi MP4 asset(s) to Smooth Streaming (static)</value>
-  </data>
-  <data name="toolStripMenuItem47.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem47.Text" xml:space="preserve">
-    <value>(deprecated) Package the Smooth Streaming asset(s) to HLS v3 (static)...</value>
-  </data>
-  <data name="toolStripMenuItem48.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem48.Text" xml:space="preserve">
-    <value>(deprecated) Encrypt the Smooth Streaming asset(s) with PlayReady (static)</value>
-  </data>
-  <data name="toolStripMenuItem44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 22</value>
-  </data>
-  <data name="toolStripMenuItem44.Text" xml:space="preserve">
-    <value>Static packaging</value>
-  </data>
-  <data name="advancedProcessingToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="advancedProcessingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="advancedProcessingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Advanced processing</value>
-  </data>
   <data name="subclipToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -818,6 +1157,15 @@
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
+  </data>
+  <data name="toolStripMenuItem4.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>Security</value>
   </data>
   <data name="toolStripMenuItem5.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+D</value>
@@ -864,17 +1212,14 @@
   <data name="toolStripMenuItem13.Text" xml:space="preserve">
     <value>Storage decrypt the asset(s)...</value>
   </data>
-  <data name="toolStripMenuItem4.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="toolStripMenuItem4.Text" xml:space="preserve">
-    <value>Security</value>
-  </data>
   <data name="toolStripSeparator30.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
+  </data>
+  <data name="publishToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="publishToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Publish</value>
   </data>
   <data name="createALocatorToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -930,11 +1275,21 @@
   <data name="toolStripMenuItem38.Text" xml:space="preserve">
     <value>Copy the publish URL to clipboard...</value>
   </data>
-  <data name="publishToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemAssetPlayback.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="ContextMenuItemAssetPlayback.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
-  <data name="publishToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Publish</value>
+  <data name="ContextMenuItemAssetPlayback.Text" xml:space="preserve">
+    <value>Playback</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
     <value>Alt+A</value>
@@ -965,52 +1320,6 @@
   </data>
   <data name="withCustomPlayerToolStripMenuItem1.Text" xml:space="preserve">
     <value>with Custom Player</value>
-  </data>
-  <data name="ContextMenuItemAssetPlayback.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
-        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
-        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
-        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
-        o+4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="ContextMenuItemAssetPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="ContextMenuItemAssetPlayback.Text" xml:space="preserve">
-    <value>Playback</value>
-  </data>
-  <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 430</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
-    <value>contextMenuStripAssets</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewAssetsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="dataGridViewAssetsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 398</value>
-  </data>
-  <data name="dataGridViewAssetsV.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAssetsV.Name" xml:space="preserve">
-    <value>dataGridViewAssetsV</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
-    <value>tabPageAssets</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewAssetsV.ZOrder" xml:space="preserve">
-    <value>7</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1150,90 +1459,6 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="tabPageAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 27</value>
-  </data>
-  <data name="tabPageAssets.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 438</value>
-  </data>
-  <data name="tabPageAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageAssets.Text" xml:space="preserve">
-    <value>Assets</value>
-  </data>
-  <data name="&gt;&gt;tabPageAssets.Name" xml:space="preserve">
-    <value>tabPageAssets</value>
-  </data>
-  <data name="&gt;&gt;tabPageAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAssets.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageAssets.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripFilters.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>305, 95</value>
-  </metadata>
-  <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="toolStripMenuItem12.Text" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Filter info/update</value>
-  </data>
-  <data name="toolStripMenuItem16.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="toolStripMenuItem16.Text" xml:space="preserve">
-    <value>Create an account filter...</value>
-  </data>
-  <data name="deleteToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="deleteToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate...</value>
-  </data>
-  <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 114</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFilters.Name" xml:space="preserve">
-    <value>contextMenuStripFilters</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 6</value>
-  </data>
-  <data name="dataGridViewFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 426</value>
-  </data>
-  <data name="dataGridViewFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
   <data name="&gt;&gt;dataGridViewFilters.Name" xml:space="preserve">
     <value>dataGridViewFilters</value>
   </data>
@@ -1272,6 +1497,150 @@
   </data>
   <data name="&gt;&gt;tabPageFilters.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="dataGridViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripFilters.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>305, 95</value>
+  </metadata>
+  <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>247, 114</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFilters.Name" xml:space="preserve">
+    <value>contextMenuStripFilters</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFilters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewFilters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 6</value>
+  </data>
+  <data name="dataGridViewFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>997, 426</value>
+  </data>
+  <data name="dataGridViewFilters.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewFilters.Name" xml:space="preserve">
+    <value>dataGridViewFilters</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewFilters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewFilters.Parent" xml:space="preserve">
+    <value>tabPageFilters</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewFilters.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="toolStripMenuItem12.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Filter info/update</value>
+  </data>
+  <data name="toolStripMenuItem16.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F</value>
+  </data>
+  <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="toolStripMenuItem16.Text" xml:space="preserve">
+    <value>Create an account filter...</value>
+  </data>
+  <data name="deleteToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="deleteToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate...</value>
+  </data>
+  <data name="&gt;&gt;trackBarConcurrentTransfers.Name" xml:space="preserve">
+    <value>trackBarConcurrentTransfers</value>
+  </data>
+  <data name="&gt;&gt;trackBarConcurrentTransfers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trackBarConcurrentTransfers.Parent" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;trackBarConcurrentTransfers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelConcurrentTransfers.Name" xml:space="preserve">
+    <value>labelConcurrentTransfers</value>
+  </data>
+  <data name="&gt;&gt;labelConcurrentTransfers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelConcurrentTransfers.Parent" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;labelConcurrentTransfers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Name" xml:space="preserve">
+    <value>dataGridViewTransfer</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Parent" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPageTransfers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="tabPageTransfers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageTransfers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1006, 438</value>
+  </data>
+  <data name="tabPageTransfers.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPageTransfers.Text" xml:space="preserve">
+    <value>Transfers</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Name" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="trackBarConcurrentTransfers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1378,6 +1747,36 @@
   <metadata name="contextMenuStripTransfers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>152, 17</value>
   </metadata>
+  <data name="contextMenuStripTransfers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 92</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripTransfers.Name" xml:space="preserve">
+    <value>contextMenuStripTransfers</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripTransfers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewTransfer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="dataGridViewTransfer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>997, 365</value>
+  </data>
+  <data name="dataGridViewTransfer.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Name" xml:space="preserve">
+    <value>dataGridViewTransfer</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.Parent" xml:space="preserve">
+    <value>tabPageTransfers</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransfer.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="ContextMenuItemTransferOpenDest.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -1413,62 +1812,236 @@
   <data name="clearToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear completed transfers</value>
   </data>
-  <data name="contextMenuStripTransfers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 92</value>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Name" xml:space="preserve">
+    <value>textBoxJobsPageNumber</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripTransfers.Name" xml:space="preserve">
-    <value>contextMenuStripTransfers</value>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripTransfers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
   </data>
-  <data name="dataGridViewTransfer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+  <data name="&gt;&gt;textBoxJobsPageNumber.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="dataGridViewTransfer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 365</value>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Name" xml:space="preserve">
+    <value>linkLabelMoreInfoMediaUnits</value>
   </data>
-  <data name="dataGridViewTransfer.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTransfer.Name" xml:space="preserve">
-    <value>dataGridViewTransfer</value>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTransfer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTransfer.Parent" xml:space="preserve">
-    <value>tabPageTransfers</value>
+  <data name="&gt;&gt;comboBoxSearchJobOption.Name" xml:space="preserve">
+    <value>comboBoxSearchJobOption</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTransfer.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxSearchJobOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="tabPageTransfers.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Name" xml:space="preserve">
+    <value>comboBoxFilterJobsTime</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Name" xml:space="preserve">
+    <value>buttonJobSearch</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Name" xml:space="preserve">
+    <value>textBoxJobSearch</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Name" xml:space="preserve">
+    <value>comboBoxStateJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Name" xml:space="preserve">
+    <value>butPrevPageJob</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Name" xml:space="preserve">
+    <value>butNextPageJob</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Name" xml:space="preserve">
+    <value>comboBoxOrderJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Name" xml:space="preserve">
+    <value>dataGridViewTransformsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTransformsV.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Name" xml:space="preserve">
+    <value>dataGridViewJobsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="tabPageJobs.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
   </data>
-  <data name="tabPageTransfers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageJobs.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageTransfers.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>1006, 438</value>
   </data>
-  <data name="tabPageTransfers.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="tabPageJobs.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="tabPageTransfers.Text" xml:space="preserve">
-    <value>Transfers</value>
+  <data name="tabPageJobs.Text" xml:space="preserve">
+    <value>Transforms &amp; jobs</value>
   </data>
-  <data name="&gt;&gt;tabPageTransfers.Name" xml:space="preserve">
-    <value>tabPageTransfers</value>
+  <data name="&gt;&gt;tabPageJobs.Name" xml:space="preserve">
+    <value>tabPageJobs</value>
   </data>
-  <data name="&gt;&gt;tabPageTransfers.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageJobs.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageTransfers.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageJobs.Parent" xml:space="preserve">
     <value>tabControlMain</value>
   </data>
-  <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="textBoxJobsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2004,39 +2577,6 @@
   <metadata name="contextMenuStripTransforms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>837, 56</value>
   </metadata>
-  <data name="videoAnalyzerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
-  </data>
-  <data name="videoAnalyzerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Audio / Video analyzer...</value>
-  </data>
-  <data name="mediaEncoderStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
-  </data>
-  <data name="mediaEncoderStandardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Standard Encoder...</value>
-  </data>
-  <data name="createATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
-  </data>
-  <data name="createATransformToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create a simple transform</value>
-  </data>
-  <data name="deleteTransformsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
-  </data>
-  <data name="deleteTransformsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete transform(s)...</value>
-  </data>
-  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 6</value>
-  </data>
-  <data name="createJobUsingAnHttpSourceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
-  </data>
-  <data name="createJobUsingAnHttpSourceToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create job from transform using a http source...</value>
-  </data>
   <data name="contextMenuStripTransforms.Size" type="System.Drawing.Size, System.Drawing">
     <value>326, 76</value>
   </data>
@@ -2067,12 +2607,84 @@
   <data name="&gt;&gt;dataGridViewTransformsV.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <data name="createATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 22</value>
+  </data>
+  <data name="createATransformToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a simple transform</value>
+  </data>
+  <data name="videoAnalyzerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="videoAnalyzerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Audio / Video analyzer...</value>
+  </data>
+  <data name="mediaEncoderStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="mediaEncoderStandardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Standard Encoder...</value>
+  </data>
+  <data name="deleteTransformsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 22</value>
+  </data>
+  <data name="deleteTransformsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete transform(s)...</value>
+  </data>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 6</value>
+  </data>
+  <data name="createJobUsingAnHttpSourceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 22</value>
+  </data>
+  <data name="createJobUsingAnHttpSourceToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create job from transform using a http source...</value>
+  </data>
   <data name="dataGridViewJobsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <metadata name="contextMenuStripJobs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>649, 17</value>
   </metadata>
+  <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 236</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripJobs.Name" xml:space="preserve">
+    <value>contextMenuStripJobs</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewJobsV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>386, 6</value>
+  </data>
+  <data name="dataGridViewJobsV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>614, 372</value>
+  </data>
+  <data name="dataGridViewJobsV.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="dataGridViewJobsV.TransformSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Name" xml:space="preserve">
+    <value>dataGridViewJobsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewJobsV.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
   <data name="refreshToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 22</value>
   </data>
@@ -2140,6 +2752,24 @@
   <data name="ContextMenuItemJobOpenOutputAsset.Text" xml:space="preserve">
     <value>Output asset information</value>
   </data>
+  <data name="ContextMenuItemJobCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ContextMenuItemJobCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
+        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
+        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="ContextMenuItemJobCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 22</value>
+  </data>
+  <data name="ContextMenuItemJobCreateOutlookReportEmail.Text" xml:space="preserve">
+    <value>Job report</value>
+  </data>
   <data name="copyReportToClipboardToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+J</value>
   </data>
@@ -2164,24 +2794,6 @@
   <data name="toolStripMenuItem27.Text" xml:space="preserve">
     <value>Create Outlook email</value>
   </data>
-  <data name="ContextMenuItemJobCreateOutlookReportEmail.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ContextMenuItemJobCreateOutlookReportEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="ContextMenuItemJobCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="ContextMenuItemJobCreateOutlookReportEmail.Text" xml:space="preserve">
-    <value>Job report</value>
-  </data>
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
     <value>223, 6</value>
   </data>
@@ -2201,21 +2813,6 @@
   <data name="ContextMenuItemJobChangePriority.Text" xml:space="preserve">
     <value>Change priority...</value>
   </data>
-  <data name="selectedJobsToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Down</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Selected job(s)...</value>
-  </data>
-  <data name="allJobsToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="allJobsToolStripMenuItem3.Text" xml:space="preserve">
-    <value>All jobs...</value>
-  </data>
   <data name="ContextMenuItemJobCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -2231,6 +2828,21 @@
   <data name="ContextMenuItemJobCancel.Text" xml:space="preserve">
     <value>Cancel...</value>
   </data>
+  <data name="selectedJobsToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Down</value>
+  </data>
+  <data name="selectedJobsToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="selectedJobsToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Selected job(s)...</value>
+  </data>
+  <data name="allJobsToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="allJobsToolStripMenuItem3.Text" xml:space="preserve">
+    <value>All jobs...</value>
+  </data>
   <data name="resubmitToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -2242,6 +2854,20 @@
   </data>
   <data name="resubmitToolStripMenuItem.Text" xml:space="preserve">
     <value>Resubmit...</value>
+  </data>
+  <data name="ContextMenuItemJobDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="ContextMenuItemJobDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 22</value>
+  </data>
+  <data name="ContextMenuItemJobDelete.Text" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="selectedJobsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
@@ -2267,39 +2893,253 @@
   <data name="allJobsToolStripMenuItem1.Text" xml:space="preserve">
     <value>All jobs...</value>
   </data>
-  <data name="ContextMenuItemJobDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
+  <data name="&gt;&gt;panelPrograms.Name" xml:space="preserve">
+    <value>panelPrograms</value>
   </data>
-  <data name="ContextMenuItemJobDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+  <data name="&gt;&gt;panelPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ContextMenuItemJobDelete.Text" xml:space="preserve">
-    <value>Delete</value>
+  <data name="&gt;&gt;panelPrograms.Parent" xml:space="preserve">
+    <value>tabPageLive</value>
   </data>
-  <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 236</value>
+  <data name="&gt;&gt;panelPrograms.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripJobs.Name" xml:space="preserve">
-    <value>contextMenuStripJobs</value>
+  <data name="&gt;&gt;panelChannels.Name" xml:space="preserve">
+    <value>panelChannels</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripJobs.Type" xml:space="preserve">
+  <data name="&gt;&gt;panelChannels.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelChannels.Parent" xml:space="preserve">
+    <value>tabPageLive</value>
+  </data>
+  <data name="&gt;&gt;panelChannels.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPageLive.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="tabPageLive.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageLive.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1006, 438</value>
+  </data>
+  <data name="tabPageLive.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tabPageLive.Text" xml:space="preserve">
+    <value>Live events &amp; outputs</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Name" xml:space="preserve">
+    <value>tabPageLive</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageLive.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
+    <value>dataGridViewLiveOutputV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Name" xml:space="preserve">
+    <value>labelPrograms</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Name" xml:space="preserve">
+    <value>radioButtonChNone</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Name" xml:space="preserve">
+    <value>comboBoxSearchProgramOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Name" xml:space="preserve">
+    <value>radioButtonChAll</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Name" xml:space="preserve">
+    <value>textBoxSearchNameProgram</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Name" xml:space="preserve">
+    <value>buttonSetFilterProgram</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Name" xml:space="preserve">
+    <value>radioButtonChSelected</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Name" xml:space="preserve">
+    <value>comboBoxStatusProgram</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Name" xml:space="preserve">
+    <value>comboBoxFilterTimeProgram</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="panelPrograms.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panelPrograms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 223</value>
+  </data>
+  <data name="panelPrograms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 212</value>
+  </data>
+  <data name="panelPrograms.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;panelPrograms.Name" xml:space="preserve">
+    <value>panelPrograms</value>
+  </data>
+  <data name="&gt;&gt;panelPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelPrograms.Parent" xml:space="preserve">
+    <value>tabPageLive</value>
+  </data>
+  <data name="&gt;&gt;panelPrograms.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripLiveOutputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>215, 56</value>
+  </metadata>
+  <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 286</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
+    <value>contextMenuStripLiveOutputs</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="dataGridViewJobsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 6</value>
-  </data>
-  <data name="dataGridViewJobsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>614, 372</value>
-  </data>
-  <data name="dataGridViewJobsV.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="dataGridViewJobsV.TransformSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
         ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
@@ -2308,51 +3148,27 @@
         ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
-  <data name="&gt;&gt;dataGridViewJobsV.Name" xml:space="preserve">
-    <value>dataGridViewJobsV</value>
+  <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 18</value>
   </data>
-  <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>992, 150</value>
   </data>
-  <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
+  <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
   </data>
-  <data name="&gt;&gt;dataGridViewJobsV.ZOrder" xml:space="preserve">
-    <value>16</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
+    <value>dataGridViewLiveOutputV</value>
   </data>
-  <data name="tabPageJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 27</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="tabPageJobs.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
+    <value>panelPrograms</value>
   </data>
-  <data name="tabPageJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 438</value>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="tabPageJobs.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageJobs.Text" xml:space="preserve">
-    <value>Transforms &amp; jobs</value>
-  </data>
-  <data name="&gt;&gt;tabPageJobs.Name" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;tabPageJobs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageJobs.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripLiveOutputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>215, 56</value>
-  </metadata>
   <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 22</value>
   </data>
@@ -2435,6 +3251,15 @@
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 6</value>
   </data>
+  <data name="securityToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="securityToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 22</value>
+  </data>
+  <data name="securityToolStripMenuItem.Text" xml:space="preserve">
+    <value>Security</value>
+  </data>
   <data name="toolStripMenuItem3.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+D</value>
   </data>
@@ -2471,17 +3296,14 @@
   <data name="toolStripMenuItem10.Text" xml:space="preserve">
     <value>Remove keys for the asset(s)...</value>
   </data>
-  <data name="securityToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="securityToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
-  </data>
-  <data name="securityToolStripMenuItem.Text" xml:space="preserve">
-    <value>Security</value>
-  </data>
   <data name="toolStripSeparator24.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 6</value>
+  </data>
+  <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 22</value>
+  </data>
+  <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Publish</value>
   </data>
   <data name="createALocatorToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -2522,12 +3344,6 @@
   <data name="toolStripMenuItem25.Text" xml:space="preserve">
     <value>Create an asset filter...</value>
   </data>
-  <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
-  </data>
-  <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Publish</value>
-  </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 22</value>
   </data>
@@ -2546,18 +3362,6 @@
   <data name="subclipProgramsToolStripMenuItem.Text" xml:space="preserve">
     <value>Subclip live output(s)...</value>
   </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
-    <value>with Azure Media Player</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
-    <value>with Custom Player</value>
-  </data>
   <data name="ContextMenuItemProgramPlayback.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -2574,44 +3378,17 @@
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
     <value>Playback the live output(s)</value>
   </data>
-  <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 286</value>
+  <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
-    <value>contextMenuStripLiveOutputs</value>
+  <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
+    <value>with Azure Media Player</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripLiveOutputs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
   </data>
-  <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
-        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
-        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
-        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
-        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 18</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>992, 150</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
-    <value>dataGridViewLiveOutputV</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
+    <value>with Custom Player</value>
   </data>
   <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3018,29 +3795,137 @@
   <data name="&gt;&gt;comboBoxFilterTimeProgram.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="panelPrograms.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Name" xml:space="preserve">
+    <value>dataGridViewLiveEventsV</value>
   </data>
-  <data name="panelPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 223</value>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="panelPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 212</value>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
+    <value>panelChannels</value>
   </data>
-  <data name="panelPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Name" xml:space="preserve">
-    <value>panelPrograms</value>
+  <data name="&gt;&gt;labelChannels.Name" xml:space="preserve">
+    <value>labelChannels</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelChannels.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannels.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;labelChannels.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchChannelOption.Name" xml:space="preserve">
+    <value>comboBoxSearchChannelOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchChannelOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchChannelOption.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchChannelOption.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameChannel.Name" xml:space="preserve">
+    <value>textBoxSearchNameChannel</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameChannel.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameChannel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterChannel.Name" xml:space="preserve">
+    <value>buttonSetFilterChannel</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterChannel.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterChannel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
+  </data>
+  <data name="&gt;&gt;label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusChannel.Name" xml:space="preserve">
+    <value>comboBoxStatusChannel</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusChannel.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusChannel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeChannel.Name" xml:space="preserve">
+    <value>comboBoxFilterTimeChannel</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeChannel.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeChannel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panelChannels.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panelChannels.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="panelChannels.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 220</value>
+  </data>
+  <data name="panelChannels.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;panelChannels.Name" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;panelChannels.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panelChannels.Parent" xml:space="preserve">
     <value>tabPageLive</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;panelChannels.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="dataGridViewLiveEventsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -3048,6 +3933,36 @@
   <metadata name="contextMenuStripLiveEvents.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
+  <data name="contextMenuStripLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 330</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveEvents.Name" xml:space="preserve">
+    <value>contextMenuStripLiveEvents</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveEvents.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="dataGridViewLiveEventsV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>992, 163</value>
+  </data>
+  <data name="dataGridViewLiveEventsV.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Name" xml:space="preserve">
+    <value>dataGridViewLiveEventsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
+    <value>panelChannels</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="refreshToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
   </data>
@@ -3193,6 +4108,12 @@
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 6</value>
   </data>
+  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>301, 22</value>
+  </data>
+  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Text" xml:space="preserve">
+    <value>Display Input URL</value>
+  </data>
   <data name="inputURLMToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 22</value>
   </data>
@@ -3217,12 +4138,6 @@
   <data name="inputURLMToolStripMenuItem4.Text" xml:space="preserve">
     <value>Input 4 Url ({0})...</value>
   </data>
-  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Text" xml:space="preserve">
-    <value>Display Input URL</value>
-  </data>
   <data name="ContextMenuItemChannelRunOnPremisesLiveEncoder.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
   </data>
@@ -3237,12 +4152,6 @@
   </data>
   <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Text" xml:space="preserve">
     <value>Display Preview URL...</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem4.Text" xml:space="preserve">
-    <value>with Azure Media Player</value>
   </data>
   <data name="playbackTheProgramToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3260,35 +4169,11 @@
   <data name="playbackTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback the Preview</value>
   </data>
-  <data name="contextMenuStripLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 330</value>
+  <data name="withAzureMediaPlayerToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripLiveEvents.Name" xml:space="preserve">
-    <value>contextMenuStripLiveEvents</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLiveEvents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="dataGridViewLiveEventsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>992, 163</value>
-  </data>
-  <data name="dataGridViewLiveEventsV.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveEventsV.Name" xml:space="preserve">
-    <value>dataGridViewLiveEventsV</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
-    <value>panelChannels</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="withAzureMediaPlayerToolStripMenuItem4.Text" xml:space="preserve">
+    <value>with Azure Media Player</value>
   </data>
   <data name="labelChannels.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3560,56 +4445,44 @@
   <data name="&gt;&gt;comboBoxFilterTimeChannel.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="panelChannels.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Name" xml:space="preserve">
+    <value>dataGridViewStreamingEndpointsV</value>
   </data>
-  <data name="panelChannels.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="panelChannels.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 220</value>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
+    <value>tabPageOrigins</value>
   </data>
-  <data name="panelChannels.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;panelChannels.Name" xml:space="preserve">
-    <value>panelChannels</value>
-  </data>
-  <data name="&gt;&gt;panelChannels.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelChannels.Parent" xml:space="preserve">
-    <value>tabPageLive</value>
-  </data>
-  <data name="&gt;&gt;panelChannels.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPageLive.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageOrigins.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
   </data>
-  <data name="tabPageLive.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageOrigins.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageLive.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageOrigins.Size" type="System.Drawing.Size, System.Drawing">
     <value>1006, 438</value>
   </data>
-  <data name="tabPageLive.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="tabPageOrigins.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
-  <data name="tabPageLive.Text" xml:space="preserve">
-    <value>Live events &amp; outputs</value>
+  <data name="tabPageOrigins.Text" xml:space="preserve">
+    <value>Streaming endpoints</value>
   </data>
-  <data name="&gt;&gt;tabPageLive.Name" xml:space="preserve">
-    <value>tabPageLive</value>
+  <data name="&gt;&gt;tabPageOrigins.Name" xml:space="preserve">
+    <value>tabPageOrigins</value>
   </data>
-  <data name="&gt;&gt;tabPageLive.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageOrigins.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageLive.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageOrigins.Parent" xml:space="preserve">
     <value>tabControlMain</value>
   </data>
-  <data name="&gt;&gt;tabPageLive.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;tabPageOrigins.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="dataGridViewStreamingEndpointsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -3617,6 +4490,36 @@
   <metadata name="contextMenuStripStreaminEndpoints.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>416, 56</value>
   </metadata>
+  <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 214</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Name" xml:space="preserve">
+    <value>contextMenuStripStreaminEndpoints</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewStreamingEndpointsV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="dataGridViewStreamingEndpointsV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>994, 426</value>
+  </data>
+  <data name="dataGridViewStreamingEndpointsV.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Name" xml:space="preserve">
+    <value>dataGridViewStreamingEndpointsV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
+    <value>tabPageOrigins</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="refreshToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 22</value>
   </data>
@@ -3728,105 +4631,6 @@
   <data name="ContextMenuItemOriginDelete.Text" xml:space="preserve">
     <value>Delete streaming endpoint(s)</value>
   </data>
-  <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 214</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Name" xml:space="preserve">
-    <value>contextMenuStripStreaminEndpoints</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewStreamingEndpointsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="dataGridViewStreamingEndpointsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 426</value>
-  </data>
-  <data name="dataGridViewStreamingEndpointsV.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Name" xml:space="preserve">
-    <value>dataGridViewStreamingEndpointsV</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
-    <value>tabPageOrigins</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewStreamingEndpointsV.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPageOrigins.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 27</value>
-  </data>
-  <data name="tabPageOrigins.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageOrigins.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1006, 438</value>
-  </data>
-  <data name="tabPageOrigins.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="tabPageOrigins.Text" xml:space="preserve">
-    <value>Streaming endpoints</value>
-  </data>
-  <data name="&gt;&gt;tabPageOrigins.Name" xml:space="preserve">
-    <value>tabPageOrigins</value>
-  </data>
-  <data name="&gt;&gt;tabPageOrigins.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageOrigins.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageOrigins.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="dataGridViewStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripStorage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 95</value>
-  </metadata>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
-  </data>
-  <data name="toolStripMenuItem2.Text" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="attachAnotherStorageAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
-  </data>
-  <data name="attachAnotherStorageAccountToolStripMenuItem.Text" xml:space="preserve">
-    <value>Attach/Detach storage accounts...</value>
-  </data>
-  <data name="storageVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
-  </data>
-  <data name="storageVersionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Storage settings...</value>
-  </data>
-  <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 70</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripStorage.Name" xml:space="preserve">
-    <value>contextMenuStripStorage</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 6</value>
-  </data>
-  <data name="dataGridViewStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 385</value>
-  </data>
-  <data name="dataGridViewStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
   <data name="&gt;&gt;dataGridViewStorage.Name" xml:space="preserve">
     <value>dataGridViewStorage</value>
   </data>
@@ -3866,48 +4670,60 @@
   <data name="&gt;&gt;tabPageStorage.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="tabControlMain.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="tabControlMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 6</value>
-  </data>
-  <data name="tabControlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1014, 469</value>
-  </data>
-  <data name="tabControlMain.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Name" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Parent" xml:space="preserve">
-    <value>splitContainerMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel1.Name" xml:space="preserve">
-    <value>splitContainerMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel1.Parent" xml:space="preserve">
-    <value>splitContainerMain</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="richTextBoxLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="dataGridViewStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="contextMenuStripLog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>668, 56</value>
+  <metadata name="contextMenuStripStorage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 95</value>
   </metadata>
+  <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>254, 70</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripStorage.Name" xml:space="preserve">
+    <value>contextMenuStripStorage</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 6</value>
+  </data>
+  <data name="dataGridViewStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>997, 385</value>
+  </data>
+  <data name="dataGridViewStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStorage.Name" xml:space="preserve">
+    <value>dataGridViewStorage</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStorage.Parent" xml:space="preserve">
+    <value>tabPageStorage</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewStorage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 22</value>
+  </data>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="attachAnotherStorageAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 22</value>
+  </data>
+  <data name="attachAnotherStorageAccountToolStripMenuItem.Text" xml:space="preserve">
+    <value>Attach/Detach storage accounts...</value>
+  </data>
+  <data name="storageVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 22</value>
+  </data>
+  <data name="storageVersionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Storage settings...</value>
+  </data>
   <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 22</value>
   </data>
@@ -3919,75 +4735,6 @@
   </data>
   <data name="clearTextToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear text</value>
-  </data>
-  <data name="contextMenuStripLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 48</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLog.Name" xml:space="preserve">
-    <value>contextMenuStripLog</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="richTextBoxLog.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="richTextBoxLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="richTextBoxLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1014, 68</value>
-  </data>
-  <data name="richTextBoxLog.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="richTextBoxLog.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;richTextBoxLog.Name" xml:space="preserve">
-    <value>richTextBoxLog</value>
-  </data>
-  <data name="&gt;&gt;richTextBoxLog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;richTextBoxLog.Parent" xml:space="preserve">
-    <value>splitContainerMain.Panel2</value>
-  </data>
-  <data name="&gt;&gt;richTextBoxLog.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel2.Name" xml:space="preserve">
-    <value>splitContainerMain.Panel2</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel2.Parent" xml:space="preserve">
-    <value>splitContainerMain</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="splitContainerMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1020, 556</value>
-  </data>
-  <data name="splitContainerMain.SplitterDistance" type="System.Int32, mscorlib">
-    <value>478</value>
-  </data>
-  <data name="splitContainerMain.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Name" xml:space="preserve">
-    <value>splitContainerMain</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 19</value>
@@ -4046,6 +4793,208 @@
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="deleteToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="toolStripSeparator40.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 6</value>
+  </data>
+  <data name="uploadFromASingleFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="uploadFromASingleFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="uploadFromASingleFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="importToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACTSURBVDhPpZMxDoMwEAR5DGXaUCfvSkLy13RUNKmd
+        HYkTFrozJxhpkLXGKxmbrpRySuDp+ZEpTi0GWxTxkMx/ZU+wpVXwlMxN8kLgERW8JPksB4IIr2CUZD95
+        J2ixLbDFWdfBAidQv7DnOqiot3AjaOEVgJXwEa8EEVEB2EkcOkbD7sLuRap9yzReAeZKvF80b+n++eS3
+        LLb7H2gAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="importToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="importToolStripMenuItem.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACTSURBVDhPpZMxDoMwEAR5TEpSQkselhD+SkdFk9rZ
+        QToLkJFXYqRB8uluLWNoUkq3BJ4lJ2lxaxhi6IqHnCU9bwpnagHwlIsshjgB0MtV0vuhELgB8JI/Sf9I
+        Ac4BsXb8yrwI9g01t9uKhcMg4wjb7uAGdDJeYj4/OAGtjGs8DEMtwP6Q9ubzOZQC0Asp/aK+qfkDDzW3
+        L8Nd2MoAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="toolStripMenuItemDownloadToLocal.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripMenuItemDownloadToLocal.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+X</value>
+  </data>
+  <data name="toolStripMenuItemDownloadToLocal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="toolStripMenuItemDownloadToLocal.Text" xml:space="preserve">
+    <value>Download to local...</value>
+  </data>
+  <data name="createTestAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="createTestAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="createTestAssetsToolStripMenuItem.Text" xml:space="preserve">
+    <value>CreateTestAssets</value>
+  </data>
+  <data name="createTestAssetsToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="assetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="assetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="createChannelToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="createChannelToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+H</value>
+  </data>
+  <data name="createChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 22</value>
+  </data>
+  <data name="createChannelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create live event...</value>
+  </data>
+  <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 22</value>
+  </data>
+  <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Run an on-premises live encoder...</value>
+  </data>
+  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 6</value>
+  </data>
+  <data name="createProgramToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="createProgramToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="createProgramToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 22</value>
+  </data>
+  <data name="createProgramToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Create live output...</value>
+  </data>
+  <data name="liveChannelToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="liveChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 20</value>
+  </data>
+  <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="originToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="originToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 20</value>
+  </data>
+  <data name="originToolStripMenuItem.Text" xml:space="preserve">
+    <value>Streaming endpoint</value>
+  </data>
+  <data name="managementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 20</value>
+  </data>
+  <data name="managementToolStripMenuItem.Text" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 20</value>
+  </data>
+  <data name="samplePlayersToolStripMenuItem.Text" xml:space="preserve">
+    <value>External links</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="menuStripMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStripMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1020, 24</value>
+  </data>
+  <data name="menuStripMain.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="menuStripMain.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStripMain.Name" xml:space="preserve">
+    <value>menuStripMain</value>
+  </data>
+  <data name="&gt;&gt;menuStripMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStripMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
   <data name="selectedAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 22</value>
   </data>
@@ -4072,59 +5021,6 @@
   </data>
   <data name="allAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>All assets...</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="analyzeAssetsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 22</value>
-  </data>
-  <data name="analyzeAssetsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Analyze asset(s)...</value>
-  </data>
-  <data name="mergeSelectedAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+C</value>
-  </data>
-  <data name="mergeSelectedAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 22</value>
-  </data>
-  <data name="mergeSelectedAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Copy/merge asset(s) to a new asset...</value>
-  </data>
-  <data name="checkIntegrityOfLiveArchiveToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 22</value>
-  </data>
-  <data name="checkIntegrityOfLiveArchiveToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Check integrity of live archive(s)...</value>
-  </data>
-  <data name="fixSystemBitrateInManifestjan15FixToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 22</value>
-  </data>
-  <data name="fixSystemBitrateInManifestjan15FixToolStripMenuItem.Text" xml:space="preserve">
-    <value>Fix systemBitrate in manifests...</value>
-  </data>
-  <data name="toolsToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="toolsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="toolStripSeparator40.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 6</value>
   </data>
   <data name="fromASingleFileToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -4177,20 +5073,8 @@
   <data name="withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 22</value>
   </data>
-  <data name="uploadFromASingleFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
-        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
-        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
-        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="uploadFromASingleFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="uploadFromASingleFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Upload</value>
+  <data name="fromAzureStorageToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="fromAzureStorageToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+I</value>
@@ -4200,6 +5084,9 @@
   </data>
   <data name="fromAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>From Azure Storage...</value>
+  </data>
+  <data name="fromAzureStoragecontainerSASUrlToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="fromAzureStoragecontainerSASUrlToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+Shift+I</value>
@@ -4218,24 +5105,6 @@
   </data>
   <data name="fromASingleHTTPURLAmazonS3EtcToolStripMenuItem.Text" xml:space="preserve">
     <value>From a single HTTP/HTTPS URL...</value>
-  </data>
-  <data name="importToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="importToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACTSURBVDhPpZMxDoMwEAR5DGXaUCfvSkLy13RUNKmd
-        HYkTFrozJxhpkLXGKxmbrpRySuDp+ZEpTi0GWxTxkMx/ZU+wpVXwlMxN8kLgERW8JPksB4IIr2CUZD95
-        J2ixLbDFWdfBAidQv7DnOqiot3AjaOEVgJXwEa8EEVEB2EkcOkbD7sLuRap9yzReAeZKvF80b+n++eS3
-        LLb7H2gAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="importToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="importToolStripMenuItem.Text" xml:space="preserve">
-    <value>Import</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>376, 22</value>
@@ -4264,438 +5133,6 @@
   <data name="toAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>To Azure Storage...</value>
   </data>
-  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACTSURBVDhPpZMxDoMwEAR5TEpSQkselhD+SkdFk9rZ
-        QToLkJFXYqRB8uluLWNoUkq3BJ4lJ2lxaxhi6IqHnCU9bwpnagHwlIsshjgB0MtV0vuhELgB8JI/Sf9I
-        Ac4BsXb8yrwI9g01t9uKhcMg4wjb7uAGdDJeYj4/OAGtjGs8DEMtwP6Q9ubzOZQC0Asp/aK+qfkDDzW3
-        L8Nd2MoAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="toolStripMenuItemDownloadToLocal.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItemDownloadToLocal.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+X</value>
-  </data>
-  <data name="toolStripMenuItemDownloadToLocal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="toolStripMenuItemDownloadToLocal.Text" xml:space="preserve">
-    <value>Download to local...</value>
-  </data>
-  <data name="createTestAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="createTestAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="createTestAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>CreateTestAssets</value>
-  </data>
-  <data name="createTestAssetsToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="testQueryAllAssetFilesToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 22</value>
-  </data>
-  <data name="testQueryAllAssetFilesToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Test: query all assets...</value>
-  </data>
-  <data name="testQueryAllFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 22</value>
-  </data>
-  <data name="testQueryAllFilesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Test: query all files...</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="assetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 20</value>
-  </data>
-  <data name="assetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Asset</value>
-  </data>
-  <data name="encodeAssetWithAMEStandardToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="encodeAssetWithAMEStandardToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+R</value>
-  </data>
-  <data name="encodeAssetWithAMEStandardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="encodeAssetWithAMEStandardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder Standard (MES)...</value>
-  </data>
-  <data name="generateThumbnailsForTheAssetsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABgSURBVDhPzZNBDoAgDAT5uY+Tf1VGbFIFJK0c3GSa
-        Qti5kUTkEyQX2LzsKqjTn9L/s2C7eMtQQJE7sJKntCuwZUWL9kwaQa88gjQC+2AGWS/w5iYIsUwQ/Uz5
-        FDDiSDoAuM0FlgiVSXQAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="generateThumbnailsForTheAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+T</value>
-  </data>
-  <data name="generateThumbnailsForTheAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="generateThumbnailsForTheAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Generate thumbnails for the asset(s) with MES...</value>
-  </data>
-  <data name="toolStripSeparator26.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="encodeAssetWithPremiumWorkflowToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="encodeAssetWithPremiumWorkflowToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+K</value>
-  </data>
-  <data name="encodeAssetWithPremiumWorkflowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="encodeAssetWithPremiumWorkflowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder Premium Workflow...</value>
-  </data>
-  <data name="toolStripSeparator35.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+R</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Subclip live/fragmented assets()...</value>
-  </data>
-  <data name="toolStripSeparator43.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripSeparator39.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="processAssetsWithAJobTemplateToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+J</value>
-  </data>
-  <data name="processAssetsWithAJobTemplateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="processAssetsWithAJobTemplateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) from a job template...</value>
-  </data>
-  <data name="processAssetsadvancedModeWithToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+G</value>
-  </data>
-  <data name="processAssetsadvancedModeWithToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="processAssetsadvancedModeWithToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with multiple processors...</value>
-  </data>
-  <data name="processToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="processToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 20</value>
-  </data>
-  <data name="processToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process</value>
-  </data>
-  <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
-  </data>
-  <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add dynamic encryption and key delivery policies for the asset(s)...</value>
-  </data>
-  <data name="getATestTokenToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="getATestTokenToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+O</value>
-  </data>
-  <data name="getATestTokenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="getATestTokenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Get a test token...</value>
-  </data>
-  <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+D</value>
-  </data>
-  <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="removeDynamicEncryptionForTheAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove all dynamic encryption policies for the asset(s)...</value>
-  </data>
-  <data name="removeKeysForTheAssetsToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="removeKeysForTheAssetsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+Shift+D</value>
-  </data>
-  <data name="removeKeysForTheAssetsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="removeKeysForTheAssetsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Remove keys for the asset(s)...</value>
-  </data>
-  <data name="toolStripSeparator22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 6</value>
-  </data>
-  <data name="createALocatorForTheAssetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEPSURBVDhPpZM/agJhEMUn2EQRQu5gJQQ9gUIgJNjm
-        ACkkp5BgZUpbO8EjpM0RcgOxCBEU2wQiWOjmvfl255sFN7Dsgx8783jvg/0nSZLk+Ecv4D6MEvO+rMZ5
-        tcER7MA1Dcv7shrFegUMTLlY3pfVyGsEemGUOtiCX9C0vC+rEXUDTmANLmlAY8DQo+V9WY28ZoDmUDeR
-        LuA+t7wvqyGyBHccoBag+aabSA0cwIflfVmNUPjkkOoH8NBMvKUvy/uyGuGAFYdU36DUAZVvwSt7iM+6
-        iXQA94XlfVmNqFtQ9BqfLO/LakQ1wDvo6xY/pD24srwvq5HXRXqlJoCBUp9ypgGo9DPxbWzAg25QyCfy
-        B9SiUuvT0d4BAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="createALocatorForTheAssetToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="createALocatorForTheAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="createALocatorForTheAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Publish : Create a locator...</value>
-  </data>
-  <data name="extendExistingStreamingLocatorsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="extendExistingStreamingLocatorsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+L</value>
-  </data>
-  <data name="extendExistingStreamingLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="extendExistingStreamingLocatorsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Extend existing streaming locators...</value>
-  </data>
-  <data name="deleteAllLocatorsOfTheAssetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteAllLocatorsOfTheAssetToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+L</value>
-  </data>
-  <data name="deleteAllLocatorsOfTheAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="deleteAllLocatorsOfTheAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete all locators...</value>
-  </data>
-  <data name="toolStripMenuItemPublishCopyPubURLToClipb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="toolStripMenuItemPublishCopyPubURLToClipb.Text" xml:space="preserve">
-    <value>Display published URL...</value>
-  </data>
-  <data name="findTheAssetFromTheLocatorToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="findTheAssetFromTheLocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="findTheAssetFromTheLocatorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Find the asset from the locator Id/GUID...</value>
-  </data>
-  <data name="toolStripSeparator23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 6</value>
-  </data>
-  <data name="toolStripMenuItem26.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItem26.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="toolStripMenuItem26.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="toolStripMenuItem26.Text" xml:space="preserve">
-    <value>Create a global filter...</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAKJJREFUOE+1kkEOgzAMBPPzvLYS0BMcOCGlHpOgJCzlQGtpUFjbIwQEq/SQ4/AS
-        lN6c2Yx+JkTjTqB6EENK9C8l3wTRd7lUkiE3C0rAjC83gkoyGlcCesey79Q3HuySyegFZM2yz/eBh7vk
-        bRQB59Oyz6oQrNa8DKuaARmCFd+9CGY1AzIEq+YdqBmQIWQBT7E8EYD/vmoGZAi/EnCAfwlS+ADPru1k
-        aHS3GgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Create an asset filter...</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+A</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 22</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem1.Text" xml:space="preserve">
-    <value>with Azure Media Player</value>
-  </data>
-  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 6</value>
-  </data>
-  <data name="withMPEGDASHIFRefPlayerToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+D</value>
-  </data>
-  <data name="withMPEGDASHIFRefPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 22</value>
-  </data>
-  <data name="withMPEGDASHIFRefPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>with MPEG-DASH IF Reference Player</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+C</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 22</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>with Custom Player</value>
-  </data>
-  <data name="playbackToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
-        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
-        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
-        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
-        o+4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="playbackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 22</value>
-  </data>
-  <data name="playbackToolStripMenuItem.Text" xml:space="preserve">
-    <value>Playback</value>
-  </data>
-  <data name="publishToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 20</value>
-  </data>
-  <data name="publishToolStripMenuItem.Text" xml:space="preserve">
-    <value>Publish</value>
-  </data>
-  <data name="telemetryToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
-  </data>
-  <data name="telemetryToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Telemetry...</value>
-  </data>
-  <data name="createChannelToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
-        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="createChannelToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+H</value>
-  </data>
-  <data name="createChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
-  </data>
-  <data name="createChannelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create live event...</value>
-  </data>
-  <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
-  </data>
-  <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Run an on-premises live encoder...</value>
-  </data>
-  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 6</value>
-  </data>
-  <data name="createProgramToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
-        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="createProgramToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="createProgramToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
-  </data>
-  <data name="createProgramToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Create live output...</value>
-  </data>
-  <data name="liveChannelToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="liveChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 20</value>
-  </data>
-  <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Live</value>
-  </data>
   <data name="createOriginToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -4709,15 +5146,6 @@
   <data name="createOriginToolStripMenuItem.Text" xml:space="preserve">
     <value>Create streaming endpoint...</value>
   </data>
-  <data name="originToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="originToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
-  </data>
-  <data name="originToolStripMenuItem.Text" xml:space="preserve">
-    <value>Streaming endpoint</value>
-  </data>
   <data name="azureManagementPortalToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 22</value>
   </data>
@@ -4729,12 +5157,6 @@
   </data>
   <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>Attach/Detach storage accounts...</value>
-  </data>
-  <data name="managementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
-  </data>
-  <data name="managementToolStripMenuItem.Text" xml:space="preserve">
-    <value>Management</value>
   </data>
   <data name="refreshToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4768,12 +5190,6 @@
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Options...</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
-    <value>Options</value>
   </data>
   <data name="azureMediaBlogToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4868,12 +5284,6 @@
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Caption Maker</value>
-  </data>
-  <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
-  </data>
-  <data name="samplePlayersToolStripMenuItem.Text" xml:space="preserve">
-    <value>External links</value>
   </data>
   <data name="azureMediaHelpFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4970,36 +5380,6 @@
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About...</value>
   </data>
-  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="menuStripMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStripMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1020, 24</value>
-  </data>
-  <data name="menuStripMain.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="menuStripMain.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;menuStripMain.Name" xml:space="preserve">
-    <value>menuStripMain</value>
-  </data>
-  <data name="&gt;&gt;menuStripMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStripMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
   <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 19</value>
   </data>
@@ -5053,30 +5433,6 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>533, 17</value>
   </metadata>
-  <data name="toolStripStatusLabelConnection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 17</value>
-  </data>
-  <data name="toolStripStatusLabelConnection.Text" xml:space="preserve">
-    <value>Connected to </value>
-  </data>
-  <data name="toolStripStatusLabelWatchFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 17</value>
-  </data>
-  <data name="toolStripStatusLabelWatchFolder.Text" xml:space="preserve">
-    <value>Watch folder running</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 17</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
-    <value>{0} {1} Media RU</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 617</value>
   </data>
@@ -5100,6 +5456,30 @@
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>14</value>
+  </data>
+  <data name="toolStripStatusLabelConnection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 17</value>
+  </data>
+  <data name="toolStripStatusLabelConnection.Text" xml:space="preserve">
+    <value>Connected to </value>
+  </data>
+  <data name="toolStripStatusLabelWatchFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 17</value>
+  </data>
+  <data name="toolStripStatusLabelWatchFolder.Text" xml:space="preserve">
+    <value>Watch folder running</value>
+  </data>
+  <data name="toolStripStatusLabelEncRU.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="toolStripStatusLabelEncRU.Size" type="System.Drawing.Size, System.Drawing">
+    <value>787, 17</value>
+  </data>
+  <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
+    <value>{0} {1} Media RU</value>
+  </data>
+  <data name="toolStripStatusLabelEncRU.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -5183,6 +5563,9 @@
   <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>208, 95</value>
+  </metadata>
   <data name="linkLabelFeedbackAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -7823,54 +8206,6 @@
   <data name="&gt;&gt;fromHttpsSourceWithSelectedTransformToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;advancedProcessingToolStripMenuItem.Name" xml:space="preserve">
-    <value>advancedProcessingToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;advancedProcessingToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem22.Name" xml:space="preserve">
-    <value>toolStripMenuItem22</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem39.Name" xml:space="preserve">
-    <value>toolStripMenuItem39</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem39.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem44.Name" xml:space="preserve">
-    <value>toolStripMenuItem44</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem44.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem45.Name" xml:space="preserve">
-    <value>toolStripMenuItem45</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem45.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem46.Name" xml:space="preserve">
-    <value>toolStripMenuItem46</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem46.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem47.Name" xml:space="preserve">
-    <value>toolStripMenuItem47</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem47.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem48.Name" xml:space="preserve">
-    <value>toolStripMenuItem48</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem48.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;subclipToolStripMenuItem.Name" xml:space="preserve">
     <value>subclipToolStripMenuItem</value>
   </data>
@@ -8645,36 +8980,6 @@
   <data name="&gt;&gt;allAssetsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;analyzeAssetsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>analyzeAssetsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;analyzeAssetsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mergeSelectedAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>mergeSelectedAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;mergeSelectedAssetsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkIntegrityOfLiveArchiveToolStripMenuItem1.Name" xml:space="preserve">
-    <value>checkIntegrityOfLiveArchiveToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;checkIntegrityOfLiveArchiveToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fixSystemBitrateInManifestjan15FixToolStripMenuItem.Name" xml:space="preserve">
-    <value>fixSystemBitrateInManifestjan15FixToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;fixSystemBitrateInManifestjan15FixToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator40.Name" xml:space="preserve">
     <value>toolStripSeparator40</value>
   </data>
@@ -8783,214 +9088,10 @@
   <data name="&gt;&gt;createTestAssetsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;advancedToolStripMenuItem.Name" xml:space="preserve">
-    <value>advancedToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;advancedToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testQueryAllAssetFilesToolStripMenuItem1.Name" xml:space="preserve">
-    <value>testQueryAllAssetFilesToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;testQueryAllAssetFilesToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testQueryAllFilesToolStripMenuItem.Name" xml:space="preserve">
-    <value>testQueryAllFilesToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;testQueryAllFilesToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processToolStripMenuItem.Name" xml:space="preserve">
-    <value>processToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetWithAMEStandardToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeAssetWithAMEStandardToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetWithAMEStandardToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;generateThumbnailsForTheAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>generateThumbnailsForTheAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;generateThumbnailsForTheAssetsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator26.Name" xml:space="preserve">
-    <value>toolStripSeparator26</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator26.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetWithPremiumWorkflowToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeAssetWithPremiumWorkflowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetWithPremiumWorkflowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator35.Name" xml:space="preserve">
-    <value>toolStripSeparator35</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator35.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;subclipLiveStreamsarchivesToolStripMenuItem.Name" xml:space="preserve">
-    <value>subclipLiveStreamsarchivesToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;subclipLiveStreamsarchivesToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator43.Name" xml:space="preserve">
-    <value>toolStripSeparator43</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator43.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator39.Name" xml:space="preserve">
-    <value>toolStripSeparator39</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator39.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAJobTemplateToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAJobTemplateToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAJobTemplateToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsadvancedModeWithToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsadvancedModeWithToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsadvancedModeWithToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;publishToolStripMenuItem.Name" xml:space="preserve">
-    <value>publishToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;publishToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;setupDynamicEncryptionForTheAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>setupDynamicEncryptionForTheAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;setupDynamicEncryptionForTheAssetsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;getATestTokenToolStripMenuItem.Name" xml:space="preserve">
-    <value>getATestTokenToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;getATestTokenToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removeDynamicEncryptionForTheAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>removeDynamicEncryptionForTheAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;removeDynamicEncryptionForTheAssetsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removeKeysForTheAssetsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>removeKeysForTheAssetsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;removeKeysForTheAssetsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator22.Name" xml:space="preserve">
-    <value>toolStripSeparator22</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createALocatorForTheAssetToolStripMenuItem.Name" xml:space="preserve">
-    <value>createALocatorForTheAssetToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;createALocatorForTheAssetToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;extendExistingStreamingLocatorsToolStripMenuItem.Name" xml:space="preserve">
-    <value>extendExistingStreamingLocatorsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;extendExistingStreamingLocatorsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteAllLocatorsOfTheAssetToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteAllLocatorsOfTheAssetToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteAllLocatorsOfTheAssetToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemPublishCopyPubURLToClipb.Name" xml:space="preserve">
-    <value>toolStripMenuItemPublishCopyPubURLToClipb</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemPublishCopyPubURLToClipb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;findTheAssetFromTheLocatorToolStripMenuItem.Name" xml:space="preserve">
-    <value>findTheAssetFromTheLocatorToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;findTheAssetFromTheLocatorToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator23.Name" xml:space="preserve">
-    <value>toolStripSeparator23</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator23.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem26.Name" xml:space="preserve">
-    <value>toolStripMenuItem26</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem26.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createAnAssetFilterToolStripMenuItem1.Name" xml:space="preserve">
-    <value>createAnAssetFilterToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;createAnAssetFilterToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;playbackToolStripMenuItem.Name" xml:space="preserve">
-    <value>playbackToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;playbackToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem1.Name" xml:space="preserve">
-    <value>withAzureMediaPlayerToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
-    <value>toolStripSeparator7</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withMPEGDASHIFRefPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>withMPEGDASHIFRefPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;withMPEGDASHIFRefPlayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>withCustomPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;liveChannelToolStripMenuItem.Name" xml:space="preserve">
     <value>liveChannelToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;liveChannelToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;telemetryToolStripMenuItem1.Name" xml:space="preserve">
-    <value>telemetryToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;telemetryToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;createChannelToolStripMenuItem.Name" xml:space="preserve">

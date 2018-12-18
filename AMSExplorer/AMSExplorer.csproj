@@ -476,23 +476,11 @@
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
     </Compile>
     <Compile Include="DataGridViewIngestManifest.cs" />
-    <Compile Include="BulkUpload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BulkUpload.Designer.cs">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
-    </Compile>
     <Compile Include="DownloadToLocal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DownloadToLocal.Designer.cs">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BulkContainerInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BulkContainerInfo.Designer.cs">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.cs">
       <SubType>Form</SubType>
@@ -566,12 +554,6 @@
     </Compile>
     <Compile Include="JobOptions.Designer.cs">
       <DependentUpon>JobOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Hyperlapse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hyperlapse.Designer.cs">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
     </Compile>
     <Compile Include="IndexerOptions.cs">
       <SubType>Form</SubType>
@@ -764,12 +746,6 @@
     <Compile Include="EncodingPremium.Designer.cs">
       <DependentUpon>EncodingPremium.cs</DependentUpon>
     </Compile>
-    <Compile Include="HLSAESStatic.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HLSAESStatic.Designer.cs">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
-    </Compile>
     <Compile Include="JobInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -781,12 +757,6 @@
     </Compile>
     <Compile Include="Mainform.Designer.cs">
       <DependentUpon>Mainform.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PlayReadyStaticEnc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PlayReadyStaticEnc.Designer.cs">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
     </Compile>
     <Compile Include="Priority.cs">
       <SubType>Form</SubType>
@@ -1036,12 +1006,6 @@
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkContainerInfo.ja.resx">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BulkUpload.ja.resx">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1219,9 +1183,6 @@
     <EmbeddedResource Include="ChooseStreamingEndpoint.resx">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkUpload.resx">
-      <DependentUpon>BulkUpload.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EDL.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
@@ -1291,12 +1252,6 @@
     <EmbeddedResource Include="EncodingMESPickOverlay.resx">
       <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HLSAESStatic.ja.resx">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.ja.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImportFromAzureStorage.ja.resx">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
@@ -1349,9 +1304,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="options.ja.resx">
       <DependentUpon>options.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyStaticEnc.ja.resx">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Priority.ja.resx">
       <DependentUpon>Priority.cs</DependentUpon>
@@ -1410,9 +1362,6 @@
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BulkContainerInfo.resx">
-      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.resx">
       <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </EmbeddedResource>
@@ -1448,9 +1397,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hyperlapse.resx">
-      <DependentUpon>Hyperlapse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerOptions.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>
@@ -1554,17 +1500,11 @@
     <EmbeddedResource Include="EncodingPremium.resx">
       <DependentUpon>EncodingPremium.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HLSAESStatic.resx">
-      <DependentUpon>HLSAESStatic.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="JobInformation.resx">
       <DependentUpon>JobInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyStaticEnc.resx">
-      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
@@ -1751,22 +1691,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="AMEPresetFiles\WMA High Quality Audio.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaEncryptor_PlayReadyProtection.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\MediaPackager_MP4toSmooth.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_SmoothToHLS.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_SmoothToHLSWithAES.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configurations\MediaPackager_ValidateTask.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

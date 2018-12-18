@@ -42,7 +42,7 @@ namespace AMSExplorer
         {
             get
             {
-                return radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions: ( radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson :  AddAccountMode.ManualEntry);
+                return radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions : (radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson : AddAccountMode.ManualEntry);
             }
         }
 
@@ -56,12 +56,21 @@ namespace AMSExplorer
 
         private void AddAMSAccount1_Load(object sender, EventArgs e)
         {
+            comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvType.Azure)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvType.AzureChina)));
+            comboBoxAADMappingList.Items.Add(new Item("Azure US Government", nameof(AzureEnvType.AzureUSGovernment)));
+            comboBoxAADMappingList.SelectedIndex = 0;
 
         }
 
-        internal AzureEnvironmentV3 GetEnvironment()
+        public AzureEnvironmentV3 GetEnvironment()
         {
-            return new AzureEnvironmentV3(AzureEnvType.Azure);
+            return new AzureEnvironmentV3((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (string)(comboBoxAADMappingList.SelectedItem as Item).Value));
+        }
+
+        private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxAADMappingList.Enabled = !radioButtonJsonCliOutput.Checked;
         }
     }
 

@@ -5237,154 +5237,6 @@ namespace AMSExplorer
         }
 
 
-
-        /// <summary>
-        /// Converts Smooth Stream to HLS.
-        /// </summary>
-        /// <param name="job">The job to which to add the new task.</param>
-        /// <param name="asset">The Smooth Stream asset.</param>
-        /// <param name="encrypt">
-        /// If you want to encrypt the HLS to HLS with AES - 128, set the encrypt to true.
-        /// The smoothStreamAsset parameter must contain a clear Smooth Stream.
-        /// 
-        /// If you want to encrypt the HLS to HLS with PlayReady, set the encrypt to false.
-        /// The smoothStreamAsset parameter must contain Smooth Stream encrypted with PlayReady.
-        /// </param>
-        /// <returns>The asset that was packaged to HLS.</returns>
-
-
-        private void DoMenuPackageSmoothToHLSStatic()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            IAsset mediaAsset = SelectedAssets.FirstOrDefault();
-            if (mediaAsset == null) return;
-
-            DisplayDeprecatedMessageStaticPackagers();
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
-            {
-                MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            string jobname = "Smooth to " + Constants.NameconvFormathls + " packaging of " + Constants.NameconvInputasset;
-            string taskname = "Smooth to " + Constants.NameconvFormathls + " packaging of " + Constants.NameconvInputasset;
-
-            // Get the SDK extension method to  get a reference to the Azure Media Packager.
-            IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                   MediaProcessorNames.WindowsAzureMediaPackager);
-
-            if (processor == null)
-            {
-                var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxLogWriteLine(message, true);
-                return;
-            }
-
-            HLSAESStatic form = new HLSAESStatic()
-            {
-                HLSEncrypt = false,
-                HLSMaxBitrate = "6600000",
-                HLSServiceSegment = "10",
-                HLSKey = string.Empty,
-                HLSKeyURL = string.Empty,
-                HLSProcessorLabel = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                HLSLabel = (SelectedAssets.Count > 1) ? "Batch mode: " + SelectedAssets.Count + " assets have been selected." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be packaged to HLS as a new asset",
-                HLSOutputAssetName = Constants.NameconvInputasset + "-Packaged to " + Constants.NameconvFormathls
-            };
-
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                // Read and update the configuration XML.
-                //
-                string configHLS = LoadAndUpdateHLSConfiguration(Path.Combine(_configurationXMLFiles, @"MediaPackager_SmoothToHLS.xml"),
-                form.HLSEncrypt, form.HLSKey, form.HLSKeyURL, form.HLSMaxBitrate, form.HLSServiceSegment);
-                jobname = jobname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                taskname = taskname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                string outputassetname = form.HLSOutputAssetName.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                    SelectedAssets,
-                    jobname, Properties.Settings.Default.DefaultJobPriority,
-                    taskname, outputassetname,
-                    new List<string> { configHLS },
-                    AssetCreationOptions.None,
-                    AssetFormatOption.None,
-                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-            }
-        }
-
-
-        private void DoMenuMP4ToSmoothStatic()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected, or asset is null.");
-            }
-            else
-            {
-                DisplayDeprecatedMessageStaticPackagers();
-
-                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-                if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
-                {
-                    MessageBox.Show("Asset(s) should be a multi bitrate or single MP4 file(s).", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-                string labeldb = (SelectedAssets.Count > 1) ?
-                    "Package these " + SelectedAssets.Count + " assets to Smooth Streaming ?" :
-                    "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth Streaming ?";
-
-                string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-                string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-                string outputassetname = Constants.NameconvInputasset + " - Packaged to Smooth";
-
-                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-
-                    // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
-                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                        MediaProcessorNames.WindowsAzureMediaPackager);
-
-                    if (processor == null)
-                    {
-                        var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
-                        MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        TextBoxLogWriteLine(message, true);
-                        return;
-                    }
-
-                    // Windows Azure Media Packager does not accept string presets, so load xml configuration
-                    string smoothConfig = File.ReadAllText(Path.Combine(
-                                _configurationXMLFiles,
-                                "MediaPackager_MP4toSmooth.xml"));
-
-                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                        SelectedAssets,
-                        jobname,
-                        Properties.Settings.Default.DefaultJobPriority,
-                        taskname,
-                        outputassetname,
-                        new List<string> { smoothConfig },
-                        AssetCreationOptions.None,
-                        Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
-                        Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
-                        );
-                }
-            }
-        }
-
         private void DoMenuVideoAnalytics(string processorStr, System.Drawing.Image processorImage, string urlMoreInfo, string preset = null, bool preview = true)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -5619,86 +5471,6 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuProtectWithPlayReadyStatic()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            DisplayDeprecatedMessageStaticPackagers();
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
-            {
-                MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            string jobname = "PlayReady Encryption of " + Constants.NameconvInputasset;
-            string taskname = "PlayReady Encryption of " + Constants.NameconvInputasset;
-
-            // Get the SDK extension method to  get a reference to the Windows Azure Media Encryptor.
-            IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                MediaProcessorNames.WindowsAzureMediaEncryptor);
-
-            if (processor == null)
-            {
-                var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaEncryptor);
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxLogWriteLine(message, true);
-                return;
-            }
-
-            PlayReadyStaticEnc form = new PlayReadyStaticEnc(_context)
-            {
-                PlayReadyProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                PlayReadyKeyId = Guid.NewGuid(),
-                PlayReadyKeySeed = string.Empty,
-                PlayReadyLAurl = string.Empty,
-                PlayReadyUseSencBox = true,
-                PlayReadyAdjustSubSamples = true,
-                PlayReadyContentKey = string.Empty,
-                PlayReadyServiceId = string.Empty,
-                PlayReadyCustomAttributes = string.Empty,
-                PlayReadyOutputAssetName = Constants.NameconvInputasset + " - PlayReady protected",
-                PlayReadyAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected as an input. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encrypted with PlayReady."
-            };
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string keyDeliveryServiceUri = form.PlayReadyLAurl;
-
-                // Read and update the configuration XML.
-                //
-                string configPlayReady = LoadAndUpdatePlayReadyConfiguration(
-                Path.Combine(_configurationXMLFiles, @"MediaEncryptor_PlayReadyProtection.xml"),
-                form.PlayReadyKeySeed,
-                keyDeliveryServiceUri,
-                form.PlayReadyKeyId,
-                form.PlayReadyContentKey,
-                form.PlayReadyUseSencBox,
-                form.PlayReadyAdjustSubSamples,
-                form.PlayReadyServiceId,
-                form.PlayReadyCustomAttributes);
-
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                    SelectedAssets,
-                    jobname,
-                    Properties.Settings.Default.DefaultJobPriority,
-                    taskname,
-                    form.PlayReadyOutputAssetName,
-                    new List<string> { configPlayReady },
-                    AssetCreationOptions.CommonEncryptionProtected,
-                    AssetFormatOption.None,
-                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-            }
-
-        }
-
 
         public void LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, AssetFormatOption myAssetFormatOption, TaskOptions myTaskOptions, string storageaccountname = "")
         {
@@ -5829,75 +5601,6 @@ namespace AMSExplorer
                 );
         }
 
-
-        private void DoMenuValidateMultiMP4Static()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            IAsset mediaAsset = SelectedAssets.FirstOrDefault();
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4))
-            {
-                MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            DisplayDeprecatedMessageStaticPackagers();
-
-            string labeldb = "Validate '" + mediaAsset.Name + "'  ?";
-
-            if (SelectedAssets.Count > 1)
-            {
-                labeldb = "Launch the validation of these " + SelectedAssets.Count + " assets ?";
-            }
-            string jobname = "Validate Multi MP4 of " + Constants.NameconvInputasset;
-            string taskname = "Validate Multi MP4 of " + Constants.NameconvInputasset;
-            string outputassetname = Constants.NameconvInputasset + " - Multi MP4 validated";
-
-
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 Validation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                // Read the task configuration data into a string. 
-                string configMp4Validation = File.ReadAllText(Path.Combine(
-                        _configurationXMLFiles,
-                        "MediaPackager_ValidateTask.xml"));
-
-                // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
-                IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                    MediaProcessorNames.WindowsAzureMediaPackager);
-
-                if (processor == null)
-                {
-                    var message = string.Format("Processor '{0}' not found in the account.", MediaProcessorNames.WindowsAzureMediaPackager);
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextBoxLogWriteLine(message, true);
-                    return;
-                }
-
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                    SelectedAssets,
-                    jobname,
-                    Properties.Settings.Default.DefaultJobPriority,
-                    taskname,
-                    outputassetname,
-                    new List<string> { configMp4Validation },
-                    AssetCreationOptions.None,
-                    Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat ? AssetFormatOption.AdaptiveStreaming : AssetFormatOption.None,
-                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-            }
-        }
-
-        private void DisplayDeprecatedMessageStaticPackagers()
-        {
-            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on December 31, 2016.\n\nBefore that date, the same functionalities will be added to Media Encoder Standard.\n\nCustomers will be provided instructions on how to migrate their workflows to send Jobs to this media processor.\n\nFormat conversion and encryption capabilities may also be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
         private void DisplayDeprecatedMessageAME()
         {
@@ -6091,109 +5794,6 @@ namespace AMSExplorer
             }
         }
 
-
-        private void DoMenuHyperlapseAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            // not needed as ism as primary seems to work ok
-            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
-
-            Hyperlapse form = new Hyperlapse(_context, processor.Version)
-            {
-                HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
-                HyperlapseOutputAssetName = Constants.NameconvInputasset + " - Hyperlapsed",
-                HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
-            };
-
-            string taskname = "Hyperlapse processing of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                string configHyperlapse = form.JsonConfig();
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
-            }
-        }
-
-        private static void CheckPrimaryFileExtension(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
-        {
-            // if one asset selected
-            if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() != null)
-            {
-                IAsset asset = SelectedAssets.FirstOrDefault();
-                IAssetFile primary = asset.AssetFiles.Where(f => f.IsPrimary).FirstOrDefault();
-                var selectableFiles = asset.AssetFiles.ToList().Where(f => mediaFileExtensions.Contains(Path.GetExtension(f.Name).ToUpperInvariant())).ToList();
-
-                // if primary file is not a video file supported but there are video files in asset
-                if (primary != null
-                    && !mediaFileExtensions.Contains(Path.GetExtension(primary.Name).ToUpperInvariant())
-                    && selectableFiles.Count > 0)
-                {
-                    var form = new MediaAnalyticsPickVideoFileInAsset(asset, mediaFileExtensions, true);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        AssetInfo.SetFileAsPrimary(asset, form.SelectedAssetFile.Name);
-                    }
-                }
-                // no video file in asset
-                else if (selectableFiles.Count == 0)
-                {
-                    MessageBox.Show("Source asset must be a single " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-
-            // several selected assets
-            else if (
-                SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
-                ||
-                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!mediaFileExtensions.Contains(Path.GetExtension(a.AssetFiles.FirstOrDefault().Name).ToUpperInvariant())))
-                )
-            {
-                MessageBox.Show("Source asset must be a single " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private static void CheckPrimaryFileExtensionRedactionMode(List<IAsset> SelectedAssets, string[] mediaFileExtensions)
-        {
-            bool Warning = false;
-            foreach (var asset in SelectedAssets)
-            {
-                IAssetFile primary = asset.AssetFiles.Where(f => f.IsPrimary).FirstOrDefault();
-                var selectableFiles = asset.AssetFiles.ToList().Where(f => mediaFileExtensions.Contains(Path.GetExtension(f.Name).ToUpperInvariant())).ToList();
-
-                // if primary file is not a video file supported but there are video files in asset
-                if (primary != null
-                    && !mediaFileExtensions.Contains(Path.GetExtension(primary.Name).ToUpperInvariant())
-                    && selectableFiles.Count > 0)
-                {
-                    var form = new MediaAnalyticsPickVideoFileInAsset(asset, mediaFileExtensions, true);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        AssetInfo.SetFileAsPrimary(asset, form.SelectedAssetFile.Name);
-                    }
-                }
-                // no video file in asset
-                else if (selectableFiles.Count == 0)
-                {
-                    Warning = true;
-                }
-            }
-            if (Warning)
-            {
-                MessageBox.Show("Source asset must contain a " + string.Join(", ", mediaFileExtensions) + " file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
 
         private static void CheckJSONFileExtensionRedactionMode(List<IAsset> SelectedAssets)
         {
@@ -7259,7 +6859,7 @@ namespace AMSExplorer
 
         private void toolStripMenuAsset_DropDownOpening(object sender, EventArgs e)
         {
-   
+
         }
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
@@ -7334,7 +6934,6 @@ namespace AMSExplorer
             DoCreateJobReportEmail();
         }
 
-
         private void DoMenuDisplayAssetInfoFromLocatorID()
         {
             string locatorID = string.Empty;
@@ -7358,10 +6957,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
-
-
 
 
 
@@ -7406,8 +7001,6 @@ namespace AMSExplorer
         }
 
 
-
-
         private void buttonJobSearch_Click(object sender, EventArgs e)
         {
             DoJobSearch();
@@ -7438,19 +7031,7 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxStateAssets_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewAssetsV.Initialized)
-            {
-                Debug.WriteLine("comboBoxStateAssets_SelectedIndexChanged");
-
-                string filter = ((ComboBox)sender).SelectedItem.ToString();
-
-                dataGridViewAssetsV.StateFilter = filter;
-                DoRefreshGridAssetV(false);
-            }
-        }
-
+      
         private void toolStripMenuItemOpenDest_Click(object sender, EventArgs e)
         {
             DoOpenTransferDestLocation();
@@ -7759,16 +7340,7 @@ namespace AMSExplorer
             }
         }
 
-        private void outputAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoOpenJobAsset(false);
-        }
-
-        private void inputAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoOpenJobAsset(true);
-        }
-
+   
         private void inputAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoOpenJobAsset(true);
@@ -8081,18 +7653,6 @@ namespace AMSExplorer
         {
             TabControl tabcontrol = (TabControl)sender;
 
-            // let's enable or disable all items from menu and context menu
-            EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets) || (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive))));
-            EnableChildItems(ref processToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
-            //  EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
-            //  EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)));
-
-            // EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
-            // EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabFilters)));
-
-            // EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
-            // EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
-
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
 
             EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
@@ -8186,7 +7746,6 @@ namespace AMSExplorer
 
             TimerAutoRefresh.Interval = Properties.Settings.Default.AutoRefreshTime * 1000;
             TimerAutoRefresh.Enabled = Properties.Settings.Default.AutoRefresh;
-            withCustomPlayerToolStripMenuItem.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
         }
@@ -11898,7 +11457,6 @@ namespace AMSExplorer
             DoMenuEncodeWithAMEAdvanced();
         }
 
-
         private void encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEncodeWithPremiumWorkflow();
@@ -11915,25 +11473,6 @@ namespace AMSExplorer
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
-        private void validateTheMultiMP4AssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuValidateMultiMP4Static();
-        }
-
-        private void packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuMP4ToSmoothStatic();
-        }
-
-        private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuPackageSmoothToHLSStatic();
-        }
-
-        private void encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuProtectWithPlayReadyStatic();
-        }
 
         private void DoCopyOutputURLAssetOrProgramToClipboard()
         {
@@ -12348,26 +11887,6 @@ namespace AMSExplorer
             }
 
             if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
-        }
-
-        private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuPackageSmoothToHLSStatic();
-        }
-
-        private void encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuProtectWithPlayReadyStatic();
-        }
-
-        private void packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuMP4ToSmoothStatic();
-        }
-
-        private void validateTheMultiMP4AssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuValidateMultiMP4Static();
         }
 
         private void resubmitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -13067,7 +12586,7 @@ namespace AMSExplorer
             DoExportAssetToAzureStorage();
 
         }
-     
+
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
             DoMenuImportFromAzureStorage();
@@ -13197,11 +12716,6 @@ namespace AMSExplorer
 
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-           
-            // telemetry
-            telemetryToolStripMenuItem1.Enabled = false;// enableTelemetry;
-
-        
         }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
@@ -13309,7 +12823,7 @@ namespace AMSExplorer
         {
             DoMenuDisplayAssetInfoFromLocatorID();
         }
-      
+
         private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
         {
             DoRefreshGridFiltersV(false);
@@ -13578,46 +13092,23 @@ namespace AMSExplorer
             }
         }
 
-      
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
             var filters = ReturnSelectedAccountFilters();
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
-
-     
-
-        private void toolStripMenuItem25_Click_1(object sender, EventArgs e)
-        {
-            DoCopyOutputURLAssetOrProgramToClipboard();
-        }
-
-        private void publishToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            var assets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
-
-            // get test token, create asset filter, or copy publish URL only if one asset
-            getATestTokenToolStripMenuItem.Enabled = false;
-            createAnAssetFilterToolStripMenuItem1.Enabled = false;
-            toolStripMenuItemPublishCopyPubURLToClipb.Enabled = assets.Count == 1;
-        }
+   
 
         private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
-
-
         private void withAzureMediaPlayerToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
         }
 
-        private void withAzureMediaPlayerToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
-        {
-        }
-
-
+    
         private void DoCreateAssetFilter()
         {
             var selasset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
@@ -14068,11 +13559,6 @@ namespace AMSExplorer
         private void toolStripMenuItem33_Click(object sender, EventArgs e)
         {
             DoMenuIndexAssets();
-        }
-
-        private void toolStripMenuItem37_Click(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
         }
 
         private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
@@ -14618,78 +14104,6 @@ namespace AMSExplorer
             DoCopyAssetToAnotherAMSAccount();
         }
 
-        private void toolStripMenuItem45_Click(object sender, EventArgs e)
-        {
-            DoMenuValidateMultiMP4Static();
-
-        }
-
-        private void toolStripMenuItem46_Click(object sender, EventArgs e)
-        {
-            DoMenuMP4ToSmoothStatic();
-
-        }
-
-        private void toolStripMenuItem47_Click(object sender, EventArgs e)
-        {
-            DoMenuPackageSmoothToHLSStatic();
-        }
-
-        private void toolStripMenuItem48_Click(object sender, EventArgs e)
-        {
-            DoMenuProtectWithPlayReadyStatic();
-        }
-
-        private void toolStripMenuItem49_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMESystemPreset();
-        }
-
-        private void toolStripMenuItem50_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEAdvanced();
-        }
-
-        private void indexAssetsToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuIndexAssets();
-        }
-
-        private void toolStripMenuItemIndexv2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void processAssetsWithHyperlapseToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuHyperlapseAssets();
-
-        }
-
-        private void ProcessFaceDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
-        }
-
-        private void ProcessRedactortoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsFaceRedaction(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
-        }
-
-        private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuMotionDetection();
-        }
-
-        private void ProcessStabilizertoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
-        }
-
-        private void ProcessVideoThumbnailstoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
-        }
-
         private void mergeSelectedAssetsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoCopyAssetToAnotherAMSAccount();
@@ -14727,30 +14141,13 @@ namespace AMSExplorer
             DoCancelTransfer();
         }
 
-        private void processAssetsWithAzureMediaOCRToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoOCR();
-        }
-
-        private void processAssetsWithAzureMediaVideoOCRToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoOCR();
-        }
 
         private void DoMenuContentModerator()
         {
             DoMenuVideoAnalyticsContentModeration(Constants.AzureMediaContentModerator, null);
         }
 
-        private void DoMenuContentModerator_Click(object sender, EventArgs e)
-        {
-            DoMenuContentModerator();
-        }
 
-        private void DoMenuVideoAnnotator_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnnotator();
-        }
         private void DoMenuVideoAnnotator()
         {
             DoMenuVideoAnalytics(Constants.AzureMediaVideoAnnotator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration);
@@ -14771,10 +14168,6 @@ namespace AMSExplorer
             DoGridTransferClearCompletedTransfers();
         }
 
-        private void filesToSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuUploadFileToAsset_Step1();
-        }
 
         private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -14879,10 +14272,6 @@ namespace AMSExplorer
             DoMenuImportFromHttp();
         }
 
-        private void configureTelemetryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoConfigureTelemetry();
-        }
 
         private void DoConfigureTelemetry()
         {
@@ -15124,10 +14513,6 @@ namespace AMSExplorer
             }
         }
 
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CreateVideoAnalyzerTransform();
-        }
 
         private void CreateVideoAnalyzerTransform()
         {

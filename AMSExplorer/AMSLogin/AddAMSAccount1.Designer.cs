@@ -37,7 +37,12 @@
             this.checkBoxSelectUser = new System.Windows.Forms.CheckBox();
             this.radioButtonJsonCliOutput = new System.Windows.Forms.RadioButton();
             this.radioButtonAddManual = new System.Windows.Forms.RadioButton();
+            this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonNext
@@ -86,12 +91,37 @@
             resources.ApplyResources(this.radioButtonJsonCliOutput, "radioButtonJsonCliOutput");
             this.radioButtonJsonCliOutput.Name = "radioButtonJsonCliOutput";
             this.radioButtonJsonCliOutput.UseVisualStyleBackColor = true;
+            this.radioButtonJsonCliOutput.CheckedChanged += new System.EventHandler(this.radioButtonJsonCliOutput_CheckedChanged);
             // 
             // radioButtonAddManual
             // 
             resources.ApplyResources(this.radioButtonAddManual, "radioButtonAddManual");
             this.radioButtonAddManual.Name = "radioButtonAddManual";
             this.radioButtonAddManual.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxAADMappingList
+            // 
+            this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAADMappingList.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
+            this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButtonAddAMSAccount);
+            this.groupBox1.Controls.Add(this.checkBoxSelectUser);
+            this.groupBox1.Controls.Add(this.radioButtonJsonCliOutput);
+            this.groupBox1.Controls.Add(this.radioButtonAddManual);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.comboBoxAADMappingList);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
             // 
             // AddAMSAccount1
             // 
@@ -100,17 +130,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.radioButtonAddManual);
-            this.Controls.Add(this.radioButtonJsonCliOutput);
-            this.Controls.Add(this.checkBoxSelectUser);
-            this.Controls.Add(this.radioButtonAddAMSAccount);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
             this.Name = "AddAMSAccount1";
             this.Load += new System.EventHandler(this.AddAMSAccount1_Load);
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -124,5 +154,8 @@
         private System.Windows.Forms.CheckBox checkBoxSelectUser;
         private System.Windows.Forms.RadioButton radioButtonJsonCliOutput;
         private System.Windows.Forms.RadioButton radioButtonAddManual;
+        public System.Windows.Forms.ComboBox comboBoxAADMappingList;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

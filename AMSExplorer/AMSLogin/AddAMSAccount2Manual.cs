@@ -42,9 +42,6 @@ namespace AMSExplorer
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
-            comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvType.Azure)));
-            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvType.AzureChina)));
-            comboBoxAADMappingList.SelectedIndex = 0;
         }
     }
 }

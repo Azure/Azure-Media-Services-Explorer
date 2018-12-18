@@ -5179,6 +5179,7 @@ namespace AMSExplorer
         Azure = 0,
         Test,
         AzureChina,
+        AzureUSGovernment,
         Custom
     }
 
@@ -5210,7 +5211,6 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.azure.com/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.Azure;
-
                     break;
 
                 case AzureEnvType.AzureChina:
@@ -5219,8 +5219,16 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureChina;
-
                     break;
+
+                case AzureEnvType.AzureUSGovernment:
+                    DisplayName = "Azure US Government";
+                    Authority = "https://login.microsoftonline.us/common/oauth2/authorize";
+                    ArmEndpoint = new Uri("https://management.core.us-govcloudapi.net/");
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
+                    AADSettings = ActiveDirectoryServiceSettings.AzureUSGovernment;
+                    break;
+
 
                 case AzureEnvType.Custom:
                     DisplayName = "Custom";

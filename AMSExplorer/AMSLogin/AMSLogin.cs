@@ -47,12 +47,6 @@ namespace AMSExplorer
     {
         ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
 
-        // strings for field API
-        private const string _Default = "Default";
-        private const string _Partner = "Partner";
-        private const string _Other = "Other";
-        private const string CustomString = "Custom";
-
         public string accountName;
 
         private CredentialsEntryV3 LoginInfo;
@@ -102,19 +96,6 @@ namespace AMSExplorer
             listViewAccounts.Items[item.Index].ForeColor = Color.Black;
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
-
-
-        private string ReturnAzureEndpoint(string mystring)
-        {
-            return mystring.Split("|".ToCharArray())[0];
-        }
-
-        private string ReturnManagementPortal(string mystring)
-        {
-            string[] temp = mystring.Split("|".ToCharArray());
-            return temp.Count() > 1 ? temp[1] : string.Empty;
-        }
-
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
         {
@@ -211,11 +192,6 @@ namespace AMSExplorer
                 radioButtonAADInteractive.Checked = !LoginInfo.UseSPAuth;
                 radioButtonAADServicePrincipal.Checked = LoginInfo.UseSPAuth;
             }
-        }
-
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-            DoClearFields();
         }
 
         private void DoClearFields()
@@ -356,28 +332,9 @@ namespace AMSExplorer
             Program.CheckAMSEVersionV3();
         }
 
-
-        private void textBoxURL_Validation(object sender, EventArgs e)
-        {
-            TextBox mytextbox = (TextBox)sender;
-            mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
-        }
-
-        private void textBoxTXT_Validation(object sender, EventArgs e)
-        {
-            TextBox mytextbox = (TextBox)sender;
-            mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
-        }
-
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void textBoxAccountName_Validating(object sender, CancelEventArgs e)
-        {
-            CheckTextBox(sender);
         }
 
         private void CheckTextBox(object sender)
@@ -394,35 +351,7 @@ namespace AMSExplorer
             }
         }
 
-        private void CheckTextBoxGuid(object sender)
-        {
-            TextBox tb = (TextBox)sender;
-
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(tb.Text))
-                {
-                    var g = new Guid(tb.Text);
-                }
-                errorProvider1.SetError(tb, String.Empty);
-            }
-
-            catch
-            {
-                errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.AMSLogin_CheckTextBoxGuid_BadGUIDFormat);
-            }
-        }
-
-        private void textBoxAccountKey_Validating(object sender, CancelEventArgs e)
-        {
-            CheckTextBox(sender);
-        }
-
-        private void CheckTextBoxGuid(object sender, CancelEventArgs e)
-        {
-            CheckTextBoxGuid(sender);
-        }
-
+     
         private void listBoxAcounts_DoubleClick(object sender, EventArgs e)
         {
             // Proceed to log in to the selected account in the listbox
@@ -483,12 +412,21 @@ namespace AMSExplorer
                     authority: environment.Authority,
                     validateAuthority: true);
 
-                    var accessToken = await authContext.AcquireTokenAsync(
-                                                                         resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                         clientId: environment.ClientApplicationId,
-                                                                         redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                         parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
-                                                                         );
+                    AuthenticationResult accessToken;
+                    try
+                    {
+                        accessToken = await authContext.AcquireTokenAsync(
+                                                                             resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                             clientId: environment.ClientApplicationId,
+                                                                             redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                             parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                             );
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
@@ -592,12 +530,9 @@ namespace AMSExplorer
                     {
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
-                        var t = (AzureEnvType)Enum.Parse(typeof(AzureEnvType), (form.comboBoxAADMappingList.SelectedItem as Item).Value.ToString());
-                        var env = new AzureEnvironmentV3(t);
-
                         var entry = new CredentialsEntryV3(
                                                         new SubscriptionMediaService(form.textBoxAMSResourceId.Text, accountnamecc, null, null, form.textBoxLocation.Text),
-                                                        env,
+                                                        addaccount1.GetEnvironment(),
                                                         PromptBehavior.Auto,
                                                         radioButtonAADServicePrincipal.Checked,
                                                         form.textBoxAADtenantId.Text,
@@ -634,8 +569,6 @@ namespace AMSExplorer
         private void buttonImportSPJson_Click(object sender, EventArgs e)
         {
             //  Azure portal / AMS Account / Properties. Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount
-
-
         }
 
         private void textBoxDescription_TextChanged(object sender, EventArgs e)

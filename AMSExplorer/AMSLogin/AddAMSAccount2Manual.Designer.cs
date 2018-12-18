@@ -43,8 +43,6 @@
             this.labelADTenant = new System.Windows.Forms.Label();
             this.labelE2 = new System.Windows.Forms.Label();
             this.labelLocation = new System.Windows.Forms.Label();
-            this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxAADAutMode.SuspendLayout();
             this.SuspendLayout();
@@ -125,18 +123,6 @@
             resources.ApplyResources(this.labelLocation, "labelLocation");
             this.labelLocation.Name = "labelLocation";
             // 
-            // comboBoxAADMappingList
-            // 
-            this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAADMappingList.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
-            this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // AddAMSAccount2Manual
             // 
             this.AcceptButton = this.buttonNext;
@@ -144,8 +130,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxAADMappingList);
             this.Controls.Add(this.groupBoxAADAutMode);
             this.Controls.Add(this.textBoxAMSResourceId);
             this.Controls.Add(this.textBoxAADtenantId);
@@ -179,7 +163,5 @@
         public System.Windows.Forms.TextBox textBoxAMSResourceId;
         public System.Windows.Forms.TextBox textBoxAADtenantId;
         public System.Windows.Forms.TextBox textBoxLocation;
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.ComboBox comboBoxAADMappingList;
     }
 }
