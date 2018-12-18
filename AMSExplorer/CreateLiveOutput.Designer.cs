@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class CreateProgram
+    partial class CreateLiveOutput
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateProgram));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveOutput));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
@@ -52,6 +52,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
+            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.labelCloneLocators = new System.Windows.Forms.Label();
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -68,18 +70,16 @@
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
-            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -238,6 +238,18 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBoxHLSFragPerSegDefined
+            // 
+            resources.ApplyResources(this.checkBoxHLSFragPerSegDefined, "checkBoxHLSFragPerSegDefined");
+            this.checkBoxHLSFragPerSegDefined.Name = "checkBoxHLSFragPerSegDefined";
+            this.checkBoxHLSFragPerSegDefined.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownHLSFragPerSeg
+            // 
+            resources.ApplyResources(this.numericUpDownHLSFragPerSeg, "numericUpDownHLSFragPerSeg");
+            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
+            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
+            // 
             // labelCloneLocators
             // 
             this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -339,18 +351,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // checkBoxHLSFragPerSegDefined
-            // 
-            resources.ApplyResources(this.checkBoxHLSFragPerSegDefined, "checkBoxHLSFragPerSegDefined");
-            this.checkBoxHLSFragPerSegDefined.Name = "checkBoxHLSFragPerSegDefined";
-            this.checkBoxHLSFragPerSegDefined.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDownHLSFragPerSeg
-            // 
-            resources.ApplyResources(this.numericUpDownHLSFragPerSeg, "numericUpDownHLSFragPerSeg");
-            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
-            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
-            // 
             // CreateProgram
             // 
             this.AcceptButton = this.buttonOk;
@@ -368,7 +368,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
             this.Name = "CreateProgram";
-            this.Load += new System.EventHandler(this.CreateLocator_Load);
+            this.Load += new System.EventHandler(this.CreateLiveOutput_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -377,11 +377,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

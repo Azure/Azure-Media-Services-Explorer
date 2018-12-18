@@ -44,24 +44,7 @@ namespace AMSExplorer
         private Mainform MyMainForm;
         private AMSClientV3 _client;
         public bool MultipleSelection = false;
-        public ExplorerProgramModifications Modifications = new ExplorerProgramModifications();
         public LiveOutput MyLiveOutput;
-
-        public string ProgramDescription
-        {
-            get { return textBoxDescription.Text; }
-        }
-
-
-        public TimeSpan archiveWindowLength
-        {
-            get
-            {
-                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
-            }
-        }
-
-
 
         public LiveOutputInformation(Mainform mainform, AMSClientV3 client)
         {
@@ -156,17 +139,10 @@ namespace AMSExplorer
                 buttonDisplayRelatedAsset.Visible = false;
             }
 
-            textBoxDescription.Text = MyLiveOutput.Description;
 
             numericUpDownArchiveHours.Value = Convert.ToInt16(MyLiveOutput.ArchiveWindowLength.TotalHours);
             numericUpDownArchiveMinutes.Value = MyLiveOutput.ArchiveWindowLength.Minutes;
 
-            // let's track when user edit a setting
-            Modifications = new ExplorerProgramModifications
-            {
-                Description = false,
-                ArchiveWindow = false
-            };
         }
 
         private void labelProgramName_Click(object sender, EventArgs e)
@@ -179,26 +155,5 @@ namespace AMSExplorer
         {
 
         }
-
-        private void textBoxDescription_TextChanged(object sender, EventArgs e)
-        {
-            Modifications.Description = true;
-        }
-
-        private void numericUpDownArchiveHours_ValueChanged(object sender, EventArgs e)
-        {
-            Modifications.ArchiveWindow = true;
-        }
-
-        private void numericUpDownArchiveMinutes_ValueChanged(object sender, EventArgs e)
-        {
-            Modifications.ArchiveWindow = true;
-        }
-    }
-
-    public class ExplorerProgramModifications
-    {
-        public bool Description { get; set; }
-        public bool ArchiveWindow { get; set; }
     }
 }

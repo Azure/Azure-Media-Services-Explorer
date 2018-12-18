@@ -123,17 +123,17 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 14</value>
+    <value>308, 14</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 27</value>
+    <value>127, 27</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>Create Program</value>
+    <value>Create Live Output</value>
   </data>
   <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
     <value>buttonOk</value>
@@ -259,13 +259,13 @@
     <value>31, 84</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 15</value>
+    <value>106, 15</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Program name :</value>
+    <value>Live output name :</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -361,13 +361,13 @@
     <value>35, 512</value>
   </data>
   <data name="checkBoxCreateLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 19</value>
+    <value>323, 19</value>
   </data>
   <data name="checkBoxCreateLocator.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="checkBoxCreateLocator.Text" xml:space="preserve">
-    <value>Publish this program/asset now (default locator duration: {0} days)</value>
+    <value>Publish the asset now (default locator duration: {0} days)</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateLocator.Name" xml:space="preserve">
     <value>checkBoxCreateLocator</value>
@@ -391,8 +391,8 @@
     <value>48</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Live programs will automatically convert to on demand content when the program is stopped and will be available on the ASSETS tab.
-All publish URLs remain the same after the live program completes. </value>
+    <value>Live output will automatically convert to on demand content when the output is deleted and will be available in the ASSETS tab.
+All publish URLs of the asset remain the same after the deletion of the live output. </value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -419,7 +419,7 @@ All publish URLs remain the same after the live program completes. </value>
     <value>73</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>5 min to 25 hours max</value>
+    <value>3 min to 25 hours max</value>
   </data>
   <data name="&gt;&gt;label9.Name" xml:space="preserve">
     <value>label9</value>
@@ -1081,6 +1081,9 @@ All publish URLs remain the same after the live program completes. </value>
   <data name="checkBoxDynEnc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="checkBoxDynEnc.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="checkBoxDynEnc.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 485</value>
   </data>
@@ -1148,7 +1151,7 @@ All publish URLs remain the same after the live program completes. </value>
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Create a new program for channel {0}</value>
+    <value>Create a new output for live event {0}</value>
   </data>
   <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
     <value>errorProvider1</value>

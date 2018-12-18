@@ -33,34 +33,26 @@
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.DGChannel = new System.Windows.Forms.DataGridView();
             this.buttonDisplayRelatedAsset = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.labelProgramName = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPageSettings.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,10 +72,58 @@
             // 
             // tabPageInfo
             // 
+            this.tabPageInfo.Controls.Add(this.label2);
+            this.tabPageInfo.Controls.Add(this.numericUpDownArchiveMinutes);
+            this.tabPageInfo.Controls.Add(this.label4);
+            this.tabPageInfo.Controls.Add(this.numericUpDownArchiveHours);
+            this.tabPageInfo.Controls.Add(this.pictureBox1);
+            this.tabPageInfo.Controls.Add(this.label5);
             this.tabPageInfo.Controls.Add(this.DGChannel);
             resources.ApplyResources(this.tabPageInfo, "tabPageInfo");
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // numericUpDownArchiveMinutes
+            // 
+            resources.ApplyResources(this.numericUpDownArchiveMinutes, "numericUpDownArchiveMinutes");
+            this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // numericUpDownArchiveHours
+            // 
+            resources.ApplyResources(this.numericUpDownArchiveHours, "numericUpDownArchiveHours");
+            this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // DGChannel
             // 
@@ -112,92 +152,8 @@
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPageInfo);
-            this.tabControl1.Controls.Add(this.tabPageSettings);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            // 
-            // tabPageSettings
-            // 
-            this.tabPageSettings.Controls.Add(this.label2);
-            this.tabPageSettings.Controls.Add(this.textBoxDescription);
-            this.tabPageSettings.Controls.Add(this.groupBox4);
-            resources.ApplyResources(this.tabPageSettings, "tabPageSettings");
-            this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // textBoxDescription
-            // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.numericUpDownArchiveMinutes);
-            this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.numericUpDownArchiveHours);
-            this.groupBox4.Controls.Add(this.pictureBox2);
-            this.groupBox4.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
-            // label9
-            // 
-            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // numericUpDownArchiveMinutes
-            // 
-            resources.ApplyResources(this.numericUpDownArchiveMinutes, "numericUpDownArchiveMinutes");
-            this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
-            this.numericUpDownArchiveMinutes.ValueChanged += new System.EventHandler(this.numericUpDownArchiveMinutes_ValueChanged);
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // numericUpDownArchiveHours
-            // 
-            resources.ApplyResources(this.numericUpDownArchiveHours, "numericUpDownArchiveHours");
-            this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
-            this.numericUpDownArchiveHours.ValueChanged += new System.EventHandler(this.numericUpDownArchiveHours_ValueChanged);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.archive;
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
             // 
             // labelProgramName
             // 
@@ -208,22 +164,14 @@
             // buttonClose
             // 
             resources.ApplyResources(this.buttonClose, "buttonClose");
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.UseVisualStyleBackColor = true;
-            // 
-            // buttonUpdateClose
-            // 
-            resources.ApplyResources(this.buttonUpdateClose, "buttonUpdateClose");
-            this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdateClose.Name = "buttonUpdateClose";
-            this.buttonUpdateClose.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Name = "panel1";
             // 
@@ -240,9 +188,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
+            this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonDisplayRelatedAsset);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
             this.Name = "LiveOutputInformation";
@@ -251,15 +199,12 @@
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageSettings.ResumeLayout(false);
-            this.tabPageSettings.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.tabPageInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -274,20 +219,14 @@
         private System.Windows.Forms.Button buttonDisplayRelatedAsset;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelProgramName;
-        private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonUpdateClose;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDownArchiveMinutes;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown numericUpDownArchiveHours;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDownArchiveMinutes;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownArchiveHours;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label5;
     }
 }

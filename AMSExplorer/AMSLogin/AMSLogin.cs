@@ -483,8 +483,6 @@ namespace AMSExplorer
                     authority: environment.Authority,
                     validateAuthority: true);
 
-
-
                     var accessToken = await authContext.AcquireTokenAsync(
                                                                          resource: environment.AADSettings.TokenAudience.ToString(),
                                                                          clientId: environment.ClientApplicationId,

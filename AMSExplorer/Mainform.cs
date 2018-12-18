@@ -7228,8 +7228,7 @@ namespace AMSExplorer
             ContextMenuItemAssetEditDescription.Enabled =
             editAlternateIdToolStripMenuItem.Enabled =
             contextMenuExportFilesToStorage.Enabled =
-            createAnAssetFilterToolStripMenuItem.Enabled =
-            displayParentJobToolStripMenuItem1.Enabled = singleitem;
+            createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
 
             /*
             if (singleitem && firstAsset != null && firstAsset.AssetFiles.Count() == 1)
@@ -7260,26 +7259,7 @@ namespace AMSExplorer
 
         private void toolStripMenuAsset_DropDownOpening(object sender, EventArgs e)
         {
-            var assets = ReturnSelectedAssetsV3();
-            bool singleitem = (assets.Count == 1);
-            informationToolStripMenuItem.Enabled =
-            editDescriptionToolStripMenuItem.Enabled =
-            editAlternateIdToolStripMenuItem1.Enabled =
-            toAzureStorageToolStripMenuItem.Enabled =
-            displayParentJobToolStripMenuItem.Enabled = singleitem;
-
-            /*
-            if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
-            {
-                var assetfile = assets.FirstOrDefault().AssetFiles.FirstOrDefault();
-                if (assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
-                {
-                    // live archive
-                    toAzureStorageToolStripMenuItem.Enabled = false;
-                    toolStripMenuItemDownloadToLocal.Enabled = false;
-                }
-            }
-            */
+   
         }
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
@@ -8113,7 +8093,6 @@ namespace AMSExplorer
             // EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
             // EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabJobs)));
 
-            EnableChildItems(ref transferToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
 
             EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
@@ -9494,10 +9473,10 @@ namespace AMSExplorer
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
 
-                CreateProgram form = new CreateProgram(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
+                CreateLiveOutput form = new CreateLiveOutput(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
                 {
                     ChannelName = channel.Name,
-                    archiveWindowLength = new TimeSpan(4, 0, 0),
+                    archiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
                     EnableDynEnc = false,
                     AssetName = "LiveArchive-" + Constants.NameconvChannel + "-" + Constants.NameconvProgram + "-" + uniqueness,
@@ -9690,39 +9669,7 @@ namespace AMSExplorer
                         MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
                         MultipleSelection = multiselection
                     };
-
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        var modifications = form.Modifications;
-
-                        if (multiselection)
-                        {
-                            var formSettings = new SettingsSelection("programs", modifications);
-
-                            if (formSettings.ShowDialog() != DialogResult.OK)
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                modifications = (ExplorerProgramModifications)formSettings.SettingsObject;
-                            }
-                        }
-
-                        foreach (var program in liveoutputs)
-                        {
-                            if (modifications.ArchiveWindow)
-                            {
-                                program.ArchiveWindowLength = form.archiveWindowLength;
-                            }
-                            if (modifications.Description)
-                            {
-                                program.Description = form.ProgramDescription;
-                            }
-
-                            // await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
-                        }
-                    }
+                    form.ShowDialog();
                 }
                 finally
                 {
@@ -10235,7 +10182,7 @@ namespace AMSExplorer
             {
                 if (liveEvent != null && liveEvent.Preview != null)
                 {
-                    if (liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
+                    if (liveEvent.Preview.Endpoints.FirstOrDefault() != null && liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
                     {
                         AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: ptype,
@@ -10248,6 +10195,10 @@ namespace AMSExplorer
                             //selectedBrowser: Constants.BrowserIE[1],
                             launchbrowser: true
                             );
+                    }
+                    else
+                    {
+                        MessageBox.Show($"There is no active preview URL for live event '{liveEvent.Name}'. Maybe no data has arrived so no manifest is available.", "No preview URL", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
             }
@@ -10265,13 +10216,21 @@ namespace AMSExplorer
 
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
-            var channel = ReturnSelectedChannels().FirstOrDefault();
+            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
             if (channel != null && channel.Preview != null)
             {
-                string preview = channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri;
-                EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
-                DisplayForm.Display();
+                if (channel.Preview.Endpoints.FirstOrDefault() != null && channel.Preview.Endpoints.FirstOrDefault().Url != null)
+                {
+                    string preview = channel.Preview.Endpoints.FirstOrDefault().Url;
+                    EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
+                    DisplayForm.Display();
+                }
+                else
+                {
+                    MessageBox.Show($"There is no active preview URL for live event '{channel.Name}'. Maybe no data has arrived so no manifest is available.", "No preview URL", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
+
         }
 
         private void generateThumbnailsForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -13058,8 +13017,6 @@ namespace AMSExplorer
         }
 
 
-
-
         private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
         {
             // enable Azure CDN operation if one se selected and in stopped state
@@ -13071,24 +13028,8 @@ namespace AMSExplorer
 
         }
 
-        private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ChangeAzureCDN(true);
-        }
-
-        private void disableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ChangeAzureCDN(false);
-        }
-
         private void originToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            // enable Azure CDN operation if one se selected and in stopped state
-            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem1, enableAzureCDNToolStripMenuItem1);
-
-            // telemetry
-            telemetryToolStripMenuItem.Enabled = enableTelemetry;
-
         }
 
         private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
@@ -13116,9 +13057,6 @@ namespace AMSExplorer
             }
         }
 
-
-
-
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             DoCopyAssetToAnotherAMSAccount();
@@ -13129,12 +13067,7 @@ namespace AMSExplorer
             DoExportAssetToAzureStorage();
 
         }
-
-        private void toolStripMenuItem16_Click(object sender, EventArgs e)
-        {
-            DoMenuDownloadToLocal();
-        }
-
+     
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
             DoMenuImportFromAzureStorage();
@@ -13206,22 +13139,6 @@ namespace AMSExplorer
             ContextMenuOpeningLiveEventCopyInputUrl();
         }
 
-        private void DropDownOpeningLiveEventCopyInputUrl()
-        {
-            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
-
-            inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 0);
-            inputURLToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1);
-            inputURLToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
-            inputURLToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
-
-            inputURLToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : "";
-            inputURLToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : "";
-            inputURLToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : "";
-            inputURLToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : "";
-
-        }
-
         private void ContextMenuOpeningLiveEventCopyInputUrl()
         {
             var channel = ReturnSelectedLiveEvents().FirstOrDefault();
@@ -13238,18 +13155,7 @@ namespace AMSExplorer
 
         }
 
-        private void copyInputURLToClipboardToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            DropDownOpeningLiveEventCopyInputUrl();
-        }
-
-
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDisplayChannelAdSlateControl();
-        }
-
-        private void channelsAdAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayChannelAdSlateControl();
         }
@@ -13291,62 +13197,11 @@ namespace AMSExplorer
 
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            var channels = ReturnSelectedLiveEvents();
-            bool single = channels.Count == 1;
-            bool oneOrMore = channels.Count > 0;
-
-            // channel info
-            channInfoToolStripMenuItem.Enabled = oneOrMore;
-
-            // slate control if at least one channel with live transcoding
-            channelsAdAndSlateControlToolStripMenuItem.Enabled = false;// channels.Any(c => c.Encoding != null);
-
-            // copy input url if only one channel
-            copyInputURLToClipboardToolStripMenuItem.Enabled = single;
-
-            // on premises encoder if only one channel
-            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = single;
-
-            // copy preview url if only one channel
-            copyPreviewURLToClipboardToolStripMenuItem.Enabled = single && channels.FirstOrDefault().Preview != null;
-
-            // start, stop, reset, delete, clone channel
-            startChannelsToolStripMenuItem.Enabled = oneOrMore;
-            stopChannelsToolStripMenuItem.Enabled = oneOrMore;
-            resetChannelsToolStripMenuItem.Enabled = oneOrMore;
-            deleteChannelsToolStripMenuItem.Enabled = oneOrMore;
-            toolStripMenuItemCloneChannel.Enabled = false;// oneOrMore;
-
-            // playback preview
-            playbackThePreviewToolStripMenuItem.Enabled = oneOrMore;
-
+           
             // telemetry
             telemetryToolStripMenuItem1.Enabled = false;// enableTelemetry;
 
-            ////////////
-
-            var programs = ReturnSelectedPrograms();
-            single = programs.Count == 1;
-            oneOrMore = programs.Count > 0;
-
-            // program info if only one program
-            displayProgramInformationToolStripMenuItem.Enabled = oneOrMore;
-
-            // asset info if only one program
-            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
-
-            // reset program
-            recreateProgramsToolStripMenuItem.Enabled = oneOrMore;
-
-            // delete program
-            deleteProgramsToolStripMenuItem1.Enabled = oneOrMore;
-
-            // clone program
-            toolStripMenuItemCloneProgram.Enabled = false;// oneOrMore;
-
-            // sublcip program
-            subclipLiveStreamsarchivesToolStripMenuItem1.Enabled = false;// oneOrMore;
-
+        
         }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
@@ -13454,18 +13309,7 @@ namespace AMSExplorer
         {
             DoMenuDisplayAssetInfoFromLocatorID();
         }
-
-
-        private void displayParentJobToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
-        }
-
-        private void displayParentJobToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
-        }
-
+      
         private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
         {
             DoRefreshGridFiltersV(false);
@@ -13734,12 +13578,7 @@ namespace AMSExplorer
             }
         }
 
-        private void encodeAssetsWithAMEStandardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEStandard();
-        }
-
-
+      
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
             var filters = ReturnSelectedAccountFilters();
@@ -13747,34 +13586,7 @@ namespace AMSExplorer
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
 
-        private void toolStripMenuItem23_Click(object sender, EventArgs e)
-        {
-            DoCreateFilter();
-        }
-
-        private void toolStripMenuItem22_Click_1(object sender, EventArgs e)
-        {
-            DoUpdateFilter();
-        }
-
-        private void toolStripMenuItem24_Click(object sender, EventArgs e)
-        {
-            DoDeleteFilter();
-        }
-
-
-        private void filterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            var filters = ReturnSelectedAccountFilters();
-            bool singleitem = (filters.Count == 1);
-            toolStripMenuItemFilterInfo.Enabled = singleitem;
-        }
-
-
-        private void toolStripMenuItem22_Click_2(object sender, EventArgs e)
-        {
-            DoCopyOutputURLAssetOrProgramToClipboard();
-        }
+     
 
         private void toolStripMenuItem25_Click_1(object sender, EventArgs e)
         {

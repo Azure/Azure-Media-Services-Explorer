@@ -703,11 +703,11 @@
     <Compile Include="LiveEventInformation.Designer.cs">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateProgram.cs">
+    <Compile Include="CreateLiveOutput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateProgram.Designer.cs">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <Compile Include="CreateLiveOutput.Designer.cs">
+      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
     </Compile>
     <Compile Include="AssetInformation.cs">
       <SubType>Form</SubType>
@@ -1087,8 +1087,8 @@
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateProgram.ja.resx">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <EmbeddedResource Include="CreateLiveOutput.ja.resx">
+      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
@@ -1519,8 +1519,8 @@
     <EmbeddedResource Include="LiveEventInformation.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateProgram.resx">
-      <DependentUpon>CreateProgram.cs</DependentUpon>
+    <EmbeddedResource Include="CreateLiveOutput.resx">
+      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>

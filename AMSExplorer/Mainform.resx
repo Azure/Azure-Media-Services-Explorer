@@ -394,18 +394,6 @@
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
   </data>
-  <data name="displayParentJobToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F4</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Display parent job</value>
-  </data>
   <data name="copyToClipboardToolStripMenuItem3.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+A</value>
   </data>
@@ -588,6 +576,9 @@
   <data name="toolStripMenuItem20.Text" xml:space="preserve">
     <value>Batch upload...</value>
   </data>
+  <data name="toolStripMenuItem21.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="toolStripMenuItem21.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -755,101 +746,6 @@
   </data>
   <data name="toolStripMenuItem32.Text" xml:space="preserve">
     <value>Create job</value>
-  </data>
-  <data name="toolStripMenuItemIndexer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
-        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItemIndexer.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="toolStripMenuItemIndexer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemIndexer.Text" xml:space="preserve">
-    <value>Index asset(s) with Azure Media Indexer...</value>
-  </data>
-  <data name="toolStripMenuItem38Indexer2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
-        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem38Indexer2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItem38Indexer2.Text" xml:space="preserve">
-    <value>Index asset(s) with Azure Media Indexer 2...</value>
-  </data>
-  <data name="toolStripMenuItemHyperlapse.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Y</value>
-  </data>
-  <data name="toolStripMenuItemHyperlapse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemHyperlapse.Text" xml:space="preserve">
-    <value>Process asset(s) with Hyperlapse...</value>
-  </data>
-  <data name="toolStripMenuItemFaceDetector.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemFaceDetector.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Face and Emotion Detector</value>
-  </data>
-  <data name="toolStripMenuItemRedactor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemRedactor.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Redactor...</value>
-  </data>
-  <data name="toolStripMenuItemMotionDetector.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemMotionDetector.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Motion Detector...</value>
-  </data>
-  <data name="toolStripMenuItemStabilizer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemStabilizer.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Stabilizer...</value>
-  </data>
-  <data name="toolStripMenuItemVideoThumbnails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemVideoThumbnails.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video Thumbnails...</value>
-  </data>
-  <data name="processAssetsWithAzureMediaOCRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaOCRToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video OCR...</value>
-  </data>
-  <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Content Moderator...</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video Annotator...</value>
-  </data>
-  <data name="mediaIntelligenceToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="mediaIntelligenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 22</value>
-  </data>
-  <data name="mediaIntelligenceToolStripMenuItem.Text" xml:space="preserve">
-    <value>Media Analytics</value>
   </data>
   <data name="toolStripMenuItem22.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+J</value>
@@ -1087,7 +983,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 474</value>
+    <value>290, 430</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1108,7 +1004,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -2163,7 +2059,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2416,7 +2312,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2709,7 +2605,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3386,7 +3282,7 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3854,7 +3750,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.7, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4150,91 +4046,6 @@
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="informationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="informationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F4</value>
-  </data>
-  <data name="informationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="informationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display information</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F4</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="displayParentJobToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display parent job</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+A</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Display it...</value>
-  </data>
-  <data name="toolStripMenuItem29.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="toolStripMenuItem29.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="toolStripMenuItem29.Text" xml:space="preserve">
-    <value>Create Outlook email</value>
-  </data>
-  <data name="createOutlookReportEmailToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="createOutlookReportEmailToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="createOutlookReportEmailToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Report</value>
-  </data>
-  <data name="editDescriptionToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACWSURBVDhP1c7BCYNAEIXhJbGAePBiOlCCnQgWFAK2
-        kqN4tggvCYJgCyYN5BT/Mc5FkN31lgcf6w68Wc2OnNDgjUIGvqnxXbxk4JoQR2QYIQt6OCXCE3fokgcu
-        sEbL+tu6xCnrshggc2u2ymdYs1WOYc2flg9osausyfGBdznB7fc5L+ng9fIV8qouCZbTORVKpPPNK8ZM
-        J4s5ENmusvMAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="editDescriptionToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F2</value>
-  </data>
-  <data name="editDescriptionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="editDescriptionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Edit Description...</value>
-  </data>
-  <data name="editAlternateIdToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="editAlternateIdToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Edit Alternate Id...</value>
-  </data>
   <data name="selectedAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 22</value>
   </data>
@@ -4323,12 +4134,6 @@
   </data>
   <data name="fromASingleFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Upload file(s)...</value>
-  </data>
-  <data name="filesToSelectedAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 22</value>
-  </data>
-  <data name="filesToSelectedAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Upload file(s) to selected asset(s)...</value>
   </data>
   <data name="fromMultipleFilesToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+U</value>
@@ -4531,45 +4336,6 @@
   <data name="assetToolStripMenuItem.Text" xml:space="preserve">
     <value>Asset</value>
   </data>
-  <data name="toolStripMenuItemFilterInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="toolStripMenuItemFilterInfo.Text" xml:space="preserve">
-    <value>Filter info/update</value>
-  </data>
-  <data name="toolStripMenuItem23.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="toolStripMenuItem23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="toolStripMenuItem23.Text" xml:space="preserve">
-    <value>Create an account filter...</value>
-  </data>
-  <data name="toolStripMenuItem24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="toolStripMenuItem24.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="duplicateToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="duplicateToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Duplicate...</value>
-  </data>
-  <data name="filterToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="filterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 20</value>
-  </data>
-  <data name="filterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Account filter</value>
-  </data>
-  <data name="transferToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>12, 20</value>
-  </data>
   <data name="encodeAssetWithAMEStandardToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -4641,98 +4407,6 @@
   <data name="toolStripSeparator43.Size" type="System.Drawing.Size, System.Drawing">
     <value>416, 6</value>
   </data>
-  <data name="indexAssetsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
-        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="indexAssetsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="indexAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="indexAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Index asset(s) with Azure Media Indexer...</value>
-  </data>
-  <data name="toolStripMenuItemIndexv2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
-        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItemIndexv2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemIndexv2.Text" xml:space="preserve">
-    <value>Index asset(s) with Azure Media Indexer 2...</value>
-  </data>
-  <data name="processAssetsWithHyperlapseToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Y</value>
-  </data>
-  <data name="processAssetsWithHyperlapseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithHyperlapseToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Hyperlapse...</value>
-  </data>
-  <data name="ProcessFaceDetectortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessFaceDetectortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Face and Emotion Detector</value>
-  </data>
-  <data name="ProcessRedactortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessRedactortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Redactor</value>
-  </data>
-  <data name="ProcessMotionDetectortoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessMotionDetectortoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Motion Detector</value>
-  </data>
-  <data name="ProcessStabilizertoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessStabilizertoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Stabilizer</value>
-  </data>
-  <data name="ProcessVideoThumbnailstoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessVideoThumbnailstoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video Thumbnails</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video OCR...</value>
-  </data>
-  <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Content Moderator...</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Video Annotator...</value>
-  </data>
-  <data name="mediaAnalyticsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="mediaAnalyticsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Media Analytics</value>
-  </data>
   <data name="toolStripSeparator39.Size" type="System.Drawing.Size, System.Drawing">
     <value>416, 6</value>
   </data>
@@ -4754,93 +4428,6 @@
   <data name="processAssetsadvancedModeWithToolStripMenuItem.Text" xml:space="preserve">
     <value>Process asset(s) with multiple processors...</value>
   </data>
-  <data name="toolStripSeparatorBottomIndex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="decryptAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="decryptAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Storage decrypt the asset(s)...</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripMenuItem33.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 22</value>
-  </data>
-  <data name="toolStripMenuItem33.Text" xml:space="preserve">
-    <value>System preset...</value>
-  </data>
-  <data name="toolStripMenuItem36.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 22</value>
-  </data>
-  <data name="toolStripMenuItem36.Text" xml:space="preserve">
-    <value>Advanced mode with custom preset...</value>
-  </data>
-  <data name="encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Text" xml:space="preserve">
-    <value>(deprecated) Encode asset(s) with Azure Media Encoder</value>
-  </data>
-  <data name="validateTheMultiMP4AssetsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="validateTheMultiMP4AssetsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Validate the multi MP4 asset(s)....</value>
-  </data>
-  <data name="packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Package the multi MP4 asset(s) to Smooth Streaming (static)</value>
-  </data>
-  <data name="encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Encrypt the Smooth Streaming asset(s) with PlayReady (static)</value>
-  </data>
-  <data name="packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Package the Smooth Streaming asset(s) to HLS v3 (static)...</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem.Text" xml:space="preserve">
-    <value>(deprecated) Static packaging</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="dynamicPackagingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="dynamicPackagingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Dynamic Packaging (Smooth, HLS, DASH)...</value>
-  </data>
   <data name="processToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -4849,214 +4436,6 @@
   </data>
   <data name="processToolStripMenuItem.Text" xml:space="preserve">
     <value>Process</value>
-  </data>
-  <data name="displayJobInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="displayJobInformationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F4</value>
-  </data>
-  <data name="displayJobInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="displayJobInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display information</value>
-  </data>
-  <data name="displayErrorToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="displayErrorToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Display error</value>
-  </data>
-  <data name="inputAssetInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACNSURBVDhPpZPLDYAgEETtyYoswAY8qAXZhbTkVZxZ
-        s0hwIaAveYHhs6sHOu/9L83FFhUHmVrdoWBt1ipYG7UKYdKIWWCFzJOkMtnGWmSUdMMcS2TsM27whAPM
-        IQXiqpYHJOk6kdHqTvkFPMDfyaGFXswwvcwcS3R8JmCBzKXOilmghXDv61tw5gur13cXAvX6lleYffsA
-        AAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="inputAssetInformationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F6</value>
-  </data>
-  <data name="inputAssetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="inputAssetInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Input asset information</value>
-  </data>
-  <data name="outputAssetInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACRSURBVDhPpZPLDYAgEETtyYoswAY8qAV5swStx5tX
-        cWbjEiULAXzJi7t8BjzQOOd+aQ6WSHbIqtQNCtZkroI1kavgi1pKAmbI9YN0DxrA79sYGtJLB1KL24gL
-        vGAHfYCerJJwLPSEUsSwTqe8Affxd3yApqoxRsh52UxSi0Mm+NlMSgJMat7CAVeIznhh+brmBviD9ng5
-        vg6dAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="outputAssetInformationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F7</value>
-  </data>
-  <data name="outputAssetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="outputAssetInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Output asset information</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+J</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Display it...</value>
-  </data>
-  <data name="toolStripMenuItem28.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="toolStripMenuItem28.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="toolStripMenuItem28.Text" xml:space="preserve">
-    <value>Create Outlook email</value>
-  </data>
-  <data name="createReportEmailToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="createReportEmailToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="createReportEmailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="createReportEmailToolStripMenuItem.Text" xml:space="preserve">
-    <value>Report</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 6</value>
-  </data>
-  <data name="priorityToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADgSURBVDhPpZKxDsIwDETTL0DiA1gYURkQAwMLAxP/
-        gxhQ2x+BPwXjs+xyCW0WTrr6ovjeUCWJyF+2T9M0F7W4kdOEerU2bJoYcCYAsq+MinLYIAw4EgAZ96Eo
-        P3w+ffYM2BMAWe9HYfmmbj1j4qzVL6AlALLej+p8MgDqGLAmALLvZCoB1g3AigDIvpKpClgSANlXMlUB
-        CwIg+0qmKgAOAOQrprmfeC8BmUkoXdUMwFmrOWCr3k0ABjWK8ZBiDgw4qN/uUwGAAhLG2boMeFUAUECs
-        DDEA3qjtFc4AfiQi6QOD78/7QlyyAwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="priorityToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="priorityToolStripMenuItem.Text" xml:space="preserve">
-    <value>Change priority...</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Down</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="selectedJobsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Selected job(s)...</value>
-  </data>
-  <data name="allJobsToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="allJobsToolStripMenuItem2.Text" xml:space="preserve">
-    <value>All jobs...</value>
-  </data>
-  <data name="cancelJobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACdSURBVDhPpZPBDYMwFENDGbkDtANwoAP0zpapHclR
-        SL9/kfqkJxGCrSRAqbX+5cgdvuHSRjGc2+GjjQYYZh11Jbz3gnruCTsMaSIqmcP0gDfY4IUrceEVnnAl
-        l8IiKhlNw8KVXAqTaM9UZ5LiwjItcac9bycscWHumXNRSf8GsrBwJX0l/CxdWMwlGzzBH+TXq1LJV1j0
-        JSUMz5TyAQRkjEUIke9yAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="cancelJobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="cancelJobToolStripMenuItem.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="resubmitToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="resubmitToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+S</value>
-  </data>
-  <data name="resubmitToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="resubmitToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Resubmit...</value>
-  </data>
-  <data name="selectedJobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="selectedJobToolStripMenuItem.Text" xml:space="preserve">
-    <value>Selected job(s)...</value>
-  </data>
-  <data name="visibleJobsInGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="visibleJobsInGridToolStripMenuItem.Text" xml:space="preserve">
-    <value>Visible jobs in grid...</value>
-  </data>
-  <data name="allJobsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+Del</value>
-  </data>
-  <data name="allJobsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="allJobsToolStripMenuItem.Text" xml:space="preserve">
-    <value>All jobs...</value>
-  </data>
-  <data name="deleteToolStripMenuItem2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="deleteToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="encodingToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="encodingToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>J</value>
-  </data>
-  <data name="encodingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="encodingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Job</value>
   </data>
   <data name="setupDynamicEncryptionForTheAssetsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -5261,33 +4640,11 @@
   <data name="publishToolStripMenuItem.Text" xml:space="preserve">
     <value>Publish</value>
   </data>
-  <data name="channInfoToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="channInfoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="channInfoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Live event infomation and settings...</value>
-  </data>
   <data name="telemetryToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>256, 22</value>
   </data>
   <data name="telemetryToolStripMenuItem1.Text" xml:space="preserve">
     <value>Telemetry...</value>
-  </data>
-  <data name="channelsAdAndSlateControlToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+A</value>
-  </data>
-  <data name="channelsAdAndSlateControlToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="channelsAdAndSlateControlToolStripMenuItem.Text" xml:space="preserve">
-    <value>Live event(s) Ad and Slate control...</value>
   </data>
   <data name="createChannelToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5300,163 +4657,19 @@
     <value>Ctrl+H</value>
   </data>
   <data name="createChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>256, 22</value>
   </data>
   <data name="createChannelToolStripMenuItem.Text" xml:space="preserve">
     <value>Create live event...</value>
   </data>
-  <data name="startChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADYSURBVDhPpZM7CgJBEETH1MTIQLyniiAiHsHIQDyC
-        iZkIegFzMdA7uIGZ1htW6R17P2LBg6X6w/RsT3DUEwOxE+ccvoeCWKlagsK7eJZAjBxyC8JYC6/Ig9xC
-        E7qmSVuxFBvjWRgpirkykSZcRFeguUjj1MQ7meSGx0l0BPKaUBsOxvAg3hZoJtJYuBmjiWyTK8avDaai
-        0KBuhKOoHKHpJabFEC+xLx65YWGFq34jNdRGjUSasBAsy8p4lrH46O9VRhicpO4xkfNVbMV6cvS9eD9n
-        vp3nHMILA/uduymamO8AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="startChannelsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F9</value>
-  </data>
-  <data name="startChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="startChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start live event(s)</value>
-  </data>
-  <data name="toolStripMenuItemCloneChannel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="toolStripMenuItemCloneChannel.Text" xml:space="preserve">
-    <value>Clone channel(s) to another account...</value>
-  </data>
-  <data name="stopChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAoSURBVDhPY/j//z9FGKsgKRjBADJJwaMGjBoAwsPR
-        AHIxVkHi8X8GAD4l3jA0VZ0gAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="stopChannelsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F10</value>
-  </data>
-  <data name="stopChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="stopChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stop live event(s)</value>
-  </data>
-  <data name="resetChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAD5SURBVDhPpZMxbsJAEEWdioYycAVazkFK6CPRcwki
-        0UHBCXIboAESGo6RhBRJCpb/1ow1thZsKV960s7sny/v2s5CCFmNXkU7X5YVZxsEYDiKfqycbgU8ipl4
-        Fz8CA7CeiAcRlQoYig9hQynGIqoawPBZmHEtFq4+iWdRyAd0xCc9wRM8CRO9nejFyskHTKmvDGg4LUUr
-        X5blA/bUYkPRVD7AbntOUSM8eH//G3DyAXaEFUWN8OB98wH3LtGLPfPNfEBX+NeYCqFnHxnerg9AqQ+J
-        8wJr6+PBm8+6ADQSX8LMVdiLwygVgOxnOog/8S224kWwVyiEkF0A1di1vVgejOsAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="resetChannelsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+H</value>
-  </data>
-  <data name="resetChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="resetChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Reset live event(s)</value>
-  </data>
-  <data name="deleteChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteChannelsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+H</value>
-  </data>
-  <data name="deleteChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="deleteChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete live event(s)...</value>
-  </data>
-  <data name="inputURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
-  </data>
-  <data name="inputURLToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Input 1 Url ({0})...</value>
-  </data>
-  <data name="inputURLToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
-  </data>
-  <data name="inputURLToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Input 2 Url ({0})...</value>
-  </data>
-  <data name="inputURLToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
-  </data>
-  <data name="inputURLToolStripMenuItem3.Text" xml:space="preserve">
-    <value>Input 3 Url ({0})...</value>
-  </data>
-  <data name="inputURLToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
-  </data>
-  <data name="inputURLToolStripMenuItem4.Text" xml:space="preserve">
-    <value>Input 4 Url ({0})...</value>
-  </data>
-  <data name="copyInputURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="copyInputURLToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display Input URL</value>
-  </data>
   <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>256, 22</value>
   </data>
   <data name="runAnOnpremisesLiveEncoderToolStripMenuItem.Text" xml:space="preserve">
     <value>Run an on-premises live encoder...</value>
   </data>
-  <data name="copyPreviewURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="copyPreviewURLToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display Preview URL...</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem3.Text" xml:space="preserve">
-    <value>with Azure Media Player</value>
-  </data>
-  <data name="playbackThePreviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="playbackThePreviewToolStripMenuItem.Text" xml:space="preserve">
-    <value>Playback the Preview</value>
-  </data>
   <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 6</value>
-  </data>
-  <data name="displayProgramInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="displayProgramInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="displayProgramInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Live output information and settings...</value>
-  </data>
-  <data name="ProgramDisplayRelatedAssetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="ProgramDisplayRelatedAssetInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Display related asset information...</value>
+    <value>253, 6</value>
   </data>
   <data name="createProgramToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5469,51 +4682,10 @@
     <value>Ctrl+P</value>
   </data>
   <data name="createProgramToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>256, 22</value>
   </data>
   <data name="createProgramToolStripMenuItem1.Text" xml:space="preserve">
     <value>Create live output...</value>
-  </data>
-  <data name="recreateProgramsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+P</value>
-  </data>
-  <data name="recreateProgramsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="recreateProgramsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Reset live output(s)</value>
-  </data>
-  <data name="toolStripMenuItemCloneProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="toolStripMenuItemCloneProgram.Text" xml:space="preserve">
-    <value>Clone live output(s) to another account...</value>
-  </data>
-  <data name="deleteProgramsToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteProgramsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+P</value>
-  </data>
-  <data name="deleteProgramsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="deleteProgramsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Delete live output(s)...</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+R</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="subclipLiveStreamsarchivesToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Subclip live output(s)...</value>
   </data>
   <data name="liveChannelToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -5524,43 +4696,6 @@
   <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
     <value>Live</value>
   </data>
-  <data name="displayOriginInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="displayOriginInformationToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F4</value>
-  </data>
-  <data name="displayOriginInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="displayOriginInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Streaming endpoint information and settings...</value>
-  </data>
-  <data name="telemetryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="telemetryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Telemetry...</value>
-  </data>
-  <data name="enableAzureCDNToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="enableAzureCDNToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Enable Azure CDN...</value>
-  </data>
-  <data name="disableAzureCDNToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="disableAzureCDNToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Disable Azure CDN...</value>
-  </data>
-  <data name="toolStripSeparator34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 6</value>
-  </data>
   <data name="createOriginToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -5569,59 +4704,10 @@
 </value>
   </data>
   <data name="createOriginToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>224, 22</value>
   </data>
   <data name="createOriginToolStripMenuItem.Text" xml:space="preserve">
     <value>Create streaming endpoint...</value>
-  </data>
-  <data name="startOriginsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADYSURBVDhPpZM7CgJBEETH1MTIQLyniiAiHsHIQDyC
-        iZkIegFzMdA7uIGZ1htW6R17P2LBg6X6w/RsT3DUEwOxE+ccvoeCWKlagsK7eJZAjBxyC8JYC6/Ig9xC
-        E7qmSVuxFBvjWRgpirkykSZcRFeguUjj1MQ7meSGx0l0BPKaUBsOxvAg3hZoJtJYuBmjiWyTK8avDaai
-        0KBuhKOoHKHpJabFEC+xLx65YWGFq34jNdRGjUSasBAsy8p4lrH46O9VRhicpO4xkfNVbMV6cvS9eD9n
-        vp3nHMILA/uduymamO8AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="startOriginsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="startOriginsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="startOriginsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start streaming endpoint(s)</value>
-  </data>
-  <data name="stopOriginsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAoSURBVDhPY/j//z9FGKsgKRjBADJJwaMGjBoAwsPR
-        AHIxVkHi8X8GAD4l3jA0VZ0gAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="stopOriginsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+E</value>
-  </data>
-  <data name="stopOriginsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="stopOriginsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stop streaming endpoint(s)</value>
-  </data>
-  <data name="deleteOriginsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="deleteOriginsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
-  </data>
-  <data name="deleteOriginsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete streaming endpoint(s)</value>
   </data>
   <data name="originToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -5643,15 +4729,6 @@
   </data>
   <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>Attach/Detach storage accounts...</value>
-  </data>
-  <data name="configureTelemetryToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="configureTelemetryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
-  </data>
-  <data name="configureTelemetryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Configure Telemetry...</value>
   </data>
   <data name="managementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 20</value>
@@ -8507,7 +7584,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>112</value>
+    <value>161</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -8534,12 +7611,6 @@
     <value>ContextMenuItemAssetDisplayInfo</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemAssetDisplayInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayParentJobToolStripMenuItem1.Name" xml:space="preserve">
-    <value>displayParentJobToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;displayParentJobToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemAssetCreateOutlookReportEmail.Name" xml:space="preserve">
@@ -8750,78 +7821,6 @@
     <value>fromHttpsSourceWithSelectedTransformToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;fromHttpsSourceWithSelectedTransformToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mediaIntelligenceToolStripMenuItem.Name" xml:space="preserve">
-    <value>mediaIntelligenceToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;mediaIntelligenceToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemIndexer.Name" xml:space="preserve">
-    <value>toolStripMenuItemIndexer</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemIndexer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem38Indexer2.Name" xml:space="preserve">
-    <value>toolStripMenuItem38Indexer2</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem38Indexer2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemHyperlapse.Name" xml:space="preserve">
-    <value>toolStripMenuItemHyperlapse</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemHyperlapse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFaceDetector.Name" xml:space="preserve">
-    <value>toolStripMenuItemFaceDetector</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFaceDetector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemRedactor.Name" xml:space="preserve">
-    <value>toolStripMenuItemRedactor</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemRedactor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemMotionDetector.Name" xml:space="preserve">
-    <value>toolStripMenuItemMotionDetector</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemMotionDetector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemStabilizer.Name" xml:space="preserve">
-    <value>toolStripMenuItemStabilizer</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemStabilizer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemVideoThumbnails.Name" xml:space="preserve">
-    <value>toolStripMenuItemVideoThumbnails</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemVideoThumbnails.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaOCRToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaOCRToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaOCRToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaContentModeratorToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;advancedProcessingToolStripMenuItem.Name" xml:space="preserve">
@@ -9622,48 +8621,6 @@
   <data name="&gt;&gt;assetToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;informationToolStripMenuItem.Name" xml:space="preserve">
-    <value>informationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;informationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayParentJobToolStripMenuItem.Name" xml:space="preserve">
-    <value>displayParentJobToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;displayParentJobToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createOutlookReportEmailToolStripMenuItem1.Name" xml:space="preserve">
-    <value>createOutlookReportEmailToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;createOutlookReportEmailToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copyToClipboardToolStripMenuItem2.Name" xml:space="preserve">
-    <value>copyToClipboardToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;copyToClipboardToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem29.Name" xml:space="preserve">
-    <value>toolStripMenuItem29</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem29.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;editDescriptionToolStripMenuItem.Name" xml:space="preserve">
-    <value>editDescriptionToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;editDescriptionToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;editAlternateIdToolStripMenuItem1.Name" xml:space="preserve">
-    <value>editAlternateIdToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;editAlternateIdToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;deleteToolStripMenuItem.Name" xml:space="preserve">
     <value>deleteToolStripMenuItem</value>
   </data>
@@ -9734,12 +8691,6 @@
     <value>fromASingleFileToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;fromASingleFileToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;filesToSelectedAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>filesToSelectedAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;filesToSelectedAssetsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;fromMultipleFilesToolStripMenuItem.Name" xml:space="preserve">
@@ -9850,42 +8801,6 @@
   <data name="&gt;&gt;testQueryAllFilesToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;filterToolStripMenuItem.Name" xml:space="preserve">
-    <value>filterToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;filterToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFilterInfo.Name" xml:space="preserve">
-    <value>toolStripMenuItemFilterInfo</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemFilterInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem23.Name" xml:space="preserve">
-    <value>toolStripMenuItem23</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem23.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem24.Name" xml:space="preserve">
-    <value>toolStripMenuItem24</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem24.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;duplicateToolStripMenuItem1.Name" xml:space="preserve">
-    <value>duplicateToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;duplicateToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferToolStripMenuItem.Name" xml:space="preserve">
-    <value>transferToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;transferToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;processToolStripMenuItem.Name" xml:space="preserve">
     <value>processToolStripMenuItem</value>
   </data>
@@ -9934,78 +8849,6 @@
   <data name="&gt;&gt;toolStripSeparator43.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mediaAnalyticsToolStripMenuItem.Name" xml:space="preserve">
-    <value>mediaAnalyticsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;mediaAnalyticsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;indexAssetsToolStripMenuItem.Name" xml:space="preserve">
-    <value>indexAssetsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;indexAssetsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemIndexv2.Name" xml:space="preserve">
-    <value>toolStripMenuItemIndexv2</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemIndexv2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithHyperlapseToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithHyperlapseToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithHyperlapseToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessFaceDetectortoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessFaceDetectortoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessFaceDetectortoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessRedactortoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessRedactortoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessRedactortoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessMotionDetectortoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessMotionDetectortoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessMotionDetectortoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessStabilizertoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessStabilizertoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessStabilizertoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessVideoThumbnailstoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessVideoThumbnailstoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessVideoThumbnailstoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaVideoOCRToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaContentModeratorToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Name" xml:space="preserve">
-    <value>processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator39.Name" xml:space="preserve">
     <value>toolStripSeparator39</value>
   </data>
@@ -10022,192 +8865,6 @@
     <value>processAssetsadvancedModeWithToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;processAssetsadvancedModeWithToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparatorBottomIndex.Name" xml:space="preserve">
-    <value>toolStripSeparatorBottomIndex</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparatorBottomIndex.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;decryptAssetToolStripMenuItem.Name" xml:space="preserve">
-    <value>decryptAssetToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;decryptAssetToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem33.Name" xml:space="preserve">
-    <value>toolStripMenuItem33</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem33.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Name" xml:space="preserve">
-    <value>toolStripMenuItem36</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem.Name" xml:space="preserve">
-    <value>deprecatedToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;validateTheMultiMP4AssetsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>validateTheMultiMP4AssetsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;validateTheMultiMP4AssetsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dynamicPackagingToolStripMenuItem.Name" xml:space="preserve">
-    <value>dynamicPackagingToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;dynamicPackagingToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encodingToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodingToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encodingToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayJobInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>displayJobInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;displayJobInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayErrorToolStripMenuItem2.Name" xml:space="preserve">
-    <value>displayErrorToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;displayErrorToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputAssetInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>inputAssetInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;inputAssetInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;outputAssetInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>outputAssetInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;outputAssetInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createReportEmailToolStripMenuItem.Name" xml:space="preserve">
-    <value>createReportEmailToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;createReportEmailToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copyToClipboardToolStripMenuItem1.Name" xml:space="preserve">
-    <value>copyToClipboardToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;copyToClipboardToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem28.Name" xml:space="preserve">
-    <value>toolStripMenuItem28</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem28.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
-    <value>toolStripSeparator11</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;priorityToolStripMenuItem.Name" xml:space="preserve">
-    <value>priorityToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;priorityToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cancelJobToolStripMenuItem.Name" xml:space="preserve">
-    <value>cancelJobToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;cancelJobToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selectedJobsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>selectedJobsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;selectedJobsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;allJobsToolStripMenuItem2.Name" xml:space="preserve">
-    <value>allJobsToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;allJobsToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;resubmitToolStripMenuItem1.Name" xml:space="preserve">
-    <value>resubmitToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;resubmitToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteToolStripMenuItem2.Name" xml:space="preserve">
-    <value>deleteToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;deleteToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selectedJobToolStripMenuItem.Name" xml:space="preserve">
-    <value>selectedJobToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;selectedJobToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;visibleJobsInGridToolStripMenuItem.Name" xml:space="preserve">
-    <value>visibleJobsInGridToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;visibleJobsInGridToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;allJobsToolStripMenuItem.Name" xml:space="preserve">
-    <value>allJobsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;allJobsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;publishToolStripMenuItem.Name" xml:space="preserve">
@@ -10330,22 +8987,10 @@
   <data name="&gt;&gt;liveChannelToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;channInfoToolStripMenuItem.Name" xml:space="preserve">
-    <value>channInfoToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;channInfoToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;telemetryToolStripMenuItem1.Name" xml:space="preserve">
     <value>telemetryToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;telemetryToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;channelsAdAndSlateControlToolStripMenuItem.Name" xml:space="preserve">
-    <value>channelsAdAndSlateControlToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;channelsAdAndSlateControlToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;createChannelToolStripMenuItem.Name" xml:space="preserve">
@@ -10354,88 +8999,10 @@
   <data name="&gt;&gt;createChannelToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;startChannelsToolStripMenuItem.Name" xml:space="preserve">
-    <value>startChannelsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;startChannelsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemCloneChannel.Name" xml:space="preserve">
-    <value>toolStripMenuItemCloneChannel</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemCloneChannel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopChannelsToolStripMenuItem.Name" xml:space="preserve">
-    <value>stopChannelsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;stopChannelsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;resetChannelsToolStripMenuItem.Name" xml:space="preserve">
-    <value>resetChannelsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;resetChannelsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteChannelsToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteChannelsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteChannelsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copyInputURLToClipboardToolStripMenuItem.Name" xml:space="preserve">
-    <value>copyInputURLToClipboardToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;copyInputURLToClipboardToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem1.Name" xml:space="preserve">
-    <value>inputURLToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem2.Name" xml:space="preserve">
-    <value>inputURLToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem3.Name" xml:space="preserve">
-    <value>inputURLToolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem4.Name" xml:space="preserve">
-    <value>inputURLToolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;inputURLToolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;runAnOnpremisesLiveEncoderToolStripMenuItem.Name" xml:space="preserve">
     <value>runAnOnpremisesLiveEncoderToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;runAnOnpremisesLiveEncoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copyPreviewURLToClipboardToolStripMenuItem.Name" xml:space="preserve">
-    <value>copyPreviewURLToClipboardToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;copyPreviewURLToClipboardToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;playbackThePreviewToolStripMenuItem.Name" xml:space="preserve">
-    <value>playbackThePreviewToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;playbackThePreviewToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem3.Name" xml:space="preserve">
-    <value>withAzureMediaPlayerToolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
@@ -10444,46 +9011,10 @@
   <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;displayProgramInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>displayProgramInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;displayProgramInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProgramDisplayRelatedAssetInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>ProgramDisplayRelatedAssetInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProgramDisplayRelatedAssetInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;createProgramToolStripMenuItem1.Name" xml:space="preserve">
     <value>createProgramToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;createProgramToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recreateProgramsToolStripMenuItem.Name" xml:space="preserve">
-    <value>recreateProgramsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;recreateProgramsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemCloneProgram.Name" xml:space="preserve">
-    <value>toolStripMenuItemCloneProgram</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemCloneProgram.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteProgramsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>deleteProgramsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;deleteProgramsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;subclipLiveStreamsarchivesToolStripMenuItem1.Name" xml:space="preserve">
-    <value>subclipLiveStreamsarchivesToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;subclipLiveStreamsarchivesToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;originToolStripMenuItem.Name" xml:space="preserve">
@@ -10492,58 +9023,10 @@
   <data name="&gt;&gt;originToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;displayOriginInformationToolStripMenuItem.Name" xml:space="preserve">
-    <value>displayOriginInformationToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;displayOriginInformationToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;telemetryToolStripMenuItem.Name" xml:space="preserve">
-    <value>telemetryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;telemetryToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;enableAzureCDNToolStripMenuItem1.Name" xml:space="preserve">
-    <value>enableAzureCDNToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;enableAzureCDNToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;disableAzureCDNToolStripMenuItem1.Name" xml:space="preserve">
-    <value>disableAzureCDNToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;disableAzureCDNToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator34.Name" xml:space="preserve">
-    <value>toolStripSeparator34</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator34.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;createOriginToolStripMenuItem.Name" xml:space="preserve">
     <value>createOriginToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;createOriginToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;startOriginsToolStripMenuItem.Name" xml:space="preserve">
-    <value>startOriginsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;startOriginsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopOriginsToolStripMenuItem.Name" xml:space="preserve">
-    <value>stopOriginsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;stopOriginsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteOriginsToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteOriginsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteOriginsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;managementToolStripMenuItem.Name" xml:space="preserve">
@@ -10562,12 +9045,6 @@
     <value>attachAnotherStoragheAccountToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;attachAnotherStoragheAccountToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configureTelemetryToolStripMenuItem.Name" xml:space="preserve">
-    <value>configureTelemetryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;configureTelemetryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">

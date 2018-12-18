@@ -29,7 +29,7 @@ using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {
-    public partial class CreateProgram : Form
+    public partial class CreateLiveOutput : Form
     {
         public string ChannelName;
         private AzureMediaServicesClient _client;
@@ -135,7 +135,7 @@ namespace AMSExplorer
             get { return ((Item)comboBoxStorage.SelectedItem).Value; }
         }
 
-        public CreateProgram(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
+        public CreateLiveOutput(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -143,7 +143,7 @@ namespace AMSExplorer
             _credentials = credentials;
         }
 
-        private void CreateLocator_Load(object sender, EventArgs e)
+        private void CreateLiveOutput_Load(object sender, EventArgs e)
         {
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);

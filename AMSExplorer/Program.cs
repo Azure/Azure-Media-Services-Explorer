@@ -5208,7 +5208,7 @@ namespace AMSExplorer
                     DisplayName = "Azure Global";
                     Authority = "https://login.windows.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.azure.com/");
-                    ClientApplicationId = "37c28b42-6fbe-4e7a-ab81-222b0f2df06c";
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.Azure;
 
                     break;
