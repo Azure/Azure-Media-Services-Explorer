@@ -199,7 +199,6 @@ namespace AMSExplorer
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
             comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.None.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.Basic.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Basic)));
             comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.Standard.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Standard)));
            
             comboBoxEncodingType.SelectedIndex = 0;

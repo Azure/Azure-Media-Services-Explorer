@@ -160,7 +160,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;DGErrors.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -190,7 +190,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -241,10 +241,13 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;DGJob.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="buttonCopyStats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
+  </data>
+  <data name="buttonCopyStats.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="buttonCopyStats.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 390</value>
@@ -269,33 +272,6 @@
   </data>
   <data name="&gt;&gt;buttonCopyStats.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="buttonCreateMail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonCreateMail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 390</value>
-  </data>
-  <data name="buttonCreateMail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 27</value>
-  </data>
-  <data name="buttonCreateMail.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="buttonCreateMail.Text" xml:space="preserve">
-    <value>Create new Outlook email</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateMail.Name" xml:space="preserve">
-    <value>buttonCreateMail</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateMail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateMail.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateMail.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="listBoxOutputs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>

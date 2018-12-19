@@ -37,7 +37,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.DGJob = new System.Windows.Forms.DataGridView();
             this.buttonCopyStats = new System.Windows.Forms.Button();
-            this.buttonCreateMail = new System.Windows.Forms.Button();
             this.listBoxOutputs = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -132,13 +131,6 @@
             this.buttonCopyStats.UseVisualStyleBackColor = true;
             this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
-            // buttonCreateMail
-            // 
-            resources.ApplyResources(this.buttonCreateMail, "buttonCreateMail");
-            this.buttonCreateMail.Name = "buttonCreateMail";
-            this.buttonCreateMail.UseVisualStyleBackColor = true;
-            this.buttonCreateMail.Click += new System.EventHandler(this.buttonCreateMail_Click);
-            // 
             // listBoxOutputs
             // 
             resources.ApplyResources(this.listBoxOutputs, "listBoxOutputs");
@@ -159,7 +151,6 @@
             // 
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
-            this.tabPage1.Controls.Add(this.buttonCreateMail);
             this.tabPage1.Controls.Add(this.DGErrors);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.DGJob);
@@ -336,7 +327,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyClipboard;
         private System.Windows.Forms.Button buttonCopyStats;
-        private System.Windows.Forms.Button buttonCreateMail;
         private System.Windows.Forms.ListBox listBoxOutputs;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;

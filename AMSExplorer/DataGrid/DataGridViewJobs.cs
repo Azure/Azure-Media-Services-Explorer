@@ -146,7 +146,7 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         public bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModifiedDescending;
+        static string _orderjobs = OrderJobs.CreatedDescending;
         static string _filterjobsstate = "All";
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
@@ -304,8 +304,95 @@ namespace AMSExplorer
 
             List<JobEntryV3> jobs = new List<JobEntryV3>();
 
+          
+
+            ///////////////////////
+            // SORTING
+            ///////////////////////
             var odataQuery = new ODataQuery<Job>();
-            odataQuery.OrderBy = "Properties/Created desc";
+
+            switch (_orderjobs)
+            {
+                case OrderJobs.CreatedDescending:
+                    odataQuery.OrderBy = "Properties/Created desc";
+                    break;
+
+                case OrderJobs.CreatedAscending:
+                    odataQuery.OrderBy = "Properties/Created";
+                    break;
+
+                case OrderJobs.NameAscending:
+                    odataQuery.OrderBy = "Name";
+                    break;
+
+                case OrderJobs.NameDescending:
+                    odataQuery.OrderBy = "Name desc";
+                    break;
+
+                default:
+                    odataQuery.OrderBy = "Properties/Created desc";
+                    break;
+            }
+
+
+
+            ///////////////////////
+            // Filter
+            ///////////////////////
+
+            switch (_filterjobsstate)
+            {
+                case "All":
+                    break;
+
+                default:
+                    odataQuery.Filter =  string.Format("Properties/state eq Microsoft.Media.JobState'{0}'", _filterjobsstate);
+                    break;
+            }
+
+
+
+            // DAYS
+            bool filterStartDate = false;
+            bool filterEndDate = false;
+
+            DateTime dateTimeStart = DateTime.UtcNow;
+            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
+
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            if (days > 0)
+            {
+                filterStartDate = true;
+                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+            else if (days == -1) // TimeRange
+            {
+                filterStartDate = true;
+                filterEndDate = true;
+                dateTimeStart = _timefilterTimeRange.StartDate;
+                if (_timefilterTimeRange.EndDate != null) // there is an end time
+                {
+                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
+                }
+            }
+            if (filterStartDate)
+            {
+                if (odataQuery.Filter != null)
+                {
+                    odataQuery.Filter = odataQuery.Filter + " and ";
+                }
+                odataQuery.Filter = odataQuery.Filter + $"Properties/Created gt {dateTimeStart.ToString("o")}";
+            }
+            if (filterEndDate)
+            {
+                if (odataQuery.Filter != null)
+                {
+                    odataQuery.Filter = odataQuery.Filter + " and ";
+                }
+                odataQuery.Filter = odataQuery.Filter + $"Properties/Created lt {dateTimeRangeEnd.ToString("o")}";
+            }
+
+
 
 
             foreach (var t in _transformName)

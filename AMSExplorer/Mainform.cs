@@ -6011,8 +6011,9 @@ namespace AMSExplorer
             );
             comboBoxOrderJobs.SelectedIndex = 0;
 
+            comboBoxStateJobs.Items.Add("All");
             comboBoxStateJobs.Items.AddRange(
-            typeof(Microsoft.WindowsAzure.MediaServices.Client.JobState)
+            typeof(Microsoft.Azure.Management.Media.Models.JobState)
             .GetFields()
             .Select(i => i.Name as string)
             .ToArray()
@@ -14754,18 +14755,10 @@ namespace AMSExplorer
 
     public static class OrderJobs
     {
-        public const string LastModifiedDescending = "Last modified >";
-        public const string LastModifiedAscending = "Last modified <";
-        public const string StartTimeDescending = "Start Time >";
-        public const string StartTimeAscending = "Start Time <";
-        public const string EndTimeDescending = "End Time >";
-        public const string EndTimeAscending = "End Time <";
-        public const string ProcessTimeDescending = "Duration >";
-        public const string ProcessTimeAscending = "Duration <";
+        public const string CreatedDescending = "Created >";
+        public const string CreatedAscending = "Created <";
         public const string NameDescending = "Name >";
         public const string NameAscending = "Name <";
-        public const string StateDescending = "State >";
-        public const string StateAscending = "State <";
     }
 
 
