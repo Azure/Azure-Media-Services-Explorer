@@ -106,7 +106,7 @@
           "MaxBitrate": 200,
           "BufferWindow": "00:00:05",
           "Width": 416,
-          "Height": 214,
+          "Height": 234,
           "ReferenceFrames": 3,
           "EntropyMode": "Cavlc",
           "Type": "H264Layer",
