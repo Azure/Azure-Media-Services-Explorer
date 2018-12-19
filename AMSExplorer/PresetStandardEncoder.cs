@@ -55,7 +55,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (EncoderNamedPreset)Enum.Parse(typeof(EncoderNamedPreset), listboxPresets.SelectedItem as string);
+                return (EncoderNamedPreset)((listboxPresets.SelectedItem as Item).Value);
 
             }
         }
@@ -85,9 +85,18 @@ namespace AMSExplorer
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
         {
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
+            /*   listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrate1080p);
+               listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrate720p);
+               listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrateSD);
+               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrate1080p);
+               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrate720p);
+               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrateSD);
+               listboxPresets.Items.Add(EncoderNamedPreset.AACGoodQualityAudio);*/
 
-            listboxPresets.Items.AddRange(Enum.GetNames(typeof(EncoderNamedPreset)).ToArray());
+            listboxPresets.SelectedIndex = 0;
 
+            /*
             // Adaptive streaming as default
             for (int i = 0; i < listboxPresets.Items.Count; i++)
             {
@@ -96,6 +105,7 @@ namespace AMSExplorer
                     listboxPresets.SelectedIndex = i;
                 }
             }
+            */
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoMediaEncoderBuiltIn));
             UpdateTransformLabel();

@@ -934,9 +934,14 @@ namespace AMSExplorer
             return _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
         }
 
-        static LiveEvent GetLiveEvent(string channelName)
+        static LiveEvent GetLiveEvent(string liveEventName)
         {
-            return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channelName);
+            return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName);
+        }
+
+        static LiveOutput GetLiveOutput(string liveEventName, string liveOutputName)
+        {
+            return _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName, liveOutputName);
         }
 
 
@@ -4760,36 +4765,21 @@ namespace AMSExplorer
 
         private void DoDeleteAllJobs()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from selected transforms?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
                     bool Error = false;
-                    int skipSize = 0;
-                    int batchSize = 1000;
-                    int currentSkipSize = 0;
 
 
                     // let's build the tasks list
                     TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> deleteTasks = new List<Task>();
 
-                    while (true)
+                    foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                     {
-                        // Enumerate through all jobs (1000 at a time)
-                        var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
-                        currentSkipSize += listjobs.Count;
-                        deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
-
-                        if (currentSkipSize == batchSize)
-                        {
-                            skipSize += batchSize;
-                            currentSkipSize = 0;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
+                        deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClientV3.AMSclient.Jobs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
                     }
 
                     TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
@@ -4810,7 +4800,6 @@ namespace AMSExplorer
                 }
           );
 
-
             }
         }
 
@@ -4818,44 +4807,29 @@ namespace AMSExplorer
 
         private void DoCancelAllJobs()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from selected transforms ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
                     bool Error = false;
-                    int skipSize = 0;
-                    int batchSize = 1000;
-                    int currentSkipSize = 0;
 
 
                     // let's build the tasks list
                     TextBoxLogWriteLine("Listing the jobs...");
-                    List<Task> cancelTasks = new List<Task>();
+                    List<Task> deleteTasks = new List<Task>();
 
-                    var ongoingJobs = _context.Jobs;//.Where(j => j.State == JobState.Processing || j.State == JobState.Queued || j.State == JobState.Scheduled);
-
-                    while (true)
+                    foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                     {
-                        // Enumerate through all jobs (1000 at a time)
-                        var listjobs = ongoingJobs.Skip(skipSize).Take(batchSize).ToList();
-                        currentSkipSize += listjobs.Count;
-                        cancelTasks.AddRange(listjobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled).Select(a => a.CancelAsync()).ToArray());
-
-                        if (currentSkipSize == batchSize)
-                        {
-                            skipSize += batchSize;
-                            currentSkipSize = 0;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
+                        deleteTasks.AddRange(listjobs.ToList()
+                            .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
+                            .Select(j => _amsClientV3.AMSclient.Jobs.CancelJobAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
                     }
 
-                    TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", cancelTasks.Count));
+                    TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", deleteTasks.Count));
                     try
                     {
-                        Task.WaitAll(cancelTasks.ToArray());
+                        Task.WaitAll(deleteTasks.ToArray());
                     }
                     catch (Exception ex)
                     {
@@ -4868,8 +4842,7 @@ namespace AMSExplorer
                     if (!Error) TextBoxLogWriteLine("Job(s) canceled.");
                     DoRefreshGridJobV(false);
                 }
-          );
-
+        );
 
             }
         }
@@ -5012,7 +4985,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(e);
                         return;
                     }
-                    dataGridViewJobsV.DoJobProgress(job);
+                    dataGridViewJobsV.DoJobProgress(new JobExtension());
                 }
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
@@ -5522,7 +5495,7 @@ namespace AMSExplorer
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitted.", jobnameloc);
-                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob));
+                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
                     }
                     TextBoxLogWriteLine("");
                 }
@@ -5589,7 +5562,7 @@ namespace AMSExplorer
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Job '{0}' : submitted.", jobnameloc);
-                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob, copySubtitlesToInput));
+                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
                     }
                     TextBoxLogWriteLine();
                 }
@@ -6328,7 +6301,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Job '{0}' submitted", jobnameloc);
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
-                Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
             }
         }
 
@@ -6450,7 +6423,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine(e);
                             return;
                         }
-                        dataGridViewJobsV.DoJobProgress(job);
+                        dataGridViewJobsV.DoJobProgress(new JobExtension());
                     }
                 }
                 else if (form.EncodingCreationMode == TaskJobCreationMode.SingleJobForAllInputAssets) // Create one job for all input
@@ -6529,7 +6502,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(e);
                         return;
                     }
-                    dataGridViewJobsV.DoJobProgress(job);
+                    dataGridViewJobsV.DoJobProgress(new JobExtension());
 
                 }
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
@@ -6607,14 +6580,6 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxPageJobs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedindex = ((ComboBox)sender).SelectedIndex;
-            dataGridViewJobsV.DisplayPage(selectedindex + 1);
-
-            butPrevPageJob.Enabled = (selectedindex == 0) ? false : true;
-            butNextPageJob.Enabled = (selectedindex == (dataGridViewJobsV.PageCount - 1)) ? false : true;
-        }
 
         private void dataGridViewAssetsV_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -8134,7 +8099,7 @@ namespace AMSExplorer
 
             if (ListEvents.Count > 0)
             {
-                if (LOList.Count > 0) // There are program associated to the channel(s) to be deleted
+                if (LOList.Count > 0) // There are live outputs associated to the live event(s) to be deleted
                 {
                     string leaction = deleteLiveEvents ? "Delete" : "Stop";
                     string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the {0}.\n{1} the {0} and delete live output '{2}' ?", channelstr, leaction, LOList[0].Name)
@@ -8143,10 +8108,16 @@ namespace AMSExplorer
                     DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete");
                     if (form.ShowDialog() == DialogResult.OK)
                     {
+                        /*
                         await Task.Run(async () =>
                         {
                             DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset);
                         });
+                        */
+
+                        await Task.Factory.StartNew(() =>
+                                    DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset)
+                                     );
                     }
                     else
                     {
@@ -8154,7 +8125,7 @@ namespace AMSExplorer
                     }
                 }
 
-                else // No program associated to the channel(s) to be deleted
+                else // No live output associated to the live event(s) to be deleted
                 {
                     string question;
                     if (deleteLiveEvents)
@@ -8172,12 +8143,9 @@ namespace AMSExplorer
                     }
                 }
 
-
-                Task.Run(async () =>
-                {
-                    DoStopOrDeleteLiveEventsEngine(ListEvents, deleteLiveEvents);
-                }
-                      );
+                var myTask = Task.Factory.StartNew(() =>
+                                    DoStopOrDeleteLiveEventsEngine(ListEvents, deleteLiveEvents)
+                                     );
 
             }
 
@@ -8774,7 +8742,7 @@ namespace AMSExplorer
 
                     foreach (var loitem in ListOutputs)
                     {
-                        var loitemR = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
+                        var loitemR = GetLiveOutput(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
                         if (loitemR != null && states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                         {
                             states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
@@ -8782,7 +8750,7 @@ namespace AMSExplorer
                         }
                         else if (loitemR != null)
                         {
-                            DoRefreshGridLiveOutputV(false);
+                            //DoRefreshGridLiveOutputV(false);
                         }
                     }
                     System.Threading.Thread.Sleep(2000);
@@ -8794,7 +8762,7 @@ namespace AMSExplorer
                 // Add useful information to the exception
                 TextBoxLogWriteLine("There is a problem when deleting a live output", true);
                 TextBoxLogWriteLine(ex);
-                Error = true;
+                //Error = true;
             }
             DoRefreshGridLiveOutputV(false);
 
@@ -9319,7 +9287,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(e);
                         return;
                     }
-                    Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                    Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
                 }
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
                 DoRefreshGridJobV(false);
@@ -11990,7 +11958,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(e);
                     return;
                 }
-                dataGridViewJobsV.DoJobProgress(job);
+                dataGridViewJobsV.DoJobProgress(new JobExtension());
 
                 DoRefreshGridJobV(false);
             }
@@ -13061,7 +13029,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(e);
                         Error = true;
                     }
-                    if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                    if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
 
                 }
                 else
@@ -13104,7 +13072,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine(e);
                             Error = true;
                         }
-                        if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                        if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
                     }
                 }
 
@@ -14277,7 +14245,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(e);
                     Error = true;
                 }
-                if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
             }
             DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             DoRefreshGridJobV(false);

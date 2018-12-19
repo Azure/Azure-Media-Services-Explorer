@@ -270,7 +270,7 @@ namespace AMSExplorer
             int index = -1;
             foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index
             {
-                if (CE.Id == liveEventItem.Id)
+                if (CE.Name == liveEventItem.Name)
                 {
                     index = _MyObservLiveEvent.IndexOf(CE);
                     break;

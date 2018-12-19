@@ -446,7 +446,8 @@ Properties/StorageId
                     break;
 
                 case OrderAssets.CreatedAscending:
-                    odataQuery.OrderBy = "Properties/Created"; break;
+                    odataQuery.OrderBy = "Properties/Created";
+                    break;
 
                 case OrderAssets.NameAscending:
                     odataQuery.OrderBy = "Name";
