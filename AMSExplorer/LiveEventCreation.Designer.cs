@@ -61,48 +61,19 @@
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
-            this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
-            this.panelAudioControl = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.panelMultiAudio = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
-            this.buttonDelAddOption = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
-            this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
-            this.buttonAddAudioStream = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
-            this.tabPageAdConfig = new System.Windows.Forms.TabPage();
-            this.panelInsertSlate = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
-            this.label15 = new System.Windows.Forms.Label();
-            this.progressBarUpload = new System.Windows.Forms.ProgressBar();
-            this.buttonUploadSlate = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.checkBoxInsertSlateOnAdMarker = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBoxAdMarkerSource = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tabPageAdv = new System.Windows.Forms.TabPage();
+            this.buttonGenerateToken = new System.Windows.Forms.Button();
+            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
+            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
+            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
+            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxToken = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tabPageAdv = new System.Windows.Forms.TabPage();
-            this.textBoxToken = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
-            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
-            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
-            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
-            this.buttonGenerateToken = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -110,16 +81,8 @@
             this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
-            this.tabPageAudioOptions.SuspendLayout();
-            this.panelAudioControl.SuspendLayout();
-            this.panelMultiAudio.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).BeginInit();
-            this.tabPageAdConfig.SuspendLayout();
-            this.panelInsertSlate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageAdv.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -203,8 +166,6 @@
             this.tabControlLiveChannel.Controls.Add(this.TabSettings);
             this.tabControlLiveChannel.Controls.Add(this.tabPageLiveEncoding);
             this.tabControlLiveChannel.Controls.Add(this.tabPageAdv);
-            this.tabControlLiveChannel.Controls.Add(this.tabPageAudioOptions);
-            this.tabControlLiveChannel.Controls.Add(this.tabPageAdConfig);
             this.tabControlLiveChannel.Name = "tabControlLiveChannel";
             this.tabControlLiveChannel.SelectedIndex = 0;
             // 
@@ -351,220 +312,58 @@
             this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
             this.radioButtonDefaultPreset.CheckedChanged += new System.EventHandler(this.radioButtonDefaultPreset_CheckedChanged);
             // 
-            // tabPageAudioOptions
+            // tabPageAdv
             // 
-            this.tabPageAudioOptions.Controls.Add(this.panelAudioControl);
-            resources.ApplyResources(this.tabPageAudioOptions, "tabPageAudioOptions");
-            this.tabPageAudioOptions.Name = "tabPageAudioOptions";
-            this.tabPageAudioOptions.UseVisualStyleBackColor = true;
+            this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
+            this.tabPageAdv.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.tabPageAdv.Controls.Add(this.textBoxKeyFrame);
+            this.tabPageAdv.Controls.Add(this.checkBoxLowLatency);
+            this.tabPageAdv.Controls.Add(this.checkBoxVanityUrl);
+            this.tabPageAdv.Controls.Add(this.label7);
+            this.tabPageAdv.Controls.Add(this.textBoxToken);
+            resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
+            this.tabPageAdv.Name = "tabPageAdv";
+            this.tabPageAdv.UseVisualStyleBackColor = true;
             // 
-            // panelAudioControl
+            // buttonGenerateToken
             // 
-            this.panelAudioControl.Controls.Add(this.label18);
-            this.panelAudioControl.Controls.Add(this.panelMultiAudio);
-            this.panelAudioControl.Controls.Add(this.label9);
-            this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageMain);
-            this.panelAudioControl.Controls.Add(this.label11);
-            this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexMain);
-            resources.ApplyResources(this.panelAudioControl, "panelAudioControl");
-            this.panelAudioControl.Name = "panelAudioControl";
+            resources.ApplyResources(this.buttonGenerateToken, "buttonGenerateToken");
+            this.buttonGenerateToken.Name = "buttonGenerateToken";
+            this.buttonGenerateToken.UseVisualStyleBackColor = true;
+            this.buttonGenerateToken.Click += new System.EventHandler(this.buttonGenerateToken_Click);
             // 
-            // label18
+            // checkBoxKeyFrameIntDefined
             // 
-            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
+            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
+            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
             // 
-            // panelMultiAudio
+            // textBoxKeyFrame
             // 
-            resources.ApplyResources(this.panelMultiAudio, "panelMultiAudio");
-            this.panelMultiAudio.Controls.Add(this.label19);
-            this.panelMultiAudio.Controls.Add(this.comboBoxAudioLanguageAddition);
-            this.panelMultiAudio.Controls.Add(this.buttonDelAddOption);
-            this.panelMultiAudio.Controls.Add(this.label13);
-            this.panelMultiAudio.Controls.Add(this.label12);
-            this.panelMultiAudio.Controls.Add(this.numericUpDownAudioIndexAddition);
-            this.panelMultiAudio.Controls.Add(this.dataGridViewAudioStreams);
-            this.panelMultiAudio.Controls.Add(this.buttonAddAudioStream);
-            this.panelMultiAudio.Name = "panelMultiAudio";
+            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
+            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
             // 
-            // label19
+            // checkBoxLowLatency
             // 
-            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
+            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
+            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
+            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
             // 
-            // comboBoxAudioLanguageAddition
+            // checkBoxVanityUrl
             // 
-            this.comboBoxAudioLanguageAddition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageAddition.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAudioLanguageAddition, "comboBoxAudioLanguageAddition");
-            this.comboBoxAudioLanguageAddition.Name = "comboBoxAudioLanguageAddition";
+            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
+            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
+            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
             // 
-            // buttonDelAddOption
+            // label7
             // 
-            resources.ApplyResources(this.buttonDelAddOption, "buttonDelAddOption");
-            this.buttonDelAddOption.Name = "buttonDelAddOption";
-            this.buttonDelAddOption.UseVisualStyleBackColor = true;
-            this.buttonDelAddOption.Click += new System.EventHandler(this.buttonDelAddOption_Click);
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
             // 
-            // label13
+            // textBoxToken
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // numericUpDownAudioIndexAddition
-            // 
-            resources.ApplyResources(this.numericUpDownAudioIndexAddition, "numericUpDownAudioIndexAddition");
-            this.numericUpDownAudioIndexAddition.Name = "numericUpDownAudioIndexAddition";
-            this.numericUpDownAudioIndexAddition.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexAddition, resources.GetString("numericUpDownAudioIndexAddition.ToolTip"));
-            this.numericUpDownAudioIndexAddition.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexAddition_ValueChanged);
-            // 
-            // dataGridViewAudioStreams
-            // 
-            this.dataGridViewAudioStreams.AllowUserToAddRows = false;
-            this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
-            this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dataGridViewAudioStreams, "dataGridViewAudioStreams");
-            this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
-            this.dataGridViewAudioStreams.ReadOnly = true;
-            this.dataGridViewAudioStreams.RowHeadersVisible = false;
-            this.dataGridViewAudioStreams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.toolTip1.SetToolTip(this.dataGridViewAudioStreams, resources.GetString("dataGridViewAudioStreams.ToolTip"));
-            // 
-            // buttonAddAudioStream
-            // 
-            resources.ApplyResources(this.buttonAddAudioStream, "buttonAddAudioStream");
-            this.buttonAddAudioStream.Name = "buttonAddAudioStream";
-            this.buttonAddAudioStream.UseVisualStyleBackColor = true;
-            this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // comboBoxAudioLanguageMain
-            // 
-            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAudioLanguageMain, "comboBoxAudioLanguageMain");
-            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
-            this.comboBoxAudioLanguageMain.SelectedIndexChanged += new System.EventHandler(this.comboBoxAudioLanguageMain_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // numericUpDownAudioIndexMain
-            // 
-            resources.ApplyResources(this.numericUpDownAudioIndexMain, "numericUpDownAudioIndexMain");
-            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
-            this.numericUpDownAudioIndexMain.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
-            this.numericUpDownAudioIndexMain.ValueChanged += new System.EventHandler(this.numericUpDownAudioIndexMain_ValueChanged);
-            // 
-            // tabPageAdConfig
-            // 
-            this.tabPageAdConfig.Controls.Add(this.panelInsertSlate);
-            this.tabPageAdConfig.Controls.Add(this.checkBoxInsertSlateOnAdMarker);
-            this.tabPageAdConfig.Controls.Add(this.label8);
-            this.tabPageAdConfig.Controls.Add(this.comboBoxAdMarkerSource);
-            this.tabPageAdConfig.Controls.Add(this.label1);
-            resources.ApplyResources(this.tabPageAdConfig, "tabPageAdConfig");
-            this.tabPageAdConfig.Name = "tabPageAdConfig";
-            this.tabPageAdConfig.UseVisualStyleBackColor = true;
-            // 
-            // panelInsertSlate
-            // 
-            this.panelInsertSlate.Controls.Add(this.label14);
-            this.panelInsertSlate.Controls.Add(this.textBoxJPGSearch);
-            this.panelInsertSlate.Controls.Add(this.listViewJPG1);
-            this.panelInsertSlate.Controls.Add(this.label15);
-            this.panelInsertSlate.Controls.Add(this.progressBarUpload);
-            this.panelInsertSlate.Controls.Add(this.buttonUploadSlate);
-            this.panelInsertSlate.Controls.Add(this.label10);
-            resources.ApplyResources(this.panelInsertSlate, "panelInsertSlate");
-            this.panelInsertSlate.Name = "panelInsertSlate";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // textBoxJPGSearch
-            // 
-            resources.ApplyResources(this.textBoxJPGSearch, "textBoxJPGSearch");
-            this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
-            // 
-            // listViewJPG1
-            // 
-            resources.ApplyResources(this.listViewJPG1, "listViewJPG1");
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
-            // 
-            // label15
-            // 
-            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // progressBarUpload
-            // 
-            resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
-            this.progressBarUpload.Name = "progressBarUpload";
-            // 
-            // buttonUploadSlate
-            // 
-            resources.ApplyResources(this.buttonUploadSlate, "buttonUploadSlate");
-            this.buttonUploadSlate.Name = "buttonUploadSlate";
-            this.buttonUploadSlate.UseVisualStyleBackColor = true;
-            this.buttonUploadSlate.Click += new System.EventHandler(this.buttonUploadSlate_Click);
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // checkBoxInsertSlateOnAdMarker
-            // 
-            resources.ApplyResources(this.checkBoxInsertSlateOnAdMarker, "checkBoxInsertSlateOnAdMarker");
-            this.checkBoxInsertSlateOnAdMarker.Name = "checkBoxInsertSlateOnAdMarker";
-            this.checkBoxInsertSlateOnAdMarker.UseVisualStyleBackColor = true;
-            this.checkBoxInsertSlateOnAdMarker.CheckedChanged += new System.EventHandler(this.checkBoxAdInsertSlate_CheckedChanged);
-            this.checkBoxInsertSlateOnAdMarker.Validating += new System.ComponentModel.CancelEventHandler(this.checkBoxAdInsertSlate_Validating);
-            // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // comboBoxAdMarkerSource
-            // 
-            this.comboBoxAdMarkerSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAdMarkerSource.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAdMarkerSource, "comboBoxAdMarkerSource");
-            this.comboBoxAdMarkerSource.Name = "comboBoxAdMarkerSource";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.textBoxToken, "textBoxToken");
+            this.textBoxToken.Name = "textBoxToken";
             // 
             // labelWarning
             // 
@@ -586,59 +385,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // tabPageAdv
-            // 
-            this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
-            this.tabPageAdv.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.tabPageAdv.Controls.Add(this.textBoxKeyFrame);
-            this.tabPageAdv.Controls.Add(this.checkBoxLowLatency);
-            this.tabPageAdv.Controls.Add(this.checkBoxVanityUrl);
-            this.tabPageAdv.Controls.Add(this.label7);
-            this.tabPageAdv.Controls.Add(this.textBoxToken);
-            resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
-            this.tabPageAdv.Name = "tabPageAdv";
-            this.tabPageAdv.UseVisualStyleBackColor = true;
-            // 
-            // textBoxToken
-            // 
-            resources.ApplyResources(this.textBoxToken, "textBoxToken");
-            this.textBoxToken.Name = "textBoxToken";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // checkBoxVanityUrl
-            // 
-            resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
-            this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
-            this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxLowLatency
-            // 
-            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
-            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
-            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxKeyFrameIntDefined
-            // 
-            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
-            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
-            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
-            // 
-            // textBoxKeyFrame
-            // 
-            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
-            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
-            // 
-            // buttonGenerateToken
-            // 
-            resources.ApplyResources(this.buttonGenerateToken, "buttonGenerateToken");
-            this.buttonGenerateToken.Name = "buttonGenerateToken";
-            this.buttonGenerateToken.UseVisualStyleBackColor = true;
-            this.buttonGenerateToken.Click += new System.EventHandler(this.buttonGenerateToken_Click);
             // 
             // LiveEventCreation
             // 
@@ -668,21 +414,9 @@
             this.panelDisplayEncProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
-            this.tabPageAudioOptions.ResumeLayout(false);
-            this.panelAudioControl.ResumeLayout(false);
-            this.panelAudioControl.PerformLayout();
-            this.panelMultiAudio.ResumeLayout(false);
-            this.panelMultiAudio.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).EndInit();
-            this.tabPageAdConfig.ResumeLayout(false);
-            this.tabPageAdConfig.PerformLayout();
-            this.panelInsertSlate.ResumeLayout(false);
-            this.panelInsertSlate.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabPageAdv.ResumeLayout(false);
             this.tabPageAdv.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -707,42 +441,15 @@
         private System.Windows.Forms.TabPage tabPageLiveEncoding;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxEncodingType;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxAdMarkerSource;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TabPage tabPageAudioOptions;
-        private System.Windows.Forms.TabPage tabPageAdConfig;
-        private System.Windows.Forms.Panel panelInsertSlate;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBoxInsertSlateOnAdMarker;
         private System.Windows.Forms.CheckBox checkBoxRestrictPreviewIP;
         private System.Windows.Forms.TextBox textBoxRestrictPreviewIP;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button buttonAddAudioStream;
-        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexAddition;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBoxAudioLanguageAddition;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexMain;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBoxAudioLanguageMain;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonUploadSlate;
-        private System.Windows.Forms.DataGridView dataGridViewAudioStreams;
-        private System.Windows.Forms.Panel panelAudioControl;
-        private System.Windows.Forms.Button buttonDelAddOption;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
-        private System.Windows.Forms.ProgressBar progressBarUpload;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBoxJPGSearch;
-        private ListViewSlateJPG listViewJPG1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DataGridView dataGridViewVideoProf;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
-        private System.Windows.Forms.Panel panelMultiAudio;
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
@@ -751,8 +458,6 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
         private System.Windows.Forms.TabPage tabPageAdv;

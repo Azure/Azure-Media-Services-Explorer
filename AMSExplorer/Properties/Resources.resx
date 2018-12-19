@@ -936,15 +936,6 @@ The first entry '{0}' will be used.</value>
   <data name="CreateLiveChannel_inputIPAllow_Default" xml:space="preserve">
     <value>default</value>
   </data>
-  <data name="CreateLiveChannel_CreateLiveChannel_Load_None" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="CreateLiveChannel_CreateLiveChannel_Load_Standard" xml:space="preserve">
-    <value>Standard</value>
-  </data>
-  <data name="CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview" xml:space="preserve">
-    <value>Premium (preview)</value>
-  </data>
   <data name="CreateLiveChannel_CreateLiveChannel_Load_Undefined" xml:space="preserve">
     <value>Undefined</value>
   </data>

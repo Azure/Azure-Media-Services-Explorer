@@ -120,9 +120,6 @@
   <data name="AssetInformation_AssetInformation_Load_Name" xml:space="preserve">
     <value>名前</value>
   </data>
-  <data name="CreateLiveChannel_CreateLiveChannel_Load_None" xml:space="preserve">
-    <value>なし</value>
-  </data>
   <data name="BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload" xml:space="preserve">
     <value>なし (アップロード前の暗号化なし)</value>
   </data>

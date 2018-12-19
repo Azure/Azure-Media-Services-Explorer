@@ -39,7 +39,7 @@ namespace AMSExplorer
         private Mainform MyMainForm;
         private AzureMediaServicesClient _client;
         private CredentialsEntryV3 _credentials;
-        private string defaultEncodingPreset = "";
+        private string defaultEncodingPreset = null;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string _radioButtonDefaultPreset;
 
@@ -238,7 +238,7 @@ namespace AMSExplorer
             // comon code - multiselect or only one channel selected
 
             // Encoding Settings
-            if (MyLiveEvent.Encoding != null && MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.None)
+            if (false)//MyLiveEvent.Encoding != null && MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.None)
             {
                 // default encoding profile name
                 var profileliveselected = AMSEXPlorerLiveProfile.Profiles[0];// AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();

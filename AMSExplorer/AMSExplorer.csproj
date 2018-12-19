@@ -238,7 +238,7 @@
     <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataGrid\DataGridViewLiveChannel.cs">
+    <Compile Include="DataGrid\DataGridViewLiveEvent.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataGrid\DataGridViewAssets.cs">
@@ -685,11 +685,11 @@
     <Compile Include="LiveEventInformation.Designer.cs">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateLiveOutput.cs">
+    <Compile Include="LiveOutputCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateLiveOutput.Designer.cs">
-      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
+    <Compile Include="LiveOutputCreation.Designer.cs">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="AssetInformation.cs">
       <SubType>Form</SubType>
@@ -1051,8 +1051,8 @@
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveOutput.ja.resx">
-      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputCreation.ja.resx">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
@@ -1465,8 +1465,8 @@
     <EmbeddedResource Include="LiveEventInformation.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateLiveOutput.resx">
-      <DependentUpon>CreateLiveOutput.cs</DependentUpon>
+    <EmbeddedResource Include="LiveOutputCreation.resx">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>

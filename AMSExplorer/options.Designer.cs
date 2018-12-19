@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
@@ -53,7 +52,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxShowPremiumLiveEncoding = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -79,12 +77,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDownNumbConcurTrans = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numericUpDownParallelTransThreadCount = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -108,10 +100,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -131,12 +119,6 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUseProtectedConfig
-            // 
-            resources.ApplyResources(this.checkBoxUseProtectedConfig, "checkBoxUseProtectedConfig");
-            this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
-            this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
             // 
             // buttonReset
             // 
@@ -237,7 +219,6 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStart);
-            this.groupBox2.Controls.Add(this.checkBoxShowPremiumLiveEncoding);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
@@ -245,7 +226,6 @@
             this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.numericUpDownPriority);
-            this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
@@ -306,12 +286,6 @@
             0,
             0,
             0});
-            // 
-            // checkBoxShowPremiumLiveEncoding
-            // 
-            resources.ApplyResources(this.checkBoxShowPremiumLiveEncoding, "checkBoxShowPremiumLiveEncoding");
-            this.checkBoxShowPremiumLiveEncoding.Name = "checkBoxShowPremiumLiveEncoding";
-            this.checkBoxShowPremiumLiveEncoding.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -520,7 +494,6 @@
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
@@ -533,63 +506,6 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox6);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label18);
-            this.groupBox6.Controls.Add(this.numericUpDownNumbConcurTrans);
-            this.groupBox6.Controls.Add(this.label19);
-            this.groupBox6.Controls.Add(this.numericUpDownParallelTransThreadCount);
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.TabStop = false;
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // numericUpDownNumbConcurTrans
-            // 
-            resources.ApplyResources(this.numericUpDownNumbConcurTrans, "numericUpDownNumbConcurTrans");
-            this.numericUpDownNumbConcurTrans.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownNumbConcurTrans.Name = "numericUpDownNumbConcurTrans";
-            this.numericUpDownNumbConcurTrans.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
-            // numericUpDownParallelTransThreadCount
-            // 
-            resources.ApplyResources(this.numericUpDownParallelTransThreadCount, "numericUpDownParallelTransThreadCount");
-            this.numericUpDownParallelTransThreadCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownParallelTransThreadCount.Name = "numericUpDownParallelTransThreadCount";
-            this.numericUpDownParallelTransThreadCount.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
             // 
             // tabPage2
             // 
@@ -667,11 +583,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -684,7 +595,6 @@
 
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
         public System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetID;
         private System.Windows.Forms.CheckBox checkBoxDisplayJobID;
@@ -730,7 +640,6 @@
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
-        private System.Windows.Forms.CheckBox checkBoxShowPremiumLiveEncoding;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStep;
         private System.Windows.Forms.Label label12;
@@ -738,11 +647,5 @@
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStart;
         private System.Windows.Forms.CheckBox checkBoxUseAdaptiveStreamingFormat;
         private System.Windows.Forms.CheckBox checkBoxHideTaskbarNotifications;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumbConcurTrans;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown numericUpDownParallelTransThreadCount;
     }
 }

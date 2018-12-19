@@ -2439,33 +2439,6 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to None.
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_None {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_None", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Premium (preview).
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standard.
-        /// </summary>
-        internal static string CreateLiveChannel_CreateLiveChannel_Load_Standard {
-            get {
-                return ResourceManager.GetString("CreateLiveChannel_CreateLiveChannel_Load_Standard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Undefined.
         /// </summary>
         internal static string CreateLiveChannel_CreateLiveChannel_Load_Undefined {

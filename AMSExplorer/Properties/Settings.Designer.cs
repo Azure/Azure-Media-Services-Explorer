@@ -422,18 +422,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowLivePremiumChannel {
-            get {
-                return ((bool)(this["ShowLivePremiumChannel"]));
-            }
-            set {
-                this["ShowLivePremiumChannel"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int ConcurrentTransfers {
             get {
@@ -549,30 +537,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["IndexingPricePerMin2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int ParallelTransferThreadCount {
-            get {
-                return ((int)(this["ParallelTransferThreadCount"]));
-            }
-            set {
-                this["ParallelTransferThreadCount"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int NumberOfConcurrentTransfers {
-            get {
-                return ((int)(this["NumberOfConcurrentTransfers"]));
-            }
-            set {
-                this["NumberOfConcurrentTransfers"] = value;
             }
         }
         

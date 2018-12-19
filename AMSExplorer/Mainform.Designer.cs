@@ -212,7 +212,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
             this.panelChannels = new System.Windows.Forms.Panel();
-            this.dataGridViewLiveEventsV = new AMSExplorer.DataGridViewLiveChannel();
+            this.dataGridViewLiveEventsV = new AMSExplorer.DataGridViewLiveEvent();
             this.contextMenuStripLiveEvents = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
@@ -3083,7 +3083,7 @@
         private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
         private System.Windows.Forms.Label labelChannels;
-        private DataGridViewLiveChannel dataGridViewLiveEventsV;
+        private DataGridViewLiveEvent dataGridViewLiveEventsV;
         private System.Windows.Forms.Label labelPrograms;
         private System.Windows.Forms.Label label15;
         private DataGridViewLiveOutput dataGridViewLiveOutputV;

@@ -7031,7 +7031,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
         private void toolStripMenuItemOpenDest_Click(object sender, EventArgs e)
         {
             DoOpenTransferDestLocation();
@@ -7340,7 +7340,7 @@ namespace AMSExplorer
             }
         }
 
-   
+
         private void inputAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoOpenJobAsset(true);
@@ -8293,10 +8293,10 @@ namespace AMSExplorer
 
         private void createChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateChannel();
+            DoCreateLiveEvent();
         }
 
-        private async void DoCreateChannel()
+        private async void DoCreateLiveEvent()
         {
             LiveEventCreation form = new LiveEventCreation()
             {
@@ -8362,14 +8362,23 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-                    await Task.Run(() =>
-                     _amsClientV3.AMSclient.LiveEvents.CreateAsync(
-                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
-                                                                     _amsClientV3.credentialsEntry.AccountName,
-                                                                     form.LiveEventName,
-                                                                     liveEvent,
-                                                                     autoStart: form.StartChannelNow ? true : false)
-                                                                  );
+                    try
+                    {
+                        await Task.Run(() =>
+                         _amsClientV3.AMSclient.LiveEvents.CreateAsync(
+                                                                         _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                         _amsClientV3.credentialsEntry.AccountName,
+                                                                         form.LiveEventName,
+                                                                         liveEvent,
+                                                                         autoStart: form.StartChannelNow ? true : false)
+                                                                      );
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error with channel creation.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
 
                     DoRefreshGridLiveEventV(false);
 
@@ -9032,7 +9041,7 @@ namespace AMSExplorer
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
 
-                CreateLiveOutput form = new CreateLiveOutput(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
+                LiveOutputCreation form = new LiveOutputCreation(_amsClientV3)
                 {
                     ChannelName = channel.Name,
                     archiveWindowLength = new TimeSpan(0, 5, 0),
@@ -9044,15 +9053,14 @@ namespace AMSExplorer
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-
+                    string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
+                    var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
                     Task.Run(async () =>
                     {
-                        string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
-
                         try
                         {
                             TextBoxLogWriteLine("Asset creation...");
-                            Asset asset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, new Asset());
+                            Asset asset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
                             TextBoxLogWriteLine("Asset created.");
 
                             TextBoxLogWriteLine("Live output creation...");
@@ -9900,7 +9908,7 @@ namespace AMSExplorer
 
         private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCreateChannel();
+            DoCreateLiveEvent();
         }
 
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
@@ -12645,7 +12653,16 @@ namespace AMSExplorer
             }
 
             var channel = ReturnSelectedLiveEvents().FirstOrDefault();
-            string absuri = channel.Input.Endpoints[index].Url;
+
+            string absuri;
+            if (index == 1 && channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) // Smooth https
+            {
+                absuri = channel.Input.Endpoints[0].Url.Replace("http://", "https://");
+            }
+            else
+            {
+                absuri = channel.Input.Endpoints[index].Url;
+            }
 
             string label = string.Format("Input URL ({0})", index);
             EditorXMLJSON DisplayForm = new EditorXMLJSON(label, absuri, false, false, false);
@@ -12663,7 +12680,7 @@ namespace AMSExplorer
             var channel = ReturnSelectedLiveEvents().FirstOrDefault();
 
             inputURLMToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 0);
-            inputURLMToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1);
+            inputURLMToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1) || (channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4);
             inputURLMToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
             inputURLMToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
 
@@ -12672,6 +12689,10 @@ namespace AMSExplorer
             inputURLMToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : "";
             inputURLMToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : "";
 
+            if (channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) //Smooth https
+            {
+                inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
+            }
         }
 
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
@@ -13098,7 +13119,7 @@ namespace AMSExplorer
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
-   
+
 
         private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -13108,7 +13129,7 @@ namespace AMSExplorer
         {
         }
 
-    
+
         private void DoCreateAssetFilter()
         {
             var selasset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();

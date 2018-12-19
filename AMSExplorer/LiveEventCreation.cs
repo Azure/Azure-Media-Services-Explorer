@@ -40,9 +40,7 @@ namespace AMSExplorer
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
-        private string defaultEncodingPreset = "";
         private string defaultLanguageString = "und";
-        private string _radioButtonDefaultPreset;
 
         public string LiveEventName
         {
@@ -74,7 +72,7 @@ namespace AMSExplorer
             {
                 LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
-                    PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
+                    PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
                                                                                                                      // AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
                                                                                                                      //  IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
                     EncodingType = (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value))
@@ -83,23 +81,7 @@ namespace AMSExplorer
                 return encodingoption;
             }
         }
-
-        public ChannelSlate Slate
-        {
-            get
-            {
-                ChannelSlate myslate = null;
-                if (checkBoxInsertSlateOnAdMarker.Checked)
-                {
-                    myslate = new ChannelSlate()
-                    {
-                        InsertSlateOnAdMarker = checkBoxInsertSlateOnAdMarker.Checked,
-                        DefaultSlateAssetId = listViewJPG1.GetSelectedJPG.FirstOrDefault() != null ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
-                    };
-                }
-                return myslate;
-            }
-        }
+      
 
         public LiveEventInputProtocol Protocol
         {
@@ -213,40 +195,16 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-            _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
-
             FillComboProtocols();
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
-            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_None, Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Standard, Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Basic)));
-            /*
-            if (Properties.Settings.Default.ShowLivePremiumChannel)
-            {
-                comboBoxEncodingType.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_PremiumPreview, Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
-            }
-            */
+            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.None.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
+            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.Basic.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Basic)));
+            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.Standard.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Standard)));
+           
             comboBoxEncodingType.SelectedIndex = 0;
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
-            tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
-            tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
-
-            dataGridViewAudioStreams.DataSource = audiostreams;
-            dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
-
-            Item myitem = new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_CreateLiveChannel_Load_Undefined, defaultLanguageString);
-            comboBoxAudioLanguageMain.Items.Add(myitem);
-            comboBoxAudioLanguageMain.SelectedItem = myitem;
-            comboBoxAudioLanguageAddition.Items.Add(myitem);
-            comboBoxAudioLanguageAddition.SelectedItem = myitem;
-
-            foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures).OrderBy(c => c.DisplayName))
-            {
-                myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
-                comboBoxAudioLanguageMain.Items.Add(myitem);
-                comboBoxAudioLanguageAddition.Items.Add(myitem);
-            }
 
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
@@ -272,19 +230,11 @@ namespace AMSExplorer
                 checkIPAddress(textBoxRestrictIngestIP);
             }
         }
-
-
-        private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
-            checkKeyFrameValue();
-        }
+    
 
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBoxAdMarkerSource.Items.Clear();
-            comboBoxAdMarkerSource.Items.Add(new Item(AMSExplorer.Properties.Resources.CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault, Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
-            comboBoxAdMarkerSource.SelectedIndex = 0;
+           
         }
 
         private void comboBoxEncodingType_SelectedIndexChanged(object sender, EventArgs e)
@@ -300,8 +250,6 @@ namespace AMSExplorer
                     if (EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
-                        tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
-                        tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
                         EncodingTabDisplayed = false;
                     }
                     FillComboProtocols();
@@ -309,13 +257,10 @@ namespace AMSExplorer
                 else
                 {
                     FillComboProtocols();
-                    SetLabelDefaultEncLabel();
                     UpdateProfileGrids();
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
-                        tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
-                        tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
                         EncodingTabDisplayed = true;
                     }
                 }
@@ -327,20 +272,9 @@ namespace AMSExplorer
             comboBoxProtocolInput.Items.Clear();
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.FragmentedMP4), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.FragmentedMP4)));
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.RTMP), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.RTMP)));
-            comboBoxProtocolInput.SelectedIndex = 0;
+            comboBoxProtocolInput.SelectedIndex = 1;
         }
-
-        private void SetLabelDefaultEncLabel()
-        {
-            // default encoding profile name
-            var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == LiveEventEncodingType.Basic).FirstOrDefault();
-            if (profileliveselected != null)
-            {
-                defaultEncodingPreset = profileliveselected.Name;
-                radioButtonDefaultPreset.Text = string.Format(_radioButtonDefaultPreset, defaultEncodingPreset);
-            }
-        }
-
+      
 
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
@@ -355,149 +289,14 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonAddAudioStream_Click(object sender, EventArgs e)
-        {
-            if (numericUpDownAudioIndexMain.Value != numericUpDownAudioIndexAddition.Value
-                && !audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value)
-                && audiostreams.Count < 7 //8 max audio streams
-                )
-            {
-                var selected = (Item)comboBoxAudioLanguageAddition.SelectedItem;
-                audiostreams.Add(new ExplorerAudioStream()
-                {
-                    Language = selected.Name,
-                    Index = (int)numericUpDownAudioIndexAddition.Value,
-                    Code = selected.Value
-                });
-                UpdateProfileGrids();
-            }
-        }
+       
 
         internal static bool IsLiveEventNameValid(string name)
         {
             Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
             return (reg.IsMatch(name));
         }
-
-        private void buttonDelAddOption_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewAudioStreams.SelectedRows.Count == 1)
-            {
-                audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
-                UpdateProfileGrids();
-            }
-        }
-
-        private async void buttonUploadSlate_Click(object sender, EventArgs e)
-        {
-            if (Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder))
-            {
-                openFileDialogSlate.InitialDirectory = Properties.Settings.Default.DefaultSlateCurrentFolder;
-            }
-
-            if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default.DefaultSlateCurrentFolder = Path.GetDirectoryName(openFileDialogSlate.FileName); // let's save the folder
-                Program.SaveAndProtectUserConfig();
-
-                string file = openFileDialogSlate.FileName;
-                string errorString = ListViewSlateJPG.CheckSlateFile(file);
-                if (!string.IsNullOrEmpty(errorString))
-                {
-                    MessageBox.Show(errorString, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else // file has been validated
-                {
-                    IAsset asset;
-                    progressBarUpload.Value = 0;
-                    progressBarUpload.Visible = true;
-                    buttonCancel.Enabled = false;
-                    buttonUploadSlate.Enabled = false;
-                    asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
-                    progressBarUpload.Visible = false;
-                    buttonCancel.Enabled = true;
-                    buttonUploadSlate.Enabled = true;
-                    listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
-                }
-            }
-        }
-
-        private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
-        {
-            IAsset asset = null;
-            /*
-            if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
-           
-            IAccessPolicy policy = null;
-            ILocator locator = null;
-
-            try
-            {
-                asset = MyContext.Assets.Create(SafeFileName as string, storageaccount, AssetCreationOptions.None);
-                IAssetFile file = asset.AssetFiles.Create(SafeFileName);
-                policy = MyContext.AccessPolicies.Create(
-                                       SafeFileName,
-                                       TimeSpan.FromDays(30),
-                                       AccessPermissions.Write | AccessPermissions.List);
-
-                locator = MyContext.Locators.CreateLocator(LocatorType.Sas, asset, policy);
-                file.UploadProgressChanged += file_UploadProgressChanged;
-                file.Upload(FileName);
-                AssetInfo.SetFileAsPrimary(asset, SafeFileName);
-            }
-            catch
-            {
-                asset = null;
-            }
-            finally
-            {
-                if (locator != null) locator.Delete();
-                if (policy != null) policy.Delete();
-            }
-            */
-            return asset;
-        }
-
-        private void file_UploadProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e)
-        {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
-        }
-
-        private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)
-        {
-            /*
-            panelInsertSlate.Enabled = checkBoxInsertSlateOnAdMarker.Checked;
-
-            if (checkBoxInsertSlateOnAdMarker.Checked)
-            {
-                listViewJPG1.LoadJPGs(MyContext);
-            }
-            */
-
-        }
-
-        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
-        }
-
-        private void checkBoxAdInsertSlate_Validating(object sender, CancelEventArgs e)
-        {
-            if (checkBoxInsertSlateOnAdMarker.Checked && listViewJPG1.GetSelectedJPG.Count == 0)
-            {
-                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, AMSExplorer.Properties.Resources.CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected);
-            }
-            else
-            {
-                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
-            }
-        }
-
-        private void textBoxRestrictIP_Validating(object sender, CancelEventArgs e)
-        {
-            checkIPAddress((TextBox)sender);
-        }
+     
 
         private void checkIPAddress(TextBox tb)
         {
@@ -517,18 +316,11 @@ namespace AMSExplorer
             }
         }
 
-        private void listViewJPG1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
-        }
-
-
-
         private string ReturnLiveEncodingProfile()
         {
             if (Encoding.EncodingType != LiveEventEncodingType.None)
             {
-                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null;
             }
             else
             {
@@ -561,13 +353,7 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxAudioLanguageMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateProfileGrids();
-        }
-
-
-
+     
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
@@ -615,42 +401,12 @@ namespace AMSExplorer
                 errorProvider1.SetError(textBoxKeyFrame, String.Empty);
             }
         }
-
-        private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
-        {
-            checkKeyFrameValue();
-        }
-
+     
         private void textBoxIP_TextChanged(object sender, EventArgs e)
         {
             checkIPAddress((TextBox)sender);
         }
-
-        private void numericUpDownAudioIndexMain_ValueChanged(object sender, EventArgs e)
-        {
-            var defaultaudiostream = audiostreams.Where(a => a.Index == numericUpDownAudioIndexMain.Value).FirstOrDefault();
-            if (defaultaudiostream != null)
-            {
-                errorProvider1.SetError(numericUpDownAudioIndexMain, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, defaultaudiostream.Index));
-            }
-            else
-            {
-                errorProvider1.SetError(numericUpDownAudioIndexMain, String.Empty);
-            }
-        }
-
-        private void numericUpDownAudioIndexAddition_ValueChanged(object sender, EventArgs e)
-        {
-            if (numericUpDownAudioIndexMain.Value == numericUpDownAudioIndexAddition.Value
-            || audiostreams.Select(a => a.Index).ToList().Contains((int)numericUpDownAudioIndexAddition.Value))
-            {
-                errorProvider1.SetError(numericUpDownAudioIndexAddition, string.Format(AMSExplorer.Properties.Resources.ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated, numericUpDownAudioIndexAddition.Value));
-            }
-            else
-            {
-                errorProvider1.SetError(numericUpDownAudioIndexAddition, String.Empty);
-            }
-        }
+      
 
         private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
         {
@@ -662,6 +418,4 @@ namespace AMSExplorer
             textBoxToken.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
     }
-
-
 }

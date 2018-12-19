@@ -50,7 +50,6 @@ namespace AMSExplorer
             Properties.Settings.Default.AutoRefreshTime = Convert.ToInt16(comboBoxAutoRefreshTime.SelectedItem);
 
             Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat = checkBoxUseAdaptiveStreamingFormat.Checked;
-            Properties.Settings.Default.useProtectedConfiguration = checkBoxUseProtectedConfig.Checked;
 
             Properties.Settings.Default.AssetAnalysisStart = (int)numericUpDownAssetAnalysisStart.Value;
             Properties.Settings.Default.AssetAnalysisStep = (int)numericUpDownAssetAnalysisStep.Value;
@@ -61,7 +60,6 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
-            Properties.Settings.Default.ShowLivePremiumChannel = checkBoxShowPremiumLiveEncoding.Checked;
             Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;
             Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
             Properties.Settings.Default.MEPWPricePerMin = numericUpDownPremiumWorkflowPrice.Value;
@@ -70,9 +68,6 @@ namespace AMSExplorer
 
             Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
             Properties.Settings.Default.VLCPath = textBoxVLCPath.Text;
-
-            Properties.Settings.Default.ParallelTransferThreadCount = (int)numericUpDownParallelTransThreadCount.Value;
-            Properties.Settings.Default.NumberOfConcurrentTransfers = (int)numericUpDownNumbConcurTrans.Value;
 
             Program.SaveAndProtectUserConfig();
         }
@@ -91,8 +86,6 @@ namespace AMSExplorer
             comboBoxAutoRefreshTime.SelectedItem = "60";
 
             checkBoxUseAdaptiveStreamingFormat.Checked = false;
-            checkBoxUseProtectedConfig.Checked = false;
-            checkBoxShowPremiumLiveEncoding.Checked = false;
             checkBoxHideTaskbarNotifications.Checked = false;
 
             textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions, Constants.NameconvManifestURL);
@@ -120,9 +113,6 @@ namespace AMSExplorer
             Properties.Settings.Default.DynEncTokenIssuer = "http://testacs";
             Properties.Settings.Default.DynEncTokenAudience = "urn:test";
 
-            numericUpDownParallelTransThreadCount.Value = 10;
-            numericUpDownNumbConcurTrans.Value = 2;
-
             Program.SaveAndProtectUserConfig();
         }
 
@@ -140,7 +130,6 @@ namespace AMSExplorer
             comboBoxAutoRefreshTime.SelectedItem = Properties.Settings.Default.AutoRefreshTime.ToString();
 
             checkBoxUseAdaptiveStreamingFormat.Checked = Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat;
-            checkBoxUseProtectedConfig.Checked = Properties.Settings.Default.useProtectedConfiguration;
 
             textBoxCustomPlayer.Text = Properties.Settings.Default.CustomPlayerUrl;
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;
@@ -149,7 +138,6 @@ namespace AMSExplorer
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
-            checkBoxShowPremiumLiveEncoding.Checked = Properties.Settings.Default.ShowLivePremiumChannel;
             checkBoxHideTaskbarNotifications.Checked = Properties.Settings.Default.HideTaskbarNotifications;
 
             numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;
@@ -164,9 +152,6 @@ namespace AMSExplorer
             textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
 
             amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
-
-            numericUpDownParallelTransThreadCount.Value = Properties.Settings.Default.ParallelTransferThreadCount;
-            numericUpDownNumbConcurTrans.Value = Properties.Settings.Default.NumberOfConcurrentTransfers;
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)

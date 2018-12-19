@@ -15,25 +15,17 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Text.RegularExpressions;
-using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
-    public partial class CreateLiveOutput : Form
+    public partial class LiveOutputCreation : Form
     {
         public string ChannelName;
-        private AzureMediaServicesClient _client;
-        private CredentialsEntryV3 _credentials;
+        private AMSClientV3 _client;
 
         public string ProgramName
         {
@@ -60,7 +52,7 @@ namespace AMSExplorer
                 numericUpDownArchiveMinutes.Value = value.Minutes;
             }
         }
-      
+
 
         public bool IsReplica
         {
@@ -135,15 +127,14 @@ namespace AMSExplorer
             get { return ((Item)comboBoxStorage.SelectedItem).Value; }
         }
 
-        public CreateLiveOutput(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
+        public LiveOutputCreation(AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
-            _credentials = credentials;
         }
 
-        private void CreateLiveOutput_Load(object sender, EventArgs e)
+        private void LiveOutputCreation_Load(object sender, EventArgs e)
         {
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
@@ -151,12 +142,12 @@ namespace AMSExplorer
             labelLocatorID.Text = string.Empty;
             labelURLFileNameWarning.Text = string.Empty;
 
-            foreach (var storage in _credentials.MediaService.StorageAccounts.ToList())
+            foreach (var storage in _client.credentialsEntry.MediaService.StorageAccounts.ToList())
             {
-                comboBoxStorage.Items.Add(new Item(storage.Id, storage.Id));
+                bool primary = (storage.Type == StorageAccountType.Primary);
 
-//                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Id, storage. storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-  //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                comboBoxStorage.Items.Add(new Item(storage.Id.Split('/').Last() + (primary ? " (primary)" : ""), storage.Id.Split('/').Last()));
+                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
 
             checkProgramName();

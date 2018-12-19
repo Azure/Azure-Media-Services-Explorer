@@ -32,7 +32,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public class DataGridViewLiveChannel : DataGridView
+    public class DataGridViewLiveEvent : DataGridView
     {
         public int ChannelsPerPage
         {
@@ -141,7 +141,7 @@ namespace AMSExplorer
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
-        static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
+        static Bitmap StandardEncodingImage = Bitmaps.encodingPremium;
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
 
@@ -155,8 +155,8 @@ namespace AMSExplorer
                 case LiveEventEncodingType.Basic:
                     return EncodingImage;
 
-                //case ChannelEncodingType.Premium:
-                //    return PremiumEncodingImage;
+                case LiveEventEncodingType.Standard:
+                    return StandardEncodingImage;
 
                 default:
                     return null;

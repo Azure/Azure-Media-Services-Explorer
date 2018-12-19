@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class CreateLiveOutput
+    partial class LiveOutputCreation
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveOutput));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveOutputCreation));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
@@ -368,7 +368,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
             this.Name = "CreateProgram";
-            this.Load += new System.EventHandler(this.CreateLiveOutput_Load);
+            this.Load += new System.EventHandler(this.LiveOutputCreation_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
