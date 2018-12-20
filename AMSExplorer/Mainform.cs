@@ -4716,13 +4716,7 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerDASHIFList);
         }
 
-        private void iVXHLSPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.Player3IVXHLS);
-        }
-
-
-
+      
         private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEncodeWithPremiumWorkflow();

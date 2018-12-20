@@ -888,5 +888,10 @@ namespace AMSExplorer
         {
             buttonLogin.Visible = radioButtonAADAut.Checked;
         }
+
+        private void linkLabelPDFDocumentation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Application.StartupPath +@"\HelpFiles\" + @"0917d328eed74498bf9ed9dea98ef737.pdf");
+        }
     }
 }

@@ -907,7 +907,6 @@ namespace AMSExplorer
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
 
-        public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";

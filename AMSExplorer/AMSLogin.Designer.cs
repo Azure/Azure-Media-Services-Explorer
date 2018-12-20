@@ -96,6 +96,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
+            this.linkLabelPDFDocumentation = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -576,6 +577,13 @@
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
             // 
+            // linkLabelPDFDocumentation
+            // 
+            resources.ApplyResources(this.linkLabelPDFDocumentation, "linkLabelPDFDocumentation");
+            this.linkLabelPDFDocumentation.Name = "linkLabelPDFDocumentation";
+            this.linkLabelPDFDocumentation.TabStop = true;
+            this.linkLabelPDFDocumentation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPDFDocumentation_LinkClicked);
+            // 
             // AMSLogin
             // 
             this.AcceptButton = this.buttonLogin;
@@ -583,6 +591,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.linkLabelPDFDocumentation);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxJob);
@@ -687,5 +696,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
+        private System.Windows.Forms.LinkLabel linkLabelPDFDocumentation;
     }
 }
