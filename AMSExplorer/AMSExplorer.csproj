@@ -897,9 +897,9 @@
     <Content Include="Configurations\SampleWatchFolderJSONCall.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="HelpFiles\0917d328eed74498bf9ed9dea98ef737.pdf">
+    <Content Include="HelpFiles\AMSv3doc.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="IconsPNG\filter.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />

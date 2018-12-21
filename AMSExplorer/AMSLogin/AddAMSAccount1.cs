@@ -70,7 +70,7 @@ namespace AMSExplorer
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
         {
-            comboBoxAADMappingList.Enabled = !radioButtonJsonCliOutput.Checked;
+            //comboBoxAADMappingList.Enabled = !radioButtonJsonCliOutput.Checked;
         }
     }
 

@@ -5477,8 +5477,7 @@ namespace AMSExplorer
     public enum DownloadToFolderOption
     {
         DoNotCreateSubfolder = 0,
-        SubfolderAssetName,
-        SubfolderAssetId
+        SubfolderAssetName
     }
 
     public class SearchObject

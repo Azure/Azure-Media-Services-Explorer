@@ -181,7 +181,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxOpenFileAfterExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 110</value>
+    <value>26, 72</value>
   </data>
   <data name="checkBoxOpenFileAfterExport.Size" type="System.Drawing.Size, System.Drawing">
     <value>336, 19</value>
@@ -208,16 +208,16 @@
     <value>True</value>
   </data>
   <data name="checkBoxCreateSubfolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 22</value>
+    <value>26, 36</value>
   </data>
   <data name="checkBoxCreateSubfolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 19</value>
+    <value>235, 19</value>
   </data>
   <data name="checkBoxCreateSubfolder.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
   </data>
   <data name="checkBoxCreateSubfolder.Text" xml:space="preserve">
-    <value>Create a subfolder based on :</value>
+    <value>Create a subfolder based on asset name</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateSubfolder.Name" xml:space="preserve">
     <value>checkBoxCreateSubfolder</value>
@@ -231,65 +231,11 @@
   <data name="&gt;&gt;checkBoxCreateSubfolder.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="radioButtonAssetId.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAssetId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 73</value>
-  </data>
-  <data name="radioButtonAssetId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 19</value>
-  </data>
-  <data name="radioButtonAssetId.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="radioButtonAssetId.Text" xml:space="preserve">
-    <value>Asset Id</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetId.Name" xml:space="preserve">
-    <value>radioButtonAssetId</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetId.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetId.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetId.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonAssetName.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 48</value>
-  </data>
-  <data name="radioButtonAssetName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 19</value>
-  </data>
-  <data name="radioButtonAssetName.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="radioButtonAssetName.Text" xml:space="preserve">
-    <value>Asset name</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetName.Name" xml:space="preserve">
-    <value>radioButtonAssetName</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetName.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAssetName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 186</value>
+    <value>14, 199</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>546, 145</value>
+    <value>546, 116</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -360,6 +306,54 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="&gt;&gt;buttonBrowseFile.Name" xml:space="preserve">
+    <value>buttonBrowseFile</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderPath.Name" xml:space="preserve">
+    <value>textBoxFolderPath</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderPath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderPath.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderPath.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 84</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>545, 81</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Local folder</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="buttonBrowseFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -409,30 +403,6 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxFolderPath.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 84</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>545, 81</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Local folder</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">

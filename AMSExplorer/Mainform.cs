@@ -2028,6 +2028,7 @@ namespace AMSExplorer
                 string foldera = folder;
                 bool ErrorCurrentAssetFolderCreation = false;
                 bool ErrorCurrentAsset = false;
+                /*
                 if (downloadOption == DownloadToFolderOption.SubfolderAssetId)
                 {
                     foldera += "\\" + mediaAsset.Id.Substring(12);
@@ -2036,6 +2037,7 @@ namespace AMSExplorer
                 {
                     foldera += "\\" + mediaAsset.Name;
                 }
+                */
                 if (!File.Exists(foldera))
                 {
                     try
@@ -2148,6 +2150,95 @@ namespace AMSExplorer
             }, response.token);
         }
 
+
+
+        public async Task DownloadOutputAssetAsync(AMSClientV3 client, string assetName, string outputFolderName, TransferEntryResponse response, DownloadToFolderOption downloadOption, bool openFileExplorer, List<string> onlySomeBlobsName = null)
+        {
+            // If download is in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(response.Id);
+            if (response.token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(response.Id);
+                return;
+            }
+
+            const int ListBlobsSegmentMaxResult = 5;
+
+            if (!Directory.Exists(outputFolderName))
+            {
+                Directory.CreateDirectory(outputFolderName);
+            }
+
+            AssetContainerSas assetContainerSas = await client.AMSclient.Assets.ListContainerSasAsync(
+                client.credentialsEntry.ResourceGroup,
+                client.credentialsEntry.AccountName,
+                assetName,
+                permissions: AssetContainerPermission.Read,
+                expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
+
+            Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
+            CloudBlobContainer container = new CloudBlobContainer(containerSasUrl);
+
+            //string directory = Path.Combine(outputFolderName, assetName);
+            //Directory.CreateDirectory(directory);
+
+            if (downloadOption == DownloadToFolderOption.SubfolderAssetName)
+            {
+                outputFolderName += "\\" + assetName;
+                Directory.CreateDirectory(outputFolderName);
+            }
+
+            TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
+
+            BlobContinuationToken continuationToken = null;
+            IList<Task> downloadTasks = new List<Task>();
+
+            var myTask = Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    do
+                    {
+                        BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, continuationToken, null, null);
+
+                        foreach (IListBlobItem blobItem in segment.Results)
+                        {
+                            CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                            if (blob != null && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
+                            {
+                                string path = Path.Combine(outputFolderName, blob.Name);
+
+                                downloadTasks.Add(blob.DownloadToFileAsync(path, FileMode.Create));
+                            }
+                        }
+
+                        continuationToken = segment.ContinuationToken;
+                    }
+                    while (continuationToken != null);
+
+                    await Task.WhenAll(downloadTasks);
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
+                    TextBoxLogWriteLine(e);
+                    DoGridTransferDeclareError(response.Id, e);
+                    return;
+                }
+
+
+                if (!response.token.IsCancellationRequested)
+                {
+                    TextBoxLogWriteLine("Download complete.");
+                    DoGridTransferDeclareCompleted(response.Id, outputFolderName);
+                    if (openFileExplorer) Process.Start(outputFolderName);
+                }
+                else
+                {
+                    DoGridTransferDeclareCancelled(response.Id);
+                }
+            }, response.token);
+        }
 
 
         private void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
@@ -2629,9 +2720,9 @@ namespace AMSExplorer
 
         private void DoMenuDownloadToLocal()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            var SelectedAssets = ReturnSelectedAssetsV3();
             if (SelectedAssets.Count == 0) return;
-            IAsset mediaAsset = SelectedAssets.FirstOrDefault();
+            var mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
 
             var form = new DownloadToLocal(SelectedAssets, _backuprootfolderdownload);
@@ -2671,12 +2762,10 @@ namespace AMSExplorer
                         {
                             path = Path.Combine(path, asset.Name);
                         }
-                        else if (form.FolderOption == DownloadToFolderOption.SubfolderAssetId)
-                        {
-                            path = Path.Combine(path, asset.Id);
-                        }
-                        listfiles.AddRange(asset.AssetFiles.ToList().Where(f => File.Exists(path + @"\\" + f.Name)).Select(f => path + @"\\" + f.Name).ToList());
+
+                        //listfiles.AddRange(asset.AssetFiles.ToList().Where(f => File.Exists(path + @"\\" + f.Name)).Select(f => path + @"\\" + f.Name).ToList());
                     }
+                    /*
                     if (listfiles.Count > 0)
                     {
                         string text;
@@ -2716,14 +2805,38 @@ namespace AMSExplorer
                             return;
                         }
                     }
-
-                    string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
-                    if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
-
-                    var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
-                    // Start a worker thread that does downloading.
-                    var myTask = Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token), response.token);
+                    */
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+
+                    int i = 0;
+                    foreach (var asset in SelectedAssets)
+                    {
+                        i++;
+                        string label = string.Format("Download of asset '{0}'", asset.Name);
+                        var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
+                        // if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
+                        var myTask = Task.Factory.StartNew(() =>
+
+                        //ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token)
+                        DownloadOutputAssetAsync(_amsClientV3, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload)
+                    , response.token);
+
+
+                        if (i == 10) // let's use a batch of 10 threads at the same time
+                        {
+                            do
+                            {
+                                Task.Delay(1000).Wait();
+                            }
+                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            i = 0;
+                        }
+
+                    }
+
+                    // Start a worker thread that does downloading.
+
+
                 }
             }
         }
@@ -7604,7 +7717,7 @@ namespace AMSExplorer
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(_HelpFiles + "0917d328eed74498bf9ed9dea98ef737.pdf");
+            Process.Start(_HelpFiles + "AMSv3doc.pdf");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

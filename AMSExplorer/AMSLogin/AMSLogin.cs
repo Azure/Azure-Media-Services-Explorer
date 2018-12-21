@@ -576,5 +576,10 @@ namespace AMSExplorer
             CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]].Description = textBoxDescription.Text;
             SaveCredentialsToSettings();
         }
+
+        private void linkLabelAMSOfflineDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
+        }
     }
 }

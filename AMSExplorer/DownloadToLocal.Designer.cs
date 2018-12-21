@@ -34,8 +34,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxOpenFileAfterExport = new System.Windows.Forms.CheckBox();
             this.checkBoxCreateSubfolder = new System.Windows.Forms.CheckBox();
-            this.radioButtonAssetId = new System.Windows.Forms.RadioButton();
-            this.radioButtonAssetName = new System.Windows.Forms.RadioButton();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -67,8 +65,6 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.checkBoxOpenFileAfterExport);
             this.groupBox2.Controls.Add(this.checkBoxCreateSubfolder);
-            this.groupBox2.Controls.Add(this.radioButtonAssetId);
-            this.groupBox2.Controls.Add(this.radioButtonAssetName);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -87,21 +83,6 @@
             this.checkBoxCreateSubfolder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxCreateSubfolder.Name = "checkBoxCreateSubfolder";
             this.checkBoxCreateSubfolder.UseVisualStyleBackColor = true;
-            this.checkBoxCreateSubfolder.CheckedChanged += new System.EventHandler(this.checkBoxCreateSubfolder_CheckedChanged);
-            // 
-            // radioButtonAssetId
-            // 
-            resources.ApplyResources(this.radioButtonAssetId, "radioButtonAssetId");
-            this.radioButtonAssetId.Name = "radioButtonAssetId";
-            this.radioButtonAssetId.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAssetName
-            // 
-            resources.ApplyResources(this.radioButtonAssetName, "radioButtonAssetName");
-            this.radioButtonAssetName.Checked = true;
-            this.radioButtonAssetName.Name = "radioButtonAssetName";
-            this.radioButtonAssetName.TabStop = true;
-            this.radioButtonAssetName.UseVisualStyleBackColor = true;
             // 
             // labelAssetName
             // 
@@ -173,13 +154,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButtonAssetName;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonBrowseFile;
         private System.Windows.Forms.TextBox textBoxFolderPath;
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.CheckBox checkBoxCreateSubfolder;
-        private System.Windows.Forms.RadioButton radioButtonAssetId;
         private System.Windows.Forms.Label label5;
     }
 }

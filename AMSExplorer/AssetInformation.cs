@@ -1012,10 +1012,10 @@ namespace AMSExplorer
             DoDownloadBlobs();
         }
 
-        private void DoDownloadBlobs()
+        private async void DoDownloadBlobs()
         {
-            /*
-            var SelectedBlobs = ReturnSelectedBlobs();
+
+            var SelectedBlobs = ReturnSelectedBlobs(false);
 
             if (SelectedBlobs.Count > 0)
             {
@@ -1023,7 +1023,7 @@ namespace AMSExplorer
                 if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     // let's check if this overwites existing files
-                    var listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + f.Name)).Select(f => openFolderDialog.FileName + @"\\" + f.Name).ToList();
+                    var listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name)).Select(f => openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name).ToList();
                     if (listfiles.Count > 0)
                     {
                         string text;
@@ -1059,11 +1059,12 @@ namespace AMSExplorer
 
                     try
                     {
-                        foreach (var assetfile in SelectedBlobs)
+                        //foreach (var blob in SelectedBlobs)
                         {
-                            var response = myMainForm.DoGridTransferAddItem(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1, assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, true);
+                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAssetV3.Name), TransferType.DownloadToLocal, true);
                             // Start a worker thread that does downloading.
-                            myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
+                            //myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
+                            await myMainForm.DownloadOutputAssetAsync(_amsClient, myAssetV3.Name, openFolderDialog.FileName, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
                         }
                         MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress);
 
@@ -1074,7 +1075,6 @@ namespace AMSExplorer
                     }
                 }
             }
-            */
         }
 
         private void buttonCopyStats_Click(object sender, EventArgs e)
@@ -1163,7 +1163,7 @@ namespace AMSExplorer
             buttonDownloadFile.Enabled = bSelect;
             buttonOpenFile.Enabled = bSelect;
             buttonDuplicate.Enabled = bSelect && !bMultiSelect;
-            buttonUpload.Enabled = true;
+            buttonUpload.Enabled = bSelect;
             buttonFileMetadata.Enabled = bSelect && !bMultiSelect;
             buttonEditOnline.Enabled = bSelect && !bMultiSelect;
             DoDisplayFileProperties();
@@ -1801,7 +1801,7 @@ namespace AMSExplorer
         }
 
 
-        private List<IListBlobItem> ReturnSelectedBlobs()
+        private List<IListBlobItem> ReturnSelectedBlobs(bool returnAlsoDirectory = true)
         {
             var Selection = new List<IListBlobItem>();
 
@@ -1810,7 +1810,7 @@ namespace AMSExplorer
                 var AF = blobs.Where(af =>
                 (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewFiles.Items[selectedindex].Text)
                 ||
-                (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewFiles.Items[selectedindex].Text)
+                (returnAlsoDirectory && (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewFiles.Items[selectedindex].Text))
                 )
                 .FirstOrDefault();
 

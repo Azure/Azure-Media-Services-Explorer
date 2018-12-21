@@ -16,25 +16,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using System.Reflection;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
     public partial class DownloadToLocal : Form
     {
-        private IEnumerable<IAsset> _selassets;
+        private IEnumerable<Asset> _selassets;
         private string _backupfolder;
 
         public string FolderPath
@@ -53,14 +45,8 @@ namespace AMSExplorer
         {
             get
             {
-                DownloadToFolderOption option = DownloadToFolderOption.DoNotCreateSubfolder;
-                if (checkBoxCreateSubfolder.Checked)
-                {
-                    option = radioButtonAssetName.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.SubfolderAssetId;
-                }
-                return option;
+                return checkBoxCreateSubfolder.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.DoNotCreateSubfolder;
             }
-
         }
 
         public bool OpenFolderAfterDownload
@@ -71,7 +57,7 @@ namespace AMSExplorer
             }
         }
 
-        public DownloadToLocal(IEnumerable<IAsset> selassets, string backupfolder)
+        public DownloadToLocal(IEnumerable<Asset> selassets, string backupfolder)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -105,9 +91,6 @@ namespace AMSExplorer
         {
         }
 
-        private void checkBoxCreateSubfolder_CheckedChanged(object sender, EventArgs e)
-        {
-            radioButtonAssetName.Enabled = radioButtonAssetId.Enabled = checkBoxCreateSubfolder.Checked;
-        }
+     
     }
 }

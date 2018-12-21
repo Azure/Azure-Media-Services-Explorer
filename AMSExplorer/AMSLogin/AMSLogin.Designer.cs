@@ -35,6 +35,8 @@
             this.buttonDeleteAccountEntry = new System.Windows.Forms.Button();
             this.tabControlAMS = new System.Windows.Forms.TabControl();
             this.tabPageCredentials = new System.Windows.Forms.TabPage();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
             this.groupBoxAADAutMode = new System.Windows.Forms.GroupBox();
             this.radioButtonAADServicePrincipal = new System.Windows.Forms.RadioButton();
@@ -59,8 +61,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBoxAADAutMode.SuspendLayout();
@@ -113,6 +114,17 @@
             this.tabPageCredentials.Controls.Add(this.labelLocation);
             resources.ApplyResources(this.tabPageCredentials, "tabPageCredentials");
             this.tabPageCredentials.Name = "tabPageCredentials";
+            // 
+            // textBoxDescription
+            // 
+            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // linkLabelAADAut
             // 
@@ -264,16 +276,12 @@
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
             // 
-            // textBoxDescription
+            // linkLabelAMSOfflineDoc
             // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.linkLabelAMSOfflineDoc, "linkLabelAMSOfflineDoc");
+            this.linkLabelAMSOfflineDoc.Name = "linkLabelAMSOfflineDoc";
+            this.linkLabelAMSOfflineDoc.TabStop = true;
+            this.linkLabelAMSOfflineDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAMSOfflineDoc_LinkClicked);
             // 
             // AMSLogin
             // 
@@ -282,6 +290,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.linkLabelAMSOfflineDoc);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonConnectFullyInteractive);
@@ -344,5 +353,6 @@
         private System.Windows.Forms.Button buttonConnectFullyInteractive;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLabelAMSOfflineDoc;
     }
 }

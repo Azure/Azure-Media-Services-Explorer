@@ -1,5 +1,5 @@
-Version 5.0.0.9 Preview (December 19, 2018) brings the following features and improvements :
+Version 5.0.0.10 Preview (December 21, 2018) brings the following features and improvements :
 
-* Live encoding bug fixes
-* Media Encoder Standard problem correction
+* Support for download assets
+* Jobs filtering
 * Bug fixes
